@@ -9,7 +9,8 @@ const loading = () => {
         display: " flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: "50px"
+        fontSize: "50px",
+        background: "green",
       }}
     >
       loading...

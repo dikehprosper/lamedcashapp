@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import CustomButton from "./CustomBotton";
-
+import mainBackgroundMobile from "../../public/mainBackgroundMobile.png";
 const hero = () => {
   return (
     <>
@@ -46,6 +46,7 @@ const hero = () => {
               width: "100%",
               height: "100%",
             }}
+            // placeholder="blur"
             alt="Picture of the background"
           />
         </div>
@@ -76,7 +77,7 @@ const hero = () => {
             </div>
           </div>
           <Image
-            src="/mainBackgroundMobile.png"
+            src={mainBackgroundMobile}
             fill
             loading="lazy"
             style={{
@@ -84,6 +85,7 @@ const hero = () => {
               width: "100%",
               height: "100%",
             }}
+            placeholder="blur"
             alt="Picture of the background"
           />
         </div>
