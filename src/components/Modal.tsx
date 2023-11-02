@@ -31,10 +31,7 @@ const Modal = ({
                 pathname === link.pathname ? "active" : ""
               }`}
               href={link.pathname}
-              onClick={(e) => {
-                handleClick;
-                console.log(link.pathname);
-              }}
+              onClick={handleClick}
             >
               {link.title}
             </Link>

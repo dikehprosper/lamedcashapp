@@ -37,7 +37,7 @@ const Nav = () => {
   }
 
   function handleClick() {
-    setState(false);
+    setState(true);
   }
 
   return (
