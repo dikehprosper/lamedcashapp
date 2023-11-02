@@ -38,8 +38,9 @@ const hero = () => {
         </div>
         <div className="hero-img">
           <Image
-            src="/image.svg"
+            src="/image3.png"
             fill
+            loading="lazy"
             style={{
               objectFit: "cover",
               width: "100%",
@@ -75,8 +76,9 @@ const hero = () => {
             </div>
           </div>
           <Image
-            src="/mainBackgroundMobile.svg"
+            src="/mainBackgroundMobile.png"
             fill
+            loading="lazy"
             style={{
               objectFit: "cover",
               width: "100%",

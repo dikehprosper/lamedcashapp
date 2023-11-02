@@ -46,9 +46,11 @@ const Nav = () => {
         <div className="nav-img">
           <Image
             src="/Logo.png"
+            loading="lazy"
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"
+            
           />
         </div>
         <div className="nav-link">
