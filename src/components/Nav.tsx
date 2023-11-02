@@ -42,7 +42,7 @@ const Nav = () => {
 
   return (
     <>
-      <div className=" nav">
+      <div className="nav">
         <div className="nav-img">
           <Image
             src="/Logo.png"

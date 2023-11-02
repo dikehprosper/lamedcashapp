@@ -16,10 +16,7 @@ const Modal = ({
   return (
     <div
       className={` ${containerStyles}`}
-      onClick={(e) => {
-        e.preventDefault();
-        handleClick;
-      }}
+      onClick={handleClick}
     >
       <div className={` ${containerStylesInner}`}>
         {navLinks?.map((link, index) => {
@@ -31,7 +28,7 @@ const Modal = ({
                 pathname === link.pathname ? "active" : ""
               }`}
               href={link.pathname}
-              onClick={handleClick}
+              // onClick={handleClick}
             >
               {link.title}
             </Link>
