@@ -1,7 +1,3 @@
-"use client";
-import AOS from "aos";
-import "aos/dist/aos.css";
-AOS.init();
 import React from "react";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
@@ -11,15 +7,9 @@ import "./secondSection.css";
 const SecondSection = () => {
   return (
     <div className="secondSection-container">
-      <h2 data-aos="fade-in" data-aos-duration="1000">
-        Nous offrons
-      </h2>
+      <h2>Nous offrons</h2>
       <div className="secondSection-box">
-        <div
-          className="secondSection-box-inner"
-          data-aos="fade-in"
-          data-aos-duration="1000"
-        >
+        <div className="secondSection-box-inner">
           <div>
             {" "}
             <AiFillThunderbolt className="secondSection-icons" />
@@ -31,11 +21,7 @@ const SecondSection = () => {
             distance.
           </p>
         </div>
-        <div
-          className="secondSection-box-inner"
-          data-aos="fade-in"
-          data-aos-duration="1000"
-        >
+        <div className="secondSection-box-inner">
           <div>
             <BsShieldLock className="secondSection-icons" />
           </div>
@@ -46,11 +32,7 @@ const SecondSection = () => {
             chaque transaction.
           </p>
         </div>
-        <div
-          className="secondSection-box-inner"
-          data-aos="fade-in"
-          data-aos-duration="1000"
-        >
+        <div className="secondSection-box-inner">
           <div>
             {" "}
             <MdOutlineSupportAgent className="secondSection-icons" />

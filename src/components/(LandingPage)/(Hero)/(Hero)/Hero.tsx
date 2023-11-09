@@ -110,32 +110,6 @@ const hero = () => {
             alt="Picture of the background"
           />
         </div>
-        {/* <div
-          style={{
-            display: "flex",
-            minHeight: "15vh",
-            width: "100%",
-            justifyContent: "start",
-            flexDirection: "column",
-            padding: "25px 75px 25px 35px",
-            gap: "20px",
-          }}
-        >
-          <div className="hero-subtitle animate-pop-in">
-            Effectuez facilement vos dépôts et retraits vers et depuis votre
-            compte 1XBET.
-          </div>
-          <div className="hero_button_container">
-            <CustomButton
-              containerStyles="hero-button animate-pop-in deposit"
-              title="Dépôt"
-            />
-            <CustomButton
-              containerStyles="hero-button animate-pop-in"
-              title="Retrait"
-            />
-          </div>
-        </div> */}
       </div>
     </>
   );

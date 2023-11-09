@@ -1,7 +1,4 @@
 "use client";
-import AOS from "aos";
-import "aos/dist/aos.css";
-AOS.init();
 import React, { useState } from "react";
 import AnimateHeight from "react-animate-height";
 import Image from "next/image";
@@ -26,12 +23,7 @@ const DropDownDepositInstructions = () => {
 
   return (
     <div className="body_001">
-      <div
-        className="body_innerbody_001"
-        data-aos="fade-in"
-        data-aos-duration="500"
-        onClick={adjustHeight}
-      >
+      <div className="body_innerbody_001" onClick={adjustHeight}>
         <div className="body_innerbody_002">
           <div
             aria-expanded={height !== 0}
@@ -40,17 +32,9 @@ const DropDownDepositInstructions = () => {
           >
             <p>Recharger</p>{" "}
             {height === 0 ? (
-              <MdOutlineKeyboardArrowDown
-                data-aos="flip-down"
-                data-aos-duration="2000"
-                fontSize="32px"
-              />
+              <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
-              <MdOutlineKeyboardArrowUp
-                data-aos="flip-up"
-                data-aos-duration="2000"
-                fontSize="32px"
-              />
+              <MdOutlineKeyboardArrowUp fontSize="32px" />
             )}
           </div>
         </div>
@@ -73,7 +57,7 @@ const DropDownDepositInstructions = () => {
       <AnimateHeight
         id="example-panel"
         duration={500}
-        height={height} // see props documentation below
+        height={height}
         style={{
           background: "rgba(254, 254, 254, 0.08)",
           borderRadius: "10px",
@@ -83,24 +67,12 @@ const DropDownDepositInstructions = () => {
           <div className="body_innerbody_0017" onClick={adjustHeight}>
             <p>Recharger</p>{" "}
             {height === 0 ? (
-              <MdOutlineKeyboardArrowDown
-                data-aos="flip-down"
-                data-aos-duration="2000"
-                fontSize="32px"
-              />
+              <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
-              <MdOutlineKeyboardArrowUp
-                data-aos="flip-up"
-                data-aos-duration="2000"
-                fontSize="32px"
-              />
+              <MdOutlineKeyboardArrowUp fontSize="32px" />
             )}
           </div>
-          <div
-            className="body_innerbody_006"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_006">
             <div className="body_innerbody_007">
               <div className="body_innerbody_009"></div>
 
@@ -112,11 +84,7 @@ const DropDownDepositInstructions = () => {
               <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
             </div>
           </div>
-          <div
-            className="body_innerbody_006"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_006">
             <div className="body_innerbody_007">
               <div className="body_innerbody_009"></div>
 
@@ -128,11 +96,7 @@ const DropDownDepositInstructions = () => {
               <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
             </div>
           </div>
-          <div
-            className="body_innerbody_006"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_006">
             <div className="body_innerbody_007">
               <div className="body_innerbody_009"></div>
 
@@ -144,11 +108,7 @@ const DropDownDepositInstructions = () => {
               <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
             </div>
           </div>
-          <div
-            className="body_innerbody_006"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_006">
             <div className="body_innerbody_007">
               <div className="body_innerbody_009"></div>
 
@@ -161,11 +121,7 @@ const DropDownDepositInstructions = () => {
             </div>
           </div>
 
-          <div
-            className="body_innerbody_006"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_006">
             <div className="body_innerbody_0015">
               <div className="body_innerbody_0014"></div>
 

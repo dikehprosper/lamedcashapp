@@ -1,7 +1,4 @@
 "use client";
-import AOS from "aos";
-import "aos/dist/aos.css";
-AOS.init();
 import React, { useState } from "react";
 import AnimateHeight from "react-animate-height";
 import Image from "next/image";
@@ -26,12 +23,7 @@ const DropDownWithdrawalInstructions = () => {
 
   return (
     <div className="body_201">
-      <div
-        className="body_innerbody_201"
-        data-aos="fade-in"
-        data-aos-duration="500"
-        onClick={adjustHeight}
-      >
+      <div className="body_innerbody_201" onClick={adjustHeight}>
         <div className="body_innerbody_202">
           <div
             aria-expanded={height !== 0}
@@ -40,17 +32,9 @@ const DropDownWithdrawalInstructions = () => {
           >
             <p>Retrait</p>{" "}
             {height === 0 ? (
-              <MdOutlineKeyboardArrowDown
-                data-aos="flip-down"
-                data-aos-duration="2000"
-                fontSize="32px"
-              />
+              <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
-              <MdOutlineKeyboardArrowUp
-                data-aos="flip-up"
-                data-aos-duration="2000"
-                fontSize="32px"
-              />
+              <MdOutlineKeyboardArrowUp fontSize="32px" />
             )}
           </div>
         </div>
@@ -89,18 +73,10 @@ const DropDownWithdrawalInstructions = () => {
                 fontSize="32px"
               />
             ) : (
-              <MdOutlineKeyboardArrowUp
-                data-aos="flip-up"
-                data-aos-duration="2000"
-                fontSize="32px"
-              />
+              <MdOutlineKeyboardArrowUp fontSize="32px" />
             )}
           </div>
-          <div
-            className="body_innerbody_206"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_206">
             <div className="body_innerbody_207">
               <div className="body_innerbody_209"></div>
 
@@ -112,11 +88,7 @@ const DropDownWithdrawalInstructions = () => {
               <div className="body_innerbody_2012">jhvjhvhvivjvuchjvhjuhvj</div>
             </div>
           </div>
-          <div
-            className="body_innerbody_206"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_206">
             <div className="body_innerbody_207">
               <div className="body_innerbody_209"></div>
 
@@ -128,11 +100,7 @@ const DropDownWithdrawalInstructions = () => {
               <div className="body_innerbody_2012">jhvjhvhvivjvuchjvhjuhvj</div>
             </div>
           </div>
-          <div
-            className="body_innerbody_206"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_206">
             <div className="body_innerbody_207">
               <div className="body_innerbody_209"></div>
 
@@ -144,11 +112,7 @@ const DropDownWithdrawalInstructions = () => {
               <div className="body_innerbody_2012">jhvjhvhvivjvuchjvhjuhvj</div>
             </div>
           </div>
-          <div
-            className="body_innerbody_206"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_206">
             <div className="body_innerbody_207">
               <div className="body_innerbody_209"></div>
 
@@ -161,11 +125,7 @@ const DropDownWithdrawalInstructions = () => {
             </div>
           </div>
 
-          <div
-            className="body_innerbody_206"
-            data-aos="flip-down"
-            data-aos-duration="100"
-          >
+          <div className="body_innerbody_206">
             <div className="body_innerbody_2015">
               <div className="body_innerbody_2014"></div>
 

@@ -1,8 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-AOS.init();
 import "./firstQuestion.css";
 import {
   MdOutlineKeyboardArrowDown,
@@ -27,24 +24,14 @@ const FirstQuestion = () => {
       className="body_innerbody_501"
       aria-expanded={height !== 0}
       aria-controls="example-panel"
-      data-aos="fade-in"
-      data-aos-duration="500"
       onClick={adjustHeight}
     >
       <div className="body_innerbody_504">
         <p>Comment se déroule le processus de retrait avec Espece ?</p>
         {height === 0 ? (
-          <MdOutlineKeyboardArrowUp
-            data-aos="flip-up"
-            data-aos-duration="2000"
-            fontSize="32px"
-          />
+          <MdOutlineKeyboardArrowUp fontSize="32px" />
         ) : (
-          <MdOutlineKeyboardArrowDown
-            data-aos="flip-down"
-            data-aos-duration="2000"
-            fontSize="32px"
-          />
+          <MdOutlineKeyboardArrowDown fontSize="32px" />
         )}
       </div>
       <AnimateHeight
