@@ -2,18 +2,9 @@ import React from "react";
 
 const loading = () => {
   return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100vw",
-        display: " flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "50px",
-      }}
-    >
-      loading...
-    </div>
+    <div id="container">
+        <div id="html-spinner"></div>
+      </div>
   );
 };
 

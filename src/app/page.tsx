@@ -1,34 +1,16 @@
-import Hero from "@/components/Hero";
-import Image from "next/image";
+import Hero from "@/components/(LandingPage)/(Hero)/(Hero)/Hero";
+import SecondSection from "@/components/(LandingPage)/(SecondSection)/SecondSection";
+import ThirdSection from "@/components/(LandingPage)/(ThirdSection)/(ThirdSection)/ThirdSection";
+import FourthSection from "@/components/(LandingPage)/(FourthSection)/(FourthSection)/FourthSection";
 
 export default function Home() {
   return (
     <div className="main">
       <div className="main-img"></div>
       <Hero />
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "300px",
-          background: "green",
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 20,
-            bottom: 20,
-            left: 20,
-            right: 20,
-            display: "flex",
-            background: "red",
-          }}
-        >
-          <div style={{ fontSize: "10vw" }}>kjsbvsd</div>
-        </div>
-      </div>
+      <SecondSection />
+      <ThirdSection />
+      <FourthSection />
     </div>
   );
 }
