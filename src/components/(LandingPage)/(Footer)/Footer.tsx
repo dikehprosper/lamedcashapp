@@ -18,20 +18,20 @@ const Footer = () => {
         envoyez-nous un message ou utilisez les liens ci-dessous pour nous
         contacter
       </p>
-      <Input  type="text" />
-      {/* <div className="styled-input-container">
+    
+      <div className="styled-input-container">
         <input
           type="text"
           className="styled-input"
           placeholder="Send us a message..."
         />
-        <div className="footer-FaLongArrowAltRight">
+        {/* <div className="footer-FaLongArrowAltRight">
           {" "}
           <FaLongArrowAltRight />
-        </div>
+        </div> */}
       </div>
 
-      <div style={{fontSize: "18px", fontWeight: 'bold', margin: "20px 0px"}}>OR</div> */}
+      <div style={{fontSize: "18px", fontWeight: 'bold', margin: "20px 0px"}}>OR</div>
       <div className="footer-social-media-icons">
         <div className="footer-img facebook">
           <Image

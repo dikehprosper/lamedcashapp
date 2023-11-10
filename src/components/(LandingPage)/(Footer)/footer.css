@@ -40,7 +40,7 @@
 .styled-input-container {
   display: flex;
   width: 60vw;
-    position: relative
+    /* position: relative */
 }
 
 .footer-FaLongArrowAltRight {
