@@ -27,7 +27,7 @@ const About = () => {
             processus de financement et de retrait de votre compte 1XBET aussi
             fluide que possible. Notre équipe est motivée par la vision de
             redéfinir la façon dont les utilisateurs interagissent avec leurs
-            finances de jeu, en garantissant tranquillité d'esprit et commodité
+            finances de jeu, en garantissant tranquillité d&apos;esprit et commodité
             à chaque étape du processus.
           </p>
         </div>

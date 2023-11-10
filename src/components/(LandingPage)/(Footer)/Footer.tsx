@@ -18,7 +18,7 @@ const Footer = () => {
         envoyez-nous un message ou utilisez les liens ci-dessous pour nous
         contacter
       </p>
-      <Input fullWidth={100} />
+      <Input  type="text" />
       {/* <div className="styled-input-container">
         <input
           type="text"
