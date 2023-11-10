@@ -30,6 +30,7 @@ body {
   background: rgb(var(--background-rgb));
   padding-top: 93px;
   position: relative;
+   max-width: 100vw;
 }
 
 a {
@@ -116,7 +117,7 @@ a {
   display: flex;
   flex-direction: column;
   margin: 0px;
-  max-width: 100%;
+  max-width: 100vw;
   font-size: 30px;
   position: relative;
 }
