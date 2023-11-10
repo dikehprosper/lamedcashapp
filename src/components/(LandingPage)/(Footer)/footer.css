@@ -39,7 +39,7 @@
 
 .styled-input-container {
   display: flex;
-  width: 60%;
+  width: 60vw;
     position: relative
 }
 
@@ -74,7 +74,7 @@
 }
 .styled-input-container {
   display: flex;
-  width: 90%;
+  width: 90vw;
 }
 
   .styled-input {
