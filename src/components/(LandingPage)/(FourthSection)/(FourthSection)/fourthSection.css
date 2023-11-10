@@ -1,5 +1,5 @@
 .component_400 {
-  min-height: 600px;
+  min-height: 400px;
   width: 100%;
   padding: 55px 50px 20px 50px;
 }
@@ -17,4 +17,10 @@
   flex-direction: column;
   gap: 20px;
   align-items: center;
+}
+
+@media (max-width: 1028px) {
+.component_400 {
+  padding: 55px 14px 20px 14px;
+}
 }
