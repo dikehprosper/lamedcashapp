@@ -1,0 +1,90 @@
+.AboutSection {
+  display: flex;
+  justify-content: start;
+  text-align: center;
+  flex-direction: column;
+  gap: 40px;
+  padding: 50px 100px;
+  margin-bottom: 80px;
+}
+
+.AboutSection > h2 {
+  font-size: 30px;
+}
+
+.AboutSection > p {
+  font-size: 20px;
+  line-height: 50px;
+}
+
+.AboutSection2 {
+  display: flex;
+  min-height: 1000px;
+  width: 100%;
+  position: relative;
+}
+
+.AboutSection2-text {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  top: 110px;
+  bottom: 100px;
+  left: 60px;
+  right: 60px;
+  padding: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: cneter;
+  flex-direction: column;
+}
+
+@media (max-width: 800px) {
+  .AboutSection {
+    gap: 20px;
+    padding: 60px 30px;
+  }
+  .AboutSection > p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .AboutSection {
+    gap: 20px;
+    padding: 50px 30px 20px 30px;
+    text-align: center;
+    justify-content: flex-start;
+  }
+  .AboutSection > p {
+    font-size: 15px;
+   line-height: 28px;
+  }
+  .AboutSection > h2 {
+    font-size: 23px;
+  }
+
+  .AboutSection2 {
+  min-height: 900px;
+}
+
+.AboutSection2-text {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  top: 40px;
+  bottom: 50px;
+  left: 20px;
+  right: 20px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  border: .8px solid rgba(189, 255, 0, 1);
+  font-size: 15px
+}
+
+}

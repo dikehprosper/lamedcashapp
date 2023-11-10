@@ -2,6 +2,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import image from "../../../public/Logo.png";
+import AboutSection from '../../components/(LandingPage)/(AboutSection)/About'
+import Footer from "@/components/(LandingPage)/(Footer)/Footer";
 
 const About = () => {
   const [showContent, setShowContent] = useState(false);
@@ -16,21 +18,11 @@ const About = () => {
   return (
     <>
       {showContent ? (
-        <div>
-          <h2>À propos de nous</h2>
-          <p>
-            Chez Espese, nous nous engageons à simplifier la gestion de vos
-            fonds 1XBET. Notre mission est de fournir une plateforme
-            transparente et sécurisée qui permet aux utilisateurs de gérer leurs
-            finances sans effort. Avec un engagement envers la satisfaction et
-            la sécurité des utilisateurs, nous nous efforçons de rendre le
-            processus de financement et de retrait de votre compte 1XBET aussi
-            fluide que possible. Notre équipe est motivée par la vision de
-            redéfinir la façon dont les utilisateurs interagissent avec leurs
-            finances de jeu, en garantissant tranquillité d&apos;esprit et commodité
-            à chaque étape du processus.
-          </p>
-        </div>
+        <>
+           <AboutSection />
+           <Footer />
+           </>
+  
       ) : (
         <div
           style={{

@@ -1,11 +1,10 @@
 .footer {
   display: flex;
-  gap: 20px;
+  gap: 30px;
   align-items: center;
   width: 100vw;
   flex-direction: column;
   padding: 110px 50px;
-  
 }
 
 .footer > h4 {
@@ -69,7 +68,7 @@
 
 @media (max-width: 1028px) {
   .footer {
-  padding: 10px 20px;
+  padding: 40px 20px 10px 20px;
   
 }
 .styled-input-container {
