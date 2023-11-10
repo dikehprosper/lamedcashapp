@@ -2,6 +2,12 @@ import "./footer.css";
 import React from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Image from "next/image";
+import image from "../../../../public/TikTok.svg"
+
+
+
+import { Input } from "@mui/material";
+
 
 const Footer = () => {
   return (
@@ -12,7 +18,8 @@ const Footer = () => {
         envoyez-nous un message ou utilisez les liens ci-dessous pour nous
         contacter
       </p>
-      <div className="styled-input-container">
+      <Input fullWidth={100} />
+      {/* <div className="styled-input-container">
         <input
           type="text"
           className="styled-input"
@@ -24,7 +31,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div style={{fontSize: "18px", fontWeight: 'bold', margin: "20px 0px"}}>OR</div>
+      <div style={{fontSize: "18px", fontWeight: 'bold', margin: "20px 0px"}}>OR</div> */}
       <div className="footer-social-media-icons">
         <div className="footer-img facebook">
           <Image
@@ -46,7 +53,7 @@ const Footer = () => {
         </div>
         <div className="footer-img tiktok">
           <Image
-            src="/Tiktok.svg"
+            src={image}
             loading="lazy"
             fill
             style={{ objectFit: "cover" }}
