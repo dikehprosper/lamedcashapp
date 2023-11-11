@@ -14,9 +14,7 @@ const Footer = () => {
         Si vous avez un problème ou des questions pertinentes, utilisez les
         liens ci-dessous pour nous contacter
       </p>
-     
-
-      <div style={{fontSize: "18px", fontWeight: 'bold', margin: "20px 0px"}}>OR</div> 
+    
       <div className="footer-social-media-icons">
         <div className="footer-img facebook">
           <Image

@@ -26,9 +26,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Nav />
         {children}
-        <section className="hero-down-arrow">
-          <TbArrowBigDownLinesFilled className="scroll-down-logo" />
-        </section>
       </body>
     </html>
   );
