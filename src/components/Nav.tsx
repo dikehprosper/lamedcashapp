@@ -65,7 +65,7 @@ const Nav = () => {
           </Link>
           <Link
             className={` ${pathname === "/login" ? "active" : ""}`}
-            href="/login"
+            href="/signin"
           >
             Se connecter
           </Link>

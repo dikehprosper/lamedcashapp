@@ -29,10 +29,24 @@ const AboutSection = () => {
           alt="background"
         />
         <div className="AboutSection2-text">
-          <h3>irnosnvoioibrber</h3>
-<p>3. 24/7 Support: We understand that questions and concerns may arise at any time.  why our dedicated support team is available round the clock to assist you. Whether  a query about a transaction or a general inquiry, our support team is here to provide you with prompt and reliable assistance, ensuring a smooth and stress-free experience.</p>
-<p>3. 24/7 Support: We understand that questions and concerns may arise at any time.  why our dedicated support team is available round the clock to assist you. Whether  a query about a transaction or a general inquiry, our support team is here to provide you with prompt and reliable assistance, ensuring a smooth and stress-free experience.</p>
-<p>3. 24/7 Support: We understand that questions and concerns may arise at any time.  why our dedicated support team is available round the clock to assist you. Whether a query about a transaction or a general inquiry, our support team is here to provide you with prompt and reliable assistance, ensuring a smooth and stress-free experience.</p>
+          <h3>Nos services</h3>
+          <p>
+            1. <b>Financement</b>:  Avec Espese, vous pouvez facilement
+            approvisionner votre compte 1XBET sans aucun problème. Notre
+            processus rationalisé garantit des transactions rapides et
+            sécurisées, vous permettant de vous concentrer sur ce qui compte
+            vraiment : le frisson du jeu.
+          </p>
+          <p>
+            2. <b>Retrait</b>:  Dites adieu aux
+            processus de retrait complexes. Espese propose un système de retrait
+            simple et efficace, garantissant que vos fonds sont transférés de
+            manière transparente vers votre compte personnel ou désigné, vous
+            donnant un contrôle total sur vos gains.
+          </p>
+          <p>
+            3. <b>Assistance 24h/24 et 7j/7</b>:  Nous comprenons que des questions et des préoccupations peuvent survenir à tout moment. C&apos;est pourquoi notre équipe d&apos;assistance dédiée est disponible 24 heures sur 24 pour vous aider. Qu&apos;il s&apos;agisse d&apos;une question concernant une transaction ou d&apos;une demande générale, notre équipe d&apos;assistance est là pour vous fournir une assistance rapide et fiable, garantissant une expérience fluide et sans stress.
+          </p>
         </div>
       </div>
     </>
