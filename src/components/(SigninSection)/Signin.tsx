@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "./signin.css";
 
 function Copyright(props: any) {
   return (
@@ -46,9 +47,7 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider 
-    theme={defaultTheme}
-    >
+    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -73,23 +72,24 @@ export default function SignIn() {
           >
             <TextField
               margin="normal"
-              required
+      
               fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
+               className="text-field"
             />
             <TextField
               margin="normal"
-              required
+   
               fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              className="text-field"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -98,6 +98,7 @@ export default function SignIn() {
             <Button
               type="submit"
               fullWidth
+              className="submit-button"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >

@@ -1,11 +1,17 @@
+"use client"
 import "./footer.css";
-import React from "react";
+import React, {useState} from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Image from "next/image";
 import image from "../../../../public/TikTok.svg"
-
+import TextField from "@mui/material/TextField";
 
 const Footer = () => {
+  const [inputValue, setInputValue] = useState("");
+const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setInputValue(event.target.value);
+};
+
   return (
     <div className="footer">
       <h4>PRENEZ CONTACT AVEC NOUS</h4>
@@ -13,7 +19,14 @@ const Footer = () => {
         Si vous avez un problème ou des questions pertinentes, utilisez les
         liens ci-dessous pour nous contacter
       </p>
-
+      <form>
+        <TextField
+          label="Type something"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Submit</button>
+      </form>
       {/* <div className="styled-input-container">
         <input
           type="text"

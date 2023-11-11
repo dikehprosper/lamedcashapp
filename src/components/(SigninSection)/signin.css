@@ -1,0 +1,20 @@
+.submit-button {
+    color: black;
+    background: #BDFF05;
+    font-weight: bold
+}
+
+.submit-button:focus {
+    color: black;
+    background: #BDFF05;
+    font-weight: bold
+}
+
+.text-field{
+    color: white !important;
+    outline: none;
+}
+
+.text-field:focus {
+    outline: 1px solid #BDFF05 !important
+}
