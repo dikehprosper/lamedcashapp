@@ -50,7 +50,6 @@ const Nav = () => {
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"
-            
           />
         </div>
         <div className="nav-link">
@@ -64,7 +63,7 @@ const Nav = () => {
             À propos de nous
           </Link>
           <Link
-            className={` ${pathname === "/login" ? "active" : ""}`}
+            className={` ${pathname === "/signin" ? "active" : ""}`}
             href="/signin"
           >
             Se connecter
