@@ -18,7 +18,7 @@ const navLinks = [
   },
   {
     title: "Se connecter",
-    pathname: "/login",
+    pathname: "/signin",
   },
   {
     title: `S'inscrire`,
