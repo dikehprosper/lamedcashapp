@@ -1,125 +1,77 @@
-"use client"
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+"use client";
+import React, { useState, useEffect } from "react";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 import "./signin.css";
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Signin from "../../app/signin/page";
+const MyForm = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const router = useRouter();
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
-// // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+  // To store and retrieve login details
+  useEffect(() => {
+    const rememberedEmail = localStorage.getItem("rememberedEmail");
+    const rememberedPassword = localStorage.getItem("rememberedPassword");
+    // Set the email and password in your login form fields
+    if (rememberedEmail && rememberedPassword) {
+      setUser({
+        ...user,
+        email: rememberedEmail,
+        password: rememberedPassword,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+  //collect value from login input
+  const handleUserEmail = (event: any) => {
+    setUser({
+      ...user,
+      email: event.target.value,
+    });
+  };
+  const handleUserPassword = (event: any) => {
+    setUser({
+      ...user,
+      password: event.target.value,
     });
   };
 
+  //Submit login details
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    localStorage.setItem("rememberedEmailForEspece", user.email);
+    localStorage.setItem("rememberedPasswordForEspece", user.password);
+    console.log(user);
+  };
+
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-      
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-               className="text-field"
-            />
-            <TextField
-              margin="normal"
-   
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              className="text-field"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              className="submit-button"
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+    <form onSubmit={handleSubmit} className="signin-form-container">
+      <input
+        type="text"
+        className="signin-form"
+        value={user.email}
+        onChange={handleUserEmail}
+        placeholder="Enter Email"
+      />
+      <input
+        type="text"
+        className="signin-form"
+        value={user.password}
+        onChange={handleUserPassword}
+        placeholder="Enter Password"
+      />
+      <button type="submit" className="signin-form-submit">
+        Sign in
+      </button>
+    </form>
   );
-}
+};
+
+export default MyForm;
