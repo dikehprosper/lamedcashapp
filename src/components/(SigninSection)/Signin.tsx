@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import image from "../../../public/loginBackground.png";
 import image1 from "../../../public/Facebook.svg";
 import image2 from "../../../public/Whatsapp.svg";
-import image3 from "../../../public/Tiktok.svg";
+import image3 from "../../../public/TikTok.svg";
 import image4 from "../../../public/Google.svg";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./signin.css";
