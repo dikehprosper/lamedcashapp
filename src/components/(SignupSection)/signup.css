@@ -361,8 +361,7 @@
     height: 25px;
   }
 }
-/* 
-.right-half {
+/* .right-half {
   display: inline-block;
   margin-right: 6px;
   width: 45%;
@@ -373,3 +372,9 @@ display: inline-block;
   margin-left: 6px;
   width: 45%;
 } */
+
+.signin-password {
+  display: flex;
+  gap: 15px;
+  width: 100%
+}
