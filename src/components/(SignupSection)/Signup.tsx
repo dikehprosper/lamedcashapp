@@ -81,12 +81,20 @@ const SignUp = () => {
 
   //check email and password state to determine ButtonDisabled state
   useEffect(() => {
-    if (user.email.length > 0 && user.password.length > 0) {
+    if (
+      user.fullname &&
+      user.betId &&
+      user.number &&
+      user.email &&
+      user.password &&
+      user.confirmPassword &&
+      IsChecked
+    ) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [user]);
+  }, [IsChecked, user]);
 
   return (
     <div className="signup-container">
@@ -107,130 +115,45 @@ const SignUp = () => {
             placeholder="blur"
           />
         </div>
-        {/* <form onSubmit={handleSubmit} className="signup-form-container">
-          <input
-            type="text"
-            className="signup-form"
-            value={user.fullname}
-            onChange={handleFullname}
-             placeholder="Entrez votre nom complet"
-          />
-
-          <input
-            type="text"
-            className="signup-form"
-            value={user.betId}
-            onChange={handleBetId}
-             placeholder="1Numéro d’identification XBET"
-          />
-          <input
-            type="number"
-            className="signup-form"
-            value={user.number}
-            onChange={handleNumber}
-            placeholder="Numéro Whatsapp/mobile"
-          />
-
-           <input
-            type="email"
-            className="signup-form"
-            value={user.email}
-            onChange={handleUserEmail}
-            placeholder="Entrez votre adresse email"
-          />
-          <input
-            type="password"
-            className="signup-form"
-            value={user.password}
-            onChange={handleUserPassword}
-            placeholder="Entrer le mot de passe"
-          />
-          <input
-            type="password"
-            className="signup-form"
-            value={user.confirmPassword}
-            onChange={handleUserConfirmPassword}
-            placeholder="Confirmez le mot de passe"
-          /> 
-
-          <div className="signup-condition">
-            <span
-              className="signup-condition-checkbox"
-              onClick={toggleIsChecked}
-              style={{
-                background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
-              }}
-            >
-              {IsChecked ? (
-                <ImCheckmark className="BiCheck" color="black" />
-              ) : null}
-            </span>
-            <p className="signup-condition-checkbox-p">
-              J&apos;accepte les conditions{" "}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
-              </span>
-            </p>
-          </div>
-          <button
-            type="submit"
-            className="submit-button"
-            style={{
-              background: buttonDisabled
-                ? "rgba(189, 255, 5, .7)"
-                : "rgba(189, 255, 5, 1)",
-              pointerEvents: buttonDisabled ? "none" : "auto",
-            }}
-          >
-            {loading ? (
-              <div id="container-signup">
-                <div id="html-spinner-signup"></div>
-              </div>
-            ) : (
-              "S'inscrire"
-            )}
-          </button>
-        </form> */}
-
         <form onSubmit={handleSubmit} className="signup-form-container">
           <input
             type="text"
-            className="signin-form"
+            className="signup-form"
             value={user.fullname}
             onChange={handleFullname}
             placeholder="Entrez votre nom complet"
           />
           <input
             type="text"
-            className="signin-form"
+            className="signup-form"
             value={user.betId}
             onChange={handleBetId}
             placeholder="1Numéro d’identification XBET"
           />
           <input
             type="number"
-            className="signin-form"
+            className="signup-form"
             value={user.number}
             onChange={handleNumber}
             placeholder="Numéro Whatsapp/mobile"
           />
           <input
             type="email"
-            className="signin-form"
+            className="signup-form"
             value={user.email}
             onChange={handleUserEmail}
             placeholder="Entrez votre adresse email"
           />
           <input
             type="password"
-            className="signin-form"
+            className="signup-form"
             value={user.password}
             onChange={handleUserPassword}
             placeholder="Entrer le mot de passe"
           />
           <input
             type="password"
-            className="signin-form"
+            className="signup-form"
             value={user.confirmPassword}
             onChange={handleUserConfirmPassword}
             placeholder="Confirmez le mot de passe"

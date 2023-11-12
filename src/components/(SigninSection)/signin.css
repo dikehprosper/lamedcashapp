@@ -41,14 +41,22 @@
   color: white;
   background: transparent;
   width: 100%;
-  border: 2px solid rgba(256, 256, 256, 0.04);
+  border: 2px solid rgba(256, 256, 256, 0.09);
   border-radius: 4px;
   font-size: 16px;
   background: rgba(256, 256, 256, 0.03);
 }
 
+.signin-form:-webkit-autofill,
+.signin-form:-webkit-autofill:hover, 
+.signin-form:-webkit-autofill:focus, 
+.signin-form:-webkit-autofill:active  {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #fff !important;
+}
+
 .signin-form::placeholder {
-  color: rgba(256, 256, 256, 0.09);
+  color: rgba(256, 256, 256, 0.1);
   font-size: 16px;
 }
 

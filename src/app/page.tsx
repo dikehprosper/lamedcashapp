@@ -10,7 +10,7 @@ export default function Home() {
   return (
    
         <div className="main">
-      <div className="main-img"></div>
+      {/* <div className="main-img"></div> */}
       <Hero />
       <SecondSection />
       <ThirdSection />

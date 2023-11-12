@@ -1,7 +1,7 @@
 .signup-container {
   display: flex;
   min-height: calc(100vh - 93px);
-  width: 100vw;
+  width: 100vwj;
   flex-direction: column;
 }
 
@@ -35,22 +35,28 @@
 }
 
 .signup-form {
-  border: none;
+ border: none;
   outline: none;
   padding: 15px;
   color: white;
   background: transparent;
   width: 100%;
-  border: 2px solid rgba(256, 256, 256, 0.04);
+  border: 2px solid rgba(256, 256, 256, 0.09);
   border-radius: 4px;
   font-size: 16px;
   background: rgba(256, 256, 256, 0.03);
 }
-
+.signup-form:-webkit-autofill,
+.signup-form:-webkit-autofill:hover, 
+.signup-form:-webkit-autofill:focus, 
+.signup-form:-webkit-autofill:active  {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #fff !important;
+}
 
 
 .signup-form::placeholder {
-  color: rgba(256, 256, 256, 0.09);
+  color: rgba(256, 256, 256, 0.1);
   font-size: 16px;
 }
 
@@ -191,7 +197,6 @@
 
   .signup-form {
     height: 50px;
-    font-size: 12px;
   }
 
   .submit-button {
@@ -209,6 +214,12 @@
     border-radius: 9px;
   }
 
+  .signup-condition-checkbox-p {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 380px) {
   .signup-condition-checkbox-p {
     font-size: 8.5px;
   }
@@ -365,80 +376,6 @@
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.signin-form {
-  border: none;
-  outline: none;
-  padding: 15px;
-  color: white;
-  background: transparent;
-  width: 100%;
-  border: 2px solid rgba(256, 256, 256, 0.04);
-  border-radius: 4px;
-  font-size: 16px;
-  background: rgba(256, 256, 256, 0.03);
-}
-.signin-form::placeholder {
-  color: rgba(256, 256, 256, 0.09);
-  font-size: 16px;
-}
-.signin-form:focus {
-  border: 2px solid rgba(189, 255, 5, 0.7);
-  outline: none;
-  transition: 1s border ease-in-out;
-}
-
-@media (max-width: 1028px) {
-
-
-  .signin-form {
-    height: 50px;
-  }
-  .signin-form-password {
-  display: flex;
-  width: 100%;
-  position: relative;
-}
-
-.signin-form-password-visibility {
-  position: absolute;
-  right: 20px;
-  font-size: 20px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: rgba(256, 256, 256, 0.6);
-}
-
-  .forgot-password {
-    font-size: 12px;
-  }
- .submit-button {
-    width: 100%;
-  }
-
-}
-
-
-
-
-/* Styling for autofill state */
-.signin-form:-webkit-autofill {
-  background-color: transparent; 
-}
 
 
 

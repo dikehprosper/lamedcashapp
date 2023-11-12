@@ -118,7 +118,10 @@
   -webkit-transform: translateY(-4rem);
   transform: translateY(-4rem);
   overflow-y: visible;
+-webkit-animation: pulse 7s .1s ease-out infinite;
+  animation: pulse 7s .1s ease-out infinite;
 }
+
 
 .small-device {
   display: none;
@@ -158,17 +161,57 @@
     animation: no-transform 2s 1s cubic-bezier(0, 0.5, 0, 1) forwards;
     -webkit-transform: translateY(-4rem);
     transform: translateY(-4rem);
+    /* -webkit-animation: pulse 7s .1s ease-out infinite;
+  animation: pulse 7s .1s ease-out infinite; */
   }
 
+  @-webkit-keyframes pulse {
+  0% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+
+  
   .hero-title {
     font-size: 26px;
     line-height: 42px;
   }
 
   .hero-subtitle {
-    font-size: 12px;
-    line-height: 18px;
-    margin: 0px;
+    font-size: 15px;
+    line-height: 19px;
+    margin: 0px 0px 15px 0px;
 
   }
 

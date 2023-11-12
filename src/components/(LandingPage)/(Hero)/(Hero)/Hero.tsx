@@ -52,12 +52,11 @@ const hero = () => {
           />
         </div>
       </div>
-
       <div className="small-device">
         <div className="small-device-hero">
           <div
             style={{
-              position: "absolute",
+              position: "fixed",
               top: 20,
               left: 30,
               right: 30,
