@@ -131,7 +131,7 @@ const SignUp = () => {
             placeholder="Numéro Whatsapp/mobile"
           />
 
-          <input
+          {/* <input
             type="email"
             className="signup-form"
             value={user.email}
@@ -147,51 +147,49 @@ const SignUp = () => {
           />
           <input
             type="password"
+            className="signup-form"
             value={user.confirmPassword}
             onChange={handleUserConfirmPassword}
             placeholder="Confirmez le mot de passe"
-          />
+          /> */}
 
-            <div className="signup-condition">
-              <span
-                className="signup-condition-checkbox"
-                onClick={toggleIsChecked}
-                style={{
-                  background: IsChecked
-                    ? "rgba(189, 255, 5, 1)"
-                    : "transparent",
-                }}
-              >
-                {IsChecked ? (
-                  <ImCheckmark className="BiCheck" color="black" />
-                ) : null}
-              </span>
-              <p className="signup-condition-checkbox-p">
-                J&apos;accepte les conditions{" "}
-                <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                  ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
-                </span>
-              </p>
-            </div>
-            <button
-              type="submit"
-              className="submit-button"
+          <div className="signup-condition">
+            <span
+              className="signup-condition-checkbox"
+              onClick={toggleIsChecked}
               style={{
-                background: buttonDisabled
-                  ? "rgba(189, 255, 5, .7)"
-                  : "rgba(189, 255, 5, 1)",
-                pointerEvents: buttonDisabled ? "none" : "auto",
+                background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
               }}
             >
-              {loading ? (
-                <div id="container-signup">
-                  <div id="html-spinner-signup"></div>
-                </div>
-              ) : (
-                "S'inscrire"
-              )}
-            </button>
-
+              {IsChecked ? (
+                <ImCheckmark className="BiCheck" color="black" />
+              ) : null}
+            </span>
+            <p className="signup-condition-checkbox-p">
+              J&apos;accepte les conditions{" "}
+              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+                ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
+              </span>
+            </p>
+          </div>
+          <button
+            type="submit"
+            className="submit-button"
+            style={{
+              background: buttonDisabled
+                ? "rgba(189, 255, 5, .7)"
+                : "rgba(189, 255, 5, 1)",
+              pointerEvents: buttonDisabled ? "none" : "auto",
+            }}
+          >
+            {loading ? (
+              <div id="container-signup">
+                <div id="html-spinner-signup"></div>
+              </div>
+            ) : (
+              "S'inscrire"
+            )}
+          </button>
         </form>
         <div className="welcome-section">
           <div className="welcome-section-first">
