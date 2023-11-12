@@ -7,39 +7,48 @@ import image1 from "../../../public/Facebook.svg";
 import image2 from "../../../public/Whatsapp.svg";
 import image3 from "../../../public/TikTok.svg";
 import image4 from "../../../public/Google.svg";
-import { BsEyeSlash, BsEye } from "react-icons/bs";
-import "./signin.css";
+import { ImCheckmark } from "react-icons/im";
+import "./signup.css";
 
-const SignIn = () => {
+import signup from "../../app/signup/page";
+const SignUp = () => {
   const [user, setUser] = useState({
+    fullname: "",
+    betId: "",
+    number: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const router = useRouter();
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [IsChecked, setIsChecked] = useState(false);
 
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
+  const toggleIsChecked = () => {
+    setIsChecked(!IsChecked);
   };
 
-  // To store and retrieve login details
-  useEffect(() => {
-    const rememberedEmail = localStorage.getItem("rememberedEmail");
-    const rememberedPassword = localStorage.getItem("rememberedPassword");
-    // Set the email and password in your login form fields
-    if (rememberedEmail && rememberedPassword) {
-      setUser({
-        ...user,
-        email: rememberedEmail,
-        password: rememberedPassword,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   //collect value from login input
+  const handleFullname = (event: any) => {
+    setUser({
+      ...user,
+      fullname: event.target.value,
+    });
+  };
+  const handleBetId = (event: any) => {
+    setUser({
+      ...user,
+      betId: event.target.value,
+    });
+  };
+
+  const handleNumber = (event: any) => {
+    setUser({
+      ...user,
+      number: event.target.value,
+    });
+  };
   const handleUserEmail = (event: any) => {
     setUser({
       ...user,
@@ -53,12 +62,19 @@ const SignIn = () => {
     });
   };
 
+  const handleUserConfirmPassword = (event: any) => {
+    setUser({
+      ...user,
+      confirmPassword: event.target.value,
+    });
+  };
+
   //Submit login details
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    localStorage.setItem("rememberedEmailForEspece", user.email);
-    localStorage.setItem("rememberedPasswordForEspece", user.password);
+    // localStorage.setItem("rememberedEmailForEspece", user.email);
+    // localStorage.setItem("rememberedPasswordForEspece", user.password);
     console.log(user);
     setTimeout(() => {
       setLoading(false);
@@ -75,13 +91,13 @@ const SignIn = () => {
   }, [user]);
 
   return (
-    <div className="signin-container">
-      <div className="signin-header">
-        <h2>Bienvenue</h2>
+    <div className="signup-container">
+      <div className="signup-header">
+        <h2>Rejoignez-nous</h2>
       </div>
       {/* first section */}
-      <div className="signin-container_inner">
-        <div className="signin-container_inner_background_image">
+      <div className="signup-container_inner">
+        <div className="signup-container_inner_background_image">
           <Image
             src={image}
             fill
@@ -93,32 +109,71 @@ const SignIn = () => {
             placeholder="blur"
           />
         </div>
-        <form onSubmit={handleSubmit} className="signin-form-container">
+        <form onSubmit={handleSubmit} className="signup-form-container">
           <input
             type="text"
-            className="signin-form"
+            className="signup-form"
+            value={user.fullname}
+            onChange={handleFullname}
+            placeholder="Entrez votre nom complet"
+          />
+          <div className="signup-password">
+            <input
+              type="text"
+              className="signup-form"
+              value={user.betId}
+              onChange={handleBetId}
+              placeholder="1Numéro d’identification XBET"
+            />
+            <input
+              type="number"
+              className="signup-form"
+              value={user.number}
+              onChange={handleNumber}
+              placeholder="Numéro Whatsapp/mobile"
+            />
+          </div>
+          <input
+            type="email"
+            className="signup-form"
             value={user.email}
             onChange={handleUserEmail}
-            placeholder="Entrez votre e-mail"
+            placeholder="Entrez votre adresse email"
           />
-          <div className="signin-form-password">
+          <div className="signup-password">
             <input
-              type={isVisible ? "text" : "password"}
-              className="signin-form"
+              type="password"
+              className="signup-form"
               value={user.password}
               onChange={handleUserPassword}
               placeholder="Entrer le mot de passe"
             />
-            <div
-              onClick={toggleVisibility}
-              className="signin-form-password-visibility"
-            >
-              {isVisible ? <BsEye /> : <BsEyeSlash />}
-            </div>
+            <input
+              type="password"
+              className="signup-form"
+              value={user.confirmPassword}
+              onChange={handleUserConfirmPassword}
+              placeholder="Confirmez le mot de passe"
+            />
           </div>
-          <div className="forgot-password">
-            {" "}
-            <a href="">Mot de passe oublié?</a>
+          <div className="signup-condition">
+            <span
+              className="signup-condition-checkbox"
+              onClick={toggleIsChecked}
+              style={{
+                background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
+              }}
+            >
+              {IsChecked ? (
+                <ImCheckmark className="BiCheck" color="black" />
+              ) : null}
+            </span>
+            <p className="signup-condition-checkbox-p">
+              J&apos;accepte les conditions{" "}
+              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+                ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
+              </span>
+            </p>
           </div>
           <button
             type="submit"
@@ -131,21 +186,21 @@ const SignIn = () => {
             }}
           >
             {loading ? (
-              <div id="container-signin">
-                <div id="html-spinner-signin"></div>
+              <div id="container-signup">
+                <div id="html-spinner-signup"></div>
               </div>
             ) : (
-              "Se connecter"
+              "S'inscrire"
             )}
           </button>
         </form>
         <div className="welcome-section">
           <div className="welcome-section-first">
-            <h2 className="welcome-section-first_h2">Bienvenue</h2>
+            <h2 className="welcome-section-first_h2">Rejoignez-nous</h2>
           </div>
           <div className="welcome-section-second">
             <h5 className="welcome-section-second_h5">Ou continuez avec</h5>
-            <div className="signin-img google">
+            <div className="signup-img google">
               <Image
                 src={image4}
                 loading="lazy"
@@ -155,22 +210,22 @@ const SignIn = () => {
               />
             </div>
             <p className="welcome-section-second_p">
-              Vous n&apos;avez pas de compte?,{" "}
+              Vous avez déjà un compte?{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signup">Créez un compte !</a>
+                <a href="/signin">S&apos;identifier!</a>
               </span>
             </p>
           </div>
         </div>
       </div>
       {/* last section */}
-      <div className="signin-container_inner23">
+      <div className="signup-container_inner23">
         <div className="welcome-section-mobile">
           <div className="welcome-section-second-mobile">
             <h5 className="welcome-section-second_h5-mobile">
               Ou continuez avec
             </h5>
-            <div className="signin-img google">
+            <div className="signup-img google">
               <Image
                 src={image4}
                 loading="lazy"
@@ -180,9 +235,9 @@ const SignIn = () => {
               />
             </div>
             <p className="welcome-section-second_p-mobile">
-              Vous n&apos;avez pas de compte?,{" "}
+              Vous avez déjà un compte?{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signup">Créez un compte !</a>
+                <a href="/signin">S&apos;identifier!</a>
               </span>
             </p>
           </div>
@@ -200,8 +255,8 @@ const SignIn = () => {
         >
           Contactez-nous
         </div>
-        <div className="signin-social-media-icons">
-          <div className="signin-img facebook">
+        <div className="signup-social-media-icons">
+          <div className="signup-img facebook">
             <Image
               src={image1}
               loading="lazy"
@@ -210,7 +265,7 @@ const SignIn = () => {
               alt="Picture of the author"
             />
           </div>
-          <div className="signin-img whatsapp">
+          <div className="signup-img whatsapp">
             <Image
               src={image2}
               loading="lazy"
@@ -219,7 +274,7 @@ const SignIn = () => {
               alt="Picture of the author"
             />
           </div>
-          <div className="signin-img tiktok">
+          <div className="signup-img tiktok">
             <Image
               src={image3}
               loading="lazy"
@@ -234,4 +289,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

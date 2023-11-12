@@ -1,11 +1,8 @@
+import SignUp from "@/components/(SignupSection)/Signup";
 import React from "react";
 
 const signup = () => {
-  return (
-    <div style={{ height: "100vh", width: "100vw", display: " flex" }}>
-      signup
-    </div>
-  );
+  return <SignUp />;
 };
 
 export default signup;
