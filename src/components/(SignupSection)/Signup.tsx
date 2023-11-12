@@ -108,7 +108,7 @@ const SignUp = () => {
           />
         </div>
         <form onSubmit={handleSubmit} className="signup-form-container">
-          {/* <input
+          <input
             type="text"
             className="signup-form"
             value={user.fullname}
@@ -129,7 +129,7 @@ const SignUp = () => {
             value={user.number}
             onChange={handleNumber}
             placeholder="Numéro Whatsapp/mobile"
-          /> */}
+          />
 
           <input
             type="email"
@@ -138,59 +138,69 @@ const SignUp = () => {
             onChange={handleUserEmail}
             placeholder="Entrez votre adresse email"
           />
-          <div className="signin-password">
-            <input
-              type="password"
-              className="signup-form right-half"
-              value={user.password}
-              onChange={handleUserPassword}
-              placeholder="Entrer le mot de passe"
-            />
-            <input
-              type="password"
-              className="signup-form left-half"
-              value={user.confirmPassword}
-              onChange={handleUserConfirmPassword}
-              placeholder="Confirmez le mot de passe"
-            />
-          </div>
-          <div className="signup-condition">
-            <span
-              className="signup-condition-checkbox"
-              onClick={toggleIsChecked}
-              style={{
-                background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
-              }}
-            >
-              {IsChecked ? (
-                <ImCheckmark className="BiCheck" color="black" />
-              ) : null}
-            </span>
-            <p className="signup-condition-checkbox-p">
-              J&apos;accepte les conditions{" "}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
-              </span>
-            </p>
-          </div>
-          <button
-            type="submit"
-            className="submit-button"
+          <input
+            type="password"
+            className="signup-form right-half"
+            value={user.password}
+            onChange={handleUserPassword}
+            placeholder="Entrer le mot de passe"
+          />
+          <input
+            type="password"
+            className="signup-form left-half"
+            value={user.confirmPassword}
+            onChange={handleUserConfirmPassword}
+            placeholder="Confirmez le mot de passe"
+          />
+          <div
+          className="signup-div"
             style={{
-              background: buttonDisabled
-                ? "rgba(189, 255, 5, .7)"
-                : "rgba(189, 255, 5, 1)",
-              pointerEvents: buttonDisabled ? "none" : "auto",
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              alignItems: "center"
             }}
           >
-            {loading ? (
-              <div id="container-signup">
-                <div id="html-spinner-signup"></div>
-              </div>
-            ) : (
-              "S'inscrire"
-            )}
-          </button>
+            <div className="signup-condition">
+              <span
+                className="signup-condition-checkbox"
+                onClick={toggleIsChecked}
+                style={{
+                  background: IsChecked
+                    ? "rgba(189, 255, 5, 1)"
+                    : "transparent",
+                }}
+              >
+                {IsChecked ? (
+                  <ImCheckmark className="BiCheck" color="black" />
+                ) : null}
+              </span>
+              <p className="signup-condition-checkbox-p">
+                J&apos;accepte les conditions{" "}
+                <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+                  ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
+                </span>
+              </p>
+            </div>
+            <button
+              type="submit"
+              className="submit-button"
+              style={{
+                background: buttonDisabled
+                  ? "rgba(189, 255, 5, .7)"
+                  : "rgba(189, 255, 5, 1)",
+                pointerEvents: buttonDisabled ? "none" : "auto",
+              }}
+            >
+              {loading ? (
+                <div id="container-signup">
+                  <div id="html-spinner-signup"></div>
+                </div>
+              ) : (
+                "S'inscrire"
+              )}
+            </button>
+          </div>
         </form>
         <div className="welcome-section">
           <div className="welcome-section-first">
