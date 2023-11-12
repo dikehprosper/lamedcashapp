@@ -110,7 +110,7 @@ const SignUp = () => {
           />
         </div>
         <form onSubmit={handleSubmit} className="signup-form-container">
-          <input
+          {/* <input
             type="text"
             className="signup-form"
             value={user.fullname}
@@ -132,7 +132,7 @@ const SignUp = () => {
               onChange={handleNumber}
               placeholder="Numéro Whatsapp/mobile"
             />
-          </div>
+          </div> */}
           <input
             type="email"
             className="signup-form"
