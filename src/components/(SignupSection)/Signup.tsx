@@ -194,39 +194,32 @@ const SignUp = () => {
 
         <form onSubmit={handleSubmit} className="signin-form-container">
           <input
-            type="email"
+            type="text"
             className="signin-form"
-            value={user.email}
-            onChange={handleUserEmail}
-            placeholder="Entrez votre e-mail"
+            value={user.fullname}
+            onChange={handleFullname}
+            placeholder="Entrez votre nom complet"
           />
           <input
-            type="email"
+            type="text"
             className="signin-form"
-            value={user.email}
-            onChange={handleUserEmail}
-            placeholder="Entrez votre e-mail"
+            value={user.betId}
+            onChange={handleBetId}
+            placeholder="1Numéro d’identification XBET"
           />
           <input
             type="number"
             className="signin-form"
-            value={user.email}
-            onChange={handleUserEmail}
-            placeholder="Entrez votre e-mail"
+            value={user.number}
+            onChange={handleNumber}
+            placeholder="Numéro Whatsapp/mobile"
           />
           <input
-            type="text"
+            type="email"
             className="signin-form"
             value={user.email}
             onChange={handleUserEmail}
-            placeholder="Entrez votre e-mail"
-          />
-          <input
-            type="text"
-            className="signin-form"
-            value={user.email}
-            onChange={handleUserEmail}
-            placeholder="Entrez votre e-mail"
+            placeholder="Entrez votre adresse email"
           />
           <input
             type="password"
@@ -234,6 +227,13 @@ const SignUp = () => {
             value={user.password}
             onChange={handleUserPassword}
             placeholder="Entrer le mot de passe"
+          />
+          <input
+            type="password"
+            className="signin-form"
+            value={user.confirmPassword}
+            onChange={handleUserConfirmPassword}
+            placeholder="Confirmez le mot de passe"
           />
 
           <div className="signup-condition">
@@ -271,7 +271,7 @@ const SignUp = () => {
                 <div id="html-spinner-signin"></div>
               </div>
             ) : (
-              "Se connecter"
+              "S'inscrire"
             )}
           </button>
         </form>
