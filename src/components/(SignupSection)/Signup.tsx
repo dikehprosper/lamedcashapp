@@ -228,16 +228,14 @@ const SignUp = () => {
             onChange={handleUserEmail}
             placeholder="Entrez votre e-mail"
           />
-          <div className="signin-form-password">
-            <input
-              type="password"
-              className="signin-form"
-              value={user.password}
-              onChange={handleUserPassword}
-              placeholder="Entrer le mot de passe"
-            />
-            <div className="signin-form-password-visibility">jj</div>
-          </div>
+          <input
+            type="password"
+            className="signin-form"
+            value={user.password}
+            onChange={handleUserPassword}
+            placeholder="Entrer le mot de passe"
+          />
+
           <div className="forgot-password">
             {" "}
             <a href="">Mot de passe oublié?</a>
