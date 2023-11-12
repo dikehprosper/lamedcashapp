@@ -192,7 +192,7 @@ const SignUp = () => {
           </button>
         </form> */}
 
-        <form onSubmit={handleSubmit} className="signin-form-container">
+        <form onSubmit={handleSubmit} className="signup-form-container">
           <input
             type="text"
             className="signin-form"

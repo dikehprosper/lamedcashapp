@@ -377,14 +377,7 @@
 
 
 
-.signin-form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 60%;
-  padding: 60px;
-  align-items: center;
-}
+
 
 .signin-form {
   border: none;
@@ -408,27 +401,9 @@
   transition: 1s border ease-in-out;
 }
 
-.forgot-password {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  color: rgba(256, 256, 256, 0.7);
-  font-weight: 300;
-  padding: 0px 13px;
-  font-size: 16px;
-}
-
-.forgot-password:hover {
-  color: rgba(256, 256, 256, 1);
-}
-
 @media (max-width: 1028px) {
 
-  .signin-form-container {
-    width: 100%;
-    padding: 60px 15px;
-    gap: 10px;
-  }
+
   .signin-form {
     height: 50px;
   }
@@ -460,7 +435,10 @@
 
 
 
-
+/* Styling for autofill state */
+.signin-form:-webkit-autofill {
+  background-color: transparent; 
+}
 
 
 
