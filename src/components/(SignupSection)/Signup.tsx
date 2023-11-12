@@ -207,6 +207,13 @@ const SignUp = () => {
             onChange={handleUserEmail}
             placeholder="Entrez votre e-mail"
           />
+          <input
+            type="number"
+            className="signin-form"
+            value={user.email}
+            onChange={handleUserEmail}
+            placeholder="Entrez votre e-mail"
+          />
           <div className="signin-form-password">
             <input
               type="password"
