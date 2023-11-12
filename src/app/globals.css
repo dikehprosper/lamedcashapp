@@ -339,7 +339,7 @@ a {
 
   .MdMenuOpen {
     display: flex;
-    font-size: 35px;
+    font-size: 42px;
     padding: 3px 5px;
     transition: all 2s ease-in-out;
   }

@@ -6,6 +6,7 @@ import { MdMenuOpen } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Modal from "./Modal";
+import image from "../../public/Logo.png"
 
 const navLinks = [
   {
@@ -45,7 +46,7 @@ const Nav = () => {
       <div className="nav">
         <div className="nav-img">
           <Image
-            src="/Logo.png"
+            src={image}
             loading="lazy"
             fill
             style={{ objectFit: "cover" }}
