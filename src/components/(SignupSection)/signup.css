@@ -34,6 +34,13 @@
   align-items: center;
 }
 
+.small-screens {
+  display: none
+}
+.big-screens {
+  display: flex
+}
+
 .signup-form {
  border: none;
   outline: none;
@@ -181,6 +188,14 @@
     gap: 10px;
   }
 
+  .small-screens {
+  display: flex
+}
+
+  .big-screens {
+  display: none
+}
+
   .signup-container_inner {
     min-height: 250px;
   }
@@ -241,7 +256,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 60%;
+  width: 50%;
 }
 
 .signup-img {

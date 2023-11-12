@@ -3,19 +3,19 @@ import SecondSection from "@/components/(LandingPage)/(SecondSection)/SecondSect
 import ThirdSection from "@/components/(LandingPage)/(ThirdSection)/(ThirdSection)/ThirdSection";
 import FourthSection from "@/components/(LandingPage)/(FourthSection)/(FourthSection)/FourthSection";
 import Footer from "@/components/(LandingPage)/(Footer)/Footer";
-
+import Nav from "../components/Nav";
 export default function Home() {
-
-
   return (
-   
-        <div className="main">
-      {/* <div className="main-img"></div> */}
-      <Hero />
-      <SecondSection />
-      <ThirdSection />
-      <FourthSection />
-      <Footer />
-    </div>
+    <>
+      <Nav />
+      <div className="main">
+        {/* <div className="main-img"></div> */}
+        <Hero />
+        <SecondSection />
+        <ThirdSection />
+        <FourthSection />
+        <Footer />
+      </div>
+    </>
   );
 }

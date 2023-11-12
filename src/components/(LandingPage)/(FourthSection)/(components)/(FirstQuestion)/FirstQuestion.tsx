@@ -24,7 +24,7 @@ const FirstQuestion = ({height, adjustHeight}:any) => {
       </div>
       <AnimateHeight
         id="example-panel"
-        duration={1000}
+        duration={400}
         height={height}
         className="animate-height"
       >

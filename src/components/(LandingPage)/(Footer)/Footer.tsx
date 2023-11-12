@@ -1,12 +1,8 @@
-"use client";
 import "./footer.css";
-import React, { useState } from "react";
 import Image from "next/image";
 import image from "../../../../public/TikTok.svg";
 
 const Footer = () => {
-
- 
   return (
     <div className="footer">
       <h4>PRENEZ CONTACT AVEC NOUS</h4>
