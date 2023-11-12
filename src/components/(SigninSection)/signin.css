@@ -213,22 +213,6 @@
   display: none;
 }
 
-.submit-button {
-  color: black;
-  background: rgba(189, 255, 5, 0.7);
-  font-weight: 600;
-  width: 50%;
-  height: 45px;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-top: 40px;
-}
 
 @media (max-width: 1028px) {
   .signin {

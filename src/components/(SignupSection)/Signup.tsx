@@ -236,10 +236,26 @@ const SignUp = () => {
             placeholder="Entrer le mot de passe"
           />
 
-          <div className="forgot-password">
-            {" "}
-            <a href="">Mot de passe oublié?</a>
+          <div className="signup-condition">
+            <span
+              className="signup-condition-checkbox"
+              onClick={toggleIsChecked}
+              style={{
+                background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
+              }}
+            >
+              {IsChecked ? (
+                <ImCheckmark className="BiCheck" color="black" />
+              ) : null}
+            </span>
+            <p className="signup-condition-checkbox-p">
+              J&apos;accepte les conditions{" "}
+              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+                ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
+              </span>
+            </p>
           </div>
+
           <button
             type="submit"
             className="submit-button"
