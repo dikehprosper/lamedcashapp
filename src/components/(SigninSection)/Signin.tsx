@@ -115,6 +115,20 @@ const SignIn = () => {
             onChange={handleUserEmail}
             placeholder="Entrez votre e-mail"
           />
+          <input
+            type="text"
+            className="signin-form"
+            value={user.email}
+            onChange={handleUserEmail}
+            placeholder="Entrez votre e-mail"
+          />
+          <input
+            type="text"
+            className="signin-form"
+            value={user.email}
+            onChange={handleUserEmail}
+            placeholder="Entrez votre e-mail"
+          />
           <div className="signin-form-password">
             <input
               type={isVisible ? "text" : "password"}
