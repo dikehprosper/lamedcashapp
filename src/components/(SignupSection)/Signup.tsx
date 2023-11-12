@@ -118,18 +118,18 @@ const SignUp = () => {
 
           <input
             type="text"
-            className="signup-form right-half"
+            className="signup-form"
             value={user.betId}
             onChange={handleBetId}
             placeholder="1Numéro d’identification XBET"
           />
-          <input
+          {/* <input
             type="number"
-            className="signup-form left-half"
+            className="signup-form"
             value={user.number}
             onChange={handleNumber}
             placeholder="Numéro Whatsapp/mobile"
-          />
+          /> */}
 
           {/* <input
             type="email"
