@@ -31,7 +31,7 @@
   gap: 20px;
   width: 60%;
   padding: 60px;
-align-items: center;
+  align-items: center;
 }
 
 .signup-form {
@@ -39,8 +39,8 @@ align-items: center;
   outline: none;
   padding: 15px;
   color: white;
-  width: 100%;
   background: transparent;
+  width: 100%;
   border: 2px solid rgba(256, 256, 256, 0.04);
   border-radius: 4px;
   font-size: 16px;
@@ -51,6 +51,7 @@ align-items: center;
 
 .signup-form::placeholder {
   color: rgba(256, 256, 256, 0.09);
+  font-size: 16px;
 }
 
 .signup-form:focus {

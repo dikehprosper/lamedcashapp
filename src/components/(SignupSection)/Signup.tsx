@@ -113,7 +113,7 @@ const SignUp = () => {
             className="signup-form"
             value={user.fullname}
             onChange={handleFullname}
-            placeholder="Entrez votre nom complet"
+            // placeholder="Entrez votre nom complet"
           />
 
           <input
@@ -121,7 +121,7 @@ const SignUp = () => {
             className="signup-form"
             value={user.betId}
             onChange={handleBetId}
-            placeholder="1Numéro d’identification XBET"
+            // placeholder="1Numéro d’identification XBET"
           />
           {/* <input
             type="number"

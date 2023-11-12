@@ -49,6 +49,7 @@
 
 .signin-form::placeholder {
   color: rgba(256, 256, 256, 0.09);
+  font-size: 16px;
 }
 
 .signin-form:focus {
