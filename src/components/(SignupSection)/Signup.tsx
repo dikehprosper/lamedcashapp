@@ -267,8 +267,8 @@ const SignUp = () => {
             }}
           >
             {loading ? (
-              <div id="container-signin">
-                <div id="html-spinner-signin"></div>
+              <div id="container-signup">
+                <div id="html-spinner-signup"></div>
               </div>
             ) : (
               "S'inscrire"
