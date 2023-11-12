@@ -9,8 +9,6 @@ import image3 from "../../../public/TikTok.svg";
 import image4 from "../../../public/Google.svg";
 import { ImCheckmark } from "react-icons/im";
 import "./signup.css";
-
-import signup from "../../app/signup/page";
 const SignUp = () => {
   const [user, setUser] = useState({
     fullname: "",
@@ -140,22 +138,22 @@ const SignUp = () => {
             onChange={handleUserEmail}
             placeholder="Entrez votre adresse email"
           />
-<div className="signin-password">
-          <input
-            type="password"
-            className="signup-form right-half"
-            value={user.password}
-            onChange={handleUserPassword}
-            placeholder="Entrer le mot de passe"
-          />
-          <input
-            type="password"
-            className="signup-form left-half"
-            value={user.confirmPassword}
-            onChange={handleUserConfirmPassword}
-            placeholder="Confirmez le mot de passe"
-          />
-</div>
+          <div className="signin-password">
+            <input
+              type="password"
+              className="signup-form right-half"
+              value={user.password}
+              onChange={handleUserPassword}
+              placeholder="Entrer le mot de passe"
+            />
+            <input
+              type="password"
+              className="signup-form left-half"
+              value={user.confirmPassword}
+              onChange={handleUserConfirmPassword}
+              placeholder="Confirmez le mot de passe"
+            />
+          </div>
           <div className="signup-condition">
             <span
               className="signup-condition-checkbox"
