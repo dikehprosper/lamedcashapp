@@ -110,7 +110,7 @@ const SignUp = () => {
           />
         </div>
         <form onSubmit={handleSubmit} className="signup-form-container">
-          <input
+          {/* <input
             type="text"
             className="signup-form"
             value={user.fullname}
@@ -131,7 +131,7 @@ const SignUp = () => {
             value={user.number}
             onChange={handleNumber}
             placeholder="Numéro Whatsapp/mobile"
-          />
+          /> */}
 
           <input
             type="email"
@@ -148,13 +148,13 @@ const SignUp = () => {
             onChange={handleUserPassword}
             placeholder="Entrer le mot de passe"
           />
-          <input
+          {/* <input
             type="password"
             className="signup-form left-half"
             value={user.confirmPassword}
             onChange={handleUserConfirmPassword}
             placeholder="Confirmez le mot de passe"
-          />
+          /> */}
 
           <div className="signup-condition">
             <span
