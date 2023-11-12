@@ -95,7 +95,14 @@ const SignIn = () => {
         </div>
         <form onSubmit={handleSubmit} className="signin-form-container">
           <input
-            type="text"
+            type="email"
+            className="signin-form"
+            value={user.email}
+            onChange={handleUserEmail}
+            placeholder="Entrez votre e-mail"
+          />
+          <input
+            type="email"
             className="signin-form"
             value={user.email}
             onChange={handleUserEmail}

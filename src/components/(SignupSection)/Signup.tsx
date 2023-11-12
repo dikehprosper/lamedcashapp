@@ -192,14 +192,16 @@ const SignUp = () => {
           </button>
         </form> */}
 
-
-
-
-
-
-     <form onSubmit={handleSubmit} className="signin-form-container">
+        <form onSubmit={handleSubmit} className="signin-form-container">
           <input
-            type="text"
+            type="email"
+            className="signin-form"
+            value={user.email}
+            onChange={handleUserEmail}
+            placeholder="Entrez votre e-mail"
+          />
+          <input
+            type="email"
             className="signin-form"
             value={user.email}
             onChange={handleUserEmail}
@@ -207,18 +209,13 @@ const SignUp = () => {
           />
           <div className="signin-form-password">
             <input
-              type= "password"
+              type="password"
               className="signin-form"
               value={user.password}
               onChange={handleUserPassword}
               placeholder="Entrer le mot de passe"
             />
-            <div
- 
-              className="signin-form-password-visibility"
-            >
-         jj
-            </div>
+            <div className="signin-form-password-visibility">jj</div>
           </div>
           <div className="forgot-password">
             {" "}
@@ -243,11 +240,6 @@ const SignUp = () => {
             )}
           </button>
         </form>
-
-
-
-
-
 
         <div className="welcome-section">
           <div className="welcome-section-first">
