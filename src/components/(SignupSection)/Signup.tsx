@@ -107,13 +107,13 @@ const SignUp = () => {
             placeholder="blur"
           />
         </div>
-        <form onSubmit={handleSubmit} className="signup-form-container">
+        {/* <form onSubmit={handleSubmit} className="signup-form-container">
           <input
             type="text"
             className="signup-form"
             value={user.fullname}
             onChange={handleFullname}
-            // placeholder="Entrez votre nom complet"
+             placeholder="Entrez votre nom complet"
           />
 
           <input
@@ -121,17 +121,17 @@ const SignUp = () => {
             className="signup-form"
             value={user.betId}
             onChange={handleBetId}
-            // placeholder="1Numéro d’identification XBET"
+             placeholder="1Numéro d’identification XBET"
           />
-          {/* <input
+          <input
             type="number"
             className="signup-form"
             value={user.number}
             onChange={handleNumber}
             placeholder="Numéro Whatsapp/mobile"
-          /> */}
+          />
 
-          {/* <input
+           <input
             type="email"
             className="signup-form"
             value={user.email}
@@ -151,7 +151,7 @@ const SignUp = () => {
             value={user.confirmPassword}
             onChange={handleUserConfirmPassword}
             placeholder="Confirmez le mot de passe"
-          /> */}
+          /> 
 
           <div className="signup-condition">
             <span
@@ -190,7 +190,65 @@ const SignUp = () => {
               "S'inscrire"
             )}
           </button>
+        </form> */}
+
+
+
+
+
+
+     <form onSubmit={handleSubmit} className="signin-form-container">
+          <input
+            type="text"
+            className="signin-form"
+            value={user.email}
+            onChange={handleUserEmail}
+            placeholder="Entrez votre e-mail"
+          />
+          <div className="signin-form-password">
+            <input
+              type= "password"
+              className="signin-form"
+              value={user.password}
+              onChange={handleUserPassword}
+              placeholder="Entrer le mot de passe"
+            />
+            <div
+ 
+              className="signin-form-password-visibility"
+            >
+         jj
+            </div>
+          </div>
+          <div className="forgot-password">
+            {" "}
+            <a href="">Mot de passe oublié?</a>
+          </div>
+          <button
+            type="submit"
+            className="submit-button"
+            style={{
+              background: buttonDisabled
+                ? "rgba(189, 255, 5, .7)"
+                : "rgba(189, 255, 5, 1)",
+              pointerEvents: buttonDisabled ? "none" : "auto",
+            }}
+          >
+            {loading ? (
+              <div id="container-signin">
+                <div id="html-spinner-signin"></div>
+              </div>
+            ) : (
+              "Se connecter"
+            )}
+          </button>
         </form>
+
+
+
+
+
+
         <div className="welcome-section">
           <div className="welcome-section-first">
             <h2 className="welcome-section-first_h2">Rejoignez-nous</h2>

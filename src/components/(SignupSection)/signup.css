@@ -366,3 +366,112 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+.signin-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 60%;
+  padding: 60px;
+  align-items: center;
+}
+
+.signin-form {
+  border: none;
+  outline: none;
+  padding: 15px;
+  color: white;
+  background: transparent;
+  width: 100%;
+  border: 2px solid rgba(256, 256, 256, 0.04);
+  border-radius: 4px;
+  font-size: 16px;
+  background: rgba(256, 256, 256, 0.03);
+}
+.signin-form::placeholder {
+  color: rgba(256, 256, 256, 0.09);
+  font-size: 16px;
+}
+.signin-form:focus {
+  border: 2px solid rgba(189, 255, 5, 0.7);
+  outline: none;
+  transition: 1s border ease-in-out;
+}
+
+.forgot-password {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  color: rgba(256, 256, 256, 0.7);
+  font-weight: 300;
+  padding: 0px 13px;
+  font-size: 16px;
+}
+
+.forgot-password:hover {
+  color: rgba(256, 256, 256, 1);
+}
+
+@media (max-width: 1028px) {
+
+  .signin-form-container {
+    width: 100%;
+    padding: 60px 15px;
+    gap: 10px;
+  }
+  .signin-form {
+    height: 50px;
+  }
+  .signin-form-password {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.signin-form-password-visibility {
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: rgba(256, 256, 256, 0.6);
+}
+
+  .forgot-password {
+    font-size: 12px;
+  }
+ .submit-button {
+    width: 100%;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
