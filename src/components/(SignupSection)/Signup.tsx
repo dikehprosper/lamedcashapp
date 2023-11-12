@@ -140,27 +140,18 @@ const SignUp = () => {
           />
           <input
             type="password"
-            className="signup-form right-half"
+            className="signup-form"
             value={user.password}
             onChange={handleUserPassword}
             placeholder="Entrer le mot de passe"
           />
           <input
             type="password"
-            className="signup-form left-half"
             value={user.confirmPassword}
             onChange={handleUserConfirmPassword}
             placeholder="Confirmez le mot de passe"
           />
-          <div
-          className="signup-div"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              alignItems: "center"
-            }}
-          >
+
             <div className="signup-condition">
               <span
                 className="signup-condition-checkbox"
@@ -200,7 +191,7 @@ const SignUp = () => {
                 "S'inscrire"
               )}
             </button>
-          </div>
+
         </form>
         <div className="welcome-section">
           <div className="welcome-section-first">

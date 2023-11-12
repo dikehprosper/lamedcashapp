@@ -32,9 +32,6 @@
   width: 60%;
   padding: 60px;
 align-items: center;
- display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
 }
 
 .signup-form {
@@ -42,20 +39,17 @@ align-items: center;
   outline: none;
   padding: 15px;
   color: white;
-  max-width: 100%;
+  width: 100%;
   background: transparent;
   border: 2px solid rgba(256, 256, 256, 0.04);
   border-radius: 4px;
   font-size: 16px;
   background: rgba(256, 256, 256, 0.03);
   display: flex;
-  flex: 1;
+
 }
 
-.signup-form:first-child,
-.signup-form:nth-child(4), .signup-div {
-  grid-column: span 2;
-}
+
 
 .signup-form::placeholder {
   color: rgba(256, 256, 256, 0.09);
@@ -371,22 +365,5 @@ align-items: center;
     height: 25px;
   }
 }
-/* .right-half {
-  display: inline-block;
-  margin-right: 6px;
-  width: 45%;
-}
 
-.left-half {
-display: inline-block;
-  margin-left: 6px;
-  width: 45%;
-} */
-/* 
-.signin-password {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  width: 100%
-} */
 
