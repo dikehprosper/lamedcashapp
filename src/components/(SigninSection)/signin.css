@@ -3,6 +3,7 @@
   min-height: calc(100vh - 93px);
   width: 100vw;
   flex-direction: column;
+  margin-top: 93px
 }
 
 /* first section */
@@ -149,6 +150,11 @@
 }
 
 @media (max-width: 1028px) {
+
+  .signin-container {
+  margin-top: 80px
+}
+
   .welcome-section {
     display: none;
   }

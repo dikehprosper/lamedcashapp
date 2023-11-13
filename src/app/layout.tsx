@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { TbArrowBigDownLinesFilled } from "react-icons/tb";
+import NavState from "@/components/(Navs)/NavState";
 const inter = Inter({ subsets: ["latin"] });
 import Head from "next/head";
 export const metadata: Metadata = {
@@ -23,6 +23,7 @@ export default function RootLayout({
         />
       </Head>
       <body className={inter.className}>
+        <NavState />
         {children}
       </body>
     </html>

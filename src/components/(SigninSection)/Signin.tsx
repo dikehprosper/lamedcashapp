@@ -63,6 +63,7 @@ const SignIn = () => {
     setTimeout(() => {
       setLoading(false);
     }, 3000);
+    router.push("/dashboard")
   };
 
   //check email and password state to determine ButtonDisabled state

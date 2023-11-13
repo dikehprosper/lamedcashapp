@@ -42,7 +42,8 @@ const hero = () => {
           <Image
             src={image}
             fill
-            loading="lazy"
+     
+            quality={100}
             style={{
               objectFit: "cover",
               width: "100%",
@@ -100,7 +101,7 @@ const hero = () => {
           <Image
             src={mainBackgroundMobile}
             fill
-            loading="lazy"
+            quality={100}
             style={{
               objectFit: "cover",
               width: "100%",

@@ -1,7 +1,7 @@
 import "./about.css";
 import React from "react";
 import Image from "next/image";
-import image from "../../../../public/about-section.png";
+import image from "../../../public/about-section.png";
 const AboutSection = () => {
   return (
     <>

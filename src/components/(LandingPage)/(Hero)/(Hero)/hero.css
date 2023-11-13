@@ -23,8 +23,8 @@
   opacity: 0;
   background: url(/background.png) no-repeat;
   background-size: cover;
-  -webkit-animation: no-transform 2s 1.5s cubic-bezier(0, 0.5, 0, 1) forwards;
-  animation: no-transform 2s 1.5s cubic-bezier(0, 0.5, 0, 1) forwards;
+  -webkit-animation: no-transform 1s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
+  animation: no-transform 1s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
   -webkit-transform: translateY(-4rem);
   transform: translateY(-4rem);
   z-index: -1;
@@ -42,8 +42,8 @@
   box-shadow: 0px 4px 26px 0px rgba(0, 20, 58, 0.26);
   -webkit-transform: translateY(-4rem);
   transform: translateY(-4rem);
-  -webkit-animation: no-transform 2s 1.4s cubic-bezier(0, 0.5, 0, 1) forwards;
-  animation: no-transform 2s 1.4s cubic-bezier(0, 0.5, 0, 1) forwards;
+  -webkit-animation: no-transform 2s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
+  animation: no-transform 2s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
 }
 
 .hero-span {
@@ -59,16 +59,16 @@
 }
 
 .hero-title {
-  -webkit-animation-delay: 0.8s;
-  animation-delay: 0.8s;
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
   line-height: 55px;
 }
 
 .hero-subtitle {
   margin: 3rem 0rem;
   font-size: 20px;
-  -webkit-animation-delay: 1s;
-  animation-delay: 1s;
+  -webkit-animation-delay: .1s;
+  animation-delay: .1s;
   line-height: 30px;
 }
 
@@ -79,8 +79,8 @@
   width: 100%;
   border: none;
   background: var(--background-rgb);
-  -webkit-animation-delay: 1.4s;
-  animation-delay: 1.4s;
+  -webkit-animation-delay: .1s;
+  animation-delay: .1s;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -113,8 +113,8 @@
   position: relative;
   padding: 0px 30px;
   opacity: 0;
-  -webkit-animation: no-transform 2s 1s cubic-bezier(0, 0.5, 0, 1) forwards;
-  animation: no-transform 2s 1s cubic-bezier(0, 0.5, 0, 1) forwards;
+  -webkit-animation: no-transform 0s 0s cubic-bezier(0, 0.5, 0, 1) forwards;
+  animation: no-transform 0s 0s cubic-bezier(0, 0.5, 0, 1) forwards;
   -webkit-transform: translateY(-4rem);
   transform: translateY(-4rem);
   overflow-y: visible;
@@ -157,8 +157,8 @@
     position: relative;
     gap: 10px;
     opacity: 0;
-    -webkit-animation: no-transform 2s 1s cubic-bezier(0, 0.5, 0, 1) forwards;
-    animation: no-transform 2s 1s cubic-bezier(0, 0.5, 0, 1) forwards;
+    -webkit-animation: no-transform 2s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
+    animation: no-transform 2s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
     -webkit-transform: translateY(-4rem);
     transform: translateY(-4rem);
     /* -webkit-animation: pulse 7s .1s ease-out infinite;
@@ -250,8 +250,8 @@
     filter: blur(34px);
     border-radius: inherit;
     opacity: 0;
-    -webkit-animation: no-transform 2s 1.5s cubic-bezier(0, 0.5, 0, 1) forwards;
-    animation: no-transform 2s 1.5s cubic-bezier(0, 0.5, 0, 1) forwards;
+    -webkit-animation: no-transform 2s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
+    animation: no-transform 2s .1s cubic-bezier(0, 0.5, 0, 1) forwards;
     -webkit-transform: translateY(-4rem);
     transform: translateY(-4rem);
     z-index: -4;

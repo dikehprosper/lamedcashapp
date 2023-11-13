@@ -7,7 +7,6 @@ import Nav from "../components/(Navs)/Nav";
 export default function Home() {
   return (
     <>
-      <Nav />
       <div className="main">
         {/* <div className="main-img"></div> */}
         <Hero />

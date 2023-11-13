@@ -6,6 +6,7 @@
   gap: 40px;
   padding: 50px 100px;
   margin-bottom: 80px;
+  margin-top: 93px
 }
 
 .AboutSection > h2 {
@@ -44,6 +45,7 @@
   .AboutSection {
     gap: 20px;
     padding: 60px 30px;
+    margin-top: 80px
   }
   .AboutSection > p {
     font-size: 20px;

@@ -1,7 +1,10 @@
 import React from "react";
 import "./userDashboard.css";
+
 const userDashboard = () => {
-  return <div>userDashboard</div>;
+  return <>
+  
+  </>;
 };
 
 export default userDashboard;

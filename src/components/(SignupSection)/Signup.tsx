@@ -127,23 +127,23 @@ const SignUp = () => {
             placeholder="Entrez votre nom complet"
           />
 
-           <div style={{display: "flex", gap: "20px", width: "100%" }}>
-          <input
-            type="text"
-            className="signup-form"
-            value={user.betId}
-            onChange={handleBetId}
-            placeholder="1Numéro d’identification XBET"
-          />
-          <input
-            type="number"
-            className="signup-form"
-            value={user.number}
-            onChange={handleNumber}
-            placeholder="Numéro Whatsapp/mobile"
-          />
-             </div>
-         
+          <div style={{ display: "flex", gap: "20px", width: "100%" }}>
+            <input
+              type="text"
+              className="signup-form"
+              value={user.betId}
+              onChange={handleBetId}
+              placeholder="1Numéro d’identification XBET"
+            />
+            <input
+              type="number"
+              className="signup-form"
+              value={user.number}
+              onChange={handleNumber}
+              placeholder="Numéro Whatsapp/mobile"
+            />
+          </div>
+
           <input
             type="email"
             className="signup-form"
@@ -151,23 +151,23 @@ const SignUp = () => {
             onChange={handleUserEmail}
             placeholder="Entrez votre adresse email"
           />
-           <div style={{display: "flex", gap: "20px", width: "100%" }}>
-          <input
-            type="password"
-            className="signup-form"
-            value={user.password}
-            onChange={handleUserPassword}
-            placeholder="Entrer le mot de passe"
-          />
-      
-          <input
-            type="password"
-            className="signup-form"
-            value={user.confirmPassword}
-            onChange={handleUserConfirmPassword}
-            placeholder="Confirmez le mot de passe"
-          />
-    </div>
+          <div style={{ display: "flex", gap: "20px", width: "100%" }}>
+            <input
+              type="password"
+              className="signup-form"
+              value={user.password}
+              onChange={handleUserPassword}
+              placeholder="Entrer le mot de passe"
+            />
+
+            <input
+              type="password"
+              className="signup-form"
+              value={user.confirmPassword}
+              onChange={handleUserConfirmPassword}
+              placeholder="Confirmez le mot de passe"
+            />
+          </div>
           <div className="signup-condition">
             <span
               className="signup-condition-checkbox"
@@ -208,7 +208,10 @@ const SignUp = () => {
           </button>
         </form>
 
-        <form onSubmit={handleSubmit} className="signup-form-container small-screens">
+        <form
+          onSubmit={handleSubmit}
+          className="signup-form-container small-screens"
+        >
           <input
             type="text"
             className="signup-form"

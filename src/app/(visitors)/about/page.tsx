@@ -1,10 +1,8 @@
-import AboutSection from "../../components/(LandingPage)/(AboutSection)/About";
+import AboutSection from "../../../components/(AboutSection)/About";
 import Footer from "@/components/(LandingPage)/(Footer)/Footer";
-import Nav from "../../components/(Navs)/Nav";
-const About = () => {
+const About = async () => {
   return (
     <>
-    <Nav />
       <AboutSection />
       <Footer />
     </>

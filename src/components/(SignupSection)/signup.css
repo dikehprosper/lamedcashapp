@@ -3,6 +3,7 @@
   min-height: calc(100vh - 93px);
   width: 100vwj;
   flex-direction: column;
+  margin-top: 93px
 }
 
 /* first section */
@@ -172,12 +173,19 @@
 }
 
 @media (min-width: 1028px) and (max-width: 1090px) {
+  
+
+
   .welcome-section-second_p {
     font-size: 13px;
   }
 }
 
 @media (max-width: 1028px) {
+   .signup-container {
+  margin-top: 80px
+}
+
   .welcome-section {
     display: none;
   }
