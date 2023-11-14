@@ -176,8 +176,8 @@ a {
   filter: blur(34px);
   border-radius: inherit;
   opacity: 0;
-  -webkit-animation: no-transform .5s .5s cubic-bezier(0, 0.5, 0, 1) forwards;
-  animation: no-transform .5s .5s cubic-bezier(0, 0.5, 0, 1) forwards;
+  -webkit-animation: no-transform 0.5s 0.5s cubic-bezier(0, 0.5, 0, 1) forwards;
+  animation: no-transform 0.5s 0.5s cubic-bezier(0, 0.5, 0, 1) forwards;
   -webkit-transform: translateY(-4rem);
   transform: translateY(-4rem);
   z-index: -4;
@@ -330,8 +330,8 @@ a {
     padding: 0px 0px 0px 0px;
   }
   .main {
-  margin: 80px 0px 0px 0px;
-}
+    margin: 80px 0px 0px 0px;
+  }
   .nav-link {
     display: none;
   }
@@ -406,9 +406,22 @@ a {
     animation: slideInFromRight 0.5s ease-in-out;
   }
 
+  .users-nav-link2_inner {
+    position: relative;
+    background: rgba(1, 1, 1, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 20px;
+    animation: slideInFromRight 0.5s ease-in-out;
+    padding: 20px 0px;
+  }
+
   .nav-link2_inner_link {
     position: relative;
     padding: 10px;
+    background: transparent;
   }
 
   @keyframes slideInFromRight {
@@ -428,8 +441,6 @@ a {
 .rotate-icon {
   transform: rotate(-90deg); /* Adjust the degree of rotation as needed */
 }
-
-
 
 .user-nav {
   background: rgba(0, 0, 0, 0.55);
@@ -566,6 +577,13 @@ a {
 @media (max-width: 1028px) {
   .for-smaller-devices {
     display: flex;
+  }
+  .active-user-nav {
+    width: 100%;
+    text-align: center;
+    background: none;
+    color: black !important;
+    background: url("/Rectangle.png") left center / 85% no-repeat;
   }
 
   .for-larger-devices {

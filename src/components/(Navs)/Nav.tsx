@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { MdMenuOpen } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
-import Modal from "../(Utils)/Modal";
+import Modal from "../(Utils)/VisitorNavModal";
 import image from "../../../public/Logo.png";
 
 const navLinks = [
@@ -92,6 +92,7 @@ const Nav = () => {
           handleClick={handleClick}
           containerStylesInner="nav-link2_inner"
           containerStylesInnerLink="nav-link2_inner_link"
+          active="active"
         />
       )}
     </>

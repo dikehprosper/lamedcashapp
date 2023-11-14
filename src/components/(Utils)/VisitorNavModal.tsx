@@ -2,22 +2,21 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ModalProps } from "@/types";
+import { MdLogout } from "react-icons/md";
+import { SmallScreenNavModalProps } from "@/types";
 
 const Modal = ({
+    active,
   navLinks,
   containerStyles,
   containerStylesInner,
   containerStylesInnerLink,
   handleClick,
-}: ModalProps) => {
+}: SmallScreenNavModalProps) => {
   const pathname = usePathname();
 
   return (
-    <div
-      className={` ${containerStyles}`}
-      onClick={handleClick}
-    >
+    <div className={` ${containerStyles}`} onClick={handleClick}>
       <div className={` ${containerStylesInner}`}>
         {navLinks?.map((link, index) => {
           console.log(pathname === link.pathname);
@@ -25,8 +24,8 @@ const Modal = ({
             <Link
               key={index}
               className={` ${containerStylesInnerLink} ${
-                pathname === link.pathname ? "active" : ""
-              }`}
+                pathname === link.pathname ? active : ""
+              } `}
               href={link.pathname}
               // onClick={handleClick}
             >
