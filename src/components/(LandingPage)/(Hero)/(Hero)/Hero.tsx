@@ -42,12 +42,12 @@ const hero = () => {
           <Image
             src={image}
             fill
-           loading="lazy"
+            loading='lazy'
             quality={100}
             style={{
-              objectFit: "cover",  
+              objectFit: "cover",
             }}
-            sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw" 
+            sizes='(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw'
             alt='Picture of the background'
           />
         </div>
@@ -100,8 +100,7 @@ const hero = () => {
           <Image
             src={mainBackgroundMobile}
             fill
-            loading="lazy"
-            quality={100}
+            loading='lazy'
             style={{
               objectFit: "cover",
               width: "100%",
