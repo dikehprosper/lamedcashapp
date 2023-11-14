@@ -63,7 +63,7 @@ const SignIn = () => {
     setTimeout(() => {
       setLoading(false);
     }, 3000);
-    router.push("/dashboard")
+    router.push("/dashboard");
   };
 
   //check email and password state to determine ButtonDisabled state
@@ -76,54 +76,54 @@ const SignIn = () => {
   }, [user]);
 
   return (
-    <div className="signin-container">
-      <div className="signin-header">
+    <div className='signin-container'>
+      <div className='signin-header'>
         <h2>Bienvenue</h2>
       </div>
       {/* first section */}
-      <div className="signin-container_inner">
-        <div className="signin-container_inner_background_image">
+      <div className='signin-container_inner'>
+        <div className='signin-container_inner_background_image'>
           <Image
             src={image}
             fill
-            loading="lazy"
-            style={{
-              objectFit: "cover",
+             style={{
+              objectFit: "cover",  
             }}
-            alt="Picture of the background"
-            placeholder="blur"
+            alt='Picture of the background'
+            placeholder='blur'
+            loading='lazy'
           />
         </div>
-        <form onSubmit={handleSubmit} className="signin-form-container">
+        <form onSubmit={handleSubmit} className='signin-form-container'>
           <input
-            type="text"
-            className="signin-form"
+            type='text'
+            className='signin-form'
             value={user.email}
             onChange={handleUserEmail}
-            placeholder="Entrez votre e-mail"
+            placeholder='Entrez votre e-mail'
           />
-          <div className="signin-form-password">
+          <div className='signin-form-password'>
             <input
               type={isVisible ? "text" : "password"}
-              className="signin-form"
+              className='signin-form'
               value={user.password}
               onChange={handleUserPassword}
-              placeholder="Entrer le mot de passe"
+              placeholder='Entrer le mot de passe'
             />
             <div
               onClick={toggleVisibility}
-              className="signin-form-password-visibility"
+              className='signin-form-password-visibility'
             >
               {isVisible ? <BsEye /> : <BsEyeSlash />}
             </div>
           </div>
-          <div className="forgot-password">
+          <div className='forgot-password'>
             {" "}
-            <a href="">Mot de passe oublié?</a>
+            <a href=''>Mot de passe oublié?</a>
           </div>
           <button
-            type="submit"
-            className="submit-button"
+            type='submit'
+            className='submit-button'
             style={{
               background: buttonDisabled
                 ? "rgba(189, 255, 5, .7)"
@@ -132,58 +132,62 @@ const SignIn = () => {
             }}
           >
             {loading ? (
-              <div id="container-signin">
-                <div id="html-spinner-signin"></div>
+              <div id='container-signin'>
+                <div id='html-spinner-signin'></div>
               </div>
             ) : (
               "Se connecter"
             )}
           </button>
         </form>
-        <div className="welcome-section">
-          <div className="welcome-section-first">
-            <h2 className="welcome-section-first_h2">Bienvenue</h2>
+        <div className='welcome-section'>
+          <div className='welcome-section-first'>
+            <h2 className='welcome-section-first_h2'>Bienvenue</h2>
           </div>
-          <div className="welcome-section-second">
-            <h5 className="welcome-section-second_h5">Ou continuez avec</h5>
-            <div className="signin-img google">
+          <div className='welcome-section-second'>
+            <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
+            <div className='signin-img google'>
               <Image
                 src={image4}
-                loading="lazy"
                 fill
-                style={{ objectFit: "cover" }}
-                alt="Picture of the author"
+                 style={{
+              objectFit: "cover"
+            }}
+                alt='Picture of the author'
+                loading='lazy'
               />
             </div>
-            <p className="welcome-section-second_p">
+            <p className='welcome-section-second_p'>
               Vous n&apos;avez pas de compte?,{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signup">Créez un compte !</a>
+                <a href='/signup'>Créez un compte !</a>
               </span>
             </p>
           </div>
         </div>
       </div>
       {/* last section */}
-      <div className="signin-container_inner23">
-        <div className="welcome-section-mobile">
-          <div className="welcome-section-second-mobile">
-            <h5 className="welcome-section-second_h5-mobile">
+      <div className='signin-container_inner23'>
+        <div className='welcome-section-mobile'>
+          <div className='welcome-section-second-mobile'>
+            <h5 className='welcome-section-second_h5-mobile'>
               Ou continuez avec
             </h5>
-            <div className="signin-img google">
+            <div className='signin-img google'>
               <Image
                 src={image4}
-                loading="lazy"
+                loading='lazy'
                 fill
-                style={{ objectFit: "cover" }}
-                alt="Picture of the author"
+                 style={{
+              objectFit: "cover", 
+            }}
+                alt='Picture of the author'
               />
             </div>
-            <p className="welcome-section-second_p-mobile">
+            <p className='welcome-section-second_p-mobile'>
               Vous n&apos;avez pas de compte?,{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signup">Créez un compte !</a>
+                <a href='/signup'>Créez un compte !</a>
               </span>
             </p>
           </div>
@@ -201,32 +205,38 @@ const SignIn = () => {
         >
           Contactez-nous
         </div>
-        <div className="signin-social-media-icons">
-          <div className="signin-img facebook">
+        <div className='signin-social-media-icons'>
+          <div className='signin-img facebook'>
             <Image
               src={image1}
-              loading="lazy"
+              loading='lazy'
               fill
-              style={{ objectFit: "cover" }}
-              alt="Picture of the author"
+               style={{
+              objectFit: "cover",  
+            }}
+              alt='Picture of the author'
             />
           </div>
-          <div className="signin-img whatsapp">
+          <div className='signin-img whatsapp'>
             <Image
               src={image2}
-              loading="lazy"
+              loading='lazy'
               fill
-              style={{ objectFit: "cover" }}
-              alt="Picture of the author"
+               style={{
+              objectFit: "cover",  
+            }}
+              alt='Picture of the author'
             />
           </div>
-          <div className="signin-img tiktok">
+          <div className='signin-img tiktok'>
             <Image
               src={image3}
-              loading="lazy"
+              loading='lazy'
               fill
-              style={{ objectFit: "cover" }}
-              alt="Picture of the author"
+               style={{
+              objectFit: "cover",  
+            }}
+              alt='Picture of the author'
             />
           </div>
         </div>

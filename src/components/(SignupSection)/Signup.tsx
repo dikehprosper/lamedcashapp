@@ -108,8 +108,8 @@ const SignUp = () => {
             src={image}
             fill
             loading="lazy"
-            style={{
-              objectFit: "cover",
+             style={{
+              objectFit: "cover",  
             }}
             alt="Picture of the background"
             placeholder="blur"
@@ -306,7 +306,9 @@ const SignUp = () => {
                 src={image4}
                 loading="lazy"
                 fill
-                style={{ objectFit: "cover" }}
+                 style={{
+              objectFit: "cover",  
+            }}
                 alt="Picture of the author"
               />
             </div>
@@ -331,7 +333,9 @@ const SignUp = () => {
                 src={image4}
                 loading="lazy"
                 fill
-                style={{ objectFit: "cover" }}
+                 style={{
+              objectFit: "cover",  
+            }}
                 alt="Picture of the author"
               />
             </div>
@@ -362,7 +366,9 @@ const SignUp = () => {
               src={image1}
               loading="lazy"
               fill
-              style={{ objectFit: "cover" }}
+               style={{
+              objectFit: "cover",  
+            }}
               alt="Picture of the author"
             />
           </div>
@@ -371,7 +377,9 @@ const SignUp = () => {
               src={image2}
               loading="lazy"
               fill
-              style={{ objectFit: "cover" }}
+               style={{
+              objectFit: "cover",  
+            }}
               alt="Picture of the author"
             />
           </div>
@@ -380,7 +388,9 @@ const SignUp = () => {
               src={image3}
               loading="lazy"
               fill
-              style={{ objectFit: "cover" }}
+               style={{
+              objectFit: "cover",  
+            }}
               alt="Picture of the author"
             />
           </div>

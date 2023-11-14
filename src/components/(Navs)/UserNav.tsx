@@ -136,9 +136,11 @@ const UserNav = () => {
             <div className='user-nav-img'>
               <Image
                 src={CompanyLogo}
-                loading='lazy'
+                priority
                 fill
-                style={{ objectFit: "cover" }}
+                  style={{
+              objectFit: "cover",  
+            }}
                 alt='Picture of the author'
               />
             </div>
@@ -163,27 +165,33 @@ const UserNav = () => {
               <div className='user-nav-logo facebook'>
                 <Image
                   src={FacebookLogo}
-                  loading='lazy'
+                  priority
                   fill
-                  style={{ objectFit: "cover" }}
+                    style={{
+              objectFit: "cover",  
+            }}
                   alt='Picture of the author'
                 />
               </div>
               <div className='user-nav-logo whatsapp'>
                 <Image
                   src={WhatsappLogo}
-                  loading='lazy'
+                  priority
                   fill
-                  style={{ objectFit: "cover" }}
+                    style={{
+              objectFit: "cover",  
+            }}
                   alt='Picture of the author'
                 />
               </div>
               <div className='user-nav-logo tiktok'>
                 <Image
                   src={TiktokLogo}
-                  loading='lazy'
+                  priority
                   fill
-                  style={{ objectFit: "cover" }}
+                    style={{
+              objectFit: "cover",  
+            }}
                   alt='Picture of the author'
                 />
               </div>
@@ -199,7 +207,9 @@ const UserNav = () => {
               src={CompanyLogo}
               loading='lazy'
               fill
-              style={{ objectFit: "cover" }}
+                style={{
+              objectFit: "cover",  
+            }}
               alt='Picture of the author'
             />
           </div>
@@ -241,7 +251,7 @@ const UserNav = () => {
             containerStyles='nav-link2'
             handleClick={handleClick}
             containerStylesInner='users-nav-link2_inner'
-            containerStylesInnerLink='nav-link2_inner_link'
+            containerStylesInnerLink='nav-link2_inner_link-mobile'
             active='active-user-nav'
           />
         )}

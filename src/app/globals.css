@@ -423,6 +423,13 @@ a {
     padding: 10px;
     background: transparent;
   }
+    .nav-link2_inner_link-mobile {
+    position: relative;
+    padding:  20px 10px;
+    width: 100%;
+    text-align: center;
+  }
+
 
   @keyframes slideInFromRight {
     0% {
@@ -435,6 +442,9 @@ a {
     }
   }
 }
+
+
+
 
 /* user nav */
 
@@ -483,7 +493,7 @@ a {
 .user-nav-link {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
   color: rgba(256, 256, 256, 0.8);
@@ -492,7 +502,7 @@ a {
 
 .user-nav-link a {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
   width: 104%;
@@ -525,7 +535,7 @@ a {
 .user-nav-link-bottom {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
   gap: 40px;
@@ -535,7 +545,7 @@ a {
 }
 .user-nav-link-bottom a {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
   width: 104%;
@@ -577,13 +587,6 @@ a {
 @media (max-width: 1028px) {
   .for-smaller-devices {
     display: flex;
-  }
-  .active-user-nav {
-    width: 100%;
-    text-align: center;
-    background: none;
-    color: black !important;
-    background: url("/Rectangle.png") left center / 85% no-repeat;
   }
 
   .for-larger-devices {

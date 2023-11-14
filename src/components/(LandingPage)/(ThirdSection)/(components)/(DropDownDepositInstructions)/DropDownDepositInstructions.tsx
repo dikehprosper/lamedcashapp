@@ -43,10 +43,8 @@ const DropDownDepositInstructions = () => {
             src={image}
             fill
             loading="lazy"
-            style={{
-              objectFit: "cover",
-              width: "100%",
-              height: "100%",
+               style={{
+              objectFit: "cover",  
             }}
             placeholder="blur"
             alt="Picture of the background"

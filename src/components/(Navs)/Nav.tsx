@@ -47,9 +47,12 @@ const Nav = () => {
         <div className="nav-img">
           <Image
             src={image}
-            loading="lazy"
-            fill
-            style={{ objectFit: "cover" }}
+            priority
+            width={130}
+            height={55}
+            style={{
+              objectFit: "cover",  
+            }}
             alt="Picture of the author"
           />
         </div>
