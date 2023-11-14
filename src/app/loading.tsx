@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import image from "../../public/Logo.png";
+import image from "../../public/Logo.webp";
 const loading = () => {
   return  <div
           style={{
@@ -21,7 +21,7 @@ const loading = () => {
               src={image} // Use the imported image URL
               alt="Description of the image"
               fill
-              priority
+             loading='eager'
             />
           </div>
         </div>

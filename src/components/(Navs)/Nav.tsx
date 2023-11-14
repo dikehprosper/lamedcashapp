@@ -6,7 +6,7 @@ import { MdMenuOpen } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Modal from "../(Utils)/VisitorNavModal";
-import image from "../../../public/Logo.png";
+import image from "../../../public/Logo.webp";
 
 const navLinks = [
   {
@@ -47,7 +47,7 @@ const Nav = () => {
         <div className="nav-img">
           <Image
             src={image}
-            priority
+           loading='eager'
             width={130}
             height={55}
             style={{

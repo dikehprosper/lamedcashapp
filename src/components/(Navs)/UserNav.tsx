@@ -6,7 +6,7 @@ import { MdMenuOpen } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Modal from "../(Utils)/SmallScreenNavModal";
-import CompanyLogo from "../../../public/Logo.png";
+import CompanyLogo from "../../../public/Logo.webp";
 import FacebookLogo from "../../../public/Facebook.svg";
 import WhatsappLogo from "../../../public/Whatsapp.svg";
 import TiktokLogo from "../../../public/TikTok.svg";
@@ -136,7 +136,7 @@ const UserNav = () => {
             <div className='user-nav-img'>
               <Image
                 src={CompanyLogo}
-                priority
+               loading='eager'
                 fill
                   style={{
               objectFit: "cover",  
@@ -165,7 +165,7 @@ const UserNav = () => {
               <div className='user-nav-logo facebook'>
                 <Image
                   src={FacebookLogo}
-                  priority
+                 loading='eager'
                   fill
                     style={{
               objectFit: "cover",  
@@ -176,7 +176,7 @@ const UserNav = () => {
               <div className='user-nav-logo whatsapp'>
                 <Image
                   src={WhatsappLogo}
-                  priority
+                  loading='eager'
                   fill
                     style={{
               objectFit: "cover",  
@@ -187,7 +187,7 @@ const UserNav = () => {
               <div className='user-nav-logo tiktok'>
                 <Image
                   src={TiktokLogo}
-                  priority
+                  loading='eager'
                   fill
                     style={{
               objectFit: "cover",  

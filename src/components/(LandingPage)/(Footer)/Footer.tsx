@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="footer-img facebook">
           <Image
             src="/Facebook.svg"
-            loading="lazy"
+            loading='eager'
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"
@@ -24,7 +24,7 @@ const Footer = () => {
         <div className="footer-img whatsapp">
           <Image
             src="/Whatsapp.svg"
-            loading="lazy"
+            loading='eager'
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"
@@ -33,7 +33,7 @@ const Footer = () => {
         <div className="footer-img tiktok">
           <Image
             src={image}
-            loading="lazy"
+            loading='eager'
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"

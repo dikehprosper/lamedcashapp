@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import image from "../../../public/loginBackground.png";
+import image from "../../../public/loginBackground.webp";
 import image1 from "../../../public/Facebook.svg";
 import image2 from "../../../public/Whatsapp.svg";
 import image3 from "../../../public/TikTok.svg";
@@ -107,7 +107,7 @@ const SignUp = () => {
           <Image
             src={image}
             fill
-            loading="lazy"
+            loading='eager'
              style={{
               objectFit: "cover",  
             }}
@@ -304,7 +304,7 @@ const SignUp = () => {
             <div className="signup-img google">
               <Image
                 src={image4}
-                loading="lazy"
+                loading='eager'
                 fill
                  style={{
               objectFit: "cover",  
@@ -331,7 +331,7 @@ const SignUp = () => {
             <div className="signup-img google">
               <Image
                 src={image4}
-                loading="lazy"
+                loading='eager'
                 fill
                  style={{
               objectFit: "cover",  
@@ -364,7 +364,7 @@ const SignUp = () => {
           <div className="signup-img facebook">
             <Image
               src={image1}
-              loading="lazy"
+              loading='eager'
               fill
                style={{
               objectFit: "cover",  
@@ -375,7 +375,7 @@ const SignUp = () => {
           <div className="signup-img whatsapp">
             <Image
               src={image2}
-              loading="lazy"
+              loading='eager'
               fill
                style={{
               objectFit: "cover",  
@@ -386,7 +386,7 @@ const SignUp = () => {
           <div className="signup-img tiktok">
             <Image
               src={image3}
-              loading="lazy"
+              loading='eager'
               fill
                style={{
               objectFit: "cover",  

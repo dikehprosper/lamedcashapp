@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import AnimateHeight from "react-animate-height";
 import Image from "next/image";
 import "./dropDownDepositInstructions.css";
-import image from "../../../../../../public/dropDownDepositInstructionsImage.png";
+import image from "../../../../../../public/dropDownDepositInstructionsImage.webp";
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
@@ -42,7 +42,7 @@ const DropDownDepositInstructions = () => {
           <Image
             src={image}
             fill
-            loading="lazy"
+            loading='eager'
                style={{
               objectFit: "cover",  
             }}

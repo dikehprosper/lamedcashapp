@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import CustomButton from "../(components)/CustomBotton";
-import mainBackgroundMobile from "../../../../../public/mainBackgroundMobile.png";
-import image from "../../../../../public/image8.png";
+import mainBackgroundMobile from "../../../../../public/mainBackgroundMobile.webp";
+import image from "../../../../../public/image8.webp";
 import "./hero.css";
 const hero = () => {
   return (
@@ -42,7 +42,7 @@ const hero = () => {
           <Image
             src={image}
             fill
-            loading='lazy'
+            loading='eager'
             quality={100}
             style={{
               objectFit: "cover",
@@ -100,7 +100,8 @@ const hero = () => {
           <Image
             src={mainBackgroundMobile}
             fill
-            loading='lazy'
+            loading='eager'
+            quality={100}
             style={{
               objectFit: "cover",
               width: "100%",

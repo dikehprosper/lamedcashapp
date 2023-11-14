@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import image from "../../../public/loginBackground.png";
+import image from "../../../public/loginBackground.webp";
 import image1 from "../../../public/Facebook.svg";
 import image2 from "../../../public/Whatsapp.svg";
 import image3 from "../../../public/TikTok.svg";
@@ -91,7 +91,7 @@ const SignIn = () => {
             }}
             alt='Picture of the background'
             placeholder='blur'
-            loading='lazy'
+            loading='eager'
           />
         </div>
         <form onSubmit={handleSubmit} className='signin-form-container'>
@@ -154,7 +154,7 @@ const SignIn = () => {
               objectFit: "cover"
             }}
                 alt='Picture of the author'
-                loading='lazy'
+                loading='eager'
               />
             </div>
             <p className='welcome-section-second_p'>
@@ -176,7 +176,7 @@ const SignIn = () => {
             <div className='signin-img google'>
               <Image
                 src={image4}
-                loading='lazy'
+                loading='eager'
                 fill
                  style={{
               objectFit: "cover", 
@@ -209,7 +209,7 @@ const SignIn = () => {
           <div className='signin-img facebook'>
             <Image
               src={image1}
-              loading='lazy'
+              loading='eager'
               fill
                style={{
               objectFit: "cover",  
@@ -220,7 +220,7 @@ const SignIn = () => {
           <div className='signin-img whatsapp'>
             <Image
               src={image2}
-              loading='lazy'
+              loading='eager'
               fill
                style={{
               objectFit: "cover",  
@@ -231,7 +231,7 @@ const SignIn = () => {
           <div className='signin-img tiktok'>
             <Image
               src={image3}
-              loading='lazy'
+              loading='eager'
               fill
                style={{
               objectFit: "cover",  
