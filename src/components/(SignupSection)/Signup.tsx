@@ -97,90 +97,90 @@ const SignUp = () => {
   }, [IsChecked, user]);
 
   return (
-    <div className="signup-container">
-      <div className="signup-header">
+    <div className='signup-container'>
+      <div className='signup-header'>
         <h2>Rejoignez-nous</h2>
       </div>
       {/* first section */}
-      <div className="signup-container_inner">
-        <div className="signup-container_inner_background_image">
+      <div className='signup-container_inner'>
+        <div className='signup-container_inner_background_image'>
           <Image
             src={image}
             fill
             loading='eager'
-             style={{
-              objectFit: "cover",  
+            style={{
+              objectFit: "cover",
             }}
-            alt="Picture of the background"
-            placeholder="blur"
+            alt='Picture of the background'
+            placeholder='blur'
           />
         </div>
         <form
           onSubmit={handleSubmit}
-          className="signup-form-container big-screens"
+          className='signup-form-container big-screens'
         >
           <input
-            type="text"
-            className="signup-form"
+            type='text'
+            className='signup-form'
             value={user.fullname}
             onChange={handleFullname}
-            placeholder="Entrez votre nom complet"
+            placeholder='Entrez votre nom complet'
           />
 
           <div style={{ display: "flex", gap: "20px", width: "100%" }}>
             <input
-              type="text"
-              className="signup-form"
+              type='number'
+              className='signup-form'
               value={user.betId}
               onChange={handleBetId}
-              placeholder="1Numéro d’identification XBET"
+              placeholder='1Numéro d’identification XBET'
             />
             <input
-              type="number"
-              className="signup-form"
+              type='number'
+              className='signup-form'
               value={user.number}
               onChange={handleNumber}
-              placeholder="Numéro Whatsapp/mobile"
+              placeholder='Numéro Whatsapp/mobile'
             />
           </div>
 
           <input
-            type="email"
-            className="signup-form"
+            type='email'
+            className='signup-form'
             value={user.email}
             onChange={handleUserEmail}
-            placeholder="Entrez votre adresse email"
+            placeholder='Entrez votre adresse email'
           />
           <div style={{ display: "flex", gap: "20px", width: "100%" }}>
             <input
-              type="password"
-              className="signup-form"
+              type='password'
+              className='signup-form'
               value={user.password}
               onChange={handleUserPassword}
-              placeholder="Entrer le mot de passe"
+              placeholder='Entrer le mot de passe'
             />
 
             <input
-              type="password"
-              className="signup-form"
+              type='password'
+              className='signup-form'
               value={user.confirmPassword}
               onChange={handleUserConfirmPassword}
-              placeholder="Confirmez le mot de passe"
+              placeholder='Confirmez le mot de passe'
             />
           </div>
-          <div className="signup-condition">
+          <div className='signup-condition'>
             <span
-              className="signup-condition-checkbox"
+              className='signup-condition-checkbox'
               onClick={toggleIsChecked}
               style={{
                 background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
               }}
             >
               {IsChecked ? (
-                <ImCheckmark className="BiCheck" color="black" />
+                <ImCheckmark className='BiCheck' color='black' />
               ) : null}
             </span>
-            <p className="signup-condition-checkbox-p">
+            <p className='signup-condition-checkbox-p'>
               J&apos;accepte les conditions{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
@@ -189,8 +189,8 @@ const SignUp = () => {
           </div>
 
           <button
-            type="submit"
-            className="submit-button"
+            type='submit'
+            className='submit-button'
             style={{
               background: buttonDisabled
                 ? "rgba(189, 255, 5, .7)"
@@ -199,8 +199,8 @@ const SignUp = () => {
             }}
           >
             {loading ? (
-              <div id="container-signup">
-                <div id="html-spinner-signup"></div>
+              <div id='container-signup'>
+                <div id='html-spinner-signup'></div>
               </div>
             ) : (
               "S'inscrire"
@@ -210,64 +210,64 @@ const SignUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="signup-form-container small-screens"
+          className='signup-form-container small-screens'
         >
           <input
-            type="text"
-            className="signup-form"
+            type='text'
+            className='signup-form'
             value={user.fullname}
             onChange={handleFullname}
-            placeholder="Entrez votre nom complet"
+            placeholder='Entrez votre nom complet'
           />
           <input
-            type="text"
-            className="signup-form"
+            type='text'
+            className='signup-form'
             value={user.betId}
             onChange={handleBetId}
-            placeholder="1Numéro d’identification XBET"
+            placeholder='1Numéro d’identification XBET'
           />
           <input
-            type="number"
-            className="signup-form"
+            type='number'
+            className='signup-form'
             value={user.number}
             onChange={handleNumber}
-            placeholder="Numéro Whatsapp/mobile"
+            placeholder='Numéro Whatsapp/mobile'
           />
           <input
-            type="email"
-            className="signup-form"
+            type='email'
+            className='signup-form'
             value={user.email}
             onChange={handleUserEmail}
-            placeholder="Entrez votre adresse email"
+            placeholder='Entrez votre adresse email'
           />
           <input
-            type="password"
-            className="signup-form"
+            type='password'
+            className='signup-form'
             value={user.password}
             onChange={handleUserPassword}
-            placeholder="Entrer le mot de passe"
+            placeholder='Entrer le mot de passe'
           />
           <input
-            type="password"
-            className="signup-form"
+            type='password'
+            className='signup-form'
             value={user.confirmPassword}
             onChange={handleUserConfirmPassword}
-            placeholder="Confirmez le mot de passe"
+            placeholder='Confirmez le mot de passe'
           />
 
-          <div className="signup-condition">
+          <div className='signup-condition'>
             <span
-              className="signup-condition-checkbox"
+              className='signup-condition-checkbox'
               onClick={toggleIsChecked}
               style={{
                 background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
               }}
             >
               {IsChecked ? (
-                <ImCheckmark className="BiCheck" color="black" />
+                <ImCheckmark className='BiCheck' color='black' />
               ) : null}
             </span>
-            <p className="signup-condition-checkbox-p">
+            <p className='signup-condition-checkbox-p'>
               J&apos;accepte les conditions{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
@@ -276,8 +276,8 @@ const SignUp = () => {
           </div>
 
           <button
-            type="submit"
-            className="submit-button"
+            type='submit'
+            className='submit-button'
             style={{
               background: buttonDisabled
                 ? "rgba(189, 255, 5, .7)"
@@ -286,8 +286,8 @@ const SignUp = () => {
             }}
           >
             {loading ? (
-              <div id="container-signup">
-                <div id="html-spinner-signup"></div>
+              <div id='container-signup'>
+                <div id='html-spinner-signup'></div>
               </div>
             ) : (
               "S'inscrire"
@@ -295,54 +295,54 @@ const SignUp = () => {
           </button>
         </form>
 
-        <div className="welcome-section">
-          <div className="welcome-section-first">
-            <h2 className="welcome-section-first_h2">Rejoignez-nous</h2>
+        <div className='welcome-section'>
+          <div className='welcome-section-first'>
+            <h2 className='welcome-section-first_h2'>Rejoignez-nous</h2>
           </div>
-          <div className="welcome-section-second">
-            <h5 className="welcome-section-second_h5">Ou continuez avec</h5>
-            <div className="signup-img google">
+          <div className='welcome-section-second'>
+            <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
+            <div className='signup-img google'>
               <Image
                 src={image4}
                 loading='eager'
                 fill
-                 style={{
-              objectFit: "cover",  
-            }}
-                alt="Picture of the author"
+                style={{
+                  objectFit: "cover",
+                }}
+                alt='Picture of the author'
               />
             </div>
-            <p className="welcome-section-second_p">
+            <p className='welcome-section-second_p'>
               Vous avez déjà un compte?{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signin">S&apos;identifier!</a>
+                <a href='/signin'>S&apos;identifier!</a>
               </span>
             </p>
           </div>
         </div>
       </div>
       {/* last section */}
-      <div className="signup-container_inner23">
-        <div className="welcome-section-mobile">
-          <div className="welcome-section-second-mobile">
-            <h5 className="welcome-section-second_h5-mobile">
+      <div className='signup-container_inner23'>
+        <div className='welcome-section-mobile'>
+          <div className='welcome-section-second-mobile'>
+            <h5 className='welcome-section-second_h5-mobile'>
               Ou continuez avec
             </h5>
-            <div className="signup-img google">
+            <div className='signup-img google'>
               <Image
                 src={image4}
                 loading='eager'
                 fill
-                 style={{
-              objectFit: "cover",  
-            }}
-                alt="Picture of the author"
+                style={{
+                  objectFit: "cover",
+                }}
+                alt='Picture of the author'
               />
             </div>
-            <p className="welcome-section-second_p-mobile">
+            <p className='welcome-section-second_p-mobile'>
               Vous avez déjà un compte?{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signin">S&apos;identifier!</a>
+                <a href='/signin'>S&apos;identifier!</a>
               </span>
             </p>
           </div>
@@ -360,38 +360,38 @@ const SignUp = () => {
         >
           Contactez-nous
         </div>
-        <div className="signup-social-media-icons">
-          <div className="signup-img facebook">
+        <div className='signup-social-media-icons'>
+          <div className='signup-img facebook'>
             <Image
               src={image1}
               loading='eager'
               fill
-               style={{
-              objectFit: "cover",  
-            }}
-              alt="Picture of the author"
+              style={{
+                objectFit: "cover",
+              }}
+              alt='Picture of the author'
             />
           </div>
-          <div className="signup-img whatsapp">
+          <div className='signup-img whatsapp'>
             <Image
               src={image2}
               loading='eager'
               fill
-               style={{
-              objectFit: "cover",  
-            }}
-              alt="Picture of the author"
+              style={{
+                objectFit: "cover",
+              }}
+              alt='Picture of the author'
             />
           </div>
-          <div className="signup-img tiktok">
+          <div className='signup-img tiktok'>
             <Image
               src={image3}
               loading='eager'
               fill
-               style={{
-              objectFit: "cover",  
-            }}
-              alt="Picture of the author"
+              style={{
+                objectFit: "cover",
+              }}
+              alt='Picture of the author'
             />
           </div>
         </div>

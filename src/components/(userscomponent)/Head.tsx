@@ -10,7 +10,7 @@ const Head = ({ title, about }: any) => {
         </div>
         <div className='tag'>
           <div className='tag-container'>
-            <div className='tag-container-icon'>dj</div>
+            <div className='tag-container-icon'>DJ</div>
             <span className='tag-container-name'>dexter.j</span>
             <span className='tag-container-online-container'>
               En ligne <span className='tag-container-online-logo'> </span>{" "}
@@ -18,7 +18,7 @@ const Head = ({ title, about }: any) => {
             <span className='tag-container-id'>
               <span className='tag-container-id-span1'>
                 <span style={{ fontWeight: "300" }}>1XBet Id:</span> &nbsp;
-                8234787984
+                823478798
               </span>
               <span className='tag-container-id-span2'>
                 <IoIosCopy />
@@ -32,7 +32,7 @@ const Head = ({ title, about }: any) => {
         <div className='tag'>
           <div className='tag-container'>
             <div className='tag-container-icon'>
-              dj
+              Dj
               <span className='tag-container-online-logo-mobile'> </span>
             </div>
             <span className='tag-container-name'>dexter.j</span>
@@ -42,7 +42,7 @@ const Head = ({ title, about }: any) => {
             <span className='tag-container-id'>
               <span className='tag-container-id-span1'>
                 <span style={{ fontWeight: "300" }}>1XBet Id:</span> &nbsp;
-                8234787984
+                823478798
               </span>
               <span className='tag-container-id-span2'>
                 <IoIosCopy />

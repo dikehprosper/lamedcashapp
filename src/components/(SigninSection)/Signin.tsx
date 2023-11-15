@@ -86,8 +86,8 @@ const SignIn = () => {
           <Image
             src={image}
             fill
-             style={{
-              objectFit: "cover",  
+            style={{
+              objectFit: "cover",
             }}
             alt='Picture of the background'
             placeholder='blur'
@@ -96,7 +96,7 @@ const SignIn = () => {
         </div>
         <form onSubmit={handleSubmit} className='signin-form-container'>
           <input
-            type='text'
+            type='email'
             className='signin-form'
             value={user.email}
             onChange={handleUserEmail}
@@ -150,9 +150,9 @@ const SignIn = () => {
               <Image
                 src={image4}
                 fill
-                 style={{
-              objectFit: "cover"
-            }}
+                style={{
+                  objectFit: "cover",
+                }}
                 alt='Picture of the author'
                 loading='eager'
               />
@@ -178,9 +178,9 @@ const SignIn = () => {
                 src={image4}
                 loading='eager'
                 fill
-                 style={{
-              objectFit: "cover", 
-            }}
+                style={{
+                  objectFit: "cover",
+                }}
                 alt='Picture of the author'
               />
             </div>
@@ -211,9 +211,9 @@ const SignIn = () => {
               src={image1}
               loading='eager'
               fill
-               style={{
-              objectFit: "cover",  
-            }}
+              style={{
+                objectFit: "cover",
+              }}
               alt='Picture of the author'
             />
           </div>
@@ -222,9 +222,9 @@ const SignIn = () => {
               src={image2}
               loading='eager'
               fill
-               style={{
-              objectFit: "cover",  
-            }}
+              style={{
+                objectFit: "cover",
+              }}
               alt='Picture of the author'
             />
           </div>
@@ -233,9 +233,9 @@ const SignIn = () => {
               src={image3}
               loading='eager'
               fill
-               style={{
-              objectFit: "cover",  
-            }}
+              style={{
+                objectFit: "cover",
+              }}
               alt='Picture of the author'
             />
           </div>

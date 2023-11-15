@@ -648,7 +648,7 @@ a {
   display: flex;
   width: 35%;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
 }
 
 .title-container-h2 {
@@ -696,7 +696,7 @@ a {
    display: flex;
   align-items: center;
   justify-content: center;
-
+font-size: 15px;
 }
 
 .tag-container-name {
