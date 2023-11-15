@@ -9,6 +9,7 @@ export default function Home() {
     <>
       <div className="main">
         {/* <div className="main-img"></div> */}
+       
         <Hero />
         <SecondSection />
         <ThirdSection />

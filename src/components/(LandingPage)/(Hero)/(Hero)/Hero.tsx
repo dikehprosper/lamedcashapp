@@ -61,11 +61,12 @@ const hero = () => {
               left: 30,
               right: 30,
               height: "40%",
-              alignItems: "end",
+              alignItems: "flex-end",
               display: "flex",
               flexDirection: "column",
               textAlign: "center",
               justifyContent: "end",
+              zIndex: 2,
             }}
           >
             <div

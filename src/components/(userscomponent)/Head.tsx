@@ -1,21 +1,19 @@
 import React from "react";
 import { IoIosCopy } from "react-icons/io";
-const Head = () => {
+const Head = ({ title, about }: any) => {
   return (
     <>
       <div className='head-container big'>
         <div className='title-container'>
-          <h2 className='title-container-h2'>Welcome</h2>
-          <p className='title-container-p'>
-            Experience fast deposits and withdrawals
-          </p>
+          <h2 className='title-container-h2'>{title}</h2>
+          <p className='title-container-p'>{about}</p>
         </div>
         <div className='tag'>
           <div className='tag-container'>
-            <div className='tag-container-icon'></div>
+            <div className='tag-container-icon'>dj</div>
             <span className='tag-container-name'>dexter.j</span>
             <span className='tag-container-online-container'>
-              Online <span className='tag-container-online-logo'> </span>{" "}
+              En ligne <span className='tag-container-online-logo'> </span>{" "}
             </span>
             <span className='tag-container-id'>
               <span className='tag-container-id-span1'>
@@ -24,7 +22,7 @@ const Head = () => {
               </span>
               <span className='tag-container-id-span2'>
                 <IoIosCopy />
-                copy code
+                copier
               </span>
             </span>
           </div>
@@ -34,11 +32,12 @@ const Head = () => {
         <div className='tag'>
           <div className='tag-container'>
             <div className='tag-container-icon'>
+              dj
               <span className='tag-container-online-logo-mobile'> </span>
             </div>
             <span className='tag-container-name'>dexter.j</span>
             <span className='tag-container-online-container'>
-              Online <span className='tag-container-online-logo'> </span>{" "}
+              En ligne <span className='tag-container-online-logo'> </span>{" "}
             </span>
             <span className='tag-container-id'>
               <span className='tag-container-id-span1'>
@@ -47,16 +46,14 @@ const Head = () => {
               </span>
               <span className='tag-container-id-span2'>
                 <IoIosCopy />
-                copy code
+                copier
               </span>
             </span>
           </div>
         </div>
         <div className='title-container'>
-          <h2 className='title-container-h2'>Welcome</h2>
-          <p className='title-container-p'>
-            Experience fast deposits and withdrawals
-          </p>
+          <h2 className='title-container-h2'>{title}</h2>
+          <p className='title-container-p'>{about}</p>
         </div>
       </div>
     </>

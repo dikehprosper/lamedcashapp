@@ -27,3 +27,14 @@ export interface BigScreenNavModalProps {
     icon: React.JSX.Element;
   }[];
 }
+
+export interface UserDashboardDisplayProps {
+  count: number;
+  title: string;
+   amount: number;
+  style?: {
+    color?: string;
+    background?: string;
+    icon?: React.JSX.Element;
+  };
+}

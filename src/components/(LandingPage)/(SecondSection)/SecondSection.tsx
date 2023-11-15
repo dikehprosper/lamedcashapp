@@ -3,6 +3,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import "./secondSection.css";
+import Link from "next/link";
 
 const SecondSection = () => {
   return (

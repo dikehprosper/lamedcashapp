@@ -1,24 +1,26 @@
-"use client";
 import React from "react";
 import { CustomButtonProps } from "@/types";
+import Link from "next/link";
 
-const CustomBotton = ({
+const CustomButton = ({
   title,
   containerStyles,
   handleClick,
 }: CustomButtonProps) => {
+
   return (
-    <button
-      disabled={false}
-      type={"button"}
-      className={`custom-btn ${containerStyles}`}
-      onClick={() => {
-        handleClick;
-      }}
-    >
-      <span className="custom-button">{title}</span>
-    </button>
+    <div className={` ${containerStyles}`}>
+      <Link href='/signin'>
+        <div
+        style={{width: "100%", height: "100%"}}
+
+          className='custom-button'
+        >
+          {title}
+        </div>
+      </Link>
+    </div>
   );
 };
 
-export default CustomBotton;
+export default CustomButton;
