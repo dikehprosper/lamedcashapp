@@ -62,7 +62,7 @@ const SignIn = () => {
     console.log(user);
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000);
     router.push("/dashboard");
   };
 
