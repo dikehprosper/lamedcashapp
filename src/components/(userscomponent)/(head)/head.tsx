@@ -31,26 +31,16 @@ const Head = ({ title, about }: any) => {
       </div>
       <div className='head-container small'>
         <div className='tag'>
-          <div className='tag-container'>
-            <div className='tag-container-icon'>
-              Dj
-              <span className='tag-container-online-logo-mobile'> </span>
-            </div>
-            <span className='tag-container-name'>dexter.j</span>
-            <span className='tag-container-online-container'>
-              En ligne <span className='tag-container-online-logo'> </span>{" "}
+          <span className='tag-container-id'>
+            <span className='tag-container-id-span1'>
+              <span className='tag-container-id-span3'>1XBet Id: </span>
+              823478798
             </span>
-            <span className='tag-container-id'>
-              <span className='tag-container-id-span1'>
-                <span style={{ fontWeight: "300" }}>1XBet Id:</span> &nbsp;
-                823478798
-              </span>
-              <span className='tag-container-id-span2'>
-                <IoIosCopy />
-                copier
-              </span>
+            <span className='tag-container-id-span2'>
+              <IoIosCopy />
+              copier
             </span>
-          </div>
+          </span>
         </div>
         <div className='title-container'>
           <h2 className='title-container-h2'>{title}</h2>

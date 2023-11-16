@@ -237,12 +237,18 @@ const UserNav = () => {
             </Link>
           </div>
           <div className='nav-language'></div>
+          <div className="user-profile-icon-container">
+          <div className='user-profile-icon'>
+              D
+              <span className='user-profile-online-icon-mobile'> </span>
+          </div>
           <div onClick={changeState}>
             {state ? (
               <MdMenuOpen className='MdMenuOpen' />
             ) : (
               <AiOutlineClose className='MdMenuOpen' />
             )}
+          </div>
           </div>
         </div>
         {!state && (

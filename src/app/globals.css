@@ -617,5 +617,99 @@ a {
   .user-nav-link {
     display: none;
   }
+
+  .user-profile-icon-container {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .user-profile-icon {
+    max-width: 34px;
+    max-height: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    border-radius: 17px;
+    position: relative;
+    border: 1.5px solid rgba(189, 255, 0, 0.2);
+    position: relative;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  .user-profile-online-icon-mobile {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 8px;
+    max-height: 8px;
+    min-width: 8px;
+    min-height: 8px;
+    background: rgba(0, 256, 0, 1);
+    border-radius: 4px;
+  }
 }
 
+@media (max-width: 620px) {
+  .user-profile-icon-container {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+  }
+  .user-profile-icon {
+    max-width: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .user-profile-online-icon-mobile {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 7px;
+    max-height: 7px;
+    min-width: 7px;
+    min-height: 7px;
+    background: rgba(0, 256, 0, 1);
+    border-radius: 3.5px;
+  }
+}
+
+@media (max-width: 345px) {
+  .user-profile-icon-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .user-profile-icon {
+    max-width: 28px;
+    max-height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .user-profile-online-icon-mobile {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 6.2px;
+    max-height: 6.2px;
+    min-width: 6.2px;
+    min-height: 6.2px;
+    background: rgba(0, 256, 0, 1);
+    border-radius: 3.1px;
+  }
+}
