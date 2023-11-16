@@ -30,10 +30,7 @@ const display = ({
     >
       <div className='display-recent-1'>
         <h2 className='display-recent-1-h1'>Pending {style?.icon}</h2>
-        <h1 className='display-recent-1-h2'>
-
-          {count}
-        </h1>
+        <h1 className='display-recent-1-h2'>{count}</h1>
       </div>
       <div className='display-recent-2'>
         <span>
@@ -52,7 +49,15 @@ const display = ({
             {formatNumberWithCommasAndDecimal(amount)}
           </p>
         </span>
-        <Link href={title === "deposit" ? "/deposit" : "withdraw"} style={{width:"100%", height: "100%",display: "flex", alignItems:"end"}}>
+        <Link
+          href={title === "deposit" ? "/deposit" : "withdraw"}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "flex-end",
+          }}
+        >
           <span
             style={{
               background: style?.color,
