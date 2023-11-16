@@ -136,11 +136,11 @@ const UserNav = () => {
             <div className='user-nav-img'>
               <Image
                 src={CompanyLogo}
-               loading='eager'
+                loading='eager'
                 fill
-                  style={{
-              objectFit: "cover",  
-            }}
+                style={{
+                  objectFit: "cover",
+                }}
                 alt='Picture of the author'
               />
             </div>
@@ -165,11 +165,11 @@ const UserNav = () => {
               <div className='user-nav-logo facebook'>
                 <Image
                   src={FacebookLogo}
-                 loading='eager'
+                  loading='eager'
                   fill
-                    style={{
-              objectFit: "cover",  
-            }}
+                  style={{
+                    objectFit: "cover",
+                  }}
                   alt='Picture of the author'
                 />
               </div>
@@ -178,9 +178,9 @@ const UserNav = () => {
                   src={WhatsappLogo}
                   loading='eager'
                   fill
-                    style={{
-              objectFit: "cover",  
-            }}
+                  style={{
+                    objectFit: "cover",
+                  }}
                   alt='Picture of the author'
                 />
               </div>
@@ -189,9 +189,9 @@ const UserNav = () => {
                   src={TiktokLogo}
                   loading='eager'
                   fill
-                    style={{
-              objectFit: "cover",  
-            }}
+                  style={{
+                    objectFit: "cover",
+                  }}
                   alt='Picture of the author'
                 />
               </div>
@@ -207,9 +207,9 @@ const UserNav = () => {
               src={CompanyLogo}
               loading='lazy'
               fill
-                style={{
-              objectFit: "cover",  
-            }}
+              style={{
+                objectFit: "cover",
+              }}
               alt='Picture of the author'
             />
           </div>
@@ -237,18 +237,19 @@ const UserNav = () => {
             </Link>
           </div>
           <div className='nav-language'></div>
-          <div className="user-profile-icon-container">
-          <div className='user-profile-icon'>
-              D
-              <span className='user-profile-online-icon-mobile'> </span>
-          </div>
-          <div onClick={changeState}>
-            {state ? (
-              <MdMenuOpen className='MdMenuOpen' />
-            ) : (
-              <AiOutlineClose className='MdMenuOpen' />
-            )}
-          </div>
+          <div className='user-profile-icon-container'>
+            <Link href='/profile'>
+              <div className={`user-profile-icon ${pathname === "/profile" ? "disappear" : ""}`}>
+                D<span className='user-profile-online-icon-mobile'> </span>
+              </div>
+            </Link>
+            <div onClick={changeState}>
+              {state ? (
+                <MdMenuOpen className='MdMenuOpen' />
+              ) : (
+                <AiOutlineClose className='MdMenuOpen' />
+              )}
+            </div>
           </div>
         </div>
         {!state && (

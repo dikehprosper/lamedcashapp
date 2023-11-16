@@ -42,7 +42,7 @@ const display = ({
               paddingTop: "20px",
             }}
           >
-            Deposit Amount Due:
+            {title} montant dû:
           </p>
           <p>
             XOF &nbsp;

@@ -341,7 +341,7 @@ a {
 
   .MdMenuOpen {
     display: flex;
-    font-size: 42px;
+    font-size: 44px;
     padding: 3px 5px;
     transition: all 2s ease-in-out;
   }
@@ -453,7 +453,7 @@ a {
     height: 35px;
   }
   .MdMenuOpen {
-    font-size: 38px;
+    font-size: 40px;
   }
 }
 
@@ -639,6 +639,12 @@ a {
     justify-content: center;
     font-weight: 700;
     font-size: 17px;
+      opacity: 1;
+      transition: opacity 2s ease-in-out;
+  }
+
+  .disappear {
+    opacity: 0
   }
 
   .user-profile-online-icon-mobile {
