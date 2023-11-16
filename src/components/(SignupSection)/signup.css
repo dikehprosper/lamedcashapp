@@ -3,7 +3,7 @@
   min-height: calc(100vh - 93px);
   width: 100vwj;
   flex-direction: column;
-  margin-top: 93px
+  margin-top: 93px;
 }
 
 /* first section */
@@ -12,7 +12,7 @@
   display: flex;
   position: relative;
   min-height: 60vh;
-  gap: 80px;
+  gap: 60px;
 }
 
 .signup-container_inner_background_image {
@@ -36,14 +36,14 @@
 }
 
 .small-screens {
-  display: none
+  display: none;
 }
 .big-screens {
-  display: flex
+  display: flex;
 }
 
 .signup-form {
- border: none;
+  border: none;
   outline: none;
   padding: 15px;
   color: white;
@@ -55,13 +55,12 @@
   background: rgba(256, 256, 256, 0.03);
 }
 .signup-form:-webkit-autofill,
-.signup-form:-webkit-autofill:hover, 
-.signup-form:-webkit-autofill:focus, 
-.signup-form:-webkit-autofill:active  {
+.signup-form:-webkit-autofill:hover,
+.signup-form:-webkit-autofill:focus,
+.signup-form:-webkit-autofill:active {
   transition: background-color 5000s;
   -webkit-text-fill-color: #fff !important;
 }
-
 
 .signup-form::placeholder {
   color: rgba(256, 256, 256, 0.1);
@@ -172,19 +171,24 @@
   width: 100%;
 }
 
+@media (max-width: 1233px) {
+  .signup-condition-checkbox-p {
+    font-size: 12px;
+  }
+  .welcome-section-first_h2 {
+    font-size: 30px;
+  }
+}
 @media (min-width: 1028px) and (max-width: 1090px) {
-  
-
-
   .welcome-section-second_p {
     font-size: 13px;
   }
 }
 
 @media (max-width: 1028px) {
-   .signup-container {
-  margin-top: 80px
-}
+  .signup-container {
+    margin-top: 80px;
+  }
 
   .welcome-section {
     display: none;
@@ -197,12 +201,12 @@
   }
 
   .small-screens {
-  display: flex
-}
+    display: flex;
+  }
 
   .big-screens {
-  display: none
-}
+    display: none;
+  }
 
   .signup-container_inner {
     min-height: 250px;
@@ -239,12 +243,6 @@
 
   .signup-condition-checkbox-p {
     font-size: 9px;
-  }
-}
-
-@media (max-width: 380px) {
-  .signup-condition-checkbox-p {
-    font-size: 8.5px;
   }
 }
 
@@ -399,17 +397,32 @@
   }
 }
 
+@media (max-width: 355px) {
+  .signup-form {
+    padding: 10px !important;
+    border: 1.4px solid rgba(256, 256, 256, 0.09);
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .signup-condition-checkbox-p {
+    font-size: 7.5px;
+  }
 
+  .signup-form::placeholder {
+    font-size: 12px;
+  }
+  .welcome-section-second_p-mobile {
+    font-size: 10px !important;
+  }
 
+  .welcome-section-second_h5-mobile {
+    font-size: 11px;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
+  .signup-header {
+    font-size: 14px;
+  }
+  .submit-button {
+    font-size: 22px;
+  }
+}

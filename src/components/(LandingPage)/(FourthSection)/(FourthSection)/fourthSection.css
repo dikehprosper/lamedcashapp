@@ -20,7 +20,20 @@
 }
 
 @media (max-width: 1028px) {
-.component_400 {
-  padding: 55px 14px 20px 14px;
+  .component_400 {
+    padding: 55px 14px 20px 14px;
+  }
 }
+
+@media (max-width: 396px) {
+  .component_400 > h2 {
+    font-size: 21px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 339px) {
+  .component_400 {
+    padding: 55px 14px 20px 14px;
+  }
 }

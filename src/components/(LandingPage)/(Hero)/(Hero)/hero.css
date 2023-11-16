@@ -244,3 +244,23 @@
     z-index: -4;
   }
 }
+
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 19px;
+    line-height: 30px;
+  }
+
+  .hero-subtitle {
+    font-size: 11.5px;
+    line-height: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero_button_container {
+    width: 150px;
+    height: 35px;
+    font-size: 10px;
+  }
+}

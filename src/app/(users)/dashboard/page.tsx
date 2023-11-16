@@ -1,6 +1,7 @@
 import React from "react";
-import Head from "@/components/(userscomponent)/Head";
-import Display from "@/components/(userscomponent)/Display";
+import Head from "@/components/(userscomponent)/(head)/head";
+import Display from "@/components/(userscomponent)/(display)/display";
+import "./.css";
 const Dashboard = async () => {
   return (
     <div className='user_dashboard_container'>
@@ -8,7 +9,7 @@ const Dashboard = async () => {
         title='Bienvenue'
         about="Faites l'expérience de dépôts et de retraits rapides"
       />
-      {/* <div className='user-dashboard-display'>
+      <div className='user-dashboard-display'>
         <Display
           count={1}
           title='Dépôt'
@@ -21,7 +22,7 @@ const Dashboard = async () => {
           amount={3200868.99}
           style={{ color: "#0076B8", background: "rgba(0, 118, 184, .4)" }}
         />
-      </div> */}
+      </div>
     </div>
   );
 };

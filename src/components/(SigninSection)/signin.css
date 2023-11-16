@@ -3,7 +3,7 @@
   min-height: calc(100vh - 93px);
   width: 100vw;
   flex-direction: column;
-  margin-top: 93px
+  margin-top: 93px;
 }
 
 /* first section */
@@ -49,9 +49,9 @@
 }
 
 .signin-form:-webkit-autofill,
-.signin-form:-webkit-autofill:hover, 
-.signin-form:-webkit-autofill:focus, 
-.signin-form:-webkit-autofill:active  {
+.signin-form:-webkit-autofill:hover,
+.signin-form:-webkit-autofill:focus,
+.signin-form:-webkit-autofill:active {
   transition: background-color 5000s;
   -webkit-text-fill-color: #fff !important;
 }
@@ -150,10 +150,9 @@
 }
 
 @media (max-width: 1028px) {
-
   .signin-container {
-  margin-top: 80px
-}
+    margin-top: 80px;
+  }
 
   .welcome-section {
     display: none;
@@ -226,7 +225,6 @@
 .welcome-section-mobile {
   display: none;
 }
-
 
 @media (max-width: 1028px) {
   .signin {
@@ -358,4 +356,35 @@
   display: flex;
   align-items: center;
   color: rgba(256, 256, 256, 0.6);
+}
+
+@media (max-width: 355px) {
+  .signin-form {
+    padding: 10px !important;
+    border: 1.4px solid rgba(256, 256, 256, 0.09);
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .signin-condition-checkbox-p {
+    font-size: 7.5px;
+  }
+
+  .signin-form::placeholder {
+    font-size: 12px;
+  }
+  .welcome-section-second_p-mobile {
+    font-size: 10px !important;
+  }
+
+  .welcome-section-second_h5-mobile {
+    font-size: 11px;
+  }
+
+  .signin-header {
+    font-size: 14px;
+  }
+
+  .submit-button {
+    font-size: 22px;
+  }
 }

@@ -6,7 +6,7 @@
   gap: 40px;
   padding: 50px 100px;
   margin-bottom: 80px;
-  margin-top: 93px
+  margin-top: 93px;
 }
 
 .AboutSection > h2 {
@@ -37,19 +37,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: cneter;
   flex-direction: column;
+  gap: 12px;
+}
+
+.AboutSection2-text > p {
+  line-height: 23px;
 }
 
 @media (max-width: 800px) {
   .AboutSection {
     gap: 20px;
     padding: 60px 30px;
-    margin-top: 80px
+    margin-top: 80px;
   }
   .AboutSection > p {
     font-size: 20px;
     line-height: 30px;
+  }
+
+  .AboutSection2-text {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    top: 40px;
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border: 0.8px solid rgba(189, 255, 0, 1);
+    font-size: 15px;
   }
 }
 
@@ -62,32 +83,43 @@
   }
   .AboutSection > p {
     font-size: 15px;
-   line-height: 28px;
+    line-height: 28px;
   }
   .AboutSection > h2 {
     font-size: 23px;
   }
 
   .AboutSection2 {
-  min-height: 900px;
+    min-height: 900px;
+  }
+
+  .AboutSection2-text {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    top: 40px;
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border: 0.8px solid rgba(189, 255, 0, 1);
+    font-size: 15px;
+  }
+}
+@media (max-width: 347px) {
+  .AboutSection2-text > p {
+    font-size: 14px !important;
+    line-height: 17px;
+  }
 }
 
-.AboutSection2-text {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 30px;
-  top: 40px;
-  bottom: 50px;
-  left: 20px;
-  right: 20px;
-  padding: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  border: .8px solid rgba(189, 255, 0, 1);
-  font-size: 15px;
- 
-}
-
+@media (max-width: 295px) {
+  .AboutSection2-text > p {
+    font-size: 10px !important;
+    line-height: 14px;
+  }
 }

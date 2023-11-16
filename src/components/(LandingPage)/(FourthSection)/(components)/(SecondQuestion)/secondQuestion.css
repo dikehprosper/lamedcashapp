@@ -19,7 +19,7 @@
 
 .body_innerbody_604 > p {
   font-size: 20px;
-   color: #bdff00;
+  color: #bdff00;
 }
 
 .requirements-container {
@@ -34,45 +34,50 @@
   font-size: 20px;
 }
 
-
 .animate-height {
-    width: 100%;
-    padding: 0px 120px;
-    border-radius: 0px 0px 37px 37px
+  width: 100%;
+  padding: 0px 120px;
+  border-radius: 0px 0px 37px 37px;
 }
 
 @media (max-width: 1028px) {
   .body_innerbody_604 {
-  padding: 20px 25px;
-}
-.animate-height {
+    padding: 20px 25px;
+  }
+  .animate-height {
     padding: 0px 50px;
-}
-.body_innerbody_604 > p {
-  font-size: 18px;
-}
-.requirements-container  p {
-  font-size: 17px;
-}
-.requirements-container {
-  font-size: 13px;
-}
+  }
+  .body_innerbody_604 > p {
+    font-size: 18px;
+  }
+  .requirements-container p {
+    font-size: 17px;
+  }
+  .requirements-container {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 775px) {
-.body_innerbody_604 > p {
-  font-size: 12px;
-}
-.requirements-container > p {
-  font-size: 13px;
-}
-.requirements-container {
-  font-size: 11px;
-}
+  .body_innerbody_604 > p {
+    font-size: 12px;
+  }
+  .requirements-container > p {
+    font-size: 13px;
+  }
+  .requirements-container {
+    font-size: 11px;
+  }
   .body_innerbody_604 {
-  padding: 20px 25px;
-}
-.animate-height {
+    padding: 20px 25px;
+  }
+  .animate-height {
     padding: 0px 25px;
+  }
 }
+
+@media (max-width: 339px) {
+  .body_innerbody_601 {
+    width: 100%;
+  }
 }

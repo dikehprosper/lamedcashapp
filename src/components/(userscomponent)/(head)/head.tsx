@@ -1,5 +1,6 @@
 import React from "react";
 import { IoIosCopy } from "react-icons/io";
+import "./head.css";
 const Head = ({ title, about }: any) => {
   return (
     <>

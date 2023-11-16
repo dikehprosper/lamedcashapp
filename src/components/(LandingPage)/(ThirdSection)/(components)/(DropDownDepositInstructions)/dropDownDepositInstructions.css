@@ -221,3 +221,10 @@
     height: 190px;
   }
 }
+
+@media (max-width: 339px) {
+  .body_innerbody_001 {
+  height: 150px;
+  border-radius: 22px;
+}
+}
