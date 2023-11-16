@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "@/components/(userscomponent)/(head)/head";
 import Display from "@/components/(userscomponent)/(display)/display";
-import "./.css";
+import "./dash.css";
 import { TbPigMoney } from "react-icons/tb"
 const Dashboard = async () => {
   return (
