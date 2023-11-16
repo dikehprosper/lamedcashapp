@@ -50,7 +50,7 @@ const display = ({
           </p>
         </span>
         <Link
-          href={title === "deposit" ? "/deposit" : "withdraw"}
+          href={title === "deposit" ? "/deposit" : "/withdraw"}
           style={{
             width: "100%",
             height: "100%",
