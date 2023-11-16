@@ -13,7 +13,7 @@
   align-items: center;
   padding-top: 35px;
   gap: 7px;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .display-recent-1-h1 {
@@ -35,7 +35,7 @@ display: flex;
   justify-content: space-between;
   padding: 15px 0px;
   flex: 1;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .display-recent-2 p:first-child {
@@ -147,7 +147,7 @@ display: flex;
 }
 .display-recent-1-h2 {
   font-size: 41px;
- justify-content: start;
+ justify-content: flex-start;
    padding-left: 20px
 }
 .display-recent-2 p:first-child {
@@ -169,11 +169,11 @@ display: flex;
 .display-recent-1 {
 width: 48%;
 gap: 10px;
-align-items: start;
+align-items: flex-start;
 padding-left: 20px
 }
 .display-recent-2 {
-  align-items: start
+  align-items: flex-start
 }
 
 }
@@ -206,7 +206,7 @@ padding-left: 20px
 .display-recent-1 {
 width: 48%;
 gap: 8px;
-align-items: start;
+align-items: flex-flex-start;
 padding-left: 20px
 }
 
