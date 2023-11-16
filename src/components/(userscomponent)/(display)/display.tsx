@@ -29,7 +29,7 @@ const display = ({
       style={{ background: style?.background }}
     >
       <div className='display-recent-1'>
-        <h2 className='display-recent-1-h1'>Pending {style.icon}</h2>
+        <h2 className='display-recent-1-h1'>Pending {style?.icon}</h2>
         <h1 className='display-recent-1-h2'>
 
           {count}
