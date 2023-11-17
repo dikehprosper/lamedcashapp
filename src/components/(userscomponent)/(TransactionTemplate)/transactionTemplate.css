@@ -196,10 +196,12 @@
 @media (max-width: 640px) {
   .transaction_template_container_header_2_span_1,
   .transaction_template_container_header_2_span_2 {
-    font-size: 14px!important;
+    font-size: 13px!important;
+   
   }
   .transaction_template_container_header_2 h3 {
-    font-size: 12px;
+    font-size: 11.4px;
+     color: rgba(256, 256, 256, 0.6)!important
   }
 
   .transaction_template_container_header {
