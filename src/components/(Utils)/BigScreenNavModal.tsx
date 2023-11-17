@@ -22,7 +22,16 @@ const BigScreenNavModal = ({
             href={link.pathname}
             // onClick={handleClick}
           >
-            {link.icon} &nbsp; &nbsp; {link.title}
+            <div
+              className={` ${
+                link.title === "Dépôt" || link.title === "Retirer"
+                  ? "rotate-icon"
+                  : ""
+              }`}
+            >
+              {link.icon}{" "}
+            </div>
+            &nbsp; &nbsp; {link.title}
           </Link>
         );
       })}

@@ -31,10 +31,25 @@ export interface BigScreenNavModalProps {
 export interface UserDashboardDisplayProps {
   count: number;
   title: string;
-   amount: number;
+  term: number;
+  amount: number;
   style?: {
     color?: string;
     background?: string;
     icon?: React.JSX.Element;
   };
+}
+
+export interface TransactionTemplateProps {
+  title: string;
+}
+
+export interface TransactionResultsProps {
+  date: string | number;
+  time: string | number;
+  amount: number;
+  receipt: string | number;
+  betId: string | number;
+  status: string;
+  type: string;
 }

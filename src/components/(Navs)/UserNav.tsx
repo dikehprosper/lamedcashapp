@@ -35,12 +35,12 @@ const UsersNavLinks = [
   {
     title: "Dépôt",
     pathname: "/deposit",
-    icon: <BiLogOutCircle />,
+    icon: <BiLogInCircle />,
   },
   {
     title: "Retirer",
     pathname: "/withdraw",
-    icon: <BiLogInCircle />,
+    icon: <BiLogOutCircle />,
   },
   {
     title: `Transactions`,

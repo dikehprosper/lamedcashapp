@@ -1,11 +1,17 @@
 import React from "react";
-import UserNav from "@/components/(Navs)/UserNav";
+import "./transactionPage.css";
+import Head from "@/components/(userscomponent)/(head)/head";
+import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplate)/TransactionTemplate";
+
 const Transactions = () => {
   return (
-    <>
-      {/* <UserNav /> */}
-      Transactions
-    </>
+    <div className='transactionPage_container'>
+      <Head
+        title='Transaction'
+        about='View and Track your Transaction history'
+      />
+      <TransactionTemplate title='' />
+    </div>
   );
 };
 

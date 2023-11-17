@@ -1,27 +1,17 @@
 import React from "react";
 import { UserDashboardDisplayProps } from "@/types";
 import Link from "next/link";
-
+import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import "./display.css";
+
 const display = ({
   count,
+  term,
   title,
   amount,
   style,
 }: UserDashboardDisplayProps) => {
-  function formatNumberWithCommasAndDecimal(amount: number): string {
-    // Use toFixed(2) to ensure two decimal places and convert to a string
-    const formattedNumber = amount.toFixed(2);
-    // Use toLocaleString() to add commas for proper indentation
-    const formattedString = parseFloat(formattedNumber).toLocaleString(
-      undefined,
-      {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }
-    );
-    return formattedString;
-  }
+
 
   return (
     <div
@@ -50,7 +40,7 @@ const display = ({
           </p>
         </span>
         <Link
-          href={title === "deposit" ? "/deposit" : "/withdraw"}
+          href={term === 1 ? "/deposit" : "/withdraw"}
           style={{
             width: "100%",
             height: "100%",

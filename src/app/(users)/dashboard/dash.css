@@ -1,10 +1,9 @@
 .user_dashboard_container {
   display: flex;
   margin-left: 250px;
-  padding: 50px 50px 50px 35px;
+  padding: 27px 50px 20px 35px;
   min-height: 100vh;
   flex-direction: column;
-  gap: 40px;
 }
 
 .user-dashboard-display {
@@ -16,6 +15,7 @@
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0.1px 0.1px 5px rgba(0, 255, 0, 0.4),
     -0.1px -0.1px 5px rgba(0, 0, 255, 0.4);
+    margin-top : 40px
 }
 
 @media (max-width: 1028px) {
@@ -24,15 +24,15 @@
     padding: 90px 35px;
   }
   .user-dashboard-display {
-  padding: 10px;
-   border-radius: 12px;
-}
+    padding: 10px;
+    border-radius: 12px;
+  }
 }
 
 @media (max-width: 580px) {
   .user-dashboard-display {
     gap: 16px;
-  flex-direction: column
+    flex-direction: column;
   }
 }
 
@@ -41,7 +41,6 @@
     padding: 82px 20px;
   }
 }
-
 
 @media (max-width: 450px) {
   .user_dashboard_container {

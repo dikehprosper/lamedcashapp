@@ -3,7 +3,8 @@ import Head from "@/components/(userscomponent)/(head)/head";
 import Display from "@/components/(userscomponent)/(display)/display";
 import "./dash.css";
 import { TbPigMoney } from "react-icons/tb";
-import { RiMoneyDollarCircleLine } from "react-icons/ri"
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplate)/TransactionTemplate";
 const Dashboard = async () => {
   return (
     <div className='user_dashboard_container'>
@@ -15,6 +16,7 @@ const Dashboard = async () => {
         <Display
           count={1}
           title='Dépôt'
+          term={1}
           amount={345566789868.99}
           style={{
             color: "#658900",
@@ -24,6 +26,7 @@ const Dashboard = async () => {
         />
         <Display
           count={1}
+          term={2}
           title='Retirer'
           amount={320086834890.99}
           style={{
@@ -33,7 +36,8 @@ const Dashboard = async () => {
           }}
         />
       </div>
-    </div>
+      <TransactionTemplate title="" />
+   </div>
   );
 };
 

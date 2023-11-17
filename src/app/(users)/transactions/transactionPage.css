@@ -1,0 +1,28 @@
+.transactionPage_container {
+  display: flex;
+  margin-left: 250px;
+  padding: 27px 50px 20px 35px;
+max-height: 100vh;
+min-height: 100vh;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+@media (max-width: 1028px) {
+  .transactionPage_container {
+    margin-left: 0px;
+    padding: 90px 35px;
+  }
+}
+
+@media (max-width: 620px) {
+  .transactionPage_container {
+    padding: 82px 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .transactionPage_container {
+    padding: 82px 16px;
+  }
+}
