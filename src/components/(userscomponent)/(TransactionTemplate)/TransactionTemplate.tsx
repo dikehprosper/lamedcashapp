@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "./transactionTemplate.css";
 import AnimateHeight from "react-animate-height";
 import { TransactionTemplateProps } from "@/types";
@@ -36,13 +36,13 @@ const TransactionTemplate = ({ title }: TransactionTemplateProps) => {
             <span className='transaction_template_container_header_2_span_1'>
               Total Deposits:{" "}
             </span>{" "}
-            XOF <> {formatNumberWithCommasAndDecimal(378899456567.99)}</>
+             <> XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</>
           </h3>
           <h3>
             <span className='transaction_template_container_header_2_span_2'>
               Total Withdrawals:{" "}
             </span>{" "}
-            XOF <> {formatNumberWithCommasAndDecimal(378899456567.99)}</>
+            <>  XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</>
           </h3>
         </span>
       </div>
@@ -67,37 +67,33 @@ const TransactionTemplate = ({ title }: TransactionTemplateProps) => {
               <FaCircle color='#0076B8' fontSize='10px' />
             </span>
           </div>
-          <div
-            className='transaction_template_container_body_1_3'
-            aria-expanded={height !== 0}
-            aria-controls='example-panel'
-            onClick={adjustHeight}
-          >
-            Wihdrawals&nbsp;#
-            <AnimateHeight
-              id='example-panel'
-              duration={300}
-              height={height}
-              style={{
-                background: "black",
-                position: "absolute",
-                top: "28px",
-                right: 0,
-                left: 0,
-                zIndex: 12,
-              }}
-            >
-              <div className='dropdown-content'>
-                <div
-                  className='dropdown-content_1'
-                  style={{ background: "rgba(256, 256, 256, 0.3)" }}
-                >
-                  All
-                </div>
-                <div className='dropdown-content_2'>Deposits</div>
-                <div className='dropdown-content_3'>Withdrawals</div>
-              </div>
-            </AnimateHeight>
+          <div className='transaction_template_container_body_1_3'  aria-expanded={height !== 0}
+            aria-controls="example-panel" onClick={adjustHeight}>
+             Wihdrawals&nbsp;#
+  <AnimateHeight
+        id="example-panel"
+        duration={300}
+        height={height}
+        style={{
+        background: 'black',
+        position: "absolute",
+        top: "28px" ,
+        right: 0,
+        left: 0,
+         zIndex: 12,
+        
+       
+        }}
+      >
+
+            <div className="dropdown-content">
+              <div className="dropdown-content_1" style={{background: "rgba(256, 256, 256, 0.3)"}}>All</div>
+              <div  className="dropdown-content_2">Deposits</div>
+              <div  className="dropdown-content_3">Withdrawals</div>
+            </div>
+           </AnimateHeight>
+
+
           </div>
         </div>
 
@@ -111,7 +107,7 @@ const TransactionTemplate = ({ title }: TransactionTemplateProps) => {
             marginTop: "10px",
           }}
         >
-          {/* <TransactionResults
+          <TransactionResults
             date='24 - Jun - 2023'
             time='10:30:25 p.M'
             amount={4448488843}
@@ -213,7 +209,7 @@ const TransactionTemplate = ({ title }: TransactionTemplateProps) => {
                 <FaArrowRight />
               </Link>
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </div>

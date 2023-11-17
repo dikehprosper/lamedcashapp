@@ -39,7 +39,7 @@
 }
 
 .display-recent-2 p:first-child {
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .display-recent-2 p:nth-child(2) {
@@ -64,12 +64,12 @@
     font-size: 41px;
   }
   .display-recent-2 p:first-child {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .display-recent-2 p:nth-child(2) {
     font-weight: 700;
-    font-size: 12px;
+    font-size: 14px;
   }
   .display-recent-2-title {
     height: 35px;
@@ -146,12 +146,12 @@
     padding-left: 20px;
   }
   .display-recent-2 p:first-child {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .display-recent-2 p:nth-child(2) {
     font-weight: 700;
-    font-size: 11px;
+    font-size: 13px;
   }
   .display-recent-2-title {
     height: 32px;
@@ -180,13 +180,13 @@
     font-size: 24px;
   }
   .display-recent-2 p:first-child {
-    font-size: 9px;
+    font-size: 12px;
     padding-top: 13px !important;
   }
 
   .display-recent-2 p:nth-child(2) {
     font-weight: 700;
-    font-size: 8px;
+    font-size: 11px;
   }
   .display-recent-2-title {
     height: 27px;
@@ -201,6 +201,19 @@
     gap: 8px;
     align-items: flex-start;
     padding-left: 20px;
+  }
+}
+
+@media (max-width: 295px) {
+
+  .display-recent-2 p:first-child {
+    font-size: 11px;
+    padding-top: 13px !important;
+  }
+
+  .display-recent-2 p:nth-child(2) {
+    font-weight: 700;
+    font-size: 10px;
   }
 }
 

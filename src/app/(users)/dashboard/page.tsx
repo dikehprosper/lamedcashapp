@@ -17,7 +17,7 @@ const Dashboard = async () => {
           count={1}
           title='Dépôt'
           term={1}
-          amount={345566789868.99}
+          amount={566789868.99}
           style={{
             color: "#658900",
             background: "rgba(101, 137, 0, 0.4)",
@@ -28,7 +28,7 @@ const Dashboard = async () => {
           count={1}
           term={2}
           title='Retirer'
-          amount={320086834890.99}
+          amount={86834890.99}
           style={{
             color: "#0076B8",
             background: "rgba(0, 118, 184, .4)",
