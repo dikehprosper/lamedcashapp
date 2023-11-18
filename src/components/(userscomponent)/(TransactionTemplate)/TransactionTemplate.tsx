@@ -107,7 +107,7 @@ const TransactionTemplate = ({ title }: TransactionTemplateProps) => {
             marginTop: "10px",
           }}
         >
-          <TransactionResults
+          {/* <TransactionResults
             date='24 - Jun - 2023'
             time='10:30:25 p.M'
             amount={4448488843}
@@ -201,7 +201,7 @@ const TransactionTemplate = ({ title }: TransactionTemplateProps) => {
                 type='withdraw'
               />
             </>
-          )}
+          )} */}
           {pathname === "/transactions" ? null : (
             <div className='view-more'>
               <Link href='/transactions'>
