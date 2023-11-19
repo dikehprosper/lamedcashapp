@@ -4,7 +4,8 @@ import Display from "@/components/(userscomponent)/(display)/display";
 import "./dash.css";
 import { TbPigMoney } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplate)/TransactionTemplate";
+import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplateUsers)/TransactionTemplate";
+import { LuHistory } from "react-icons/lu";
 const Dashboard = async () => {
   return (
     <div className='user_dashboard_container'>
@@ -36,8 +37,15 @@ const Dashboard = async () => {
           }}
         />
       </div>
-      <TransactionTemplate title="" />
-   </div>
+      <TransactionTemplate
+        title={{ name: "Transaction History", icon: <LuHistory /> }}
+        select={{
+          firstSelect: { big: "View All", small: "All" },
+          secondSelect: { big: "View Deposits", small: "Deposits" },
+          thirdSelect: { big: "View Withdrawals", small: "Withdrawals" },
+        }}
+      />
+    </div>
   );
 };
 

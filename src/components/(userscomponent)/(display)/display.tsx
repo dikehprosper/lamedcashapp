@@ -43,7 +43,6 @@ const display = ({
           href={term === 1 ? "/deposit" : "/withdraw"}
           style={{
             width: "100%",
-            height: "100%",
             display: "flex",
             alignItems: "flex-end",
           }}
