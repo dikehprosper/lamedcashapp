@@ -125,7 +125,7 @@ justify-content: flex-end
   align-items: center;
   font-size: 10px;
   color: rgba(256, 256, 256, 0.6);
-  margin-bottom: -8px!important;
+  margin-bottom: 0px;
 
 }
 }
@@ -177,7 +177,7 @@ max-height: 38px!important;
      }
     .mobile-time {
   font-size: 6px;
-  margin-bottom: -8px
+  margin-bottom: 0px
 }
 
     .small_device_group > span:first-child {
