@@ -3,10 +3,8 @@
   margin-left: 250px;
   padding: 27px 50px 20px 35px;
   min-height: 100vh;
-  flex-direction: column;
-    overflow: hidden;
   flex: 1;
-  max-height: 100vh;
+
 }
 
 .user-dashboard-display {
