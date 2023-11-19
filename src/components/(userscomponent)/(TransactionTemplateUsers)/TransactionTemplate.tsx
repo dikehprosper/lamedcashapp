@@ -425,7 +425,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             </div> : null
           } */}
 
-          {pathname === "/transactions" ? null : viewMore === true ? (
+          {/* {pathname === "/transactions" ? null : viewMore === true ? (
             <div className='view-more'>
               <Link
                 href={{
@@ -437,7 +437,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 <FaArrowRight />
               </Link>
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </div>
