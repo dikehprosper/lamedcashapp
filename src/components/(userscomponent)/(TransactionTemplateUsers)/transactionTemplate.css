@@ -249,11 +249,20 @@ font-weight: bold
   font-size: 9px;
 }
 .transaction_template_container {
-
 flex: 1
 }
+
 .view-more {
+  cursor: pointer;
   margin-right: 20px;
+  padding: 6px 19px;
+  border-radius: 4px;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  background: rgba(226, 244, 240, 0.2);
+  font-size: 14px;
+  margin-top: 10px;
 }
 }
 
