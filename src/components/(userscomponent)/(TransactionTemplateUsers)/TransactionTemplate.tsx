@@ -209,7 +209,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             flex: "1",
           }}
         >
-          {/* {pathname === "/transactions" ? (
+          {pathname === "/transactions" ? (
             state === "View Deposits" ? (
               data.filter((item: any) => item.type === "deposits").length >
               0 ? (
@@ -414,7 +414,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
               <CgTrashEmpty fontSize='80px' />
               <h2>No Data to Show</h2>
             </div>
-          )} */}
+          )}
 
           {/* {pathname === "/transactions" ? null : 
          viewMore === true? <div className='view-more'>
@@ -425,7 +425,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             </div> : null
           } */}
 
-          {/* {pathname === "/transactions" ? null : viewMore === true ? (
+          {pathname === "/transactions" ? null : viewMore === true ? (
             <div className='view-more'>
               <Link
                 href={{
@@ -437,7 +437,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 <FaArrowRight />
               </Link>
             </div>
-          ) : null} */}
+          ) : null}
         </div>
       </div>
     </div>
