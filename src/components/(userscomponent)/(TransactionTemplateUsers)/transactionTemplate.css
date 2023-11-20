@@ -13,11 +13,9 @@
   overflow: hidden;
   overflow-y: scroll;
   flex: 1;
-  height: 100vh;
-   
+  height: 200px;
+  background: red
 }
-
-
 
 .active_selection_small {
    background: grey;
