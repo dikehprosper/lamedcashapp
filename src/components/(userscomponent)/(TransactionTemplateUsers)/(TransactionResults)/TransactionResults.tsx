@@ -14,8 +14,8 @@ const TransactionResults = ({
   type,
 }: TransactionResultsProps) => {
   return (
-    // <>
-    //  <div className='mobile-time'> {date} {time}</div>
+    <>
+     <div className='mobile-time'> {date} {time}</div>
     <div className='transaction_result'>
       <span
         style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
@@ -50,6 +50,7 @@ const TransactionResults = ({
         </span>
       </span>
     </div>
+     </>
   );
 };
 
