@@ -227,8 +227,6 @@ const [loading, setLoading] = useState(false)
             gap: "10px",
             paddingBottom: "20px",
             marginTop: "5px",
-            minHeight: "100%",
-            flex: "1",
           }}
         >
            
