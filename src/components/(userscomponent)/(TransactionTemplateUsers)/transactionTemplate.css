@@ -13,12 +13,15 @@
   overflow: hidden;
   overflow-y: scroll;
   flex: 1;
-  /* height: 100vh; */
+  height: 100vh;
+   
 }
 
+
+
 .active_selection_small {
-  background: grey;
-  color: black;
+   background: grey;
+   color: black
 }
 
 .transaction_template_container_header {
@@ -68,26 +71,27 @@
   display: flex;
   background: rgba(0, 0, 0, 0.4);
   border: 0.5px solid rgba(0, 255, 0, 0.09);
-  /* height: 100%; */
+  height: 100%;
   width: 100%;
   border-radius: 9px;
   flex-direction: column;
-  /* max-height: 100%; */
+  max-height: 100%;
   overflow: hidden;
   overflow-y: scroll;
-  flex: 1;
+  flex: 1
 }
 
 .transaction_template_container_body_1 {
   border-radius: 0px 0px 5px 5px;
   border: 0.5px solid rgba(0, 255, 0, 0.09);
   margin-bottom: 5px;
-  min-height: 40px !important;
-  max-height: 40px !important;
+  min-height: 40px!important;
+   max-height: 40px!important;
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+
 }
 .transaction_template_container_body_2 {
   display: flex;
@@ -99,7 +103,11 @@
   overflow-y: scroll;
   position: relative;
   flex: 1;
+ 
 }
+
+
+
 
 .transaction_template_container_body_1_1 {
   height: 25px;
@@ -113,9 +121,9 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-left: 10px !important;
-  background: grey;
-  font-weight: bold;
+   margin-left: 10px!important;
+   background: grey;
+font-weight: bold
 }
 
 .transaction_template_container_body_1_2 {
@@ -126,11 +134,11 @@
   align-items: center;
   width: 500px;
   gap: 5px;
-  margin-right: 5px;
+  margin-right: 5px
 }
 
 .transaction_template_container_body_1_3 {
-  display: none;
+  display: none
 }
 
 .transaction_template_container_body
@@ -175,43 +183,45 @@
     justify-content: flex-end;
   }
   .transaction_template_container_body_1_2 {
-    display: none;
-  }
+   display: none;
+}
+
 
   .transaction_template_container_body_1_3 {
-    height: 25px;
-    width: 130px;
-    border: 1px solid rgba(226, 244, 240, 0.2);
-    color: black;
-    font-size: 10px;
-    font-weight: 500;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-right: 10px;
+   height: 25px;
+  width: 130px;
+  border: 1px solid rgba(226, 244, 240, 0.2);
+  color: black;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+   margin-right: 10px;
     position: relative;
     background: grey;
-    font-weight: bold;
-  }
+    font-weight: bold
+}
 
-  .transaction_template_container_body_1 {
-    min-height: 40px !important;
-    max-height: 40px !important;
-    display: flex;
-    width: 100%;
-  }
+.transaction_template_container_body_1 {
+  min-height: 40px!important;
+   max-height: 40px!important;
+  display: flex;
+  width: 100%; 
+}
 }
 
 @media (max-width: 640px) {
   .transaction_template_container_header_2_span_1,
   .transaction_template_container_header_2_span_2 {
-    font-size: 13px !important;
+    font-size: 13px!important;
+   
   }
   .transaction_template_container_header_2 h3 {
     font-size: 11.4px;
-    color: rgba(256, 256, 256, 0.6) !important;
+     color: rgba(256, 256, 256, 0.6)!important
   }
 
   .transaction_template_container_header {
@@ -225,83 +235,88 @@
     justify-content: space-between;
     display: flex;
     width: 100%;
-    align-items: center;
+    align-items: center
   }
   .transaction_template_container_header_1 {
     font-size: 14px;
   }
 }
 
-@media (max-width: 500px) {
-  .transaction_template_container_body_1_1 {
-    height: 22px;
-    width: 100px;
-    font-size: 11px;
-  }
-  .transaction_template_container_body_1_3 {
-    height: 22px;
-    width: 108px;
-    font-size: 9px;
-  }
-  .transaction_template_container {
-    flex: 1;
-  }
 
-  .view-more {
-    cursor: pointer;
-    margin-right: 20px;
-    padding: 6px 19px;
-    border-radius: 4px;
-    align-self: flex-end;
-    display: flex;
-    align-items: center;
-    background: rgba(226, 244, 240, 0.2);
-    font-size: 14px;
-    margin-top: 10px;
-  }
+@media (max-width: 500px) {
+
+  .transaction_template_container_body_1_1 {
+  height: 22px;
+  width: 100px;
+  font-size: 11px;
+}
+.transaction_template_container_body_1_3 {
+   height: 22px;
+  width: 108px;
+  font-size: 9px;
+}
+.transaction_template_container {
+flex: 1
+}
+
+.view-more {
+  cursor: pointer;
+  margin-right: 20px;
+  padding: 6px 19px;
+  border-radius: 4px;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  background: rgba(226, 244, 240, 0.2);
+  font-size: 14px;
+  margin-top: 10px;
+}
 }
 
 @media (max-width: 350px) {
   .transaction_template_container_header_2_span_1,
   .transaction_template_container_header_2_span_2 {
-    font-size: 10px !important;
+    font-size: 10px!important;
   }
   .transaction_template_container_header_2 h3 {
     font-size: 8px;
   }
 
-  .transaction_template_container_body_1_1 {
-    height: 21px;
-    width: 90px;
-    font-size: 10px;
-  }
-  .transaction_template_container_body_1_3 {
-    height: 21px;
-    width: 93px;
-    font-size: 7.5px;
-  }
+    .transaction_template_container_body_1_1 {
+  height: 21px;
+  width: 90px;
+  font-size: 10px;
 }
+.transaction_template_container_body_1_3 {
+   height: 21px;
+  width: 93px;
+  font-size: 7.5px;
+}
+
+
+ 
+}
+
 
 .dropdown-content {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  height: inherit;
-  align-items: end;
-  border-radius: 5px;
-  border: 0.4px solid rgba(256, 255, 256, 0.3);
-  padding: 4px 0px;
+ flex-direction: column;
+ gap: 4px;
+ height: inherit;
+ align-items: end;
+ border-radius: 5px;
+  border: .4px solid rgba(256, 255, 256, 0.3);
+     padding: 4px 0px
 }
 
-.dropdown-content_1,
-.dropdown-content_2,
-.dropdown-content_3 {
+.dropdown-content_1, .dropdown-content_2, .dropdown-content_3 {
   height: 35px;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+    display: flex;
+     align-items: center;
+     justify-content: center;
+     color: white
+
 }
 
 .no-result {
@@ -323,6 +338,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+
 }
 #container-signin {
   width: 35px;
