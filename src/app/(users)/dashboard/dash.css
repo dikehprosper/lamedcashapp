@@ -4,9 +4,10 @@
   padding: 27px 50px 20px 35px;
   min-height: 100vh;
   flex-direction: column;
-
-  flex: 1;
-
+min-height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1
 }
 
 .user-dashboard-display {
@@ -24,7 +25,7 @@
 @media (max-width: 1028px) {
   .user_dashboard_container {
     margin-left: 0px;
-    padding: 90px 35px;
+    padding: 90px 35px 10px 35px;
   }
   .user-dashboard-display {
     padding: 10px;
@@ -41,12 +42,12 @@
 
 @media (max-width: 620px) {
   .user_dashboard_container {
-    padding: 82px 20px;
+    padding: 82px 20px 10px 20px;
   }
 }
 
 @media (max-width: 450px) {
   .user_dashboard_container {
-    padding: 82px 16px;
+    padding: 82px 16px 10px 16px;
   }
 }

@@ -20,7 +20,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();
   const [height, setHeight] = useState(0);
-
+const [loading, setLoading] = useState(false)
   function adjustHeight() {
     setHeight((prev): any => {
       if (prev === 0) {
@@ -54,30 +54,46 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
   }, [state, data]);
 
   function changeState1(value: any) {
+    setLoading(true)
     setState(value);
     if (data.length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
     }
+   setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+    
   }
   function changeState2(value: any) {
+     setLoading(true)
     setState(value);
     if (data.filter((item) => item.type === "deposits").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
     }
+ setTimeout(() => {
+    setLoading(false);
+  }, 1000);
   }
 
   function changeState3(value: any) {
-    setState(value);
-    if (data.filter((item) => item.type === "withdrawals").length > 3) {
-      setStateViewMore(true);
-    } else {
-      setStateViewMore(false);
-    }
+  setLoading(true);
+  setState(value);
+
+  if (data.filter((item) => item.type === "withdrawals").length > 3) {
+    setStateViewMore(true);
+  } else {
+    setStateViewMore(false);
   }
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+}
+
 
   return (
     <div className='transaction_template_container'>
@@ -157,14 +173,14 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 position: "absolute",
                 top: "28px",
                 right: 0,
-                left: "-30px",
+                left: "-40px",
                 zIndex: 22,
               }}
             >
               <div className='dropdown-content'>
                 <div
                   className='dropdown-content_1'
-                  onClick={() => setState(select.firstSelect.big)}
+                  onClick={() => changeState1(select.firstSelect.big)}
                   style={{
                     background: state === "View All" ? "grey" : "",
                     color: state === "View All" ? "black" : "",
@@ -173,7 +189,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   {select.firstSelect.big}
                 </div>
                 <div
-                  onClick={() => setState(select.secondSelect.big)}
+                  onClick={() => changeState2(select.secondSelect.big)}
                   className='dropdown-content_2'
                   style={{
                     background: state === "View Deposits" ? "grey" : "",
@@ -183,7 +199,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   {select.secondSelect.big}
                 </div>
                 <div
-                  onClick={() => setState(select.thirdSelect.big)}
+                  onClick={() => changeState3(select.thirdSelect.big)}
                   className='dropdown-content_3'
                   style={{
                     background: state === "View Withdrawals" ? "grey" : "",
@@ -196,9 +212,15 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             </AnimateHeight>
           </div>
         </div>
-
+{loading ? (
+  <div id='container-signin-outer'>
+              <div id='container-signin'>
+                <div id='html-spinner-signin'></div>
+              </div>
+                  </div>
+            ) : (
         <div
-          className='transaction_template_container_body_2'
+          className='transaction_template_container_body_2 animate-pop-in'
           style={{
             display: "flex",
             flexDirection: "column",
@@ -209,7 +231,10 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             flex: "1",
           }}
         >
-          {pathname === "/transactions" ? (
+           
+          
+          
+          {   pathname === "/transactions" ? (
             state === "View Deposits" ? (
               data.filter((item: any) => item.type === "deposits").length >
               0 ? (
@@ -438,7 +463,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
               </Link>
             </div>
           ) : null}
-        </div>
+        </div>)}
       </div>
     </div>
   );
