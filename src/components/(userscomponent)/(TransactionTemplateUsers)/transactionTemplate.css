@@ -12,8 +12,8 @@
   white-space: nowrap;
   overflow: hidden;
   overflow-y: scroll;
-  flex: 1;
-  height: 100vh;
+  /* flex: 1; */
+  /* height: 100vh; */
 }
 
 .active_selection_small {
