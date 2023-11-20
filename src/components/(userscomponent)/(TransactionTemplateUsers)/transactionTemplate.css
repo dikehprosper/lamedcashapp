@@ -75,7 +75,8 @@
   max-height: 100%;
   overflow: hidden;
   overflow-y: scroll;
-  flex: 1
+  flex: 1;
+  position: relative
 }
 
 .transaction_template_container_body_1 {
@@ -88,7 +89,7 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-
+position: sticky
 }
 .transaction_template_container_body_2 {
   display: flex;
