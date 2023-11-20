@@ -4,10 +4,10 @@
   padding: 27px 50px 20px 35px;
   min-height: 100vh;
   flex-direction: column;
-min-height: 100vh;
+max-height: 190vh;
   flex-direction: column;
   overflow: hidden;
-  flex: 1
+
 }
 
 .user-dashboard-display {

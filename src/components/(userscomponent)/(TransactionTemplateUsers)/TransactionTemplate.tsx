@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import "./transactionTemplate.css";
@@ -20,7 +20,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();
   const [height, setHeight] = useState(0);
-const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   function adjustHeight() {
     setHeight((prev): any => {
       if (prev === 0) {
@@ -54,46 +54,44 @@ const [loading, setLoading] = useState(false)
   }, [state, data]);
 
   function changeState1(value: any) {
-    setLoading(true)
+    setLoading(true);
     setState(value);
     if (data.length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
     }
-   setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-    
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }
   function changeState2(value: any) {
-     setLoading(true)
+    setLoading(true);
     setState(value);
     if (data.filter((item) => item.type === "deposits").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
     }
- setTimeout(() => {
-    setLoading(false);
-  }, 1000);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }
 
   function changeState3(value: any) {
-  setLoading(true);
-  setState(value);
+    setLoading(true);
+    setState(value);
 
-  if (data.filter((item) => item.type === "withdrawals").length > 3) {
-    setStateViewMore(true);
-  } else {
-    setStateViewMore(false);
+    if (data.filter((item) => item.type === "withdrawals").length > 3) {
+      setStateViewMore(true);
+    } else {
+      setStateViewMore(false);
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }
-
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-}
-
 
   return (
     <div className='transaction_template_container'>
@@ -121,7 +119,7 @@ const [loading, setLoading] = useState(false)
         <div className='transaction_template_container_body_1'>
           <div className='transaction_template_container_body_1_1'>
             filter &nbsp;
-           <FaFilter />
+            <FaFilter />
           </div>
 
           <div className='transaction_template_container_body_1_2'>
@@ -212,34 +210,133 @@ const [loading, setLoading] = useState(false)
             </AnimateHeight>
           </div>
         </div>
-{loading ? (
-  <div id='container-signin-outer'>
-              <div id='container-signin'>
-                <div id='html-spinner-signin'></div>
-              </div>
+        {loading ? (
+          <div id='container-signin-outer'>
+            <div id='container-signin'>
+              <div id='html-spinner-signin'></div>
+            </div>
+          </div>
+        ) : (
+          <div
+            className='transaction_template_container_body_2 animate-pop-in'
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              paddingBottom: "20px",
+              marginTop: "5px",
+              minHeight: "100%",
+              flex: "1",
+            }}
+          >
+            {pathname === "/transactions" ? (
+              state === "View Deposits" ? (
+                data.filter((item: any) => item.type === "deposits").length >
+                0 ? (
+                  data
+                    .filter((item: any) => item.type === "deposits")
+                    .map((filteredData: any, index: any) => (
+                      <TransactionResults
+                        key={index}
+                        date={filteredData.date}
+                        time={filteredData.time}
+                        amount={filteredData.amount}
+                        receipt={filteredData.receipt}
+                        betId={filteredData.betId}
+                        status={filteredData.status}
+                        type={filteredData.type}
+                      />
+                    ))
+                ) : (
+                  <div
+                    className='no-result animate-pop-in'
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      height: "100%",
+                      flex: "1",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "30px",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <CgTrashEmpty fontSize='80px' />
+                    <h2>No Data to Show</h2>
                   </div>
-            ) : (
-        <div
-          className='transaction_template_container_body_2 animate-pop-in'
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            paddingBottom: "20px",
-            marginTop: "5px",
-            minHeight: "100%",
-            flex: "1",
-          }}
-        >
-           
-          
-          
-          {   pathname === "/transactions" ? (
-            state === "View Deposits" ? (
+                )
+              ) : state === "View Withdrawals" ? (
+                data.filter((item: any) => item.type === "withdrawals").length >
+                0 ? (
+                  data
+                    .filter((item: any) => item.type === "withdrawals")
+                    .map((filteredData: any, index: any) => (
+                      <TransactionResults
+                        key={index}
+                        date={filteredData.date}
+                        time={filteredData.time}
+                        amount={filteredData.amount}
+                        receipt={filteredData.receipt}
+                        betId={filteredData.betId}
+                        status={filteredData.status}
+                        type={filteredData.type}
+                      />
+                    ))
+                ) : (
+                  <div
+                    className='no-result animate-pop-in'
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      height: "100%",
+                      flex: "1",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "30px",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <CgTrashEmpty fontSize='80px' />
+                    <h2>No Data to Show</h2>
+                  </div>
+                )
+              ) : data.length > 0 ? (
+                data.map((data: any, index: any) => (
+                  <TransactionResults
+                    key={index}
+                    date={data.date}
+                    time={data.time}
+                    amount={data.amount}
+                    receipt={data.receipt}
+                    betId={data.betId}
+                    status={data.status}
+                    type={data.type}
+                  />
+                ))
+              ) : (
+                <div
+                  className='no-result animate-pop-in'
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    height: "100%",
+                    flex: "1",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "30px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CgTrashEmpty fontSize='80px' />
+                  <h2>No Data to Show</h2>
+                </div>
+              )
+            ) : state === "View Deposits" ? (
               data.filter((item: any) => item.type === "deposits").length >
               0 ? (
                 data
                   .filter((item: any) => item.type === "deposits")
+                  .slice(0, 3)
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
@@ -275,6 +372,7 @@ const [loading, setLoading] = useState(false)
               0 ? (
                 data
                   .filter((item: any) => item.type === "withdrawals")
+                  .slice(0, 3)
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
@@ -306,51 +404,18 @@ const [loading, setLoading] = useState(false)
                 </div>
               )
             ) : data.length > 0 ? (
-              data.map((data: any, index: any) => (
-                <TransactionResults
-                  key={index}
-                  date={data.date}
-                  time={data.time}
-                  amount={data.amount}
-                  receipt={data.receipt}
-                  betId={data.betId}
-                  status={data.status}
-                  type={data.type}
-                />
-              ))
-            ) : (
-              <div
-                className='no-result animate-pop-in'
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  height: "100%",
-                  flex: "1",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "30px",
-                  flexDirection: "column",
-                }}
-              >
-                <CgTrashEmpty fontSize='80px' />
-                <h2>No Data to Show</h2>
-              </div>
-            )
-          ) : state === "View Deposits" ? (
-            data.filter((item: any) => item.type === "deposits").length > 0 ? (
               data
-                .filter((item: any) => item.type === "deposits")
                 .slice(0, 3)
-                .map((filteredData: any, index: any) => (
+                .map((data: any, index: any) => (
                   <TransactionResults
                     key={index}
-                    date={filteredData.date}
-                    time={filteredData.time}
-                    amount={filteredData.amount}
-                    receipt={filteredData.receipt}
-                    betId={filteredData.betId}
-                    status={filteredData.status}
-                    type={filteredData.type}
+                    date={data.date}
+                    time={data.time}
+                    amount={data.amount}
+                    receipt={data.receipt}
+                    betId={data.betId}
+                    status={data.status}
+                    type={data.type}
                   />
                 ))
             ) : (
@@ -370,78 +435,9 @@ const [loading, setLoading] = useState(false)
                 <CgTrashEmpty fontSize='80px' />
                 <h2>No Data to Show</h2>
               </div>
-            )
-          ) : state === "View Withdrawals" ? (
-            data.filter((item: any) => item.type === "withdrawals").length >
-            0 ? (
-              data
-                .filter((item: any) => item.type === "withdrawals")
-                .slice(0, 3)
-                .map((filteredData: any, index: any) => (
-                  <TransactionResults
-                    key={index}
-                    date={filteredData.date}
-                    time={filteredData.time}
-                    amount={filteredData.amount}
-                    receipt={filteredData.receipt}
-                    betId={filteredData.betId}
-                    status={filteredData.status}
-                    type={filteredData.type}
-                  />
-                ))
-            ) : (
-              <div
-                className='no-result animate-pop-in'
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  height: "100%",
-                  flex: "1",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "30px",
-                  flexDirection: "column",
-                }}
-              >
-                <CgTrashEmpty fontSize='80px' />
-                <h2>No Data to Show</h2>
-              </div>
-            )
-          ) : data.length > 0 ? (
-            data
-              .slice(0, 3)
-              .map((data: any, index: any) => (
-                <TransactionResults
-                  key={index}
-                  date={data.date}
-                  time={data.time}
-                  amount={data.amount}
-                  receipt={data.receipt}
-                  betId={data.betId}
-                  status={data.status}
-                  type={data.type}
-                />
-              ))
-          ) : (
-            <div
-              className='no-result animate-pop-in'
-              style={{
-                display: "flex",
-                width: "100%",
-                height: "100%",
-                flex: "1",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "30px",
-                flexDirection: "column",
-              }}
-            >
-              <CgTrashEmpty fontSize='80px' />
-              <h2>No Data to Show</h2>
-            </div>
-          )}
+            )}
 
-          {/* {pathname === "/transactions" ? null : 
+            {/* {pathname === "/transactions" ? null : 
          viewMore === true? <div className='view-more'>
               <Link href='/transactions'>
                 View More &nbsp;
@@ -450,20 +446,21 @@ const [loading, setLoading] = useState(false)
             </div> : null
           } */}
 
-          {pathname === "/transactions" ? null : viewMore === true ? (
-            <div className='view-more'>
-              <Link
-                href={{
-                  pathname: "/transactions",
-                  query: state,
-                }}
-              >
-                View More &nbsp;
-                <FaArrowRight />
-              </Link>
-            </div>
-          ) : null}
-        </div>)}
+            {pathname === "/transactions" ? null : viewMore === true ? (
+              <div className='view-more'>
+                <Link
+                  href={{
+                    pathname: "/transactions",
+                    query: state,
+                  }}
+                >
+                  View More &nbsp;
+                  <FaArrowRight />
+                </Link>
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
     </div>
   );
