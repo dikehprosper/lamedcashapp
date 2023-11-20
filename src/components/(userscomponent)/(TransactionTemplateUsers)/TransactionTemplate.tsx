@@ -174,7 +174,7 @@ const [loading, setLoading] = useState(false)
                 top: "28px",
                 right: 0,
                 left: "-40px",
-                zIndex: 22,
+                zIndex: 30,
               }}
             >
               <div className='dropdown-content'>
@@ -227,6 +227,7 @@ const [loading, setLoading] = useState(false)
             gap: "10px",
             paddingBottom: "20px",
             marginTop: "5px",
+   
           }}
         >
            

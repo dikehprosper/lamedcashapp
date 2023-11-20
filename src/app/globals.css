@@ -254,7 +254,7 @@ a {
   text-align: center;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  z-index: 20;
+  z-index: 80!important;
   height: 93px;
   padding: 0px 50px;
   font-size: 19px;
@@ -480,7 +480,7 @@ a {
   -ms-flex-pack: center;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  z-index: 20;
+  z-index: 80;
   width: 250px;
   font-size: 19px;
   position: fixed;
@@ -493,6 +493,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+    z-index: 80!important;
 }
 
 .user-nav-img-container {
