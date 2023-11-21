@@ -113,7 +113,7 @@ const Deposit = () => {
             placeholder='Entrez 1XBET ID'
           />
 
-          <label>Amount</label>
+          {/* <label>Amount</label> */}
           <input
             type='number'
             className='deposit-form1'
@@ -122,7 +122,7 @@ const Deposit = () => {
             placeholder='Entrez le montant du dépôt'
           />
 
-          <label>Network</label>
+          {/* <label>Network</label> */}
           <input
             type='text'
             className='deposit-form1'
@@ -131,7 +131,7 @@ const Deposit = () => {
             placeholder='Entrez le code de retrait 1xbet'
           />
    
-            <label>USSD CODE</label>
+            {/* <label>USSD CODE</label> */}
             <input
               type='text'
               className='deposit-form1 only-laptop'
