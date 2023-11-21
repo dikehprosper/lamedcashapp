@@ -78,7 +78,6 @@ const Deposit = () => {
                 color: "rgba(256, 256, 256, 0.5)",
                 width: "100%",
                 display: "flex",
-                margin: "0px 0px 10px 0px",
               }}
             >
               Enregistrez 2 identifiants 1XBET différents dans votre profil pour
@@ -113,22 +112,16 @@ const Deposit = () => {
             className='signin-form'
             placeholder='Entrer le mot de passe'
           />
-          <label>Amount</label>
-          <input
-            type='password'
-            className='signin-form'
-            placeholder='Entrer le mot de passe'
-          />
           <label>Network</label>
           <input
             type='password'
             className='signin-form'
             placeholder='Entrer le mot de passe'
           />
-          <label>USSD CODE</label>
+          <label className="laptop-version">USSD CODE</label>
           <input
             type='password'
-            className='signin-form'
+            className='signin-form laptop-version'
             placeholder='Entrer le mot de passe'
           />
           <button

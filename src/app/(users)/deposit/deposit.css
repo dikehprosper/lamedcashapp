@@ -6,7 +6,6 @@
   flex-direction: column;
   /* max-height: 190vh; */
   flex-direction: column;
-
   flex: 0 0 auto;
 }
 
@@ -15,6 +14,10 @@
     margin-left: 0px;
     padding: 90px 35px 10px 35px;
   }
+  label{
+
+  margin-top: 10px
+}
 }
 
 @media (max-width: 620px) {
@@ -41,54 +44,7 @@
   margin-top: 40px;
 }
 
-.deposit-form-container {
-  width: 100%;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
 
- label {
-  font-weight: 600;
-  color: rgba(256, 256, 256, 0.7);
-  font-size: 15px;
-}
-
-
-
-.deposit-form1 {
-  border: none;
-  outline: none;
-  padding: 15px;
-  color: white;
-  background: transparent;
-  width: 100%;
-  border: 2px solid rgba(256, 256, 256, 0.09);
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 400;
-  background: rgba(256, 256, 256, 0.03);
-}
-
-.deposit-form1 :-webkit-autofill,
-.deposit-form1 :-webkit-autofill:hover,
-.deposit-form1 :-webkit-autofill:focus,
-.deposit-form1 :-webkit-autofill:active {
-  transition: background-color 5000s;
-  -webkit-text-fill-color: #fff !important;
-}
-
-.deposit-form1::placeholder {
-  color: rgba(256, 256, 256, 0.1);
-  font-size: 16px;
-}
-
-.deposit-form1:focus {
-  border: 2px solid rgba(189, 255, 5, 0.7);
-  outline: none;
-  transition: 1s border ease-in-out;
-}
 
 .submit-button {
   color: white;
@@ -106,6 +62,7 @@
   cursor: pointer;
   margin-top: 22px;
   cursor: pointer;
+  align-self: start
 }
 
 @media (max-width: 665px) {
@@ -121,6 +78,9 @@
     color: rgba(256, 256, 256, 0.1);
     font-size: 12px;
   }
+  .laptop-version {
+    display: none
+  }
 
 }
 
@@ -134,6 +94,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%
 }
 .saved_id_container {
   display: flex;
@@ -187,19 +148,6 @@
   }
 }
 
-  .form-input {
-      width: 200px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      outline: none; /* Remove the default focus outline */
-
-      /* Add any other styling properties you need */
-    }
-
-    /* On focus, modify the styles if necessary */
-    .form-input:focus {
-      border-color: #0076B8;
-    }
 
 
 
@@ -239,11 +187,14 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 60%;
+  width: 100%;
   padding: 60px;
   align-items: center;
 }
-
+label{
+  font-weight: 600;
+  align-self: start;
+}
 .signin-form {
   border: none;
   outline: none;
@@ -256,6 +207,7 @@
   font-size: 16px;
   background: rgba(256, 256, 256, 0.03);
 }
+
 
 .signin-form:-webkit-autofill,
 .signin-form:-webkit-autofill:hover,
@@ -276,22 +228,7 @@
   transition: 1s border ease-in-out;
 }
 
-.submit-button {
-  color: black;
-  background: rgba(189, 255, 5, 0.7);
-  font-weight: 600;
-  width: 50%;
-  height: 45px;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-top: 40px;
-}
+
 
 .welcome-section {
   display: flex;
@@ -369,7 +306,7 @@
 
   .signin-form-container {
     width: 100%;
-    padding: 60px 15px;
+    padding: 15px 15px;
     gap: 10px;
   }
 
