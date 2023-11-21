@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "./withdraw.css";
 import Head from "@/components/(userscomponent)/(head)/head";
 import { FaCircle } from "react-icons/fa";
+import FooterMobile from "@/components/(Utils)/FooterMobile";
 const Withdraw = () => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -84,34 +85,28 @@ const Withdraw = () => {
       />
 
      <div className='user_withdraw_container_001'>
-        <div
-          style={{
-            color: "rgba(256, 256, 256, 0.5)",
-            fontSize: "16px",
-            fontWeight: "bold",
-            width: "100%",
-            display: "flex",
-            margin: "15px 0px",
-          }}
+      
+       
+       <form onSubmit={handleSubmit} className='signin-form-container'>
+          <div
+          className="detail"
         >
-          Use the address for your withdrawal
+          Use this address for your withdrawal
         </div>
-        <div className='user_withdraw_container_002'>
+        <div className='user_withdraw_container_002 animate-pop-in'>
           <div>City: Porto-Novo (Benin)</div>
           <div>Street: RechargeB Cashier 1</div>
         </div>
         <p
           style={{
-            color: "rgba(256, 256, 256, 0.5)",
+            color: "white",
             width: "100%",
             display: "flex",
-            margin: "15px 0px 10px 0px",
+            margin: "20px 0px 0px 0px",
           }}
         >
           Then proceed to submit your details here
         </p>
-       
-       <form onSubmit={handleSubmit} className='signin-form-container'>
           <label>1XBET ID</label>
           <div className='saved_id_container_outer'>
             <div
@@ -197,6 +192,7 @@ const Withdraw = () => {
           </button>
         </form>
     </div>
+    <FooterMobile />
         </div>
   );
 };

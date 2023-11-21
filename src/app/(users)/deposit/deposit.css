@@ -1,48 +1,40 @@
-.user_deposit_container {
+
+.user_withdraw_container_001 {
+  padding: 10px
+}
+.user_withdraw_container {
   display: flex;
   margin-left: 250px;
   padding: 27px 35px 20px 35px;
   height: auto;
   flex-direction: column;
-  /* max-height: 190vh; */
+/* max-height: 190vh; */
   flex-direction: column;
-  flex: 0 0 auto;
+
+flex: 0 0 auto
 }
 
+
 @media (max-width: 1028px) {
-  .user_deposit_container {
+  .user_withdraw_container {
     margin-left: 0px;
     padding: 90px 35px 10px 35px;
   }
-  label{
-
-  margin-top: 10px
-}
 }
 
 @media (max-width: 620px) {
-  .user_deposit_container {
-    padding: 82px 15px 10px 15px;
-  }
-  .only-laptop {
-    display: none;
+  .user_withdraw_container {
+    padding: 82px 20px 10px 20px;
   }
 }
 
 @media (max-width: 450px) {
-  .user_deposit_container {
-    padding: 82px 10px 10px 10px;
+  .user_withdraw_container {
+    padding: 82px 16px 10px 16px;
   }
 }
 
-.user_deposit_container_001 {
-  width: 100%;
-  border: 1px solid rgba(0, 256, 0, 0.1);
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  margin-top: 40px;
-}
+
 
 
 
@@ -143,9 +135,6 @@
     padding: 2px 4px;
   }
 
-  .user_deposit_container_001 {
-    padding: 13px;
-  }
 }
 
 
@@ -188,7 +177,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  padding: 60px;
+  padding: 40px;
   align-items: center;
 }
 label{
@@ -306,7 +295,7 @@ label{
 
   .signin-form-container {
     width: 100%;
-    padding: 15px 15px;
+    padding: 10px 10px;
     gap: 10px;
   }
 

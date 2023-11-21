@@ -585,6 +585,11 @@ a {
   gap: 30px;
   align-items: center;
 }
+.user-nav-social-media-all {
+  display: none
+}
+
+
 
 .user-nav-social-media-icons {
   display: flex;
@@ -660,6 +665,28 @@ a {
     background: rgba(0, 256, 0, 1);
     border-radius: 4px;
   }
+
+  .user-nav-social-media-all {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+padding: 30px;
+  align-items: flex-end;
+   justify-self: flex-end;
+}
+.user-nav-logo-all {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+  .user-nav-social-media-all > h4 {
+  display: flex;
+  width: 55%;
+  justify-content: space-evenly;
+padding: 8px;
+  text-align: end;
+}
 }
 
 @media (max-width: 620px) {
