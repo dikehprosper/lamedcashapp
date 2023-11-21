@@ -155,7 +155,7 @@ label {
 
 
 
-    .signin-container {
+    .deposit-container {
   display: flex;
   min-height: calc(100vh - 93px);
   width: 100vw;
@@ -164,7 +164,7 @@ label {
 }
 
 /* first section */
-.signin-container_inner {
+.deposit-container_inner {
   width: 100%;
   display: flex;
   position: relative;
@@ -172,7 +172,7 @@ label {
   gap: 80px;
 }
 
-.signin-container_inner_background_image {
+.deposit-container_inner_background_image {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -209,20 +209,20 @@ label{
 }
 
 
-.signin-form:-webkit-autofill,
-.signin-form:-webkit-autofill:hover,
-.signin-form:-webkit-autofill:focus,
-.signin-form:-webkit-autofill:active {
+.deposit-form:-webkit-autofill,
+.deposit-form:-webkit-autofill:hover,
+.deposit-form:-webkit-autofill:focus,
+.deposit-form:-webkit-autofill:active {
   transition: background-color 5000s;
   -webkit-text-fill-color: #fff !important;
 }
 
-.signin-form::placeholder {
+.deposit-form::placeholder {
   color: rgba(256, 256, 256, 0.1);
   font-size: 16px;
 }
 
-.signin-form:focus {
+.deposit-form:focus {
   border: 2px solid rgba(189, 255, 5, 0.7);
   outline: none;
   transition: 1s border ease-in-out;
@@ -285,7 +285,7 @@ label{
   color: rgba(256, 256, 256, 1);
 }
 
-.signin-header {
+.deposit-header {
   display: none;
 }
 
@@ -296,7 +296,7 @@ label{
 }
 
 @media (max-width: 1028px) {
-  .signin-container {
+  .deposit-container {
     margin-top: 80px;
   }
 
@@ -310,10 +310,10 @@ label{
     gap: 10px;
   }
 
-  .signin-container_inner {
+  .deposit-container_inner {
     min-height: 250px;
   }
-  .signin-header {
+  .deposit-header {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -338,7 +338,7 @@ label{
 }
 
 /* last section */
-.signin-container_inner23 {
+.deposit-container_inner23 {
   display: flex;
   gap: 15px;
   flex-direction: column;
@@ -349,14 +349,14 @@ label{
   align-items: center;
 }
 
-.signin-social-media-icons {
+.deposit-social-media-icons {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   width: 50%;
 }
 
-.signin-img {
+.deposit-img {
   position: relative;
   width: 50px;
   height: 50px;
@@ -364,7 +364,7 @@ label{
   transition: transform 0.3s ease;
 }
 
-.signin-img:hover {
+.deposit-img:hover {
   transform: scale(0.8);
 }
 
@@ -373,20 +373,20 @@ label{
 }
 
 @media (max-width: 1028px) {
-  .signin {
+  .deposit {
     padding: 0px 20px;
   }
 
-  .signin-img {
+  .deposit-img {
     width: 30px;
     height: 30px;
   }
 
-  .signin-social-media-icons {
+  .deposit-social-media-icons {
     width: 80%;
   }
 
-  .signin-container_inner23 {
+  .deposit-container_inner23 {
     display: flex;
     gap: 15px;
     flex-direction: column;
@@ -431,13 +431,13 @@ label{
 }
 
 /* spinner positioning and styling */
-#container-signin {
+#container-deposit {
   width: 35px;
   margin: 1em auto;
   position: relative;
   height: 35px;
 }
-#html-spinner-signin {
+#html-spinner-deposit {
   width: 100%;
   height: 100%;
   border: 4px solid rgba(0, 0, 0, 1);
@@ -445,8 +445,8 @@ label{
   border-radius: 50%;
 }
 
-#html-spinner-signin,
-#svg-spinner-signin {
+#html-spinner-deposit,
+#svg-spinner-deposit {
   transition-property: transform;
   animation-name: rotate;
   animation-duration: 1.2s;
@@ -482,19 +482,19 @@ label{
 }
 
 @media (max-width: 1028px) {
-  #container-signin {
+  #container-deposit {
     width: 25px;
     height: 25px;
   }
 }
 
-.signin-form-password {
+.deposit-form-password {
   display: flex;
   width: 100%;
   position: relative;
 }
 
-.signin-form-password-visibility {
+.deposit-form-password-visibility {
   position: absolute;
   right: 20px;
   font-size: 20px;
@@ -511,11 +511,11 @@ label{
     border-radius: 4px;
     font-size: 13px;
   }
-  .signin-condition-checkbox-p {
+  .deposit-condition-checkbox-p {
     font-size: 7.5px;
   }
 
-  .signin-form::placeholder {
+  .deposit-form::placeholder {
     font-size: 12px;
   }
   .welcome-section-second_p-mobile {
@@ -526,7 +526,7 @@ label{
     font-size: 11px;
   }
 
-  .signin-header {
+  .deposit-header {
     font-size: 14px;
   }
 

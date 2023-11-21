@@ -84,29 +84,23 @@ const Withdraw = () => {
         about='Effectuez vos retraits depuis votre 1XBET ici'
       />
 
-     <div className='user_withdraw_container_001'>
-      
-       
-       <form onSubmit={handleSubmit} className='signin-form-container'>
-          <div
-          className="detail"
-        >
-          Use this address for your withdrawal
-        </div>
-        <div className='user_withdraw_container_002 animate-pop-in'>
-          <div>City: Porto-Novo (Benin)</div>
-          <div>Street: RechargeB Cashier 1</div>
-        </div>
-        <p
-          style={{
-            color: "white",
-            width: "100%",
-            display: "flex",
-            margin: "20px 0px 0px 0px",
-          }}
-        >
-          Then proceed to submit your details here
-        </p>
+      <div className='user_withdraw_container_001'>
+        <form onSubmit={handleSubmit} className='withdraw-form-container'>
+          <div className='detail'>Use this address for your withdrawal</div>
+          <div className='user_withdraw_container_002 animate-pop-in'>
+            <div>City: Porto-Novo (Benin)</div>
+            <div>Street: RechargeB Cashier 1</div>
+          </div>
+          <p
+            style={{
+              color: "white",
+              width: "100%",
+              display: "flex",
+              margin: "20px 0px 0px 0px",
+            }}
+          >
+            Then proceed to submit your details here
+          </p>
           <label>1XBET ID</label>
           <div className='saved_id_container_outer'>
             <div
@@ -129,48 +123,47 @@ const Withdraw = () => {
                       fontWeight: "light",
                       color: "rgba(256, 256, 256, 0.5)",
                     }}
-                  >
-                  </span>
+                  ></span>
                 </div>
               ))}
             </div>
           </div>
           <input
             type='email'
-            className='signin-form'
+            className='withdraw-form'
             placeholder='Entrez votre e-mail'
           />
-            <label>1XBET Withdrawal Code</label>
+          <label>1XBET Withdrawal Code</label>
           <input
             type='text'
-            className='signin-form'
-           value={user.withdrawalCode}
-              onChange={handleWithdrawalCode}
-              placeholder="Entrez le code de retrait 1XBET"
+            className='withdraw-form'
+            value={user.withdrawalCode}
+            onChange={handleWithdrawalCode}
+            placeholder='Entrez le code de retrait 1XBET'
           />
           <label>Amount</label>
           <input
             type='number'
-            className='signin-form'
-             value={user.amount}
-              onChange={handleChangeAmount}
-              placeholder='Entrez le montant du dépôt'
+            className='withdraw-form'
+            value={user.amount}
+            onChange={handleChangeAmount}
+            placeholder='Entrez le montant du dépôt'
           />
           <label>MoMo Name</label>
           <input
             type='text'
-            className='signin-form'
-             value={user.momoName}
-                onChange={handleMomoname}
-                placeholder='Entrez le nom de Momo'
+            className='withdraw-form'
+            value={user.momoName}
+            onChange={handleMomoname}
+            placeholder='Entrez le nom de Momo'
           />
           <label>MoMo Number</label>
           <input
             type='number'
-            className='signin-form'
-               value={user.momoNumber}
-                onChange={handleMomoNumber}
-                placeholder='Entrez le numéro Momo'
+            className='withdraw-form'
+            value={user.momoNumber}
+            onChange={handleMomoNumber}
+            placeholder='Entrez le numéro Momo'
           />
           <button
             type='submit'
@@ -191,9 +184,9 @@ const Withdraw = () => {
             )}
           </button>
         </form>
+      </div>
+      <FooterMobile />
     </div>
-    <FooterMobile />
-        </div>
   );
 };
 
