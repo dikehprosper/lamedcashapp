@@ -70,7 +70,7 @@ const Deposit = () => {
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
 
       <div className='user_withdraw_container_001'>
-        <form onSubmit={handleSubmit} className='signin-form-container'>
+        <form onSubmit={handleSubmit} className='deposit-form-container'>
           <label>1XBET ID</label>
           <div className='saved_id_container_outer'>
             <div
@@ -100,25 +100,25 @@ const Deposit = () => {
           </div>
           <input
             type='text'
-            className='signin-form'
+            className='deposit-form'
             placeholder="Entrez l'identifiant 1XBET"
           />
           <label>Amount</label>
           <input
             type='number'
-            className='signin-form'
+            className='deposit-form'
             placeholder='Entrez le montant du dépôt'
           />
           <label>Network</label>
           <input
             type='text'
-            className='signin-form'
+            className='deposit-form'
             placeholder='choisir le réseau'
           />
           <label className='laptop-version'>USSD CODE</label>
           <input
             type='number'
-            className='signin-form laptop-version'
+            className='deposit-form laptop-version'
             placeholder=''
           />
           <button

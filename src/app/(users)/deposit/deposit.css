@@ -172,7 +172,7 @@ flex: 0 0 auto
   z-index: -1;
 }
 
-.signin-form-container {
+.deposit-form-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -184,7 +184,7 @@ label{
   font-weight: 600;
   align-self: flex-start;
 }
-.signin-form {
+.deposit-form {
   border: none;
   outline: none;
   padding: 15px;
@@ -293,7 +293,7 @@ label{
     display: none;
   }
 
-  .signin-form-container {
+  .deposit-form-container {
     width: 100%;
     padding: 10px 10px;
     gap: 10px;
@@ -313,7 +313,7 @@ label{
     margin: 15px 0px;
   }
 
-  .signin-form {
+  .deposit-form {
     height: 50px;
   }
 
@@ -494,7 +494,7 @@ label{
 }
 
 @media (max-width: 355px) {
-  .signin-form {
+  .deposit-form {
     padding: 10px !important;
     border: 1.4px solid rgba(256, 256, 256, 0.09);
     border-radius: 4px;
