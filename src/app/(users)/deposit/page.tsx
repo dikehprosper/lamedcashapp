@@ -62,10 +62,9 @@ const Deposit = () => {
   useEffect(() => {
     if (
       user.betId &&
-      user.withdrawalCode &&
+      user.ussdCode &&
       user.amount &&
-      user.momoName &&
-      user.momoNumber
+   user.network
     ) {
       setButtonDisabled(false);
     } else {

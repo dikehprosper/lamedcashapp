@@ -165,3 +165,32 @@ p {
   font-size: 12px
 }
 }
+
+.saved_id_container_outer {
+  display: flex;
+  justify-content: space-between;
+    align-items: center
+}
+.saved_id_container {
+  display: flex;
+  gap: 10px;
+  align-items: center
+}
+.saved_id_container-inner {
+  padding: 5px 10px;
+  border: 2px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+font-size: 14px;
+font-weight: bold;
+color: rgba(256, 256, 256, 0.5);
+display: flex;
+gap: 12px;
+  align-items: center
+}
+
+@media (max-width: 1283px) {
+  .saved_id_container_outer { 
+flex-direction: column;
+gap: 5px;
+width: 100%
+}

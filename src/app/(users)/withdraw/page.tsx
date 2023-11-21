@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "./withdraw.css";
 import Head from "@/components/(userscomponent)/(head)/head";
+import { FaCircle } from "react-icons/fa";
 const Withdraw = () => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -74,6 +75,7 @@ const Withdraw = () => {
     }
   }, [user]);
 
+  const savedID = [267898789, 87678767];
   return (
     <div className='user_withdraw_container'>
 
@@ -90,8 +92,38 @@ const Withdraw = () => {
         </div>
        <p style={{ color: "rgba(256, 256, 256, 0.5)", width: "100%", display: "flex",margin: "15px 0px 10px 0px"}} >Then proceed to submit your details here</p>
         <form onSubmit={handleSubmit} className='withdraw-form-container'>
+            
           <div className='withdraw-form'>
             <label>1XBET ID</label>
+               <div className='saved_id_container_outer'>
+              <div
+                style={{
+                  color: "rgba(256, 256, 256, 0.5)",
+                  width: "100%",
+                  display: "flex",
+                  margin: "0px 0px 10px 0px",
+                }}
+              >
+                Enregistrez 2 identifiants 1XBET différents dans votre profil pour les afficher ici </div>
+              <div className='saved_id_container'>
+                {savedID.map((id, index) => (
+                  <div className='saved_id_container-inner' key={index}>
+                    {id}{" "}
+                    <FaCircle color="white" />
+                    <span
+                      style={{
+                        fontSize: "8px",
+                        fontWeight: "light",
+                        color: "rgba(256, 256, 256, 0.5)",
+                      }}
+                    >
+                      {" "}
+                      X{" "}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
             <input
               type='text'
               className='withdraw-form1'
