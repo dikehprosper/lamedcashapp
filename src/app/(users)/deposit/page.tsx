@@ -70,6 +70,44 @@ const Deposit = () => {
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
 
       <div className='user_deposit_container_001'>
+        <form onSubmit={handleSubmit} className='signin-form-container'>
+          <input
+            type='email'
+            className='signin-form'
+            placeholder='Entrez votre e-mail'
+          />
+          <div className='signin-form-password'>
+            <input
+              type='password'
+              className='signin-form'
+              placeholder='Entrer le mot de passe'
+            />
+            <div className='signin-form-password-visibility'></div>
+          </div>
+          <div className='forgot-password'>
+            {" "}
+            <a href=''>Mot de passe oublié?</a>
+          </div>
+          <button
+            type='submit'
+            className='submit-button'
+            style={{
+              background: buttonDisabled
+                ? "rgba(189, 255, 5, .7)"
+                : "rgba(189, 255, 5, 1)",
+              pointerEvents: buttonDisabled ? "none" : "auto",
+            }}
+          >
+            {loading ? (
+              <div id='container-signin'>
+                <div id='html-spinner-signin'></div>
+              </div>
+            ) : (
+              "Se connecter"
+            )}
+          </button>
+        </form>
+
         {/* <form>
           <label htmlFor='myInput'>Input:</label>
           <input type='text' id='myInput' className='form-input' />
