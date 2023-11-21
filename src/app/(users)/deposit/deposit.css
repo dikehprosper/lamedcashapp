@@ -62,7 +62,7 @@
   cursor: pointer;
   margin-top: 22px;
   cursor: pointer;
-  align-self: start
+  align-self: flex-start
 }
 
 @media (max-width: 665px) {
@@ -125,7 +125,7 @@
   }
 
   .saved_id_container {
-    align-self: end;
+    align-self: flex-end;
   }
 
   .saved_id_container-inner {
@@ -193,7 +193,7 @@
 }
 label{
   font-weight: 600;
-  align-self: start;
+  align-self: flex-start;
 }
 .signin-form {
   border: none;
@@ -256,7 +256,7 @@ label{
 .welcome-section-second {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   gap: 30px;
@@ -414,7 +414,7 @@ label{
   .welcome-section-second-mobile {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     height: 100%;
     gap: 30px;
