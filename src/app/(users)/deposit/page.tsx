@@ -71,7 +71,7 @@ const Deposit = () => {
 
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
-          <div className='deposit-form'>
+          {/* <div className='deposit-form'>
             <label>1XBET ID</label>
             <div className='saved_id_container_outer'>
               <div
@@ -103,7 +103,7 @@ const Deposit = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
           <input
             type='text'
