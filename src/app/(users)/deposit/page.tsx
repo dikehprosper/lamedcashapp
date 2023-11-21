@@ -69,7 +69,7 @@ const Deposit = () => {
     <div className='user_withdraw_container'>
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
 
-      <div className='user_withdraw_container_001'>
+      <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
           <label>1XBET ID</label>
           <div className='saved_id_container_outer'>
