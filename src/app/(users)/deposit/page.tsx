@@ -72,31 +72,78 @@ const Deposit = () => {
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='signin-form-container'>
           <label>1XBET ID</label>
+          <div className='saved_id_container_outer'>
+            <div
+              style={{
+                color: "rgba(256, 256, 256, 0.5)",
+                width: "100%",
+                display: "flex",
+                margin: "0px 0px 10px 0px",
+              }}
+            >
+              Enregistrez 2 identifiants 1XBET différents dans votre profil pour
+              les afficher ici{" "}
+            </div>
+            <div className='saved_id_container'>
+              {savedID.map((id, index) => (
+                <div className='saved_id_container-inner' key={index}>
+                  {id} <FaCircle color='white' />
+                  <span
+                    style={{
+                      fontSize: "8px",
+                      fontWeight: "light",
+                      color: "rgba(256, 256, 256, 0.5)",
+                    }}
+                  >
+                    {" "}
+                    X{" "}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
           <input
             type='email'
             className='signin-form'
             placeholder='Entrez votre e-mail'
           />
-          <label>1XBET ID</label>
-          <div className='signin-form-password'>
-            <input
-              type='password'
-              className='signin-form'
-              placeholder='Entrer le mot de passe'
-            />
-            <div className='signin-form-password-visibility'></div>
-          </div>
-          <div className='forgot-password'>
-            {" "}
-            <a href=''>Mot de passe oublié?</a>
-          </div>
+          <label>Amount</label>
+          <input
+            type='password'
+            className='signin-form'
+            placeholder='Entrer le mot de passe'
+          />
+          <label>Amount</label>
+          <input
+            type='password'
+            className='signin-form'
+            placeholder='Entrer le mot de passe'
+          />
+          <label>Network</label>
+          <input
+            type='text'
+            className='deposit-form1'
+            value={user.network}
+            onChange={handleChangeNetwork}
+            placeholder='Entrez le code de retrait 1xbet'
+          />
+
+          <label>USSD CODE</label>
+          <input
+            type='text'
+            className='deposit-form1 only-laptop'
+            value={user.ussdCode}
+            onChange={handleUssdCode}
+            placeholder='Entrez le code de retrait 1xbet'
+          />
+
           <button
             type='submit'
             className='submit-button'
             style={{
               background: buttonDisabled
-                ? "rgba(189, 255, 5, .7)"
-                : "rgba(189, 255, 5, 1)",
+                ? "rgba(128, 128, 128, 0.2)"
+                : "rgba(128, 128, 128, 1)",
               pointerEvents: buttonDisabled ? "none" : "auto",
             }}
           >
@@ -105,7 +152,7 @@ const Deposit = () => {
                 <div id='html-spinner-signin'></div>
               </div>
             ) : (
-              "Se connecter"
+              "Procéder"
             )}
           </button>
         </form>
