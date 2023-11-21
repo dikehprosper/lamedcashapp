@@ -7,77 +7,77 @@ import { FaCircle } from "react-icons/fa";
 
 
 const Deposit = () => {
-  const [loading, setLoading] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [success, setSuccess] = useState(false);
-  const [user, setUser] = useState({
-    betId: "",
-    network: "",
-    amount: "",
-    ussdCode: "",
-  });
+  // const [loading, setLoading] = useState(false);
+  // const [buttonDisabled, setButtonDisabled] = useState(true);
+  // const [success, setSuccess] = useState(false);
+  // const [user, setUser] = useState({
+  //   betId: "",
+  //   network: "",
+  //   amount: "",
+  //   ussdCode: "",
+  // });
 
-  const handleChangeId = (event: any) => {
-    setUser({
-      ...user,
-      betId: event.target.value,
-    });
-  };
+  // const handleChangeId = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     betId: event.target.value,
+  //   });
+  // };
 
-  const handleChangeNetwork = (event: any) => {
-    setUser({
-      ...user,
-      network: event.target.value,
-    });
-  };
+  // const handleChangeNetwork = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     network: event.target.value,
+  //   });
+  // };
 
-  const handleChangeAmount = (event: any) => {
-    setUser({
-      ...user,
-      amount: event.target.value,
-    });
-  };
+  // const handleChangeAmount = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     amount: event.target.value,
+  //   });
+  // };
 
-    const handleUssdCode = (event: any) => {
-    setUser({
-      ...user,
-      ussdCode: event.target.value,
-    });
-  };
-
-
+  //   const handleUssdCode = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     ussdCode: event.target.value,
+  //   });
+  // };
 
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    setLoading(true);
-    console.log(user);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    toast.success("Withdrawal request submitted!");
-  };
 
-  //check email and password state to determine ButtonDisabled state
-  useEffect(() => {
-    if (
-      user.betId &&
-      user.ussdCode &&
-      user.amount &&
-   user.network
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [user]);
 
-  const savedID = [267898789, 87678767];
+  // const handleSubmit = (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   setLoading(true);
+  //   console.log(user);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1000);
+  //   toast.success("Withdrawal request submitted!");
+  // };
+
+  // //check email and password state to determine ButtonDisabled state
+  // useEffect(() => {
+  //   if (
+  //     user.betId &&
+  //     user.ussdCode &&
+  //     user.amount &&
+  //  user.network
+  //   ) {
+  //     setButtonDisabled(false);
+  //   } else {
+  //     setButtonDisabled(true);
+  //   }
+  // }, [user]);
+
+  // const savedID = [267898789, 87678767];
   return (
     <div className='user_deposit_container'>
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
 
-      <div className='user_deposit_container_001'>
+      {/* <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
           <div className='deposit-form'>
             <label>1XBET ID</label>
@@ -171,7 +171,7 @@ const Deposit = () => {
             )}
           </button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };

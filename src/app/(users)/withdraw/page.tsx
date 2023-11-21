@@ -5,97 +5,115 @@ import "./withdraw.css";
 import Head from "@/components/(userscomponent)/(head)/head";
 import { FaCircle } from "react-icons/fa";
 const Withdraw = () => {
-  const [loading, setLoading] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [success, setSuccess] = useState(false);
-  const [user, setUser] = useState({
-    betId: "",
-    withdrawalCode: "",
-    amount: "",
-    momoName: "",
-    momoNumber: "",
-  });
+  // const [loading, setLoading] = useState(false);
+  // const [buttonDisabled, setButtonDisabled] = useState(true);
+  // const [success, setSuccess] = useState(false);
+  // const [user, setUser] = useState({
+  //   betId: "",
+  //   withdrawalCode: "",
+  //   amount: "",
+  //   momoName: "",
+  //   momoNumber: "",
+  // });
 
-  const handleChangeId = (event: any) => {
-    setUser({
-      ...user,
-      betId: event.target.value,
-    });
-  };
+  // const handleChangeId = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     betId: event.target.value,
+  //   });
+  // };
 
-  const handleWithdrawalCode = (event: any) => {
-    setUser({
-      ...user,
-      withdrawalCode: event.target.value,
-    });
-  };
+  // const handleWithdrawalCode = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     withdrawalCode: event.target.value,
+  //   });
+  // };
 
-  const handleChangeAmount = (event: any) => {
-    setUser({
-      ...user,
-      amount: event.target.value,
-    });
-  };
+  // const handleChangeAmount = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     amount: event.target.value,
+  //   });
+  // };
 
-  const handleMomoname = (event: any) => {
-    setUser({
-      ...user,
-      momoName: event.target.value,
-    });
-  };
-  const handleMomoNumber = (event: any) => {
-    setUser({
-      ...user,
-      momoNumber: event.target.value,
-    });
-  };
+  // const handleMomoname = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     momoName: event.target.value,
+  //   });
+  // };
+  // const handleMomoNumber = (event: any) => {
+  //   setUser({
+  //     ...user,
+  //     momoNumber: event.target.value,
+  //   });
+  // };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    setLoading(true);
-    console.log(user);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    toast.success("Withdrawal request submitted!");
-  };
+  // const handleSubmit = (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   setLoading(true);
+  //   console.log(user);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1000);
+  //   toast.success("Withdrawal request submitted!");
+  // };
 
-  //check email and password state to determine ButtonDisabled state
-  useEffect(() => {
-    if (
-      user.betId &&
-      user.withdrawalCode &&
-      user.amount &&
-      user.momoName &&
-      user.momoNumber
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [user]);
+  // //check email and password state to determine ButtonDisabled state
+  // useEffect(() => {
+  //   if (
+  //     user.betId &&
+  //     user.withdrawalCode &&
+  //     user.amount &&
+  //     user.momoName &&
+  //     user.momoNumber
+  //   ) {
+  //     setButtonDisabled(false);
+  //   } else {
+  //     setButtonDisabled(true);
+  //   }
+  // }, [user]);
 
-  const savedID = [267898789, 87678767];
+  // const savedID = [267898789, 87678767];
   return (
     <div className='user_withdraw_container'>
-
       <Head
         title='Retirer'
         about='Effectuez vos retraits depuis votre 1XBET ici'
       />
-      
-      <div className='user_withdraw_container_001'>
-        <div style={{ color: "rgba(256, 256, 256, 0.5)", fontSize: "16px",fontWeight: "bold",width: "100%",display: "flex", margin: "15px 0px"}}>Use the address for your withdrawal</div>
+
+      {/* <div className='user_withdraw_container_001'>
+        <div
+          style={{
+            color: "rgba(256, 256, 256, 0.5)",
+            fontSize: "16px",
+            fontWeight: "bold",
+            width: "100%",
+            display: "flex",
+            margin: "15px 0px",
+          }}
+        >
+          Use the address for your withdrawal
+        </div>
         <div className='user_withdraw_container_002'>
           <div>City: Porto-Novo (Benin)</div>
           <div>Street: RechargeB Cashier 1</div>
         </div>
-       <p style={{ color: "rgba(256, 256, 256, 0.5)", width: "100%", display: "flex",margin: "15px 0px 10px 0px"}} >Then proceed to submit your details here</p>
+        <p
+          style={{
+            color: "rgba(256, 256, 256, 0.5)",
+            width: "100%",
+            display: "flex",
+            margin: "15px 0px 10px 0px",
+          }}
+        >
+          Then proceed to submit your details here
+        </p>
         <form onSubmit={handleSubmit} className='withdraw-form-container'>
-            
           <div className='withdraw-form'>
             <label>1XBET ID</label>
-               <div className='saved_id_container_outer'>
+            <div className='saved_id_container_outer'>
               <div
                 style={{
                   color: "rgba(256, 256, 256, 0.5)",
@@ -104,12 +122,13 @@ const Withdraw = () => {
                   margin: "0px 0px 10px 0px",
                 }}
               >
-                Enregistrez 2 identifiants 1XBET différents dans votre profil pour les afficher ici </div>
+                Enregistrez 2 identifiants 1XBET différents dans votre profil
+                pour les afficher ici{" "}
+              </div>
               <div className='saved_id_container'>
                 {savedID.map((id, index) => (
                   <div className='saved_id_container-inner' key={index}>
-                    {id}{" "}
-                    <FaCircle color="white" />
+                    {id} <FaCircle color='white' />
                     <span
                       style={{
                         fontSize: "8px",
@@ -196,7 +215,7 @@ const Withdraw = () => {
             )}
           </button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };
