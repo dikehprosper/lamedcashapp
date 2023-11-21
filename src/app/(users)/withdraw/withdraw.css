@@ -1,0 +1,167 @@
+.user_withdraw_container {
+  display: flex;
+  margin-left: 250px;
+  padding: 27px 35px 20px 35px;
+  height: auto;
+  flex-direction: column;
+/* max-height: 190vh; */
+  flex-direction: column;
+
+flex: 0 0 auto
+}
+
+
+@media (max-width: 1028px) {
+  .user_withdraw_container {
+    margin-left: 0px;
+    padding: 90px 35px 10px 35px;
+  }
+}
+
+@media (max-width: 620px) {
+  .user_withdraw_container {
+    padding: 82px 20px 10px 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .user_withdraw_container {
+    padding: 82px 16px 10px 16px;
+  }
+}
+
+.user_withdraw_container_001 {
+    width: 100%;
+    flex: 0 0 auto;
+    border: 1px solid rgba(0, 256, 0, 0.1);
+    padding: 20px;
+    background: rgba( 0, 0, 0, 0.4);
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+.user_withdraw_container_002 {
+width: 100%;
+display: flex;
+justify-content: space-between;
+gap: 15px
+}
+
+.user_withdraw_container_002 > div {
+ border: 2px solid rgba(0, 256, 0, 0.1);
+ padding: 10px 20px;
+ border-radius: 5px;
+ font-weight: 800;
+background: rgba(0, 118, 184, 0.5)
+}
+
+.withdraw-form-container {
+      width: 100%;
+    flex: 0 0 auto;
+      margin-top: 20px;
+      display: flex;
+    flex-direction: column;
+    gap: 18px
+}
+
+.withdraw-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%
+}
+.withdraw-form > label {
+    font-weight: 600;
+    color: rgba(256, 256, 256, 0.7);
+    font-size: 15px
+}
+
+.withdraw-form-momo {
+display: flex;
+width: 100%;
+gap: 15px;
+}
+
+.withdraw-form1  {
+  border: none;
+  outline: none;
+  padding: 15px;
+  color: white;
+  background: transparent;
+  width: 100%;
+  border: 2px solid rgba(256, 256, 256, 0.09);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  background: rgba(256, 256, 256, 0.03);
+}
+
+.withdraw-form1 :-webkit-autofill,
+.withdraw-form1 :-webkit-autofill:hover,
+.withdraw-form1 :-webkit-autofill:focus,
+.withdraw-form1 :-webkit-autofill:active {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.withdraw-form1::placeholder {
+  color: rgba(256, 256, 256, 0.1);
+  font-size: 16px;
+}
+
+.withdraw-form1:focus {
+  border: 2px solid rgba(189, 255, 5, 0.7);
+  outline: none;
+  transition: 1s border ease-in-out;
+}
+
+.submit-button {
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  width: 200px;
+  height: 40px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 40px;
+  cursor: pointer
+}
+
+@media(max-width: 665px){
+  .submit-button {
+align-self: center
+}
+
+.user_withdraw_container_002 {
+  flex-direction: column;
+  gap: 10px;
+  
+}
+
+.withdraw-form-momo {
+  flex-direction: column
+}
+
+}
+
+@media(max-width: 395px){
+.user_withdraw_container_002 > div {
+ padding: 7px 14px;
+ border-radius: 3px;
+ font-weight: 800;
+background: rgba(0, 118, 184, 0.5);
+font-size: 12px
+}
+.user_withdraw_container_001 > div {
+  font-size: 12px!important
+}
+p {
+  font-size: 12px
+}
+}

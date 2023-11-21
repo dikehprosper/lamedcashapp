@@ -1,0 +1,213 @@
+.user_deposit_container {
+  display: flex;
+  margin-left: 250px;
+  padding: 27px 35px 20px 35px;
+  height: auto;
+  flex-direction: column;
+/* max-height: 190vh; */
+  flex-direction: column;
+
+flex: 0 0 auto
+}
+
+
+@media (max-width: 1028px) {
+  .user_deposit_container {
+    margin-left: 0px;
+    padding: 90px 35px 10px 35px;
+  }
+}
+
+@media (max-width: 620px) {
+  .user_deposit_container {
+    padding: 82px 15px 10px 15px;
+  }
+  .only-laptop {
+    display: none
+  }
+}
+
+@media (max-width: 450px) {
+  .user_deposit_container {
+    padding: 82px 10px 10px 10px;
+  }
+}
+
+.user_deposit_container_001 {
+    width: 100%;
+    flex: 0 0 auto;
+    border: 1px solid rgba(0, 256, 0, 0.1);
+    padding: 20px;
+    background: rgba( 0, 0, 0, 0.4);
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+
+.deposit-form-container {
+      width: 100%;
+    flex: 0 0 auto;
+      margin-top: 20px;
+      display: flex;
+    flex-direction: column;
+    gap: 18px
+}
+
+.deposit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%
+}
+.deposit-form > label {
+    font-weight: 600;
+    color: rgba(256, 256, 256, 0.7);
+    font-size: 15px
+}
+
+.deposit-form-momo {
+display: flex;
+width: 100%;
+gap: 15px;
+}
+
+.deposit-form1  {
+  border: none;
+  outline: none;
+  padding: 15px;
+  color: white;
+  background: transparent;
+  width: 100%;
+  border: 2px solid rgba(256, 256, 256, 0.09);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  background: rgba(256, 256, 256, 0.03);
+}
+
+.deposit-form1 :-webkit-autofill,
+.deposit-form1 :-webkit-autofill:hover,
+.deposit-form1 :-webkit-autofill:focus,
+.deposit-form1 :-webkit-autofill:active {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.deposit-form1::placeholder {
+  color: rgba(256, 256, 256, 0.1);
+  font-size: 16px;
+}
+
+.deposit-form1:focus {
+  border: 2px solid rgba(189, 255, 5, 0.7);
+  outline: none;
+  transition: 1s border ease-in-out;
+}
+
+.submit-button {
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  width: 200px;
+  height: 40px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 22px;
+  cursor: pointer
+}
+
+@media(max-width: 665px){
+  .submit-button {
+align-self: center
+}
+
+.deposit-form1 {
+  padding: 8px;
+
+}
+
+.deposit-form1::placeholder {
+  color: rgba(256, 256, 256, 0.1);
+  font-size: 12px;
+}
+
+
+.deposit-form-momo {
+  flex-direction: column
+}
+
+
+}
+
+@media(max-width: 395px){
+
+p {
+  font-size: 12px
+}
+}
+
+.saved_id_container_outer {
+  display: flex;
+  justify-content: space-between;
+    align-items: center
+}
+.saved_id_container {
+  display: flex;
+  gap: 10px;
+  align-items: center
+}
+.saved_id_container-inner {
+  padding: 5px 10px;
+  border: 2px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+font-size: 14px;
+font-weight: bold;
+color: rgba(256, 256, 256, 0.5);
+display: flex;
+gap: 12px;
+  align-items: center
+}
+
+@media (max-width: 1283px) {
+  .saved_id_container_outer { 
+flex-direction: column;
+gap: 5px;
+width: 100%
+}
+
+  .saved_id_container_outer > div { 
+font-size: 11px
+}
+
+.saved_id_container {
+  align-self: end
+}
+
+.saved_id_container-inner {
+  padding: 2.5px 5px;
+  border: 1.5px solid rgba(128, 128, 128, 0.5);
+  border-radius: 4px;
+font-size: 12px;
+gap: 8px;
+}
+}
+
+@media (max-width: 1283px) {
+.saved_id_container-inner {
+  gap: 6px;
+  padding: 2px 4px;
+}
+
+.user_deposit_container_001 {
+ padding: 13px;
+}
+
+
+}
+

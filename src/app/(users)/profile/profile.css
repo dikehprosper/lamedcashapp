@@ -1,0 +1,30 @@
+.user_profile_container {
+  display: flex;
+  margin-left: 250px;
+  padding: 27px 35px 20px 35px;
+  height: auto;
+  flex-direction: column;
+/* max-height: 190vh; */
+  flex-direction: column;
+
+flex: 0 0 auto
+}
+
+@media (max-width: 1028px) {
+  .user_profile_container {
+    margin-left: 0px;
+    padding: 90px 35px 10px 35px;
+  }
+}
+
+@media (max-width: 620px) {
+  .user_profile_container {
+    padding: 82px 20px 10px 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .user_profile_container {
+    padding: 82px 16px 10px 16px;
+  }
+}

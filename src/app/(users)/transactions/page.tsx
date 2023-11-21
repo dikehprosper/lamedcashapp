@@ -8,8 +8,8 @@ const Transactions = () => {
   return (
     <div className='transactionPage_container'>
       <Head
-        title='Transaction'
-        about='View and Track your Transaction history'
+        title='Transactions'
+        about="Afficher et suivre l'historique de vos transactions"
       />
       <TransactionTemplate
         title={{ name: "Transaction History", icon: <LuHistory /> }}
