@@ -71,11 +71,13 @@ const Deposit = () => {
 
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='signin-form-container'>
+          <label>1XBET ID</label>
           <input
             type='email'
             className='signin-form'
             placeholder='Entrez votre e-mail'
           />
+          <label>1XBET ID</label>
           <div className='signin-form-password'>
             <input
               type='password'
@@ -108,10 +110,6 @@ const Deposit = () => {
           </button>
         </form>
 
-        {/* <form>
-          <label htmlFor='myInput'>Input:</label>
-          <input type='text' id='myInput' className='form-input' />
-        </form> */}
         {/* <form onSubmit={handleSubmit} className='deposit-form-container'>
           <div className='deposit-form'>
             <label>1XBET ID</label>
