@@ -70,6 +70,10 @@ const Deposit = () => {
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
 
       <div className='user_deposit_container_001'>
+        <form>
+          <label htmlFor='myInput'>Input:</label>
+          <input type='text' id='myInput' className='form-input' />
+        </form>
         {/* <form onSubmit={handleSubmit} className='deposit-form-container'>
           <div className='deposit-form'>
             <label>1XBET ID</label>

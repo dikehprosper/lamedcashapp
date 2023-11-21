@@ -186,3 +186,21 @@
     padding: 13px;
   }
 }
+
+
+/* Apply consistent styles to the form input */
+.form-input {
+  width: 200px; /* Set a fixed width */
+  height: 40px; /* Set a fixed height */
+  padding: 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Add a border for a more defined look */
+
+  /* Add any other styling properties you need */
+}
+
+/* On focus, you can modify the styles if necessary */
+.form-input:focus {
+  outline: none; /* Remove the default focus outline if it's not needed */
+  border-color: #0076B8; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(0, 118, 184, 0.5); /* Add a subtle box shadow on focus */
+}
