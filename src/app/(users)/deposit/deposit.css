@@ -22,6 +22,10 @@ flex: 0 0 auto
 }
 
 
+label {
+  margin-top: 10px;
+}
+
 @media (max-width: 1028px) {
   .user_withdraw_container {
     margin-left: 0px;
@@ -115,7 +119,7 @@ flex: 0 0 auto
 @media (max-width: 1283px) {
   .saved_id_container_outer {
     flex-direction: column;
-    gap: 5px;
+    gap: 13px;
     width: 100%;
   }
 
