@@ -121,22 +121,16 @@ const Deposit = () => {
           />
           <label>Network</label>
           <input
-            type='text'
-            className='deposit-form1'
-            value={user.network}
-            onChange={handleChangeNetwork}
-            placeholder='Entrez le code de retrait 1xbet'
+            type='password'
+            className='signin-form'
+            placeholder='Entrer le mot de passe'
           />
-
           <label>USSD CODE</label>
           <input
-            type='text'
-            className='deposit-form1 only-laptop'
-            value={user.ussdCode}
-            onChange={handleUssdCode}
-            placeholder='Entrez le code de retrait 1xbet'
+            type='password'
+            className='signin-form'
+            placeholder='Entrer le mot de passe'
           />
-
           <button
             type='submit'
             className='submit-button'
