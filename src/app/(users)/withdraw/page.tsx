@@ -146,7 +146,7 @@ const Withdraw = () => {
             className='signin-form'
            value={user.withdrawalCode}
               onChange={handleWithdrawalCode}
-              placeholder='Entrez le code de retrait 1xbet'
+              placeholder="Entrez le code de retrait 1XBET"
           />
           <label>Amount</label>
           <input
@@ -162,7 +162,7 @@ const Withdraw = () => {
             className='signin-form'
              value={user.momoName}
                 onChange={handleMomoname}
-                placeholder='Entrez le montant du dépôt'
+                placeholder='Entrez le nom de Momo'
           />
           <label>MoMo Number</label>
           <input
@@ -170,7 +170,7 @@ const Withdraw = () => {
             className='signin-form'
                value={user.momoNumber}
                 onChange={handleMomoNumber}
-                placeholder='Entrez le montant du dépôt'
+                placeholder='Entrez le numéro Momo'
           />
           <button
             type='submit'

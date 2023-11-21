@@ -93,34 +93,33 @@ const Deposit = () => {
                       fontWeight: "light",
                       color: "rgba(256, 256, 256, 0.5)",
                     }}
-                  >
-                  </span>
+                  ></span>
                 </div>
               ))}
             </div>
           </div>
           <input
-            type='email'
+            type='text'
             className='signin-form'
-            placeholder='Entrez votre e-mail'
+            placeholder="Entrez l'identifiant 1XBET"
           />
           <label>Amount</label>
           <input
-            type='password'
+            type='number'
             className='signin-form'
-            placeholder='Entrer le mot de passe'
+            placeholder='Entrez le montant du dépôt'
           />
           <label>Network</label>
           <input
-            type='password'
+            type='text'
             className='signin-form'
-            placeholder='Entrer le mot de passe'
+            placeholder='choisir le réseau'
           />
-          <label className="laptop-version">USSD CODE</label>
+          <label className='laptop-version'>USSD CODE</label>
           <input
-            type='password'
+            type='number'
             className='signin-form laptop-version'
-            placeholder='Entrer le mot de passe'
+            placeholder=''
           />
           <button
             type='submit'
@@ -142,7 +141,7 @@ const Deposit = () => {
           </button>
         </form>
       </div>
-          <FooterMobile />
+      <FooterMobile />
     </div>
   );
 };
