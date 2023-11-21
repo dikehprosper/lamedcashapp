@@ -70,8 +70,8 @@ const Deposit = () => {
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
 
       <div className='user_deposit_container_001'>
-        <form onSubmit={handleSubmit} className='deposit-form-container'>
-          {/* <div className='deposit-form'>
+        {/* <form onSubmit={handleSubmit} className='deposit-form-container'>
+          <div className='deposit-form'>
             <label>1XBET ID</label>
             <div className='saved_id_container_outer'>
               <div
@@ -103,7 +103,7 @@ const Deposit = () => {
                 ))}
               </div>
             </div>
-          </div> */}
+          </div>
 
           <input
             type='text'
@@ -113,7 +113,7 @@ const Deposit = () => {
             placeholder='Entrez 1XBET ID'
           />
 
-          {/* <label>Amount</label> */}
+          <label>Amount</label>
           <input
             type='number'
             className='deposit-form1'
@@ -122,7 +122,7 @@ const Deposit = () => {
             placeholder='Entrez le montant du dépôt'
           />
 
-          {/* <label>Network</label> */}
+          <label>Network</label>
           <input
             type='text'
             className='deposit-form1'
@@ -130,16 +130,15 @@ const Deposit = () => {
             onChange={handleChangeNetwork}
             placeholder='Entrez le code de retrait 1xbet'
           />
-   
-            {/* <label>USSD CODE</label> */}
-            <input
-              type='text'
-              className='deposit-form1 only-laptop'
-              value={user.ussdCode}
-              onChange={handleUssdCode}
-              placeholder='Entrez le code de retrait 1xbet'
-            />
 
+          <label>USSD CODE</label>
+          <input
+            type='text'
+            className='deposit-form1 only-laptop'
+            value={user.ussdCode}
+            onChange={handleUssdCode}
+            placeholder='Entrez le code de retrait 1xbet'
+          />
 
           <button
             type='submit'
@@ -159,7 +158,7 @@ const Deposit = () => {
               "Procéder"
             )}
           </button>
-        </form>
+        </form> */}
       </div>
     </div>
   );
