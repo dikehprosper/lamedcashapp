@@ -673,6 +673,7 @@ a {
 padding: 30px;
   align-items: flex-end;
    justify-self: flex-end;
+   flex: 1
 }
 .user-nav-logo-all {
   width: 30px;

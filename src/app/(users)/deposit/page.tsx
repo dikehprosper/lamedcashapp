@@ -101,18 +101,24 @@ const Deposit = () => {
           <input
             type='text'
             className='deposit-form'
+                 value={user.betId}
+            onChange={handleChangeId}
             placeholder="Entrez l'identifiant 1XBET"
           />
           <label>Amount</label>
           <input
             type='number'
             className='deposit-form'
+            value={user.amount}
+            onChange={handleChangeAmount}
             placeholder='Entrez le montant du dépôt'
           />
           <label>Network</label>
           <input
             type='text'
             className='deposit-form'
+             value={user.network}
+            onChange={handleChangeNetwork}
             placeholder='choisir le réseau'
           />
           <label className='laptop-version'>USSD CODE</label>

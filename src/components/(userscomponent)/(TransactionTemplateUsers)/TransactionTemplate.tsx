@@ -100,19 +100,19 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
           {title.name} {title.icon}
         </span>
         <span className='transaction_template_container_header_2'>
-          <h3>
+          <div>
             {" "}
             <span className='transaction_template_container_header_2_span_1'>
               Total Deposits:{" "}
             </span>{" "}
-            <> XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</>
-          </h3>
-          <h3>
+            <span style={{fontSize: "13px"}}> XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</span>
+          </div>
+          <div>
             <span className='transaction_template_container_header_2_span_2'>
               Total Withdrawals:{" "}
             </span>{" "}
-            <> XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</>
-          </h3>
+            <span style={{fontSize: "13px"}}> XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</span>
+          </div>
         </span>
       </div>
       <div className='transaction_template_container_body'>

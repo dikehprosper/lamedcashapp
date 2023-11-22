@@ -19,7 +19,13 @@
    background: grey;
    color: black
 }
-
+  .transaction_template_container_header_2_span_1 {
+   color: #658900;
+  }
+  .transaction_template_container_header_2_span_2 {
+     color: #0076b8;
+  }
+  
 .transaction_template_container_header {
   display: flex;
   min-height: 50px;
@@ -42,9 +48,12 @@
   align-items: flex-end;
 }
 
-.transaction_template_container_header_2 > h3 {
+.transaction_template_container_header_2 > div {
   font-weight: 500;
   font-size: 11px;
+     display: flex;
+    align-items: center;
+    gap: 5px
 }
 
 .transaction_template_container_header
@@ -212,9 +221,10 @@ font-weight: bold
   .transaction_template_container_header_2_span_1,
   .transaction_template_container_header_2_span_2 {
     font-size: 13px!important;
-   
   }
-  .transaction_template_container_header_2 h3 {
+
+
+  .transaction_template_container_header_2 div {
     font-size: 11.4px;
      color: rgba(256, 256, 256, 0.6)!important
   }
@@ -226,7 +236,7 @@ font-weight: bold
     min-height: 70px;
     max-height: 70px;
   }
-  .transaction_template_container_header_2 h3 {
+  .transaction_template_container_header_2 div {
     justify-content: space-between;
     display: flex;
     width: 100%;
@@ -273,7 +283,7 @@ flex: 1
   .transaction_template_container_header_2_span_2 {
     font-size: 10px!important;
   }
-  .transaction_template_container_header_2 h3 {
+  .transaction_template_container_header_2 div {
     font-size: 8px;
   }
 
