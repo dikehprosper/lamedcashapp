@@ -46,7 +46,10 @@ export interface TransactionTemplateProps {
     icon: React.JSX.Element;
   };
   select: {
-    fourthSelect: any;
+    fourthSelect: {
+      big: string;
+      small: string;
+    };
     firstSelect: {
       big: string;
       small: string;
