@@ -52,7 +52,7 @@
      display: flex;
     align-items: center;
     gap: 5px;
-    color: white!important
+    color: white
 }
 
 .transaction_template_container_header
@@ -81,7 +81,8 @@
   flex-direction: column;
   overflow: hidden;
   flex: 1;
-  position: relative
+  position: relative;
+  
 }
 
 .transaction_template_container_body_1 {
@@ -106,7 +107,8 @@
   overflow-y: scroll;
   position: relative;
   flex: 1;
- min-height: 100%
+ min-height: 100%;
+ padding-bottom: 20px!important
 }
 
 
@@ -245,7 +247,7 @@ font-weight: bold
   }
   .transaction_template_container {
  
-  padding: 10px 8px 8px 8px;
+  padding: 10px 7px 8px 7px;
 
   }
 }

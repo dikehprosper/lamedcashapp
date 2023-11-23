@@ -113,7 +113,7 @@ const Profile = () => {
       <div className='user_profile_container_001'>
         <form onSubmit={handleSubmit} className='profile-form-container'>
           <div className='add-photo'>
-            <div className='add-photo-container'>D</div>
+            <div className='add-photo-container appear'>D</div>
             <div className='add-photo-button'>+ change photo</div>
           </div>
           <div>

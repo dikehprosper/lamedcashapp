@@ -223,7 +223,6 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
               display: "flex",
               flexDirection: "column",
               gap: "10px",
-              paddingBottom: "20px",
               marginTop: "5px",
             }}
           >

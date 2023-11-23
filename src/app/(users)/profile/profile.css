@@ -605,7 +605,12 @@ width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold
+  font-weight: bold;
+  transition: opacity 2s ease-in-out;
+}
+
+.appear {
+opacity: 1
 }
 
 .add-photo-button {
@@ -636,6 +641,7 @@ width: 100%;
  background: rgba(0, 0, 0, 0.7);
   border-radius: 30px;
 
+  transition: opacity 2s ease-in-out;
 }
 }
 
@@ -646,3 +652,7 @@ width: 100%;
   font-size: 12px;
 }
 }
+
+
+
+
