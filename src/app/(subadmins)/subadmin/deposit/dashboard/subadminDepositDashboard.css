@@ -1,0 +1,97 @@
+.subadmin_dashboard_container {
+  display: flex;
+  margin-left: 250px;
+  padding: 27px 35px 20px 35px;
+  height: auto;
+  flex-direction: column;
+min-height: 100vh;
+/* max-height: 190vh; */
+  flex-direction: column;
+  overflow: hidden;
+flex: 1;
+}
+
+@media (max-width: 1028px) {
+  .subadmin_dashboard_container {
+    margin-left: 0px;
+    padding: 90px 35px 10px 35px;
+  }
+}
+
+@media (max-width: 620px) {
+  .subadmin_dashboard_container {
+    padding: 82px 20px 10px 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .subadmin_dashboard_container {
+    padding: 82px 16px 10px 16px;
+  }
+}
+
+.subadmin_dashboard_container-display {
+    display: flex;
+    width: 100%;
+    height: 230px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 45px;
+    padding: 15px;
+    gap: 10px;
+    border: .5px solid rgba(0, 256, 0, 0.25)
+}
+.subadmin_dashboard_container-display-children {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+height: 100%;
+border-radius: 7px;
+padding-bottom: 20px;
+ border: .2epx solid rgba(0, 186, 0, 0.2)
+}
+
+.subadmin_dashboard_container-display-children:first-child {
+background: rgba(0, 0, 0, .4)
+}
+
+.subadmin_dashboard_container-display-children:nth-child(2) {
+  background: rgba(101, 137, 0, .3)
+}
+
+.subadmin_dashboard_container-display-children:nth-child(3)  {
+  background: rgba(101, 137, 0, .3)
+}
+
+.display-body-300 {
+  display: flex;
+   width: 100%;
+   align-items: center;
+   justify-content: space-between;
+   height: 60px;
+   padding: 0px 30px
+}
+
+.display-body-300 > div:first-child { 
+height: 100%;
+width: 100%;
+border-radius: 5px;
+    align-items: center;
+     display: flex;
+     padding: 0px 20px;
+   justify-content: flex-start
+}
+
+.display-body-300 > div:nth-child(2) { 
+height: 35px;
+width: 140px;
+border-radius: 5px;
+     display: flex;
+   align-items: center;
+   justify-content: center;
+   background: rgba(0, 0, 0, 0.3);
+  border: .15px solid rgba(0, 256, 0, 0.2)
+}
+

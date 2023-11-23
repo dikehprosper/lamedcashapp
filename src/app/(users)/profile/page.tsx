@@ -9,6 +9,7 @@ import FooterMobile from "@/components/(Utils)/FooterMobile";
 const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [buttonDisabled1, setButtonDisabled1] = useState(true);
   const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({
     firstName: "",
@@ -36,6 +37,14 @@ const Profile = () => {
       setButtonDisabled(true);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user.betID) {
+      setButtonDisabled1(false);
+    } else {
+      setButtonDisabled1(true);
+    }
+  }, [user.betID]);
 
   const handleChangeFirstName = (event: any) => {
     setUser({
@@ -104,11 +113,11 @@ const Profile = () => {
       <div className='user_profile_container_001'>
         <form onSubmit={handleSubmit} className='profile-form-container'>
           <div className='add-photo'>
-            <div className='add-photo-container'></div>
+            <div className='add-photo-container'>D</div>
             <div className='add-photo-button'>+ change photo</div>
           </div>
           <div>
-            <label className='label-first-child'>First Name</label>
+            <label className='label'>First Name</label>
             <input
               type='text'
               className='profile-form input-first-child'
@@ -118,7 +127,7 @@ const Profile = () => {
             />
           </div>
           <div>
-            <label className='label-second-child'>Last Name</label>{" "}
+            <label className='label'>Last Name</label>{" "}
             <input
               type='text'
               className='profile-form input-second-child'
@@ -128,7 +137,7 @@ const Profile = () => {
             />
           </div>
           <div>
-            <label>Email</label>
+            <label className='label'>Email</label>
             <input
               type='text'
               className='profile-form'
@@ -138,7 +147,7 @@ const Profile = () => {
             />
           </div>
           <div>
-            <label>mobileNumber</label>
+            <label className='label'>mobileNumber</label>
             <input
               type='text'
               className='profile-form'
@@ -147,8 +156,8 @@ const Profile = () => {
               placeholder='Entrez le montant du dépôt'
             />
           </div>
-          <div className="betid-section">
-            <label>1XBET ID</label>
+          <div className='betid-section'>
+            <label className='label'>1XBET ID</label>
             <div className='saved_id_container_outer'>
               <div
                 style={{
@@ -182,9 +191,27 @@ const Profile = () => {
               onChange={handlechangeBetID}
               placeholder="Entrez l'identifiant 1XBET"
             />
+            <button
+              type='submit'
+              className='submit-button1'
+              style={{
+                background: buttonDisabled1
+                  ? "rgba(128, 128, 128, 0.4)"
+                  : "rgba(128, 128, 128, 1)",
+                pointerEvents: buttonDisabled1 ? "none" : "auto",
+              }}
+            >
+              {loading ? (
+                <div id='container-signin'>
+                  <div id='html-spinner-signin'></div>
+                </div>
+              ) : (
+                "Sauvegarder BetID"
+              )}
+            </button>
           </div>
           <div>
-            <label> Password</label>
+            <label className='label'> Password</label>
             <input
               type='number'
               className='profile-form'
@@ -194,7 +221,7 @@ const Profile = () => {
             />
           </div>
           <div>
-            <label>Confirm Password</label>
+            <label className='label'>Confirm Password</label>
             <input
               type='text'
               className='profile-form'
@@ -218,7 +245,7 @@ const Profile = () => {
                 <div id='html-spinner-signin'></div>
               </div>
             ) : (
-              "Procéder"
+              "Sauvegarder"
             )}
           </button>
         </form>

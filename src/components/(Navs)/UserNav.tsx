@@ -59,20 +59,38 @@ const UsersNavLinks = [
   },
 ];
 
-const SubAdminsNavLinks = [
+const SubAdminsNavLinksDeposits = [
   {
     title: "Tableau de bord",
-    pathname: "/dashboard",
+    pathname: "/subadmin/deposit/dashboard",
     icon: <BiSolidDashboard />,
   },
   {
-    title: "Dépôt",
-    pathname: "/deposit",
-    icon: <BiLogOutCircle />,
+    title: "Transactions",
+    pathname: "/subadmin/deposit/transactions",
+    icon: <LuHistory />,
   },
   {
     title: "Messages",
-    pathname: "/messages",
+    pathname: "/subadmin/deposit/messages",
+    icon: <BiSolidMessageSquareDetail />,
+  },
+];
+
+const SubAdminsNavLinksWithdrawal = [
+  {
+    title: "Tableau de bord",
+    pathname: "/subadmin/withdrawal/dashboard",
+    icon: <BiSolidDashboard />,
+  },
+  {
+    title: "Transactions",
+    pathname: "/subadmin/withdrawal/transactions",
+    icon: <LuHistory />,
+  },
+  {
+    title: "Messages",
+    pathname: "/subadmin/withdrawal/messages",
     icon: <BiSolidMessageSquareDetail />,
   },
 ];
@@ -128,6 +146,18 @@ const UserNav = () => {
     setState(true);
   }
 
+ function findPath() {
+   if (pathname.startsWith("/admin")) {
+     return AdminNavLinks;
+   } else if (pathname.startsWith("/subadmin/deposit")) {
+     return SubAdminsNavLinksDeposits;
+   } else if (pathname.startsWith("/subadmin/withdrawal")) {
+     return SubAdminsNavLinksWithdrawal;
+   } else {
+     return UsersNavLinks;
+   }
+ } 
+
   return (
     <>
       <div className='user-nav for-larger-devices'>
@@ -147,7 +177,7 @@ const UserNav = () => {
           </div>
           <BigScreenNavModal
             containerStyles='user-nav-link'
-            navLinks={UsersNavLinks}
+            navLinks={findPath()}
           />
         </div>
 
@@ -254,7 +284,7 @@ const UserNav = () => {
         </div>
         {!state && (
           <Modal
-            navLinks={UsersNavLinks}
+            navLinks={findPath()}
             containerStyles='nav-link2'
             handleClick={handleClick}
             containerStylesInner='users-nav-link2_inner'

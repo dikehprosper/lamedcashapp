@@ -1,9 +1,11 @@
-.transaction_template_container {
+.transaction_template_container-subadmin {
   width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0.1px 0.1px 5px rgba(0, 255, 0, 0.4),
+    -0.1px -0.1px 5px rgba(0, 0, 255, 0.4);
   margin-top: 20px;
   gap: 20px;
   padding: 10px 20px;
@@ -13,18 +15,18 @@
   height: 500px;
 }
 
-.active_selection_small {
+.active_selection_small-subadmin {
    background: grey;
    color: black
 }
-  .transaction_template_container_header_2_span_1 {
+  .transaction_template_container_header_2_span_1-subadmin {
    color: #658900;
   }
-  .transaction_template_container_header_2_span_2 {
+  .transaction_template_container_header_2_span_2-subadmin {
      color: #0076b8;
   }
   
-.transaction_template_container_header {
+.transaction_template_container_header-subadmin {
   display: flex;
   min-height: 50px;
   max-height: 50px;
@@ -33,29 +35,28 @@
   padding-left: 25px;
   padding-right: 18px;
 }
-.transaction_template_container_header_1 {
+.transaction_template_container_header_1-subadmin {
   display: flex;
   align-items: flex-end;
   font-size: 18px;
   font-weight: 700;
   gap: 12px;
 }
-.transaction_template_container_header_2 {
+.transaction_template_container_header_2-subadmin {
   display: flex;
   gap: 25px;
   align-items: flex-end;
 }
 
-.transaction_template_container_header_2 > div {
+.transaction_template_container_header_2-subadmin > div {
   font-weight: 500;
   font-size: 11px;
      display: flex;
     align-items: center;
-    gap: 5px;
-    color: white!important
+    gap: 5px
 }
 
-.transaction_template_container_header
+.transaction_template_container_header-subadmin
   > span:nth-child(2)
   > h3:first-child
   > span {
@@ -63,7 +64,7 @@
   color: #658900;
 }
 
-.transaction_template_container_header
+.transaction_template_container_header-subadmin
   > span:nth-child(2)
   > h3:nth-child(2)
   > span {
@@ -71,7 +72,7 @@
   color: #0076b8;
 }
 
-.transaction_template_container_body {
+.transaction_template_container_body-subadmin{
   display: flex;
   background: rgba(0, 0, 0, 0.4);
   border: 0.5px solid rgba(0, 255, 0, 0.09);
@@ -84,7 +85,7 @@
   position: relative
 }
 
-.transaction_template_container_body_1 {
+.transaction_template_container_body_1-subadmin {
   border-radius: 0px 0px 5px 5px;
   border: 0.5px solid rgba(0, 255, 0, 0.09);
   margin-bottom: 5px;
@@ -96,7 +97,7 @@
   align-items: center;
 
 }
-.transaction_template_container_body_2 {
+.transaction_template_container_body_2-subadmin {
   display: flex;
   background: rgba(0, 0, 0, 0.4);
   width: 100%;
@@ -112,7 +113,7 @@
 
 
 
-.transaction_template_container_body_1_1 {
+.transaction_template_container_body_1_1-subadmin {
   height: 25px;
   width: 110px;
   border: 1px solid rgba(226, 244, 240, 0.2);
@@ -129,7 +130,7 @@
 font-weight: bold
 }
 
-.transaction_template_container_body_1_2 {
+.transaction_template_container_body_1_2-subadmin {
   height: 100%;
   font-size: 13px;
   font-weight: 400;
@@ -140,11 +141,11 @@ font-weight: bold
   margin-right: 5px
 }
 
-.transaction_template_container_body_1_3 {
+.transaction_template_container_body_1_3-subadmin {
   display: none
 }
 
-.transaction_template_container_body
+.transaction_template_container_body-subadmin
   > div:first-child
   > div:nth-child(2)
   span:hover {
@@ -152,7 +153,7 @@ font-weight: bold
   border-color: #5e968b;
 }
 
-.transaction_template_container_body_1_2_1 {
+.transaction_template_container_body_1_2_1-subadmin {
   width: 100%;
   height: 32px;
   display: flex;
@@ -180,17 +181,17 @@ font-weight: bold
 }
 
 @media (max-width: 1220px) {
-  .transaction_template_container_header_2 {
+  .transaction_template_container_header_2-subadmin {
     flex-direction: column;
     gap: 3px;
     justify-content: flex-end;
   }
-  .transaction_template_container_body_1_2 {
+  .transaction_template_container_body_1_2-subadmin {
    display: none;
 }
 
 
-  .transaction_template_container_body_1_3 {
+  .transaction_template_container_body_1_3-subadmin {
    height: 25px;
   width: 130px;
   border: 1px solid rgba(226, 244, 240, 0.2);
@@ -208,7 +209,7 @@ font-weight: bold
     font-weight: bold
 }
 
-.transaction_template_container_body_1 {
+.transaction_template_container_body_1-subadmin {
   min-height: 40px!important;
    max-height: 40px!important;
   display: flex;
@@ -217,33 +218,34 @@ font-weight: bold
 }
 
 @media (max-width: 640px) {
-  .transaction_template_container_header_2_span_1,
-  .transaction_template_container_header_2_span_2 {
+  .transaction_template_container_header_2_span_1-subadmin,
+  .transaction_template_container_header_2_span_2-subadmin {
     font-size: 13px!important;
   }
 
 
-  .transaction_template_container_header_2 div {
+  .transaction_template_container_header_2-subadmin div {
     font-size: 11.4px;
+     color: rgba(256, 256, 256, 0.6)!important
   }
 
-  .transaction_template_container_header {
+  .transaction_template_container_header-subadmin {
     flex-direction: column;
     gap: 23px;
     padding: 5px;
     min-height: 70px;
     max-height: 70px;
   }
-  .transaction_template_container_header_2 div {
+  .transaction_template_container_header_2-subadmin div {
     justify-content: space-between;
     display: flex;
     width: 100%;
     align-items: center
   }
-  .transaction_template_container_header_1 {
+  .transaction_template_container_header_1-subadmin {
     font-size: 14px;
   }
-  .transaction_template_container {
+  .transaction_template_container-subadmin {
  
   padding: 10px 8px 8px 8px;
 
@@ -253,17 +255,17 @@ font-weight: bold
 
 @media (max-width: 500px) {
 
-  .transaction_template_container_body_1_1 {
+  .transaction_template_container_body_1_1-subadmin {
   height: 22px;
   width: 100px;
   font-size: 11px;
 }
-.transaction_template_container_body_1_3 {
+.transaction_template_container_body_1_3-subadmin {
    height: 22px;
   width: 108px;
   font-size: 9px;
 }
-.transaction_template_container {
+.transaction_template_container-subadmin {
 flex: 1
 }
 
@@ -282,20 +284,20 @@ flex: 1
 }
 
 @media (max-width: 350px) {
-  .transaction_template_container_header_2_span_1,
-  .transaction_template_container_header_2_span_2 {
+  .transaction_template_container_header_2-subadmin_span_1-subadmin,
+  .transaction_template_container_header_2-subadmin_span_2 {
     font-size: 10px!important;
   }
-  .transaction_template_container_header_2 div {
+  .transaction_template_container_header_2-subadmin div {
     font-size: 8px;
   }
 
-    .transaction_template_container_body_1_1 {
+    .transaction_template_container_body_1_1-subadmin {
   height: 21px;
   width: 90px;
   font-size: 10px;
 }
-.transaction_template_container_body_1_3 {
+.transaction_template_container_body_1_3-subadmin {
    height: 21px;
   width: 93px;
   font-size: 7.5px;

@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const SecondSection = () => {
   return (
-    <div className="secondSection-container">
+    <div className='secondSection-container'>
       <h2>Nous offrons</h2>
-      <div className="secondSection-box">
-        <div className="secondSection-box-inner">
+      <div className='secondSection-box'>
+        <div className='secondSection-box-inner animate-pop-in '>
           <div>
             {" "}
-            <AiFillThunderbolt className="secondSection-icons" />
+            <AiFillThunderbolt className='secondSection-icons' />
           </div>
           <h5>Rapide et facile</h5>
           <p>
@@ -22,9 +22,9 @@ const SecondSection = () => {
             distance.
           </p>
         </div>
-        <div className="secondSection-box-inner">
+        <div className='secondSection-box-inner animate-pop-in '>
           <div>
-            <BsShieldLock className="secondSection-icons" />
+            <BsShieldLock className='secondSection-icons' />
           </div>
           <h5>Sécurité et commodité</h5>
           <p>
@@ -33,10 +33,10 @@ const SecondSection = () => {
             chaque transaction.
           </p>
         </div>
-        <div className="secondSection-box-inner">
+        <div className='secondSection-box-inner animate-pop-in '>
           <div>
             {" "}
-            <MdOutlineSupportAgent className="secondSection-icons" />
+            <MdOutlineSupportAgent className='secondSection-icons' />
           </div>
           <h5>Support 24/7</h5>
           <p>

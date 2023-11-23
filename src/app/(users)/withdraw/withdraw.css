@@ -33,7 +33,6 @@ flex: 0 0 auto
 .user_withdraw_container_001 {
     width: 100%;
     flex: 0 0 auto;
-    border: 1px solid rgba(0, 256, 0, 0.1);
     padding: 20px;
     background: rgba( 0, 0, 0, 0.4);
     border-radius: 10px;
@@ -49,9 +48,8 @@ margin-bottom: 15px
 }
 
 .user_withdraw_container_002 > div {
- border: 2px solid rgba(0, 256, 0, 0.1);
  padding: 10px 20px;
- border-radius: 5px;
+ border-radius: 10px;
  font-weight: 800;
 background: rgba(0, 118, 184, 0.5)
 }
@@ -154,7 +152,7 @@ align-self: center
 @media(max-width: 395px){
 .user_withdraw_container_002 > div {
  padding: 7px 14px;
- border-radius: 3px;
+ border-radius: 8px;
  font-weight: 800;
 background: rgba(0, 118, 184, 0.5);
 font-size: 12px

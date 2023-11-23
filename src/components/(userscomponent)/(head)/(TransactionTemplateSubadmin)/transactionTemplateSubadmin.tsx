@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import "./transactionTemplate.css";
+import "./transactionTemplateSubadmin.css";
 import AnimateHeight from "react-animate-height";
 import { TransactionTemplateProps } from "@/types";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
@@ -10,12 +10,12 @@ import TransactionResults from "@/components/(userscomponent)/(TransactionTempla
 import { FaArrowRight } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
-import data from "../../(Utils)/exampleData.json";
+import data from "../../../(Utils)/exampleData2.json";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
 
-const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
+const SubadminTransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
   const [state, setState] = useState(select.firstSelect.big);
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();
@@ -39,13 +39,19 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
         setStateViewMore(false);
       }
     } else if (state === select.secondSelect.big) {
-      if (data.filter((item) => item.type === "deposits").length > 3) {
+      if (data.filter((item) => item.type === "pending").length > 3) {
         setStateViewMore(true);
       } else {
         setStateViewMore(false);
       }
     } else if (state === select.thirdSelect.big) {
-      if (data.filter((item) => item.type === "withdrawals").length > 3) {
+      if (data.filter((item) => item.type === "successful").length > 3) {
+        setStateViewMore(true);
+      } else {
+        setStateViewMore(false);
+      }
+    } else if (state === select.fourthSelect.big) {
+      if (data.filter((item) => item.type === "failed").length > 3) {
         setStateViewMore(true);
       } else {
         setStateViewMore(false);
@@ -68,7 +74,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
   function changeState2(value: any) {
     setLoading(true);
     setState(value);
-    if (data.filter((item) => item.type === "deposits").length > 3) {
+    if (data.filter((item) => item.type === "pending").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -82,7 +88,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
     setLoading(true);
     setState(value);
 
-    if (data.filter((item) => item.type === "withdrawals").length > 3) {
+    if (data.filter((item) => item.type === "successful").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -94,37 +100,43 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
   }
 
   return (
-    <div className='transaction_template_container'>
-      <div className='transaction_template_container_header'>
-        <span className='transaction_template_container_header_1'>
+    <div className='transaction_template_container-subadmin'>
+      <div className='transaction_template_container_header-subadmin'>
+        <span className='transaction_template_container_header_1-subadmin'>
           {title.name} {title.icon}
         </span>
-        <span className='transaction_template_container_header_2'>
+        <span className='transaction_template_container_header_2-subadmin'>
           <div>
             {" "}
-            <span className='transaction_template_container_header_2_span_1'>
+            <span className='transaction_template_container_header_2_span_1-subadmin'>
               Total Deposits:{" "}
             </span>{" "}
-            <span > XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</span>
+            <span style={{ fontSize: "13px" }}>
+              {" "}
+              XOF {formatNumberWithCommasAndDecimal(378899456567.99)}
+            </span>
           </div>
           <div>
-            <span className='transaction_template_container_header_2_span_2'>
+            <span className='transaction_template_container_header_2_span_2-subadmin'>
               Total Withdrawals:{" "}
             </span>{" "}
-            <span> XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</span>
+            <span style={{ fontSize: "13px" }}>
+              {" "}
+              XOF {formatNumberWithCommasAndDecimal(378899456567.99)}
+            </span>
           </div>
         </span>
       </div>
-      <div className='transaction_template_container_body'>
-        <div className='transaction_template_container_body_1'>
-          <div className='transaction_template_container_body_1_1'>
+      <div className='transaction_template_container_body-subadmin'>
+        <div className='transaction_template_container_body_1-subadmin'>
+          <div className='transaction_template_container_body_1_1-subadmin'>
             filter &nbsp;
             <FaFilter />
           </div>
 
-          <div className='transaction_template_container_body_1_2'>
+          <div className='transaction_template_container_body_1_2-subadmin'>
             <span
-              className={`transaction_template_container_body_1_2_1 ${
+              className={`transaction_template_container_body_1_2_1-subadmin ${
                 state === "All" && "active_selection_big"
               }`}
               style={{ borderColor: state === "View All" ? "#5E968B" : "" }}
@@ -135,9 +147,9 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             </span>
             <span
               onClick={() => changeState2(select.secondSelect.big)}
-              className='transaction_template_container_body_1_2_1'
+              className='transaction_template_container_body_1_2_1-subadmin'
               style={{
-                borderColor: state === "View Deposits" ? "#5E968B" : "",
+                borderColor: state === "View Pending" ? "#5E968B" : "",
               }}
             >
               {select.secondSelect.big} &nbsp;{" "}
@@ -145,9 +157,19 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             </span>
             <span
               onClick={() => changeState3(select.thirdSelect.big)}
-              className='transaction_template_container_body_1_2_1'
+              className='transaction_template_container_body_1_2_1-subadmin'
               style={{
-                borderColor: state === "View Withdrawals" ? "#5E968B" : "",
+                borderColor: state === "View Successful" ? "#5E968B" : "",
+              }}
+            >
+              {select.thirdSelect.big} &nbsp;{" "}
+              <FaCircle color='#0076B8' fontSize='10px' />
+            </span>
+            <span
+              onClick={() => changeState3(select.fourthSelect.big)}
+              className='transaction_template_container_body_1_2_1-subadmin'
+              style={{
+                borderColor: state === "View Failed" ? "#5E968B" : "",
               }}
             >
               {select.thirdSelect.big} &nbsp;{" "}
@@ -155,7 +177,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             </span>
           </div>
           <div
-            className='transaction_template_container_body_1_3'
+            className='transaction_template_container_body_1_3-subadmin'
             aria-expanded={height !== 0}
             aria-controls='example-panel'
             onClick={adjustHeight}
@@ -175,9 +197,9 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 zIndex: 30,
               }}
             >
-              <div className='dropdown-content'>
+              <div className='dropdown-content-subadmin'>
                 <div
-                  className='dropdown-content_1'
+                  className='dropdown-content_1-subadmin'
                   onClick={() => changeState1(select.firstSelect.big)}
                   style={{
                     background: state === "View All" ? "grey" : "",
@@ -188,7 +210,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 </div>
                 <div
                   onClick={() => changeState2(select.secondSelect.big)}
-                  className='dropdown-content_2'
+                  className='dropdown-content_2-subadmin'
                   style={{
                     background: state === "View Deposits" ? "grey" : "",
                     color: state === "View Deposits" ? "black" : "",
@@ -198,7 +220,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 </div>
                 <div
                   onClick={() => changeState3(select.thirdSelect.big)}
-                  className='dropdown-content_3'
+                  className='dropdown-content_3-subadmin'
                   style={{
                     background: state === "View Withdrawals" ? "grey" : "",
                     color: state === "View Withdrawals" ? "black" : "",
@@ -218,7 +240,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
           </div>
         ) : (
           <div
-            className='transaction_template_container_body_2 animate-pop-in'
+            className='transaction_template_container_body_2-subadmin animate-pop-in'
             style={{
               display: "flex",
               flexDirection: "column",
@@ -247,7 +269,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                     ))
                 ) : (
                   <div
-                    className='no-result animate-pop-in'
+                    className='no-result-subadmin animate-pop-in'
                     style={{
                       display: "flex",
                       width: "100%",
@@ -282,7 +304,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                     ))
                 ) : (
                   <div
-                    className='no-result animate-pop-in'
+                    className='no-result-subadmin animate-pop-in'
                     style={{
                       display: "flex",
                       width: "100%",
@@ -313,7 +335,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 ))
               ) : (
                 <div
-                  className='no-result animate-pop-in'
+                  className='no-result-subadmin animate-pop-in'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -349,7 +371,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   ))
               ) : (
                 <div
-                  className='no-result animate-pop-in'
+                  className='no-result-subadmin animate-pop-in'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -385,7 +407,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   ))
               ) : (
                 <div
-                  className='no-result animate-pop-in'
+                  className='no-result-subadmin animate-pop-in'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -418,7 +440,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 ))
             ) : (
               <div
-                className='no-result animate-pop-in'
+                className='no-result-subadmin animate-pop-in'
                 style={{
                   display: "flex",
                   width: "100%",
@@ -464,4 +486,4 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
   );
 };
 
-export default TransactionTemplate;
+export default SubadminTransactionTemplate;
