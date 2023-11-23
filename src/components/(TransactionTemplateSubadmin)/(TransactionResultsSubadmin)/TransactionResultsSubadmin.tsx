@@ -2,7 +2,7 @@ import React from "react";
 import "./transactionResultsSubadmin.css";
 import { TransactionResultsProps } from "@/types";
 import { FaDownload } from "react-icons/fa";
-import formatNumberWithCommasAndDecimal from "../../../../(Utils)/formatNumber";
+import formatNumberWithCommasAndDecimal from "../../(Utils)/formatNumber";
 
 const TransactionResults = ({
   date,

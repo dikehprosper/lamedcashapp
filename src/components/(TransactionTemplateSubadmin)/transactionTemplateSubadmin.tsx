@@ -3,19 +3,22 @@ import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import "./transactionTemplateSubadmin.css";
 import AnimateHeight from "react-animate-height";
-import { TransactionTemplateProps } from "@/types";
+import { TransactionTemplatePropsSubadmins } from "@/types";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import { FaCircle } from "react-icons/fa6";
 import TransactionResults from "@/components/(userscomponent)/(TransactionTemplateUsers)/(TransactionResults)/TransactionResults";
 import { FaArrowRight } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
-import data from "../../../(Utils)/exampleData2.json";
+import data from "../(Utils)/exampleData2.json";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
 
-const SubadminTransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
+const SubadminTransactionTemplate = ({
+  title,
+  select,
+}: TransactionTemplatePropsSubadmins) => {
   const [state, setState] = useState(select.firstSelect.big);
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();

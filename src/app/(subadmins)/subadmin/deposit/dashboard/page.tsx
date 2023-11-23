@@ -2,50 +2,48 @@ import React from "react";
 import "./subadminDepositDashboard.css";
 import SubadminHead from "@/components/(subadminhead)/subadminHead";
 import { FaCheckCircle } from "react-icons/fa";
-import SubadminDepositDashboardDisplay from "./(components)/SubadminDepositDashboardDisplay"
-import SubadminTransactionTemplate from "@/components/(userscomponent)/(head)/(TransactionTemplateSubadmin)/transactionTemplateSubadmin";
+import SubadminDepositDashboardDisplay from "./(components)/SubadminDepositDashboardDisplay";
+import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadmin";
 import { LuHistory } from "react-icons/lu";
 
-
-
-const orders =  {
-    openOrders: [
-      {
-        id: 11,
-        amount: 45000789,
-      },
-      {
-        id: 12,
-        amount: 45000789,
-      },
-       {
-        id: 12,
-       amount: 45000789,
-      },
-       {
-        id: 12,
-       amount: 45000789,
-      },
-    ],
-     completedOrders: [
-      {
-        id: 11,
-        amount: 45000789,
-      },
-      {
-        id: 12,
-        amount: 45000789,
-      },
-       {
-        id: 12,
-       amount: 45000789,
-      },
-       {
-        id: 12,
-       amount: 45000789,
-      },
-    ],
-  }
+const orders = {
+  openOrders: [
+    {
+      id: 11,
+      amount: 45000789,
+    },
+    {
+      id: 12,
+      amount: 45000789,
+    },
+    {
+      id: 12,
+      amount: 45000789,
+    },
+    {
+      id: 12,
+      amount: 45000789,
+    },
+  ],
+  completedOrders: [
+    {
+      id: 11,
+      amount: 45000789,
+    },
+    {
+      id: 12,
+      amount: 45000789,
+    },
+    {
+      id: 12,
+      amount: 45000789,
+    },
+    {
+      id: 12,
+      amount: 45000789,
+    },
+  ],
+};
 
 function SubadminDepositDashboard() {
   return (
@@ -69,6 +67,3 @@ function SubadminDepositDashboard() {
 }
 
 export default SubadminDepositDashboard;
-
-
-

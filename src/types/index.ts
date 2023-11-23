@@ -46,6 +46,27 @@ export interface TransactionTemplateProps {
     icon: React.JSX.Element;
   };
   select: {
+    firstSelect: {
+      big: string;
+      small: string;
+    };
+    secondSelect: {
+      big: string;
+      small: string;
+    };
+    thirdSelect: {
+      big: string;
+      small: string;
+    };
+  };
+}
+
+export interface TransactionTemplatePropsSubadmins {
+  title: {
+    name: string;
+    icon: React.JSX.Element;
+  };
+  select: {
     fourthSelect: {
       big: string;
       small: string;
