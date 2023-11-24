@@ -235,13 +235,13 @@ const SignUp = () => {
   //Submit login details
   const handleSubmitForGoogle = () => {
     signInWithPopup(auth, googleProvider)
-      .then((result) => {
+      .then((result)=> {
         setUser({
           ...user,
-          fullname: result.user.displayName,
-          email: result.user.email,
-          profileImage: result.user.photoURL,
-          number: result.user.phoneNumber,
+          fullname: result.user.displayName || '',
+          email: result.user.email || '',
+          profileImage: result.user.photoURL || '',
+          number: result.user.phoneNumber || '',
         });
         toast.success("Succesful!!..Please complete your details to proceed!");
         console.log(result);
