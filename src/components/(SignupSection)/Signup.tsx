@@ -12,7 +12,7 @@ import { ImCheckmark } from "react-icons/im";
 import "./signup.css";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
-import SignupVerification from "./signupVerification";
+
 const SignUp = () => {
   const [user, setUser] = useState({
     fullname: "",
@@ -117,7 +117,7 @@ const SignUp = () => {
     const passwordMatch = user.password === user.confirmPassword;
     const isValidFullname = user.fullname.length > 0;
     const isValidBetId = user.betId.length >= 4;
-    const isValidPhoneNumber = /^\d{8}$/.test(user.number);
+    const isValidPhoneNumber = /^\d{7}$/.test(user.number);
 
     if (
       isValidEmail &&
@@ -184,7 +184,7 @@ const SignUp = () => {
     const passwordMatch = user.password === user.confirmPassword;
     const isValidFullname = user.fullname.length > 0;
     const isValidBetId = user.betId.length >= 4;
-    const isValidPhoneNumber = /^\d{8}$/.test(user.number);
+    const isValidPhoneNumber = /^\d{7}$/.test(user.number);
 
     if (fullNameError) {
       if (isValidFullname) {
@@ -235,13 +235,13 @@ const SignUp = () => {
   //Submit login details
   const handleSubmitForGoogle = () => {
     signInWithPopup(auth, googleProvider)
-      .then((result)=> {
+      .then((result) => {
         setUser({
           ...user,
-          fullname: result.user.displayName || '',
-          email: result.user.email || '',
-          profileImage: result.user.photoURL || '',
-          number: result.user.phoneNumber || '',
+          fullname: result.user.displayName || "",
+          email: result.user.email || "",
+          profileImage: result.user.photoURL || "",
+          number: result.user.phoneNumber || "",
         });
         toast.success("Succesful!!..Please complete your details to proceed!");
         console.log(result);
@@ -379,7 +379,7 @@ const SignUp = () => {
                   className='animate-pop-in'
                 >
                   {" "}
-                  Number should have at least 8 digits
+                  Number must be  8 digits
                 </p>
               )}
             </div>
