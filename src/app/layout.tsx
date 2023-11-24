@@ -17,25 +17,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    
     <html lang='en'>
-          
-     
-      <body className={inter.className}>
-                  <ToastContainer
-position="top-right"
-autoClose={3000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
+      <body className={inter.className} style={{background: "red"}}>
+        <ToastContainer
+          position='top-right'
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme='dark'
+        />
         <NavState />
-   {children}
+        {children}
       </body>
     </html>
   );

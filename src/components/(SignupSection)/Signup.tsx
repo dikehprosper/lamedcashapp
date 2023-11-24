@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import image from "../../../public/loginBackground.webp";
@@ -9,6 +10,9 @@ import image3 from "../../../public/TikTok.svg";
 import image4 from "../../../public/Google.svg";
 import { ImCheckmark } from "react-icons/im";
 import "./signup.css";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
+import SignupVerification from "./signupVerification";
 const SignUp = () => {
   const [user, setUser] = useState({
     fullname: "",
@@ -17,14 +21,18 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    profileImage: "",
   });
   const router = useRouter();
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [IsChecked, setIsChecked] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [userDetailsVerified, setUserDetailsVerified] = useState(false);
 
   const toggleIsChecked = () => {
     setIsChecked(!IsChecked);
+    setIsCheckedError(false);
   };
 
   //collect value from login input
@@ -53,7 +61,7 @@ const SignUp = () => {
       email: event.target.value,
     });
   };
-  const handleUserPassword = (event: any) => {
+  const handleUserPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
       password: event.target.value,
@@ -71,30 +79,179 @@ const SignUp = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    // localStorage.setItem("rememberedEmailForEspece", user.email);
-    // localStorage.setItem("rememberedPasswordForEspece", user.password);
-    console.log(user);
+    SignupVerification();
+    if (userDetailsVerified) {
+      localStorage.setItem("rememberedEmailForEspece", user.email);
+      localStorage.setItem("rememberedPasswordForEspece", user.password);
+      console.log(user);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      return;
+    }
+  };
+
+  const [emailError, setEmailError] = useState(false);
+  const [betIdError, setBetIdError] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [fullNameError, setFullNameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [isCheckedError, setIsCheckedError] = useState(false);
+
+  const SignupVerification = () => {
+    setEmailError(false);
+    setBetIdError(false);
+    setPhoneNumberError(false);
+    setFullNameError(false);
+    setPasswordError(false);
+    setConfirmPasswordError(false);
+    setIsCheckedError(false);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(user.email);
+    const hasMoreThanFourLetters = user.password.length >= 4;
+    const passwordMatch = user.password === user.confirmPassword;
+    const isValidFullname = user.fullname.length > 0;
+    const isValidBetId = user.betId.length >= 4;
+    const isValidPhoneNumber = /^\d{8}$/.test(user.number);
+
+    if (
+      isValidEmail &&
+      hasMoreThanFourLetters &&
+      passwordMatch &&
+      isValidFullname &&
+      isValidBetId &&
+      isValidPhoneNumber &&
+      IsChecked
+    ) {
+      setUserDetailsVerified(true);
+    } else {
+      // Display error messages for invalid input
+      if (!isValidFullname) {
+        setFullNameError(true);
+        console.error("Invalid fullname:", user.fullname);
+        setLoading(false);
+      }
+      if (!isValidBetId) {
+        setBetIdError(true);
+        console.error("BetId should have at least 4 characters:", user.betId);
+        setLoading(false);
+      }
+      if (!isValidPhoneNumber) {
+        setPhoneNumberError(true);
+        console.error("Number should have at least 8 digits:", user.number);
+        setLoading(false);
+      }
+      if (!isValidEmail) {
+        setEmailError(true);
+        console.error("Invalid email address:", user.email);
+        setLoading(false);
+      }
+      if (!hasMoreThanFourLetters) {
+        setPasswordError(true);
+        console.error(
+          "Password should have more than 4 letters:",
+          user.password
+        );
+        setLoading(false);
+      }
+      if (!passwordMatch) {
+        setConfirmPasswordError(true);
+        console.error("Password and Confirm Password do not match");
+      }
+      if (!IsChecked) {
+        setIsCheckedError(true);
+        console.error("Password and Confirm Password do not match");
+        setLoading(false);
+      }
+
+      setUserDetailsVerified(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      return;
+    }
+  };
+
+  const SignupReVerification = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(user.email);
+    const hasMoreThanFourLetters = user.password.length >= 4;
+    const passwordMatch = user.password === user.confirmPassword;
+    const isValidFullname = user.fullname.length > 0;
+    const isValidBetId = user.betId.length >= 4;
+    const isValidPhoneNumber = /^\d{8}$/.test(user.number);
+
+    if (fullNameError) {
+      if (isValidFullname) {
+        setFullNameError(false);
+        setLoading(false);
+      }
+    }
+    if (betIdError) {
+      if (isValidBetId) {
+        setBetIdError(false);
+        console.error("BetId should have at least 4 characters:", user.betId);
+        setLoading(false);
+      }
+    }
+
+    if (phoneNumberError) {
+      if (isValidPhoneNumber) {
+        setPhoneNumberError(false);
+        setLoading(false);
+      }
+    }
+
+    if (emailError) {
+      if (isValidEmail) {
+        setEmailError(false);
+        setLoading(false);
+      }
+    }
+    if (passwordError) {
+      if (hasMoreThanFourLetters) {
+        setPasswordError(false);
+        setLoading(false);
+      }
+    }
+
+    if (passwordError) {
+      if (passwordMatch) {
+        setConfirmPasswordError(false);
+      }
+    }
+
     setTimeout(() => {
       setLoading(false);
     }, 3000);
+    return;
+  };
+
+  //Submit login details
+  const handleSubmitForGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        setUser({
+          ...user,
+          fullname: result.user.displayName,
+          email: result.user.email,
+          profileImage: result.user.photoURL,
+          number: result.user.phoneNumber,
+        });
+        toast.success("Succesful!!..Please complete your details to proceed!");
+        console.log(result);
+      })
+      .catch((error: any) => {
+        toast.error("An error occured");
+      });
   };
 
   //check email and password state to determine ButtonDisabled state
-  useEffect(() => {
-    if (
-      user.fullname &&
-      user.betId &&
-      user.number &&
-      user.email &&
-      user.password &&
-      user.confirmPassword &&
-      IsChecked
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [IsChecked, user]);
 
   return (
     <div className='signup-container'>
@@ -119,54 +276,220 @@ const SignUp = () => {
           onSubmit={handleSubmit}
           className='signup-form-container big-screens'
         >
-          <input
-            type='text'
-            className='signup-form'
-            value={user.fullname}
-            onChange={handleFullname}
-            placeholder='Entrez votre nom complet'
-          />
-
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              gap: "10px",
+              flexDirection: "column",
+            }}
+          >
+            <input
+              type='text'
+              className='signup-form'
+              value={user.fullname}
+              onChange={(e) => {
+                handleFullname(e);
+                SignupReVerification();
+              }}
+              placeholder='Entrez votre nom complet'
+              style={{ borderColor: fullNameError ? "red" : "" }}
+            />
+            {fullNameError && (
+              <p
+                style={{
+                  color: "red",
+                  alignSelf: "start",
+                  paddingLeft: "14px",
+                  fontSize: "13px",
+                }}
+              >
+                {" "}
+                please enter your name
+              </p>
+            )}
+          </div>
           <div style={{ display: "flex", gap: "20px", width: "100%" }}>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                gap: "10px",
+                flexDirection: "column",
+              }}
+            >
+              <input
+                type='number'
+                className='signup-form'
+                value={user.betId}
+                onChange={(e) => {
+                  handleBetId(e);
+                  SignupReVerification();
+                }}
+                placeholder='1Numéro d’identification XBET'
+                style={{
+                  borderColor: betIdError ? "red" : "",
+                  transition: betIdError ? "1s border-color ease-in-out" : "",
+                }}
+              />
+              {betIdError && (
+                <p
+                  style={{
+                    color: "red",
+                    alignSelf: "start",
+                    paddingLeft: "14px",
+                    fontSize: "13px",
+                  }}
+                  className='animate-pop-in'
+                >
+                  {" "}
+                  Fill in your BET ID
+                </p>
+              )}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                gap: "10px",
+                flexDirection: "column",
+              }}
+            >
+              <input
+                type='number'
+                className='signup-form'
+                value={user.number}
+                onChange={(e) => {
+                  handleNumber(e);
+                  SignupReVerification();
+                }}
+                placeholder='Numéro Whatsapp/mobile'
+                style={{
+                  borderColor: phoneNumberError ? "red" : "",
+                }}
+              />
+              {phoneNumberError && (
+                <p
+                  style={{
+                    color: "red",
+                    alignSelf: "start",
+                    paddingLeft: "14px",
+                    fontSize: "13px",
+                  }}
+                  className='animate-pop-in'
+                >
+                  {" "}
+                  Number should have at least 8 digits
+                </p>
+              )}
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              gap: "10px",
+              flexDirection: "column",
+            }}
+          >
             <input
-              type='number'
+              type='email'
               className='signup-form'
-              value={user.betId}
-              onChange={handleBetId}
-              placeholder='1Numéro d’identification XBET'
+              value={user.email}
+              onChange={(e) => {
+                handleUserEmail(e);
+                SignupReVerification();
+              }}
+              placeholder='Entrez votre adresse email'
+              style={{ borderColor: emailError ? "red" : "" }}
             />
-            <input
-              type='number'
-              className='signup-form'
-              value={user.number}
-              onChange={handleNumber}
-              placeholder='Numéro Whatsapp/mobile'
-            />
+            {emailError && (
+              <p
+                style={{
+                  color: "red",
+                  alignSelf: "start",
+                  paddingLeft: "14px",
+                  fontSize: "13px",
+                }}
+                className='animate-pop-in'
+              >
+                {" "}
+                Please input a valid mail
+              </p>
+            )}
           </div>
 
-          <input
-            type='email'
-            className='signup-form'
-            value={user.email}
-            onChange={handleUserEmail}
-            placeholder='Entrez votre adresse email'
-          />
           <div style={{ display: "flex", gap: "20px", width: "100%" }}>
-            <input
-              type='password'
-              className='signup-form'
-              value={user.password}
-              onChange={handleUserPassword}
-              placeholder='Entrer le mot de passe'
-            />
-
-            <input
-              type='password'
-              className='signup-form'
-              value={user.confirmPassword}
-              onChange={handleUserConfirmPassword}
-              placeholder='Confirmez le mot de passe'
-            />
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                gap: "10px",
+                flexDirection: "column",
+              }}
+            >
+              <input
+                type='password'
+                className='signup-form'
+                value={user.password}
+                onChange={(e) => {
+                  handleUserPassword(e);
+                  SignupReVerification();
+                }}
+                placeholder='Entrer le mot de passe'
+                style={{ borderColor: passwordError ? "red" : "" }}
+              />
+              {passwordError && (
+                <p
+                  style={{
+                    color: "red",
+                    alignSelf: "start",
+                    paddingLeft: "14px",
+                    fontSize: "13px",
+                  }}
+                  className='animate-pop-in'
+                >
+                  {" "}
+                  Password must be more than four(4) characters
+                </p>
+              )}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                gap: "10px",
+                flexDirection: "column",
+              }}
+            >
+              <input
+                type='password'
+                className='signup-form'
+                value={user.confirmPassword}
+                onChange={(e) => {
+                  handleUserConfirmPassword(e);
+                  SignupReVerification();
+                }}
+                placeholder='Confirmez le mot de passe'
+                style={{
+                  borderColor: confirmPasswordError ? "red" : "",
+                }}
+              />
+              {confirmPasswordError && (
+                <p
+                  style={{
+                    color: "red",
+                    alignSelf: "start",
+                    paddingLeft: "14px",
+                    fontSize: "13px",
+                  }}
+                  className='animate-pop-in'
+                >
+                  {" "}
+                  The password field confirmation does not match
+                </p>
+              )}
+            </div>
           </div>
           <div className='signup-condition'>
             <span
@@ -174,6 +497,7 @@ const SignUp = () => {
               onClick={toggleIsChecked}
               style={{
                 background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
+                borderColor: isCheckedError ? "red" : "",
               }}
             >
               {IsChecked ? (
@@ -187,15 +511,25 @@ const SignUp = () => {
               </span>
             </p>
           </div>
-
+          {isCheckedError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                paddingLeft: "14px",
+                fontSize: "13px",
+              }}
+              className='animate-pop-in'
+            >
+              {" "}
+              click the check button to continue
+            </p>
+          )}
           <button
             type='submit'
             className='submit-button'
             style={{
-              background: buttonDisabled
-                ? "rgba(189, 255, 5, .7)"
-                : "rgba(189, 255, 5, 1)",
-              pointerEvents: buttonDisabled ? "none" : "auto",
+              background: "rgba(189, 255, 5, 1)",
             }}
           >
             {loading ? (
@@ -216,51 +550,157 @@ const SignUp = () => {
             type='text'
             className='signup-form'
             value={user.fullname}
-            onChange={handleFullname}
+            onChange={(e) => {
+              handleFullname(e);
+              SignupReVerification();
+            }}
             placeholder='Entrez votre nom complet'
+            style={{ borderColor: fullNameError ? "red" : "" }}
           />
+          {fullNameError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                paddingLeft: "14px",
+                fontSize: "10px",
+              }}
+            >
+              {" "}
+              please enter your name
+            </p>
+          )}
           <input
             type='text'
             className='signup-form'
             value={user.betId}
-            onChange={handleBetId}
+            onChange={(e) => {
+              handleBetId(e);
+              SignupReVerification();
+            }}
             placeholder='1Numéro d’identification XBET'
+            style={{ borderColor: betIdError ? "red" : "" }}
           />
+          {betIdError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                fontSize: "10px",
+                paddingLeft: "14px",
+              }}
+              className='animate-pop-in'
+            >
+              {" "}
+              Fill in your BET ID
+            </p>
+          )}
           <input
             type='number'
             className='signup-form'
             value={user.number}
-            onChange={handleNumber}
+            onChange={(e) => {
+              handleNumber(e);
+              SignupReVerification();
+            }}
             placeholder='Numéro Whatsapp/mobile'
+            style={{ borderColor: phoneNumberError ? "red" : "" }}
           />
+          {phoneNumberError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                fontSize: "10px",
+                paddingLeft: "14px",
+              }}
+              className='animate-pop-in'
+            >
+              Number should have at least 8 digits:
+            </p>
+          )}
           <input
             type='email'
             className='signup-form'
             value={user.email}
-            onChange={handleUserEmail}
+            onChange={(e) => {
+              handleUserEmail(e);
+              SignupReVerification();
+            }}
             placeholder='Entrez votre adresse email'
+            style={{ borderColor: emailError ? "red" : "" }}
           />
+          {emailError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                fontSize: "10px",
+                paddingLeft: "14px",
+              }}
+              className='animate-pop-in'
+            >
+              {" "}
+              Please input a valid mail
+            </p>
+          )}
           <input
             type='password'
             className='signup-form'
             value={user.password}
-            onChange={handleUserPassword}
+            onChange={(e) => {
+              handleUserPassword(e);
+              SignupReVerification();
+            }}
             placeholder='Entrer le mot de passe'
+            style={{ borderColor: passwordError ? "red" : "" }}
           />
+          {passwordError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                fontSize: "10px",
+                paddingLeft: "14px",
+              }}
+              className='animate-pop-in'
+            >
+              {" "}
+              Password must be more than four(4) characters
+            </p>
+          )}
           <input
             type='password'
             className='signup-form'
             value={user.confirmPassword}
-            onChange={handleUserConfirmPassword}
+            onChange={(e) => {
+              handleUserConfirmPassword(e);
+              SignupReVerification();
+            }}
             placeholder='Confirmez le mot de passe'
+            style={{ borderColor: confirmPasswordError ? "red" : "" }}
           />
-
+          {confirmPasswordError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                fontSize: "10px",
+                paddingLeft: "14px",
+              }}
+              className='animate-pop-in'
+            >
+              {" "}
+              The password field confirmation does not match
+            </p>
+          )}
           <div className='signup-condition'>
             <span
               className='signup-condition-checkbox'
               onClick={toggleIsChecked}
               style={{
                 background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
+                borderColor: isCheckedError ? "red" : "",
               }}
             >
               {IsChecked ? (
@@ -274,15 +714,25 @@ const SignUp = () => {
               </span>
             </p>
           </div>
-
+          {isCheckedError && (
+            <p
+              style={{
+                color: "red",
+                alignSelf: "start",
+                fontSize: "10px",
+                paddingLeft: "14px",
+              }}
+              className='animate-pop-in'
+            >
+              {" "}
+              click the check button to continue
+            </p>
+          )}
           <button
             type='submit'
             className='submit-button'
             style={{
-              background: buttonDisabled
-                ? "rgba(189, 255, 5, .7)"
-                : "rgba(189, 255, 5, 1)",
-              pointerEvents: buttonDisabled ? "none" : "auto",
+              background: "rgba(189, 255, 5, 1)",
             }}
           >
             {loading ? (
@@ -301,7 +751,7 @@ const SignUp = () => {
           </div>
           <div className='welcome-section-second'>
             <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
-            <div className='signup-img google'>
+            <div className='signup-img google' onClick={handleSubmitForGoogle}>
               <Image
                 src={image4}
                 loading='eager'
@@ -328,7 +778,7 @@ const SignUp = () => {
             <h5 className='welcome-section-second_h5-mobile'>
               Ou continuez avec
             </h5>
-            <div className='signup-img google'>
+            <div className='signup-img google' onClick={handleSubmitForGoogle}>
               <Image
                 src={image4}
                 loading='eager'
