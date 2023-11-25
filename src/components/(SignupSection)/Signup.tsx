@@ -132,7 +132,7 @@ const SignUp = () => {
     const passwordMatch = user.password === user.confirmPassword;
     const isValidFullname = user.fullname.length > 0;
     const isValidBetId = user.betId.length >= 4;
-    const isValidPhoneNumber = /^\d{7}$/.test(user.number);
+    const isValidPhoneNumber = /^\d{8}$/.test(user.number);
 
     if (
       isValidEmail &&
@@ -158,7 +158,7 @@ const SignUp = () => {
       }
       if (!isValidPhoneNumber) {
         setPhoneNumberError(true);
-        console.error("Number should have at least 8 digits:", user.number);
+        console.error("Number must be 8 digits:", user.number);
         setLoading(false);
       }
       if (!isValidEmail) {
@@ -199,7 +199,7 @@ const SignUp = () => {
     const passwordMatch = user.password === user.confirmPassword;
     const isValidFullname = user.fullname.length > 0;
     const isValidBetId = user.betId.length >= 4;
-    const isValidPhoneNumber = /^\d{7}$/.test(user.number);
+    const isValidPhoneNumber = /^\d{8}$/.test(user.number);
 
     if (fullNameError) {
       if (isValidFullname) {
@@ -632,7 +632,7 @@ const SignUp = () => {
               }}
               className='animate-pop-in'
             >
-              Number must be 8 digits:
+              Number must be 8 digits
             </p>
           )}
           <input

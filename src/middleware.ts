@@ -30,64 +30,69 @@ console.log(decodedToken)
     (path.startsWith("/transactions") && token) ||
     path.startsWith("/withdraw")
   ) {
-     const decodedToken = jwt.decode(token) as TokenPayload | null;
+    const decodedToken = jwt.decode(token) as TokenPayload | null;
     // @ts-ignore
     if (decodedToken && decodedToken.isAdmin) {
       hasRedirected = true;
-      return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
+      return NextResponse.redirect(
+        new URL("/admin/dashboard", request.nextUrl)
+      );
     }
-     if (decodedToken 
-        && decodedToken.isSubAdmin
-        ) {
-       hasRedirected = true;
-       return NextResponse.redirect(
-         new URL("/subadmin/deposit/dashboard", request.nextUrl)
-       );
-     }
-  } 
+    if (decodedToken && decodedToken.isSubAdmin) {
+      hasRedirected = true;
+      return NextResponse.redirect(
+        new URL("/subadmin/deposit/dashboard", request.nextUrl)
+      );
+    }
+    hasRedirected = true;
+  }
 
   // Check if the user is not an admin and trying to access the "/AdminDashboard" route
   if (path.startsWith("/admin") && token) {
-   const decodedToken = jwt.decode(token) as TokenPayload | null;
+    const decodedToken = jwt.decode(token) as TokenPayload | null;
     // @ts-ignore
     if (decodedToken && !decodedToken.isAdmin) {
-
-        if (decodedToken 
-            && 
-            decodedToken.isSubAdmin
-            ) {
-         hasRedirected = true;
-      return NextResponse.redirect(new URL("/subadmin/deposit/dashboard", request.nextUrl));
-        } else if (decodedToken && !decodedToken.isAdmin && !decodedToken.isSubAdmin) {
-          hasRedirected = true;
-          return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
-        }
-    
+      if (decodedToken && decodedToken.isSubAdmin) {
+        hasRedirected = true;
+        return NextResponse.redirect(
+          new URL("/subadmin/deposit/dashboard", request.nextUrl)
+        );
+      } else if (
+        decodedToken &&
+        !decodedToken.isAdmin &&
+        !decodedToken.isSubAdmin
+      ) {
+        hasRedirected = true;
+        return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
+      }
     }
+    hasRedirected = true;
   }
 
-    if (path.startsWith("/subadmin") && token) {
-     const decodedToken = jwt.decode(token) as TokenPayload | null;
+  if (path.startsWith("/subadmin") && token) {
+    const decodedToken = jwt.decode(token) as TokenPayload | null;
     // @ts-ignore
     if (decodedToken && !decodedToken.isSubAdmin) {
-
-        if (decodedToken 
-            && 
-            decodedToken.isAdmin
-            ) {
-         hasRedirected = true;
-      return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
-        } else if (decodedToken && !decodedToken.isSubAdmin && !decodedToken.isAdmin) {
-          hasRedirected = true;
-          return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
-        }
-    
+      if (decodedToken && decodedToken.isAdmin) {
+        hasRedirected = true;
+        return NextResponse.redirect(
+          new URL("/admin/dashboard", request.nextUrl)
+        );
+      } else if (
+        decodedToken &&
+        !decodedToken.isSubAdmin &&
+        !decodedToken.isAdmin
+      ) {
+        hasRedirected = true;
+        return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
+      }
     }
+    hasRedirected = true;
   }
 
-  if (!token) {
-     hasRedirected = true;
-    return NextResponse.redirect(new URL("/signin", request.nextUrl));
+  if (token === null) {
+    hasRedirected = true;
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }}
 
   // If none of the conditions match, allow the request to continue
