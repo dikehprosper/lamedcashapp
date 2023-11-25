@@ -181,6 +181,7 @@
   .head-container {
     flex-direction: column;
     gap: 13px;
+    padding: 5px 15px
   }
 
   .title-container {

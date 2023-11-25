@@ -12,6 +12,7 @@ import { ImCheckmark } from "react-icons/im";
 import "./signup.css";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
+import axios from "axios";
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -34,6 +35,40 @@ const SignUp = () => {
     setIsChecked(!IsChecked);
     setIsCheckedError(false);
   };
+
+  //Submit details
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+   const signupVerificationResult = SignupVerification();
+
+      if (signupVerificationResult?.isValid) {
+        console.log("response");
+        localStorage.setItem("rememberedEmailForEspece", user.email);
+        localStorage.setItem("rememberedPasswordForEspece", user.password);
+        const response = await axios.post("/api/users/signup", user);
+        toast.success("successful");
+        router.push("/dashboard")
+        setLoading(false);
+      }
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        return toast.error("User already exist");
+      } else if (error.response.status === 500) {
+        return toast.error("Signup failed");
+      } else {
+        console.log(error);
+        return toast.error(error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log(userDetailsVerified);
+  }, [setUserDetailsVerified, userDetailsVerified]);
 
   //collect value from login input
   const handleFullname = (event: any) => {
@@ -75,26 +110,6 @@ const SignUp = () => {
     });
   };
 
-  //Submit login details
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    setLoading(true);
-    SignupVerification();
-    if (userDetailsVerified) {
-      localStorage.setItem("rememberedEmailForEspece", user.email);
-      localStorage.setItem("rememberedPasswordForEspece", user.password);
-      console.log(user);
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-    } else {
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-      return;
-    }
-  };
-
   const [emailError, setEmailError] = useState(false);
   const [betIdError, setBetIdError] = useState(false);
   const [phoneNumberError, setPhoneNumberError] = useState(false);
@@ -128,7 +143,7 @@ const SignUp = () => {
       isValidPhoneNumber &&
       IsChecked
     ) {
-      setUserDetailsVerified(true);
+    return {isValid : true}
     } else {
       // Display error messages for invalid input
       if (!isValidFullname) {
@@ -319,7 +334,7 @@ const SignUp = () => {
               }}
             >
               <input
-                type='number'
+                type='text'
                 className='signup-form'
                 value={user.betId}
                 onChange={(e) => {
@@ -379,7 +394,7 @@ const SignUp = () => {
                   className='animate-pop-in'
                 >
                   {" "}
-                  Number must be  8 digits
+                  Number must be 8 digits
                 </p>
               )}
             </div>
@@ -531,6 +546,7 @@ const SignUp = () => {
             style={{
               background: "rgba(189, 255, 5, 1)",
             }}
+            onClick={handleSubmit}
           >
             {loading ? (
               <div id='container-signup'>
@@ -616,7 +632,7 @@ const SignUp = () => {
               }}
               className='animate-pop-in'
             >
-              Number should have at least 8 digits:
+              Number must be 8 digits:
             </p>
           )}
           <input

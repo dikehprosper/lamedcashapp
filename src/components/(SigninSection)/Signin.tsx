@@ -9,6 +9,8 @@ import image3 from "../../../public/TikTok.svg";
 import image4 from "../../../public/Google.svg";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./signin.css";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const SignIn = () => {
   const [user, setUser] = useState({
@@ -54,16 +56,29 @@ const SignIn = () => {
   };
 
   //Submit login details
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
-    localStorage.setItem("rememberedEmailForEspece", user.email);
-    localStorage.setItem("rememberedPasswordForEspece", user.password);
-    console.log(user);
-    setTimeout(() => {
+
+    try {
+      setLoading(true);
+      localStorage.setItem("rememberedEmailForEspece", user.email);
+      localStorage.setItem("rememberedPasswordForEspece", user.password);
+      const response = await axios.post("/api/users/signin", user);
+      router.push("/dashboard");
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        return toast.error("User not found!");
+      } else if (error.response.status === 402) {
+        return toast.error("Invalid password");
+      } else if (error.response.status === 500) {
+        return toast.error("Signin failed");
+      } else {
+        console.log(error);
+        return toast.error(error);
+      }
+    } finally {
       setLoading(false);
-    }, 1000);
-    router.push("/dashboard");
+    }
   };
 
   //check email and password state to determine ButtonDisabled state

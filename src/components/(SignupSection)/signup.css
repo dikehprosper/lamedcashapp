@@ -116,7 +116,7 @@
 .welcome-section-second {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   gap: 30px;
@@ -134,7 +134,7 @@
 .signup-condition {
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   color: rgba(256, 256, 256, 0.7);
   font-weight: 300;
   padding: 0px 8px;
@@ -323,7 +323,7 @@
   .welcome-section-second-mobile {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     height: 100%;
     gap: 30px;

@@ -12,6 +12,7 @@ const Modal = ({
   containerStylesInner,
   containerStylesInnerLink,
   handleClick,
+  logout,
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
 
@@ -66,7 +67,7 @@ const Modal = ({
             </Link>
           );
         })}
-        <div style={{ padding: "10px" }}>
+        <div style={{ padding: "10px" }} onClick={logout}>
           <Link href='/'>Se déconnecter</Link>
         </div>
       </div>

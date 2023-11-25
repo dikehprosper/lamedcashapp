@@ -12,6 +12,7 @@ export interface SmallScreenNavModalProps {
   containerStylesInnerLink?: string;
   active?: string;
   handleClick?: () => void;
+  logout?: () => void;
   navLinks?: {
     title: string;
     pathname: string;

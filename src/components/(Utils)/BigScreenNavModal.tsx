@@ -12,7 +12,6 @@ const BigScreenNavModal = ({
   return (
     <div className={containerStyles}>
       {navLinks?.map((link, index) => {
-        console.log(pathname === link.pathname);
         return (
           <Link
             key={index}

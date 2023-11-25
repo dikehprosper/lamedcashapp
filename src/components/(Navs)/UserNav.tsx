@@ -25,7 +25,9 @@ import { TbDeviceDesktopAnalytics } from "react-icons/tb";
 import { GrUserWorker, GrUserManager } from "react-icons/gr";
 import { FaUsers, FaNetworkWired } from "react-icons/fa";
 import BigScreenNavModal from "../(Utils)/BigScreenNavModal";
-
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
 const UsersNavLinks = [
   {
     title: "Tableau de bord",
@@ -98,44 +100,57 @@ const SubAdminsNavLinksWithdrawal = [
 const AdminNavLinks = [
   {
     title: "Tableau de bord",
-    pathname: "/dashboard",
+    pathname: "/admin/dashboard",
     icon: <BiSolidDashboard />,
   },
   {
     title: "Analytique",
-    pathname: "/analytics",
+    pathname: "/admin/analytics",
     icon: <SiSimpleanalytics />,
   },
   {
     title: "Caisses",
-    pathname: "/cashdesks",
+    pathname: "/admin/cashdesks",
     icon: <TbDeviceDesktopAnalytics />,
   },
   {
     title: `Utilisatrices`,
-    pathname: "/users",
+    pathname: "/admin/users",
     icon: <FaUsers />,
   },
   {
     title: `Messages`,
-    pathname: "/messages",
+    pathname: "/admin/messages",
     icon: <BiSolidMessageSquareDetail />,
   },
   {
     title: `Système`,
-    pathname: "/system",
+    pathname: "/admin/system",
     icon: <FaNetworkWired />,
   },
   {
     title: `Références`,
-    pathname: "/referrals",
+    pathname: "/admin/referrals",
     icon: <IoMdPeople />,
   },
 ];
 const UserNav = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [state, setState] = useState(true);
 
+  const logout = async () => {
+    try {
+      await axios.get("/api/users/logout");
+      localStorage.removeItem("activeTab");
+      toast.success("Logout successful");
+      localStorage.removeItem("activeTab");
+      router.push("/signin");
+    } catch (error: any) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
+  };
   function changeState() {
     setState((prev) => {
       return !prev;
@@ -146,17 +161,17 @@ const UserNav = () => {
     setState(true);
   }
 
- function findPath() {
-   if (pathname.startsWith("/admin")) {
-     return AdminNavLinks;
-   } else if (pathname.startsWith("/subadmin/deposit")) {
-     return SubAdminsNavLinksDeposits;
-   } else if (pathname.startsWith("/subadmin/withdrawal")) {
-     return SubAdminsNavLinksWithdrawal;
-   } else {
-     return UsersNavLinks;
-   }
- } 
+  function findPath() {
+    if (pathname.startsWith("/admin")) {
+      return AdminNavLinks;
+    } else if (pathname.startsWith("/subadmin/deposit")) {
+      return SubAdminsNavLinksDeposits;
+    } else if (pathname.startsWith("/subadmin/withdrawal")) {
+      return SubAdminsNavLinksWithdrawal;
+    } else {
+      return UsersNavLinks;
+    }
+  }
 
   return (
     <>
@@ -185,6 +200,7 @@ const UserNav = () => {
           <Link
             // className={` ${pathname === "/logout" ? "active" : ""}`}
             href='/'
+            onClick={logout}
           >
             <MdLogout />
             &nbsp; &nbsp; Se déconnecter
@@ -269,7 +285,11 @@ const UserNav = () => {
           <div className='nav-language'></div>
           <div className='user-profile-icon-container'>
             <Link href='/profile'>
-              <div className={`user-profile-icon ${pathname === "/profile" ? "disappear" : ""}`}>
+              <div
+                className={`user-profile-icon ${
+                  pathname === "/profile" ? "disappear" : ""
+                }`}
+              >
                 D<span className='user-profile-online-icon-mobile'> </span>
               </div>
             </Link>
@@ -287,6 +307,7 @@ const UserNav = () => {
             navLinks={findPath()}
             containerStyles='nav-link2'
             handleClick={handleClick}
+            logout={logout}
             containerStylesInner='users-nav-link2_inner'
             containerStylesInnerLink='nav-link2_inner_link-mobile'
             active='active-user-nav'
