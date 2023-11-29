@@ -80,14 +80,17 @@ const changeBetId = (id: any) => {
 
   function requestCall() {
     const amountValue = parseInt(user.amount, 10);
+ if (isNaN(amountValue)) {
+   // Handle the case where user.amount is not a valid number
+   return toast.error("Vous n'avez pas saisi de montant");
+ }
 if (amountValue < 500) {
 return toast.error("Le montant saisi ne doit pas être inférieur à 500");
 } else if (user.betId === "") {
 return toast.error("Entrez le betId à utiliser")
 } else {
-  setPhoneDial(`#180*345*44939959*${user.amount}#`);
- initiatePhoneCall(`#180*345*44939959*${user.amount}#`);
-
+    setPhoneDial(`#180*345*44939959*${user.amount}#`);
+   initiatePhoneCall(`#180*345*44939959*${user.amount}#`);
 }
   }
   
@@ -152,6 +155,7 @@ useEffect(() => {
 
 
 
+
 const inputRef = useRef<HTMLInputElement>(null);
 
 const handleCopyClick = () => {
@@ -162,8 +166,8 @@ const handleCopyClick = () => {
     // Copy the selected text to the clipboard
     document.execCommand("copy");
   }
+  toast.success("USSD CODE successfully copied!");
 };
-
 
  
   return (
