@@ -44,10 +44,7 @@ label {
 }
 
 
-
-
-
-.submit-button {
+.submit-button-profile {
   color: white;
   background: rgba(0, 0, 0, 0.2);
   font-weight: 600;
@@ -66,7 +63,7 @@ label {
   align-self: flex-start;
 
 }
-.submit-button1 {
+.submit-button1-profile {
   position: absolute;
   right: 10px;
   bottom: 10px;
@@ -87,7 +84,7 @@ label {
 
 
 @media (max-width: 665px) {
-  .submit-button {
+  .submit-button-profile {
     align-self: center;
   }
 
@@ -348,7 +345,7 @@ margin-bottom: 20px;
     width: 100%
   }
 
-  .submit-button1 {
+  .submit-button1-profile {
 
   width: 120px;
   height: 30px;
@@ -379,7 +376,7 @@ margin-bottom: 20px;
     height: 50px;
   }
 
-  .submit-button {
+  .submit-button-profile {
     width: 100%;
   }
 
@@ -581,7 +578,7 @@ margin-bottom: 20px;
     font-size: 14px;
   }
 
-  .submit-button {
+  .submit-button-profile {
     font-size: 22px;
   }
 }
@@ -627,7 +624,7 @@ opacity: 1
 }
 
 @media (max-width: 390px) {
-    .submit-button1 {
+    .submit-button1-profile {
 
   width: 90px;
   height: 30px;

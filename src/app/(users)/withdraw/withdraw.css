@@ -114,7 +114,7 @@ gap: 15px;
   transition: 1s border ease-in-out;
 }
 
-.submit-button {
+.submit-button-withdraw {
   color: white;
   background: rgba(0, 0, 0, 0.2);
   font-weight: 600;
@@ -133,7 +133,7 @@ gap: 15px;
 }
 
 @media(max-width: 665px){
-  .submit-button {
+  .submit-button-withdraw {
 align-self: center
 }
 
@@ -244,7 +244,7 @@ width: 100%
 
 
 
-.submit-button {
+.submit-button-withdraw {
   color: white;
   background: rgba(0, 0, 0, 0.2);
   font-weight: 600;
@@ -264,7 +264,7 @@ width: 100%
 }
 
 @media (max-width: 665px) {
-  .submit-button {
+  .submit-button-withdraw {
     align-self: center;
   }
 
@@ -527,7 +527,7 @@ label{
     height: 50px;
   }
 
-  .submit-button {
+  .submit-button-withdraw {
     width: 100%;
   }
 
@@ -729,7 +729,7 @@ label{
     font-size: 14px;
   }
 
-  .submit-button {
+  .submit-button-withdraw {
     font-size: 22px;
   }
 }

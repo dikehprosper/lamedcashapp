@@ -193,7 +193,7 @@ const Profile = () => {
             />
             <button
               type='submit'
-              className='submit-button1'
+              className='submit-button1-profile'
               style={{
                 background: buttonDisabled1
                   ? "rgba(128, 128, 128, 0.4)"
@@ -232,7 +232,7 @@ const Profile = () => {
           </div>
           <button
             type='submit'
-            className='submit-button'
+            className='submit-button-profile'
             style={{
               background: buttonDisabled
                 ? "rgba(128, 128, 128, 0.2)"

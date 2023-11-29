@@ -68,20 +68,20 @@
 }
 
 .submit-button {
-  color: black;
-  background: rgba(189, 255, 5, 0.7);
-  font-weight: 600;
-  width: 50%;
-  height: 45px;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-top: 40px;
+  color: black !important;
+  background: rgba(189, 255, 5, 0.7) !important;
+  font-weight: 600 !important;
+  width: 50% !important;
+  height: 45px !important;
+  border-radius: 4px !important;
+  outline: none !important;
+  border: none !important;
+  font-size: 25px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  margin-top: 40px !important;
 }
 
 .welcome-section {
@@ -183,7 +183,7 @@
   }
 
   .submit-button {
-    width: 100%;
+    width: 100%!important;
   }
 
   .forgot-password {
@@ -385,6 +385,6 @@
   }
 
   .submit-button {
-    font-size: 22px;
+    font-size: 22px!important;
   }
 }

@@ -545,6 +545,7 @@ const SignUp = () => {
             className='submit-button'
             style={{
               background: "rgba(189, 255, 5, 1)",
+              color: "black",
             }}
             onClick={handleSubmit}
           >
@@ -749,6 +750,7 @@ const SignUp = () => {
             className='submit-button'
             style={{
               background: "rgba(189, 255, 5, 1)",
+              color: "black",
             }}
           >
             {loading ? (

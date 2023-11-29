@@ -140,9 +140,11 @@ const SignIn = () => {
             type='submit'
             className='submit-button'
             style={{
+              color: "black !important;",
+              fontWeight: "600 !important",
               background: buttonDisabled
-                ? "rgba(189, 255, 5, .7)"
-                : "rgba(189, 255, 5, 1)",
+                ? "rgba(189, 255, 5, .7) !important;"
+                : "rgba(189, 255, 5, 1) !important;",
               pointerEvents: buttonDisabled ? "none" : "auto",
             }}
           >

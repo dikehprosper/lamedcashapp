@@ -28,16 +28,34 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-   isSubAdmin: {
+  isSubAdmin: {
     type: Boolean,
     default: false,
   },
-  // forgotPasswordToken: String,
-  // forgotPasswordTokenExpiry: Date,
-  // verifyToken: String,
-  // verifyTokenExpiry: Date,
-  // faToken: String,
-  // faTokenExpiry: Date,
+  supplementaryBetId: [
+    {
+      type: String,
+    },
+  ],
+  transactionHistory: {
+    type: [
+      {
+        status: String,
+        registrationDateTime: Date,
+        amount: Number,
+        betId: String,
+        transactionId: String,
+        name: String,
+      },
+    ],
+  },
+
+  forgotPasswordToken: String,
+  forgotPasswordTokenExpiry: Date,
+  verifyToken: String,
+  verifyTokenExpiry: Date,
+  faToken: String,
+  faTokenExpiry: Date,
 });
 
 const User = models.users || model("User", userSchema);

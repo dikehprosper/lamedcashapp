@@ -6,7 +6,57 @@ import { TbPigMoney } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplateUsers)/TransactionTemplate";
 import { LuHistory } from "react-icons/lu";
+import data from "../../../components/file";
+
 const Dashboard = async () => {
+  // Filter deposit transactions
+  const allDeposits = data.transactionHistory.filter(
+    (transaction) => transaction.type === "deposits"
+  );
+
+  const totalDeposits = allDeposits.reduce((total, transaction) => {
+    return (total += transaction.amount);
+  }, 0);
+
+  // Filter withdrawal transactions
+  const allWithdrawals = data.transactionHistory.filter(
+    (transaction) => transaction.type === "withdrawals"
+  );
+
+  const totalWithdrawals = allWithdrawals.reduce((total, transaction) => {
+    return (total += transaction.amount);
+  }, 0);
+
+
+  // Filter deposit transactions with status "pending"
+  const pendingDeposits = data.transactionHistory.filter(
+    (transaction) =>
+      transaction.type === "deposits" && transaction.status === "pending"
+  );
+
+  // Filter withdrawal transactions with status "pending"
+  const pendingWithdrawals = data.transactionHistory.filter(
+    (transaction) =>
+      transaction.type === "withdrawals" && transaction.status === "pending"
+  );
+
+  // Calculate total cost of pending deposits
+  console.log(pendingDeposits);
+  const totalPendingDepositAmount = pendingDeposits.reduce(
+    (total, transaction) => {
+      return (total += transaction.amount);
+    },
+    0
+  );
+
+  // Calculate total cost of pending withdrawals
+  const totalPendingWithdrawalAmount = pendingWithdrawals.reduce(
+    (total, transaction) => {
+      return (total += transaction.amount);
+    },
+    0
+  );
+
   return (
     <div className='user_dashboard_container'>
       <Head
@@ -15,10 +65,11 @@ const Dashboard = async () => {
       />
       <div className='user-dashboard-display'>
         <Display
-          count={1}
+          count={pendingDeposits.length}
           title='Dépôt'
           term={1}
-          amount={566789868.99}
+          amount={totalPendingDepositAmount}
+          data={data.transactionHistory}
           style={{
             color: "#658900",
             background: "rgba(101, 137, 0, 0.4)",
@@ -26,10 +77,11 @@ const Dashboard = async () => {
           }}
         />
         <Display
-          count={1}
+          count={pendingWithdrawals.length}
           term={2}
           title='Retirer'
-          amount={86834890.99}
+          amount={totalPendingWithdrawalAmount}
+          data={data.transactionHistory}
           style={{
             color: "#0076B8",
             background: "rgba(0, 118, 184, .4)",
@@ -38,12 +90,15 @@ const Dashboard = async () => {
         />
       </div>
       <TransactionTemplate
-        title={{ name: "Transaction History", icon: <LuHistory /> }}
+        title={{ name: "Historique des Transactions", icon: <LuHistory /> }}
         select={{
-          firstSelect: { big: "View All", small: "All" },
-          secondSelect: { big: "View Deposits", small: "Deposits" },
-          thirdSelect: { big: "View Withdrawals", small: "Withdrawals" },
+    firstSelect: { big: "Voir tout", small: "Tout" },
+          secondSelect: { big: "Voir les Dépôts", small: "Dépôts" },
+          thirdSelect: { big: "Afficher les Retraits", small: "Retraits" },
         }}
+        totalWithdrawals={totalWithdrawals}
+        totalDeposits={totalDeposits}
+        data={data.transactionHistory}
       />
     </div>
   );

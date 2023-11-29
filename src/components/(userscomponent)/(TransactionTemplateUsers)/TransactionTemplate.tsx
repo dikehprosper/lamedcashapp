@@ -10,12 +10,13 @@ import TransactionResults from "@/components/(userscomponent)/(TransactionTempla
 import { FaArrowRight } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
-import data from "../../(Utils)/exampleData.json";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
 
-const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
+const TransactionTemplate = ({ title, select, 
+totalWithdrawals, totalDeposits, data
+}: TransactionTemplateProps) => {
   const [state, setState] = useState(select.firstSelect.big);
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();
@@ -39,7 +40,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
         setStateViewMore(false);
       }
     } else if (state === select.secondSelect.big) {
-      if (data.filter((item) => item.type === "deposits").length > 3) {
+      if (data?.filter((item) => item.type === "deposits").length > 3) {
         setStateViewMore(true);
       } else {
         setStateViewMore(false);
@@ -103,22 +104,25 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
           <div>
             {" "}
             <span className='transaction_template_container_header_2_span_1'>
-              Total Deposits:{" "}
+              Total des Dépôts:{" "}
             </span>{" "}
-            <span > XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</span>
+            <span> XOF {formatNumberWithCommasAndDecimal(totalDeposits)}</span>
           </div>
           <div>
             <span className='transaction_template_container_header_2_span_2'>
-              Total Withdrawals:{" "}
+              Retraits totaux:{" "}
             </span>{" "}
-            <span> XOF {formatNumberWithCommasAndDecimal(378899456567.99)}</span>
+            <span>
+              {" "}
+              XOF {formatNumberWithCommasAndDecimal(totalWithdrawals)}
+            </span>
           </div>
         </span>
       </div>
       <div className='transaction_template_container_body'>
         <div className='transaction_template_container_body_1'>
           <div className='transaction_template_container_body_1_1'>
-            filter &nbsp;
+            filtre &nbsp;
             <FaFilter />
           </div>
 
@@ -127,7 +131,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
               className={`transaction_template_container_body_1_2_1 ${
                 state === "All" && "active_selection_big"
               }`}
-              style={{ borderColor: state === "View All" ? "#5E968B" : "" }}
+              style={{ borderColor: state === "Voir tout" ? "#5E968B" : "" }}
               onClick={() => changeState1(select.firstSelect.big)}
             >
               {select.firstSelect.big} &nbsp;{" "}
@@ -137,7 +141,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
               onClick={() => changeState2(select.secondSelect.big)}
               className='transaction_template_container_body_1_2_1'
               style={{
-                borderColor: state === "View Deposits" ? "#5E968B" : "",
+                borderColor: state === "Voir les Dépôts" ? "#5E968B" : "",
               }}
             >
               {select.secondSelect.big} &nbsp;{" "}
@@ -147,7 +151,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
               onClick={() => changeState3(select.thirdSelect.big)}
               className='transaction_template_container_body_1_2_1'
               style={{
-                borderColor: state === "View Withdrawals" ? "#5E968B" : "",
+                borderColor: state === "Afficher les Retraits" ? "#5E968B" : "",
               }}
             >
               {select.thirdSelect.big} &nbsp;{" "}
@@ -180,8 +184,8 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   className='dropdown-content_1'
                   onClick={() => changeState1(select.firstSelect.big)}
                   style={{
-                    background: state === "View All" ? "grey" : "",
-                    color: state === "View All" ? "black" : "",
+                    background: state === "Voir tout" ? "grey" : "",
+                    color: state === "Voir tout" ? "black" : "",
                   }}
                 >
                   {select.firstSelect.big}
@@ -190,8 +194,8 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   onClick={() => changeState2(select.secondSelect.big)}
                   className='dropdown-content_2'
                   style={{
-                    background: state === "View Deposits" ? "grey" : "",
-                    color: state === "View Deposits" ? "black" : "",
+                    background: state === "Voir les Dépôts" ? "grey" : "",
+                    color: state === "Voir les Dépôts" ? "black" : "",
                   }}
                 >
                   {select.secondSelect.big}
@@ -200,8 +204,8 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   onClick={() => changeState3(select.thirdSelect.big)}
                   className='dropdown-content_3'
                   style={{
-                    background: state === "View Withdrawals" ? "grey" : "",
-                    color: state === "View Withdrawals" ? "black" : "",
+                    background: state === "Afficher les Retraits" ? "grey" : "",
+                    color: state === "Afficher les Retraits" ? "black" : "",
                   }}
                 >
                   {select.thirdSelect.big}
@@ -227,7 +231,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
             }}
           >
             {pathname === "/transactions" ? (
-              state === "View Deposits" ? (
+              state === "Voir les Dépôts" ? (
                 data.filter((item: any) => item.type === "deposits").length >
                 0 ? (
                   data
@@ -238,7 +242,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                         date={filteredData.date}
                         time={filteredData.time}
                         amount={filteredData.amount}
-                        receipt={filteredData.receipt}
+                        receipt={filteredData._id}
                         betId={filteredData.betId}
                         status={filteredData.status}
                         type={filteredData.type}
@@ -259,10 +263,10 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                     }}
                   >
                     <CgTrashEmpty fontSize='80px' />
-                    <h2>No Data to Show</h2>
+                    <h2>Aucune donnée à afficher</h2>
                   </div>
                 )
-              ) : state === "View Withdrawals" ? (
+              ) : state === "Afficher les Retraits" ? (
                 data.filter((item: any) => item.type === "withdrawals").length >
                 0 ? (
                   data
@@ -273,7 +277,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                         date={filteredData.date}
                         time={filteredData.time}
                         amount={filteredData.amount}
-                        receipt={filteredData.receipt}
+                        receipt={filteredData._id}
                         betId={filteredData.betId}
                         status={filteredData.status}
                         type={filteredData.type}
@@ -294,7 +298,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                     }}
                   >
                     <CgTrashEmpty fontSize='80px' />
-                    <h2>No Data to Show</h2>
+                    <h2>Aucune donnée à afficher</h2>
                   </div>
                 )
               ) : data.length > 0 ? (
@@ -304,7 +308,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                     date={data.date}
                     time={data.time}
                     amount={data.amount}
-                    receipt={data.receipt}
+                    receipt={data._id}
                     betId={data.betId}
                     status={data.status}
                     type={data.type}
@@ -325,10 +329,10 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   }}
                 >
                   <CgTrashEmpty fontSize='80px' />
-                  <h2>No Data to Show</h2>
+                  <h2>Aucune donnée à afficher</h2>
                 </div>
               )
-            ) : state === "View Deposits" ? (
+            ) : state === "Voir les Dépôts" ? (
               data.filter((item: any) => item.type === "deposits").length >
               0 ? (
                 data
@@ -340,7 +344,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                       date={filteredData.date}
                       time={filteredData.time}
                       amount={filteredData.amount}
-                      receipt={filteredData.receipt}
+                      receipt={filteredData._id}
                       betId={filteredData.betId}
                       status={filteredData.status}
                       type={filteredData.type}
@@ -361,10 +365,10 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   }}
                 >
                   <CgTrashEmpty fontSize='80px' />
-                  <h2>No Data to Show</h2>
+                  <h2>Aucune donnée à afficher</h2>
                 </div>
               )
-            ) : state === "View Withdrawals" ? (
+            ) : state === "Afficher les Retraits" ? (
               data.filter((item: any) => item.type === "withdrawals").length >
               0 ? (
                 data
@@ -376,7 +380,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                       date={filteredData.date}
                       time={filteredData.time}
                       amount={filteredData.amount}
-                      receipt={filteredData.receipt}
+                      receipt={filteredData._id}
                       betId={filteredData.betId}
                       status={filteredData.status}
                       type={filteredData.type}
@@ -397,7 +401,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                   }}
                 >
                   <CgTrashEmpty fontSize='80px' />
-                  <h2>No Data to Show</h2>
+                  <h2>Aucune donnée à afficher</h2>
                 </div>
               )
             ) : data.length > 0 ? (
@@ -409,7 +413,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                     date={data.date}
                     time={data.time}
                     amount={data.amount}
-                    receipt={data.receipt}
+                    receipt={data._id}
                     betId={data.betId}
                     status={data.status}
                     type={data.type}
@@ -430,18 +434,9 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                 }}
               >
                 <CgTrashEmpty fontSize='80px' />
-                <h2>No Data to Show</h2>
+                <h2>Aucune donnée à afficher</h2>
               </div>
             )}
-
-            {/* {pathname === "/transactions" ? null : 
-         viewMore === true? <div className='view-more'>
-              <Link href='/transactions'>
-                View More &nbsp;
-                <FaArrowRight />
-              </Link>
-            </div> : null
-          } */}
 
             {pathname === "/transactions" ? null : viewMore === true ? (
               <div className='view-more'>
@@ -451,7 +446,7 @@ const TransactionTemplate = ({ title, select }: TransactionTemplateProps) => {
                     query: state,
                   }}
                 >
-                  View More &nbsp;
+                  Voir plus &nbsp;
                   <FaArrowRight />
                 </Link>
               </div>

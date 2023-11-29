@@ -31,6 +31,11 @@ label {
   }
 }
 
+/* YourComponent.css */
+#network option[disabled] {
+  opacity: 0.1 !important;
+}
+
 @media (max-width: 620px) {
   .user_withdraw_container {
     padding: 82px 7px 10px 7px;
@@ -47,28 +52,28 @@ label {
 
 
 
-.submit-button {
-  color: white;
-  background: rgba(0, 0, 0, 0.2);
-  font-weight: 600;
-  width: 200px;
-  height: 40px;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-top: 22px;
-  cursor: pointer;
-  align-self: flex-start
+.submit-button-deposit {
+  color: white !important;
+  /* background: red !important; */
+  font-weight: 600 !important;
+  width: 200px !important;
+  height: 40px !important;
+  border-radius: 4px !important;
+  outline: none !important;
+  border: none !important;
+  font-size: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  margin-top: 22px !important;
+  cursor: pointer !important;
+  align-self: flex-start !important
 }
 
 @media (max-width: 665px) {
-  .submit-button {
-    align-self: center;
+  .submit-button-deposit {
+    align-self: center !important;
   }
 
   .deposit-form1 {
@@ -326,8 +331,8 @@ label{
     height: 50px;
   }
 
-  .submit-button {
-    width: 100%;
+  .submit-button-deposit {
+    width: 100% !important;
   }
 
   .forgot-password {
@@ -528,7 +533,7 @@ label{
     font-size: 14px;
   }
 
-  .submit-button {
-    font-size: 22px;
+  .submit-button-deposit {
+    font-size: 22px !important;
   }
 }

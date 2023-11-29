@@ -31,13 +31,13 @@ const TransactionResults = ({
       </span>
         </span>
       <span>
-        <b style={{ color: "rgba(256, 256, 256, 0.4" }}>RECEIPT NO: &nbsp;</b>{" "}
+        <b style={{ color: "rgba(256, 256, 256, 0.4" }}>NON DE REÇU: &nbsp;</b>{" "}
         {receipt}
       </span>
       <span
         style={{
           color:
-            status === "Pending"
+            status === "pending"
               ? "rgba(256, 256, 256, 0.4)"
               : status === "Successful"
               ? "#BDFF00"

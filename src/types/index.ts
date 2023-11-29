@@ -30,6 +30,13 @@ export interface BigScreenNavModalProps {
 }
 
 export interface UserDashboardDisplayProps {
+  data: {
+    _id: number | string;
+    status: string;
+    amount: number | string;
+    type: string;
+    time: string | number;
+  }[];
   count: number;
   title: string;
   term: number;
@@ -42,6 +49,17 @@ export interface UserDashboardDisplayProps {
 }
 
 export interface TransactionTemplateProps {
+  data: {
+    _id: number | string;
+    date: string;
+    time: string;
+    amount: number;
+    betId: string;
+    status: string;
+    type: string;
+  }[];
+  totalWithdrawals: number;
+  totalDeposits: number;
   title: {
     name: string;
     icon: React.JSX.Element;
