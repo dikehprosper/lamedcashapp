@@ -152,19 +152,18 @@ useEffect(() => {
 
 
 
- const inputRef = useRef(null);
+const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleCopyClick = () => {
+const handleCopyClick = () => {
+  if (inputRef.current) {
     // Select the text inside the input field
     inputRef.current.select();
 
     // Copy the selected text to the clipboard
-    document.execCommand('copy');
+    document.execCommand("copy");
+  }
+};
 
-    // Deselect the text (optional)
-    window.getSelection().removeAllRanges();
-    toast.success("USSD CODE successfully copied!")
-  };
 
  
   return (
