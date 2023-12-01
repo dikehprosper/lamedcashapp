@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
       number,
       email,
       password: hashedPassword,
+      supplementaryBetId: [betId],
     });
 
     // save the new created user
@@ -45,14 +46,14 @@ export async function POST(request: NextRequest) {
       fullname: savedUser.fullname,
       email: savedUser.email,
       isAdmin: savedUser.isAdmin,
-       isSubAdmin: savedUser.isSubAdmin,
+      isSubAdmin: savedUser.isSubAdmin,
     };
 
     // create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });
-
+console.log(savedUser)
     const response = NextResponse.json({
       message: "signup Successful",
       success: true,
@@ -69,44 +70,3 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Declare user2 outside of the if block
-
-// if (referralId) {
-//   let user2;
-//   user2 = await User.findOne({ _id: referralId });
-//   if (user2) {
-//     // User with the specified _id found
-//     user2.referrals.push({
-//       referredEmail: savedUser.email,
-//       referredName: savedUser.fullname,
-//       registrationDateTime: new Date(),
-//     });
-
-//     await user2.save();
-//     console.log(user2.referrals);
-//     // You can return user2 here or perform further actions
-//   } else {
-//     // User with the specified _id not found
-//     console.log("User not found");
-//   }
-// }
-
-// Modify the referral information
-
-// send Welcome email
-
-// await sendEmail({
-//   email,
-//   emailType: "WELCOME",
-//   userId: savedUser._id,
-//   fullname,
-// });
-
-// send verification email
-
-// await sendEmail({
-//   email,
-//   emailType: "VERIFY",
-//   userId: savedUser._id,
-//   fullname,
-// });

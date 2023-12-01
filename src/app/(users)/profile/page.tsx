@@ -5,22 +5,29 @@ import "./profile.css";
 import Head from "@/components/(userscomponent)/(head)/head";
 import { FaCircle } from "react-icons/fa";
 import FooterMobile from "@/components/(Utils)/FooterMobile";
-
+import data from "../../../components/file";
+import GetInitials from "../../../components/(Utils)/getInitials"
+import BasicModal from "./profileModal"
+interface YourComponentProps {
+  savedID: number[];
+}
 const Profile = () => {
+  const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [buttonDisabled1, setButtonDisabled1] = useState(true);
   const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    mobileNumber: "",
-    betID: "",
+    firstName: data.fullname.split(" ")[0],
+    lastName: data.fullname.split(" ")[1],
+    email: data.email,
+    mobileNumber: data.number,
+    betID: '',
     password: "",
     confirmPassword: "",
   });
 
+  
   //check email and password state to determine ButtonDisabled state
   useEffect(() => {
     if (
@@ -105,55 +112,60 @@ const Profile = () => {
     toast.success("Withdrawal request submitted!");
   };
 
-  const savedID = [267898789, 87678767];
+  const savedID = [267898789, 876787767]
+
+
+
+
   return (
     <div className='user_profile_container'>
-      <Head title='Profil' about='Edit your Personal details Here' />
+      <Head title='Profil' about='Modifiez vos informations personnelles ici' />
 
       <div className='user_profile_container_001'>
         <form onSubmit={handleSubmit} className='profile-form-container'>
           <div className='add-photo'>
-            <div className='add-photo-container appear'>D</div>
-            <div className='add-photo-button'>+ change photo</div>
+            <div className='add-photo-container appear'>
+              <GetInitials name={data.fullname} />
+            </div>
           </div>
           <div>
-            <label className='label'>First Name</label>
+            <label className='label'>Prénom</label>
             <input
               type='text'
               className='profile-form input-first-child'
               value={user.firstName}
               onChange={handleChangeFirstName}
-              placeholder='Entrez le montant du dépôt'
+              placeholder='Modifier votre prénom'
             />
           </div>
           <div>
-            <label className='label'>Last Name</label>{" "}
+            <label className='label'>Nom de famille</label>{" "}
             <input
               type='text'
               className='profile-form input-second-child'
               value={user.lastName}
               onChange={handleChangeLastName}
-              placeholder='Entrez le montant du dépôt'
+              placeholder='Modifier le nom de famille'
             />
           </div>
           <div>
-            <label className='label'>Email</label>
+            <label className='label'>E-mail</label>
             <input
-              type='text'
+              type='email'
               className='profile-form'
               value={user.email}
               onChange={handleChangeEmail}
-              placeholder='Entrez le montant du dépôt'
+              placeholder="EntModifierrez l'e-mail"
             />
           </div>
           <div>
-            <label className='label'>mobileNumber</label>
+            <label className='label'>Numéro de portable</label>
             <input
-              type='text'
+              type='number'
               className='profile-form'
               value={user.mobileNumber}
               onChange={handlechangeMobileNumber}
-              placeholder='Entrez le montant du dépôt'
+              placeholder='Modifier le numéro de téléphone'
             />
           </div>
           <div className='betid-section'>
@@ -169,19 +181,8 @@ const Profile = () => {
                 Enregistrez 2 identifiants 1XBET différents dans votre profil
                 pour les afficher ici{" "}
               </div>
-              <div className='saved_id_container'>
-                {savedID.map((id, index) => (
-                  <div className='saved_id_container-inner' key={index}>
-                    {id} <FaCircle color='white' />
-                    <span
-                      style={{
-                        fontSize: "8px",
-                        fontWeight: "light",
-                        color: "rgba(256, 256, 256, 0.5)",
-                      }}
-                    ></span>
-                  </div>
-                ))}
+              <div className='saved_id_container'>       
+                <BasicModal savedID={savedID} />             
               </div>
             </div>
             <input
@@ -191,14 +192,13 @@ const Profile = () => {
               onChange={handlechangeBetID}
               placeholder="Entrez l'identifiant 1XBET"
             />
-            <button
-              type='submit'
+            <div
               className='submit-button1-profile'
               style={{
-                background: buttonDisabled1
-                  ? "rgba(128, 128, 128, 0.4)"
-                  : "rgba(128, 128, 128, 1)",
-                pointerEvents: buttonDisabled1 ? "none" : "auto",
+                background: "rgba(128, 128, 128, 1)",
+                color: "black",
+                fontWeight: 'bold',
+                cursor: "pointer"
               }}
             >
               {loading ? (
@@ -208,28 +208,44 @@ const Profile = () => {
               ) : (
                 "Sauvegarder BetID"
               )}
-            </button>
+            </div>
           </div>
+
           <div>
-            <label className='label'> Password</label>
+        <label className='label'> L&apos;ancien mot de passe</label>
             <input
-              type='number'
+              type='text'
               className='profile-form'
               value={user.password}
               onChange={handlePassword}
-              placeholder='Entrez le montant du dépôt'
+              placeholder="entrez l'ancien mot de passe"
             />
           </div>
           <div>
-            <label className='label'>Confirm Password</label>
+            <label className='label'>Nouveau mot de passe</label>
             <input
               type='text'
               className='profile-form'
               value={user.confirmPassword}
               onChange={handleConfirmPassword}
-              placeholder='choisir le réseau'
+              placeholder='Entrez un nouveau mot de passe'
             />
           </div>
+              
+           <div
+            style={{
+              color: "rgba(256, 256, 256, 0.5)",
+              width: "100%",
+              display: "flex",
+              marginTop: "15px",
+            }}
+          >
+         <span style={{
+              width: "100%",
+            }}>   <span style={{ color: "red", fontWeight: 'bold' }}>Note:</span> &nbsp;    Pour mettre à jour votre mot de passe... entrez l&apos;ancien mot de passe 
+                 et le nouveau que vous souhaitez utiliser </span> 
+          </div>
+          
           <button
             type='submit'
             className='submit-button-profile'
@@ -238,6 +254,7 @@ const Profile = () => {
                 ? "rgba(128, 128, 128, 0.2)"
                 : "rgba(128, 128, 128, 1)",
               pointerEvents: buttonDisabled ? "none" : "auto",
+              justifySelf: "flex-end"
             }}
           >
             {loading ? (
@@ -245,7 +262,7 @@ const Profile = () => {
                 <div id='html-spinner-signin'></div>
               </div>
             ) : (
-              "Sauvegarder"
+              "Mise à jour"
             )}
           </button>
         </form>

@@ -66,7 +66,7 @@ const Withdraw = () => {
      setTimeout(() => {
        setLoading(false);
      }, 1000);
-     toast.success("Withdrawal request submitted!");
+     toast.success("Demande de retrait soumise !");
    };
 
    //check email and password state to determine ButtonDisabled state

@@ -273,3 +273,22 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+.loading-background {
+ background: linear-gradient(to bottom, #ccc, #fff, #ccc); /* Change the colors as needed */
+  background-size: 100% 200%; /* Adjust the second value to control the movement */
+  animation: gradientMove 5s linear infinite; 
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}

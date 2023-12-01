@@ -32,20 +32,23 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  supplementaryBetId: [
-    {
-      type: String,
-    },
-  ],
+  supplementaryBetId: {
+    type: [
+      {
+        type: String,
+      },
+    ],
+  },
   transactionHistory: {
     type: [
       {
         status: String,
         registrationDateTime: Date,
         amount: Number,
+        network: String,
         betId: String,
         transactionId: String,
-        name: String,
+        fundingType: String
       },
     ],
   },
@@ -58,7 +61,7 @@ const userSchema = new Schema({
   faTokenExpiry: Date,
 });
 
-const User = models.users || model("User", userSchema);
+const User = models.users || model("users", userSchema);
 
 export default User;
 

@@ -37,6 +37,7 @@ export interface UserDashboardDisplayProps {
     type: string;
     time: string | number;
   }[];
+  allData: any;
   count: number;
   title: string;
   term: number;
@@ -50,6 +51,7 @@ export interface UserDashboardDisplayProps {
 
 export interface TransactionTemplateProps {
   data: {
+    fundingType: string;
     _id: number | string;
     date: string;
     time: string;
@@ -58,6 +60,7 @@ export interface TransactionTemplateProps {
     status: string;
     type: string;
   }[];
+  allData: any;
   totalWithdrawals: number;
   totalDeposits: number;
   title: {
@@ -106,7 +109,6 @@ export interface TransactionTemplatePropsSubadmins {
 }
 
 export interface TransactionResultsProps {
-  date: string | number;
   time: string | number;
   amount: number;
   receipt: string | number;

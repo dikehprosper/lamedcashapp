@@ -143,6 +143,7 @@ const UserNav = () => {
     try {
       await axios.get("/api/users/logout");
       localStorage.removeItem("activeTab");
+
       toast.success("Logout successful");
       localStorage.removeItem("activeTab");
       router.push("/signin");

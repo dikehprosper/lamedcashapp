@@ -3,10 +3,8 @@ import "./transactionResults.css";
 import { TransactionResultsProps } from "@/types";
 import formatNumberWithCommasAndDecimal from "../../../(Utils)/formatNumber";
 import { FaDownload } from "react-icons/fa";
-
-const TransactionResults = ({
-  date,
-  time,
+import Moment from 'moment';
+const TransactionResults = ({  time,
   amount,
   receipt,
   betId,
@@ -15,13 +13,13 @@ const TransactionResults = ({
 }: TransactionResultsProps) => {
   return (
     <>
-     <div className='mobile-time'> {date} {time}</div>
+     <div className='mobile-time'> {formatDate(time)}</div>
     <div className='transaction_result'>
       <span
         style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
       ></span>
       <span>
-        {date} {time}
+       {formatDate(time)}
       </span>
      <span className="small_device_group"> <span> XOF {formatNumberWithCommasAndDecimal(amount)}
       </span>
@@ -55,3 +53,13 @@ const TransactionResults = ({
 };
 
 export default TransactionResults;
+
+const formatDate = (inputDate: string) => {
+  const date = new Date(inputDate);
+ Moment.locale('en');
+   var dt = inputDate;
+
+  const formattedDate = Moment(dt).format('DD - MM - YYYY hh:mm a')
+
+  return formattedDate;
+};

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
 
     //create token data
     const tokenData = {
-      id: user._id,
+      _id: user._id,
       fullname: user.fullname,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -69,47 +69,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Declare user2 outside of the if block
 
-// if (referralId) {
-//   let user2;
-//   user2 = await User.findOne({ _id: referralId });
-//   if (user2) {
-//     // User with the specified _id found
-//     user2.referrals.push({
-//       referredEmail: savedUser.email,
-//       referredName: savedUser.fullname,
-//       registrationDateTime: new Date(),
-//     });
-
-//     await user2.save();
-//     console.log(user2.referrals);
-//     // You can return user2 here or perform further actions
-//   } else {
-//     // User with the specified _id not found
-//     console.log("User not found");
-//   }
-// }
-
-// Modify the referral information
-
-// send Welcome email
-
-// await sendEmail({
-//   email,
-//   emailType: "WELCOME",
-//   userId: savedUser._id,
-//   fullname,
-// });
-
-// send verification email
-
-// await sendEmail({
-//   email,
-//   emailType: "VERIFY",
-//   userId: savedUser._id,
-//   fullname,
-// });
 
 
 

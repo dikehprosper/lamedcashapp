@@ -1,27 +1,42 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import "./transactionPage.css";
 import Head from "@/components/(userscomponent)/(head)/head";
 import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplateUsers)/TransactionTemplate";
 import { LuHistory } from "react-icons/lu";
-import data from "../../../components/file";
+import axios from "axios";
+
 const Transactions = () => {
+  const [data, setData] = useState<any>();
   // Filter deposit transactions
-  const allDeposits = data.transactionHistory.filter(
-    (transaction) => transaction.type === "deposits"
+  const allDeposits = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.fundingType === "deposits"
   );
 
-  const totalDeposits = allDeposits.reduce((total, transaction) => {
+  const getUserDetails = async () => {
+    const res = await axios.get("/api/getUser");
+ setData(res.data.data);
+  };
+  useEffect(() => {
+    getUserDetails();
+  }, []);
+
+  const totalDeposits = allDeposits?.filter((data )=> data.status === "Successful").reduce((total: any, transaction: any) => {
     return (total += transaction.amount);
   }, 0);
 
   // Filter withdrawal transactions
-  const allWithdrawals = data.transactionHistory.filter(
-    (transaction) => transaction.type === "withdrawals"
+  const allWithdrawals = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.fundingType === "withdrawals"
   );
 
-  const totalWithdrawals = allWithdrawals.reduce((total, transaction) => {
-    return (total += transaction.amount);
-  }, 0);
+  const totalWithdrawals = allWithdrawals?.filter((data )=> data.status === "Successful").reduce(
+    (total: any, transaction: any) => {
+      return (total += transaction.amount);
+    },
+    0
+  );
+
   return (
     <div className='transactionPage_container'>
       <Head
@@ -37,7 +52,8 @@ const Transactions = () => {
         }}
         totalWithdrawals={totalWithdrawals}
         totalDeposits={totalDeposits}
-        data={data.transactionHistory}
+        data={data?.transactionHistory}
+        allData={data}
       />
     </div>
   );

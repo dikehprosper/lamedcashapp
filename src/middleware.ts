@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
     path === "/about";
   const token = request.cookies.get("token")?.value || "";
   const decodedToken = jwt.decode(token) as TokenPayload | null;
-console.log(decodedToken)
+
   // Check if the user is an admin and trying to access the "/dashboard" route
   if (!hasRedirected) {
   if (

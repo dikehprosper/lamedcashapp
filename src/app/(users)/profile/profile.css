@@ -160,6 +160,11 @@ label {
     gap: 6px;
     padding: 2px 4px;
   }
+.smaller-screen {
+display: grid !important;
+grid-template-columns: 1fr 1fr 1fr !important
+}
+
 
 }
 
@@ -611,14 +616,14 @@ opacity: 1
 }
 
 .add-photo-button {
-  width: 150px;
-  height: 35px;
+  width: 165px;
+  height: 37px;
   background: rgba(158, 168, 168, 0.4);
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer
 }

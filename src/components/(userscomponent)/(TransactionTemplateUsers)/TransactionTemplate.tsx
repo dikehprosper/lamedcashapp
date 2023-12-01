@@ -13,16 +13,21 @@ import { IoMdArrowDropup } from "react-icons/io";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
-
+  
 const TransactionTemplate = ({ title, select, 
-totalWithdrawals, totalDeposits, data
+totalWithdrawals, totalDeposits, data, allData
 }: TransactionTemplateProps) => {
-  const [state, setState] = useState(select.firstSelect.big);
+console.log(data)
+  // Access the query object to get the passed parameter
+  
+
+  const [state, setState] = useState(select.firstSelect.big)
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();
   const [height, setHeight] = useState(0);
-  const [loading, setLoading] = useState(false);
-  function adjustHeight() {
+  const [loading, setLoading] = useState(false)
+
+   function adjustHeight() {
     setHeight((prev): any => {
       if (prev === 0) {
         return "auto";
@@ -31,45 +36,39 @@ totalWithdrawals, totalDeposits, data
       }
     });
   }
+  const state2 = {
+    param1: state,
+  };
 
   useEffect(() => {
+    // Save state to localStorage whenever it changes
+    localStorage.setItem("transactionTemplateState", JSON.stringify(state));
+
     if (state === select.firstSelect.big) {
-      if (data.length > 3) {
-        setStateViewMore(true);
-      } else {
-        setStateViewMore(false);
-      }
+      setStateViewMore(data?.length > 3);
     } else if (state === select.secondSelect.big) {
-      if (data?.filter((item) => item.type === "deposits").length > 3) {
-        setStateViewMore(true);
-      } else {
-        setStateViewMore(false);
-      }
+      setStateViewMore(data?.filter((item) => item.fundingType === "deposits").length > 3);
     } else if (state === select.thirdSelect.big) {
-      if (data.filter((item) => item.type === "withdrawals").length > 3) {
-        setStateViewMore(true);
-      } else {
-        setStateViewMore(false);
-      }
+      setStateViewMore(data?.filter((item) => item.fundingType === "withdrawals").length > 3);
     }
   }, [state, data]);
 
   function changeState1(value: any) {
     setLoading(true);
     setState(value);
-    if (data.length > 3) {
-      setStateViewMore(true);
-    } else {
-      setStateViewMore(false);
-    }
+    // No need to check conditions here, it will be handled in useEffect
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   }
+
+
+
+
   function changeState2(value: any) {
     setLoading(true);
     setState(value);
-    if (data.filter((item) => item.type === "deposits").length > 3) {
+    if (data?.filter((item) => item.fundingType === "deposits").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -83,7 +82,7 @@ totalWithdrawals, totalDeposits, data
     setLoading(true);
     setState(value);
 
-    if (data.filter((item) => item.type === "withdrawals").length > 3) {
+    if (data?.filter((item) => item.fundingType === "withdrawals").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -94,7 +93,21 @@ totalWithdrawals, totalDeposits, data
     }, 1000);
   }
 
-  return (
+  return allData === undefined ? (
+    // Render the loading spinner when loading is true
+    <div
+      className='transaction_template_container '
+      style={{
+        background: "rgba(0, 0, 0, 0.5)",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div id='container-signin'>
+        <div id='html-spinner-signin'></div>
+      </div>
+    </div>
+  ) : (
     <div className='transaction_template_container'>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
@@ -106,7 +119,13 @@ totalWithdrawals, totalDeposits, data
             <span className='transaction_template_container_header_2_span_1'>
               Total des Dépôts:{" "}
             </span>{" "}
-            <span> XOF {formatNumberWithCommasAndDecimal(totalDeposits)}</span>
+            <span>
+              {" "}
+              XOF{" "}
+              {formatNumberWithCommasAndDecimal(
+                totalDeposits === undefined ? 0 : totalDeposits
+              )}
+            </span>
           </div>
           <div>
             <span className='transaction_template_container_header_2_span_2'>
@@ -114,7 +133,10 @@ totalWithdrawals, totalDeposits, data
             </span>{" "}
             <span>
               {" "}
-              XOF {formatNumberWithCommasAndDecimal(totalWithdrawals)}
+              XOF{" "}
+              {formatNumberWithCommasAndDecimal(
+                totalWithdrawals === undefined ? 0 : totalWithdrawals
+              )}
             </span>
           </div>
         </span>
@@ -232,20 +254,20 @@ totalWithdrawals, totalDeposits, data
           >
             {pathname === "/transactions" ? (
               state === "Voir les Dépôts" ? (
-                data.filter((item: any) => item.type === "deposits").length >
-                0 ? (
+                data?.filter((item: any) => item.fundingType === "deposits")
+                  .length > 0 ? (
                   data
-                    .filter((item: any) => item.type === "deposits")
+                    ?.filter((item: any) => item.fundingType === "deposits")
+                    .reverse()
                     .map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
-                        date={filteredData.date}
-                        time={filteredData.time}
+                        time={filteredData.registrationDateTime}
                         amount={filteredData.amount}
                         receipt={filteredData._id}
                         betId={filteredData.betId}
                         status={filteredData.status}
-                        type={filteredData.type}
+                        type={filteredData.fundingType}
                       />
                     ))
                 ) : (
@@ -267,20 +289,20 @@ totalWithdrawals, totalDeposits, data
                   </div>
                 )
               ) : state === "Afficher les Retraits" ? (
-                data.filter((item: any) => item.type === "withdrawals").length >
-                0 ? (
+                data?.filter((item: any) => item.fundingType === "withdrawals")
+                  .length > 0 ? (
                   data
-                    .filter((item: any) => item.type === "withdrawals")
+                    ?.filter((item: any) => item.fundingType === "withdrawals")
+                    .reverse()
                     .map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
-                        date={filteredData.date}
-                        time={filteredData.time}
+                        time={filteredData.registrationDateTime}
                         amount={filteredData.amount}
                         receipt={filteredData._id}
                         betId={filteredData.betId}
                         status={filteredData.status}
-                        type={filteredData.type}
+                        type={filteredData.fundingType}
                       />
                     ))
                 ) : (
@@ -301,19 +323,20 @@ totalWithdrawals, totalDeposits, data
                     <h2>Aucune donnée à afficher</h2>
                   </div>
                 )
-              ) : data.length > 0 ? (
-                data.map((data: any, index: any) => (
-                  <TransactionResults
-                    key={index}
-                    date={data.date}
-                    time={data.time}
-                    amount={data.amount}
-                    receipt={data._id}
-                    betId={data.betId}
-                    status={data.status}
-                    type={data.type}
-                  />
-                ))
+              ) : data?.length > 0 ? (
+                data
+                  ?.reverse()
+                  .map((data: any, index: any) => (
+                    <TransactionResults
+                      key={index}
+                      time={data.registrationDateTime}
+                      amount={data.amount}
+                      receipt={data._id}
+                      betId={data.betId}
+                      status={data.status}
+                      type={data.fundingType}
+                    />
+                  ))
               ) : (
                 <div
                   className='no-result animate-pop-in'
@@ -333,21 +356,21 @@ totalWithdrawals, totalDeposits, data
                 </div>
               )
             ) : state === "Voir les Dépôts" ? (
-              data.filter((item: any) => item.type === "deposits").length >
-              0 ? (
+              data?.filter((item: any) => item.fundingType === "deposits")
+                .length > 0 ? (
                 data
-                  .filter((item: any) => item.type === "deposits")
+                  ?.filter((item: any) => item.fundingType === "deposits")
                   .slice(0, 3)
+                  .reverse()
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
-                      date={filteredData.date}
-                      time={filteredData.time}
+                      time={filteredData.registrationDateTime}
                       amount={filteredData.amount}
                       receipt={filteredData._id}
                       betId={filteredData.betId}
                       status={filteredData.status}
-                      type={filteredData.type}
+                      type={filteredData.fundingType}
                     />
                   ))
               ) : (
@@ -369,21 +392,21 @@ totalWithdrawals, totalDeposits, data
                 </div>
               )
             ) : state === "Afficher les Retraits" ? (
-              data.filter((item: any) => item.type === "withdrawals").length >
-              0 ? (
+              data?.filter((item: any) => item.fundingType === "withdrawals")
+                .length > 0 ? (
                 data
-                  .filter((item: any) => item.type === "withdrawals")
+                  ?.filter((item: any) => item.fundingType === "withdrawals")
                   .slice(0, 3)
+                  .reverse()
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
-                      date={filteredData.date}
-                      time={filteredData.time}
+                      time={filteredData.registrationDateTime}
                       amount={filteredData.amount}
                       receipt={filteredData._id}
                       betId={filteredData.betId}
                       status={filteredData.status}
-                      type={filteredData.type}
+                      type={filteredData.fundingType}
                     />
                   ))
               ) : (
@@ -404,20 +427,19 @@ totalWithdrawals, totalDeposits, data
                   <h2>Aucune donnée à afficher</h2>
                 </div>
               )
-            ) : data.length > 0 ? (
+            ) : data?.length > 0 ? (
               data
-                .slice(0, 3)
+                ?.slice(0, 3)
+                .reverse()
                 .map((data: any, index: any) => (
                   <TransactionResults
                     key={index}
-                    date={data.date}
-                    time={data.time}
+                    time={data.registrationDateTime}
                     amount={data.amount}
                     receipt={data._id}
                     betId={data.betId}
                     status={data.status}
-                    type={data.type}
-                  />
+                    type={data.fundingType}                  />
                 ))
             ) : (
               <div
@@ -443,7 +465,7 @@ totalWithdrawals, totalDeposits, data
                 <Link
                   href={{
                     pathname: "/transactions",
-                    query: state,
+                    query: { slug: state },
                   }}
                 >
                   Voir plus &nbsp;

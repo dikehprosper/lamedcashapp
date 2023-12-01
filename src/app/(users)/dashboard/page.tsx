@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Head from "@/components/(userscomponent)/(head)/head";
 import Display from "@/components/(userscomponent)/(display)/display";
 import "./dash.css";
@@ -6,52 +7,69 @@ import { TbPigMoney } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplateUsers)/TransactionTemplate";
 import { LuHistory } from "react-icons/lu";
-import data from "../../../components/file";
+import axios from "axios";
+const Dashboard = () => {
+  const [data, setData] = useState<any>();
+  
+    const getUserDetails = async () => {
+    const res = await axios.get("/api/getUser");
+    setData(res.data.data);
+  };
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
-const Dashboard = async () => {
+
   // Filter deposit transactions
-  const allDeposits = data.transactionHistory.filter(
-    (transaction) => transaction.type === "deposits"
+  const allDeposits = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.fundingType === "deposits"
   );
 
-  const totalDeposits = allDeposits.reduce((total, transaction) => {
+  const totalDeposits = allDeposits?.filter((data )=> data.status === "Successful").reduce((total: any, transaction: any) => {
     return (total += transaction.amount);
   }, 0);
 
   // Filter withdrawal transactions
-  const allWithdrawals = data.transactionHistory.filter(
-    (transaction) => transaction.type === "withdrawals"
+  const allWithdrawals = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.fundingType === "withdrawals"
   );
 
-  const totalWithdrawals = allWithdrawals.reduce((total, transaction) => {
-    return (total += transaction.amount);
-  }, 0);
-
+  const totalWithdrawals = allWithdrawals?.filter((data )=> data.status === "Successful").reduce(
+    (total: any, transaction: any) => {
+      return (total += transaction.amount);
+    },
+    0
+  );
 
   // Filter deposit transactions with status "pending"
-  const pendingDeposits = data.transactionHistory.filter(
-    (transaction) =>
-      transaction.type === "deposits" && transaction.status === "pending"
+  const pendingDeposits = data?.transactionHistory.filter(
+    (transaction: any) =>
+      transaction.fundingType === "deposits" && transaction.status === "pending"
   );
 
+  useEffect(() => {
+      console.log(data)
+    console.log(pendingDeposits)
+  })
+
   // Filter withdrawal transactions with status "pending"
-  const pendingWithdrawals = data.transactionHistory.filter(
-    (transaction) =>
-      transaction.type === "withdrawals" && transaction.status === "pending"
+  const pendingWithdrawals = data?.transactionHistory?.filter(
+    (transaction: any) =>
+      transaction.fundingType === "withdrawals" && transaction.status === "pending"
   );
 
   // Calculate total cost of pending deposits
-  console.log(pendingDeposits);
-  const totalPendingDepositAmount = pendingDeposits.reduce(
-    (total, transaction) => {
+
+  const totalPendingDepositAmount = pendingDeposits?.reduce(
+    (total: any, transaction: any) => {
       return (total += transaction.amount);
     },
     0
   );
 
   // Calculate total cost of pending withdrawals
-  const totalPendingWithdrawalAmount = pendingWithdrawals.reduce(
-    (total, transaction) => {
+  const totalPendingWithdrawalAmount = pendingWithdrawals?.reduce(
+    (total: any, transaction: any) => {
       return (total += transaction.amount);
     },
     0
@@ -65,11 +83,12 @@ const Dashboard = async () => {
       />
       <div className='user-dashboard-display'>
         <Display
-          count={pendingDeposits.length}
+          count={pendingDeposits?.length}
           title='Dépôt'
           term={1}
           amount={totalPendingDepositAmount}
-          data={data.transactionHistory}
+          data={data?.transactionHistory}
+         allData={data}
           style={{
             color: "#658900",
             background: "rgba(101, 137, 0, 0.4)",
@@ -77,11 +96,12 @@ const Dashboard = async () => {
           }}
         />
         <Display
-          count={pendingWithdrawals.length}
+          count={pendingWithdrawals?.length}
           term={2}
           title='Retirer'
           amount={totalPendingWithdrawalAmount}
-          data={data.transactionHistory}
+          data={data?.transactionHistory}
+          allData={data}
           style={{
             color: "#0076B8",
             background: "rgba(0, 118, 184, .4)",
@@ -92,13 +112,14 @@ const Dashboard = async () => {
       <TransactionTemplate
         title={{ name: "Historique des Transactions", icon: <LuHistory /> }}
         select={{
-    firstSelect: { big: "Voir tout", small: "Tout" },
+          firstSelect: { big: "Voir tout", small: "Tout" },
           secondSelect: { big: "Voir les Dépôts", small: "Dépôts" },
           thirdSelect: { big: "Afficher les Retraits", small: "Retraits" },
         }}
         totalWithdrawals={totalWithdrawals}
         totalDeposits={totalDeposits}
-        data={data.transactionHistory}
+        data={data?.transactionHistory}
+        allData={data}
       />
     </div>
   );

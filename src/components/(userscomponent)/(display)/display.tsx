@@ -11,16 +11,32 @@ const display = ({
   amount,
   style,
   data,
+  allData,
 }: UserDashboardDisplayProps) => {
-  return (
+  return !allData ? (
+    // Render the loading spinner when loading is true
     <div
-      className='user-dashboard-display-recent'
+      className='user-dashboard-display-recent '
+      style={{
+        background: "rgba(0, 0, 0, 0.5)",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div id='container-signin'>
+        <div id='html-spinner-signin'></div>
+      </div>
+    </div>
+  ) : (
+    // Render your content when loading is false
+    <div
+      className='user-dashboard-display-recent animate-pop-in'
       style={{ background: style?.background }}
     >
       <div className='display-recent-1'>
         <h2 className='display-recent-1-h1'>Pending {style?.icon}</h2>
         <h1 className='display-recent-1-h2'>
-      {count}
+          {count === undefined ? 0 : count}
         </h1>
       </div>
       <div className='display-recent-2'>
@@ -37,7 +53,9 @@ const display = ({
           </p>
           <p>
             XOF &nbsp;
-            {formatNumberWithCommasAndDecimal(amount)}
+            {formatNumberWithCommasAndDecimal(
+              amount === undefined ? 0 : amount
+            )}
           </p>
         </span>
         <Link
