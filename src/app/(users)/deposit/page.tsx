@@ -17,7 +17,7 @@ const Deposit = () => {
   const [activeBetId, setActiveBetId] = useState("");
   const [user, setUser] = useState({
     _id: "",
-    betId: savedID[0],
+    betId: "",
     network: "",
     amount: "",
     ussdCode: "",

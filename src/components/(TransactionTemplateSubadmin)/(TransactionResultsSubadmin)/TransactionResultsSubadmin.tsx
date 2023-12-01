@@ -5,7 +5,6 @@ import { FaDownload } from "react-icons/fa";
 import formatNumberWithCommasAndDecimal from "../../(Utils)/formatNumber";
 
 const TransactionResults = ({
-  date,
   time,
   amount,
   receipt,
@@ -17,14 +16,14 @@ const TransactionResults = ({
     <>
       <div className='mobile-time'>
         {" "}
-        {date} {time}
+     {time}
       </div>
       <div className='transaction_result-subadmin'>
         <span
           style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
         ></span>
         <span>
-          {date} {time}
+       {time}
         </span>
         <span className='small_device_group'>
           {" "}

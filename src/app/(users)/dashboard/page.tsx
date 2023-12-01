@@ -25,7 +25,7 @@ const Dashboard = () => {
     (transaction: any) => transaction.fundingType === "deposits"
   );
 
-  const totalDeposits = allDeposits?.filter((data )=> data.status === "Successful").reduce((total: any, transaction: any) => {
+  const totalDeposits = allDeposits?.filter((data: { status: string; } )=> data.status === "Successful").reduce((total: any, transaction: any) => {
     return (total += transaction.amount);
   }, 0);
 
@@ -34,7 +34,7 @@ const Dashboard = () => {
     (transaction: any) => transaction.fundingType === "withdrawals"
   );
 
-  const totalWithdrawals = allWithdrawals?.filter((data )=> data.status === "Successful").reduce(
+  const totalWithdrawals = allWithdrawals?.filter((data: { status: string; } )=> data.status === "Successful").reduce(
     (total: any, transaction: any) => {
       return (total += transaction.amount);
     },

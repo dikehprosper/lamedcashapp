@@ -261,7 +261,6 @@ const SubadminTransactionTemplate = ({
                     .map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
-                        date={filteredData.date}
                         time={filteredData.time}
                         amount={filteredData.amount}
                         receipt={filteredData.receipt}
@@ -296,7 +295,6 @@ const SubadminTransactionTemplate = ({
                     .map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
-                        date={filteredData.date}
                         time={filteredData.time}
                         amount={filteredData.amount}
                         receipt={filteredData.receipt}
@@ -327,7 +325,7 @@ const SubadminTransactionTemplate = ({
                 data.map((data: any, index: any) => (
                   <TransactionResults
                     key={index}
-                    date={data.date}
+             
                     time={data.time}
                     amount={data.amount}
                     receipt={data.receipt}
@@ -363,7 +361,6 @@ const SubadminTransactionTemplate = ({
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
-                      date={filteredData.date}
                       time={filteredData.time}
                       amount={filteredData.amount}
                       receipt={filteredData.receipt}
@@ -399,7 +396,7 @@ const SubadminTransactionTemplate = ({
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
-                      date={filteredData.date}
+                      
                       time={filteredData.time}
                       amount={filteredData.amount}
                       receipt={filteredData.receipt}
@@ -432,7 +429,6 @@ const SubadminTransactionTemplate = ({
                 .map((data: any, index: any) => (
                   <TransactionResults
                     key={index}
-                    date={data.date}
                     time={data.time}
                     amount={data.amount}
                     receipt={data.receipt}
