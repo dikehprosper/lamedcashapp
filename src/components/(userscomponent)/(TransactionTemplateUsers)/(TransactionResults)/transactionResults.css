@@ -21,6 +21,14 @@
   border-radius: 4px;
   background: blue;
 }
+
+.first-span {
+  height: 100%;
+  border-radius: 4px;
+  background: blue;
+  width: 13px !important
+}
+
 .small_device_group {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -32,13 +40,7 @@
   flex: 1;
 }
 
-.transaction_result > span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 100%;
-  min-width: 100%;
-}
+
 /* .transaction_result > span:first-child {
   width: 30px;
 } */

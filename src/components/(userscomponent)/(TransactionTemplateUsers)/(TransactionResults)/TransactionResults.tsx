@@ -16,6 +16,7 @@ const TransactionResults = ({  time,
      <div className='mobile-time'> {formatDate(time)}</div>
     <div className='transaction_result'>
       <span
+      className="first-span"
         style={{ background: type === "deposits" ? "#658900" : "#0076B8", width: "13px !important" }}
       ></span>
       <span>
