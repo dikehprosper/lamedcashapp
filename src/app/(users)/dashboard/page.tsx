@@ -7,17 +7,69 @@ import { TbPigMoney } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import TransactionTemplate from "@/components/(userscomponent)/(TransactionTemplateUsers)/TransactionTemplate";
 import { LuHistory } from "react-icons/lu";
+import { toast } from "react-toastify";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 const Dashboard = () => {
+  const router = useRouter();
   const [data, setData] = useState<any>();
-  
-    const getUserDetails = async () => {
-    const res = await axios.get("/api/getUser");
-    setData(res.data.data);
+  const [isOnline, setIsOnline] = useState(true);
+
+  const getUserDetails = async () => {
+    try {
+       const res = await axios.get("/api/getUser");
+       setData(res.data.data);
+      console.log(res.data.data);
+    } catch (error: any) {
+      if (error.response) {
+        // Handle token expiration
+        if (error.response.status === 401) {
+          toast.error("Your session has expired. Redirecting to signin...");
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else {
+          // Handle other errors
+          toast.error("An error occurred. Please try again later.");
+        }
+      } else if (error.request) {
+        // Handle network errors (no connection)
+        setIsOnline(false);
+      }
+    }
   };
-  useEffect(() => {
-    getUserDetails();
-  }, []);
+
+
+
+
+ useEffect(() => {
+   // Check network status before making the request
+   if (isOnline) {
+     getUserDetails();
+   } else {
+     toast.error(
+       "No network connection. Please check your connection and try again."
+     );
+   }
+ }, [isOnline]);
+
+ useEffect(() => {
+   // Check initial network status
+   setIsOnline(window.navigator.onLine);
+
+   // Add event listeners for online/offline changes
+   const handleOnline = () => setIsOnline(true);
+   const handleOffline = () => setIsOnline(false);
+
+   window.addEventListener("online", handleOnline);
+   window.addEventListener("offline", handleOffline);
+
+   // Clean up event listeners on component unmount
+   return () => {
+     window.removeEventListener("online", handleOnline);
+     window.removeEventListener("offline", handleOffline);
+   };
+ }, []);
+
+
 
 
   // Filter deposit transactions
@@ -25,37 +77,35 @@ const Dashboard = () => {
     (transaction: any) => transaction.fundingType === "deposits"
   );
 
-  const totalDeposits = allDeposits?.filter((data: { status: string; } )=> data.status === "Successful").reduce((total: any, transaction: any) => {
-    return (total += transaction.amount);
-  }, 0);
+  const totalDeposits = allDeposits
+    ?.filter((data: { status: string }) => data.status === "Successful")
+    .reduce((total: any, transaction: any) => {
+      return (total += transaction.amount);
+    }, 0);
 
   // Filter withdrawal transactions
   const allWithdrawals = data?.transactionHistory?.filter(
     (transaction: any) => transaction.fundingType === "withdrawals"
   );
 
-  const totalWithdrawals = allWithdrawals?.filter((data: { status: string; } )=> data.status === "Successful").reduce(
-    (total: any, transaction: any) => {
+  const totalWithdrawals = allWithdrawals
+    ?.filter((data: { status: string }) => data.status === "Successful")
+    .reduce((total: any, transaction: any) => {
       return (total += transaction.amount);
-    },
-    0
-  );
+    }, 0);
 
   // Filter deposit transactions with status "pending"
   const pendingDeposits = data?.transactionHistory.filter(
     (transaction: any) =>
-      transaction.fundingType === "deposits" && transaction.status === "pending"
+      transaction.fundingType === "deposits" && transaction.status === "Pending"
   );
 
-  useEffect(() => {
-      console.log(data)
-    console.log(pendingDeposits)
-  })
 
   // Filter withdrawal transactions with status "pending"
   const pendingWithdrawals = data?.transactionHistory?.filter(
     (transaction: any) =>
-      transaction.fundingType === "withdrawals" && transaction.status === "pending"
+      transaction.fundingType === "withdrawals" &&
+      transaction.status === "Pending"
   );
 
   // Calculate total cost of pending deposits
@@ -88,7 +138,7 @@ const Dashboard = () => {
           term={1}
           amount={totalPendingDepositAmount}
           data={data?.transactionHistory}
-         allData={data}
+          allData={data}
           style={{
             color: "#658900",
             background: "rgba(101, 137, 0, 0.4)",

@@ -88,6 +88,21 @@ export interface TransactionTemplatePropsSubadmins {
     name: string;
     icon: React.JSX.Element;
   };
+  totalSuccessful: number;
+  totalFailed: number;
+  name: string;
+  showReceipt: () => void;
+  data: {
+    fundingType: string;
+    _id: number | string;
+    date: string;
+    time: string;
+    amount: number;
+    betId: string;
+    status: string;
+    type: string;
+  }[];
+  allData: any;
   select: {
     fourthSelect: {
       big: string;
@@ -115,4 +130,39 @@ export interface TransactionResultsProps {
   betId: string | number;
   status: string;
   type: string;
+}
+export interface TransactionResultsSubadminProps {
+  time: string | number;
+  amount: number;
+  transactionId: string | number;
+  identifierId: string | number;
+  betId: string | number;
+  status: string;
+  type: string;
+  userId: string;
+  cashdeskId: String;
+  isSubmitted: boolean;
+  showReceipt: () => void;
+  username: string;
+  userNumber: number;
+}
+
+export interface ReceiptModalProps {
+  containerStyles?: string;
+  containerStylesInner?: string;
+  containerStylesInnerLink?: string;
+  active?: string;
+  handleClick?: () => void;
+  logout?: () => void;
+  receipt?: {
+    time: string;
+    amount: number;
+    transactionId: string;
+    identifierId: string;
+    betId: string;
+    status: string;
+    title: string;
+      username: string;
+    userNumber: string;
+  }[];
 }

@@ -4,9 +4,8 @@ import AnimateHeight from "react-animate-height";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 
-const DropdownContent = ({ state, select, setState }: any) => {
+const DropdownContent = ({ state, select, setState, setLoading }: any) => {
   const [height, setHeight] = useState(0);
-  const [loading, setLoading] = useState(false);
   function adjustHeight() {
     setHeight((prev): any => {
       if (prev === 0) {
@@ -20,10 +19,9 @@ const DropdownContent = ({ state, select, setState }: any) => {
   function changeState(select: any) {
     setLoading(true);
     setState(select);
-    console.log(select);
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 200);
   }
   function checkHeight() {
     if (height === 0) {

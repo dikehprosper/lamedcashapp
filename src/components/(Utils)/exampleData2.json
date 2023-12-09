@@ -113,7 +113,7 @@
     "amount": 4448488844,
     "receipt": "235721XGFDH",
     "betId": "874546379",
-    "status": "Successful",
+    "status": "Failed",
     "type": "deposits"
   },
   {
@@ -176,7 +176,7 @@
     "amount": 4448488844,
     "receipt": "235721XGFDH",
     "betId": "874546379",
-    "status": "Successful",
+    "status": "Failed",
     "type": "deposits"
   },
   {
@@ -185,7 +185,7 @@
     "amount": 4448488844,
     "receipt": "235721XGFDH",
     "betId": "874546379",
-    "status": "Successful",
+    "status": "Failed",
     "type": "deposits"
   }
 ]

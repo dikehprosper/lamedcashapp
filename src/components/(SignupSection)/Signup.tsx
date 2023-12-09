@@ -44,7 +44,6 @@ const SignUp = () => {
    const signupVerificationResult = SignupVerification();
 
       if (signupVerificationResult?.isValid) {
-        console.log("response");
         localStorage.setItem("rememberedEmailForEspece", user.email);
         localStorage.setItem("rememberedPasswordForEspece", user.password);
         const response = await axios.post("/api/users/signup", user);
@@ -542,16 +541,16 @@ const SignUp = () => {
           )}
           <button
             type='submit'
-            className='submit-button'
+            className='submit-button-signup'
             style={{
-              background: "rgba(189, 255, 5, 1)",
-              color: "black",
+              background: "rgba(189, 255, 5, 1) !important",
+              color: "black !important",
             }}
             onClick={handleSubmit}
           >
             {loading ? (
-              <div id='container-signup'>
-                <div id='html-spinner-signup'></div>
+              <div id='container-signup-signup'>
+                <div id='html-spinner-signup-special'></div>
               </div>
             ) : (
               "S'inscrire"
@@ -747,15 +746,15 @@ const SignUp = () => {
           )}
           <button
             type='submit'
-            className='submit-button'
+            className='submit-button-signup'
             style={{
-              background: "rgba(189, 255, 5, 1)",
-              color: "black",
+              background: "rgba(189, 255, 5, 1) !important",
+              color: "black !important",
             }}
           >
             {loading ? (
-              <div id='container-signup'>
-                <div id='html-spinner-signup'></div>
+              <div id='container-signup-signup'>
+                <div id='html-spinner-signup-special'></div>
               </div>
             ) : (
               "S'inscrire"

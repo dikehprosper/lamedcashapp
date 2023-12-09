@@ -15,7 +15,7 @@ const loading = () => {
         >
           <div
             className="logo"
-            style={{ height: "36px", width: "80px", objectFit: "cover" }}
+            style={{ height: "43px", width: "140px", objectFit: "cover" }}
           >
             <Image
               src={image} // Use the imported image URL

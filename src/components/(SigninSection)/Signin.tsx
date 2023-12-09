@@ -138,7 +138,7 @@ const SignIn = () => {
           </div>
           <button
             type='submit'
-            className='submit-button'
+            className='submit-button-signin-special'
             style={{
               color: "black !important;",
               fontWeight: "600 !important",
@@ -149,8 +149,8 @@ const SignIn = () => {
             }}
           >
             {loading ? (
-              <div id='container-signin'>
-                <div id='html-spinner-signin'></div>
+              <div id='container-signin-signin-special'>
+                <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
               "Se connecter"

@@ -53,6 +53,7 @@ padding-bottom: 20px;
  border: .2epx solid rgba(0, 186, 0, 0.2)
 }
 
+
 .subadmin_dashboard_container-display-children:first-child {
 background: rgba(0, 0, 0, .4)
 }
@@ -95,3 +96,78 @@ border-radius: 5px;
   border: .15px solid rgba(0, 256, 0, 0.2)
 }
 
+
+/* loading styling */
+
+#container_deposit_display {
+  width: 23px;
+  position: relative;
+  height: 23px;
+  align-self: center !important;
+  justify-self: center !important
+}
+#container_deposit_display_inner {
+  width: 100%;
+  height: 100%;
+  border: 2.9px solid rgba(128, 128, 128, .7) ;
+  border-top: 2.9px solid rgba(256, 256, 256, 1);
+  border-radius: 50%;
+}
+
+#container_deposit_display_inner  {
+  transition-property: transform;
+  animation-name: rotate;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.subadmin_dashboard_container-display-children-loading {
+  display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 100%
+}
+
+@media (max-width: 635px) {
+  .subadmin_dashboard_container-display {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 470px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 45px;
+    padding: 15px;
+    gap: 10px;
+    border: .5px solid rgba(0, 256, 0, 0.25)
+}
+}

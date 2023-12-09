@@ -15,11 +15,11 @@ export async function POST(request: NextRequest) {
     const { email, password } = await reqBody;
 
     // check if the device online
-     const online = await isOnline();
+    const online = await isOnline();
     if (!online) {
       return NextResponse.json(
         { error: "No internet connection" },
-        { status: 501 } 
+        { status: 501 }
       );
     }
 
@@ -27,10 +27,7 @@ export async function POST(request: NextRequest) {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 400 });
     }
 
     //check if password is correct
@@ -38,15 +35,17 @@ export async function POST(request: NextRequest) {
     if (!validPassword) {
       return NextResponse.json({ error: "Invalid password" }, { status: 402 });
     }
-
-
+    user.isLoggedIn = true;
+    await user.save();
     //create token data
     const tokenData = {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
+      isUser: user.isUser,
       isAdmin: user.isAdmin,
-       isSubAdmin: user.isSubAdmin,
+      isSubAdminDeposits: user.isSubAdminDeposits,
+      isSubAdminWithdrawals: user.isSubAdminWithdrawals,
     };
 
     // create token

@@ -1,3 +1,4 @@
+
 "use client";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
@@ -6,25 +7,27 @@ import AnimateHeight from "react-animate-height";
 import { TransactionTemplatePropsSubadmins } from "@/types";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import { FaCircle } from "react-icons/fa6";
-import TransactionResults from "@/components/(userscomponent)/(TransactionTemplateUsers)/(TransactionResults)/TransactionResults";
+import TransactionResultsSubadmin from "@/components/(TransactionTemplateSubadmin)/(TransactionResultsSubadmin)/TransactionResultsSubadmin"
 import { FaArrowRight } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
-import data from "../(Utils)/exampleData2.json";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
 
-const SubadminTransactionTemplate = ({
-  title,
-  select,
-}: TransactionTemplatePropsSubadmins) => {
-  const [state, setState] = useState(select.firstSelect.big);
+const SubadminTransactionTemplate = ({ title, select, name ,
+totalSuccessful, totalFailed, data, allData, showReceipt
+}: TransactionTemplatePropsSubadmins ) => {
+  // Access the query object to get the passed parameter
+  
+
+  const [state, setState] = useState(select.firstSelect.big)
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();
   const [height, setHeight] = useState(0);
-  const [loading, setLoading] = useState(false);
-  function adjustHeight() {
+  const [loading, setLoading] = useState(false)
+
+   function adjustHeight() {
     setHeight((prev): any => {
       if (prev === 0) {
         return "auto";
@@ -33,51 +36,75 @@ const SubadminTransactionTemplate = ({
       }
     });
   }
+  const state2 = {
+    param1: state,
+  };
+
+
+
+// useEffect(() => {
+//   if (allData) {
+//     const reversedData = allData.slice().reverse();
+//     console.log(reversedData);
+//   }
+// }, [allData]);
+
+// // Assuming 'data' is your array
+// const reversedData = data.slice().reverse();
+
+// const slicedData = reversedData.slice(0, 3);
+
+// const mappedData = slicedData.map((item, index) => (
+//   <TransactionResultsSubadmin
+//     key={index}
+//     time={item.time}
+//     amount={item.amount}
+//     receipt={item.receipt}
+//     betId={item.betId}
+//     status={item.status}
+//     type={item.type}
+//   />
+// ));
+
+
 
   useEffect(() => {
+    // Save state to localStorage whenever it changes
+    localStorage.setItem("transactionTemplateSubadminState", JSON.stringify(state));
+
     if (state === select.firstSelect.big) {
-      if (data.length > 3) {
-        setStateViewMore(true);
-      } else {
-        setStateViewMore(false);
-      }
+      setStateViewMore(data?.length > 3);
     } else if (state === select.secondSelect.big) {
-      if (data.filter((item) => item.type === "pending").length > 3) {
-        setStateViewMore(true);
-      } else {
-        setStateViewMore(false);
-      }
+      setStateViewMore(
+        data?.filter((item) => item.status === "Pending").length > 3
+      );
     } else if (state === select.thirdSelect.big) {
-      if (data.filter((item) => item.type === "successful").length > 3) {
-        setStateViewMore(true);
-      } else {
-        setStateViewMore(false);
-      }
+      setStateViewMore(
+        data?.filter((item) => item.status === "Successful").length > 3
+      );
     } else if (state === select.fourthSelect.big) {
-      if (data.filter((item) => item.type === "failed").length > 3) {
-        setStateViewMore(true);
-      } else {
-        setStateViewMore(false);
-      }
+      setStateViewMore(
+        data?.filter((item) => item.status === "Failed").length > 3
+      );
     }
   }, [state, data]);
 
   function changeState1(value: any) {
     setLoading(true);
     setState(value);
-    if (data.length > 3) {
-      setStateViewMore(true);
-    } else {
-      setStateViewMore(false);
-    }
+    // No need to check conditions here, it will be handled in useEffect
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   }
+
+
+
+
   function changeState2(value: any) {
     setLoading(true);
     setState(value);
-    if (data.filter((item) => item.type === "pending").length > 3) {
+    if (data?.filter((item) => item.status === "Pending").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -91,7 +118,7 @@ const SubadminTransactionTemplate = ({
     setLoading(true);
     setState(value);
 
-    if (data.filter((item) => item.type === "successful").length > 3) {
+    if (data?.filter((item) => item.status === "Successful").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -102,47 +129,86 @@ const SubadminTransactionTemplate = ({
     }, 1000);
   }
 
-  return (
-    <div className='transaction_template_container-subadmin'>
-      <div className='transaction_template_container_header-subadmin'>
-        <span className='transaction_template_container_header_1-subadmin'>
+  function changeState4(value: any) {
+    setLoading(true);
+    setState(value);
+
+    if (data?.filter((item) => item.status === "Failed").length > 3) {
+      setStateViewMore(true);
+    } else {
+      setStateViewMore(false);
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
+  return allData === undefined ? (
+    // Render the loading spinner when loading is true
+    <div
+      className='transaction_template_container_subadmin-1'
+      style={{
+        background: "rgba(0, 0, 0, 0.5)",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div id='container-signin_subadmin'>
+        <div id='html-spinner-signin_subadmin'></div>
+      </div>
+    </div>
+  ) : (
+    <div className='transaction_template_container_subadmin-1'>
+      <div className='transaction_template_container_header_subadmin'>
+        <span className='transaction_template_container_header_1_subadmin'>
           {title.name} {title.icon}
         </span>
-        <span className='transaction_template_container_header_2-subadmin'>
+        <span className='transaction_template_container_header_2_subadmin'>
           <div>
             {" "}
-            <span className='transaction_template_container_header_2_span_1-subadmin'>
-              Total Deposits:{" "}
+            <span className='transaction_template_container_header_2_span_1_subadmin'>
+              Total {name === "Dépôts"? "dépôt": "Retraits"} réussi:{" "}
             </span>{" "}
-            <span style={{ fontSize: "13px" }}>
+            <span>
               {" "}
-              XOF {formatNumberWithCommasAndDecimal(378899456567.99)}
+              XOF{" "}
+              {formatNumberWithCommasAndDecimal(
+                totalSuccessful === undefined
+                  ? 0
+                  : totalSuccessful
+              )}
             </span>
           </div>
           <div>
-            <span className='transaction_template_container_header_2_span_2-subadmin'>
-              Total Withdrawals:{" "}
+            <span
+              className='transaction_template_container_header_2_span_2_subadmin'
+              style={{ color: "red" }}
+            >
+              Total Échec du {name === "Dépôts"? "dépôt": "Retraits"}
             </span>{" "}
-            <span style={{ fontSize: "13px" }}>
+            <span>
               {" "}
-              XOF {formatNumberWithCommasAndDecimal(378899456567.99)}
+              XOF{" "}
+              {formatNumberWithCommasAndDecimal(
+                totalFailed === undefined ? 0 : totalFailed
+              )}
             </span>
           </div>
         </span>
       </div>
-      <div className='transaction_template_container_body-subadmin'>
-        <div className='transaction_template_container_body_1-subadmin'>
-          <div className='transaction_template_container_body_1_1-subadmin'>
-            filter &nbsp;
+      <div className='transaction_template_container_body_subadmin'>
+        <div className='transaction_template_container_body_1_subadmin'>
+          <div className='transaction_template_container_body_1_1_subadmin'>
+            filtre &nbsp;
             <FaFilter />
           </div>
 
-          <div className='transaction_template_container_body_1_2-subadmin'>
+          <div className='transaction_template_container_body_1_2_subadmin'>
             <span
-              className={`transaction_template_container_body_1_2_1-subadmin ${
+              className={`transaction_template_container_body_1_2_1_subadmin ${
                 state === "All" && "active_selection_big"
               }`}
-              style={{ borderColor: state === "View All" ? "#5E968B" : "" }}
+              style={{ borderColor: state === "Voir tout" ? "#5E968B" : "" }}
               onClick={() => changeState1(select.firstSelect.big)}
             >
               {select.firstSelect.big} &nbsp;{" "}
@@ -150,37 +216,37 @@ const SubadminTransactionTemplate = ({
             </span>
             <span
               onClick={() => changeState2(select.secondSelect.big)}
-              className='transaction_template_container_body_1_2_1-subadmin'
+              className='transaction_template_container_body_1_2_1_subadmin'
               style={{
-                borderColor: state === "View Pending" ? "#5E968B" : "",
+                borderColor: state === "Les ordres en attente" ? "#5E968B" : "",
               }}
             >
               {select.secondSelect.big} &nbsp;{" "}
-              <FaCircle color='#658900' fontSize='10px' />
+              <FaCircle color='rgba(128, 128, 128, 1)' fontSize='10px' />
             </span>
             <span
               onClick={() => changeState3(select.thirdSelect.big)}
-              className='transaction_template_container_body_1_2_1-subadmin'
+              className='transaction_template_container_body_1_2_1_subadmin'
               style={{
-                borderColor: state === "View Successful" ? "#5E968B" : "",
+                borderColor: state === "Commandes réussies" ? "#5E968B" : "",
               }}
             >
               {select.thirdSelect.big} &nbsp;{" "}
-              <FaCircle color='#0076B8' fontSize='10px' />
+              <FaCircle color='rgba(0, 128, 0, 1)' fontSize='10px' />
             </span>
             <span
-              onClick={() => changeState3(select.fourthSelect.big)}
-              className='transaction_template_container_body_1_2_1-subadmin'
+              onClick={() => changeState4(select.fourthSelect.big)}
+              className='transaction_template_container_body_1_2_1_subadmin'
               style={{
-                borderColor: state === "View Failed" ? "#5E968B" : "",
+                borderColor: state === "Commandes échouées" ? "#5E968B" : "",
               }}
             >
-              {select.thirdSelect.big} &nbsp;{" "}
-              <FaCircle color='#0076B8' fontSize='10px' />
+              {select.fourthSelect.big} &nbsp;{" "}
+              <FaCircle color='rgba(128, 0, 0, 1)' fontSize='10px' />
             </span>
           </div>
           <div
-            className='transaction_template_container_body_1_3-subadmin'
+            className='transaction_template_container_body_1_3_subadmin'
             aria-expanded={height !== 0}
             aria-controls='example-panel'
             onClick={adjustHeight}
@@ -200,78 +266,96 @@ const SubadminTransactionTemplate = ({
                 zIndex: 30,
               }}
             >
-              <div className='dropdown-content-subadmin'>
+              <div className='dropdown-content_subadmin'>
                 <div
-                  className='dropdown-content_1-subadmin'
+                  className='dropdown-content_1_subadmin'
                   onClick={() => changeState1(select.firstSelect.big)}
                   style={{
-                    background: state === "View All" ? "grey" : "",
-                    color: state === "View All" ? "black" : "",
+                    background: state === "Voir tout" ? "grey" : "",
+                    color: state === "Voir tout" ? "black" : "",
                   }}
                 >
                   {select.firstSelect.big}
                 </div>
                 <div
                   onClick={() => changeState2(select.secondSelect.big)}
-                  className='dropdown-content_2-subadmin'
+                  className='dropdown-content_2_subadmin'
                   style={{
-                    background: state === "View Deposits" ? "grey" : "",
-                    color: state === "View Deposits" ? "black" : "",
+                    background: state === "Les ordres en attente" ? "grey" : "",
+                    color: state === "" ? "black" : "",
                   }}
                 >
                   {select.secondSelect.big}
                 </div>
                 <div
                   onClick={() => changeState3(select.thirdSelect.big)}
-                  className='dropdown-content_3-subadmin'
+                  className='dropdown-content_3_subadmin'
                   style={{
-                    background: state === "View Withdrawals" ? "grey" : "",
-                    color: state === "View Withdrawals" ? "black" : "",
+                    background: state === "Commandes réussies" ? "grey" : "",
+                    color: state === "Commandes réussies" ? "black" : "",
                   }}
                 >
                   {select.thirdSelect.big}
+                </div>
+                <div
+                  onClick={() => changeState4(select.fourthSelect.big)}
+                  className='dropdown-content_3_subadmin'
+                  style={{
+                    background: state === "Commandes échouées" ? "grey" : "",
+                    color: state === "Commandes échouées" ? "black" : "",
+                  }}
+                >
+                  {select.fourthSelect.big}
                 </div>
               </div>
             </AnimateHeight>
           </div>
         </div>
         {loading ? (
-          <div id='container-signin-outer'>
-            <div id='container-signin'>
-              <div id='html-spinner-signin'></div>
+          <div id='container-signin-outer_subadmin'>
+            <div id='container-signin_subadmin'>
+              <div id='html-spinner-signin_subadmin'></div>
             </div>
           </div>
         ) : (
           <div
-            className='transaction_template_container_body_2-subadmin animate-pop-in'
+            className='transaction_template_container_body_2_subadmin animate-pop-in_subadmin'
             style={{
               display: "flex",
               flexDirection: "column",
               gap: "10px",
-              paddingBottom: "20px",
               marginTop: "5px",
             }}
           >
-            {pathname === "/transactions" ? (
-              state === "View Deposits" ? (
-                data.filter((item: any) => item.type === "deposits").length >
+            {pathname === "/subadmin/deposit/transactions" ? (
+              state === "Les ordres en attente" ? (
+                data?.filter((item: any) => item.status === "Pending").length >
                 0 ? (
                   data
-                    .filter((item: any) => item.type === "deposits")
+                    ?.filter((item: any) => item.status === "Pending")
+                    .slice()
+                    .reverse()
                     .map((filteredData: any, index: any) => (
-                      <TransactionResults
+                      <TransactionResultsSubadmin
                         key={index}
-                        time={filteredData.time}
+                        time={filteredData.registrationDateTime}
                         amount={filteredData.amount}
-                        receipt={filteredData.receipt}
+                        transactionId={filteredData.transactionId}
+                        identifierId={filteredData.identifierId}
                         betId={filteredData.betId}
                         status={filteredData.status}
-                        type={filteredData.type}
+                        type={filteredData.fundingType}
+                        userId={filteredData.userid}
+                        cashdeskId={allData._id}
+                        isSubmitted={filteredData.isSubmitted}
+                         showReceipt={showReceipt}
+                        username={filteredData.username}
+                        userNumber={filteredData.userNumber}
                       />
                     ))
                 ) : (
                   <div
-                    className='no-result-subadmin animate-pop-in'
+                    className='no-result_subadmin animate-pop-in_subadmin'
                     style={{
                       display: "flex",
                       width: "100%",
@@ -284,28 +368,37 @@ const SubadminTransactionTemplate = ({
                     }}
                   >
                     <CgTrashEmpty fontSize='80px' />
-                    <h2>No Data to Show</h2>
+                    <h2>Aucune donnée à afficher</h2>
                   </div>
                 )
-              ) : state === "View Withdrawals" ? (
-                data.filter((item: any) => item.type === "withdrawals").length >
-                0 ? (
+              ) : state === "Commandes réussies" ? (
+                data?.filter((item: any) => item.status === "Successful")
+                  .length > 0 ? (
                   data
-                    .filter((item: any) => item.type === "withdrawals")
+                    ?.filter((item: any) => item.status === "Successful")
+                    .slice()
+                    .reverse()
                     .map((filteredData: any, index: any) => (
-                      <TransactionResults
+                      <TransactionResultsSubadmin
                         key={index}
-                        time={filteredData.time}
+                        time={filteredData.registrationDateTime}
                         amount={filteredData.amount}
-                        receipt={filteredData.receipt}
+                        transactionId={filteredData.transactionId}
+                        identifierId={filteredData.identifierId}
                         betId={filteredData.betId}
                         status={filteredData.status}
-                        type={filteredData.type}
+                        type={filteredData.fundingType}
+                        userId={filteredData.userid}
+                        cashdeskId={allData._id}
+                        isSubmitted={filteredData.isSubmitted}
+                         showReceipt={showReceipt}
+                         username= {filteredData.username}
+                        userNumber= {filteredData.userNumber}
                       />
                     ))
                 ) : (
                   <div
-                    className='no-result-subadmin animate-pop-in'
+                    className='no-result_subadmin animate-pop-in_subadmin'
                     style={{
                       display: "flex",
                       width: "100%",
@@ -318,60 +411,77 @@ const SubadminTransactionTemplate = ({
                     }}
                   >
                     <CgTrashEmpty fontSize='80px' />
-                    <h2>No Data to Show</h2>
+                    <h2>Aucune donnée à afficher</h2>
                   </div>
                 )
-              ) : data.length > 0 ? (
-                data.map((data: any, index: any) => (
-                  <TransactionResults
-                    key={index}
-             
-                    time={data.time}
-                    amount={data.amount}
-                    receipt={data.receipt}
-                    betId={data.betId}
-                    status={data.status}
-                    type={data.type}
-                  />
-                ))
-              ) : (
-                <div
-                  className='no-result-subadmin animate-pop-in'
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    height: "100%",
-                    flex: "1",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "30px",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CgTrashEmpty fontSize='80px' />
-                  <h2>No Data to Show</h2>
-                </div>
-              )
-            ) : state === "View Deposits" ? (
-              data.filter((item: any) => item.type === "deposits").length >
-              0 ? (
+              ) : state === "Commandes échouées" ? (
+                data?.filter((item: any) => item.status === "Failed").length >
+                0 ? (
+                  data
+                    ?.filter((item: any) => item.status === "Failed")
+                    .slice()
+                    .reverse()
+                    .map((filteredData: any, index: any) => (
+                      <TransactionResultsSubadmin
+                        key={index}
+                        time={filteredData.registrationDateTime}
+                        amount={filteredData.amount}
+                        transactionId={filteredData.transactionId}
+                        identifierId={filteredData.identifierId}
+                        betId={filteredData.betId}
+                        status={filteredData.status}
+                        type={filteredData.fundingType}
+                        userId={filteredData.userid}
+                        cashdeskId={allData._id}
+                        isSubmitted={filteredData.isSubmitted}
+                         showReceipt={showReceipt}
+                          username= {filteredData.username}
+                        userNumber= {filteredData.userNumber}
+                      />
+                    ))
+                ) : (
+                  <div
+                    className='no-result_subadmin animate-pop-in_subadmin'
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      height: "100%",
+                      flex: "1",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "30px",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <CgTrashEmpty fontSize='80px' />
+                    <h2>Aucune donnée à afficher</h2>
+                  </div>
+                )
+              ) : data?.length > 0 ? (
                 data
-                  .filter((item: any) => item.type === "deposits")
-                  .slice(0, 3)
-                  .map((filteredData: any, index: any) => (
-                    <TransactionResults
+                  ?.slice()
+                  .reverse()
+                  .map((data: any, index: any) => (
+                    <TransactionResultsSubadmin
                       key={index}
-                      time={filteredData.time}
-                      amount={filteredData.amount}
-                      receipt={filteredData.receipt}
-                      betId={filteredData.betId}
-                      status={filteredData.status}
-                      type={filteredData.type}
+                      time={data.registrationDateTime}
+                      amount={data.amount}
+                      transactionId={data.transactionId}
+                      identifierId={data.identifierId}
+                      betId={data.betId}
+                      status={data.status}
+                      type={data.fundingType}
+                      userId={data.userid}
+                      cashdeskId={allData._id}
+                      isSubmitted={data.isSubmitted}
+                       showReceipt={showReceipt}
+                         username= {data.username}
+                        userNumber= {data.userNumber}
                     />
                   ))
               ) : (
                 <div
-                  className='no-result-subadmin animate-pop-in'
+                  className='no-result_subadmin animate-pop-in_subadmin'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -384,30 +494,38 @@ const SubadminTransactionTemplate = ({
                   }}
                 >
                   <CgTrashEmpty fontSize='80px' />
-                  <h2>No Data to Show</h2>
+                  <h2>Aucune donnée à afficher</h2>
                 </div>
               )
-            ) : state === "View Withdrawals" ? (
-              data.filter((item: any) => item.type === "withdrawals").length >
+            ) : state === "Les ordres en attente" ? (
+              data?.filter((item: any) => item.status === "Pending").length >
               0 ? (
                 data
-                  .filter((item: any) => item.type === "withdrawals")
+                  ?.filter((item: any) => item.status === "Pending")
+                  .slice()
+                  .reverse()
                   .slice(0, 3)
                   .map((filteredData: any, index: any) => (
-                    <TransactionResults
+                    <TransactionResultsSubadmin
                       key={index}
-                      
-                      time={filteredData.time}
+                      time={filteredData.registrationDateTime}
                       amount={filteredData.amount}
-                      receipt={filteredData.receipt}
+                      transactionId={filteredData.transactionId}
+                      identifierId={filteredData.identifierId}
                       betId={filteredData.betId}
                       status={filteredData.status}
-                      type={filteredData.type}
+                      type={filteredData.fundingType}
+                      userId={filteredData.userid}
+                      cashdeskId={allData._id}
+                      isSubmitted={filteredData.isSubmitted}
+                       showReceipt={showReceipt}
+                         username= {filteredData.username}
+                        userNumber= {filteredData.userNumber}
                     />
                   ))
               ) : (
                 <div
-                  className='no-result-subadmin animate-pop-in'
+                  className='no-result_subadmin animate-pop-in_subadmin'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -420,26 +538,123 @@ const SubadminTransactionTemplate = ({
                   }}
                 >
                   <CgTrashEmpty fontSize='80px' />
-                  <h2>No Data to Show</h2>
+                  <h2>Aucune donnée à afficher</h2>
                 </div>
               )
-            ) : data.length > 0 ? (
+            ) : state === "Commandes réussies" ? (
+              data?.filter((item: any) => item.status === "Successful").length >
+              0 ? (
+                data
+                  ?.filter((item: any) => item.status === "Successful")
+                  .slice()
+                  .reverse()
+                  .slice(0, 3)
+                  .map((filteredData: any, index: any) => (
+                    <TransactionResultsSubadmin
+                      key={index}
+                      time={filteredData.registrationDateTime}
+                      amount={filteredData.amount}
+                      transactionId={filteredData.transactionId}
+                      identifierId={filteredData.identifierId}
+                      betId={filteredData.betId}
+                      status={filteredData.status}
+                      type={filteredData.fundingType}
+                      userId={filteredData.userid}
+                      cashdeskId={allData._id}
+                      isSubmitted={filteredData.isSubmitted}
+                       showReceipt={showReceipt}
+                          username= {filteredData.username}
+                        userNumber= {filteredData.userNumber}
+                    />
+                  ))
+              ) : (
+                <div
+                  className='no-result_subadmin animate-pop-in_subadmin'
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    height: "100%",
+                    flex: "1",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "30px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CgTrashEmpty fontSize='80px' />
+                  <h2>Aucune donnée à afficher</h2>
+                </div>
+              )
+            ) : state === "Commandes échouées" ? (
+              data?.filter((item: any) => item.status === "Failed").length >
+              0 ? (
+                data
+                  ?.filter((item: any) => item.status === "Failed")
+                  .slice()
+                  .reverse()
+                  .slice(0, 3)
+                  .map((filteredData: any, index: any) => (
+                    <TransactionResultsSubadmin
+                      key={index}
+                      time={filteredData.registrationDateTime}
+                      amount={filteredData.amount}
+                      transactionId={filteredData.transactionId}
+                      identifierId={filteredData.identifierId}
+                      betId={filteredData.betId}
+                      status={filteredData.status}
+                      type={filteredData.fundingType}
+                      userId={filteredData.userid}
+                      cashdeskId={allData._id}
+                      isSubmitted={filteredData.isSubmitted}
+                       showReceipt={showReceipt}
+                           username= {filteredData.username}
+                        userNumber= {filteredData.userNumber}
+                    />
+                  ))
+              ) : (
+                <div
+                  className='no-result_subadmin animate-pop-in_subadmin'
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    height: "100%",
+                    flex: "1",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "30px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CgTrashEmpty fontSize='80px' />
+                  <h2>Aucune donnée à afficher</h2>
+                </div>
+              )
+            ) : data?.length > 0 ? (
               data
+                .slice()
+                .reverse()
                 .slice(0, 3)
                 .map((data: any, index: any) => (
-                  <TransactionResults
+                  <TransactionResultsSubadmin
                     key={index}
-                    time={data.time}
+                    time={data.registrationDateTime}
                     amount={data.amount}
-                    receipt={data.receipt}
+                    transactionId={data.transactionId}
+                    identifierId={data.identifierId}
                     betId={data.betId}
                     status={data.status}
-                    type={data.type}
+                    type={data.fundingType}
+                    userId={data.userid}
+                    cashdeskId={allData._id}
+                    isSubmitted={data.isSubmitted}
+                    showReceipt={showReceipt}
+                        username= {data.username}
+                        userNumber= {data.userNumber}
                   />
                 ))
             ) : (
               <div
-                className='no-result-subadmin animate-pop-in'
+                className='no-result_subadmin animate-pop-in_subadmin'
                 style={{
                   display: "flex",
                   width: "100%",
@@ -452,28 +667,20 @@ const SubadminTransactionTemplate = ({
                 }}
               >
                 <CgTrashEmpty fontSize='80px' />
-                <h2>No Data to Show</h2>
+                <h2>Aucune donnée à afficher</h2>
               </div>
             )}
 
-            {/* {pathname === "/transactions" ? null : 
-         viewMore === true? <div className='view-more'>
-              <Link href='/transactions'>
-                View More &nbsp;
-                <FaArrowRight />
-              </Link>
-            </div> : null
-          } */}
-
-            {pathname === "/transactions" ? null : viewMore === true ? (
+            {pathname === "/subadmin/deposit/transactions" ? null : viewMore ===
+              true ? (
               <div className='view-more'>
                 <Link
                   href={{
-                    pathname: "/transactions",
-                    query: state,
+                    pathname: "/subadmin/deposit/transactions",
+                    query: { slug: state },
                   }}
                 >
-                  View More &nbsp;
+                  Voir plus &nbsp;
                   <FaArrowRight />
                 </Link>
               </div>

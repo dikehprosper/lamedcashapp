@@ -8,6 +8,7 @@ import FooterMobile from "@/components/(Utils)/FooterMobile";
 import axios from "axios";
 import { IoIosCopy } from "react-icons/io";
 import {useRouter} from "next/navigation";
+import { FedaPay } from "fedapay";
 
 const Deposit = () => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,8 @@ const Deposit = () => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [success, setSuccess] = useState(false);
   const [activeBetId, setActiveBetId] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRequestingCall, setIsRequestingCall] = useState(false);
   const [user, setUser] = useState({
     _id: "",
     betId: "",
@@ -23,27 +26,68 @@ const Deposit = () => {
     ussdCode: "",
     transactionId: "",
   });
-const router = useRouter();
+  const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
+  const [isOnline, setIsOnline] = useState(true);
 
   const getUserDetails = async () => {
-    const res = await axios.get("/api/getUserInfo");
-    setSavedID(res.data.data.betID);
-    setActiveBetId(res.data.data.betID[0]);
-   console.log(res.data.data.betID[0]);
-setUser({
-  ...user,
-  _id: res.data.data._id,
-  betId: res.data.data.betID[0]
-})
+    try {
+      const res = await axios.get("/api/getUserInfo");
+      setSavedID(res.data.data.betID);
+      setActiveBetId(res.data.data.betID[0]);
+      console.log(res.data.data.betID[0]);
+      setUser({
+        ...user,
+        _id: res.data.data._id,
+        betId: res.data.data.betID[0],
+      });
+    } catch (error: any) {
+      if (error.response) {
+        // Handle token expiration
+        if (error.response.status === 401) {
+          toast.error("Your session has expired. Redirecting to signin...");
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else {
+          // Handle other errors
+          toast.error("An error occurred. Please try again later.");
+        }
+      } else if (error.request) {
+        // Handle network errors (no connection)
+        setIsOnline(false);
+      }
+    }
   };
 
   useEffect(() => {
-    getUserDetails();
+    // Check network status before making the request
+    if (isOnline) {
+      getUserDetails();
+    } else {
+      toast.error(
+        "No network connection. Please check your connection and try again."
+      );
+    }
+  }, [isOnline]);
+
+  useEffect(() => {
+    // Check initial network status
+    setIsOnline(window.navigator.onLine);
+
+    // Add event listeners for online/offline changes
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // Clean up event listeners on component unmount
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
 
-
-      // setUser((prevUser) => ({ ...prevUser, _id: res.data.data._id, betId: res.data.data.betID[0]}));
+  // setUser((prevUser) => ({ ...prevUser, _id: res.data.data._id, betId: res.data.data.betID[0]}));
   function initiatePhoneCall(phoneNumber: any) {
     // Check if the browser supports the tel protocol
     if ("href" in HTMLAnchorElement.prototype) {
@@ -87,7 +131,7 @@ setUser({
     setUser((prevUser) => ({ ...prevUser, betId: newValue }));
   };
 
-   const changeTransactionId = (event: any) => {
+  const changeTransactionId = (event: any) => {
     const newValue = event.target.value;
     setUser((prevUser) => ({ ...prevUser, transactionId: newValue }));
   };
@@ -101,6 +145,10 @@ setUser({
   };
 
   function requestCall() {
+    if (isRequestingCall) {
+      return;
+    }
+    setIsRequestingCall(true);
     const amountValue = parseInt(user.amount, 10);
     if (isNaN(amountValue)) {
       // Handle the case where user.amount is not a valid number
@@ -113,31 +161,39 @@ setUser({
     } else {
       setPhoneDial(`#180*345*44939959*${user.amount}#`);
       initiatePhoneCall(`#180*345*44939959*${user.amount}#`);
+      setIsRequestingCall(false);
     }
   }
 
   async function submitDetails() {
+    if (isSubmitting) {
+      return;
+    }
 
     const amountValue = parseInt(user.amount, 10);
     if (isNaN(amountValue)) {
       // Handle the case where user.amount is not a valid number
       return toast.error("Vous n'avez pas saisi de montant");
     }
+
     if (amountValue < 500) {
       return toast.error("Le montant saisi ne doit pas être inférieur à 500");
     } else if (user.betId === "") {
       return toast.error("Entrez le betId à utiliser");
     } else if (user.transactionId === "") {
-      console.log(user.transactionId)
+      console.log(user.transactionId);
       return toast.error("Entrez votre identifiant de transaction");
     } else {
       try {
+        setIsSubmitting(true);
         const res = await axios.post("/api/users/deposit", user);
         console.log(res);
-        router.push("/dashboard")
+        router.push("/dashboard");
         toast.success("deposit request Submitted");
       } catch (error: any) {
         return toast.error("error");
+      } finally {
+        setIsSubmitting(false);
       }
     }
   }
@@ -168,24 +224,28 @@ setUser({
 
   //check email and password state to determine ButtonDisabled state
   useEffect(() => {
-    if (user.transactionId === "" ||  user.amount === "" || user.network === "") {
+    if (
+      user.transactionId === "" ||
+      user.amount === "" ||
+      user.network === ""
+    ) {
       setButtonDisabled(true);
     } else {
       setButtonDisabled(false);
     }
   }, [user]);
 
-  const handlePayment = async () => {
-    try {
-      const baseUrl = "/api/users/deposit";
+  // const handlePayment = async () => {
+  //   try {
+  //     const baseUrl = "/api/users/deposit";
 
-      const response = await axios.post(baseUrl);
+  //     const response = await axios.post(baseUrl);
 
-      const token = `Bearer ${response.data.token}`;
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  //     const token = `Bearer ${response.data.token}`;
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -200,10 +260,46 @@ setUser({
     toast.success("USSD CODE successfully copied!");
   };
 
+//   // Example using fetch
+//   const createTransaction = async () => {
+//     try {
+//       const response = await axios.post("/api/users/deposit2"); // Replace with your actual route
+//       console.log(response)
+//       // const data = await response.json();
+//       console.log(data)
+//       console.log("Transaction created:", data.transaction);
+//     } catch (error) {
+//       console.error("Error creating transaction:", error);
+//     }
+//   };
+
+// const FedapayCheckout = () => {
+//   const publicKey = "VOTRE_CLE_API_PUBLIQUE"; // Replace with your actual public key
+//   const fedapay = new FedaPay(publicKey);
+
+//   // Initialize FedaPay checkout
+//   const checkoutOptions = {
+//     amount: 1000, // Set the initial amount as needed
+//     description: "Acheter mon produit",
+//     customer: {
+//       email: "johndoe@gmail.com",
+//       lastname: "Doe",
+//       firstname: "John",
+//     },
+//   };
+
+//   fedapay.checkout(checkoutOptions);
+
+//   // Clean up the script when the component unmounts
+//   return () => {
+//     // You may need to clean up resources associated with the checkout
+//   };
+// };
+
   return (
     <div className='user_withdraw_container'>
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
-
+      {/* <button onClick={FedapayCheckout}>submit</button> */}
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
           <label>1XBET ID</label>
@@ -277,9 +373,9 @@ setUser({
             <option value='' disabled hidden>
               -- Choose Network --
             </option>{" "}
-            <option value='option1'> Mtn momo</option>
-            <option value='option2'>Airtel</option>
-            <option value='option3'>Glo</option>
+            <option value='Mtn momo'> Mtn momo</option>
+            <option value='Airtel'>Airtel</option>
+            <option value='Glo'>Glo</option>
           </select>
           <div
             className='submit-button-deposit'
@@ -362,7 +458,7 @@ setUser({
                 ? "rgba(128, 128, 128, 0.5)"
                 : "rgba(128, 128, 128, 1)",
               pointerEvents: buttonDisabled ? "none" : "auto",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             onClick={submitDetails}
           >

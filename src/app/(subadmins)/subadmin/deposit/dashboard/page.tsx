@@ -1,66 +1,179 @@
-import React from "react";
+/* eslint-disable */
+// @ts-nocheck
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import "./subadminDepositDashboard.css";
 import SubadminHead from "@/components/(subadminhead)/subadminHead";
 import { FaCheckCircle } from "react-icons/fa";
 import SubadminDepositDashboardDisplay from "./(components)/SubadminDepositDashboardDisplay";
-import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadmin";
 import { LuHistory } from "react-icons/lu";
+import { toast } from "react-toastify";
+import axios from "axios";
+import Modal from "@/components/(Utils)/(modals)/receiptModalSubadminDeposit";
+import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadmin";
 
-const orders = {
-  openOrders: [
-    {
-      id: 11,
-      amount: 45000789,
-    },
-    {
-      id: 12,
-      amount: 45000789,
-    },
-    {
-      id: 12,
-      amount: 45000789,
-    },
-    {
-      id: 12,
-      amount: 45000789,
-    },
-  ],
-  completedOrders: [
-    {
-      id: 11,
-      amount: 45000789,
-    },
-    {
-      id: 12,
-      amount: 45000789,
-    },
-    {
-      id: 12,
-      amount: 45000789,
-    },
-    {
-      id: 12,
-      amount: 45000789,
-    },
-  ],
-};
+type ShowReceiptFunction = (
+  time: string,
+  amount: number,
+  transactionId: string,
+  identifierId: string,
+  betId: string,
+  status: string,
+  type: string,
+  username: string,
+  userNumber: number
+) => void;
 
 function SubadminDepositDashboard() {
+  const router = useRouter();
+  const [data, setData] = useState<any>();
+  const [isOnline, setIsOnline] = useState(true);
+
+  const getUserDetails = async () => {
+    try {
+      const res = await axios.get("/api/getSubAdminDetails");
+      setData(res.data.data);
+      console.log(res.data.data);
+    } catch (error: any) {
+      if (error.response) {
+        // Handle token expiration
+        if (error.response.status === 401) {
+          toast.error("Your session has expired. Redirecting to signin...");
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else {
+          // Handle other errors
+          toast.error("An error occurred. Please try again later.");
+        }
+      } else if (error.request) {
+        // Handle network errors (no connection)
+        setIsOnline(false);
+      }
+    }
+  };
+
+  // Filter deposit transactions
+  const allSuccessfulDeposit = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.status === "Successful"
+  );
+
+  const totalSuccessfulDeposit = allSuccessfulDeposit?.reduce(
+    (total: any, transaction: any) => {
+      return (total += transaction.amount);
+    },
+    0
+  );
+
+  // Filter withdrawal transactions
+  const allFailedDeposits = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.status === "Failed"
+  );
+
+  const totalFailedDeposits = allFailedDeposits?.reduce(
+    (total: any, transaction: any) => {
+      return (total += transaction.amount);
+    },
+    0
+  );
+
+  useEffect(() => {
+    // Check network status before making the request
+    if (isOnline) {
+      getUserDetails();
+    } else {
+      toast.error(
+        "No network connection. Please check your connection and try again."
+      );
+    }
+  }, [isOnline]);
+
+  const [receipt, setReceipt] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
+
+  const showReceipt: ShowReceiptFunction = (
+    time,
+    amount,
+    transactionId,
+    identifierId,
+    betId,
+    status,
+    type,
+    username,
+    userNumber
+  ) => {
+    setIsVisible(true);
+    setReceipt({
+      time,
+      amount,
+      transactionId,
+      identifierId,
+      betId,
+      status,
+      username,
+      userNumber,
+    });
+  };
+
+  useEffect(() => {
+    console.log(receipt);
+  }, [receipt]);
+
+  useEffect(() => {
+    // Check initial network status
+    setIsOnline(window.navigator.onLine);
+
+    // Add event listeners for online/offline changes
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // Clean up event listeners on component unmount
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
   return (
     <div className='subadmin_dashboard_container'>
+      {isVisible && (
+        <Modal
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner'
+          handleClick={() => setIsVisible(false)}
+          receipt={receipt}
+          title='Montant du dépôt'
+        />
+      )}
+
       <SubadminHead
-        title='Cashdesk Deposits'
-        about='Manage All Deposit Order Request Here'
+        title='Dépôts en caisse'
+        about="Gérez toutes les demandes d'ordre de dépôt ici"
+        data={data}
       />
-      <SubadminDepositDashboardDisplay orders={orders} />
+      <SubadminDepositDashboardDisplay data={data} />
       <SubadminTransactionTemplate
-        title={{ name: "Transaction History", icon: <LuHistory /> }}
+        totalSuccessful={totalSuccessfulDeposit}
+        totalFailed={totalFailedDeposits}
+        name='Dépôts'
+        title={{ name: "Historique des transactions", icon: <LuHistory /> }}
         select={{
-          firstSelect: { big: "View All", small: "All" },
-          secondSelect: { big: "Pending Orders", small: "Pending Orders" },
-          thirdSelect: { big: "Successful Orders", small: "Successful Orders" },
-          fourthSelect: { big: "Failed Orders", small: "Failed Orders" },
+          firstSelect: { big: "Voir tout", small: "All" },
+          secondSelect: {
+            big: "Les ordres en attente",
+            small: "Pending Orders",
+          },
+          thirdSelect: {
+            big: "Commandes réussies",
+            small: "Successful Orders",
+          },
+          fourthSelect: { big: "Commandes échouées", small: "Failed Orders" },
         }}
+        data={data?.transactionHistory}
+        allData={data}
+        showReceipt={showReceipt}
       />
     </div>
   );

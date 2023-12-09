@@ -35,7 +35,7 @@ const TransactionResults = ({  time,
       <span
         style={{
           color:
-            status === "pending"
+            status === "Pending"
               ? "rgba(256, 256, 256, 0.4)"
               : status === "Successful"
               ? "#BDFF00"

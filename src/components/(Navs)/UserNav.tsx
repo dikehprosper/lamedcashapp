@@ -71,12 +71,7 @@ const SubAdminsNavLinksDeposits = [
     title: "Transactions",
     pathname: "/subadmin/deposit/transactions",
     icon: <LuHistory />,
-  },
-  {
-    title: "Messages",
-    pathname: "/subadmin/deposit/messages",
-    icon: <BiSolidMessageSquareDetail />,
-  },
+  }
 ];
 
 const SubAdminsNavLinksWithdrawal = [
@@ -89,12 +84,7 @@ const SubAdminsNavLinksWithdrawal = [
     title: "Transactions",
     pathname: "/subadmin/withdrawal/transactions",
     icon: <LuHistory />,
-  },
-  {
-    title: "Messages",
-    pathname: "/subadmin/withdrawal/messages",
-    icon: <BiSolidMessageSquareDetail />,
-  },
+  }
 ];
 
 const AdminNavLinks = [
@@ -140,18 +130,19 @@ const UserNav = () => {
   const [state, setState] = useState(true);
 
   const logout = async () => {
-    try {
-      await axios.get("/api/users/logout");
-      localStorage.removeItem("activeTab");
-
-      toast.success("Logout successful");
-      localStorage.removeItem("activeTab");
-      router.push("/signin");
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
-  };
+  try {
+  await axios.get("/api/users/logout");
+  // localStorage.removeItem("activeTab");
+  toast.success("Logout successful");
+  // Only redirect if the axios request is successful
+  // localStorage.removeItem("activeTab");
+  // router.push("/signin");
+} catch (error: any) {
+  // console.log(error.message);
+  // toast.error(error.message);
+    toast.error("failed");
+}
+  }
   function changeState() {
     setState((prev) => {
       return !prev;

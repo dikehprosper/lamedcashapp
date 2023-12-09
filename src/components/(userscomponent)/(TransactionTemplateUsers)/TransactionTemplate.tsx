@@ -17,7 +17,6 @@ import { FaFilter } from "react-icons/fa";
 const TransactionTemplate = ({ title, select, 
 totalWithdrawals, totalDeposits, data, allData
 }: TransactionTemplateProps) => {
-console.log(data)
   // Access the query object to get the passed parameter
   
 
@@ -258,7 +257,7 @@ console.log(data)
                   .length > 0 ? (
                   data
                     ?.filter((item: any) => item.fundingType === "deposits")
-                    .reverse()
+                   .slice().reverse()
                     .map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
@@ -293,8 +292,7 @@ console.log(data)
                   .length > 0 ? (
                   data
                     ?.filter((item: any) => item.fundingType === "withdrawals")
-                    .reverse()
-                    .map((filteredData: any, index: any) => (
+                     .slice().reverse().map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
                         time={filteredData.registrationDateTime}
@@ -325,8 +323,7 @@ console.log(data)
                 )
               ) : data?.length > 0 ? (
                 data
-                  ?.reverse()
-                  .map((data: any, index: any) => (
+                  ?.slice().reverse().map((data: any, index: any) => (
                     <TransactionResults
                       key={index}
                       time={data.registrationDateTime}
@@ -360,9 +357,7 @@ console.log(data)
                 .length > 0 ? (
                 data
                   ?.filter((item: any) => item.fundingType === "deposits")
-                  .slice(0, 3)
-                  .reverse()
-                  .map((filteredData: any, index: any) => (
+                .slice().reverse().slice(0, 3).map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
                       time={filteredData.registrationDateTime}
@@ -396,9 +391,7 @@ console.log(data)
                 .length > 0 ? (
                 data
                   ?.filter((item: any) => item.fundingType === "withdrawals")
-                  .slice(0, 3)
-                  .reverse()
-                  .map((filteredData: any, index: any) => (
+                 .slice().reverse().slice(0, 3).map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
                       time={filteredData.registrationDateTime}
@@ -428,10 +421,7 @@ console.log(data)
                 </div>
               )
             ) : data?.length > 0 ? (
-              data
-                ?.slice(0, 3)
-                .reverse()
-                .map((data: any, index: any) => (
+              data?.slice().reverse().slice(0, 3).map((data: any, index: any) => (
                   <TransactionResults
                     key={index}
                     time={data.registrationDateTime}

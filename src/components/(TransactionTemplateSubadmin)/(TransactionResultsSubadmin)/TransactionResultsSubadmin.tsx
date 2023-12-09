@@ -1,54 +1,286 @@
-import React from "react";
+/* eslint-disable */
+// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+"use client";
+import React, { useState, useEffect } from "react";
 import "./transactionResultsSubadmin.css";
-import { TransactionResultsProps } from "@/types";
+import { TransactionResultsSubadminProps } from "@/types";
 import { FaDownload } from "react-icons/fa";
 import formatNumberWithCommasAndDecimal from "../../(Utils)/formatNumber";
-
-const TransactionResults = ({
+import Moment from "moment";
+import { toast } from "react-toastify";
+import axios from "axios";
+const TransactionResultsSubadmin = ({
   time,
   amount,
-  receipt,
+  transactionId,
+  identifierId,
   betId,
   status,
   type,
-}: TransactionResultsProps) => {
+  userId,
+  cashdeskId,
+  isSubmitted,
+  showReceipt,
+  username,
+  userNumber,
+}: TransactionResultsSubadminProps) => {
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [acceptLoading, setAcceptLoading] = useState(false);
+  const [rejectLoading, setRejectLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState(status);
+  const [isSubmittedStatus, setIsSubmittedStatus] = useState(isSubmitted);
+  // useEffect(() => {
+  //   console.log(isSubmittedStatus);
+  // }, [isSubmittedStatus]);
+
+   async function rejectDeposit() {
+     if (isSubmitting) {
+       return;
+     }
+     setRejectLoading(true);
+     setIsSubmitting(true);
+     try {
+       const info = {
+         updatetype: "Failed",
+         customerId: userId,
+         identifierId: identifierId,
+         cashdeskId: cashdeskId,
+       };
+       const response = await axios.post("/api/subadminDepositUpdate", info);
+       setCurrentStatus(response.data.currentTransactionSubadminStatus);
+       setIsSubmittedStatus(
+         response.data.currentTransactionSubadminIsSubmitted
+       );
+       toast.success("Updated Successfully");
+       setRejectLoading(false);
+       setButtonDisabled(true);
+       toggleDropdown();
+     } catch (error: any) {
+       toggleDropdown();
+       setRejectLoading(false);
+       return toast.error("Échec de mise à jour");
+     } finally {
+       setIsSubmitting(false);
+     }
+   }
+
+  async function acceptDeposit() {
+    if (isSubmitting) {
+      return;
+    }
+    setAcceptLoading(true);
+    setIsSubmitting(true);
+    try {
+      const info = {
+        updatetype: "Successful",
+        customerId: userId,
+        identifierId: identifierId,
+        cashdeskId: cashdeskId,
+      };
+      const response = await axios.post("/api/subadminDepositUpdate", info);
+      setCurrentStatus(response.data.currentTransactionSubadminStatus);
+      setIsSubmittedStatus(response.data.currentTransactionSubadminIsSubmitted);
+      toast.success("Soumis avec succès");
+      setAcceptLoading(false);
+      setButtonDisabled(true);
+      toggleDropdown();
+    } catch (error: any) {
+      toggleDropdown();
+      setAcceptLoading(false);
+      return toast.error("Échec de mise à jour");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleClick = () => {
+    showReceipt?.(
+      time,
+      amount,
+      transactionId,
+      identifierId,
+      betId,
+      status,
+      type,
+      username,
+      userNumber
+    );
+  };
+
   return (
     <>
-      <div className='mobile-time'>
-        {" "}
-     {time}
-      </div>
-      <div className='transaction_result-subadmin'>
+      <div className='mobile-time'> {formatDate(time)}</div>
+      <div className='transaction_result-subadmin' >
         <span
           style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
         ></span>
-        <span>
-       {time}
-        </span>
-        <span className='small_device_group'>
+        <span>{formatDate(time)}</span>
+        <span className='small_device_group '>
           {" "}
           <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>
-          <span>
-            <b style={{ color: "rgba(256, 256, 256, 0.4" }}>1xBet ID: &nbsp;</b>{" "}
-            {betId}
+          <span
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+              alignItems: "start",
+              width: "100% !important",
+              flex: 1,
+            }}
+          >
+            <span>
+              <b style={{ color: "rgba(256, 256, 256, 0.4" }}>
+                1xBet ID: &nbsp;
+              </b>{" "}
+              {betId}
+            </span>
+            <span className='transactionId'>
+              <b style={{ color: "rgba(256, 256, 256, 0.4" }}>
+                Transaction ID: &nbsp;
+              </b>{" "}
+              {transactionId}
+            </span>
           </span>
-        </span>
-        <span>
-          <b style={{ color: "rgba(256, 256, 256, 0.4" }}>RECEIPT NO: &nbsp;</b>{" "}
-          {receipt}
         </span>
         <span
           style={{
             color:
-              status === "Pending"
+              currentStatus === "Pending"
                 ? "rgba(256, 256, 256, 0.4)"
-                : status === "Successful"
-                ? "#BDFF00"
-                : "#FF0000",
+                : currentStatus === "Successful"
+                ? "rgba(0, 200, 0, 1)"
+                : "rgba(200, 0, 0, 1)",
           }}
         >
-          <span>{status}</span>
-          <span className='download-button'>
+          {currentStatus === "Pending"
+            ? "Pending"
+            : currentStatus === "Successful"
+            ? "Accepted"
+            : "Rejected"}
+        </span>
+        <span>
+          <span
+            style={{
+              background: isSubmittedStatus
+                ? "rgba(128, 128, 128, 0.2)"
+                : "rgba(0, 128, 0, .7)",
+              pointerEvents: isSubmittedStatus ? "none" : "auto",
+              color: isSubmittedStatus ? "rgba(128, 128, 128, 0.4)" : "white",
+            }}
+            onClick={acceptDeposit}
+          >
+            {acceptLoading ? (
+              <div id='container-result_subadmin_all'>
+                <div id='html-spinner-result_subadmin_foraccept'></div>
+              </div>
+            ) : (
+              "Accept"
+            )}
+          </span>
+          <span
+            style={{
+              background: isSubmittedStatus
+                ? "rgba(128, 128, 128, 0.2)"
+                : "rgba(128, 0, 0, .7)",
+              pointerEvents: isSubmittedStatus ? "none" : "auto",
+              color: isSubmittedStatus ? "rgba(128, 128, 128, 0.4)" : "white",
+            }}
+            onClick={rejectDeposit}
+          >
+            {rejectLoading ? (
+              <div id='container-result_subadmin_all'>
+                <div id='html-spinner-result_subadmin_forreject'></div>
+              </div>
+            ) : (
+              "Reject"
+            )}
+          </span>
+          <span className='download-button' onClick={handleClick}>
+            <FaDownload />
+          </span>
+        </span>
+
+        <span className='accepted'>
+          <span
+            style={{
+              position: "relative",
+              justifySelf: "flex-end",
+              color:
+                currentStatus === "Pending"
+                  ? "rgba(256, 256, 256, 0.4)"
+                  : currentStatus === "Successful"
+                  ? "rgba(0, 200, 0, 1)"
+                  : "rgba(200, 0, 0, 1)",
+            }}
+            onClick={toggleDropdown}
+          >
+            {currentStatus === "Pending"
+              ? "Pending"
+              : currentStatus === "Successful"
+              ? "Accepted"
+              : "Rejected"}
+          </span>
+          {isDropdownOpen && (
+            <>
+              <div className='displayModal1' onClick={toggleDropdown}>
+                {" "}
+              </div>
+              <div className='displayModal2'>
+                <span
+                  style={{
+                    background: isSubmittedStatus
+                      ? "rgba(128, 128, 128, 0.2)"
+                      : "rgba(0, 128, 0, .7)",
+                    pointerEvents: isSubmittedStatus ? "none" : "auto",
+                    color: isSubmittedStatus
+                      ? "rgba(128, 128, 128, 0.4)"
+                      : "white",
+                  }}
+                  onClick={acceptDeposit}
+                >
+                  {acceptLoading ? (
+                    <div id='container-result_subadmin_all'>
+                      <div id='html-spinner-result_subadmin_foraccept'></div>
+                    </div>
+                  ) : (
+                    "Accept"
+                  )}
+                </span>
+
+                <span
+                  style={{
+                    background: isSubmittedStatus
+                      ? "rgba(128, 128, 128, 0.2)"
+                      : "rgba(128, 0, 0, .7)",
+                    pointerEvents: isSubmittedStatus ? "none" : "auto",
+                    color: isSubmittedStatus
+                      ? "rgba(128, 128, 128, 0.4)"
+                      : "white",
+                  }}
+                  onClick={rejectDeposit}
+                >
+                  {rejectLoading ? (
+                    <div id='container-result_subadmin_all'>
+                      <div id='html-spinner-result_subadmin_forreject'></div>
+                    </div>
+                  ) : (
+                    "Reject"
+                  )}
+                </span>
+              </div>
+            </>
+          )}
+
+          <span className='download-button2' onClick={handleClick}>
             <FaDownload />
           </span>
         </span>
@@ -57,4 +289,14 @@ const TransactionResults = ({
   );
 };
 
-export default TransactionResults;
+export default TransactionResultsSubadmin;
+
+const formatDate = (inputDate: any) => {
+  const date = new Date(inputDate);
+  Moment.locale("en");
+  var dt = inputDate;
+
+  const formattedDate = Moment(dt).format("DD - MM - YYYY hh:mm a");
+
+  return formattedDate;
+};

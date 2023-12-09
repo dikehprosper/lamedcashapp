@@ -1,7 +1,13 @@
-import { NextResponse } from "next/server";
-
-export async function GET() {
+import { NextRequest, NextResponse } from "next/server";
+import { getDataFromToken } from "@/helpers/getDataFromToken";
+import User from "@/models/userModel";
+import { connect } from "@/dbConfig/dbConfig";
+export async function GET(request: NextRequest) {
   try {
+    const userId = await getDataFromToken(request);
+    const user = await User.findOne({ _id: userId }).select("-password");
+    user.isLoggedIn = false;
+    await user.save();
     const response = NextResponse.json({
       message: "Logout successful",
       success: true,
@@ -12,3 +18,5 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+connect();
+
