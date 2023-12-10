@@ -9,7 +9,7 @@ import axios from "axios";
 import { IoIosCopy } from "react-icons/io";
 import {useRouter} from "next/navigation";
 import { FedaPay } from "fedapay";
-
+// import App from "../pay";
 const Deposit = () => {
   const [loading, setLoading] = useState(false);
   const [savedID, setSavedID] = useState([]);
@@ -25,6 +25,7 @@ const Deposit = () => {
     amount: "",
     ussdCode: "",
     transactionId: "",
+    email: ""
   });
   const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
@@ -40,6 +41,7 @@ const Deposit = () => {
         ...user,
         _id: res.data.data._id,
         betId: res.data.data.betID[0],
+        email: res.data.data.email
       });
     } catch (error: any) {
       if (error.response) {
@@ -57,6 +59,10 @@ const Deposit = () => {
       }
     }
   };
+
+  useEffect(() => {
+    console.log(user)
+  })
 
   useEffect(() => {
     // Check network status before making the request
@@ -180,9 +186,6 @@ const Deposit = () => {
       return toast.error("Le montant saisi ne doit pas être inférieur à 500");
     } else if (user.betId === "") {
       return toast.error("Entrez le betId à utiliser");
-    } else if (user.transactionId === "") {
-      console.log(user.transactionId);
-      return toast.error("Entrez votre identifiant de transaction");
     } else {
       try {
         setIsSubmitting(true);
@@ -260,18 +263,35 @@ const Deposit = () => {
     toast.success("USSD CODE successfully copied!");
   };
 
-//   // Example using fetch
-//   const createTransaction = async () => {
-//     try {
-//       const response = await axios.post("/api/users/deposit2"); // Replace with your actual route
-//       console.log(response)
-//       // const data = await response.json();
-//       console.log(data)
-//       console.log("Transaction created:", data.transaction);
-//     } catch (error) {
-//       console.error("Error creating transaction:", error);
-//     }
-//   };
+  // Example using fetch
+  const createTransaction = async () => {
+      if (isSubmitting) {
+      return;
+    }
+
+    const amountValue = parseInt(user.amount, 10);
+    if (isNaN(amountValue)) {
+      // Handle the case where user.amount is not a valid number
+      return toast.error("Vous n'avez pas saisi de montant");
+    }
+
+    if (amountValue < 500) {
+      return toast.error("Le montant saisi ne doit pas être inférieur à 500");
+    } else if (user.betId === "") {
+      return toast.error("Entrez le betId à utiliser");
+    } else {
+    try {
+      const response = await axios.post("/api/users/deposit2", user); // Replace with your actual route
+      const data = response.data.url1
+      console.log(data);
+       window.location.href = data;
+    } catch (error) {
+      console.error("Error creating transaction:", error);
+    } finally {
+    setIsSubmitting(false);
+  }
+  } 
+  };
 
 // const FedapayCheckout = () => {
 //   const publicKey = "VOTRE_CLE_API_PUBLIQUE"; // Replace with your actual public key
@@ -299,7 +319,8 @@ const Deposit = () => {
   return (
     <div className='user_withdraw_container'>
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
-      {/* <button onClick={FedapayCheckout}>submit</button> */}
+      <button onClick={createTransaction}>submit</button>
+      {/* <App /> */}
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
           <label>1XBET ID</label>
@@ -354,6 +375,27 @@ const Deposit = () => {
             onChange={handleChangeId}
             placeholder="Entrez l'identifiant 1XBET"
           />
+          <div
+            style={{
+              color: "rgba(256, 256, 256, 0.5)",
+              width: "100%",
+              display: "flex",
+              marginTop: "15px",
+            }}
+          >
+            <span
+              style={{
+                width: "100%",
+              }}
+            >
+              {" "}
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Note:
+              </span>{" "}
+              &nbsp; Le montant de la transaction ne doit pas être inférieur à
+              500
+            </span>
+          </div>
           <label>Montant</label>
           <input
             type='number'
@@ -362,7 +404,7 @@ const Deposit = () => {
             onChange={handleChangeAmount}
             placeholder='Entrez le montant du dépôt'
           />
-
+          {/* 
           <label htmlFor='network'>Réseau</label>
           <select
             id='network'
@@ -421,28 +463,8 @@ const Deposit = () => {
                 copier
               </span>
             )}
-          </div>
-          <div
-            style={{
-              color: "rgba(256, 256, 256, 0.5)",
-              width: "100%",
-              display: "flex",
-              marginTop: "45px",
-            }}
-          >
-            <span
-              style={{
-                width: "100%",
-              }}
-            >
-              {" "}
-              <span style={{ color: "red", fontWeight: "bold" }}>
-                Note:
-              </span>{" "}
-              &nbsp; Copiez votre identifiant de transaction et collez-le
-              ci-dessous{" "}
-            </span>
-          </div>
+          </div>*/}
+          {/*       
           <label>Transaction Id</label>
           <input
             type='text'
@@ -450,7 +472,7 @@ const Deposit = () => {
             value={user.transactionId}
             onChange={changeTransactionId}
             placeholder="soumettre l'identifiant de la transaction"
-          />
+          /> */}
           <div
             className='submit-button-deposit'
             style={{

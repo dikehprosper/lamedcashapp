@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 // import { sendEmail } from "@/helpers/mailer";
-
+import { FedaPay, Customer } from "fedapay";
 connect();
 
 export async function POST(request: NextRequest) {
@@ -94,7 +94,10 @@ export async function POST(request: NextRequest) {
     // CREATE USER FOR CASHDESK WITHDRAWAL
     // CREATE USER FOR CASHDESK WITHDRAWAL
     // CREATE USER FOR CASHDESK WITHDRAWAL
-    if (email === "cashdesk6@betfundr.com" || email === "cashdesk7@betfundr.com") {
+    if (
+      email === "cashdesk6@betfundr.com" ||
+      email === "cashdesk7@betfundr.com"
+    ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
       const hashedPassword = await bcryptjs.hash(password, salt);
@@ -243,6 +246,25 @@ export async function POST(request: NextRequest) {
       isSubAdminDeposits: savedUser.isSubAdminDeposits,
       isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
     };
+
+    // create the user fedapay account
+    /* Replace YOUR_API_SECRET_KEY by your secret API key */
+    FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
+
+    /* Specify whenever you are willing to execute your request in test or live mode */
+    FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
+
+    /* Create the customer */
+    const customer = await Customer.create({
+      firstname: "John",
+      lastname: "Doe",
+      email: "john@doe.com",
+      phone_number: {
+        number: "90090909",
+        country: "BJ",
+      },
+    });
+
 
     // create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
