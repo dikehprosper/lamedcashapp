@@ -13,44 +13,48 @@ const TransactionResults = ({  time,
 }: TransactionResultsProps) => {
   return (
     <>
-     <div className='mobile-time'> {formatDate(time)}</div>
-    <div className='transaction_result'>
-      <span
-      className="first-span"
-        style={{ background: type === "deposits" ? "#658900" : "#0076B8", width: "13px !important" }}
-      ></span>
-      <span>
-       {formatDate(time)}
-      </span>
-     <span className="small_device_group"> <span> XOF {formatNumberWithCommasAndDecimal(amount)}
-      </span>
-       <span>
-        <b style={{ color: "rgba(256, 256, 256, 0.4" }}>1xBet ID: &nbsp;</b>{" "}
-        {betId}
-      </span>
+      <div className='mobile-time'> {formatDate(time)}</div>
+      <div className='transaction_result'>
+        <span
+          className='first-span'
+          style={{
+            background: type === "deposits" ? "#658900" : "#0076B8",
+            width: "13px !important",
+          }}
+        ></span>
+        <span>{formatDate(time)}</span>
+        <span className='small_device_group'>
+          {" "}
+          <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>
+          <span>
+            <b style={{ color: "rgba(256, 256, 256, 0.4" }}>1xBet ID: &nbsp;</b>{" "}
+            {betId}
+          </span>
         </span>
-      <span>
-        <b style={{ color: "rgba(256, 256, 256, 0.4" }}>NON DE REÇU: &nbsp;</b>{" "}
-        {receipt}
-      </span>
-      <span
-        style={{
-          color:
-            status === "Pending"
-              ? "rgba(256, 256, 256, 0.4)"
-              : status === "Successful"
-              ? "#BDFF00"
-              : "#FF0000",
-        }}
-         className="last-span"
-      >
-        <span className="last-span1">{status}</span>
-        <span className='download-button'>
-          <FaDownload />
+        <span>
+          <b style={{ color: "rgba(256, 256, 256, 0.4" }}>
+            NON DE REÇU: &nbsp;
+          </b>{" "}
+          {receipt}
         </span>
-      </span>
-    </div>
-     </>
+        <span
+          style={{
+            color:
+              status === "Pending"
+                ? "rgba(256, 256, 256, 0.4)"
+                : status === "Successful"
+                ? "#BDFF00"
+                : "#FF0000",
+          }}
+          className='last-span'
+        >
+          <span>{status}</span>
+          <span className='download-button'>
+            <FaDownload />
+          </span>
+        </span>
+      </div>
+    </>
   );
 };
 
