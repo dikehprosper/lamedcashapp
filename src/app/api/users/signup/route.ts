@@ -7,8 +7,34 @@ import jwt from "jsonwebtoken";
 import { FedaPay, Customer } from "fedapay";
 connect();
 
+// import { PhoneNumberUtil } from "google-libphonenumber";
+
+// const phoneUtil = PhoneNumberUtil.getInstance();
+// const allowedCountryCode = "BJ";
+// const moovPrefixes = [
+//   "40",
+//   "42",
+//   "44",
+//   "60",
+//   "64",
+//   "68",
+//   "69",
+//   "87",
+//   "89",
+//   "90",
+//   "91",
+//   "92",
+//   "93",
+//   "95",
+//   "96",
+//   "87",
+//   "98",
+// ];
+// const mtnPrefixes = ["90", "91", "92", "93", "94"];
+
 export async function POST(request: NextRequest) {
   try {
+    //  const { phoneNumber, countryCode } = req.body;
     const reqBody = await request.json();
     const { fullname, betId, number, email, password } = await reqBody;
 
@@ -247,28 +273,50 @@ export async function POST(request: NextRequest) {
       isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
     };
 
-    // create the user fedapay account
-    /* Replace YOUR_API_SECRET_KEY by your secret API key */
-    FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
+    //verify Number
+    // if (countryCode !== allowedCountryCode) {
+    //     // If the country code is not Benin, reject the request
+    //     res.status(400).json({ valid: false, message: 'Invalid country code.' });
+    //     return;
+    //   }
 
-    /* Specify whenever you are willing to execute your request in test or live mode */
-    FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
+    //   const parsedPhoneNumber = phoneUtil.parse(phoneNumber, countryCode);
+    //   const isValid = phoneUtil.isValidNumber(parsedPhoneNumber);
 
-    /* Create the customer */
-    const customer = await Customer.create({
-      firstname: "John",
-      lastname: "Doe",
-      email: "john@doe.com",
-      phone_number: {
-        number: "90090909",
-        country: "BJ",
-      },
-    });
+    //   if (isValid) {
+    //     const phonePrefix = parsedPhoneNumber.getCountryCode() + parsedPhoneNumber.getNationalNumber().toString().substring(0, 2);
+    //     let network;
 
+    //     if (moovPrefixes.includes(phonePrefix)) {
+    //       network = 'Moov';
+    //     } else if (mtnPrefixes.includes(phonePrefix)) {
+    //       network = 'MTN';
+    //     } else {
+    //       res.status(400).json({ valid: false, message: 'Invalid network carrier.' });
+    //       return;
+    //     }
+
+    // // create the user fedapay account
+    // /* Replace YOUR_API_SECRET_KEY by your secret API key */
+    // FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
+
+    // /* Specify whenever you are willing to execute your request in test or live mode */
+    // FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
+
+    // /* Create the customer */
+    // const customer = await Customer.create({
+    //   firstname: "John",
+    //   lastname: "Doe",
+    //   email: "john@doe.com",
+    //   phone_number: {
+    //     number: "90090909",
+    //     country: "BJ",
+    //   },
+    // });
 
     // create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
-      expiresIn: "1d",
+      expiresIn: "1d", // "1m" stands for 1 minute
     });
 
     const response = NextResponse.json({

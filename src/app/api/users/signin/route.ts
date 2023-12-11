@@ -8,13 +8,13 @@ import isOnline from "is-online";
 
 connect();
 
+
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-
     const { email, password } = await reqBody;
 
-    // check if the device online
+    // Check if the device is online
     const online = await isOnline();
     if (!online) {
       return NextResponse.json(
@@ -23,21 +23,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    //Check if the User already exist
+    // Check if the User already exists
     const user = await User.findOne({ email });
-
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 400 });
     }
 
-    //check if password is correct
+    // Check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {
       return NextResponse.json({ error: "Invalid password" }, { status: 402 });
     }
+
+    // Clear or invalidate existing tokens associated with the user
+    user.token = null;
+    await user.save();
+
+    // Set the user's isLoggedIn status to true, indicating a successful login
     user.isLoggedIn = true;
     await user.save();
-    //create token data
+
+    // Create token data containing user information
     const tokenData = {
       _id: user._id,
       fullname: user.fullname,
@@ -48,13 +54,14 @@ export async function POST(request: NextRequest) {
       isSubAdminWithdrawals: user.isSubAdminWithdrawals,
     };
 
-    // create token
+    // Create a new token for the current device
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });
 
+    // Set the new token as an HTTP-only cookie
     const response = NextResponse.json({
-      message: "signup Successful",
+      message: "Signup successful. Previous session invalidated.",
       success: true,
     });
 
@@ -67,8 +74,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
-
-
-
-

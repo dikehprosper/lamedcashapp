@@ -1,5 +1,5 @@
 // Import necessary modules
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import { FedaPay, Transaction, Customer } from "fedapay";
 
 // // Set up FedaPay configuration
@@ -13,17 +13,17 @@ export async function POST(request: NextRequest) {
     const { _id, betId, amount, email } = await reqBody;
     console.log(reqBody);
     // Create the transaction
-    /* Replace YOUR_API_SECRET_KEY by your  API secret key */
+    /* Replace YOUR_API_SECRET_KEY by your API secret key */
     FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
     /* Specify whenever you are willing to execute your request in test or live mode */
     FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
     /* Create the transaction */
 
-    console.log(process.env.DOMAIN!, "domain")
+    console.log(process.env.DOMAIN!, "domain");
     const transaction = await Transaction.create({
       description: "Description",
       amount: amount,
-      callback_url: `${process.env.DOMAIN!}/payments`,
+      callback_url: `${process.env.DOMAIN!}/transactions`,
       currency: {
         iso: "XOF",
       },
@@ -49,39 +49,29 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// readonly SANDBOX_BASE = "https://sandbox-api.fedapay.com";
+//   readonly PRODUCTION_BASE = "https://api.fedapay.com";
+//   readonly DEVELOPMENT_BASE = "https://dev-api.fedapay.com";
 
+// creating a customer on signup
 
+// /* Replace YOUR_API_SECRET_KEY by your secret API key */
+// FedaPay.setApiKey("sk_sandbox_rlZQIN8rnovgkg2TCOeVSCxp");
 
+// /* Specify whenever you are willing to execute your request in test or live mode */
+// FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
 
+// /* Create the customer */
+// const customer = await Customer.create({
+//   firstname: "John",
+//   lastname: "Doe",
+//   email: "john1@doe.com",
 
-  // readonly SANDBOX_BASE = "https://sandbox-api.fedapay.com";
-  //   readonly PRODUCTION_BASE = "https://api.fedapay.com";
-  //   readonly DEVELOPMENT_BASE = "https://dev-api.fedapay.com";
+// });
+// console.log(customer);
 
-
-
-
-
-  // creating a customer on signup
-
-    // /* Replace YOUR_API_SECRET_KEY by your secret API key */
-    // FedaPay.setApiKey("sk_sandbox_rlZQIN8rnovgkg2TCOeVSCxp");
-
-    // /* Specify whenever you are willing to execute your request in test or live mode */
-    // FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
-
-    // /* Create the customer */
-    // const customer = await Customer.create({
-    //   firstname: "John",
-    //   lastname: "Doe",
-    //   email: "john1@doe.com",
-    
-    // });
-    // console.log(customer);
-
-
-     // const transaction = await Transaction.retrieve(ID);
-    // if (transaction.status == "approved") {
-    //   console.log("Payment approved");
-    // }
-    // Return a JSON response
+// const transaction = await Transaction.retrieve(ID);
+// if (transaction.status == "approved") {
+//   console.log("Payment approved");
+// }
+// Return a JSON response

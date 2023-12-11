@@ -228,9 +228,7 @@ const Deposit = () => {
   //check email and password state to determine ButtonDisabled state
   useEffect(() => {
     if (
-      user.transactionId === "" ||
-      user.amount === "" ||
-      user.network === ""
+      user.amount === ""
     ) {
       setButtonDisabled(true);
     } else {
@@ -293,6 +291,35 @@ const Deposit = () => {
   } 
   };
 
+    const createTransaction2 = async () => {
+      if (isSubmitting) {
+        return;
+      }
+
+      const amountValue = parseInt(user.amount, 10);
+      if (isNaN(amountValue)) {
+        // Handle the case where user.amount is not a valid number
+        return toast.error("Vous n'avez pas saisi de montant");
+      }
+
+      if (amountValue < 100) {
+        return toast.error("Le montant saisi ne doit pas être inférieur à 100");
+      } else if (user.betId === "") {
+        return toast.error("Entrez le betId à utiliser");
+      } else {
+        try {
+          setLoading(true)
+          const response = await axios.post("/api/users/deposit3", user); // Replace with your actual route
+          console.log(response);
+        } catch (error) {
+          console.error("Error creating transaction:", error);
+        } finally {
+           setLoading(false);
+          setIsSubmitting(false);
+        }
+      }
+    };
+
 // const FedapayCheckout = () => {
 //   const publicKey = "VOTRE_CLE_API_PUBLIQUE"; // Replace with your actual public key
 //   const fedapay = new FedaPay(publicKey);
@@ -319,7 +346,6 @@ const Deposit = () => {
   return (
     <div className='user_withdraw_container'>
       <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
-      <button onClick={createTransaction}>submit</button>
       {/* <App /> */}
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
@@ -482,7 +508,7 @@ const Deposit = () => {
               pointerEvents: buttonDisabled ? "none" : "auto",
               cursor: "pointer",
             }}
-            onClick={submitDetails}
+            onClick={createTransaction}
           >
             {loading ? (
               <div id='container-signin'>
@@ -490,6 +516,25 @@ const Deposit = () => {
               </div>
             ) : (
               "Procéder"
+            )}
+          </div>
+            <div
+            className='submit-button-deposit'
+            style={{
+              background: buttonDisabled
+                ? "rgba(128, 128, 128, 0.5)"
+                : "rgba(128, 128, 128, 1)",
+              pointerEvents: buttonDisabled ? "none" : "auto",
+              cursor: "pointer",
+            }}
+            onClick={createTransaction2}
+          >
+            {loading ? (
+              <div id='container-signin'>
+                <div id='html-spinner-signin'></div>
+              </div>
+            ) : (
+              "Procéder2"
             )}
           </div>
         </form>
