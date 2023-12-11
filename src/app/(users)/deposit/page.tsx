@@ -47,6 +47,9 @@ const Deposit = () => {
       if (error.response) {
         // Handle token expiration
         if (error.response.status === 401) {
+          toast.error("Invalid session ID. Please log in again.");
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else if (error.response.status === 402) {
           toast.error("Your session has expired. Redirecting to signin...");
           router.push("/signin"); // Replace '/login' with your actual login route
         } else {

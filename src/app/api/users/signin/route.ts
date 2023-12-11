@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
       isAdmin: user.isAdmin,
       isSubAdminDeposits: user.isSubAdminDeposits,
       isSubAdminWithdrawals: user.isSubAdminWithdrawals,
+      sessionId: user.sessionId
     };
 
     // Create a new token for the current device

@@ -5,7 +5,12 @@ export const getDataFromToken = (request: NextRequest) => {
   try {
     const token = request.cookies.get("token")?.value || "";
     const decodedToken: any = jwt.verify(token, process.env.TOKEN_SECRET!);
-    return decodedToken._id;
+
+    // Extract and return user ID and session ID from the token
+    return {
+      userId: decodedToken._id,
+      sessionId: decodedToken.sessionId || null,
+    };
   } catch (error: any) {
     if (error instanceof TokenExpiredError) {
       throw new Error("Token has expired");

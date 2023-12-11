@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 // import { sendEmail } from "@/helpers/mailer";
 import { FedaPay, Customer } from "fedapay";
 connect();
@@ -85,6 +86,7 @@ export async function POST(request: NextRequest) {
         isSubAdminDeposits: true,
         // cashdeskDialcode: cashdesk,
         isLoggedIn: true,
+        sessionId: generateUniqueSessionId(),
       });
 
       const savedUser = await newUser.save();
@@ -98,6 +100,7 @@ export async function POST(request: NextRequest) {
         isAdmin: savedUser.isAdmin,
         isSubAdminDeposits: savedUser.isSubAdminDeposits,
         isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
+        sessionId: user.sessionId,
       };
 
       // create token
@@ -159,6 +162,7 @@ export async function POST(request: NextRequest) {
         isSubAdminWithdrawals: true,
         isLoggedIn: true,
         cashdeskAddress: cashdesk,
+        sessionId: generateUniqueSessionId(),
       });
 
       const savedUser = await newUser.save();
@@ -172,6 +176,7 @@ export async function POST(request: NextRequest) {
         isAdmin: savedUser.isAdmin,
         isSubAdminDeposits: savedUser.isSubAdminDeposits,
         isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
+        sessionId: user.sessionId,
       };
 
       // create token
@@ -207,6 +212,7 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         isAdmin: true,
         isLoggedIn: true,
+        sessionId: generateUniqueSessionId(),
       });
 
       const savedUser = await newUser.save();
@@ -220,6 +226,7 @@ export async function POST(request: NextRequest) {
         isAdmin: savedUser.isAdmin,
         isSubAdminDeposits: savedUser.isSubAdminDeposits,
         isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
+        sessionId: user.sessionId,
       };
 
       // create token
@@ -258,6 +265,7 @@ export async function POST(request: NextRequest) {
       supplementaryBetId: [betId],
       isUser: true,
       isLoggedIn: true,
+      sessionId: generateUniqueSessionId(),
     });
     // save the new created user
     const savedUser = await newUser.save();
@@ -271,6 +279,7 @@ export async function POST(request: NextRequest) {
       isUser: savedUser.isUser,
       isSubAdminDeposits: savedUser.isSubAdminDeposits,
       isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
+      sessionId: user.sessionId,
     };
 
     //verify Number
@@ -333,4 +342,9 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+}
+
+// Function to generate a unique session ID using the 'uuid' library
+function generateUniqueSessionId() {
+  return uuidv4();
 }
