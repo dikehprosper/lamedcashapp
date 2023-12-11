@@ -38,13 +38,20 @@ function SubadminDepositDashboard() {
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
-        if (error.response.status === 401) {
-          toast.error("Your session has expired. Redirecting to signin...");
-          router.push("/signin"); // Replace '/login' with your actual login route
-        } else {
-          // Handle other errors
-          toast.error("An error occurred. Please try again later.");
-        }
+         if (error.response.status === 401) {
+           toast.error(
+             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+           );
+           router.push("/signin"); // Replace '/login' with your actual login route
+         } else if (error.response.status === 402) {
+           toast.error("Votre session a expiré. Redirection vers la connexion...");
+           router.push("/signin"); // Replace '/login' with your actual login route
+         } else {
+           // Handle other errors
+           toast.error(
+             "Une erreur s'est produite. Veuillez réessayer plus tard."
+           );
+         }
       } else if (error.request) {
         // Handle network errors (no connection)
         setIsOnline(false);
