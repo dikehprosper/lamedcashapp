@@ -35,8 +35,6 @@ const TransactionResults = ({  time,
       </span>
       <span
         style={{
-          background: "green",
-          justifySelf: "flex-end",
           color:
             status === "Pending"
               ? "rgba(256, 256, 256, 0.4)"
@@ -46,7 +44,7 @@ const TransactionResults = ({  time,
         }}
          className="last-span"
       >
-        <span>{status}</span>
+        <span className="last-span1">{status}</span>
         <span className='download-button'>
           <FaDownload />
         </span>
