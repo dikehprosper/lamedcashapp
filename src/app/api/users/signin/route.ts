@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 import isOnline from "is-online";
 
 connect();
-
+import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: NextRequest) {
   try {
@@ -35,11 +35,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid password" }, { status: 402 });
     }
 
-    // Clear or invalidate existing tokens associated with the user
-    user.token = null;
-    await user.save();
+    // Generate a new session ID using the 'uuid' library
+    const newSessionId = generateUniqueSessionId();
 
-    // Set the user's isLoggedIn status to true, indicating a successful login
+    // Check for existing session and invalidate it
+    if (user.sessionId) {
+      // Implement your session invalidation logic here (e.g., update the database record)
+      invalidateSession(user.sessionId);
+    }
+
+    // Set the user's session ID and isLoggedIn status
+    user.sessionId = newSessionId;
     user.isLoggedIn = true;
     await user.save();
 
@@ -74,3 +80,29 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+// Function to invalidate a session (update the database record)
+async function invalidateSession(sessionId: any) {
+  try {
+    // Find the user with the given session ID and update the session or remove it
+    const user = await User.findOneAndUpdate(
+      { sessionId },
+      { $set: { sessionId: null, isLoggedIn: false } },
+      { new: true }
+    );
+
+    if (!user) {
+      // Handle if the user is not found
+      console.error("User not found for session ID:", sessionId);
+    }
+  } catch (error) {
+    // Handle any error during the database update
+    console.error("Error invalidating session:", error);
+  }
+}
+
+// Function to generate a unique session ID using the 'uuid' library
+function generateUniqueSessionId() {
+  return uuidv4();
+}
+

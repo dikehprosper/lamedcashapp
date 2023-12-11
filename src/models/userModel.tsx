@@ -71,6 +71,9 @@ const userSchema = new Schema({
       street: String,
     },
   },
+  sessionId: {
+    type: String,
+  },
   transactionHistory: {
     type: [
       {
