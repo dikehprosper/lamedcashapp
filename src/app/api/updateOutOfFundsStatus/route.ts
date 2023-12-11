@@ -5,7 +5,7 @@ import { connect } from "@/dbConfig/dbConfig";
 export async function GET(request: NextRequest) {
     console.log("userIdyufuyfyufuyfiuufiogkiugigkuguygugugkugkguyh");
   try {
-    const userId = await getDataFromToken(request);
+   const { userId, sessionId } = await getDataFromToken(request);
     const user = await User.findOne({ _id: userId }).select("-password");
     user.isOutOfFunds = !user.isOutOfFunds;
     await user.save();
