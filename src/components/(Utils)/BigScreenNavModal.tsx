@@ -13,7 +13,7 @@ const BigScreenNavModal = ({
     <div className={containerStyles}>
       {navLinks?.map((link, index) => {
         return (
-          <Link
+          <a
             key={index}
             className={` ${
               pathname === link.pathname ? "active-user-nav" : ""
@@ -31,7 +31,7 @@ const BigScreenNavModal = ({
               {link.icon}{" "}
             </div>
             &nbsp; &nbsp; {link.title}
-          </Link>
+          </a>
         );
       })}
     </div>

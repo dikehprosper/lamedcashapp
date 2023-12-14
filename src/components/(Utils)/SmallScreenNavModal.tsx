@@ -22,7 +22,7 @@ const Modal = ({
         {navLinks?.map((link, index) => {
           console.log(pathname === link.pathname);
           return (
-            <Link
+            <a
               key={index}
               className={` ${containerStylesInnerLink} `}
               href={link.pathname}
@@ -64,7 +64,7 @@ const Modal = ({
               >
                 {link.title}
               </span>
-            </Link>
+            </a>
           );
         })}
         <div style={{ padding: "10px" }} onClick={logout}>
