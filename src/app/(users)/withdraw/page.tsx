@@ -172,13 +172,11 @@ const Withdraw = () => {
     async function getAvailableCashdeskAddress() {
       try {
         const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
-        console.log(res.data.subadminWithLowestPendingCountAddress);
-            console.log(res.data.subadminWithLowestPendingCountId);
-        // setCashdeskAddress(res.data.subadminWithLowestPendingCount);
-        // setUser({
-        //   ...user,
-        //   cashdeskId: res.data.subadminWithLowestPendingCount._id,
-        // });
+        setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
+        setUser({
+          ...user,
+          cashdeskId: res.data.subadminWithLowestPendingCountId,
+        });
       } catch (error: any) {
         console.error(error.message);
       }
@@ -276,7 +274,7 @@ console.log(updatedUser)
                 <div id='html-spinner-withdraw'></div>
               </div>
             ) : (
-              <div>City: {cashdeskAddress?.cashdeskAddress?.city}</div>
+              <div>City: {cashdeskAddress?.city}</div>
             )}
 
             {!cashdeskAddress || Object.keys(cashdeskAddress).length === 0 ? (
@@ -284,7 +282,7 @@ console.log(updatedUser)
                 <div id='html-spinner-withdraw'></div>
               </div>
             ) : (
-              <div>Street: {cashdeskAddress?.cashdeskAddress?.street}</div>
+              <div>Street: {cashdeskAddress?.street}</div>
             )}
           </div>
           <p
