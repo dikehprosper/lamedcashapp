@@ -15,12 +15,12 @@ const countPendingTransactions = (subadmin: any) => {
 
 const subadminUsers = await User.find({ isSubAdminWithdrawals: true });
 
-// // Filter subadmin users who are not out of funds
-// const subadminUsersWithFunds = subadminUsers.filter(
-//   (subadminUser) => !subadminUser.isOutOfFunds
-// );
+// Filter subadmin users who are not out of funds
+const subadminUsersWithFunds = subadminUsers.filter(
+  (subadminUser) => !subadminUser.isOutOfFunds
+);
 
-// console.log(subadminUsersWithFunds)
+console.log(subadminUsersWithFunds)
 
 // const sortedSubadmins = subadminUsersWithFunds.sort((a, b) => {
 //   const countPendingA = countPendingTransactions(a);
@@ -46,7 +46,7 @@ const subadminUsers = await User.find({ isSubAdminWithdrawals: true });
       const response = NextResponse.json({
         message: "successful",
         success: true,
-        subadminUsers,
+        subadminUsersWithFunds,
       });
 
       // Return the response or use it as needed
