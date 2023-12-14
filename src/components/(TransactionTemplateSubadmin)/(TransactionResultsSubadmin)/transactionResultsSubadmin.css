@@ -23,7 +23,6 @@
 .transaction_result-subadmin > span:first-child {
   height: 100%;
   border-radius: 4px;
-  background: red;
 }
 .small_device_group {
   display: flex;

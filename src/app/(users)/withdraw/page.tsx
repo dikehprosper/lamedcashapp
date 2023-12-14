@@ -43,6 +43,7 @@ const Withdraw = () => {
     cashdeskId: "",
   });
 
+
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
@@ -67,7 +68,6 @@ const Withdraw = () => {
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUserInfo");
-      console.log(res)
         setSavedID(res.data.data.betID);
         setActiveBetId(res.data.data.betID[0]);
       setUser({
@@ -97,9 +97,6 @@ const Withdraw = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(user.betId)
-  }, [user])
 
   useEffect(() => {
     // Check network status before making the request
@@ -113,6 +110,11 @@ const Withdraw = () => {
   }, [isOnline]);
 
  
+
+    useEffect(() => {
+    console.log(user)
+  },[user])
+
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
@@ -156,7 +158,6 @@ const Withdraw = () => {
   //check email and password state to determine ButtonDisabled state
   useEffect(() => {
     if (
-      user._id &&
       user.betId &&
       user.withdrawalCode &&
       user.amount &&
@@ -169,19 +170,16 @@ const Withdraw = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    console.log(user);
-  });
 
   useEffect(() => {
     async function getAvailableCashdeskAddress() {
       try {
         const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
-        console.log(res.data.selectedSubadmin);
-        setCashdeskAddress(res.data.selectedSubadmin);
+        console.log(res.data.subadminWithLowestPendingCount);
+        setCashdeskAddress(res.data.subadminWithLowestPendingCount);
         setUser({
           ...user,
-          cashdeskId: res.data.selectedSubadmin._id,
+          cashdeskId: res.data.subadminWithLowestPendingCount._id,
         });
       } catch (error: any) {
         console.error(error.message);
@@ -196,9 +194,6 @@ const Withdraw = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    console.log(cashdeskAddress._id);
-  });
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -233,13 +228,13 @@ const Withdraw = () => {
           momoNumber: user.momoNumber,
           cashdeskId: cashdeskAddress._id,
         };
-
+console.log(updatedUser)
         // Send the updated user to the server
         const res = await axios.post("/api/users/withdraw", updatedUser);
         console.log(res);
         setReceipt(res.data.userTransaction);
         setIsVisible(true);
-        // router.push("/dashboard");
+        router.push("/dashboard");
         toast.success("withdraw request Submitted");
       } catch (error: any) {
         console.log(error);

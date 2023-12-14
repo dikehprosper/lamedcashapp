@@ -48,11 +48,11 @@ const Modal = ({
             style={{
               background:
                 receipt.status === "Successful"
-                  ? "rgba(0, 256, 0, 0.9)"
+                  ? "rgba(0, 128, 0, 0.4)"
                   : receipt.status === "Pending"
-                  ? "rgba(128, 128, 128, 0.9)"
-                  : "rgba(256, 0, 0, 0.9)",
-              color: "white",
+                  ? "rgba(128, 128, 128, 0.6)"
+                  : "rgba(256, 0, 0, 0.6)",
+              color: "rgba(256, 256, 256, 0.8)",
               borderRadius: "3px",
             }}
           >
@@ -66,10 +66,10 @@ const Modal = ({
             <TbPigMoney />
           </div>
           <div>
-            <div style={{ color: "green", fontWeight: "bold" }}>
-              Montant du dépôt
+            <div style={{ color: receipt?.type === "withdrawals" ? "rgba(0, 118, 184, 0.7)" : "rgba(0, 184, 118, 0.7)", fontWeight: "bold" }}>
+              Montant du {receipt?.type === "withdrawals" ? "retraits" : "dépôt"}
             </div>
-            <div style={{ fontWeight: "bold" }}>
+            <div style={{ fontWeight: "bold", color: receipt?.type === "withdrawals" ? "rgba(0, 118, 184, 0.7)" : "rgba(0, 184, 118, 0.7)", }}>
               {" "}
               XOF{" "}
               {typeof receipt?.amount === "number"
@@ -81,8 +81,8 @@ const Modal = ({
         <div className='receiptModal_inner3'>
           <div
             style={{
-              color: "green",
-              display: "flex",
+           color: "rgba(128, 128, 128, 0.9)",
+             display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
             }}
@@ -90,12 +90,12 @@ const Modal = ({
             1xBET ID:
           </div>
 
-          <div>lkjhgfdfgh</div>
+          <div>{receipt?.betId}</div>
         </div>
         <div className='receiptModal_inner4'>
           <div
             style={{
-              color: "green",
+            color: "rgba(128, 128, 128, 0.9)",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
@@ -103,13 +103,26 @@ const Modal = ({
           >
             identifiant de transaction:
           </div>
-          <div> {receipt?.betId} </div>
+          <div> {receipt?.identifierId} </div>
+        </div>
+           <div className='receiptModal_inner4'>
+          <div
+            style={{
+             color: "rgba(128, 128, 128, 0.9)",
+             display: "flex",
+              justifyContent: "flex-end",
+              fontWeight: "bold",
+            }}
+          >
+            withdrawalCode:
+          </div>
+          <div> {receipt?.withdrawalCode} </div>
         </div>
         <div className='receiptModal_inner5'>
           <div
             style={{
-              color: "green",
-              display: "flex",
+               color: "rgba(128, 128, 128, 0.9)",
+            display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
             }}
@@ -121,24 +134,24 @@ const Modal = ({
         <div className='receiptModal_inner6'>
           <div
             style={{
-              color: "green",
+              color: "rgba(128, 128, 128, 0.9)",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
             }}
           >
-            nom:{" "}
+            Nom:{" "}
           </div>
           <div>
             {" "}
-            {receipt?.username ? receipt?.username : receipt?.momoName}
+                 {receipt?.momoName ? receipt?.momoName : receipt?.momoName}
           </div>
         </div>
         <div className='receiptModal_inner7'>
           <div
             style={{
-              color: "green",
-              display: "flex",
+            color: "rgba(128, 128, 128, 0.9)",
+             display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
             }}

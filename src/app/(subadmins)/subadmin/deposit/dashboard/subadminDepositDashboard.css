@@ -5,7 +5,7 @@
   height: auto;
   flex-direction: column;
 min-height: 100vh;
-/* max-height: 190vh; */
+max-height: 100vh;
   flex-direction: column;
   overflow: hidden;
 flex: 1;
@@ -15,18 +15,21 @@ flex: 1;
   .subadmin_dashboard_container {
     margin-left: 0px;
     padding: 90px 35px 10px 35px;
+    max-height: 170vh;
   }
 }
 
 @media (max-width: 620px) {
   .subadmin_dashboard_container {
     padding: 82px 20px 10px 20px;
+    max-height: 170vh;
   }
 }
 
 @media (max-width: 450px) {
   .subadmin_dashboard_container {
     padding: 82px 16px 10px 16px;
+    max-height: 170vh;
   }
 }
 

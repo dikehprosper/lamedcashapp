@@ -2,7 +2,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import "./transactionTemplateSubadmin.css";
+import "./transactionTemplateSubadminDashboard.css";
 import AnimateHeight from "react-animate-height";
 import { TransactionTemplatePropsSubadmins } from "@/types";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
@@ -14,10 +14,9 @@ import { IoMdArrowDropup } from "react-icons/io";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
-
 const SubadminTransactionTemplate = ({ title, select, name ,
-totalSuccessful, totalFailed, data, allData, showReceipt
-}: TransactionTemplatePropsSubadmins ) => {
+totalSuccessful, totalFailed, data, allData, showReceipt,  getUserDetails
+}: any ) => {
   // Access the query object to get the passed parameter
   
 
@@ -40,7 +39,9 @@ totalSuccessful, totalFailed, data, allData, showReceipt
     param1: state,
   };
 
-
+    useEffect(() => {
+console.log(data)
+  }, [data])
 
 // useEffect(() => {
 //   if (allData) {
@@ -68,6 +69,7 @@ totalSuccessful, totalFailed, data, allData, showReceipt
 
 
 
+
   useEffect(() => {
     // Save state to localStorage whenever it changes
     localStorage.setItem("transactionTemplateSubadminState", JSON.stringify(state));
@@ -76,15 +78,15 @@ totalSuccessful, totalFailed, data, allData, showReceipt
       setStateViewMore(data?.length > 3);
     } else if (state === select.secondSelect.big) {
       setStateViewMore(
-        data?.filter((item) => item.status === "Pending").length > 3
+        data?.filter((item: { status: string; }) => item.status === "Pending").length > 3
       );
     } else if (state === select.thirdSelect.big) {
       setStateViewMore(
-        data?.filter((item) => item.status === "Successful").length > 3
+        data?.filter((item: { status: string; }) => item.status === "Successful").length > 3
       );
     } else if (state === select.fourthSelect.big) {
       setStateViewMore(
-        data?.filter((item) => item.status === "Failed").length > 3
+        data?.filter((item: { status: string; }) => item.status === "Failed").length > 3
       );
     }
   }, [state, data]);
@@ -104,7 +106,7 @@ totalSuccessful, totalFailed, data, allData, showReceipt
   function changeState2(value: any) {
     setLoading(true);
     setState(value);
-    if (data?.filter((item) => item.status === "Pending").length > 3) {
+    if (data?.filter((item: { status: string; }) => item.status === "Pending").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -118,7 +120,7 @@ totalSuccessful, totalFailed, data, allData, showReceipt
     setLoading(true);
     setState(value);
 
-    if (data?.filter((item) => item.status === "Successful").length > 3) {
+    if (data?.filter((item: { status: string; }) => item.status === "Successful").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -133,7 +135,7 @@ totalSuccessful, totalFailed, data, allData, showReceipt
     setLoading(true);
     setState(value);
 
-    if (data?.filter((item) => item.status === "Failed").length > 3) {
+    if (data?.filter((item: { status: string; }) => item.status === "Failed").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -151,14 +153,15 @@ totalSuccessful, totalFailed, data, allData, showReceipt
         background: "rgba(0, 0, 0, 0.5)",
         alignItems: "center",
         justifyContent: "center",
-      }}
+   }}
     >
       <div id='container-signin_subadmin'>
         <div id='html-spinner-signin_subadmin'></div>
       </div>
     </div>
   ) : (
-    <div className='transaction_template_container_subadmin-1'>
+    <div className='transaction_template_container_subadmin-1' 
+>
       <div className='transaction_template_container_header_subadmin'>
         <span className='transaction_template_container_header_1_subadmin'>
           {title.name} {title.icon}
@@ -327,7 +330,7 @@ totalSuccessful, totalFailed, data, allData, showReceipt
               marginTop: "5px",
             }}
           >
-            {pathname === "/subadmin/deposit/transactions" ? (
+            {pathname === "/subadmin/deposit/transactions" || pathname === "/subadmin/withdrawal/transactions" ? (
               state === "Les ordres en attente" ? (
                 data?.filter((item: any) => item.status === "Pending").length >
                 0 ? (
@@ -351,6 +354,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                          showReceipt={showReceipt}
                         username={filteredData.username}
                         userNumber={filteredData.userNumber}
+                         getUserDetails={getUserDetails}
+                          withdrawalCode= {filteredData.withdrawalCode}
+                          momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
                       />
                     ))
                 ) : (
@@ -394,6 +401,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                          showReceipt={showReceipt}
                          username= {filteredData.username}
                         userNumber= {filteredData.userNumber}
+                         withdrawalCode= {filteredData.withdrawalCode}
+                         getUserDetails={getUserDetails}
+                         momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
                       />
                     ))
                 ) : (
@@ -437,6 +448,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                          showReceipt={showReceipt}
                           username= {filteredData.username}
                         userNumber= {filteredData.userNumber}
+                         withdrawalCode= {filteredData.withdrawalCode}
+                         getUserDetails={getUserDetails}
+                         momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
                       />
                     ))
                 ) : (
@@ -477,6 +492,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                        showReceipt={showReceipt}
                          username= {data.username}
                         userNumber= {data.userNumber}
+                         withdrawalCode= {data.withdrawalCode}
+                         getUserDetails={getUserDetails}
+                         momoName={data.momoName}
+                        momoNumber={data.momoNumber}
                     />
                   ))
               ) : (
@@ -521,6 +540,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                        showReceipt={showReceipt}
                          username= {filteredData.username}
                         userNumber= {filteredData.userNumber}
+                        withdrawalCode= {filteredData.withdrawalCode}
+                         getUserDetails={getUserDetails}
+                         momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
                     />
                   ))
               ) : (
@@ -565,6 +588,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                        showReceipt={showReceipt}
                           username= {filteredData.username}
                         userNumber= {filteredData.userNumber}
+                         withdrawalCode= {filteredData.withdrawalCode}
+                         getUserDetails={getUserDetails}
+                         momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
                     />
                   ))
               ) : (
@@ -609,6 +636,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                        showReceipt={showReceipt}
                            username= {filteredData.username}
                         userNumber= {filteredData.userNumber}
+                         withdrawalCode= {filteredData.withdrawalCode}
+                         getUserDetails={getUserDetails}
+                         momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
                     />
                   ))
               ) : (
@@ -650,6 +681,10 @@ totalSuccessful, totalFailed, data, allData, showReceipt
                     showReceipt={showReceipt}
                         username= {data.username}
                         userNumber= {data.userNumber}
+                         withdrawalCode= {data.withdrawalCode}
+                         getUserDetails={getUserDetails}
+                         momoName={data.momoName}
+                        momoNumber={data.momoNumber}
                   />
                 ))
             ) : (
@@ -671,12 +706,12 @@ totalSuccessful, totalFailed, data, allData, showReceipt
               </div>
             )}
 
-            {pathname === "/subadmin/deposit/transactions" ? null : viewMore ===
+            {pathname === "/subadmin/deposit/transactions" || pathname === "/subadmin/withdrawal/transactions" ? null : viewMore ===
               true ? (
               <div className='view-more'>
                 <Link
                   href={{
-                    pathname: "/subadmin/deposit/transactions",
+                    pathname: pathname === "/subadmin/deposit/dashboard" ? "/subadmin/deposit/transactions"  : "/subadmin/withdrawal/transactions",
                     query: { slug: state },
                   }}
                 >

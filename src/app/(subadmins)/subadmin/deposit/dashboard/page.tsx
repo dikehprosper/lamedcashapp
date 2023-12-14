@@ -11,7 +11,7 @@ import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Modal from "@/components/(Utils)/(modals)/receiptModalSubadminDeposit";
-import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadmin";
+import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadminDashboard";
 
 type ShowReceiptFunction = (
   time: string,
@@ -181,6 +181,7 @@ function SubadminDepositDashboard() {
         data={data?.transactionHistory}
         allData={data}
         showReceipt={showReceipt}
+        getUserDetails={getUserDetails}
       />
     </div>
   );

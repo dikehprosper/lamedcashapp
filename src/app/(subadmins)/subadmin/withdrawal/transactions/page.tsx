@@ -11,19 +11,8 @@ import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Modal from "@/components/(Utils)/(modals)/receiptModalSubadminDeposit";
-import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadmin";
+import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadminTransactions";
 
-type ShowReceiptFunction = (
-  time: string,
-  amount: number,
-  transactionId: string,
-  identifierId: string,
-  betId: string,
-  status: string,
-  type: string,
-  username: string,
-  userNumber: number
-) => void;
 
 function SubadminWithdrawalDashboard() {
   const router = useRouter();
@@ -38,20 +27,22 @@ function SubadminWithdrawalDashboard() {
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
-         if (error.response.status === 401) {
-           toast.error(
-             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
-           );
-           router.push("/signin"); // Replace '/login' with your actual login route
-         } else if (error.response.status === 402) {
-           toast.error("Votre session a expiré. Redirection vers la connexion...");
-           router.push("/signin"); // Replace '/login' with your actual login route
-         } else {
-           // Handle other errors
-           toast.error(
-             "Une erreur s'est produite. Veuillez réessayer plus tard."
-           );
-         }
+        if (error.response.status === 401) {
+          toast.error(
+            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+          );
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else if (error.response.status === 402) {
+          toast.error(
+            "Votre session a expiré. Redirection vers la connexion..."
+          );
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else {
+          // Handle other errors
+          toast.error(
+            "Une erreur s'est produite. Veuillez réessayer plus tard."
+          );
+        }
       } else if (error.request) {
         // Handle network errors (no connection)
         setIsOnline(false);
@@ -97,7 +88,7 @@ function SubadminWithdrawalDashboard() {
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
-  const showReceipt: ShowReceiptFunction = (
+  function showReceipt(
     time,
     amount,
     transactionId,
@@ -105,9 +96,10 @@ function SubadminWithdrawalDashboard() {
     betId,
     status,
     type,
-    username,
-    userNumber
-  ) => {
+    momoName,
+    momoNumber,
+    withdrawalCode
+  ) {
     setIsVisible(true);
     setReceipt({
       time,
@@ -116,14 +108,12 @@ function SubadminWithdrawalDashboard() {
       identifierId,
       betId,
       status,
-      username,
-      userNumber,
+       type,
+      momoName,
+      momoNumber,
+      withdrawalCode
     });
   };
-
-  useEffect(() => {
-    console.log(receipt);
-  }, [receipt]);
 
   useEffect(() => {
     // Check initial network status
@@ -179,6 +169,7 @@ function SubadminWithdrawalDashboard() {
         data={data?.transactionHistory}
         allData={data}
         showReceipt={showReceipt}
+         getUserDetails={getUserDetails}
       />
     </div>
   );

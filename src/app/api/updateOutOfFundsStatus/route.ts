@@ -3,15 +3,17 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 export async function GET(request: NextRequest) {
-    console.log("userIdyufuyfyufuyfiuufiogkiugigkuguygugugkugkguyh");
-  try {
+ try {
    const { userId, sessionId } = await getDataFromToken(request);
     const user = await User.findOne({ _id: userId }).select("-password");
     user.isOutOfFunds = !user.isOutOfFunds;
+
     await user.save();
+    const status = user.isOutOfFunds
     const response = NextResponse.json({
       message: "updated successful",
       success: true,
+   status
     });
     return response;
   } catch (error: any) {

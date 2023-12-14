@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./subadminHead.css";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -15,8 +15,8 @@ const SubadminHead = ({ title, about, data }: any) => {
     setIsLoading(true);
     setIsSubmitting(true);
     try {
-      await axios.get("/api/updateOutOfFundsStatus");
-      setIsOutOfFunds(!isOutOfFunds);
+      const response = await axios.get("/api/updateOutOfFundsStatus");
+      setIsOutOfFunds(response.data.status);
       toast.success("Soumis avec succès");
     } catch (error: any) {
       return toast.error("Échec de mise à jour");
@@ -25,6 +25,15 @@ const SubadminHead = ({ title, about, data }: any) => {
       setIsLoading(false);
     }
   }
+   useEffect(() => {
+    console.log(data);
+  },
+    [data])
+
+  useEffect(() => {
+    setIsOutOfFunds(data?.isOutOfFunds);
+  },
+    [data?.isOutOfFunds])
 
   return (
     <>

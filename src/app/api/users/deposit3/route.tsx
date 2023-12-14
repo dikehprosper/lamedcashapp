@@ -10,9 +10,9 @@ export async function POST(request: NextRequest) {
     console.log(reqBody);
     // Create the transaction
     /* Replace YOUR_API_SECRET_KEY by your API secret key */
-    FedaPay.setApiKey(process.env.FEDAPAY_KEY2!);
+    FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
     /* Specify whenever you are willing to execute your request in test or live mode */
-    FedaPay.setEnvironment("live"); //or setEnvironment('live');
+    FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
     /* Create the transaction */
 
     console.log(process.env.DOMAIN!, "domain");
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
         iso: "XOF",
       },
       customer: {
-        email: email,
+        email: "dikehprosper12@gmail.com",
       },
     });
     console.log(transaction.id);
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     // const url1 = token.url;
 
     const apiUrl = "https://api.fedapay.com/v1/mtn";
-    const apiKey = process.env.FEDAPAY_KEY2!;
+    const apiKey = process.env.FEDAPAY_KEY!;
 
     const response = await fetch(apiUrl, {
       method: "POST",

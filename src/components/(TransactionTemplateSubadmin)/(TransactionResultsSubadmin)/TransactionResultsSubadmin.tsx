@@ -25,18 +25,21 @@ const TransactionResultsSubadmin = ({
   showReceipt,
   username,
   userNumber,
-}: TransactionResultsSubadminProps) => {
+  momoName,
+  momoNumber,
+   getUserDetails,
+    withdrawalCode
+}: any) => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [acceptLoading, setAcceptLoading] = useState(false);
   const [rejectLoading, setRejectLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStatus, setCurrentStatus] = useState(status);
   const [isSubmittedStatus, setIsSubmittedStatus] = useState(isSubmitted);
-  // useEffect(() => {
-  //   console.log(isSubmittedStatus);
-  // }, [isSubmittedStatus]);
 
-   async function rejectDeposit() {
+
+
+   async function reject() {
      if (isSubmitting) {
        return;
      }
@@ -49,11 +52,12 @@ const TransactionResultsSubadmin = ({
          identifierId: identifierId,
          cashdeskId: cashdeskId,
        };
-       const response = await axios.post("/api/subadminDepositUpdate", info);
+       const response = await axios.post("/api/subadminTransactionUpdate", info);
        setCurrentStatus(response.data.currentTransactionSubadminStatus);
        setIsSubmittedStatus(
          response.data.currentTransactionSubadminIsSubmitted
        );
+        getUserDetails()
        toast.success("Updated Successfully");
        setRejectLoading(false);
        setButtonDisabled(true);
@@ -67,7 +71,9 @@ const TransactionResultsSubadmin = ({
      }
    }
 
-  async function acceptDeposit() {
+ 
+
+  async function accept() {
     if (isSubmitting) {
       return;
     }
@@ -80,9 +86,11 @@ const TransactionResultsSubadmin = ({
         identifierId: identifierId,
         cashdeskId: cashdeskId,
       };
-      const response = await axios.post("/api/subadminDepositUpdate", info);
+      // console.log(info)
+      const response = await axios.post("/api/subadminTransactionUpdate", info);
       setCurrentStatus(response.data.currentTransactionSubadminStatus);
       setIsSubmittedStatus(response.data.currentTransactionSubadminIsSubmitted);
+       getUserDetails()
       toast.success("Soumis avec succès");
       setAcceptLoading(false);
       setButtonDisabled(true);
@@ -96,6 +104,8 @@ const TransactionResultsSubadmin = ({
     }
   }
 
+
+
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -103,7 +113,7 @@ const TransactionResultsSubadmin = ({
   };
 
   const handleClick = () => {
-    showReceipt?.(
+    showReceipt(
       time,
       amount,
       transactionId,
@@ -111,8 +121,9 @@ const TransactionResultsSubadmin = ({
       betId,
       status,
       type,
-      username,
-      userNumber
+      momoName,
+      momoNumber,
+      withdrawalCode
     );
   };
 
@@ -145,9 +156,9 @@ const TransactionResultsSubadmin = ({
             </span>
             <span className='transactionId'>
               <b style={{ color: "rgba(256, 256, 256, 0.4" }}>
-                Transaction ID: &nbsp;
+               WithdrawalCode: &nbsp;
               </b>{" "}
-              {transactionId}
+              {withdrawalCode}
             </span>
           </span>
         </span>
@@ -172,11 +183,11 @@ const TransactionResultsSubadmin = ({
             style={{
               background: isSubmittedStatus
                 ? "rgba(128, 128, 128, 0.2)"
-                : "rgba(0, 128, 0, .7)",
+                : "rgba(0, 128, 0, .5)",
               pointerEvents: isSubmittedStatus ? "none" : "auto",
               color: isSubmittedStatus ? "rgba(128, 128, 128, 0.4)" : "white",
             }}
-            onClick={acceptDeposit}
+            onClick={accept}
           >
             {acceptLoading ? (
               <div id='container-result_subadmin_all'>
@@ -190,11 +201,11 @@ const TransactionResultsSubadmin = ({
             style={{
               background: isSubmittedStatus
                 ? "rgba(128, 128, 128, 0.2)"
-                : "rgba(128, 0, 0, .7)",
+                : "rgba(128, 0, 0, .5)",
               pointerEvents: isSubmittedStatus ? "none" : "auto",
               color: isSubmittedStatus ? "rgba(128, 128, 128, 0.4)" : "white",
             }}
-            onClick={rejectDeposit}
+        onClick={reject}
           >
             {rejectLoading ? (
               <div id='container-result_subadmin_all'>
@@ -245,7 +256,7 @@ const TransactionResultsSubadmin = ({
                       ? "rgba(128, 128, 128, 0.4)"
                       : "white",
                   }}
-                  onClick={acceptDeposit}
+                  onClick={accept}
                 >
                   {acceptLoading ? (
                     <div id='container-result_subadmin_all'>
@@ -266,7 +277,7 @@ const TransactionResultsSubadmin = ({
                       ? "rgba(128, 128, 128, 0.4)"
                       : "white",
                   }}
-                  onClick={rejectDeposit}
+                  onClick={reject}
                 >
                   {rejectLoading ? (
                     <div id='container-result_subadmin_all'>

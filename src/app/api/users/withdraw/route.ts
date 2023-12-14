@@ -79,6 +79,8 @@ export async function POST(request: NextRequest) {
       betId,
       fundingType: "withdrawals",
       identifierId: newUuid,
+       momoName,
+      momoNumber,
     };
 
     // Add the current pending transaction to the subadmin user

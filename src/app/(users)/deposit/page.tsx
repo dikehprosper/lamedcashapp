@@ -25,11 +25,34 @@ const Deposit = () => {
     amount: "",
     ussdCode: "",
     transactionId: "",
-    email: ""
+    email: "",
+    cashdeskId: "",
   });
   const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
   const [isOnline, setIsOnline] = useState(true);
+
+
+   useEffect(() => {
+    async function getAvailableCashdeskAddress() {
+      try {
+        const res = await axios.get("/api/getAvailableCashdeskDeposit");
+
+        setUser({
+          ...user,
+          cashdeskId: res.data.subadminWithLowestPendingCount._id,
+        });
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }
+
+    // Check if running on the client-side before making the request
+    if (typeof window !== "undefined") {
+      getAvailableCashdeskAddress();
+    }
+  }, []);
+
 
   const getUserDetails = async () => {
     try {
@@ -67,9 +90,6 @@ const Deposit = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(user)
-  })
 
   useEffect(() => {
     // Check network status before making the request
@@ -115,22 +135,7 @@ const Deposit = () => {
       console.error("Phone call initiation is not supported in this browser.");
     }
   }
-  // useEffect(() => {
-  //     setUser({
-  //       ...user,
-  //       betId: activeBetId,
-  //     });
-  // }, [activeBetId, user])
 
-  // useEffect(() => {
-  //    savedID.map((id) => {
-  //     if (id === user.betId) {
-  //       setActiveBetId(id)
-  //     } else {
-  //         setActiveBetId(id);
-  //     }
-  //    })
-  // }, [user.betId])
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
@@ -196,6 +201,20 @@ const Deposit = () => {
     } else {
       try {
         setIsSubmitting(true);
+
+
+        // Update user with the new values
+        const updatedUser = {
+          ...user,
+          betId: activeBetId,
+          transactionId: user.transactionId,
+          amount: user.amount,
+          cashdeskId: user.cashdeskId,
+          network: user.network,
+           email: user.email,
+            ussdCode: user.ussdCode,
+        };
+
         const res = await axios.post("/api/users/deposit", user);
         console.log(res);
         router.push("/dashboard");
@@ -243,17 +262,6 @@ const Deposit = () => {
     }
   }, [user]);
 
-  // const handlePayment = async () => {
-  //   try {
-  //     const baseUrl = "/api/users/deposit";
-
-  //     const response = await axios.post(baseUrl);
-
-  //     const token = `Bearer ${response.data.token}`;
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // };
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -326,29 +334,6 @@ const Deposit = () => {
         }
       }
     };
-
-// const FedapayCheckout = () => {
-//   const publicKey = "VOTRE_CLE_API_PUBLIQUE"; // Replace with your actual public key
-//   const fedapay = new FedaPay(publicKey);
-
-//   // Initialize FedaPay checkout
-//   const checkoutOptions = {
-//     amount: 1000, // Set the initial amount as needed
-//     description: "Acheter mon produit",
-//     customer: {
-//       email: "johndoe@gmail.com",
-//       lastname: "Doe",
-//       firstname: "John",
-//     },
-//   };
-
-//   fedapay.checkout(checkoutOptions);
-
-//   // Clean up the script when the component unmounts
-//   return () => {
-//     // You may need to clean up resources associated with the checkout
-//   };
-// };
 
   return (
     <div className='user_withdraw_container'>

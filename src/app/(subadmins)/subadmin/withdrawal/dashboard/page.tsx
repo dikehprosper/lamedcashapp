@@ -11,19 +11,8 @@ import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Modal from "@/components/(Utils)/(modals)/receiptModalSubadminDeposit";
-import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadmin";
+import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadminDashboard";
 
-type ShowReceiptFunction = (
-  time: string,
-  amount: number,
-  transactionId: string,
-  identifierId: string,
-  betId: string,
-  status: string,
-  type: string,
-  username: string,
-  userNumber: number
-) => void;
 
 function SubadminDepositDashboard() {
   const router = useRouter();
@@ -38,20 +27,22 @@ function SubadminDepositDashboard() {
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
-         if (error.response.status === 401) {
-           toast.error(
-             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
-           );
-           router.push("/signin"); 
-         } else if (error.response.status === 402) {
-           toast.error("Votre session a expiré. Redirection vers la connexion...");
-           router.push("/signin"); 
-         } else {
-           // Handle other errors
-           toast.error(
-             "Une erreur s'est produite. Veuillez réessayer plus tard."
-           );
-         }
+        if (error.response.status === 401) {
+          toast.error(
+            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+          );
+          router.push("/signin");
+        } else if (error.response.status === 402) {
+          toast.error(
+            "Votre session a expiré. Redirection vers la connexion..."
+          );
+          router.push("/signin");
+        } else {
+          // Handle other errors
+          toast.error(
+            "Une erreur s'est produite. Veuillez réessayer plus tard."
+          );
+        }
       } else if (error.request) {
         // Handle network errors (no connection)
         setIsOnline(false);
@@ -97,7 +88,7 @@ function SubadminDepositDashboard() {
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
-  const showReceipt: ShowReceiptFunction = (
+   function showReceipt(
     time,
     amount,
     transactionId,
@@ -105,9 +96,10 @@ function SubadminDepositDashboard() {
     betId,
     status,
     type,
-    username,
-    userNumber
-  ) => {
+    momoName,
+    momoNumber,
+    withdrawalCode
+  ) {
     setIsVisible(true);
     setReceipt({
       time,
@@ -116,14 +108,13 @@ function SubadminDepositDashboard() {
       identifierId,
       betId,
       status,
-      username,
-      userNumber,
+       type,
+      momoName,
+      momoNumber,
+      withdrawalCode
     });
   };
 
-  useEffect(() => {
-    console.log(receipt);
-  }, [receipt]);
 
   useEffect(() => {
     // Check initial network status
@@ -147,8 +138,8 @@ function SubadminDepositDashboard() {
     <div className='subadmin_dashboard_container_withdrawal'>
       {isVisible && (
         <Modal
-          containerStyles='receiptModal_withdrawal'
-          containerStylesInner='receiptModal_inner_withdrawal'
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner'
           handleClick={() => setIsVisible(false)}
           receipt={receipt}
           title='Montant du Retraits'
@@ -181,6 +172,7 @@ function SubadminDepositDashboard() {
         data={data?.transactionHistory}
         allData={data}
         showReceipt={showReceipt}
+         getUserDetails={getUserDetails}
       />
     </div>
   );

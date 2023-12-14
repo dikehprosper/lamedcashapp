@@ -59,24 +59,7 @@ export async function POST(request: NextRequest) {
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
-      const hashedPassword = await bcryptjs.hash(password, salt);
-
-      // GIVING DEPOSIT CASHDESK DIAL CODE
-      // const cashdesk =
-      //   email === "cashdesk1@espece.com"
-      //     ? "100000"
-      //     : "cashdesk2@espece.com"
-      //     ? "200000"
-      //     : "cashdesk3@espece.com"
-      //     ? "300000"
-      //     : "cashdesk4@espece.com"
-      //     ? "400000"
-      //     : "cashdesk5@espece.com"
-      //     ? "500000"
-      //     : "cashdesk6@espece.com"
-      //     ? "600000"
-      //     : "";
-      //create a new user
+      const hashedPassword = await bcryptjs.hash(password, salt)
       const newUser = new User({
         fullname,
         betId,
@@ -100,7 +83,7 @@ export async function POST(request: NextRequest) {
         isAdmin: savedUser.isAdmin,
         isSubAdminDeposits: savedUser.isSubAdminDeposits,
         isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
-        sessionId: user.sessionId,
+        sessionId: savedUser.sessionId,
       };
 
       // create token
@@ -125,7 +108,7 @@ export async function POST(request: NextRequest) {
     // CREATE USER FOR CASHDESK WITHDRAWAL
     if (
       email === "cashdesk6@betfundr.com" ||
-      email === "cashdesk7@betfundr.com"
+      email === "cashdesk7@betfundr.com" || email === "cashdesk8@betfundr.com" || email === "cashdesk9@betfundr.com"
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
@@ -147,6 +130,11 @@ export async function POST(request: NextRequest) {
           ? {
               city: "YourCity3",
               street: "YourStreet3",
+            }
+          : email === "cashdesk9@betfundr.com"
+          ? {
+              city: "YourCity4",
+              street: "YourStreet4",
             }
           : null; // Handle the case when the email doesn't match any condition
 
@@ -176,7 +164,7 @@ export async function POST(request: NextRequest) {
         isAdmin: savedUser.isAdmin,
         isSubAdminDeposits: savedUser.isSubAdminDeposits,
         isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
-        sessionId: user.sessionId,
+        sessionId: savedUser.sessionId,
       };
 
       // create token
@@ -226,7 +214,7 @@ export async function POST(request: NextRequest) {
         isAdmin: savedUser.isAdmin,
         isSubAdminDeposits: savedUser.isSubAdminDeposits,
         isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
-        sessionId: user.sessionId,
+        sessionId: savedUser.sessionId,
       };
 
       // create token
@@ -279,49 +267,10 @@ export async function POST(request: NextRequest) {
       isUser: savedUser.isUser,
       isSubAdminDeposits: savedUser.isSubAdminDeposits,
       isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
-      sessionId: user.sessionId,
+      sessionId: savedUser.sessionId,
     };
 
-    //verify Number
-    // if (countryCode !== allowedCountryCode) {
-    //     // If the country code is not Benin, reject the request
-    //     res.status(400).json({ valid: false, message: 'Invalid country code.' });
-    //     return;
-    //   }
-
-    //   const parsedPhoneNumber = phoneUtil.parse(phoneNumber, countryCode);
-    //   const isValid = phoneUtil.isValidNumber(parsedPhoneNumber);
-
-    //   if (isValid) {
-    //     const phonePrefix = parsedPhoneNumber.getCountryCode() + parsedPhoneNumber.getNationalNumber().toString().substring(0, 2);
-    //     let network;
-
-    //     if (moovPrefixes.includes(phonePrefix)) {
-    //       network = 'Moov';
-    //     } else if (mtnPrefixes.includes(phonePrefix)) {
-    //       network = 'MTN';
-    //     } else {
-    //       res.status(400).json({ valid: false, message: 'Invalid network carrier.' });
-    //       return;
-    //     }
-
-    // // create the user fedapay account
-    // /* Replace YOUR_API_SECRET_KEY by your secret API key */
-    // FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
-
-    // /* Specify whenever you are willing to execute your request in test or live mode */
-    // FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
-
-    // /* Create the customer */
-    // const customer = await Customer.create({
-    //   firstname: "John",
-    //   lastname: "Doe",
-    //   email: "john@doe.com",
-    //   phone_number: {
-    //     number: "90090909",
-    //     country: "BJ",
-    //   },
-    // });
+   
 
     // create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {

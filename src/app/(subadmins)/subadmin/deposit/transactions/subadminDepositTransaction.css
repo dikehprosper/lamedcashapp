@@ -4,7 +4,8 @@
   padding: 27px 35px 20px 35px;
   height: auto;
   flex-direction: column;
-max-height: 100vh;
+ min-height: 100vh;
+    max-height: 100vh;
   flex-direction: column;
   overflow: hidden;
 flex: 1;

@@ -4,7 +4,8 @@
   padding: 27px 35px 20px 35px;
   height: auto;
   flex-direction: column;
-max-height: 100vh;
+  min-height: 100vh;
+    max-height: 100vh;
   flex-direction: column;
   overflow: hidden;
 flex: 1;
@@ -13,19 +14,20 @@ flex: 1;
 @media (max-width: 1028px) {
   .subadmin_transaction_container {
     margin-left: 0px;
-    padding: 90px 35px 10px 35px;
+    padding: 90px 18px 10px 18px;
   }
 }
 
 @media (max-width: 620px) {
   .subadmin_transaction_container {
-    padding: 82px 20px 10px 20px;
+    padding: 82px 18px 10px 18px;
+  
   }
 }
 
 @media (max-width: 450px) {
   .subadmin_transaction_container {
-    padding: 82px 16px 10px 16px;
+    padding: 82px 12px 10px 12px;
   }
 }
 

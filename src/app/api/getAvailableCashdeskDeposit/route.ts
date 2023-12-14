@@ -13,7 +13,7 @@ const countPendingTransactions = (subadmin: any) => {
   ).length;
 };
 
-const subadminUsers = await User.find({ isSubAdminWithdrawals: true });
+const subadminUsers = await User.find({ isSubAdminDeposits: true });
 
 // Filter subadmin users who are not out of funds
 const subadminUsersWithFunds = subadminUsers.filter(

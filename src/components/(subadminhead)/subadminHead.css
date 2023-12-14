@@ -5,6 +5,7 @@
   white-space: nowrap;
   gap: 5px;
   padding-top: 5px;
+  
 }
 
 .subadmin-title-container {
@@ -172,6 +173,7 @@
 @media (max-width: 1028px) {
   .small {
     display: flex;
+    padding: 0px 5px
   }
   .big {
     display: none;
