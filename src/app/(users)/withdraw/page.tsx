@@ -172,7 +172,8 @@ const Withdraw = () => {
     async function getAvailableCashdeskAddress() {
       try {
         const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
-        console.log(res.data.subadminUsersWithFunds);
+        console.log(res.data.subadminWithLowestPendingCountAddress);
+            console.log(res.data.subadminWithLowestPendingCountId);
         // setCashdeskAddress(res.data.subadminWithLowestPendingCount);
         // setUser({
         //   ...user,

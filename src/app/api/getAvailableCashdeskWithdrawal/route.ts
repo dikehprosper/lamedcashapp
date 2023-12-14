@@ -20,34 +20,41 @@ const subadminUsersWithFunds = subadminUsers.filter(
   (subadminUser) => !subadminUser.isOutOfFunds
 );
 
-console.log(subadminUsersWithFunds)
 
-// const sortedSubadmins = subadminUsersWithFunds.sort((a, b) => {
-//   const countPendingA = countPendingTransactions(a);
-//   const countPendingB = countPendingTransactions(b);
 
-//   // Sort in ascending order based on the count of "pending" transactions
-//   return countPendingA - countPendingB;
-// });
+const sortedSubadmins = subadminUsersWithFunds.sort((a, b) => {
+  const countPendingA = countPendingTransactions(a);
+  const countPendingB = countPendingTransactions(b);
 
-// // Log the sorted subadmins and individual counts
-// console.log("Sorted Subadmins:", sortedSubadmins);
-// sortedSubadmins.forEach((subadmin) => {
-//   console.log(
-//     `${subadmin.fullname}'s Pending Transaction Count:`,
-//     countPendingTransactions(subadmin)
-//   );
-// });
+  // Sort in ascending order based on the count of "pending" transactions
+  return countPendingA - countPendingB;
+});
 
-// const subadminWithLowestPendingCount = sortedSubadmins[0];
+// Log the sorted subadmins and individual counts
+console.log("Sorted Subadmins:", sortedSubadmins);
+sortedSubadmins.forEach((subadmin) => {
+  console.log(
+    `${subadmin.fullname}'s Pending Transaction Count:`,
+    countPendingTransactions(subadmin)
+  );
+});
 
-// console.log("Subadmin with the lowest count:", subadminWithLowestPendingCount);
+   const subadminWithLowestPendingCount = sortedSubadmins[0];
 
-      const response = NextResponse.json({
-        message: "successful",
-        success: true,
-        subadminUsersWithFunds,
-      });
+// Extract necessary information
+const subadminWithLowestPendingCountId = subadminWithLowestPendingCount?._id;
+const subadminWithLowestPendingCountAddress = subadminWithLowestPendingCount?.cashdeskAddress;
+
+console.log("Subadmin with the lowest count id:", subadminWithLowestPendingCountId);
+console.log("Subadmin with the lowest count address:", subadminWithLowestPendingCountAddress);
+
+
+const response = NextResponse.json({
+  message: "successful",
+  success: true,
+  subadminWithLowestPendingCountId,
+  subadminWithLowestPendingCountAddress,
+});
 
       // Return the response or use it as needed
       return response;
