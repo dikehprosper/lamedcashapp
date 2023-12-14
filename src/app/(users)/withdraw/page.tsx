@@ -111,10 +111,7 @@ const Withdraw = () => {
 
  
 
-    useEffect(() => {
-    console.log(user)
-  },[user])
-
+  
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
