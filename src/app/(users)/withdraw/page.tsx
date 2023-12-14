@@ -97,11 +97,26 @@ const Withdraw = () => {
     }
   };
 
+     async function getAvailableCashdeskAddress() {
+      try {
+        const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
+        setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
+        setUser({
+          ...user,
+          cashdeskId: res.data.subadminWithLowestPendingCountId,
+        });
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }
+
+
 
   useEffect(() => {
     // Check network status before making the request
     if (isOnline) {
       getUserDetails();
+         getAvailableCashdeskAddress();
     } else {
       toast.error(
         "No network connection. Please check your connection and try again."
@@ -168,28 +183,9 @@ const Withdraw = () => {
   }, [user]);
 
 
-  useEffect(() => {
-    async function getAvailableCashdeskAddress() {
-      try {
-        const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
-        setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
-        setUser({
-          ...user,
-          cashdeskId: res.data.subadminWithLowestPendingCountId,
-        });
-      } catch (error: any) {
-        console.error(error.message);
-      }
-    }
 
-    // Check if running on the client-side before making the request
-    if (typeof window !== "undefined") {
-      getAvailableCashdeskAddress();
-    }
-  }, []);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function handleSubmit(event) {
     event.preventDefault();
