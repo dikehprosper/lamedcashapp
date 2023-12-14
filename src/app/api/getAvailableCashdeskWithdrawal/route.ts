@@ -62,8 +62,13 @@ export async function GET(request: NextRequest) {
     });
 
     // Set Cache-Control header to prevent client-side caching
-    response.headers.set("Cache-Control", "no-store");
-
+    response.headers.set(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, private"
+    );
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+    response.headers.set("Vary", "Cookie");
     // Return the response or use it as needed
     return response;
   } catch (error: any) {
