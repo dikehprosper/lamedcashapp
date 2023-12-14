@@ -98,9 +98,18 @@ const Withdraw = () => {
     }
   };
 
+  function generateTimestamp() {
+    return Date.now();
+  }
+
+  // Example usage:
+  const newTimestamp = generateTimestamp();
+
+
+
   async function getAvailableCashdeskAddress() {
     try {
-      const res = await axios.get("/api/getAvailableCashdeskWithdrawal", { signal });
+      const res = await axios.post("/api/getAvailableCashdeskWithdrawal", newTimestamp);
       setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
         console.log(res.data.subadminWithLowestPendingCountAddress);
       setUser({

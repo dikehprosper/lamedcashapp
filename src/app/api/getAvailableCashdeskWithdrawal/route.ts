@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 
-export async function GET(request: NextRequest) {
-  try {
-    // Fetch all subadmin users who handle withdrawals
 
+export async function POST(request: NextRequest) {
+  try {
+    const reqBody = await request.json();
+
+    const  newTimestamp = await reqBody;
     // Function to count "Pending" transactions for a subadmin
     const countPendingTransactions = (subadmin: any) => {
       return subadmin.transactionHistory.filter(
@@ -53,9 +55,7 @@ export async function GET(request: NextRequest) {
       "Subadmin with the lowest count address:",
       subadminWithLowestPendingCountAddress
     );
-     console.log(
-      "bbbb"
-    );
+    console.log("bbbb");
 
     const response = NextResponse.json({
       message: "successful",
