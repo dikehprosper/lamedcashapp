@@ -11,6 +11,7 @@ import data from "../../../components/file";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
+const { signal } = new AbortController();
 
 type ShowReceiptFunction = (
   time: string,
@@ -99,7 +100,7 @@ const Withdraw = () => {
 
   async function getAvailableCashdeskAddress() {
     try {
-      const res = await axios.get("/api/getAvailableCashdeskWithdrawal", {cache: "no-store"});
+      const res = await axios.get("/api/getAvailableCashdeskWithdrawal", { signal });
       setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
         console.log(res.data.subadminWithLowestPendingCountAddress);
       setUser({
@@ -403,3 +404,5 @@ const Withdraw = () => {
 };
 
 export default Withdraw;
+
+export const dynamic = 'force-dynamic'
