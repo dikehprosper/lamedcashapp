@@ -11,7 +11,7 @@ import data from "../../../components/file";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
-
+const { signal } = new AbortController();
 type ShowReceiptFunction = (
   time: string,
   amount: number,
@@ -66,7 +66,7 @@ const Withdraw = () => {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("/api/getUserInfo");
+      const res = await fetch("/api/getUserInfo", { cache: 'no-store' });
       setSavedID(res.data.data.betID);
       setActiveBetId(res.data.data.betID[0]);
       setUser({
@@ -99,9 +99,10 @@ const Withdraw = () => {
 
   async function getAvailableCashdeskAddress() {
     try {
-     const res = await axios.get(
+     const res = await fetch(
        `/api/getAvailableCashdeskWithdrawal?timestamp=${Date.now()}`,
-     { cache: 'no-store' });
+      { cache: 'no-store' }
+     );
       setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
         console.log(res.data.subadminWithLowestPendingCountAddress);
       setUser({
@@ -405,3 +406,6 @@ const Withdraw = () => {
 };
 
 export default Withdraw;
+
+// Opt out of caching for all data requests in the route segment
+export const dynamic = 'force-dynamic'
