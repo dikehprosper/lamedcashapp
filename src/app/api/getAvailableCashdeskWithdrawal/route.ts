@@ -53,6 +53,9 @@ export async function GET(request: NextRequest) {
       "Subadmin with the lowest count address:",
       subadminWithLowestPendingCountAddress
     );
+     console.log(
+      "bbbb"
+    );
 
     const response = NextResponse.json({
       message: "successful",
@@ -61,14 +64,6 @@ export async function GET(request: NextRequest) {
       subadminWithLowestPendingCountAddress,
     });
 
-    // Set Cache-Control header to prevent client-side caching
-    response.headers.set(
-      "Cache-Control",
-      "no-store, no-cache, must-revalidate, private"
-    );
-    response.headers.set("Pragma", "no-cache");
-    response.headers.set("Expires", "0");
-    response.headers.set("Vary", "Cookie");
     // Return the response or use it as needed
     return response;
   } catch (error: any) {

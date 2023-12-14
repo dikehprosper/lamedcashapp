@@ -1,21 +1,21 @@
 import React from "react";
 import UserNav from "@/components/(Navs)/UserNav";
-
-async function getAvailableCashdeskAddress(): Promise<any> {
-  const res = await fetch(
-    `/api/getAvailableCashdeskWithdrawal?timestamp=${Date.now()}`,
-    { cache: "no-store" }
-  );
-  // setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
-  return res.json();
-  // setUser({
-  //   ...user,
-  //   cashdeskId: res.data.subadminWithLowestPendingCountId,
-  // });
-}
-const Referrals = async () => {
-  const [data] = await Promise.all([getAvailableCashdeskAddress()]);
-  console.log([data]);
+import axios from "axios"
+const Referrals = () => {
+  async function getAvailableCashdeskAddress() {
+    try {
+      const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
+      setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
+        console.log(res.data.subadminWithLowestPendingCountAddress);
+      setUser({
+        ...user,
+        cashdeskId: res.data.subadminWithLowestPendingCountId,
+      });
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  }
+getAvailableCashdeskAddress()
   return (
     <>
       {/* <UserNav /> */}
