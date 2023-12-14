@@ -43,11 +43,10 @@ const Withdraw = () => {
     cashdeskId: "",
   });
 
-
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
-   useEffect(() => {
+  useEffect(() => {
     // Check initial network status
     setIsOnline(window.navigator.onLine);
 
@@ -68,14 +67,13 @@ const Withdraw = () => {
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUserInfo");
-        setSavedID(res.data.data.betID);
-        setActiveBetId(res.data.data.betID[0]);
+      setSavedID(res.data.data.betID);
+      setActiveBetId(res.data.data.betID[0]);
       setUser({
         ...user,
         _id: res.data.data._id,
         betId: res.data.data.betID[0],
       });
-    
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -91,42 +89,39 @@ const Withdraw = () => {
           router.push("/signin"); // Replace '/login' with your actual login route
         } else {
           // Handle other errors
-          toast.error("Une erreur s'est produite. Veuillez réessayer plus tard.");
+          toast.error(
+            "Une erreur s'est produite. Veuillez réessayer plus tard."
+          );
         }
-      } 
+      }
     }
   };
 
-     async function getAvailableCashdeskAddress() {
-      try {
-        const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
-        setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
-        setUser({
-          ...user,
-          cashdeskId: res.data.subadminWithLowestPendingCountId,
-        });
-      } catch (error: any) {
-        console.error(error.message);
-      }
+  async function getAvailableCashdeskAddress() {
+    try {
+      const res = await axios.get("/api/getAvailableCashdeskWithdrawal");
+      setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
+        console.log(res.data.subadminWithLowestPendingCountAddress);
+      setUser({
+        ...user,
+        cashdeskId: res.data.subadminWithLowestPendingCountId,
+      });
+    } catch (error: any) {
+      console.error(error.message);
     }
-
-
+  }
 
   useEffect(() => {
     // Check network status before making the request
     if (isOnline) {
       getUserDetails();
-         getAvailableCashdeskAddress();
+      getAvailableCashdeskAddress();
     } else {
       toast.error(
         "No network connection. Please check your connection and try again."
       );
     }
-  }, [isOnline]);
-
- 
-
-  
+  }, []); // Empty dependency array means this effect runs once when the component mounts
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
@@ -182,10 +177,7 @@ const Withdraw = () => {
     }
   }, [user]);
 
-
-
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -220,7 +212,7 @@ const Withdraw = () => {
           momoNumber: user.momoNumber,
           cashdeskId: cashdeskAddress._id,
         };
-console.log(updatedUser)
+        console.log(updatedUser);
         // Send the updated user to the server
         const res = await axios.post("/api/users/withdraw", updatedUser);
         console.log(res);
