@@ -39,8 +39,6 @@ sortedSubadmins.forEach((subadmin) => {
 
 const subadminWithLowestPendingCount = sortedSubadmins[0];
 
-console.log("Subadmin with the lowest count:", subadminWithLowestPendingCount);
-
       const response = NextResponse.json({
         message: "successful",
         success: true,

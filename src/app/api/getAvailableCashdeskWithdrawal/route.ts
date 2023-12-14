@@ -15,38 +15,38 @@ const countPendingTransactions = (subadmin: any) => {
 
 const subadminUsers = await User.find({ isSubAdminWithdrawals: true });
 
-// Filter subadmin users who are not out of funds
-const subadminUsersWithFunds = subadminUsers.filter(
-  (subadminUser) => !subadminUser.isOutOfFunds
-);
+// // Filter subadmin users who are not out of funds
+// const subadminUsersWithFunds = subadminUsers.filter(
+//   (subadminUser) => !subadminUser.isOutOfFunds
+// );
 
-console.log(subadminUsersWithFunds)
+// console.log(subadminUsersWithFunds)
 
-const sortedSubadmins = subadminUsersWithFunds.sort((a, b) => {
-  const countPendingA = countPendingTransactions(a);
-  const countPendingB = countPendingTransactions(b);
+// const sortedSubadmins = subadminUsersWithFunds.sort((a, b) => {
+//   const countPendingA = countPendingTransactions(a);
+//   const countPendingB = countPendingTransactions(b);
 
-  // Sort in ascending order based on the count of "pending" transactions
-  return countPendingA - countPendingB;
-});
+//   // Sort in ascending order based on the count of "pending" transactions
+//   return countPendingA - countPendingB;
+// });
 
-// Log the sorted subadmins and individual counts
-console.log("Sorted Subadmins:", sortedSubadmins);
-sortedSubadmins.forEach((subadmin) => {
-  console.log(
-    `${subadmin.fullname}'s Pending Transaction Count:`,
-    countPendingTransactions(subadmin)
-  );
-});
+// // Log the sorted subadmins and individual counts
+// console.log("Sorted Subadmins:", sortedSubadmins);
+// sortedSubadmins.forEach((subadmin) => {
+//   console.log(
+//     `${subadmin.fullname}'s Pending Transaction Count:`,
+//     countPendingTransactions(subadmin)
+//   );
+// });
 
-const subadminWithLowestPendingCount = sortedSubadmins[0];
+// const subadminWithLowestPendingCount = sortedSubadmins[0];
 
-console.log("Subadmin with the lowest count:", subadminWithLowestPendingCount);
+// console.log("Subadmin with the lowest count:", subadminWithLowestPendingCount);
 
       const response = NextResponse.json({
         message: "successful",
         success: true,
-        subadminWithLowestPendingCount,
+        subadminUsers,
       });
 
       // Return the response or use it as needed
