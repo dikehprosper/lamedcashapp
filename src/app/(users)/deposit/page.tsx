@@ -26,6 +26,7 @@ const Deposit = () => {
     transactionId: "",
     email: "",
     cashdeskId: "",
+    amount: ""
   });
   const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
@@ -234,12 +235,6 @@ console.log(updatedUser)
     });
   };
 
-  const handleUssdCode = (event: any) => {
-    setUser({
-      ...user,
-      ussdCode: event.target.value,
-    });
-  };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
