@@ -168,26 +168,7 @@ const Deposit = () => {
     });
   };
 
-  // function requestCall() {
-  //   if (isRequestingCall) {
-  //     return;
-  //   }
-  //   setIsRequestingCall(true);
-  //   const amountValue = parseInt(user.amount, 10);
-  //   if (isNaN(amountValue)) {
-  //     // Handle the case where user.amount is not a valid number
-  //     return toast.error("Vous n'avez pas saisi de montant");
-  //   }
-  //   if (amountValue < 500) {
-  //     return toast.error("Le montant saisi ne doit pas être inférieur à 500");
-  //   } else if (user.betId === "") {
-  //     return toast.error("Entrez le betId à utiliser");
-  //   } else {
-  //     setPhoneDial(`#180*345*44939959*${user.amount}#`);
-  //     initiatePhoneCall(`#180*345*44939959*${user.amount}#`);
-  //     setIsRequestingCall(false);
-  //   }
-  // }
+
 
   async function submitDetails() {
     if (isSubmitting) {

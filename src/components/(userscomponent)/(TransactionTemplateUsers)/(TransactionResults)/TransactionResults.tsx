@@ -50,10 +50,8 @@ const TransactionResults = ({  time,
             {betId}
           </span>
         </span>
-        <span style={{overflow: "scroll"}}>
-          <b style={{ color: "rgba(256, 256, 256, 0.4" }}>
-            REÇU: &nbsp;
-          </b>{" "}
+        <span style={{ overflow: "hidden" }}>
+          <b style={{ color: "rgba(256, 256, 256, 0.4" }}>REÇU: &nbsp;</b>{" "}
           {identifierId}
         </span>
         <span
@@ -73,7 +71,7 @@ const TransactionResults = ({  time,
           </span>
         </span>
       </div>
-     </>
+    </>
   );
 };
 

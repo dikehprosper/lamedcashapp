@@ -8,6 +8,8 @@ import FooterMobile from "@/components/(Utils)/FooterMobile";
 import data from "../../../components/file";
 import GetInitials from "../../../components/(Utils)/getInitials"
 import BasicModal from "./profileModal"
+import { useRouter } from "next/navigation";
+import axios from "axios";
 interface YourComponentProps {
   savedID: number[];
 }
@@ -18,14 +20,55 @@ const Profile = () => {
   const [buttonDisabled1, setButtonDisabled1] = useState(true);
   const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({
-    firstName: data.fullname.split(" ")[0],
-    lastName: data.fullname.split(" ")[1],
-    email: data.email,
-    mobileNumber: data.number,
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobileNumber: '',
     betID: '',
     password: "",
     confirmPassword: "",
   });
+   const router = useRouter();
+    const [data, setData] = useState<any>();
+    const [isOnline, setIsOnline] = useState(true);
+
+
+     const getUserDetails = async () => {
+      try {
+        const res = await axios.get("/api/getUser");
+        setUser({
+          ...user,
+          firstName: res.data.data.fullname.split(" ")[0],
+          lastName: res.data.data.fullname.split(" ")[1],
+          email: res.data.data.email,
+          mobileNumber: res.data.data.number,
+          betID: res.data.data.betId,
+        });
+      } catch (error: any) {
+        if (error.response) {
+          // Handle token expiration
+          if (error.response.status === 401) {
+            toast.error(
+              "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+            );
+            router.push("/signin"); // Replace '/login' with your actual login route
+          } else if (error.response.status === 402) {
+            toast.error(
+              "Votre session a expiré. Redirection vers la connexion..."
+            );
+            router.push("/signin"); // Replace '/login' with your actual login route
+          } else {
+            // Handle other errors
+            toast.error(
+              "Une erreur s'est produite. Veuillez réessayer plus tard."
+            );
+          }
+        } else if (error.request) {
+          // Handle network errors (no connection)
+          setIsOnline(false);
+        }
+      }
+    };
 
   
   //check email and password state to determine ButtonDisabled state
@@ -113,6 +156,37 @@ const Profile = () => {
   };
 
   const savedID = [267898789, 876787767]
+
+   
+
+    useEffect(() => {
+      // Check network status before making the request
+      if (isOnline) {
+        getUserDetails();
+      } else {
+        toast.error(
+          "No network connection. Please check your connection and try again."
+        );
+      }
+    }, [isOnline]);
+
+    useEffect(() => {
+      // Check initial network status
+      setIsOnline(window.navigator.onLine);
+
+      // Add event listeners for online/offline changes
+      const handleOnline = () => setIsOnline(true);
+      const handleOffline = () => setIsOnline(false);
+
+      window.addEventListener("online", handleOnline);
+      window.addEventListener("offline", handleOffline);
+
+      // Clean up event listeners on component unmount
+      return () => {
+        window.removeEventListener("online", handleOnline);
+        window.removeEventListener("offline", handleOffline);
+      };
+    }, []);
 
 
 

@@ -145,8 +145,8 @@ console.log(data)
       <div className='transaction_template_container_body'>
         <div className='transaction_template_container_body_1'>
           <div className='transaction_template_container_body_1_1'>
-            filtre &nbsp;
-            <FaFilter />
+            {/* filtre &nbsp;
+            <FaFilter /> */}
           </div>
 
           <div className='transaction_template_container_body_1_2'>
