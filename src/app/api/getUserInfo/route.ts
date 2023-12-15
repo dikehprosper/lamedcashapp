@@ -20,7 +20,8 @@ export async function GET(request: NextRequest) {
           _id: user._id,
           email: user.email,
           fullname: user.fullname,
-          betId: user.betId
+          betId: user.betId,
+          number: user.number
         },
       });
     } else {

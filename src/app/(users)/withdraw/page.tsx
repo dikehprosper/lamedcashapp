@@ -43,8 +43,8 @@ betId: ""
     betId: savedID[0],
     withdrawalCode: "",
     amount: "",
-    momoName: data.fullname,
-    momoNumber: data.number,
+    momoName: "",
+    momoNumber: "",
     cashdeskId: "",
   });
   
@@ -76,6 +76,8 @@ betId: ""
         ...user,
         _id: res.data.data._id,
         betId: res.data.data.betID[0],
+        momoName: res.data.data.fullname,
+        momoNumber: res.data.data.number,
       });
       setSavedID(res.data.data.betID);
       setActiveBetId(res.data.data.betID[0]);

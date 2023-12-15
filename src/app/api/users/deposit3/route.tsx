@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const { _id, betId, amount, email } = await reqBody;
+    const { _id, betId, amount, email, network, cashdeskId } = await reqBody;
     console.log(reqBody);
     // Create the transaction
     /* Replace YOUR_API_SECRET_KEY by your API secret key */
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
         iso: "XOF",
       },
       customer: {
-        email: "dikehprosper12@gmail.com",
+        email: email,
       },
     });
     console.log(transaction.id);
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     console.log(token.token);
     // const url1 = token.url;
 
-    const apiUrl = "https://api.fedapay.com/v1/mtn";
+    const apiUrl = `https://api.fedapay.com/v1/${network}`;
     const apiKey = process.env.FEDAPAY_KEY!;
 
     const response = await fetch(apiUrl, {

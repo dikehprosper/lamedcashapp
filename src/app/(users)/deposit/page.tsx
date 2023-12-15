@@ -18,12 +18,11 @@ const Deposit = () => {
   const [activeBetId, setActiveBetId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRequestingCall, setIsRequestingCall] = useState(false);
+  const [cashdesk, setCashdeskId] = useState()
   const [user, setUser] = useState({
     _id: "",
-    betId: "",
+    betId: savedID[0],
     network: "",
-    amount: "",
-    ussdCode: "",
     transactionId: "",
     email: "",
     cashdeskId: "",
@@ -41,25 +40,17 @@ const Deposit = () => {
 
 
 
-   useEffect(() => {
+
     async function getAvailableCashdeskAddress() {
       try {
         const res = await axios.post("/api/getAvailableCashdeskDeposit", newTimestamp);
-
-        setUser({
-          ...user,
-          cashdeskId: res.data.subadminWithLowestPendingCount._id,
-        });
+        setCashdeskId( res.data.subadminWithLowestPendingCount._id);
       } catch (error: any) {
         console.error(error.message);
       }
     }
 
-    // Check if running on the client-side before making the request
-    if (typeof window !== "undefined") {
-      getAvailableCashdeskAddress();
-    }
-  }, []);
+
 
   
 
@@ -74,7 +65,8 @@ const Deposit = () => {
         ...user,
         _id: res.data.data._id,
         betId: res.data.data.betID[0],
-        email: res.data.data.email
+        email: res.data.data.email,
+        fullname: res.data.data.fullname,
       });
     } catch (error: any) {
       if (error.response) {
@@ -105,6 +97,7 @@ const Deposit = () => {
     // Check network status before making the request
     if (isOnline) {
       getUserDetails();
+            getAvailableCashdeskAddress();
     } else {
       toast.error(
         "No network connection. Please check your connection and try again."
@@ -165,33 +158,33 @@ const Deposit = () => {
   };
 
   const handleChangeNetwork = (event: any) => {
-    requestCall();
+
     setUser({
       ...user,
       network: event.target.value,
     });
   };
 
-  function requestCall() {
-    if (isRequestingCall) {
-      return;
-    }
-    setIsRequestingCall(true);
-    const amountValue = parseInt(user.amount, 10);
-    if (isNaN(amountValue)) {
-      // Handle the case where user.amount is not a valid number
-      return toast.error("Vous n'avez pas saisi de montant");
-    }
-    if (amountValue < 500) {
-      return toast.error("Le montant saisi ne doit pas être inférieur à 500");
-    } else if (user.betId === "") {
-      return toast.error("Entrez le betId à utiliser");
-    } else {
-      setPhoneDial(`#180*345*44939959*${user.amount}#`);
-      initiatePhoneCall(`#180*345*44939959*${user.amount}#`);
-      setIsRequestingCall(false);
-    }
-  }
+  // function requestCall() {
+  //   if (isRequestingCall) {
+  //     return;
+  //   }
+  //   setIsRequestingCall(true);
+  //   const amountValue = parseInt(user.amount, 10);
+  //   if (isNaN(amountValue)) {
+  //     // Handle the case where user.amount is not a valid number
+  //     return toast.error("Vous n'avez pas saisi de montant");
+  //   }
+  //   if (amountValue < 500) {
+  //     return toast.error("Le montant saisi ne doit pas être inférieur à 500");
+  //   } else if (user.betId === "") {
+  //     return toast.error("Entrez le betId à utiliser");
+  //   } else {
+  //     setPhoneDial(`#180*345*44939959*${user.amount}#`);
+  //     initiatePhoneCall(`#180*345*44939959*${user.amount}#`);
+  //     setIsRequestingCall(false);
+  //   }
+  // }
 
   async function submitDetails() {
     if (isSubmitting) {
@@ -211,24 +204,21 @@ const Deposit = () => {
     } else {
       try {
         setIsSubmitting(true);
-
-
         // Update user with the new values
         const updatedUser = {
           ...user,
           betId: activeBetId,
           transactionId: user.transactionId,
           amount: user.amount,
-          cashdeskId: user.cashdeskId,
+          cashdeskId: cashdesk,
           network: user.network,
            email: user.email,
-            ussdCode: user.ussdCode,
         };
-
-        const res = await axios.post("/api/users/deposit", user);
-        console.log(res);
-        router.push("/dashboard");
-        toast.success("deposit request Submitted");
+console.log(updatedUser)
+        // const res = await axios.post("/api/users/deposit3", user);
+        // console.log(res);
+        // router.push("/dashboard");
+        // toast.success("deposit request Submitted");
       } catch (error: any) {
         return toast.error("error");
       } finally {
@@ -347,9 +337,11 @@ const Deposit = () => {
 
   return (
     <div className='user_withdraw_container'>
-      <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici'
-        // data={data} 
-        />
+      <Head
+        title='Dépôts'
+        about='Effectuez vos dépôts sur votre 1XBET ici'
+        data={user}
+      />
       {/* <App /> */}
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
@@ -434,7 +426,7 @@ const Deposit = () => {
             onChange={handleChangeAmount}
             placeholder='Entrez le montant du dépôt'
           />
-          {/* 
+
           <label htmlFor='network'>Réseau</label>
           <select
             id='network'
@@ -445,11 +437,10 @@ const Deposit = () => {
             <option value='' disabled hidden>
               -- Choose Network --
             </option>{" "}
-            <option value='Mtn momo'> Mtn momo</option>
-            <option value='Airtel'>Airtel</option>
-            <option value='Glo'>Glo</option>
+            <option value='mtn'> Mtn Benin</option>
+            <option value='moov'>Moov Benin</option>
           </select>
-          <div
+          {/*   <div
             className='submit-button-deposit'
             style={{
               background: "rgba(128, 128, 128, 1)",
@@ -503,7 +494,7 @@ const Deposit = () => {
             onChange={changeTransactionId}
             placeholder="soumettre l'identifiant de la transaction"
           /> */}
-          <div
+          {/* <div
             className='submit-button-deposit'
             style={{
               background: buttonDisabled
@@ -521,8 +512,8 @@ const Deposit = () => {
             ) : (
               "Procéder"
             )}
-          </div>
-            <div
+          </div> */}
+          <div
             className='submit-button-deposit'
             style={{
               background: buttonDisabled
@@ -531,14 +522,14 @@ const Deposit = () => {
               pointerEvents: buttonDisabled ? "none" : "auto",
               cursor: "pointer",
             }}
-            onClick={createTransaction2}
+            onClick={submitDetails}
           >
             {loading ? (
               <div id='container-signin'>
                 <div id='html-spinner-signin'></div>
               </div>
             ) : (
-              "Procéder2"
+              "Procéder"
             )}
           </div>
         </form>
