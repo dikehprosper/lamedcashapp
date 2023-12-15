@@ -81,30 +81,32 @@ const Head = ({ title, about, data }: any) => {
 
       <div className='head-container small'>
         <div className='tag'>
-          {!data ? (
-            <span className='tag-container-id'>
-              <span className='tag-container-id-span1'>
-                <span className='tag-container-id-span3'>1XBet Id: </span>
-                <span onClick={handleCopyClick} ref={spanRef}>
-                  {" "}
-                  {data?.betId}{" "}
+          <span className='tag-container-id'>
+            {data ? (
+              <>
+                <span className='tag-container-id-span1'>
+                  <span className='tag-container-id-span3'>1XBet Id: </span>
+                  <span onClick={handleCopyClick} ref={spanRef}>
+                    {" "}
+                    {data?.betId}{" "}
+                  </span>
                 </span>
+                <span
+                  className='tag-container-id-span2'
+                  onClick={handleCopyClick}
+                >
+                  <IoIosCopy />
+                  copier
+                </span>{" "}
+              </>
+            ) : (
+              <span className='tag-container-id2'>
+                <div id='container_customerid'>
+                  <div id='container_customerid_inner'></div>
+                </div>
               </span>
-              <span
-                className='tag-container-id-span2'
-                onClick={handleCopyClick}
-              >
-                <IoIosCopy />
-                copier
-              </span>
-            </span>
-          ) : (
-            <span className='tag-container-id2'>
-              <div id='container_customerid'>
-                <div id='container_ocustomerid_inner'></div>
-              </div>
-            </span>
-          )}
+            )}
+          </span>
         </div>
         <div className='title-container'>
           <h2 className='title-container-h2'>{title}</h2>

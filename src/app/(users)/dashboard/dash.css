@@ -7,7 +7,6 @@
 min-height: 100vh;
 /* max-height: 190vh; */
   flex-direction: column;
-  overflow: hidden;
 flex: 1
 }
 
