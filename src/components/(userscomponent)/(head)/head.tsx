@@ -32,7 +32,7 @@ const Head = ({ title, about, data }: any) => {
           <p className='title-container-p'>{about}</p>
         </div>
         <div className='tag'>
-          {data.fullname ? (
+          {data?.fullname ? (
             <div className='tag-container animate-pop-in '>
               <div className='tag-container-icon'>
                 <GetInitials name={data?.fullname} />
