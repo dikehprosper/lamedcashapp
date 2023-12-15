@@ -8,9 +8,8 @@
   gap: 20px;
   padding: 10px 20px;
   white-space: nowrap;
-  overflow: hidden;
   flex: 1;
-  height: 500px;
+  min-height: 500px;
 }
 
 .active_selection_small {
