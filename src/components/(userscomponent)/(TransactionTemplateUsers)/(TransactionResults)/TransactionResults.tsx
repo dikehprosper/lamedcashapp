@@ -31,9 +31,9 @@ const TransactionResults = ({  time,
   };
 
   return (
-    // <>
-    //   <div className='mobile-time'> {formatDate(time)}</div>
-      <div className='transaction_result'>
+    <>
+      <div className='mobile-time'> {formatDate(time)}</div>
+      <div className='transaction_result' onClick={handleClick}>
         <span
           className='first-span'
           style={{
@@ -73,7 +73,7 @@ const TransactionResults = ({  time,
           </span>
         </span>
       </div>
-    // </>
+     </>
   );
 };
 
