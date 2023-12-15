@@ -199,7 +199,7 @@ const Profile = () => {
         <form onSubmit={handleSubmit} className='profile-form-container'>
           <div className='add-photo'>
             <div className='add-photo-container appear'>
-              <GetInitials name={data.fullname} />
+              <GetInitials name={data?.fullname} />
             </div>
           </div>
           <div>
