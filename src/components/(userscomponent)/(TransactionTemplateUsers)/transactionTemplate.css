@@ -97,15 +97,15 @@
 
 }
 .transaction_template_container_body_2 {
-  display: flex;
-  background: rgba(0, 0, 0, 0.4);
-  width: 100%;
-  border-radius: 9px;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
- min-height: 300px;
- padding-bottom: 20px!important
+  display: flex!important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  width: 100% !important;
+  border-radius: 9px !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+ min-height: 300px !important;
+ padding-bottom: 20px!important;
+ background: red
 }
 
 
