@@ -104,8 +104,7 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  flex: 1;
- min-height: 500px;
+ min-height: 300px;
  padding-bottom: 20px!important
 }
 
