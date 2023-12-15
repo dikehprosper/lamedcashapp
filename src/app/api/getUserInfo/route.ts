@@ -19,6 +19,8 @@ export async function GET(request: NextRequest) {
           betID: user.supplementaryBetId,
           _id: user._id,
           email: user.email,
+          fullname: user.fullname,
+          betId: user.betId
         },
       });
     } else {

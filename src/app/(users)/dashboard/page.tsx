@@ -10,6 +10,7 @@ import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
 const Dashboard = () => {
   const router = useRouter();
   const [data, setData] = useState<any>();
@@ -19,7 +20,6 @@ const Dashboard = () => {
     try {
        const res = await axios.get("/api/getUser");
        setData(res.data.data);
-      console.log(res.data.data);
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -134,11 +134,54 @@ const Dashboard = () => {
     0
   );
 
+    const [receipt, setReceipt] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
+
+   const handleClick = () => {
+    setIsVisible(false);
+  };
+
+     function showReceipt(
+    time: any,
+    amount: any,
+    identifierId: any,
+    betId: any,
+    status: any,
+    type: any,
+    momoName: any,
+    momoNumber: any,
+    withdrawalCode: any
+  ) {
+    setIsVisible(true);
+    setReceipt({
+      time,
+      amount,
+      identifierId,
+      betId,
+      status,
+       type,
+      momoName,
+      momoNumber,
+      withdrawalCode
+    });
+  };
+
+
   return (
     <div className='user_dashboard_container'>
+        {isVisible && (
+        <Modal
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner'
+          handleClick={handleClick}
+          receipt={receipt}
+          title='Montant du dépôt'
+        />
+      )}
       <Head
         title='Bienvenue'
         about="Faites l'expérience de dépôts et de retraits rapides"
+         data={data}
       />
       <div className='user-dashboard-display'>
         <Display
@@ -179,6 +222,7 @@ const Dashboard = () => {
         totalDeposits={totalDeposits}
         data={data?.transactionHistory}
         allData={data}
+          showReceipt={showReceipt}
       />
     </div>
   );

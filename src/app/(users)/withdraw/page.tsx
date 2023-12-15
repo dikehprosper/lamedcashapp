@@ -11,7 +11,6 @@ import data from "../../../components/file";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
-const { signal } = new AbortController();
 
 type ShowReceiptFunction = (
   time: string,
@@ -26,6 +25,10 @@ type ShowReceiptFunction = (
 ) => void;
 
 const Withdraw = () => {
+   const [data, setData] = useState({
+fullname: "",
+betId: ""
+  })
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [savedID, setSavedID] = useState([]);
@@ -33,17 +36,18 @@ const Withdraw = () => {
   const [success, setSuccess] = useState(false);
   const [activeBetId, setActiveBetId] = useState("");
   const [cashdeskAddress, setCashdeskAddress] = useState<any>({});
+  const [cashdeskId, setCashdeskId] = useState<any>({});
   const [isOnline, setIsOnline] = useState(true);
   const [user, setUser] = useState({
     _id: "",
-    betId: "",
+    betId: savedID[0],
     withdrawalCode: "",
     amount: "",
     momoName: data.fullname,
     momoNumber: data.number,
     cashdeskId: "",
   });
-
+  
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
@@ -68,13 +72,20 @@ const Withdraw = () => {
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUserInfo");
-      setSavedID(res.data.data.betID);
-      setActiveBetId(res.data.data.betID[0]);
-      setUser({
+        setUser({
         ...user,
         _id: res.data.data._id,
         betId: res.data.data.betID[0],
       });
+      setSavedID(res.data.data.betID);
+      setActiveBetId(res.data.data.betID[0]);
+   
+      setData({
+        ...data,
+        fullname: res.data.data.fullname,
+         betId: res.data.data.betId,
+      })
+    
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -111,11 +122,7 @@ const Withdraw = () => {
     try {
       const res = await axios.post("/api/getAvailableCashdeskWithdrawal", newTimestamp);
       setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
-        console.log(res.data.subadminWithLowestPendingCountAddress);
-      setUser({
-        ...user,
-        cashdeskId: res.data.subadminWithLowestPendingCountId,
-      });
+      setCashdeskId(res.data.subadminWithLowestPendingCountId);
     } catch (error: any) {
       console.error(error.message);
     }
@@ -220,15 +227,13 @@ const Withdraw = () => {
           amount: user.amount,
           momoName: user.momoName,
           momoNumber: user.momoNumber,
-          cashdeskId: cashdeskAddress._id,
+          cashdeskId: cashdeskId,
         };
-        console.log(updatedUser);
+
         // Send the updated user to the server
         const res = await axios.post("/api/users/withdraw", updatedUser);
-        console.log(res);
         setReceipt(res.data.userTransaction);
         setIsVisible(true);
-        router.push("/dashboard");
         toast.success("withdraw request Submitted");
       } catch (error: any) {
         console.log(error);
@@ -245,6 +250,8 @@ const Withdraw = () => {
     setIsVisible(false);
   };
 
+
+
   return (
     <div className='user_withdraw_container'>
       {isVisible && (
@@ -259,6 +266,7 @@ const Withdraw = () => {
       <Head
         title='Retirer'
         about='Effectuez vos retraits depuis votre 1XBET ici'
+         data={data}
       />
 
       <div className='user_withdraw_container_001'>

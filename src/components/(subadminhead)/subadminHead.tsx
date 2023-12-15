@@ -54,7 +54,7 @@ const SubadminHead = ({ title, about, data }: any) => {
               )}
             </span>
             <span className='subadmin-tag-container-online-container'>
-              Online{" "}
+              En ligne{" "}
               <span className='subadmin-tag-container-online-logo'> </span>{" "}
             </span>
             <span

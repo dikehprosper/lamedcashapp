@@ -10,7 +10,26 @@ const TransactionResults = ({  time,
   betId,
   status,
   type,
-}: TransactionResultsProps) => {
+    showReceipt,
+       momoName,
+      momoNumber,
+      withdrawalCode,
+       identifierId,
+}: any) => {
+ const handleClick = () => {
+    showReceipt(
+      time,
+      amount,
+      identifierId,
+      betId,
+      status,
+      type,
+      momoName,
+      momoNumber,
+      withdrawalCode
+    );
+  };
+
   return (
     <>
       <div className='mobile-time'> {formatDate(time)}</div>
@@ -31,11 +50,11 @@ const TransactionResults = ({  time,
             {betId}
           </span>
         </span>
-        <span>
+        <span style={{overflow: "scroll"}}>
           <b style={{ color: "rgba(256, 256, 256, 0.4" }}>
-            NON DE REÇU: &nbsp;
+            REÇU: &nbsp;
           </b>{" "}
-          {receipt}
+          {identifierId}
         </span>
         <span
           style={{
@@ -49,7 +68,7 @@ const TransactionResults = ({  time,
           className='last-span'
         >
           <span>{status}</span>
-          <span className='download-button'>
+          <span className='download-button' onClick={handleClick}>
             <FaDownload />
           </span>
         </span>

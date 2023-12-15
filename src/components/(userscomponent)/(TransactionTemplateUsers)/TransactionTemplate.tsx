@@ -15,10 +15,12 @@ import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
   
 const TransactionTemplate = ({ title, select, 
-totalWithdrawals, totalDeposits, data, allData
-}: TransactionTemplateProps) => {
+totalWithdrawals, totalDeposits, data, allData, showReceipt
+}: any) => {
   // Access the query object to get the passed parameter
-  
+  useEffect(() => {
+console.log(data)
+  }, [data])
 
   const [state, setState] = useState(select.firstSelect.big)
   const [viewMore, setStateViewMore] = useState<boolean>();
@@ -46,9 +48,9 @@ totalWithdrawals, totalDeposits, data, allData
     if (state === select.firstSelect.big) {
       setStateViewMore(data?.length > 3);
     } else if (state === select.secondSelect.big) {
-      setStateViewMore(data?.filter((item) => item.fundingType === "deposits").length > 3);
+      setStateViewMore(data?.filter((item: { fundingType: string; }) => item.fundingType === "deposits").length > 3);
     } else if (state === select.thirdSelect.big) {
-      setStateViewMore(data?.filter((item) => item.fundingType === "withdrawals").length > 3);
+      setStateViewMore(data?.filter((item: { fundingType: string; }) => item.fundingType === "withdrawals").length > 3);
     }
   }, [state, data]);
 
@@ -67,7 +69,7 @@ totalWithdrawals, totalDeposits, data, allData
   function changeState2(value: any) {
     setLoading(true);
     setState(value);
-    if (data?.filter((item) => item.fundingType === "deposits").length > 3) {
+    if (data?.filter((item: any) => item.fundingType === "deposits").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -81,7 +83,7 @@ totalWithdrawals, totalDeposits, data, allData
     setLoading(true);
     setState(value);
 
-    if (data?.filter((item) => item.fundingType === "withdrawals").length > 3) {
+    if (data?.filter((item: any) => item.fundingType === "withdrawals").length > 3) {
       setStateViewMore(true);
     } else {
       setStateViewMore(false);
@@ -267,6 +269,11 @@ totalWithdrawals, totalDeposits, data, allData
                         betId={filteredData.betId}
                         status={filteredData.status}
                         type={filteredData.fundingType}
+                          showReceipt={showReceipt}
+                           withdrawalCode={filteredData.withdrawalCode}
+                        momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
+                        identifierId={filteredData.identifierId}
                       />
                     ))
                 ) : (
@@ -301,6 +308,11 @@ totalWithdrawals, totalDeposits, data, allData
                         betId={filteredData.betId}
                         status={filteredData.status}
                         type={filteredData.fundingType}
+                        showReceipt={showReceipt}
+                        withdrawalCode={filteredData.withdrawalCode}
+                        momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
+                        identifierId={filteredData.identifierId}
                       />
                     ))
                 ) : (
@@ -332,6 +344,11 @@ totalWithdrawals, totalDeposits, data, allData
                       betId={data.betId}
                       status={data.status}
                       type={data.fundingType}
+                        showReceipt={showReceipt}
+                        withdrawalCode={data.withdrawalCode}
+                        momoName={data.momoName}
+                        momoNumber={data.momoNumber}
+                        identifierId={data.identifierId}
                     />
                   ))
               ) : (
@@ -366,6 +383,11 @@ totalWithdrawals, totalDeposits, data, allData
                       betId={filteredData.betId}
                       status={filteredData.status}
                       type={filteredData.fundingType}
+                        showReceipt={showReceipt}
+                           withdrawalCode={filteredData.withdrawalCode}
+                        momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
+                        identifierId={filteredData.identifierId}
                     />
                   ))
               ) : (
@@ -400,6 +422,11 @@ totalWithdrawals, totalDeposits, data, allData
                       betId={filteredData.betId}
                       status={filteredData.status}
                       type={filteredData.fundingType}
+                        showReceipt={showReceipt}
+                           withdrawalCode={filteredData.withdrawalCode}
+                        momoName={filteredData.momoName}
+                        momoNumber={filteredData.momoNumber}
+                        identifierId={filteredData.identifierId}
                     />
                   ))
               ) : (
@@ -429,7 +456,12 @@ totalWithdrawals, totalDeposits, data, allData
                     receipt={data._id}
                     betId={data.betId}
                     status={data.status}
-                    type={data.fundingType}                  />
+                    type={data.fundingType} 
+                      showReceipt={showReceipt}    
+                         withdrawalCode={data.withdrawalCode}
+                        momoName={data.momoName}
+                        momoNumber={data.momoNumber}
+                        identifierId={data.identifierId}             />
                 ))
             ) : (
               <div

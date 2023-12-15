@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "./deposit.css";
 import Head from "@/components/(userscomponent)/(head)/head";
 import { FaCircle } from "react-icons/fa";
@@ -32,11 +32,19 @@ const Deposit = () => {
   const [phoneDial, setPhoneDial] = useState("");
   const [isOnline, setIsOnline] = useState(true);
 
+  function generateTimestamp() {
+    return Date.now();
+  }
+
+  // Example usage:
+  const newTimestamp = generateTimestamp();
+
+
 
    useEffect(() => {
     async function getAvailableCashdeskAddress() {
       try {
-        const res = await axios.get("/api/getAvailableCashdeskDeposit");
+        const res = await axios.post("/api/getAvailableCashdeskDeposit", newTimestamp);
 
         setUser({
           ...user,
@@ -52,6 +60,8 @@ const Deposit = () => {
       getAvailableCashdeskAddress();
     }
   }, []);
+
+  
 
 
   const getUserDetails = async () => {
@@ -337,7 +347,9 @@ const Deposit = () => {
 
   return (
     <div className='user_withdraw_container'>
-      <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici' />
+      <Head title='Dépôts' about='Effectuez vos dépôts sur votre 1XBET ici'
+        // data={data} 
+        />
       {/* <App /> */}
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
@@ -537,3 +549,4 @@ const Deposit = () => {
 };
 
 export default Deposit;
+export const dynamic = 'force-dynamic'

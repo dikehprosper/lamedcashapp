@@ -7,6 +7,7 @@ import { LuHistory } from "react-icons/lu";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
 const Transactions = () => {
     const router = useRouter();
   const [data, setData] = useState<any>();
@@ -74,24 +75,6 @@ const Transactions = () => {
       };
     }, []);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const totalDeposits = allDeposits?.filter((data: { status: string; } )=> data.status === "Successful").reduce((total: any, transaction: any) => {
     return (total += transaction.amount);
   }, 0);
@@ -108,11 +91,54 @@ const Transactions = () => {
     0
   );
 
+    const [receipt, setReceipt] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
+
+
+   const handleClick = () => {
+    setIsVisible(false);
+  };
+
+     function showReceipt(
+    time: any,
+    amount: any,
+    identifierId: any,
+    betId: any,
+    status: any,
+    type: any,
+    momoName: any,
+    momoNumber: any,
+    withdrawalCode: any
+  ) {
+    setIsVisible(true);
+    setReceipt({
+      time,
+      amount,
+      identifierId,
+      betId,
+      status,
+       type,
+      momoName,
+      momoNumber,
+      withdrawalCode
+    });
+  };
+
   return (
     <div className='transactionPage_container'>
+        {isVisible && (
+        <Modal
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner'
+          handleClick={handleClick}
+          receipt={receipt}
+          title='Montant du dépôt'
+        />
+      )}
       <Head
         title='Transactions'
         about="Afficher et suivre l'historique de vos transactions"
+         data={data}
       />
       <TransactionTemplate
         title={{ name: "Historique des Transactions", icon: <LuHistory /> }}
@@ -125,6 +151,7 @@ const Transactions = () => {
         totalDeposits={totalDeposits}
         data={data?.transactionHistory}
         allData={data}
+          showReceipt={showReceipt}
       />
     </div>
   );

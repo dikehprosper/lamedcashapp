@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     if (!mongoose.Types.ObjectId.isValid(cashdeskId)) {
       return NextResponse.json(
         { error: "Invalid cashdeskId" },
-        { status: 400 }
+        { status: 401}
       );
     }
 
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
     if (!adminUser) {
       return NextResponse.json(
         { error: "Subadmin User does not exist" },
-        { status: 400 }
+        { status: 402 }
       );
     }
 
