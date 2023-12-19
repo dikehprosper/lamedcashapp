@@ -438,7 +438,7 @@ getUserDetails()
           </div>
           <div>
            
-          <label className='label'> Entrez l'ancien mot de passe</label>
+          <label className='label'> Entrez l&apo;ancien mot de passe</label>
             <input
               type='text'
               className='profile-form'
