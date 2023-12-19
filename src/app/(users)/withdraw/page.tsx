@@ -35,7 +35,7 @@ betId: ""
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [success, setSuccess] = useState(false);
   const [activeBetId, setActiveBetId] = useState("");
-  const [cashdeskAddress, setCashdeskAddress] = useState<any>({});
+  // const [cashdeskAddress, setCashdeskAddress] = useState<any>({});
   const [cashdeskId, setCashdeskId] = useState<any>({});
   const [isOnline, setIsOnline] = useState(true);
   const [user, setUser] = useState({
@@ -46,6 +46,7 @@ betId: ""
     momoName: "",
     momoNumber: "",
     cashdeskId: "",
+   fullname: ""
   });
   
   const [receipt, setReceipt] = useState({});
@@ -72,12 +73,14 @@ betId: ""
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUserInfo");
+      console.log(res.data.data.betID[0])
         setUser({
         ...user,
         _id: res.data.data._id,
         betId: res.data.data.betID[0],
         momoName: res.data.data.fullname,
         momoNumber: res.data.data.number,
+        fullname: res.data.data.fullname,
       });
       setSavedID(res.data.data.betID);
       setActiveBetId(res.data.data.betID[0]);
@@ -120,21 +123,23 @@ betId: ""
 
 
 
-  async function getAvailableCashdeskAddress() {
-    try {
-      const res = await axios.post("/api/getAvailableCashdeskWithdrawal", newTimestamp);
-      setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
-      setCashdeskId(res.data.subadminWithLowestPendingCountId);
-    } catch (error: any) {
-      console.error(error.message);
-    }
-  }
+  // async function getAvailableCashdeskAddress() {
+  
+  //   try {
+  //     const res = await axios.post("/api/getAvailableCashdeskWithdrawal", newTimestamp);
+  //     setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
+  //     setCashdeskId(res.data.subadminWithLowestPendingCountId);
+  //   } catch (error: any) {
+  //     console.error(error.message);
+  //   }
+  // }
+
+ 
 
   useEffect(() => {
-    // Check network status before making the request
     if (isOnline) {
       getUserDetails();
-      getAvailableCashdeskAddress();
+      // getAvailableCashdeskAddress();
     } else {
       toast.error(
         "No network connection. Please check your connection and try again."
@@ -268,7 +273,7 @@ betId: ""
       <Head
         title='Retirer'
         about='Effectuez vos retraits depuis votre 1XBET ici'
-         data={data}
+         data={user}
       />
 
       <div className='user_withdraw_container_001'>
@@ -277,7 +282,7 @@ betId: ""
             Utilisez cette adresse pour votre retrait
           </div>
           <div className='user_withdraw_container_002 animate-pop-in'>
-            {!cashdeskAddress || Object.keys(cashdeskAddress).length === 0 ? (
+            {/* {!cashdeskAddress || Object.keys(cashdeskAddress).length === 0 ? (
               <div id='container-withdraw'>
                 <div id='html-spinner-withdraw'></div>
               </div>
@@ -291,7 +296,9 @@ betId: ""
               </div>
             ) : (
               <div>Street: {cashdeskAddress?.street}</div>
-            )}
+            )} */}
+               <div>City: city one</div>
+             <div>Street: street one</div>
           </div>
           <p
             style={{
