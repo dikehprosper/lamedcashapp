@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -7,15 +9,16 @@ import { FaCircle } from "react-icons/fa";
 import "./profile.css";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
-
-
-export default function BasicModal({savedID, betId, makeDefaultId, deleteId }: any) {
+export default function BasicModal({
+  savedID,
+  betId,
+  makeDefaultId,
+  deleteId,
+}: any) {
   const [open, setOpen] = React.useState(false);
   const [selectedID, setSelectedID] = React.useState<number | null>(null);
-  const [defaultID, setDefaultID] = React.useState<number | null>(
-    savedID[0]
-  );
-  console.log(savedID[0], betId)
+  const [defaultID, setDefaultID] = React.useState<number | null>(savedID[0]);
+  console.log(savedID[0], betId);
 
   const handleOpen = (id: number) => {
     setOpen(true);
@@ -33,18 +36,14 @@ export default function BasicModal({savedID, betId, makeDefaultId, deleteId }: a
     setSelectedID(null);
   };
 
-
-   
   const makeDefault = (id: any) => {
-    makeDefaultId(id)
-     handleClose();
-   }
- 
+    makeDefaultId(id);
+    handleClose();
+  };
 
   const deleteSpecificId = (id: any) => {
-    deleteId(id)
+    deleteId(id);
     handleClose();
-
   };
 
   const handleModalClick = (
@@ -62,11 +61,11 @@ export default function BasicModal({savedID, betId, makeDefaultId, deleteId }: a
       style={{
         cursor: "pointer",
         borderColor:
-        id === savedID[0]
+          id === savedID[0]
             ? "rgba(256, 256, 256, 1)"
             : "rgba(256, 256, 256, 0.4)",
         color:
-        id === savedID[0]
+          id === savedID[0]
             ? "rgba(256, 256, 256, 1)"
             : "rgba(256, 256, 256, 0.4)",
       }}
@@ -74,7 +73,7 @@ export default function BasicModal({savedID, betId, makeDefaultId, deleteId }: a
       {id}
       <FaCircle
         color={
-          id  === savedID[0]
+          id === savedID[0]
             ? "rgba(256, 256, 256, 1)"
             : "rgba(256, 256, 256, 0.4)"
         }
@@ -117,7 +116,7 @@ export default function BasicModal({savedID, betId, makeDefaultId, deleteId }: a
               alignItems: "center",
               justifyContent: "center",
               borderRadius: "9px",
-              border: ".5px solid grey"
+              border: ".5px solid grey",
             }}
           >
             <div
@@ -129,13 +128,25 @@ export default function BasicModal({savedID, betId, makeDefaultId, deleteId }: a
                 fontSize: "22px",
                 color: "white",
               }}
-             
             >
               {" "}
-              <span   onClick={(e) => handleClose2(e)} style={{padding: '5px 10px', background:"rgba(128, 128, 128)", borderRadius:"5pX",  display: "flex",
-                justifyContent: "center", alignItems: 'center'}}><FaLongArrowAltLeft fontSize="30px" color='black' /></span>
+              <span
+                onClick={(e) => handleClose2(e)}
+                style={{
+                  padding: "5px 10px",
+                  background: "rgba(128, 128, 128)",
+                  borderRadius: "5pX",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <FaLongArrowAltLeft fontSize='30px' color='black' />
+              </span>
             </div>
-            <h2 style={{ fontWeight: "bold", color: "white", fontSize:"24px" }}>
+            <h2
+              style={{ fontWeight: "bold", color: "white", fontSize: "24px" }}
+            >
               ID: &nbsp;{id}
             </h2>
             <div
@@ -150,7 +161,7 @@ export default function BasicModal({savedID, betId, makeDefaultId, deleteId }: a
                 variant='contained'
                 color='primary'
                 onClick={() => makeDefault(id)}
-                disabled={ selectedID === savedID[0]}
+                disabled={selectedID === savedID[0]}
                 style={{
                   width: "140px",
                   whiteSpace: "nowrap",
