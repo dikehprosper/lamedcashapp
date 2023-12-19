@@ -23,7 +23,7 @@ const Deposit = () => {
   const [cashdesk, setCashdeskId] = useState()
   const [user, setUser] = useState({
     _id: "",
-    betId: savedID[0],
+    betId: "",
     network: "",
     transactionId: "",
     email: "",
@@ -63,7 +63,6 @@ const Deposit = () => {
       const res = await axios.get("/api/getUserInfo");
       setSavedID(res.data.data.betID);
       setActiveBetId(res.data.data.betID[0]);
-      console.log(res.data.data.betID[0]);
       setUser({
         ...user,
         _id: res.data.data._id,
@@ -168,26 +167,7 @@ const Deposit = () => {
     });
   };
 
-  // function requestCall() {
-  //   if (isRequestingCall) {
-  //     return;
-  //   }
-  //   setIsRequestingCall(true);
-  //   const amountValue = parseInt(user.amount, 10);
-  //   if (isNaN(amountValue)) {
-  //     // Handle the case where user.amount is not a valid number
-  //     return toast.error("Vous n'avez pas saisi de montant");
-  //   }
-  //   if (amountValue < 500) {
-  //     return toast.error("Le montant saisi ne doit pas être inférieur à 500");
-  //   } else if (user.betId === "") {
-  //     return toast.error("Entrez le betId à utiliser");
-  //   } else {
-  //     setPhoneDial(`#180*345*44939959*${user.amount}#`);
-  //     initiatePhoneCall(`#180*345*44939959*${user.amount}#`);
-  //     setIsRequestingCall(false);
-  //   }
-  // }
+
 
   async function submitDetails() {
     if (isSubmitting) {
