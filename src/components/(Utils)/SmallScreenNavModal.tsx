@@ -20,7 +20,6 @@ const Modal = ({
     <div className={` ${containerStyles}`} onClick={handleClick}>
       <div className={` ${containerStylesInner}`}>
         {navLinks?.map((link, index) => {
-          console.log(pathname === link.pathname);
           return (
             <a
               key={index}
