@@ -10,7 +10,6 @@ export async function GET(request: NextRequest) {
 
     // Find the user and select all fields except password
     const user = await User.findOne({ _id: userId }).select("-password");
-
     // Check if the stored sessionId matches the sessionId from the token
     if (user && user.sessionId === sessionId) {
       return NextResponse.json({
@@ -21,7 +20,8 @@ export async function GET(request: NextRequest) {
           email: user.email,
           fullname: user.fullname,
           betId: user.betId,
-          number: user.number
+          number: user.number,
+          fedapayId: user.fedapayId
         },
       });
     } else {
