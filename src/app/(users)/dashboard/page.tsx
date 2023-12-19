@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
+import io from "socket.io-client"
 const Dashboard = () => {
   const router = useRouter();
   const [data, setData] = useState<any>();
@@ -165,6 +166,20 @@ const Dashboard = () => {
       withdrawalCode
     });
   };
+
+
+  const socket = io("http://localhost:5001") 
+
+    useEffect(() => {
+      socket.on("connect", () => {
+        console.log(socket.id)
+      })
+      return () => {
+socket.disconnect()
+      }
+    }, [])
+  
+
 
 
   return (
