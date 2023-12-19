@@ -17,10 +17,7 @@ import { FaFilter } from "react-icons/fa";
 const TransactionTemplate = ({ title, select, 
 totalWithdrawals, totalDeposits, data, allData, showReceipt
 }: any) => {
-  // Access the query object to get the passed parameter
-  useEffect(() => {
-console.log(data)
-  }, [data])
+
 
   const [state, setState] = useState(select.firstSelect.big)
   const [viewMore, setStateViewMore] = useState<boolean>();
@@ -251,6 +248,7 @@ console.log(data)
               flexDirection: "column",
               gap: "10px",
               marginTop: "5px",
+            
             }}
           >
             {pathname === "/transactions" ? (

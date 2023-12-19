@@ -86,7 +86,6 @@
 
 .transaction_template_container_body_1 {
   border-radius: 0px 0px 5px 5px;
-  border: 0.5px solid rgba(0, 255, 0, 0.09);
   margin-bottom: 5px;
   min-height: 40px!important;
    max-height: 40px!important;
@@ -98,14 +97,12 @@
 }
 .transaction_template_container_body_2 {
   display: flex!important;
-  background: rgba(0, 0, 0, 0.4) !important;
   width: 100% !important;
   border-radius: 9px !important;
   flex-direction: column !important;
   overflow: scroll !important;
  min-height: 300px !important;
  padding-bottom: 20px!important;
-
 }
 
 
@@ -114,7 +111,7 @@
 .transaction_template_container_body_1_1 {
   height: 25px;
   width: 110px;
-  border: 1px solid rgba(226, 244, 240, 0.2);
+
   color: black;
   font-size: 14px;
   font-weight: 500;

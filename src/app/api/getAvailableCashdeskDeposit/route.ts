@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 
+
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const newTimestamp = await reqBody;
+    const  newTimestamp = await reqBody;
     // Function to count "Pending" transactions for a subadmin
     const countPendingTransactions = (subadmin: any) => {
       return subadmin.transactionHistory.filter(
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
       ).length;
     };
 
-    const subadminUsers = await User.find({ isSubAdminDeposits: true });
+    const subadminUsers = await User.find({ isSubAdminWithdrawals: true });
 
     // Filter subadmin users who are not out of funds
     const subadminUsersWithFunds = subadminUsers.filter(
@@ -29,22 +30,40 @@ export async function POST(request: NextRequest) {
       return countPendingA - countPendingB;
     });
 
-    // Log the sorted subadmins and individual counts
-    console.log("Sorted Subadmins:", sortedSubadmins);
-    sortedSubadmins.forEach((subadmin) => {
-      console.log(
-        `${subadmin.fullname}'s Pending Transaction Count:`,
-        countPendingTransactions(subadmin)
-      );
-    });
+    // // Log the sorted subadmins and individual counts
+    // console.log("Sorted Subadmins:", sortedSubadmins);
+    // sortedSubadmins.forEach((subadmin) => {
+    //   console.log(
+    //     `${subadmin.fullname}'s Pending Transaction Count:`,
+    //     countPendingTransactions(subadmin)
+    //   );
+    // });
 
     const subadminWithLowestPendingCount = sortedSubadmins[0];
+
+    // Extract necessary information
+    const subadminWithLowestPendingCountId =
+      subadminWithLowestPendingCount?._id;
+    const subadminWithLowestPendingCountAddress =
+      subadminWithLowestPendingCount?.cashdeskAddress;
+
+    // console.log(
+    //   "Subadmin with the lowest count id:",
+    //   subadminWithLowestPendingCountId
+    // );
+    // console.log(
+    //   "Subadmin with the lowest count address:",
+    //   subadminWithLowestPendingCountAddress
+    // );
+    // console.log("bbbbbbbbbbbbb");
 
     const response = NextResponse.json({
       message: "successful",
       success: true,
-      subadminWithLowestPendingCount,
+      subadminWithLowestPendingCountId,
+      subadminWithLowestPendingCountAddress,
     });
+
 
     // Return the response or use it as needed
     return response;

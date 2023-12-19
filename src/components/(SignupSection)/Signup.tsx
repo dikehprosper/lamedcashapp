@@ -362,16 +362,21 @@ const SignUp = () => {
               )}
             </div>
             <div
+          
               style={{
                 display: "flex",
                 width: "100%",
                 gap: "10px",
                 flexDirection: "column",
+                position: 'relative',
+               
               }}
             >
+              <div    className='signup-form1111' style={{position: "relative"}}>
+              <div style={{position: "absolute", top: "0", left: "0", width: "60px", bottom: "0", display: 'flex', justifyContent: "center", alignItems: 'center', color: "rgba(128, 128, 128, 1)", background: "rgba(0, 0, 0, 0.1)",  borderRight: "2px solid rgba(256, 256, 256, 0.09)" }}>+229</div>
               <input
                 type='number'
-                className='signup-form'
+                className='signup-form111'
                 value={user.number}
                 onChange={(e) => {
                   handleNumber(e);
@@ -380,8 +385,9 @@ const SignUp = () => {
                 placeholder='Numéro Whatsapp/mobile'
                 style={{
                   borderColor: phoneNumberError ? "red" : "",
+                  paddingLeft: "65px"
                 }}
-              />
+              /></div>
               {phoneNumberError && (
                 <p
                   style={{
@@ -611,17 +617,19 @@ const SignUp = () => {
               Fill in your BET ID
             </p>
           )}
+           <div    className='signup-form1111' style={{position: "relative"}}>
+              <div style={{position: "absolute", top: "0", left: "0", width: "60px", bottom: "0", display: 'flex', justifyContent: "center", alignItems: 'center', color: "rgba(128, 128, 128, 1)", background: "rgba(0, 0, 0, 0.1)",  borderRight: "2px solid rgba(256, 256, 256, 0.09)" }}>+229</div>
           <input
             type='number'
-            className='signup-form'
+            className='signup-form111'
             value={user.number}
             onChange={(e) => {
               handleNumber(e);
               SignupReVerification();
             }}
             placeholder='Numéro Whatsapp/mobile'
-            style={{ borderColor: phoneNumberError ? "red" : "" }}
-          />
+            style={{ borderColor: phoneNumberError ? "red" : "", paddingLeft: "65px" }}
+          /></div>
           {phoneNumberError && (
             <p
               style={{

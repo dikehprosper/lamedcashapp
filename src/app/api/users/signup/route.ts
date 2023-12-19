@@ -8,30 +8,10 @@ import { v4 as uuidv4 } from "uuid";
 import { FedaPay, Customer } from "fedapay";
 connect();
 
+
 // import { PhoneNumberUtil } from "google-libphonenumber";
 
-// const phoneUtil = PhoneNumberUtil.getInstance();
-// const allowedCountryCode = "BJ";
-// const moovPrefixes = [
-//   "40",
-//   "42",
-//   "44",
-//   "60",
-//   "64",
-//   "68",
-//   "69",
-//   "87",
-//   "89",
-//   "90",
-//   "91",
-//   "92",
-//   "93",
-//   "95",
-//   "96",
-//   "87",
-//   "98",
-// ];
-// const mtnPrefixes = ["90", "91", "92", "93", "94"];
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -55,7 +35,8 @@ export async function POST(request: NextRequest) {
       email === "cashdesk1@betfundr.com" ||
       email === "cashdesk2@betfundr.com" ||
       email === "cashdesk3@betfundr.com" ||
-      email === "cashdesk4@betfundr.com"
+      email === "cashdesk4@betfundr.com" ||
+      email === "cashdesk5@betfundr.com"
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
@@ -103,12 +84,14 @@ export async function POST(request: NextRequest) {
 
       return response;
     }
+
+
     // CREATE USER FOR CASHDESK WITHDRAWAL
     // CREATE USER FOR CASHDESK WITHDRAWAL
     // CREATE USER FOR CASHDESK WITHDRAWAL
     if (
       email === "cashdesk6@betfundr.com" ||
-      email === "cashdesk7@betfundr.com" || email === "cashdesk8@betfundr.com" || email === "cashdesk9@betfundr.com"
+      email === "cashdesk7@betfundr.com" || email === "cashdesk8@betfundr.com" || email === "cashdesk9@betfundr.com" || email === "cashdesk10@betfundr.com"
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
@@ -135,6 +118,11 @@ export async function POST(request: NextRequest) {
           ? {
               city: "YourCity4",
               street: "YourStreet4",
+            }
+          : email === "cashdesk10@betfundr.com"
+          ? {
+              city: "YourCity5",
+              street: "YourStreet5",
             }
           : null; // Handle the case when the email doesn't match any condition
 
@@ -243,18 +231,40 @@ export async function POST(request: NextRequest) {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
+     /* Remplacez VOTRE_CLE_API par votre véritable clé API */
+     FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
+    
+     /* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
+     FedaPay.setEnvironment('live'); //ou setEnvironment('live');
+     
+     /* Créer le client */
+     const customer = await Customer.create({
+       firstname: fullname.split(" ")[0],
+       lastname: fullname.split(" ")[1],
+       email: email,
+       phone_number: {
+         number: `+229${number}`,
+         country: 'BJ'
+       }
+     });
+
+
     //create a new user
     const newUser = new User({
       fullname,
       betId,
-      number,
+      number: number, // Add "+229" to the beginning of the number
       email,
       password: hashedPassword,
       supplementaryBetId: [betId],
       isUser: true,
       isLoggedIn: true,
       sessionId: generateUniqueSessionId(),
+      fedapayId: customer.id
     });
+    
+
+   
     // save the new created user
     const savedUser = await newUser.save();
 

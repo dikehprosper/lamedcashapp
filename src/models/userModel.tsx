@@ -23,7 +23,9 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Please provide a password"],
   },
-
+fedapayId: {
+  type: Number,
+},
   isAdmin: {
     type: Boolean,
     default: false,

@@ -5,7 +5,7 @@ const loading = () => {
   return  <div
           style={{
             width: "100%",
-            minHeight: "800px",
+            minHeight: "100vh",
             backgroundColor: "black",
             display: "flex",
             justifyContent: "center",
@@ -28,7 +28,3 @@ const loading = () => {
 };
 
 export default loading;
-
-
-
-

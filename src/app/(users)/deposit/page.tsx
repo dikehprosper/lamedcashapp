@@ -23,7 +23,7 @@ const Deposit = () => {
   const [cashdesk, setCashdeskId] = useState()
   const [user, setUser] = useState({
     _id: "",
-    betId: savedID[0],
+    betId: "",
     network: "",
     transactionId: "",
     email: "",
@@ -63,7 +63,6 @@ const Deposit = () => {
       const res = await axios.get("/api/getUserInfo");
       setSavedID(res.data.data.betID);
       setActiveBetId(res.data.data.betID[0]);
-      console.log(res.data.data.betID[0]);
       setUser({
         ...user,
         _id: res.data.data._id,
