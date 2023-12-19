@@ -299,7 +299,7 @@
   border-radius: 50%;
 }
 
-#html-spinner-signin,
+#html-spinner-signin-signin-special,
 #svg-spinner-signin {
   transition-property: transform;
   animation-name: rotate;
