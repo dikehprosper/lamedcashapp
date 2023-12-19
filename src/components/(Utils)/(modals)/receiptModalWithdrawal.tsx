@@ -18,7 +18,6 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
 }: any) => {
-  console.log(receipt);
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
       <div className={` ${containerStylesInner}`} id='receiptModal'>
