@@ -19,9 +19,13 @@ flex: 0 0 auto
     margin-top: 40px;
 }
 
+.profile-form33333 {
+  margin-top: 0px !important;
+}
 
 label {
   margin-top: 10px;
+  color: rgba(256, 256, 256, 0.6)
 }
 
 @media (max-width: 1028px) {
@@ -48,7 +52,7 @@ label {
   color: white;
   background: rgba(0, 0, 0, 0.2);
   font-weight: 600;
-  width: 200px;
+  min-width: 200px;
   height: 40px;
   border-radius: 4px;
   outline: none;
@@ -226,7 +230,9 @@ margin-bottom: 20px;
 }
 
 
-
+.password-section {
+  grid-column: 1/3;
+}
 .profile-form {
   border: none;
   outline: none;
@@ -242,21 +248,50 @@ margin-bottom: 20px;
   background: rgba(256, 256, 256, 0.03);
 }
 
+.profile-form4 {
+  border: none;
+  outline: none;
+  color: white;
+  background: transparent;
+  width: 100%;
+  display: inline-block;
+  margin-top: 12px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.profile-form3{
+  border: none;
+  outline: none;
+  padding: 15px;
+  color: white;
+  background: transparent;
+  width: 100%;
+  display: inline-block;
+  border: 2px solid rgba(256, 256, 256, 0.09);
+  border-radius: 4px;
+  font-size: 16px;
+  background: rgba(256, 256, 256, 0.03);
+}
+
 
 .profile-form:-webkit-autofill,
 .profile-form:-webkit-autofill:hover,
 .profile-form:-webkit-autofill:focus,
-.profile-form:-webkit-autofill:active {
+.profile-form:-webkit-autofill:active,.profile-form:-webkit-autofill,
+.profile-form3:-webkit-autofill:hover,
+.profile-form3:-webkit-autofill:focus,
+.profile-form3:-webkit-autofill:active {
   transition: background-color 5000s;
   -webkit-text-fill-color: #fff !important;
 }
 
-.profile-form::placeholder {
+.profile-form::placeholder, .profile-form3::placeholder  {
   color: rgba(256, 256, 256, 0.1);
   font-size: 16px;
 }
 
-.profile-form:focus {
+.profile-form:focus, .profile-form3:focus  {
   border: 2px solid rgba(189, 255, 5, 0.7);
   outline: none;
   transition: 1s border ease-in-out;
@@ -333,6 +368,9 @@ margin-bottom: 20px;
   .profile-container {
     margin-top: 80px;
   }
+  .profile-form33333 {
+    margin-top: 20px;
+  }
 
   .welcome-section {
     display: none;
@@ -377,7 +415,7 @@ margin-bottom: 20px;
     margin: 15px 0px;
   }
 
-  .profile-form {
+  .profile-form, .profile-form3  {
     height: 50px;
   }
 
@@ -558,7 +596,7 @@ margin-bottom: 20px;
 }
 
 @media (max-width: 355px) {
-  .profile-form {
+  .profile-form , .profile-form3 {
     padding: 10px !important;
     border: 1.4px solid rgba(256, 256, 256, 0.09);
     border-radius: 4px;
@@ -568,7 +606,7 @@ margin-bottom: 20px;
     font-size: 7.5px;
   }
 
-  .profile-form::placeholder {
+  .profile-form::placeholder, .profile-form3::placeholder {
     font-size: 12px;
   }
   .welcome-section-second_p-mobile {
@@ -634,7 +672,7 @@ opacity: 1
   width: 90px;
   height: 30px;
   border-radius: 4px;
- 
+  justify-content: flex-st;
   font-size: 8px;
 }
 .add-photo-container {
@@ -656,5 +694,59 @@ opacity: 1
 }
 
 
+/* loading styling */
 
+#container_customerid {
+  width: 23px;
+  position: relative;
+  height: 23px;
+  
+}
+#container_customerid2 {
+  width: 38px;
+  position: relative;
+  height: 38px;
+  
+}
+#container_customerid_inner {
+  width: 100%;
+  height: 100%;
+  border: 2.9px solid rgba(128, 128, 128, .7) ;
+  border-top: 2.9px solid rgba(256, 256, 256, 1);
+  border-radius: 50%;
+}
 
+#container_customerid_inner  {
+  transition-property: transform;
+  animation-name: rotate;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
