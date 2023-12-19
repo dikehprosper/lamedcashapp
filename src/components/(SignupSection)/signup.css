@@ -54,20 +54,45 @@
   font-size: 16px;
   background: rgba(256, 256, 256, 0.03);
 }
+
+.signup-form1111 {
+  border: none;
+  outline: none;
+  color: white;
+  background: transparent;
+  width: 100%;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.signup-form111 {
+  border: none;
+  outline: none;
+  padding: 15px;
+  color: white;
+  width: 100%;
+  border: 2px solid rgba(256, 256, 256, 0.09);
+  border-radius: 4px;
+  font-size: 16px;
+  background: rgba(256, 256, 256, 0.03);
+}
 .signup-form:-webkit-autofill,
 .signup-form:-webkit-autofill:hover,
 .signup-form:-webkit-autofill:focus,
-.signup-form:-webkit-autofill:active {
+.signup-form:-webkit-autofill:active, .signup-form111:-webkit-autofill,
+.signup-form111:-webkit-autofill:hover,
+.signup-form111:-webkit-autofill:focus,
+.signup-form111:-webkit-autofill:active {
   transition: background-color 5000s;
   -webkit-text-fill-color: #fff !important;
 }
 
-.signup-form::placeholder {
+.signup-form::placeholder, .signup-form111::placeholder {
   color: rgba(256, 256, 256, 0.1);
   font-size: 16px;
 }
 
-.signup-form:focus {
+.signup-form:focus, .signup-form111:focus {
   border: 2px solid rgba(189, 255, 5, 0.7);
   outline: none;
   transition: 1s border ease-in-out;
@@ -222,7 +247,7 @@
     margin: 15px 0px;
   }
 
-  .signup-form {
+  .signup-form, .signup-form111 {
     height: 50px;
   }
 
@@ -354,7 +379,7 @@
   border-radius: 50%;
 }
 
-#html-spinner-signup,
+#html-spinner-signup-special,
 #svg-spinner-signup {
   transition-property: transform;
   animation-name: rotate;
@@ -398,7 +423,7 @@
 }
 
 @media (max-width: 355px) {
-  .signup-form {
+  .signup-form,  .signup-form111{
     padding: 10px !important;
     border: 1.4px solid rgba(256, 256, 256, 0.09);
     border-radius: 4px;
@@ -408,7 +433,7 @@
     font-size: 7.5px;
   }
 
-  .signup-form::placeholder {
+  .signup-form::placeholder, .signup-form111::placeholder {
     font-size: 12px;
   }
   .welcome-section-second_p-mobile {
