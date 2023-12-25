@@ -49,9 +49,9 @@
 .transaction_result > span {
  width: 100% ;
 }
-.transaction_result > span:nth-child(2) {
+/* .transaction_result > span:nth-child(2) {
 
-}
+} */
 
 .transaction_result > span:nth-child(3) {
   font-size: 15px;

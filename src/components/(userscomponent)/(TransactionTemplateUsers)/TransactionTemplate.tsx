@@ -45,10 +45,19 @@ totalWithdrawals, totalDeposits, data, allData, showReceipt
     if (state === select.firstSelect.big) {
       setStateViewMore(data?.length > 3);
     } else if (state === select.secondSelect.big) {
-      setStateViewMore(data?.filter((item: { fundingType: string; }) => item.fundingType === "deposits").length > 3);
+      setStateViewMore(
+        data?.filter(
+          (item: { fundingType: string }) => item.fundingType === "deposits"
+        ).length > 3
+      );
     } else if (state === select.thirdSelect.big) {
-      setStateViewMore(data?.filter((item: { fundingType: string; }) => item.fundingType === "withdrawals").length > 3);
+      setStateViewMore(
+        data?.filter(
+          (item: { fundingType: string }) => item.fundingType === "withdrawals"
+        ).length > 3
+      );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, data]);
 
   function changeState1(value: any) {

@@ -55,6 +55,7 @@ const Transactions = () => {
           "No network connection. Please check your connection and try again."
         );
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOnline]);
 
     useEffect(() => {

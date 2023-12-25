@@ -59,6 +59,7 @@ const Dashboard = () => {
        "No network connection. Please check your connection and try again."
      );
    }
+ // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [isOnline]);
 
  useEffect(() => {
@@ -177,6 +178,7 @@ const Dashboard = () => {
       return () => {
 socket.disconnect()
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   
 

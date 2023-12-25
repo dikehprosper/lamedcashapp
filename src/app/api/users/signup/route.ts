@@ -128,19 +128,40 @@ export async function POST(request: NextRequest) {
 
       // You can use the 'cashdesk' value as needed in your code.
 
-      //create a new user
-      const newUser = new User({
-        fullname,
-        betId,
-        number,
-        email,
-        password: hashedPassword,
-        isSubAdminWithdrawals: true,
-        isLoggedIn: true,
-        cashdeskAddress: cashdesk,
-        sessionId: generateUniqueSessionId(),
-      });
+      const user = await User.find({ isSubAdminWithdrawals: true });
 
+      let newUser;
+      if (user.length < 1) {
+        //create a new user
+        newUser = new User({
+          fullname,
+          betId,
+          number,
+          email,
+          password: hashedPassword,
+          isSubAdminWithdrawals: true,
+          isLoggedIn: true,
+          cashdeskAddress: cashdesk,
+          sessionId: generateUniqueSessionId(),
+          current: true
+        });
+      }
+
+      if (user.length >= 1) {
+        //create a new user
+        newUser = new User({
+          fullname,
+          betId,
+          number,
+          email,
+          password: hashedPassword,
+          isSubAdminWithdrawals: true,
+          isLoggedIn: true,
+          cashdeskAddress: cashdesk,
+          sessionId: generateUniqueSessionId(),
+        });
+      }
+  
       const savedUser = await newUser.save();
 
       //create token data

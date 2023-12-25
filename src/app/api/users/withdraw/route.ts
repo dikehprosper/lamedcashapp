@@ -20,8 +20,6 @@ export async function POST(request: NextRequest) {
       cashdeskId,
     } = reqBody;
 
-    console.log(reqBody);
-
     // Check if the User already exists
     const user = await User.findOne({ _id });
 
@@ -50,26 +48,17 @@ export async function POST(request: NextRequest) {
 
     // Add the current pending transaction to the user
     user.transactionHistory.push(userTransaction);
-
-    // Validate cashdeskId before using it
-    if (!mongoose.Types.ObjectId.isValid(cashdeskId)) {
-      return NextResponse.json(
-        { error: "Invalid cashdeskId" },
-        { status: 401}
-      );
-    }
-
+    await user.save();
     // Find the subadmin user by cashdeskId
-    const adminUser = await User.findById(cashdeskId);
+    const adminUser = await User.find({ isSubAdminWithdrawals: true });
 
-    if (!adminUser) {
+    if (!adminUser || adminUser.length === 0) {
       return NextResponse.json(
         { error: "Subadmin User does not exist" },
         { status: 402 }
       );
     }
 
-    // Create a new transaction history entry for the subadmin
     const subadminTransaction = {
       userid: _id,
       status: "Pending",
@@ -79,23 +68,79 @@ export async function POST(request: NextRequest) {
       betId,
       fundingType: "withdrawals",
       identifierId: newUuid,
-       momoName,
+      momoName,
       momoNumber,
     };
 
-    // Add the current pending transaction to the subadmin user
-    adminUser.transactionHistory.push(subadminTransaction);
+    // Example usage: Get the index of the subadmin with current: true
+    let currentSubadminIndex = -1;
 
-    // Save changes to both users
-    await adminUser.save();
-    await user.save();
+    for (let i = 0; i < adminUser.length; i++) {
+      if (adminUser[i].current === true) {
+        currentSubadminIndex = i;
+        break;
+      }
+    }
 
-    // Return the added transaction details in the response
-    return NextResponse.json({
-      message: "History added",
-      success: true,
-      userTransaction,
-    });
+    // Find the subadmin that is currently receiving requests
+    const currentSubadmin = adminUser.find(
+      (subadmin) => subadmin.current === true
+    );
+
+    // Check if the request count for the current subadmin is divisible by 10
+    if (
+      currentSubadmin &&
+      Number.isInteger(
+        currentSubadmin.currentCount / 10 ||
+          currentSubadmin.currentCount / 10 !== 0
+      )
+    ) {
+      // Mark the current subadmin as not 'current'
+      currentSubadmin.current = false;
+
+      let nextCurrentSubadminIndex =
+        (currentSubadminIndex + 1) % adminUser.length;
+
+      let nextSubadmin = adminUser[nextCurrentSubadminIndex] || adminUser[0];
+
+      // Keep incrementing nextCurrentSubadminIndex until the condition is satisfied
+      while (
+        nextSubadmin &&
+        Number.isInteger(
+          nextSubadmin.currentCount / 10 || nextSubadmin.currentCount / 10 !== 0
+        )
+      ) {
+        nextCurrentSubadminIndex =
+          (nextCurrentSubadminIndex + 1) % adminUser.length;
+        nextSubadmin = adminUser[nextCurrentSubadminIndex] || adminUser[0];
+      }
+
+      // Mark the next subadmin as 'current'
+      nextSubadmin.current = true;
+      const updatedCount = nextSubadmin.currentCount + 1;
+      nextSubadmin.currentCount = updatedCount;
+      nextSubadmin.transactionHistory.push(subadminTransaction);
+
+      // Save changes to the database for both the current and next subadmin
+      await Promise.all([currentSubadmin.save(), nextSubadmin.save()]);
+      // Return the added transaction details in the response
+      return NextResponse.json({
+        message: "History added",
+        success: true,
+        userTransaction,
+      });
+    } else {
+      currentSubadmin.transactionHistory.push(subadminTransaction);
+      const updatedCount = currentSubadmin.currentCount + 1;
+      currentSubadmin.currentCount = updatedCount;
+      await currentSubadmin.save();
+      // Return the added transaction details in the response
+      return NextResponse.json({
+        message: "History added",
+        success: true,
+        userTransaction,
+      });
+    }
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
