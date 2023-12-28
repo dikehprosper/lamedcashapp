@@ -1,4 +1,3 @@
-
 import React from "react";
 import { UserDashboardDisplayProps } from "@/types";
 import Link from "next/link";
@@ -12,7 +11,7 @@ const display = ({
   amount,
   style,
   data,
-  allData
+  allData,
 }: UserDashboardDisplayProps) => {
   return !allData ? (
     // Render the loading spinner when loading is true
@@ -34,23 +33,30 @@ const display = ({
       className='user-dashboard-display2-recent animate-pop-in'
       style={{ background: style?.background }}
     >
-     {term === 1 &&  <div className='display-recent-1'>
-        <div className='display-recent-1-h1' style={{ whiteSpace: "nowrap"}}>Nombre de références {style?.icon}</div>
-        <div className='display-recent-1-h2'>
-          {count === undefined ? 0 : count}
+      {term === 1 && (
+        <div className='display-recent-1'>
+          <div className='display-recent-1-h1' style={{ whiteSpace: "nowrap" }}>
+            Nombre de références {style?.icon}
+          </div>
+          <div className='display-recent-1-h2'>
+            {count === undefined ? 0 : count}
+          </div>
         </div>
-      </div> }
-    {term === 2 &&   <div className='display-recent-1'>
-
-          <div className='display-recent-1-h1' style={{ whiteSpace: "nowrap"}}>  Gains de parrainage {style?.icon}</div>
-        <div className='display-recent-1-h2'>
-             XOF &nbsp;
+      )}
+      {term === 2 && (
+        <div className='display-recent-1'>
+          <div className='display-recent-1-h1' style={{ whiteSpace: "nowrap" }}>
+            {" "}
+            Gains de parrainage {style?.icon}
+          </div>
+          <div className='display-recent-1-h2'>
+            XOF &nbsp;
             {formatNumberWithCommasAndDecimal(
               amount === undefined ? 0 : amount
             )}
+          </div>
         </div>
-
-      </div>}
+      )}
     </div>
   );
 };

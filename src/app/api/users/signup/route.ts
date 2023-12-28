@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   try {
     //  const { phoneNumber, countryCode } = req.body;
     const reqBody = await request.json();
-    const { fullname, betId, number, email, password } = await reqBody;
+    const { fullname, betId, number, email, password, referrerId } = await reqBody;
 
     //Check if the User already exist
     const user = await User.findOne({ email });

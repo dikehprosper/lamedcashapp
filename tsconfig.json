@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/(SigninSection)/(components)/SoftTypography/SoftTypography.tsx", "src/app/paid/[id]"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/(SigninSection)/(components)/SoftTypography/SoftTypography.tsx", "src/app/paid/[id]", "src/app/(visitors)/signup/[id]"],
   "exclude": ["node_modules"]
 }

@@ -13,8 +13,9 @@ import "./signup.css";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
 import axios from "axios";
-
+import { usePathname } from "next/navigation";
 const SignUp = () => {
+  const pathname = usePathname();
   const [user, setUser] = useState({
     fullname: "",
     betId: "",
@@ -36,19 +37,42 @@ const SignUp = () => {
     setIsCheckedError(false);
   };
 
+
+    //check email and password state to determine ButtonDisabled state
+
+  
+
   //Submit details
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
+
+      const url = pathname;
+
+  // Use a regular expression to extract the value
+  const match = url.match(/\/signup\/([^\/]+)$/);
+
+  // Extracted value is in match[1]
+  const referrerId = match ? match[1] : null;
       setLoading(true);
-   const signupVerificationResult = SignupVerification();
+      const signupVerificationResult = SignupVerification();
 
       if (signupVerificationResult?.isValid) {
         localStorage.setItem("rememberedEmailForEspece", user.email);
         localStorage.setItem("rememberedPasswordForEspece", user.password);
-        const response = await axios.post("/api/users/signup", user);
+        const updatedUser = {
+    fullname: user.fullname,
+    betId: user.betId,
+    number: user.number,
+    email: user.email,
+    password: user.password,
+    confirmPassword: user.confirmPassword,
+    profileImage: user.profileImage ,
+    referrerId: referrerId? referrerId : ""
+  }
+        const response = await axios.post("/api/users/signup", updatedUser);
         toast.success("successful");
-        router.push("/dashboard")
+        router.push("/dashboard");
         setLoading(false);
       }
     } catch (error: any) {
@@ -142,7 +166,7 @@ const SignUp = () => {
       isValidPhoneNumber &&
       IsChecked
     ) {
-    return {isValid : true}
+      return { isValid: true };
     } else {
       // Display error messages for invalid input
       if (!isValidFullname) {
@@ -265,7 +289,6 @@ const SignUp = () => {
       });
   };
 
-  //check email and password state to determine ButtonDisabled state
 
   return (
     <div className='signup-container'>
@@ -362,32 +385,47 @@ const SignUp = () => {
               )}
             </div>
             <div
-          
               style={{
                 display: "flex",
                 width: "100%",
                 gap: "10px",
                 flexDirection: "column",
-                position: 'relative',
-               
+                position: "relative",
               }}
             >
-              <div    className='signup-form1111' style={{position: "relative"}}>
-              <div style={{position: "absolute", top: "0", left: "0", width: "60px", bottom: "0", display: 'flex', justifyContent: "center", alignItems: 'center', color: "rgba(128, 128, 128, 1)", background: "rgba(0, 0, 0, 0.1)",  borderRight: "2px solid rgba(256, 256, 256, 0.09)" }}>+229</div>
-              <input
-                type='number'
-                className='signup-form111'
-                value={user.number}
-                onChange={(e) => {
-                  handleNumber(e);
-                  SignupReVerification();
-                }}
-                placeholder='Numéro Whatsapp/mobile'
-                style={{
-                  borderColor: phoneNumberError ? "red" : "",
-                  paddingLeft: "65px"
-                }}
-              /></div>
+              <div className='signup-form1111' style={{ position: "relative" }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "60px",
+                    bottom: "0",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "rgba(128, 128, 128, 1)",
+                    background: "rgba(0, 0, 0, 0.1)",
+                    borderRight: "2px solid rgba(256, 256, 256, 0.09)",
+                  }}
+                >
+                  +229
+                </div>
+                <input
+                  type='number'
+                  className='signup-form111'
+                  value={user.number}
+                  onChange={(e) => {
+                    handleNumber(e);
+                    SignupReVerification();
+                  }}
+                  placeholder='Numéro Whatsapp/mobile'
+                  style={{
+                    borderColor: phoneNumberError ? "red" : "",
+                    paddingLeft: "65px",
+                  }}
+                />
+              </div>
               {phoneNumberError && (
                 <p
                   style={{
@@ -617,19 +655,39 @@ const SignUp = () => {
               Fill in your BET ID
             </p>
           )}
-           <div    className='signup-form1111' style={{position: "relative"}}>
-              <div style={{position: "absolute", top: "0", left: "0", width: "60px", bottom: "0", display: 'flex', justifyContent: "center", alignItems: 'center', color: "rgba(128, 128, 128, 1)", background: "rgba(0, 0, 0, 0.1)",  borderRight: "2px solid rgba(256, 256, 256, 0.09)" }}>+229</div>
-          <input
-            type='number'
-            className='signup-form111'
-            value={user.number}
-            onChange={(e) => {
-              handleNumber(e);
-              SignupReVerification();
-            }}
-            placeholder='Numéro Whatsapp/mobile'
-            style={{ borderColor: phoneNumberError ? "red" : "", paddingLeft: "65px" }}
-          /></div>
+          <div className='signup-form1111' style={{ position: "relative" }}>
+            <div
+              style={{
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: "60px",
+                bottom: "0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "rgba(128, 128, 128, 1)",
+                background: "rgba(0, 0, 0, 0.1)",
+                borderRight: "2px solid rgba(256, 256, 256, 0.09)",
+              }}
+            >
+              +229
+            </div>
+            <input
+              type='number'
+              className='signup-form111'
+              value={user.number}
+              onChange={(e) => {
+                handleNumber(e);
+                SignupReVerification();
+              }}
+              placeholder='Numéro Whatsapp/mobile'
+              style={{
+                borderColor: phoneNumberError ? "red" : "",
+                paddingLeft: "65px",
+              }}
+            />
+          </div>
           {phoneNumberError && (
             <p
               style={{

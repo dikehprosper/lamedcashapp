@@ -91,8 +91,8 @@ export async function POST(request: NextRequest) {
     if (
       currentSubadmin &&
       Number.isInteger(
-        currentSubadmin.currentCount / 10 ||
-          currentSubadmin.currentCount / 10 !== 0
+        currentSubadmin.currentCount / 5 ||
+          currentSubadmin.currentCount / 5 !== 0
       )
     ) {
       // Mark the current subadmin as not 'current'
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
       while (
         nextSubadmin &&
         Number.isInteger(
-          nextSubadmin.currentCount / 10 || nextSubadmin.currentCount / 10 !== 0
+          nextSubadmin.currentCount / 5 || nextSubadmin.currentCount / 5 !== 0
         )
       ) {
         nextCurrentSubadminIndex =

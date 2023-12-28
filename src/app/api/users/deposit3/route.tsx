@@ -7,15 +7,10 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
 
     const { _id, betId, amount, email, network, cashdeskId } = await reqBody;
-    console.log(reqBody);
-    // Create the transaction
-    /* Replace YOUR_API_SECRET_KEY by your API secret key */
-    FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
-    /* Specify whenever you are willing to execute your request in test or live mode */
-    FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
-    /* Create the transaction */
 
-    console.log(process.env.DOMAIN!, "domain");
+    FedaPay.setApiKey("sk_sandbox_rlZQIN8rnovgkg2TCOeVSCxp");
+    FedaPay.setEnvironment("sandbox");
+
     const transaction = await Transaction.create({
       description: "Description",
       amount: amount,
@@ -24,21 +19,21 @@ export async function POST(request: NextRequest) {
         iso: "XOF",
       },
       customer: {
-        email: email,
+        email: "john.doe@example.com",
       },
     });
-    console.log(transaction.id);
+
     const token = await transaction.generateToken();
-    console.log(token.token);
+    console.log(token.token, "token");
     // const url1 = token.url;
 
-    const apiUrl = `https://api.fedapay.com/v1/${network}`;
-    const apiKey = process.env.FEDAPAY_KEY!;
+    const apiUrl = `https://sandbox-api.fedapay.com/v1/moov`;
+    const apiKey = "sk_sandbox_rlZQIN8rnovgkg2TCOeVSCxp";
 
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
-        Authorization: `${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -46,46 +41,16 @@ export async function POST(request: NextRequest) {
       }),
     });
 
-    const data = await response.json();
-    const pollInterval = 3000; // 3 seconds (adjust as needed)
-    const maxTimeout = 30000; // 30 seconds
-    let elapsedTime = 0;
-    let isTransactionCompleted = false;
-    let updatedTransaction;
+console.log(response)
 
-    while (!isTransactionCompleted && elapsedTime < maxTimeout) {
-      updatedTransaction = await Transaction.retrieve(transaction.id);
-
-      if (updatedTransaction.status === "pending") {
-        // The transaction is still pending, wait for the next poll
-        console.log(
-          "Payment is still pending. Waiting for customer approval..."
-        );
-        await new Promise((resolve) => setTimeout(resolve, pollInterval));
-        elapsedTime += pollInterval;
-      } else if (updatedTransaction.status === "approved") {
-        // The payment is approved
-        console.log("Payment approved");
-        isTransactionCompleted = true;
-      } else if (updatedTransaction.status === "declined") {
-        // The payment is approved
-        console.log("Payment declined");
-        isTransactionCompleted = true;
-      } else if (updatedTransaction.status === "canceled") {
-        // The payment is approved
-        console.log("Payment declined");
-        isTransactionCompleted = true;
-      }
-    }
 
     // Return a JSON response with the transaction status
     return NextResponse.json({
       message: "Transaction  status",
-      status: updatedTransaction?.status,
     });
   } catch (error: any) {
     // Handle errors and return a JSON response
-    console.error(error);
+    console.error(error, "error");
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
       { status: 500 }

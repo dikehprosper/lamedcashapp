@@ -197,9 +197,8 @@ const Deposit = () => {
           network: user.network,
            email: user.email,
         };
-console.log(updatedUser)
-        // const res = await axios.post("/api/users/deposit3", user);
-        // console.log(res);
+        const res = await axios.post("/api/users/deposit3", user);
+        console.log(res);
         // router.push("/dashboard");
         // toast.success("deposit request Submitted");
       } catch (error: any) {

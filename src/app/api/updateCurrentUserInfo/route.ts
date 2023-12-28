@@ -18,23 +18,23 @@ export async function POST(request: NextRequest) {
     
   
 
-      const apiUrl = `https://dashboard.fedapay.com/api/v1/customers/${fedapayId}`;
+      const apiUrl = "https://api.fedapay.com/v1/customers/2332639";
       const apiKey = "sk_live_5cZOho9QtikRZnRNybRGg2Oo";
   
       const response = await fetch(apiUrl, {
         method: "PUT",
         headers: {
-          Authorization: `${apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           firstname: fullname.split(" ")[0],
           lastname: fullname.split(" ")[1],
           email: email,
-           phone_number: {
+          phone_number: {
             number: `+229${mobileNumber}`,
-            country: 'BJ'
-          }
+            country: "BJ",
+          },
         }),
       });
     
