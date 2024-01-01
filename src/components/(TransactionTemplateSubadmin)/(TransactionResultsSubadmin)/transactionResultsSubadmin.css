@@ -383,12 +383,12 @@ padding-right: 10px
 }
 
 .download-button2 {
-  position: absolute;
-  right: 6px;
-  bottom: -14px;
-  cursor: pointer;
-  color: #5f978a;
-  font-size: 14px
+  position: absolute !important;
+  right: 6px !important;
+  bottom: -14px !important;
+  cursor: pointer !important;
+  color: #5f978a !important;
+  font-size: 14px !important
 }
 }
 
