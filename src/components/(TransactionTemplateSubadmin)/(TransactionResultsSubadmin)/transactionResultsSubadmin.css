@@ -373,13 +373,13 @@
 
 
   .accepted {
-  display: flex;
-  position: relative;
-  height: 40px;
+  display: flex !important;
+  position: relative !important;
+  height: 40px !important;
 justify-content: flex-end !important;
-font-size: 13px;
-font-weight: bold;
-padding-right: 10px
+font-size: 13px !important;
+font-weight: bold !important;
+padding-right: 10px !important
 }
 
 .download-button2 {
