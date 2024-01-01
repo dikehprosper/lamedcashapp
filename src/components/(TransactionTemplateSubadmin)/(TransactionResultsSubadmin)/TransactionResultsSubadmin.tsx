@@ -136,7 +136,7 @@ const TransactionResultsSubadmin = ({
       <div className='mobile-time'> {formatDate(time)}</div>
       <div className='transaction_result-subadmin' >
         <span
-          // style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
+          style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
         ></span>
         <span>{formatDate(time)}</span>
         <span className='small_device_group '>
@@ -228,7 +228,7 @@ const TransactionResultsSubadmin = ({
           <span
             style={{
               position: "relative",
-              justifySelf: "flex-end",
+              justifySelf: "flex-end !important",
               color:
                 currentStatus === "Pending"
                   ? "rgba(256, 256, 256, 0.4)"

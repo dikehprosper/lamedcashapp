@@ -13,7 +13,7 @@
   position: relative;
 }
 
-.accepted, .download-button2 {
+.accepted {
   display: none
 }
 
@@ -23,6 +23,7 @@
 .transaction_result-subadmin > span:first-child {
   height: 100%;
   border-radius: 4px;
+  width: 13px !important
 }
 .small_device_group {
   display: flex;
@@ -368,9 +369,6 @@
   .transaction_result-subadmin > span:nth-child(5) {
     display: none
   }
-  .accepted, .download-button2 {
-  display: flex 
-}
 
 
 
