@@ -13,9 +13,10 @@
   position: relative;
 }
 
-.accepted {
-  display: none
+.accepted, .download-button2 {
+  display: none !important
 }
+
 
 .mobile-time {
   display: none;
@@ -126,8 +127,6 @@
 
 }
 @media (max-width: 1460px) {
-
-
  .download-button {
     right: 8px !important;
     bottom: -8px !important;
@@ -383,6 +382,7 @@ padding-right: 10px !important
 }
 
 .download-button2 {
+    display: flex !important;
   position: absolute !important;
   right: 6px !important;
   bottom: -14px !important;

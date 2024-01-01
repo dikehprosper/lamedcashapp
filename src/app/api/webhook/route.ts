@@ -14,8 +14,8 @@ export async function POST(request: NextRequest) {
 
 
   try {
-    const headersList = request.headers;
-
+    const headersList = request.headers().get("x-real-ip");
+    console.log(headersList);
     // Convert the HeadersList object to a JSON string
     const jsonString = "snsgfsgfmgmg";
 
