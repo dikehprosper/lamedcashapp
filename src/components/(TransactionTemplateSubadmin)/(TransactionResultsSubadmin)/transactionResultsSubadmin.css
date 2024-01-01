@@ -14,7 +14,7 @@
 }
 
 .accepted, .download-button2 {
-  display: none !important
+  display: none
 }
 
 .mobile-time {
@@ -369,7 +369,7 @@
     display: none
   }
   .accepted, .download-button2 {
-  display: flex !important
+  display: flex 
 }
 
 

@@ -136,7 +136,7 @@ const TransactionResultsSubadmin = ({
       <div className='mobile-time'> {formatDate(time)}</div>
       <div className='transaction_result-subadmin' >
         <span
-          style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
+          // style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
         ></span>
         <span>{formatDate(time)}</span>
         <span className='small_device_group '>
