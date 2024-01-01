@@ -8,38 +8,24 @@ import image2 from "../../../public/Whatsapp.svg";
 import image3 from "../../../public/TikTok.svg";
 import image4 from "../../../public/Google.svg";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
-import "./signin.css";
+import "./forgotpassword.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const SignIn = () => {
+const ForgotPassword = () => {
+  const [loading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [user, setUser] = useState({
     email: "",
-    password: "",
   });
-  const router = useRouter();
-  const [buttonDisabled, setButtonDisabled] = React.useState(true);
-  const [loading, setLoading] = React.useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
-
-  // To store and retrieve login details
   useEffect(() => {
-    const rememberedEmail = localStorage.getItem("rememberedEmail");
-    const rememberedPassword = localStorage.getItem("rememberedPassword");
-    // Set the email and password in your login form fields
-    if (rememberedEmail && rememberedPassword) {
-      setUser({
-        ...user,
-        email: rememberedEmail,
-        password: rememberedPassword,
-      });
+    if (user.email) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user.email]);
 
   //collect value from login input
   const handleUserEmail = (event: any) => {
@@ -48,52 +34,31 @@ const SignIn = () => {
       email: event.target.value,
     });
   };
-  const handleUserPassword = (event: any) => {
-    setUser({
-      ...user,
-      password: event.target.value,
-    });
-  };
 
-  //Submit login details
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
+  async function handleSubmit(e: any) {
+    e.preventDefault();
     try {
       setLoading(true);
-      localStorage.setItem("rememberedEmailForEspece", user.email);
-      localStorage.setItem("rememberedPasswordForEspece", user.password);
-      const response = await axios.post("/api/users/signin", user);
-      router.push("/dashboard");
+      const email = user.email;
+      console.log(email);
+      const response = await axios.post("/api/users/forgotpassword", { email }); // Corrected the API endpoint
+      console.log(response);
+      setLoading(false);
     } catch (error: any) {
-      if (error.response.status === 400) {
-        return toast.error("User not found!");
-      } else if (error.response.status === 402) {
-        return toast.error("Invalid password");
-      } else if (error.response.status === 500) {
-        return toast.error("Signin failed");
+      if (error.response && error.response.status === 400) {
+        // Corrected the way to check the status code
+        toast.error("User already exists"); // Corrected the error message
       } else {
-        console.log(error);
-        return toast.error(error);
+        toast.error("Error occurred"); // Moved this toast outside of the specific status code check
       }
-    } finally {
       setLoading(false);
     }
-  };
-
-  //check email and password state to determine ButtonDisabled state
-  useEffect(() => {
-    if (user.email.length > 0 && user.password.length > 0) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [user]);
+  }
 
   return (
     <div className='signin-container'>
       <div className='signin-header'>
-        <h2>Bienvenue</h2>
+        <h2>Mot de passe oublié</h2>
       </div>
       {/* first section */}
       <div className='signin-container_inner'>
@@ -117,31 +82,25 @@ const SignIn = () => {
             onChange={handleUserEmail}
             placeholder='Entrez votre e-mail'
           />
-          <div className='signin-form-password'>
-            <input
-              type={isVisible ? "text" : "password"}
-              className='signin-form'
-              value={user.password}
-              onChange={handleUserPassword}
-              placeholder='Entrer le mot de passe'
-            />
-            <div
-              onClick={toggleVisibility}
-              className='signin-form-password-visibility'
-            >
-              {isVisible ? <BsEye /> : <BsEyeSlash />}
-            </div>
-          </div>
-          <div className='forgot-password'>
+
+          <div className='forgot-password1'>
             {" "}
-            <a href='/forgotpassword'>Mot de passe oublié?</a>
+            <a href='/signin' className='forgot-password2'>
+              Allez à La Connexion
+            </a>{" "}
+            &nbsp; &nbsp; &nbsp;
+            <a href='/signup' className='forgot-password3'>
+              Allez à L&apos;Inscription
+            </a>
           </div>
+
           <button
             type='submit'
             className='submit-button-signin-special'
             style={{
-              color: "black !important;",
+              color: "black !important",
               fontWeight: "600 !important",
+              cursor: "pointer",
               background: buttonDisabled
                 ? "rgba(189, 255, 5, .7) !important;"
                 : "rgba(189, 255, 5, 1) !important;",
@@ -153,13 +112,13 @@ const SignIn = () => {
                 <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
-              "Se connecter"
+              "envoyer un lien"
             )}
           </button>
         </form>
         <div className='welcome-section'>
           <div className='welcome-section-first'>
-            <h2 className='welcome-section-first_h2'>Bienvenue</h2>
+            <h2 className='welcome-section-first_h2'>Mot de passe oublié</h2>
           </div>
           <div className='welcome-section-second'>
             <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
@@ -262,4 +221,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;

@@ -22,13 +22,7 @@ const Deposit = () => {
   const [isRequestingCall, setIsRequestingCall] = useState(false);
   const [cashdesk, setCashdeskId] = useState()
   const [user, setUser] = useState({
-    _id: "",
-    betId: "",
-    network: "",
-    transactionId: "",
-    email: "",
-    cashdeskId: "",
-    amount: ""
+    network: ""
   });
   const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
@@ -44,31 +38,22 @@ const Deposit = () => {
 
 
 
-    async function getAvailableCashdeskAddress() {
-      try {
-        const res = await axios.post("/api/getAvailableCashdeskDeposit", newTimestamp);
-        setCashdeskId( res.data.subadminWithLowestPendingCount._id);
-      } catch (error: any) {
-        console.error(error.message);
-      }
-    }
-
-
-
   
 
 
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUserInfo");
-      setSavedID(res.data.data.betID);
+      setSavedID(res.data.data.betID);hchu
       setActiveBetId(res.data.data.betID[0]);
       setUser({
         ...user,
         _id: res.data.data._id,
-        betId: res.data.data.betID[0],
+        betId: res.data.data.betID,
         email: res.data.data.email,
         fullname: res.data.data.fullname,
+        number: res.data.data.number,
+        fedapayId: res.data.data.fedapayId,
       });
     } catch (error: any) {
       if (error.response) {
@@ -85,7 +70,9 @@ const Deposit = () => {
           router.push("/signin"); // Replace '/login' with your actual login route
         } else {
           // Handle other errors
-          toast.error("Une erreur s'est produite. Veuillez réessayer plus tard.");
+          toast.error(
+            "Une erreur s'est produite. Veuillez réessayer plus tard."
+          );
         }
       } else if (error.request) {
         // Handle network errors (no connection)
@@ -94,12 +81,10 @@ const Deposit = () => {
     }
   };
 
-
   useEffect(() => {
     // Check network status before making the request
     if (isOnline) {
       getUserDetails();
-            getAvailableCashdeskAddress();
     } else {
       toast.error(
         "No network connection. Please check your connection and try again."
@@ -141,7 +126,6 @@ const Deposit = () => {
     }
   }
 
-
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
     const newValue = event.target.value;
@@ -160,13 +144,11 @@ const Deposit = () => {
   };
 
   const handleChangeNetwork = (event: any) => {
-
     setUser({
       ...user,
       network: event.target.value,
     });
   };
-
 
 
   async function submitDetails() {
@@ -185,23 +167,25 @@ const Deposit = () => {
     } else if (user.betId === "") {
       return toast.error("Entrez le betId à utiliser");
     } else {
+  
       try {
         setIsSubmitting(true);
-        // Update user with the new values
         const updatedUser = {
-          ...user,
-          betId: activeBetId,
-          transactionId: user.transactionId,
+          _id: user._id,
+          betId: user.activeBetId,
           amount: user.amount,
-          cashdeskId: cashdesk,
           network: user.network,
-           email: user.email,
+          email: user.email,
+          momoNumber: user.number,
+          fedapayId: user.fedapayId,
+          momoName: user.fullname,
         };
-        const res = await axios.post("/api/users/deposit3", user);
-        console.log(res);
-        // router.push("/dashboard");
-        // toast.success("deposit request Submitted");
-      } catch (error: any) {
+  
+        const res = await axios.post("/api/users/deposit3", updatedUser);
+    
+        router.push("/dashboard");
+        toast.success("deposit request Submitted");
+      } catch (error: any) {d
         return toast.error("error");
       } finally {
         setIsSubmitting(false);

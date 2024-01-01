@@ -9,11 +9,15 @@ import { v4 as uuidv4 } from "uuid";
 
 connect();
 
+// ... (your existing code)
+
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const { customerId, identifierId, cashdeskId, updatetype } =  reqBody;
+    const { customerId, identifierId, cashdeskId, updatetype, amount, type } =
+      reqBody;
+
     const filter = {
       _id: cashdeskId,
       "transactionHistory.identifierId": identifierId,
@@ -41,22 +45,42 @@ export async function POST(request: NextRequest) {
     }
 
     // Similarly, you can perform the update for the customer document
-    console.log(customerId)
-    const customerFilter = {
-      _id: customerId,
-      "transactionHistory.identifierId": identifierId,
-    };
-    const customerUpdate = {
-      $set: { "transactionHistory.$.status": updatetype },
-    };
 
-    const updatedCustomer = await User.findOneAndUpdate(
-      customerFilter,
-      customerUpdate,
-      options
+    // Retrieve the current customer
+    const existingCustomer = await User.findById(customerId);
+    console.log(existingCustomer.email);
+    if (!existingCustomer) {
+      console.log("Customer not found");
+      return NextResponse.json(
+        { error: "Customer not found" },
+        { status: 404 }
+      );
+    }
+
+    const customerUpdate = existingCustomer.transactionHistory.find(
+      (t: any) => t.identifierId.toString() === identifierId
     );
+    customerUpdate.status = updatetype;
 
-    if (!updatedCustomer) {
+    // Check if the fields exist, if not, initialize them
+    const currentDepositCount = existingCustomer.successfulDepositCount;
+    const currentWithdrawalCount = existingCustomer.succesfulWithdrawalCount;
+
+    // Calculate the new values
+    const newDepositCount =
+      updatetype === "Successful" && type === "deposits"
+        ? currentDepositCount + amount
+        : currentDepositCount;
+
+    const newWithdrawalCount =
+      updatetype === "Successful" && type === "withdrawals"
+        ? currentWithdrawalCount + amount
+        : currentWithdrawalCount;
+    existingCustomer.successfulDepositCount = newDepositCount;
+    existingCustomer.succesfulWithdrawalCount = newWithdrawalCount;
+    await existingCustomer.save();
+
+    if (!existingCustomer) {
       console.log("Failed to update transaction in customer");
       return NextResponse.json(
         { error: "Failed to update transaction in customer" },
@@ -78,5 +102,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-
 }

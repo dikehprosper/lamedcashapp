@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable */
+// @ts-nocheck
 "use client";
 import React, { useEffect, useState } from "react";
 import UserNav from "@/components/(Navs)/UserNav";
@@ -11,12 +14,14 @@ import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import Display from "@/components/(userscomponent)/(display)/display2";
 import { usePathname } from "next/navigation";
 import Referral from "@/components/(referral)/referral";
+import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
+import { CgTrashEmpty } from "react-icons/cg";
 const Referrals = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<any>([]);
   const [isOnline, setIsOnline] = useState(true);
-
+  const [referrals, setReferrals] = useState([]);
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUser");
@@ -46,6 +51,24 @@ const Referrals = () => {
       }
     }
   };
+  const [submitting, setSubmitting] = useState(false);
+  async function getReferrals() {
+    try {
+      setSubmitting(true);
+      const referrals = data.referrals;
+      const res = await axios.post("/api/getTotalReferral", referrals);
+      setReferrals(res.data.usersSuccesfulCountusers);
+      setSubmitting(false);
+    } catch (error: any) {
+      toast.error("error ");
+    }
+  }
+
+  if ("referrals" in data) {
+    if (!submitting) {
+      getReferrals();
+    }
+  }
 
   useEffect(() => {
     // Check network status before making the request
@@ -77,58 +100,30 @@ const Referrals = () => {
     };
   }, []);
 
-  const allDeposits = data?.transactionHistory?.filter(
-    (transaction: any) => transaction.fundingType === "deposits"
-  );
-
-  const totalDeposits = allDeposits
-    ?.filter((data: { status: string }) => data.status === "Successful")
-    .reduce((total: any, transaction: any) => {
-      return (total += transaction.amount);
-    }, 0);
-
-  // Filter withdrawal transactions
-  const allWithdrawals = data?.transactionHistory?.filter(
-    (transaction: any) => transaction.fundingType === "withdrawals"
-  );
-
-  const totalWithdrawals = allWithdrawals
-    ?.filter((data: { status: string }) => data.status === "Successful")
-    .reduce((total: any, transaction: any) => {
-      return (total += transaction.amount);
-    }, 0);
-
-  // Filter deposit transactions with status "pending"
-  const pendingDeposits = data?.transactionHistory.filter(
-    (transaction: any) =>
-      transaction.fundingType === "deposits" && transaction.status === "Pending"
-  );
-
-  // Filter withdrawal transactions with status "pending"
-  const pendingWithdrawals = data?.transactionHistory?.filter(
-    (transaction: any) =>
-      transaction.fundingType === "withdrawals" &&
-      transaction.status === "Pending"
-  );
-
-  // Calculate total cost of pending deposits
-
-  const totalPendingDepositAmount = pendingDeposits?.reduce(
-    (total: any, transaction: any) => {
-      return (total += transaction.amount);
-    },
+  const amountsArray = referrals?.map((obj) => obj?.SuccesfulDepositCountusers);
+  const totalAmount = amountsArray?.reduce(
+    (acc, SuccesfulDepositCountusers) => acc + SuccesfulDepositCountusers,
     0
   );
 
-  // Calculate total cost of pending withdrawals
-  const totalPendingWithdrawalAmount = pendingWithdrawals?.reduce(
-    (total: any, transaction: any) => {
-      return (total += transaction.amount);
-    },
+  const amountsArray2 = referrals?.map(
+    (obj) => obj?.SuccesfulWithdrawalCountusers
+  );
+  const totalAmount2 = amountsArray2?.reduce(
+    (acc, SuccesfulWithdrawalCountusers) => acc + SuccesfulWithdrawalCountusers,
     0
   );
+
+  const result = totalAmount + totalAmount2;
+  const threePercent = (3 / 100) * result;
+  const total = (5 / 100) * threePercent;
+  const totalCount = referrals?.length;
 
   const [active, setActive] = useState("user-referral-container2-inner5");
+
+  useEffect(() => {
+    console.log(referrals);
+  }, [referrals]);
 
   return (
     <div className='user-referral-container'>
@@ -138,7 +133,7 @@ const Referrals = () => {
         data={data}
       />
 
-      <Referral />
+      <Referral data={data} />
 
       <div className='user-referral-container2'>
         <div className='user-referral-container2-inner1'>
@@ -199,8 +194,8 @@ const Referrals = () => {
               }}
             >
               {" "}
-              <span style={{ color: "red" }}>*</span> soyez payé jusqu'à 10 %
-              sur les transactions de vos filleuls à vie
+              <span style={{ color: "red" }}>*</span> soyez payé jusqu&apos;à
+              10 % sur les transactions de vos filleuls à vie
             </p>
             <p
               style={{
@@ -222,10 +217,9 @@ const Referrals = () => {
           <div className='user-referral-container2-inner1-inner'>
             <div className='user-referral-display'>
               <Display
-                count={pendingDeposits?.length}
+                count={totalCount}
                 title='Dépôt'
                 term={1}
-                amount={totalPendingDepositAmount}
                 data={data?.transactionHistory}
                 allData={data}
                 style={{
@@ -235,10 +229,9 @@ const Referrals = () => {
                 }}
               />
               <Display
-                count={pendingWithdrawals?.length}
                 term={2}
                 title='Retirer'
-                amount={totalPendingWithdrawalAmount}
+                amount={total}
                 data={data?.transactionHistory}
                 allData={data}
                 style={{
@@ -247,6 +240,60 @@ const Referrals = () => {
                   icon: <RiMoneyDollarCircleLine />,
                 }}
               />
+            </div>
+            <div className='body-referral-count'>
+              <div className='body-referral-count2'>
+                <div className='body-referral-count3'>
+                  <div className='body-referral-count4'>Nom</div>
+                  <div className='body-referral-count4'>E-mail</div>
+                  <div className='body-referral-count4'>Montant réalisé</div>
+                </div>
+
+                {referrals.length > 0 ? (
+                  referrals.map((referral): any => {
+                    const number = referral.SuccesfulDepositCountusers;
+                    const threePercent = (3 / 100) * number;
+                    const result = (5 / 100) * threePercent;
+                    const number2 = referral.SuccesfulWithdrawalCountusers;
+                    const threePercent2 = (3 / 100) * number2;
+                    const result2 = (5 / 100) * threePercent2;
+                    const total = result + result2;
+
+                    return (
+                      // eslint-disable-next-line react/jsx-key
+                      <div className='body-referral-count5'>
+                        <div className='body-referral-count6'>
+                          {referral.name}
+                        </div>
+                        <div className='body-referral-count6'>
+                          {referral.email}
+                        </div>
+                        <div className='body-referral-count6'>
+                          XOF &nbsp; {formatNumberWithCommasAndDecimal(total)}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div
+                    className='no-result animate-pop-in'
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      height: "100%",
+                      flex: "1",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "30px",
+                      flexDirection: "column",
+                      marginTop: "40px",
+                    }}
+                  >
+                    <CgTrashEmpty fontSize='60px' />
+                    <h2>Vous N'avez Pas Encore De Référence</h2>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ) : null}

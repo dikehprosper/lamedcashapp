@@ -183,6 +183,26 @@ socket.disconnect()
   
 
 
+// Function to clear all cookies
+function clearAllCookies() {
+  const cookies = document.cookie.split(';');
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf('=');
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
+}
+
+useEffect(() => {
+clearAllCookies();
+}, [])
+
+
+
+
+
 
   return (
     <div className='user_dashboard_container'>

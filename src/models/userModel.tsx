@@ -61,6 +61,14 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
+  successfulDepositCount: {
+    type: Number,
+    default: 0,
+  },
+  succesfulWithdrawalCount: {
+    type: Number,
+    default: 0,
+  },
 
   isOutOfFunds: {
     type: Boolean,
@@ -74,7 +82,13 @@ const userSchema = new Schema({
       },
     ],
   },
-
+  referrals: {
+    type: [
+      {
+        type: String,
+      },
+    ],
+  },
   cashdeskAddress: {
     type: {
       city: String,
@@ -84,6 +98,7 @@ const userSchema = new Schema({
   sessionId: {
     type: String,
   },
+
   transactionHistory: {
     type: [
       {

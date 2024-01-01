@@ -88,34 +88,18 @@ export async function POST(request: NextRequest) {
     );
 
     // Check if the request count for the current subadmin is divisible by 10
-    if (
-      currentSubadmin &&
-      Number.isInteger(
-        currentSubadmin.currentCount / 5 ||
-          currentSubadmin.currentCount / 5 !== 0
-      )
-    ) {
+    if (currentSubadmin && currentSubadmin.currentCount === 5) {
       // Mark the current subadmin as not 'current'
       currentSubadmin.current = false;
-
+      currentSubadmin.currentCount = 0;
       let nextCurrentSubadminIndex =
         (currentSubadminIndex + 1) % adminUser.length;
 
-      let nextSubadmin = adminUser[nextCurrentSubadminIndex] || adminUser[0];
+      let nextSubadmin = adminUser[nextCurrentSubadminIndex]
+        ? adminUser[nextCurrentSubadminIndex]
+        : adminUser[0];
 
-      // Keep incrementing nextCurrentSubadminIndex until the condition is satisfied
-      while (
-        nextSubadmin &&
-        Number.isInteger(
-          nextSubadmin.currentCount / 5 || nextSubadmin.currentCount / 5 !== 0
-        )
-      ) {
-        nextCurrentSubadminIndex =
-          (nextCurrentSubadminIndex + 1) % adminUser.length;
-        nextSubadmin = adminUser[nextCurrentSubadminIndex] || adminUser[0];
-      }
-
-      // Mark the next subadmin as 'current'
+    // Mark the next subadmin as 'current'
       nextSubadmin.current = true;
       const updatedCount = nextSubadmin.currentCount + 1;
       nextSubadmin.currentCount = updatedCount;

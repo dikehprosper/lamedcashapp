@@ -4,15 +4,7 @@ import Link from "next/link";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import "./display2.css";
 
-const display = ({
-  count,
-  term,
-  title,
-  amount,
-  style,
-  data,
-  allData,
-}: UserDashboardDisplayProps) => {
+const display = ({ count, term, title, amount, style, data, allData }: any) => {
   return !allData ? (
     // Render the loading spinner when loading is true
     <div

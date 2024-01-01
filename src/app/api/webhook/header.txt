@@ -1,0 +1,67 @@
+HeadersList {
+  cookies: null,
+  [Symbol(headers map)]: Map(15) {
+    'accept' => { name: 'accept', value: '*/*' },
+    'accept-encoding' => {
+      name: 'accept-encoding',
+      value: 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3'
+    },
+    'content-length' => { name: 'content-length', value: '6643' },
+    'content-type' => { name: 'content-type', value: 'application/json' },
+    'elastic-apm-traceparent' => {
+      name: 'elastic-apm-traceparent',
+      value: '00-86e734215ae9cda902e5b1ffa694808e-28be00160f0ac47e-01'
+    },
+    'host' => { name: 'host', value: 'f35f-197-210-84-29.ngrok-free.app' },
+    'sentry-trace' => {
+      name: 'sentry-trace',
+      value: 'e57dc596f8f2424a8745a392d72fea2d-a0ddbbaadd30ab99-1'
+    },
+    'traceparent' => {
+      name: 'traceparent',
+      value: '00-86e734215ae9cda902e5b1ffa694808e-28be00160f0ac47e-01'
+    },
+    'tracestate' => { name: 'tracestate', value: 'es=s:1.0' },
+    'user-agent' => { name: 'user-agent', value: 'Faraday v1.10.0' },
+    'x-fedapay-signature' => {
+      name: 'x-fedapay-signature',
+      value: 't=1703868992,s=932be09465f6d36ef6f0f9582cf24c95ee55fa32437e805ad00ec55e78d6f7fb'
+    },
+    'x-forwarded-for' => { name: 'x-forwarded-for', value: '209.97.130.87' },
+    'x-forwarded-host' => {
+      name: 'x-forwarded-host',
+      value: 'f35f-197-210-84-29.ngrok-free.app'
+    },
+    'x-forwarded-port' => { name: 'x-forwarded-port', value: '3000' },
+    'x-forwarded-proto' => { name: 'x-forwarded-proto', value: 'https' }
+  },
+  [Symbol(headers map sorted)]: [
+    [ 'accept', '*/*' ],
+    [ 'accept-encoding', 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3' ],
+    [ 'content-length', '6643' ],
+    [ 'content-type', 'application/json' ],
+    [
+      'elastic-apm-traceparent',
+      '00-86e734215ae9cda902e5b1ffa694808e-28be00160f0ac47e-01'
+    ],
+    [ 'host', 'f35f-197-210-84-29.ngrok-free.app' ],
+    [
+      'sentry-trace',
+      'e57dc596f8f2424a8745a392d72fea2d-a0ddbbaadd30ab99-1'
+    ],
+    [
+      'traceparent',
+      '00-86e734215ae9cda902e5b1ffa694808e-28be00160f0ac47e-01'
+    ],
+    [ 'tracestate', 'es=s:1.0' ],
+    [ 'user-agent', 'Faraday v1.10.0' ],
+    [
+      'x-fedapay-signature',
+      't=1703868992,s=932be09465f6d36ef6f0f9582cf24c95ee55fa32437e805ad00ec55e78d6f7fb'
+    ],
+    [ 'x-forwarded-for', '209.97.130.87' ],
+    [ 'x-forwarded-host', 'f35f-197-210-84-29.ngrok-free.app' ],
+    [ 'x-forwarded-port', '3000' ],
+    [ 'x-forwarded-proto', 'https' ]
+  ]
+}

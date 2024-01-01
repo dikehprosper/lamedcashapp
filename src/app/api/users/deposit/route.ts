@@ -1,11 +1,8 @@
-import { connect } from "@/dbConfig/dbConfig";
-import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
-// import { sendEmail } from "@/helpers/mailer";
-// pages/api/generateUuid.js
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import User from "@/models/userModel";
+import mongoose from "mongoose";
+import { connect } from "@/dbConfig/dbConfig";
 
 connect();
 
@@ -13,90 +10,111 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const { _id, betId, network, amount, transactionId } = await reqBody;
+    const { _id, betId, amount, momoName, momoNumber, fedapayId, email, network } = reqBody;
 
-    //Check if the User already exist
+    // Check if the User already exists
     const user = await User.findOne({ _id });
-
+  
     if (!user) {
       return NextResponse.json(
-        { error: "User does not already exists" },
+        { error: "User does not exist" },
         { status: 400 }
       );
     }
-    const newUuid = uuidv4();
 
-    user.transactionHistory.push({
+    const newUuid = uuidv4();
+    const date = new Date();
+
+    // Create a new transaction history entry for the user
+    const userTransaction = {
       status: "Pending",
-      registrationDateTime: new Date(),
-      amount: amount,
-      network: network,
-      betId: betId,
-      transactionId: transactionId,
+      registrationDateTime: date,
+      amount,
+      betId,
+      momoName,
+      momoNumber,
       fundingType: "deposits",
       identifierId: newUuid,
-    });
+    };
 
-    /// add to less buzy admin
+    // Add the current pending transaction to the user
+    user.transactionHistory.push(userTransaction);
+    await user.save();
+    // Find the subadmin user by cashdeskId
+    const adminUser = await User.find({ isSubAdminDeposits: true });
+  
+    if (!adminUser || adminUser.length === 0) {
+      return NextResponse.json(
+        { error: "Subadmin User does not exist" },
+        { status: 402 }
+      );
+    }
 
-    /// add to less buzy admin
-    let userWithLowestPendingTransactionCount;
+    const subadminTransaction = {
+      userid: _id,
+      status: "Pending",
+      registrationDateTime: date,
+      amount,
+      betId,
+      fundingType: "deposits",
+      identifierId: newUuid,
+      momoName,
+      momoNumber,
+    };
 
-    const adminUsers = await User.find({ isSubAdminDeposits: true });
+    // Example usage: Get the index of the subadmin with current: true
+    let currentSubadminIndex = -1;
 
-    // Filter admin users who are not out of funds
-    const adminUsersWithFunds = adminUsers.filter(
-      (adminUser) => !adminUser.outOfFunds
-    );
-
-    // If there are no admin users with funds, handle the case accordingly
-    if (adminUsersWithFunds.length === 0) {
-      console.log("No subadmin users with available funds.");
-      // Handle the case when there are no subadmin users with available funds
-    } else {
-      // Iterate through admin users with funds to find the one with the lowest count of transactions
-      userWithLowestPendingTransactionCount = adminUsersWithFunds[0];
-
-      for (const adminUser of adminUsersWithFunds) {
-        const pendingTransactionCount = adminUser.transactionHistory.filter(
-          (transaction: { status: string }) => transaction.status === "pending"
-        ).length;
-
-        const lowestPendingTransactionCount =
-          userWithLowestPendingTransactionCount.transactionHistory.filter(
-            (transaction: { status: string }) =>
-              transaction.status === "pending"
-          ).length;
-
-        if (pendingTransactionCount < lowestPendingTransactionCount) {
-          userWithLowestPendingTransactionCount = adminUser;
-        }
+    for (let i = 0; i < adminUser.length; i++) {
+      if (adminUser[i].current === true) {
+        currentSubadminIndex = i;
+        break;
       }
     }
 
-    // Adding the current pending transaction to the user with the lowest pending transaction count
-    userWithLowestPendingTransactionCount.transactionHistory.push({
-      userid: _id,
-      username: user.fullname,
-      userNumber: user.number,
-      status: "Pending",
-      registrationDateTime: new Date(),
-      amount: amount,
-      network: network,
-      betId: betId,
-      transactionId: transactionId,
-      fundingType: "deposits",
-      identifierId: newUuid,
-    });
+    // Find the subadmin that is currently receiving requests
+    const currentSubadmin = adminUser.find(
+      (subadmin) => subadmin.current === true
+    );
 
-    await userWithLowestPendingTransactionCount.save();
-    await user.save();
+    // Check if the request count for the current subadmin is divisible by 10
+    if (currentSubadmin && currentSubadmin.currentCount === 5) {
+      // Mark the current subadmin as not 'current'
+      currentSubadmin.current = false;
+      currentSubadmin.currentCount = 0;
+      let nextCurrentSubadminIndex =
+        (currentSubadminIndex + 1) % adminUser.length;
 
-    return NextResponse.json({
-      message: "History added",
-      success: true,
-      user,
-    });
+      let nextSubadmin = adminUser[nextCurrentSubadminIndex]
+        ? adminUser[nextCurrentSubadminIndex]
+        : adminUser[0];
+
+      // Mark the next subadmin as 'current'
+      nextSubadmin.current = true;
+      const updatedCount = nextSubadmin.currentCount + 1;
+      nextSubadmin.currentCount = updatedCount;
+      nextSubadmin.transactionHistory.push(subadminTransaction);
+
+      // Save changes to the database for both the current and next subadmin
+      await Promise.all([currentSubadmin.save(), nextSubadmin.save()]);
+      // Return the added transaction details in the response
+      return NextResponse.json({
+        message: "History added",
+        success: true,
+        userTransaction,
+      });
+    } else {
+      currentSubadmin.transactionHistory.push(subadminTransaction);
+      const updatedCount = currentSubadmin.currentCount + 1;
+      currentSubadmin.currentCount = updatedCount;
+      await currentSubadmin.save();
+      // Return the added transaction details in the response
+      return NextResponse.json({
+        message: "History added",
+        success: true,
+        userTransaction,
+      });
+    }
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

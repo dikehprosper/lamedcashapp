@@ -24,8 +24,6 @@ export async function POST(request: NextRequest) {
     });
 
     const token = await transaction.generateToken();
-    console.log(token.token, "token");
-    // const url1 = token.url;
 
     const apiUrl = `https://sandbox-api.fedapay.com/v1/moov`;
     const apiKey = "sk_sandbox_rlZQIN8rnovgkg2TCOeVSCxp";
@@ -40,9 +38,6 @@ export async function POST(request: NextRequest) {
         token: token.token,
       }),
     });
-
-console.log(response)
-
 
     // Return a JSON response with the transaction status
     return NextResponse.json({

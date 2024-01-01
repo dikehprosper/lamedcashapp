@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,17 +10,20 @@ import { v4 as uuidv4 } from "uuid";
 import { FedaPay, Customer } from "fedapay";
 connect();
 
+/* Remplacez VOTRE_CLE_API par votre véritable clé API */
+FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
+
+/* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
+FedaPay.setEnvironment("live"); //ou setEnvironment('live');
 
 // import { PhoneNumberUtil } from "google-libphonenumber";
-
-
 
 export async function POST(request: NextRequest) {
   try {
     //  const { phoneNumber, countryCode } = req.body;
     const reqBody = await request.json();
-    const { fullname, betId, number, email, password, referrerId } = await reqBody;
-
+    const { fullname, betId, number, email, password, referrerId } =
+      await reqBody;
     //Check if the User already exist
     const user = await User.findOne({ email });
 
@@ -31,6 +36,7 @@ export async function POST(request: NextRequest) {
     // CREATE USER FOR CASHDESK DEPOSITS
     // CREATE USER FOR CASHDESK DEPOSITS
     // CREATE USER FOR CASHDESK DEPOSITS
+
     if (
       email === "cashdesk1@betfundr.com" ||
       email === "cashdesk2@betfundr.com" ||
@@ -40,18 +46,37 @@ export async function POST(request: NextRequest) {
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
-      const hashedPassword = await bcryptjs.hash(password, salt)
-      const newUser = new User({
-        fullname,
-        betId,
-        number,
-        email,
-        password: hashedPassword,
-        isSubAdminDeposits: true,
-        // cashdeskDialcode: cashdesk,
-        isLoggedIn: true,
-        sessionId: generateUniqueSessionId(),
-      });
+      const hashedPassword = await bcryptjs.hash(password, salt);
+      const user = await User.find({ isSubAdminDeposits: true });
+      let newUser;
+      if (user.length < 1) {
+        //create a new user
+        newUser = new User({
+          fullname,
+          betId,
+          number,
+          email,
+          password: hashedPassword,
+          isSubAdminDeposits: true,
+          isLoggedIn: true,
+          sessionId: generateUniqueSessionId(),
+          current: true,
+        });
+      }
+
+      if (user.length >= 1) {
+        //create a new user
+        newUser = new User({
+          fullname,
+          betId,
+          number,
+          email,
+          password: hashedPassword,
+          isSubAdminDeposits: true,
+          isLoggedIn: true,
+          sessionId: generateUniqueSessionId(),
+        });
+      }
 
       const savedUser = await newUser.save();
 
@@ -85,13 +110,15 @@ export async function POST(request: NextRequest) {
       return response;
     }
 
-
     // CREATE USER FOR CASHDESK WITHDRAWAL
     // CREATE USER FOR CASHDESK WITHDRAWAL
     // CREATE USER FOR CASHDESK WITHDRAWAL
     if (
       email === "cashdesk6@betfundr.com" ||
-      email === "cashdesk7@betfundr.com" || email === "cashdesk8@betfundr.com" || email === "cashdesk9@betfundr.com" || email === "cashdesk10@betfundr.com"
+      email === "cashdesk7@betfundr.com" ||
+      email === "cashdesk8@betfundr.com" ||
+      email === "cashdesk9@betfundr.com" ||
+      email === "cashdesk10@betfundr.com"
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
@@ -143,7 +170,7 @@ export async function POST(request: NextRequest) {
           isLoggedIn: true,
           cashdeskAddress: cashdesk,
           sessionId: generateUniqueSessionId(),
-          current: true
+          current: true,
         });
       }
 
@@ -161,7 +188,7 @@ export async function POST(request: NextRequest) {
           sessionId: generateUniqueSessionId(),
         });
       }
-  
+
       const savedUser = await newUser.save();
 
       //create token data
@@ -252,23 +279,16 @@ export async function POST(request: NextRequest) {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
-     /* Remplacez VOTRE_CLE_API par votre véritable clé API */
-     FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
-    
-     /* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
-     FedaPay.setEnvironment('live'); //ou setEnvironment('live');
-     
-     /* Créer le client */
-     const customer = await Customer.create({
-       firstname: fullname.split(" ")[0],
-       lastname: fullname.split(" ")[1],
-       email: email,
-       phone_number: {
-         number: `+229${number}`,
-         country: 'BJ'
-       }
-     });
-
+    /* Créer le client */
+    const customer = Customer.create({
+      firstname: fullname.split(" ")[0],
+      lastname: fullname.split(" ")[1],
+      email: email,
+      phone_number: {
+        number: `+229${number}`,
+        country: "BJ",
+      },
+    });
 
     //create a new user
     const newUser = new User({
@@ -281,13 +301,17 @@ export async function POST(request: NextRequest) {
       isUser: true,
       isLoggedIn: true,
       sessionId: generateUniqueSessionId(),
-      fedapayId: customer.id
+      fedapayId: customer.id,
     });
-    
 
-   
     // save the new created user
     const savedUser = await newUser.save();
+
+    //Check if the User already exist
+    const user2 = await User.findOne({ _id: referrerId });
+
+    user2.referrals.push(email);
+    await user2.save();
 
     //create token data
     const tokenData = {
@@ -300,8 +324,6 @@ export async function POST(request: NextRequest) {
       isSubAdminWithdrawals: savedUser.isSubAdminWithdrawals,
       sessionId: savedUser.sessionId,
     };
-
-   
 
     // create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {

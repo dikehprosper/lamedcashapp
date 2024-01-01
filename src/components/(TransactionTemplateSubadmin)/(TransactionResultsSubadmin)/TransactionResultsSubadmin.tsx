@@ -51,6 +51,8 @@ const TransactionResultsSubadmin = ({
          customerId: userId,
          identifierId: identifierId,
          cashdeskId: cashdeskId,
+         amount: amount,
+         type: type,
        };
        const response = await axios.post("/api/subadminTransactionUpdate", info);
        setCurrentStatus(response.data.currentTransactionSubadminStatus);
@@ -85,6 +87,8 @@ const TransactionResultsSubadmin = ({
         customerId: userId,
         identifierId: identifierId,
         cashdeskId: cashdeskId,
+            amount: amount,
+         type: type,
       };
       // console.log(info)
       const response = await axios.post("/api/subadminTransactionUpdate", info);
