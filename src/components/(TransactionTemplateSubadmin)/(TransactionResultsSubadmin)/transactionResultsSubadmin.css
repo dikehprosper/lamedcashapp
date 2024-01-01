@@ -13,14 +13,15 @@
   position: relative;
 }
 
-.accepted, .download-button2 {
+/* .accepted, .download-button2 {
   display: none !important
-}
+} */
 
 
 .mobile-time {
   display: none;
 }
+
 .transaction_result-subadmin > span:first-child {
   height: 100%;
   border-radius: 4px;
