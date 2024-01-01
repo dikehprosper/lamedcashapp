@@ -191,7 +191,7 @@
 
 @media (max-width: 440px) {
   .transaction_result-subadmin {
-    grid-template-columns: 9px 1fr 1.4fr;
+    grid-template-columns: 9px 1fr 1fr;
   }
 
   .transaction_result-subadmin > span {
@@ -223,7 +223,7 @@
 @media (max-width: 358px) {
   .transaction_result-subadmin {
     height: 45px;
-    grid-template-columns: 8px 1fr 1.4fr;
+    grid-template-columns: 8px 1fr 1fr;
     gap: 5px;
   }
 
