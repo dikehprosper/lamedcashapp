@@ -43,13 +43,14 @@ const hero = () => {
             src={image}
             fill
             loading='eager'
-            quality={100}
             style={{
               objectFit: "cover",
             }}
             sizes='(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw'
             alt='Picture of the background'
+            placeholder='blur'
           />
+
         </div>
       </div>
       <div className='small-device'>
@@ -102,12 +103,12 @@ const hero = () => {
             src={mainBackgroundMobile}
             fill
             loading='eager'
-            quality={100}
             style={{
               objectFit: "cover",
               width: "100%",
               height: "100%",
             }}
+            placeholder='blur'
             alt='Picture of the background'
           />
         </div>

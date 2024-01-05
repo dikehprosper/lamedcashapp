@@ -179,6 +179,7 @@ const UserNav = () => {
                   objectFit: "cover",
                 }}
                 alt='Picture of the author'
+                placeholder='blur'
               />
             </div>
           </div>
