@@ -11,6 +11,7 @@ import axios from "axios";
 import { IoIosCopy } from "react-icons/io";
 import {useRouter} from "next/navigation";
 import { FedaPay } from "fedapay";
+import Modal from "@/components/(Utils)/(modals)/processingModal";
 // import App from "../pay";
 const Deposit = () => {
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,11 @@ const Deposit = () => {
   const [isRequestingCall, setIsRequestingCall] = useState(false);
   const [cashdesk, setCashdeskId] = useState()
   const [user, setUser] = useState({
-    network: ""
+    email: "",
+amount: "",
+    network: "",
+    betId: savedID[0],
+momoNumber: ""
   });
   const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
@@ -35,26 +40,28 @@ const Deposit = () => {
   // Example usage:
   const newTimestamp = generateTimestamp();
 
-
-
-
-  
-
-
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUserInfo");
-      setSavedID(res.data.data.betID);hchu
-      setActiveBetId(res.data.data.betID[0]);
-      setUser({
+
+          setUser({
         ...user,
         _id: res.data.data._id,
-        betId: res.data.data.betID,
-        email: res.data.data.email,
+        betId: res.data.data.betID[0],
+        momoName: res.data.data.fullname,
+        momoNumber: res.data.data.number,
         fullname: res.data.data.fullname,
-        number: res.data.data.number,
         fedapayId: res.data.data.fedapayId,
+        email: res.data.data.email
       });
+      setSavedID(res.data.data.betID);
+      setActiveBetId(res.data.data.betID[0]);
+   
+      setData({
+        ...data,
+        fullname: res.data.data.fullname,
+         betId: res.data.data.betId,
+      })
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -150,6 +157,7 @@ const Deposit = () => {
     });
   };
 
+ const [processing, setProcessing] = useState(false)
 
   async function submitDetails() {
     if (isSubmitting) {
@@ -167,31 +175,59 @@ const Deposit = () => {
     } else if (user.betId === "") {
       return toast.error("Entrez le betId à utiliser");
     } else {
-  
+      setLoading(true)
       try {
         setIsSubmitting(true);
         const updatedUser = {
           _id: user._id,
-          betId: user.activeBetId,
+          betId: user.betId,
           amount: user.amount,
           network: user.network,
           email: user.email,
-          momoNumber: user.number,
+          momoNumber: user.momoNumber,
           fedapayId: user.fedapayId,
           momoName: user.fullname,
         };
-  
+        setProcessing(true)
+
         const res = await axios.post("/api/users/deposit3", updatedUser);
-    
+
         router.push("/dashboard");
+        setProcessing(false)
         toast.success("deposit request Submitted");
-      } catch (error: any) {d
-        return toast.error("error");
+           setLoading(false)
+      } catch (error: any) {
+        if (error.response.status === 400) {
+          return toast.error("Utilisateur non trouvé");
+        } else if (error.response.status === 401) {
+          return toast.error("Impossible de lancer la transaction");
+        } else {
+          return toast.error("error");
+        }
       } finally {
+           setLoading(false)
         setIsSubmitting(false);
+           setProcessing(false)
       }
     }
   }
+
+  async function submitDetails1() {
+    try {
+      const res = await axios.post("/api/webhook", updatedUser);
+      // router.push("/dashboard");
+      console.log(res);
+      toast.success("deposit request Submitted");
+    } catch (error: any) {
+      return toast.error("error");
+    }
+  }
+  
+
+
+
+
+  
 
   const handleChangeAmount = (event: any) => {
     setUser({
@@ -200,6 +236,14 @@ const Deposit = () => {
     });
   };
 
+    const handleChangeMomoNumber = (event: any) => {
+    setUser({
+      ...user,
+      momoNumber: event.target.value,
+    });
+  };
+
+  
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -211,17 +255,14 @@ const Deposit = () => {
     toast.success("Soumis! Votre demande sera traitée sous peu");
   };
 
-  //check email and password state to determine ButtonDisabled state
-  useEffect(() => {
-    if (
-      user.amount === ""
-    ) {
-      setButtonDisabled(true);
-    } else {
-      setButtonDisabled(false);
-    }
-  }, [user]);
+ useEffect(() => {
+   setButtonDisabled(!(user.amount && user.network));
+ }, [user]);
 
+
+  useEffect(() => {
+console.log(user.network)
+  }, [user]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -302,7 +343,13 @@ const Deposit = () => {
         about='Effectuez vos dépôts sur votre 1XBET ici'
         data={user}
       />
-      {/* <App /> */}
+     {processing && (
+        <Modal
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner-processing'
+          title='Montant du dépôt'
+        />
+      )}
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
           <label>1XBET ID</label>
@@ -318,7 +365,12 @@ const Deposit = () => {
               les afficher ici{" "}
             </div>
             <div className='saved_id_container'>
-              {savedID?.map((id, index) => (
+                 {!savedID.length > 0?  (
+              <div id='container-deposit'>
+                <div id='html-spinner-deposit'></div>
+              </div>
+            ) : (
+             savedID?.map((id, index) => (
                 <div
                   className='saved_id_container-inner'
                   key={index}
@@ -347,7 +399,9 @@ const Deposit = () => {
                     }}
                   ></span>
                 </div>
-              ))}
+              ))
+            )}
+             
             </div>
           </div>
           <input
@@ -400,79 +454,15 @@ const Deposit = () => {
             <option value='mtn'> Mtn Benin</option>
             <option value='moov'>Moov Benin</option>
           </select>
-          {/*   <div
-            className='submit-button-deposit'
-            style={{
-              background: "rgba(128, 128, 128, 1)",
-              marginTop: "2px",
-            }}
-            onClick={requestCall}
-          >
-            {loading ? (
-              <div id='container-signin'>
-                <div id='html-spinner-signin'></div>
-              </div>
-            ) : (
-              "Générer"
-            )}
-          </div>
-
-          <label>USSD CODE</label>
-          <div style={{ display: "flex", position: "relative", width: "100%" }}>
-            <input
-              type='text'
-              className='deposit-form'
-              value={phoneDial}
-              key={phoneDial}
-              ref={inputRef}
-            />
-            {phoneDial && (
-              <span
-                style={{
-                  position: "absolute",
-                  right: "18px",
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  fontWeight: "300",
-                  color: "green",
-                  fontSize: "14px",
-                }}
-                onClick={handleCopyClick}
-              >
-                <IoIosCopy />
-                copier
-              </span>
-            )}
-          </div>*/}
-          {/*       
-          <label>Transaction Id</label>
+         
+             <label>Numéro momo</label>
           <input
-            type='text'
+            type='number'
             className='deposit-form'
-            value={user.transactionId}
-            onChange={changeTransactionId}
-            placeholder="soumettre l'identifiant de la transaction"
-          /> */}
-          {/* <div
-            className='submit-button-deposit'
-            style={{
-              background: buttonDisabled
-                ? "rgba(128, 128, 128, 0.5)"
-                : "rgba(128, 128, 128, 1)",
-              pointerEvents: buttonDisabled ? "none" : "auto",
-              cursor: "pointer",
-            }}
-            onClick={createTransaction}
-          >
-            {loading ? (
-              <div id='container-signin'>
-                <div id='html-spinner-signin'></div>
-              </div>
-            ) : (
-              "Procéder"
-            )}
-          </div> */}
+            value={user.momoNumber}
+            onChange={handleChangeMomoNumber}
+            placeholder='Entrez le numéro Momo'
+          />
           <div
             className='submit-button-deposit'
             style={{
@@ -485,8 +475,8 @@ const Deposit = () => {
             onClick={submitDetails}
           >
             {loading ? (
-              <div id='container-signin'>
-                <div id='html-spinner-signin'></div>
+              <div id='container-deposit'>
+                <div id='html-spinner-deposit'></div>
               </div>
             ) : (
               "Procéder"

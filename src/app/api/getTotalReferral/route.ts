@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
 
     const referrals = reqBody // Assuming your JSON structure has a 'referrals' key
-console.log(referrals)
+    console.log(referrals)
     const userPromises = referrals.map(async (email: any) => {
       try {
         const user = await User.findOne({ email });

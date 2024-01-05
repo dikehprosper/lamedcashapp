@@ -89,6 +89,20 @@ const userSchema = new Schema({
       },
     ],
   },
+  pendingDeposit: {
+    type: [
+      {
+        fedapayTransactionId: String || Number,
+        transactionId: String,
+        createdAt: String,
+        status: String,
+        amount: String || Number,
+         betId: String || Number,
+        momoName: String || Number,
+        momoNumber: String || Number,
+      },
+    ],
+  },
   cashdeskAddress: {
     type: {
       city: String,

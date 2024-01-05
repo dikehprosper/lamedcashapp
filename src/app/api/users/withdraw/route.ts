@@ -50,8 +50,11 @@ export async function POST(request: NextRequest) {
     user.transactionHistory.push(userTransaction);
     await user.save();
     // Find the subadmin user by cashdeskId
-    const adminUser = await User.find({ isSubAdminWithdrawals: true });
 
+    const adminUser = await User.find({
+      isSubAdminWithdrawals: true,
+      isOutOfFunds: false,
+    });
     if (!adminUser || adminUser.length === 0) {
       return NextResponse.json(
         { error: "Subadmin User does not exist" },
@@ -99,7 +102,7 @@ export async function POST(request: NextRequest) {
         ? adminUser[nextCurrentSubadminIndex]
         : adminUser[0];
 
-    // Mark the next subadmin as 'current'
+      // Mark the next subadmin as 'current'
       nextSubadmin.current = true;
       const updatedCount = nextSubadmin.currentCount + 1;
       nextSubadmin.currentCount = updatedCount;
@@ -129,3 +132,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+
+
+

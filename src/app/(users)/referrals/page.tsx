@@ -241,6 +241,7 @@ const Referrals = () => {
                 }}
               />
             </div>
+            <div className='withdraw-button'>Retirer</div>
             <div className='body-referral-count'>
               <div className='body-referral-count2'>
                 <div className='body-referral-count3'>

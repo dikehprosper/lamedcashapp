@@ -49,7 +49,6 @@ const Dashboard = () => {
 
 
 
-
  useEffect(() => {
    // Check network status before making the request
    if (isOnline) {

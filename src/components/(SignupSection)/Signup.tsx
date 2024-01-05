@@ -71,15 +71,15 @@ const SignUp = () => {
     referrerId: referrerId? referrerId : ""
   }
         const response = await axios.post("/api/users/signup", updatedUser);
-        toast.success("successful");
+        toast.success("vous vous êtes inscrit avec succès... vous avez été redirigé vers le tableau de bord");
         router.push("/dashboard");
         setLoading(false);
       }
     } catch (error: any) {
       if (error.response.status === 400) {
-        return toast.error("User already exist");
+        return toast.error("l'utilisateur existe déjà");
       } else if (error.response.status === 500) {
-        return toast.error("Signup failed");
+        return toast.error("échec de l'inscription");
       } else {
         console.log(error);
         return toast.error(error);

@@ -10,6 +10,29 @@ export async function GET(request: NextRequest) {
 
     // Find the user and select all fields except password
     const user = await User.findOne({ _id: userId }).select("-password");
+  
+
+    if (user.pendingDeposit.length > 0) {
+      // Function to check if createdAt is less than 24 hours old
+      const isWithin24Hours = (createdAt: any) => {
+        const twentyFourHoursAgo = new Date();
+        twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 0.01);
+        return new Date(createdAt) > twentyFourHoursAgo;
+      };
+
+      // Filter out objects with createdAt more than 24 hours ago
+      const filteredTransactions = user.pendingDeposit.filter((transaction: any) =>
+        isWithin24Hours(transaction.createdAt)
+      );
+
+    
+
+      // Update user.pendingDeposit with the filtered array
+      user.pendingDeposit = filteredTransactions;
+
+      // Save the modified user object to the database
+      await user.save();
+    }
 
     // Check if the stored sessionId matches the sessionId from the token
     if (user && user.sessionId === sessionId) {

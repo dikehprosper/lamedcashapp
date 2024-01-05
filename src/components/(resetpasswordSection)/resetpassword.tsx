@@ -13,21 +13,23 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const ResetPassword = () => {
+    const router = useRouter()
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [user, setUser] = useState({
-    email: "",
+    token: "",
     password: "",
-    confirmpassword:""
   });
+  const [confirmpassword, setConfirmpassword] = useState("")
 
   useEffect(() => {
-    if (user.password && user.password === user.confirmpassword) {
+    if (user.password && confirmpassword) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [user.confirmpassword, user.password]);
+  }, [confirmpassword, user.password]);
 
   //collect value from login input
   const handleUserPassword = (event: any) => {
@@ -38,31 +40,55 @@ const ResetPassword = () => {
   };
 
   const handleUserConfirmPassword = (event: any) => {
-    setUser({
-      ...user,
-      confirmpassword: event.target.value,
-    });
+    setConfirmpassword(event.target.value);
   };
 
-  async function handleSubmit(e: any) {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const email = user.email;
-      console.log(email);
-      const response = await axios.post("/api/users/forgotpassword", { email }); // Corrected the API endpoint
-      console.log(response);
-      setLoading(false);
-    } catch (error: any) {
-      if (error.response && error.response.status === 400) {
-        // Corrected the way to check the status code
-        toast.error("User already exists"); // Corrected the error message
-      } else {
-        toast.error("Error occurred"); // Moved this toast outside of the specific status code check
-      }
-      setLoading(false);
+  useEffect(() => {
+    const urlToken = window.location.search.split("=")[1];
+    setUser({
+      ...user,
+      token: urlToken,
+    });
+  }, []);
+
+
+
+async function handleSubmit(e: any) {
+  e.preventDefault();
+setIsSubmitting(true)
+  try {
+    if(isSubmitting) {
+        return;
     }
+    if (user.password !== confirmpassword) {
+      return toast.error("Le mot de passe ne correspond pas");
+    }
+
+    setLoading(true);
+
+    const userData = {
+      password: user.password,
+      token: user.token,
+    };
+
+    const response = await axios.post("/api/users/resetpassword", userData);
+    if (response.data && response.data.success) {
+      toast.success("Password reset successful");
+    } 
+      router.push("/signin");
+    setLoading(false);
+    setIsSubmitting(false)
+  } catch (error: any) {
+    if (error.response && error.response.status === 400) {
+      toast.error("Password reset Link expired");
+    } else {
+      toast.error("Error occurred. Please try again."); // Moved this toast outside of the specific status code check
+    }
+    setLoading(false);
+     setIsSubmitting(false)
   }
+}
+
 
   return (
     <div className='signin-container'>
@@ -87,16 +113,17 @@ const ResetPassword = () => {
           <label>Mot de passe</label>
           <input
             type='text'
-            className='signin-form'
+            className='signin-form last'
             value={user.password}
             onChange={handleUserPassword}
             placeholder='Entrez un nouveau mot de passe'
           />
+          
           <label>Confirmez le mot de passe</label>
           <input
             type='text'
             className='signin-form'
-            value={user.confirmpassword}
+            value={confirmpassword}
             onChange={handleUserConfirmPassword}
             placeholder='Entrez Confirmer le mot de passe'
           />
@@ -120,8 +147,8 @@ const ResetPassword = () => {
               fontWeight: "600 !important",
               cursor: "pointer",
               background: buttonDisabled
-                ? "rgba(189, 255, 5, .7) !important;"
-                : "rgba(189, 255, 5, 1) !important;",
+                ? "rgba(189, 255, 5, .7) !important"
+                : "rgba(189, 255, 5, 1) !important",
               pointerEvents: buttonDisabled ? "none" : "auto",
             }}
           >
@@ -139,17 +166,7 @@ const ResetPassword = () => {
             <h2 className='welcome-section-first_h2'>Mot de passe oublié</h2>
           </div>
           <div className='welcome-section-second'>
-            <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
             <div className='signin-img google'>
-              <Image
-                src={image4}
-                fill
-                style={{
-                  objectFit: "cover",
-                }}
-                alt='Picture of the author'
-                loading='eager'
-              />
             </div>
             <p className='welcome-section-second_p'>
               Vous n&apos;avez pas de compte?,{" "}
@@ -164,20 +181,6 @@ const ResetPassword = () => {
       <div className='signin-container_inner23'>
         <div className='welcome-section-mobile'>
           <div className='welcome-section-second-mobile'>
-            <h5 className='welcome-section-second_h5-mobile'>
-              Ou continuez avec
-            </h5>
-            <div className='signin-img google'>
-              <Image
-                src={image4}
-                loading='eager'
-                fill
-                style={{
-                  objectFit: "cover",
-                }}
-                alt='Picture of the author'
-              />
-            </div>
             <p className='welcome-section-second_p-mobile'>
               Vous n&apos;avez pas de compte?,{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>

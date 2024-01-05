@@ -239,6 +239,7 @@ betId: ""
 
         // Send the updated user to the server
         const res = await axios.post("/api/users/withdraw", updatedUser);
+        console.log(res.data.userTransaction)
         setReceipt(res.data.userTransaction);
         setIsVisible(true);
         toast.success("withdraw request Submitted");
@@ -267,13 +268,13 @@ betId: ""
           containerStylesInner='receiptModal_inner'
           handleClick={handleClick}
           receipt={receipt}
-          title='Montant du dépôt'
+          title='Montant du retirer'
         />
       )}
       <Head
         title='Retirer'
         about='Effectuez vos retraits depuis votre 1XBET ici'
-         data={user}
+        data={user}
       />
 
       <div className='user_withdraw_container_001'>
@@ -297,8 +298,8 @@ betId: ""
             ) : (
               <div>Street: {cashdeskAddress?.street}</div>
             )} */}
-               <div>City: city one</div>
-             <div>Street: street one</div>
+            <div>City: city one</div>
+            <div>Street: street one</div>
           </div>
           <p
             style={{

@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     
   
 
-      const apiUrl = "https://api.fedapay.com/v1/customers/2332639";
+      const apiUrl = `https://api.fedapay.com/v1/customers/${fedapayId}`;
       const apiKey = "sk_live_5cZOho9QtikRZnRNybRGg2Oo";
   
       const response = await fetch(apiUrl, {

@@ -18,6 +18,8 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
 }: any) => {
+
+  console.log(receipt?.type)
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
       <div className={` ${containerStylesInner}`} id='receiptModal'>
@@ -65,14 +67,14 @@ const Modal = ({
             <div
               style={{
                 color:
-                  receipt?.type === "withdrawals"
+                  receipt?.type || receipt?.fundingType === "withdrawals"
                     ? "rgba(0, 118, 184, 0.7)"
                     : "rgba(0, 184, 118, 0.7)",
                 fontWeight: "bold",
               }}
             >
               Montant du{" "}
-              {receipt?.type === "withdrawals" ? "retraits" : "dépôt"}
+              {receipt?.type || receipt?.fundingType === "withdrawals" ? "retraits" : "dépôt"}
             </div>
             <div style={{ fontWeight: "900", color: "white" }}>
               {" "}

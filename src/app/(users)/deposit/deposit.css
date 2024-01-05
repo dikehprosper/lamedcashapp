@@ -435,10 +435,10 @@ label{
 
 /* spinner positioning and styling */
 #container-deposit {
-  width: 35px;
+  width: 22px;
   margin: 1em auto;
   position: relative;
-  height: 35px;
+  height: 22px;
 }
 #html-spinner-deposit {
   width: 100%;

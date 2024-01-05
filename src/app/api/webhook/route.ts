@@ -2,122 +2,169 @@
 // @ts-nocheck
 import { NextRequest, NextResponse } from "next/server";
 import { FedaPay, Transaction, Customer } from "fedapay";
-const fs = require("fs");
 const { Webhook } = require("fedapay");
-
-// You can find your endpoint's secret key in your webhook settings
-// const endpointSecret = process.env.ENDPOINTSECRET_WEBHOOK_SANDBOX!;
-// wh_sandbox_GdCc4gm2N4Y6IoL9mzbW9oQ2
-const endpointSecret = "wh_sandbox_GdCc4gm2N4Y6IoL9mzbW9oQ2";
+import { connect } from "@/dbConfig/dbConfig";
+import User from "@/models/userModel";
+connect();
 
 export async function POST(request: NextRequest) {
-
-
   try {
-    const headersList = request.headers.get("x-fedapay-signature");
-    console.log(headersList);
-    // Convert the HeadersList object to a JSON string
-    const jsonString = "snsgfsgfmgmg";
+    const rawBody = await request.text();
+    const sig = request.headers.get("x-fedapay-signature");
+    let event;
+    const endpointSecret = "wh_sandbox_GdCc4gm2N4Y6IoL9mzbW9oQ2";
+    event = Webhook.constructEvent(rawBody, sig, endpointSecret);
 
-    // Specify the file path where you want to save the JSON data
-    const filePath = "header1.json";
+    const fedapayTransactionId = event.entity.id.toString();
+    const email = event.entity.customer.email;
 
-    // Write the JSON string to the file
-    fs.writeFileSync(filePath, jsonString, (err) => {
-      if (err) {
-        console.log(err.message);
-      } else {
-        console.log("data written successfully");
+    const user = await User.findOne({ email });
+    const ticket = user.pendingDeposit.find(
+      (t: any) => t.fedapayTransactionId === fedapayTransactionId
+    );
+    console.log(ticket, "ticket");
+    // const newUuid = uuidv4();
+    const date = new Date();
+
+    // Create a new transaction history entry for the user
+    const userTransaction = {
+      status: "Pending",
+      registrationDateTime: date,
+      amount: ticket.amount,
+      betId: ticket.betId,
+      momoName: ticket.momoName,
+      momoNumber: ticket.momoNumber,
+      fundingType: "deposits",
+      identifierId: ticket.transactionId,
+    };
+
+    const subadminTransaction = {
+      userid: user._id,
+      status: "Pending",
+      registrationDateTime: date,
+      amount: ticket.amount,
+      betId: ticket.betId,
+      momoName: ticket.momoName,
+      momoNumber: ticket.momoNumber,
+      fundingType: "deposits",
+      identifierId: ticket.transactionId,
+    };
+
+    // Handle the event
+    if (event.name === "transaction.declined") {
+      console.log("transaction declined");
+      const ticketIndex = user.pendingDeposit.findIndex(
+        (t: any) => t.fedapayTransactionId === fedapayTransactionId
+      );
+
+      if (ticketIndex !== -1) {
+        // If the ticket is found in user.pendingDeposit, remove it
+        user.pendingDeposit.splice(ticketIndex, 1);
       }
+      console.log(
+        user.pendingDeposit,
+        "user.pendingDeposit after cancellation"
+      );
+      await user.save();
+    } else if (event.name === "transaction.approved") {
+      console.log("transaction approved");
+
+      user.transactionHistory.push(userTransaction);
+      await user.save();
+      const adminUsers = await User.find({
+        isSubAdminDeposits: true,
+      });
+      const adminUser = await User.find({
+        isSubAdminDeposits: true,
+        isOutOfFunds: false,
+      });
+      if (!adminUser || adminUser.length === 0) {
+        adminUsers[0].transactionHistory.push(subadminTransaction);
+        await adminUser.save();
+      } else {
+        // Example usage: Get the index of the subadmin with current: true
+        let currentSubadminIndex = -1;
+
+        for (let i = 0; i < adminUser.length; i++) {
+          if (adminUser[i].current === true) {
+            currentSubadminIndex = i;
+            break;
+          }
+        }
+
+        // Find the subadmin that is currently receiving requests
+        const currentSubadmin = adminUser.find(
+          (subadmin) => subadmin.current === true
+        );
+
+        // Check if the request count for the current subadmin is divisible by 10
+        if (currentSubadmin && currentSubadmin.currentCount === 5) {
+          // Mark the current subadmin as not 'current'
+          currentSubadmin.current = false;
+          currentSubadmin.currentCount = 0;
+          let nextCurrentSubadminIndex =
+            (currentSubadminIndex + 1) % adminUser.length;
+
+          let nextSubadmin = adminUser[nextCurrentSubadminIndex]
+            ? adminUser[nextCurrentSubadminIndex]
+            : adminUser[0];
+
+          // Mark the next subadmin as 'current'
+          nextSubadmin.current = true;
+          const updatedCount = nextSubadmin.currentCount + 1;
+          nextSubadmin.currentCount = updatedCount;
+          nextSubadmin.transactionHistory.push(subadminTransaction);
+
+          // Save changes to the database for both the current and next subadmin
+          await Promise.all([currentSubadmin.save(), nextSubadmin.save()]);
+        } else {
+          currentSubadmin.transactionHistory.push(subadminTransaction);
+          const updatedCount = currentSubadmin.currentCount + 1;
+          currentSubadmin.currentCount = updatedCount;
+          await currentSubadmin.save();
+        }
+      }
+
+      const ticketIndex = user.pendingDeposit.findIndex(
+        (t: any) => t.fedapayTransactionId === fedapayTransactionId
+      );
+
+      if (ticketIndex !== -1) {
+        // If the ticket is found in user.pendingDeposit, remove it
+        user.pendingDeposit.splice(ticketIndex, 1);
+      }
+      console.log(
+        user.pendingDeposit,
+        "user.pendingDeposit after cancellation"
+      );
+      await user.save();
+    } else if (event.name === "transaction.canceled") {
+      console.log("transaction canceled");
+      const ticketIndex = user.pendingDeposit.findIndex(
+        (t: any) => t.fedapayTransactionId === fedapayTransactionId
+      );
+
+      if (ticketIndex !== -1) {
+        // If the ticket is found in user.pendingDeposit, remove it
+        user.pendingDeposit.splice(ticketIndex, 1);
+      }
+      console.log(
+        user.pendingDeposit,
+        "user.pendingDeposit after cancellation"
+      );
+      await user.save();
+    } else {
+      console.log(`Unhandled event type ${event.type}`);
+    }
+
+    return NextResponse.json({
+      success: true,
     });
-
-    console.log("written");
-
-    // Now xFedapaySignature contains the value of 'x-fedapay-signature'
-    // console.log(xFedapaySignature);
-
-    // console.log(sig, "sig");
-    // console.log(request, "request.headers")
-
-    // let event;
-
-    // event = Webhook.constructEvent(request.body, sig, endpointSecret);
-
-    // // Handle the event
-    // switch (event.name) {
-    //   case "transaction.created":
-    //     console.log("transaction created");
-    //     // Transaction created
-    //     break;
-    //   case "transaction.approved":
-    //     console.log("transaction approved");
-    //     // Transaction approved
-    //     break;
-    //   case "transaction.canceled":
-    //     console.log("transaction canceled");
-    //     // Transaction canceled
-    //     break;
-    //   default:
-    //     console.log(`Unhandled event type ${event.type}`);
-    // }
-
-    // // Return a response to acknowledge receipt of the event
-    // NextResponse.json({ received: true });
   } catch (error: any) {
-    console.error(error);
+    console.error(error, "error");
     return NextResponse.json(
       { error: error.message || "Webhook Error" },
       { status: 400 }
     );
   }
 }
-
-
-
-
-
-
-
-// const { Webhook } = require('fedapay')
-
-// // You can find your endpoint's secret key in your webhook settings
-// const endpointSecret = 'wh_sandbox...';
-
-// // This example uses Express to receive webhooks
-// const app = require('express')();
-
-// // Use body-parser to retrieve the raw body as a buffer
-// const bodyParser = require('body-parser');
-
-// // Match the raw body to content type application/json
-// app.post('/webhook', bodyParser.raw({type: 'application/json'}), (request, response) => {
-//   const sig = request.headers['x-fedapay-signature'];
-
-//   let event;
-
-//   try {
-//     event = Webhook.constructEvent(request.body, sig, endpointSecret);
-//   } catch (err) {
-//     response.status(400).send(`Webhook Error: ${err.message}`);
-//   }
-
-//   // Handle the event
-//   switch (event.name) {
-//     case 'transaction.created':
-//       // Transaction created
-//       break;
-//     case 'transaction.approved'':
-//       // Transaction approved
-//       break;
-//     case 'transaction.canceled'':
-//       // Transaction canceled
-//       break;
-//     default:
-//       console.log(`Unhandled event type ${event.type}`);
-//   }
-
-//   // Return a response to acknowledge receipt of the event
-//   response.json({received: true});
-// });
-
-// app.listen(4242, () => console.log('Running on port 4242'));

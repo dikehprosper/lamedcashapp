@@ -210,6 +210,14 @@ padding: 40px 5px
   }
 }
 
+.withdraw-button {
+display: flex;
+width: 300px;
+height: 40px;
+justify-content: center;
+align-items: center;
+background: rgba(128, 128, 128, 0.7)
+}
 
 .body-referral-count {
   max-width: 100%;

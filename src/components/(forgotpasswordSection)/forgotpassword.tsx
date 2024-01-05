@@ -15,6 +15,7 @@ import axios from "axios";
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [sent, setSent] = useState(false)
   const [user, setUser] = useState({
     email: "",
   });
@@ -42,6 +43,7 @@ const ForgotPassword = () => {
       const email = user.email;
       console.log(email);
       const response = await axios.post("/api/users/forgotpassword", { email }); // Corrected the API endpoint
+      setSent(true)
       console.log(response);
       setLoading(false);
     } catch (error: any) {
@@ -75,12 +77,13 @@ const ForgotPassword = () => {
           />
         </div>
         <form onSubmit={handleSubmit} className='signin-form-container'>
+          <label style={{fontWeight: 'bold',  width: "100%"}}> E-mail</label>
           <input
             type='email'
             className='signin-form'
             value={user.email}
             onChange={handleUserEmail}
-            placeholder='Entrez votre e-mail'
+            placeholder='Entrez votre mot de passe pour recevoir le lien de réinitialisation'
           />
 
           <div className='forgot-password1'>
@@ -115,13 +118,15 @@ const ForgotPassword = () => {
               "envoyer un lien"
             )}
           </button>
+              {sent &&    <div style={{background: "rgba(0, 128, 0, 0.18)", marginTop: "20px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center",  height: "60px", width: "100%", borderRadius: "4px", border: ".5px solid rgba(0, 128, 0, 0.7)"}}>Le lien de réinitialisation a été envoyé avec succès à votre adresse e-mail</div>}
         </form>
+
         <div className='welcome-section'>
           <div className='welcome-section-first'>
             <h2 className='welcome-section-first_h2'>Mot de passe oublié</h2>
           </div>
           <div className='welcome-section-second'>
-            <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
+            {/* <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
             <div className='signin-img google'>
               <Image
                 src={image4}
@@ -132,7 +137,7 @@ const ForgotPassword = () => {
                 alt='Picture of the author'
                 loading='eager'
               />
-            </div>
+            </div> */}
             <p className='welcome-section-second_p'>
               Vous n&apos;avez pas de compte?,{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
@@ -144,9 +149,9 @@ const ForgotPassword = () => {
       </div>
       {/* last section */}
       <div className='signin-container_inner23'>
-        <div className='welcome-section-mobile'>
+        <div className='welcome-section-mobile-password'>
           <div className='welcome-section-second-mobile'>
-            <h5 className='welcome-section-second_h5-mobile'>
+            {/* <h5 className='welcome-section-second_h5-mobile'>
               Ou continuez avec
             </h5>
             <div className='signin-img google'>
@@ -159,7 +164,7 @@ const ForgotPassword = () => {
                 }}
                 alt='Picture of the author'
               />
-            </div>
+            </div> */}
             <p className='welcome-section-second_p-mobile'>
               Vous n&apos;avez pas de compte?,{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>

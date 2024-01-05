@@ -11,10 +11,10 @@ import { FedaPay, Customer } from "fedapay";
 connect();
 
 /* Remplacez VOTRE_CLE_API par votre véritable clé API */
-FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
+FedaPay.setApiKey(process.env.FEDAPAY_KEY_SANDBOX!);
 
 /* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
-FedaPay.setEnvironment("live"); //ou setEnvironment('live');
+FedaPay.setEnvironment("sandbox"); //ou setEnvironment('live');
 
 // import { PhoneNumberUtil } from "google-libphonenumber";
 
@@ -294,7 +294,7 @@ export async function POST(request: NextRequest) {
     const newUser = new User({
       fullname,
       betId,
-      number: number, // Add "+229" to the beginning of the number
+      number: number,
       email,
       password: hashedPassword,
       supplementaryBetId: [betId],
@@ -308,10 +308,12 @@ export async function POST(request: NextRequest) {
     const savedUser = await newUser.save();
 
     //Check if the User already exist
-    const user2 = await User.findOne({ _id: referrerId });
 
-    user2.referrals.push(email);
-    await user2.save();
+if (referrerId) {
+    const user2 = await User.findOne({ _id: referrerId });
+  user2.referrals.push(email);
+  await user2.save();
+}
 
     //create token data
     const tokenData = {

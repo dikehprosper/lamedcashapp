@@ -13,6 +13,7 @@ const display = ({
   data,
   allData,
 }: UserDashboardDisplayProps) => {
+  console.log(allData)
   return !allData ? (
     // Render the loading spinner when loading is true
     <div
@@ -31,7 +32,7 @@ const display = ({
     // Render your content when loading is false
     <div
       className='user-dashboard-display-recent animate-pop-in'
-      style={{ background: style?.background }}
+      style={{ background: style?.background, position: "relative" }}
     >
       <div className='display-recent-1'>
         <h2 className='display-recent-1-h1'>Pending {style?.icon}</h2>
@@ -76,6 +77,14 @@ const display = ({
           </span>
         </Link>
       </div>
+      {allData.pendingDeposit.length >= 1 && title === "Dépôt" && <div style={{position: "absolute", background: "rgba(0, 0, 0, 0.7)" , padding: "1px 5px", top: "3px", right: "14px", fontSize: "8px", display: "flex", alignItems: "center"}}><span style={{fontWeight: "bold", fontSize: "12px", color: "rgba(101, 256, 0, 0.7)"}}>{allData.pendingDeposit.length}</span> &nbsp; &nbsp;Les transactions attendent l &apos; approbation 
+      &nbsp;&nbsp;
+        <div className='ellipses-container'>
+            <div className='ellipses'></div>
+            <div className='ellipses'></div>
+            <div className='ellipses'></div>
+          </div>
+           </div>}
     </div>
   );
 };
