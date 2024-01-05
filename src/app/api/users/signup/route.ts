@@ -11,10 +11,10 @@ import { FedaPay, Customer } from "fedapay";
 connect();
 
 /* Remplacez VOTRE_CLE_API par votre véritable clé API */
-FedaPay.setApiKey(process.env.FEDAPAY_KEY_SANDBOX!);
+FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
 
 /* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
-FedaPay.setEnvironment("sandbox"); //ou setEnvironment('live');
+FedaPay.setEnvironment(process.env.ENVIRONMENT!); //ou setEnvironment('live');
 
 // import { PhoneNumberUtil } from "google-libphonenumber";
 
@@ -38,11 +38,26 @@ export async function POST(request: NextRequest) {
     // CREATE USER FOR CASHDESK DEPOSITS
 
     if (
-      email === "cashdesk1@betfundr.com" ||
-      email === "cashdesk2@betfundr.com" ||
-      email === "cashdesk3@betfundr.com" ||
-      email === "cashdesk4@betfundr.com" ||
-      email === "cashdesk5@betfundr.com"
+      (email === process.env.D_EMAIL && password === process.env.D_PASSWORD) ||
+      (email === process.env.D_EMAIL1 &&
+        password === process.env.D_PASSWORD1) ||
+      (email === process.env.D_EMAIL2 &&
+        password === process.env.D_PASSWORD2) ||
+      (email === process.env.D_EMAIL3 &&
+        password === process.env.D_PASSWORD3) ||
+      (email === process.env.D_EMAIL4 &&
+        password === process.env.D_PASSWORD4) ||
+      (email === process.env.D_EMAIL5 &&
+        password === process.env.D_PASSWORD5) ||
+      (email === process.env.D_EMAIL6 &&
+        password === process.env.D_PASSWORD6) ||
+      (email === process.env.D_EMAIL7 &&
+        password === process.env.D_PASSWORD7) ||
+      (email === process.env.D_EMAIL8 &&
+        password === process.env.D_PASSWORD8) ||
+      (email === process.env.D_EMAIL9 &&
+        password === process.env.D_PASSWORD9) ||
+      (email === process.env.D_EMAIL10 && password === process.env.D_PASSWORD10)
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
@@ -114,11 +129,26 @@ export async function POST(request: NextRequest) {
     // CREATE USER FOR CASHDESK WITHDRAWAL
     // CREATE USER FOR CASHDESK WITHDRAWAL
     if (
-      email === "cashdesk6@betfundr.com" ||
-      email === "cashdesk7@betfundr.com" ||
-      email === "cashdesk8@betfundr.com" ||
-      email === "cashdesk9@betfundr.com" ||
-      email === "cashdesk10@betfundr.com"
+      (email === process.env.W_EMAIL && password === process.env.W_PASSWORD) ||
+      (email === process.env.W_EMAIL1 &&
+        password === process.env.W_PASSWORD1) ||
+      (email === process.env.W_EMAIL2 &&
+        password === process.env.W_PASSWORD2) ||
+      (email === process.env.W_EMAIL3 &&
+        password === process.env.W_PASSWORD3) ||
+      (email === process.env.W_EMAIL4 &&
+        password === process.env.W_PASSWORD4) ||
+      (email === process.env.W_EMAIL5 &&
+        password === process.env.W_PASSWORD5) ||
+      (email === process.env.W_EMAIL6 &&
+        password === process.env.W_PASSWORD6) ||
+      (email === process.env.W_EMAIL7 &&
+        password === process.env.W_PASSWORD7) ||
+      (email === process.env.W_EMAIL8 &&
+        password === process.env.W_PASSWORD8) ||
+      (email === process.env.W_EMAIL9 &&
+        password === process.env.W_PASSWORD9) ||
+      (email === process.env.W_EMAIL10 && password === process.env.W_PASSWORD10)
     ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
@@ -222,7 +252,10 @@ export async function POST(request: NextRequest) {
     }
 
     // CREATE USER FOR CASHDESK ADMIN
-    if (email === "admin@espece.com") {
+    if (
+      (email === process.env.A_EMAIL && password === process.env.A_PASSWORD) ||
+      (email === process.env.A_EMAIL1 && password === process.env.A_PASSWORD1)
+    ) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
       const hashedPassword = await bcryptjs.hash(password, salt);
@@ -289,7 +322,7 @@ export async function POST(request: NextRequest) {
         country: "BJ",
       },
     });
-
+    console.log(customer);
     //create a new user
     const newUser = new User({
       fullname,
@@ -309,11 +342,11 @@ export async function POST(request: NextRequest) {
 
     //Check if the User already exist
 
-if (referrerId) {
-    const user2 = await User.findOne({ _id: referrerId });
-  user2.referrals.push(email);
-  await user2.save();
-}
+    if (referrerId) {
+      const user2 = await User.findOne({ _id: referrerId });
+      user2.referrals.push(email);
+      await user2.save();
+    }
 
     //create token data
     const tokenData = {
