@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     const rawBody = await request.text();
     const sig = request.headers.get("x-fedapay-signature");
     let event;
-    const endpointSecret = "wh_sandbox_GdCc4gm2N4Y6IoL9mzbW9oQ2";
+    const endpointSecret = process.env.ENDPOINTSECRET_WEBHOOK_SANDBOX!;
     event = Webhook.constructEvent(rawBody, sig, endpointSecret);
 
     const fedapayTransactionId = event.entity.id.toString();

@@ -21,12 +21,12 @@ export async function POST(request: NextRequest) {
       fedapayId,
     } = await reqBody;
 
-    FedaPay.setApiKey(process.env.FEDAPAY_KEY_SANDBOX!);
-    FedaPay.setEnvironment("sandbox");
+    FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
+    FedaPay.setEnvironment(process.env.ENVIRONMENT!);
 
     //find user and add pending transaction
     const user = await User.findOne({ email });
-    console.log(user.pendingDeposit)
+    console.log(user.pendingDeposit);
     if (!user) {
       return NextResponse.json(
         { error: "User does not exist" },
@@ -35,8 +35,8 @@ export async function POST(request: NextRequest) {
     }
 
     if (momoNumber !== user.number) {
-      const apiUrl = `https://sandbox-api.fedapay.com/v1/customers/${fedapayId}`;
-      const apiKey = process.env.FEDAPAY_KEY_SANDBOX!;
+      const apiUrl = `${process.env.APIURL}${fedapayId}`;
+      const apiKey = process.env.FEDAPAY_KEY!;
 
       const response = await fetch(apiUrl, {
         method: "PUT",
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
     const token = await transaction.generateToken();
 
-    const apiUrl1 = `https://sandbox-api.fedapay.com/v1/${network}`;
+    const apiUrl1 = `${process.env.SECONDAPIURL}${network}`;
     const apiKey1 = process.env.FEDAPAY_KEY_SANDBOX!;
 
     const response1 = await fetch(apiUrl1, {
@@ -108,25 +108,27 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const apiUrl2 = `https://sandbox-api.fedapay.com/v1/customers/${fedapayId}`;
-    const apiKey2 = process.env.FEDAPAY_KEY_SANDBOX!;
+    if (momoNumber !== user.number) {
+      const apiUrl = `${process.env.APIURL}${fedapayId}`;
+      const apiKey = process.env.FEDAPAY_KEY!;
 
-    const response2 = await fetch(apiUrl2, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${apiKey2}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstname: momoName.split(" ")[0],
-        lastname: momoName.split(" ")[1],
-        email: email,
-        phone_number: {
-          number: `+229${momoNumber}`,
-          country: "BJ",
+      const response2 = await fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
         },
-      }),
-    });
+        body: JSON.stringify({
+          firstname: momoName.split(" ")[0],
+          lastname: momoName.split(" ")[1],
+          email: email,
+          phone_number: {
+            number: `+229${user.number}`,
+            country: "BJ",
+          },
+        }),
+      });
+    }
 
     await user.save();
     // Return a JSON response with the transaction status
@@ -143,4 +145,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

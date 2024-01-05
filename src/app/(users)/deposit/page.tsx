@@ -9,7 +9,7 @@ import { FaCircle } from "react-icons/fa";
 import FooterMobile from "@/components/(Utils)/FooterMobile";
 import axios from "axios";
 import { IoIosCopy } from "react-icons/io";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FedaPay } from "fedapay";
 import Modal from "@/components/(Utils)/(modals)/processingModal";
 // import App from "../pay";
@@ -21,13 +21,13 @@ const Deposit = () => {
   const [activeBetId, setActiveBetId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRequestingCall, setIsRequestingCall] = useState(false);
-  const [cashdesk, setCashdeskId] = useState()
+  const [cashdesk, setCashdeskId] = useState();
   const [user, setUser] = useState({
     email: "",
-amount: "",
+    amount: "",
     network: "",
     betId: savedID[0],
-momoNumber: ""
+    momoNumber: "",
   });
   const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
@@ -44,7 +44,7 @@ momoNumber: ""
     try {
       const res = await axios.get("/api/getUserInfo");
 
-          setUser({
+      setUser({
         ...user,
         _id: res.data.data._id,
         betId: res.data.data.betID[0],
@@ -52,16 +52,16 @@ momoNumber: ""
         momoNumber: res.data.data.number,
         fullname: res.data.data.fullname,
         fedapayId: res.data.data.fedapayId,
-        email: res.data.data.email
+        email: res.data.data.email,
       });
       setSavedID(res.data.data.betID);
       setActiveBetId(res.data.data.betID[0]);
-   
+
       setData({
         ...data,
         fullname: res.data.data.fullname,
-         betId: res.data.data.betId,
-      })
+        betId: res.data.data.betId,
+      });
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -157,7 +157,7 @@ momoNumber: ""
     });
   };
 
- const [processing, setProcessing] = useState(false)
+  const [processing, setProcessing] = useState(false);
 
   async function submitDetails() {
     if (isSubmitting) {
@@ -175,7 +175,7 @@ momoNumber: ""
     } else if (user.betId === "") {
       return toast.error("Entrez le betId à utiliser");
     } else {
-      setLoading(true)
+      setLoading(true);
       try {
         setIsSubmitting(true);
         const updatedUser = {
@@ -188,14 +188,14 @@ momoNumber: ""
           fedapayId: user.fedapayId,
           momoName: user.fullname,
         };
-        setProcessing(true)
+        setProcessing(true);
 
-        const res = await axios.post("/api/users/deposit3", updatedUser);
+        const res = await axios.post("/api/users/deposit", updatedUser);
 
         router.push("/dashboard");
-        setProcessing(false)
+        setProcessing(false);
         toast.success("deposit request Submitted");
-           setLoading(false)
+        setLoading(false);
       } catch (error: any) {
         if (error.response.status === 400) {
           return toast.error("Utilisateur non trouvé");
@@ -205,9 +205,9 @@ momoNumber: ""
           return toast.error("error");
         }
       } finally {
-           setLoading(false)
+        setLoading(false);
         setIsSubmitting(false);
-           setProcessing(false)
+        setProcessing(false);
       }
     }
   }
@@ -222,12 +222,6 @@ momoNumber: ""
       return toast.error("error");
     }
   }
-  
-
-
-
-
-  
 
   const handleChangeAmount = (event: any) => {
     setUser({
@@ -236,14 +230,12 @@ momoNumber: ""
     });
   };
 
-    const handleChangeMomoNumber = (event: any) => {
+  const handleChangeMomoNumber = (event: any) => {
     setUser({
       ...user,
       momoNumber: event.target.value,
     });
   };
-
-  
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -255,13 +247,12 @@ momoNumber: ""
     toast.success("Soumis! Votre demande sera traitée sous peu");
   };
 
- useEffect(() => {
-   setButtonDisabled(!(user.amount && user.network));
- }, [user]);
-
+  useEffect(() => {
+    setButtonDisabled(!(user.amount && user.network));
+  }, [user]);
 
   useEffect(() => {
-console.log(user.network)
+    console.log(user.network);
   }, [user]);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -279,7 +270,7 @@ console.log(user.network)
 
   // Example using fetch
   const createTransaction = async () => {
-      if (isSubmitting) {
+    if (isSubmitting) {
       return;
     }
 
@@ -294,47 +285,47 @@ console.log(user.network)
     } else if (user.betId === "") {
       return toast.error("Entrez le betId à utiliser");
     } else {
-    try {
-      const response = await axios.post("/api/users/deposit2", user); // Replace with your actual route
-      const data = response.data.url1
-      console.log(data);
-       window.location.href = data;
-    } catch (error) {
-      console.error("Error creating transaction:", error);
-    } finally {
-    setIsSubmitting(false);
-  }
-  } 
+      try {
+        const response = await axios.post("/api/users/deposit2", user); // Replace with your actual route
+        const data = response.data.url1;
+        console.log(data);
+        window.location.href = data;
+      } catch (error) {
+        console.error("Error creating transaction:", error);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
   };
 
-    const createTransaction2 = async () => {
-      if (isSubmitting) {
-        return;
-      }
+  const createTransaction2 = async () => {
+    if (isSubmitting) {
+      return;
+    }
 
-      const amountValue = parseInt(user.amount, 10);
-      if (isNaN(amountValue)) {
-        // Handle the case where user.amount is not a valid number
-        return toast.error("Vous n'avez pas saisi de montant");
-      }
+    const amountValue = parseInt(user.amount, 10);
+    if (isNaN(amountValue)) {
+      // Handle the case where user.amount is not a valid number
+      return toast.error("Vous n'avez pas saisi de montant");
+    }
 
-      if (amountValue < 100) {
-        return toast.error("Le montant saisi ne doit pas être inférieur à 100");
-      } else if (user.betId === "") {
-        return toast.error("Entrez le betId à utiliser");
-      } else {
-        try {
-          setLoading(true)
-          const response = await axios.post("/api/users/deposit3", user); // Replace with your actual route
-          console.log(response);
-        } catch (error) {
-          console.error("Error creating transaction:", error);
-        } finally {
-           setLoading(false);
-          setIsSubmitting(false);
-        }
+    if (amountValue < 100) {
+      return toast.error("Le montant saisi ne doit pas être inférieur à 100");
+    } else if (user.betId === "") {
+      return toast.error("Entrez le betId à utiliser");
+    } else {
+      try {
+        setLoading(true);
+        const response = await axios.post("/api/users/deposit3", user); // Replace with your actual route
+        console.log(response);
+      } catch (error) {
+        console.error("Error creating transaction:", error);
+      } finally {
+        setLoading(false);
+        setIsSubmitting(false);
       }
-    };
+    }
+  };
 
   return (
     <div className='user_withdraw_container'>
@@ -343,7 +334,7 @@ console.log(user.network)
         about='Effectuez vos dépôts sur votre 1XBET ici'
         data={user}
       />
-     {processing && (
+      {processing && (
         <Modal
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
@@ -365,43 +356,44 @@ console.log(user.network)
               les afficher ici{" "}
             </div>
             <div className='saved_id_container'>
-                 {!savedID.length > 0?  (
-              <div id='container-deposit'>
-                <div id='html-spinner-deposit'></div>
-              </div>
-            ) : (
-             savedID?.map((id, index) => (
-                <div
-                  className='saved_id_container-inner'
-                  key={index}
-                  onClick={() => changeBetId(id)}
-                  style={{
-                    border:
-                      activeBetId === id
-                        ? "2px solid white"
-                        : "2px solid rgba(256, 256, 256, 0.2)",
-                    color:
-                      activeBetId === id ? "white" : "rgba(256, 256, 256, 0.2)",
-                    cursor: "pointer",
-                  }}
-                >
-                  {id}{" "}
-                  {activeBetId === id ? (
-                    <FaCircle color='white' />
-                  ) : (
-                    <FaCircle color='rgba(256, 256, 256, 0.2' />
-                  )}
-                  <span
-                    style={{
-                      fontSize: "8px",
-                      fontWeight: "light",
-                      color: "rgba(256, 256, 256, 0.5)",
-                    }}
-                  ></span>
+              {!savedID.length > 0 ? (
+                <div id='container-deposit'>
+                  <div id='html-spinner-deposit'></div>
                 </div>
-              ))
-            )}
-             
+              ) : (
+                savedID?.map((id, index) => (
+                  <div
+                    className='saved_id_container-inner'
+                    key={index}
+                    onClick={() => changeBetId(id)}
+                    style={{
+                      border:
+                        activeBetId === id
+                          ? "2px solid white"
+                          : "2px solid rgba(256, 256, 256, 0.2)",
+                      color:
+                        activeBetId === id
+                          ? "white"
+                          : "rgba(256, 256, 256, 0.2)",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {id}{" "}
+                    {activeBetId === id ? (
+                      <FaCircle color='white' />
+                    ) : (
+                      <FaCircle color='rgba(256, 256, 256, 0.2' />
+                    )}
+                    <span
+                      style={{
+                        fontSize: "8px",
+                        fontWeight: "light",
+                        color: "rgba(256, 256, 256, 0.5)",
+                      }}
+                    ></span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
           <input
@@ -454,8 +446,8 @@ console.log(user.network)
             <option value='mtn'> Mtn Benin</option>
             <option value='moov'>Moov Benin</option>
           </select>
-         
-             <label>Numéro momo</label>
+
+          <label>Numéro momo</label>
           <input
             type='number'
             className='deposit-form'
@@ -490,4 +482,4 @@ console.log(user.network)
 };
 
 export default Deposit;
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";

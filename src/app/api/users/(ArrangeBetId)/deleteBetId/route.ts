@@ -9,9 +9,6 @@ export async function POST(request: NextRequest) {
     // Destructure _id and betId from the request body
     const { _id, betId } = reqBody;
 
-    // Connect to the database
-    connect();
-
     // Find the user by _id
     const user = await User.findOne({ _id });
 
@@ -41,9 +38,13 @@ export async function POST(request: NextRequest) {
       // Return the response
       return response;
     } else {
-      return NextResponse.json({ error: "betId not found in the array" }, { status: 400 });
+      return NextResponse.json(
+        { error: "betId not found in the array" },
+        { status: 400 }
+      );
     }
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-}
+} // Connect to the database
+connect();
