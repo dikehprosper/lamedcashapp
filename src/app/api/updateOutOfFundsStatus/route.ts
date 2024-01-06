@@ -165,35 +165,39 @@ export async function GET(request: NextRequest) {
 
       if (user.isSubAdminDeposits) {
         // Find the index of the current admin in the array
-        const admins = await User.find({ isAdmin: true }).select("-password");
-        for (const admin of admins) {
-          if (admin.isDepositsOpen === false) {
-            return NextResponse.json({
-              error: " sorry, restricted by admin",
-              status: 401,
-            });
-          } else {
-            const adminArray = await User.find({
-              isSubAdminDeposits: true,
-            }).select("-password");
+     const admins = await User.find({ isAdmin: true }).select("-password");
 
-            const anyAdminWithFunds = adminArray.some(
-              (admin) => !admin.isOutOfFunds
-            );
+     for (const admin of admins) {
+       if (!admin.isDepositsOpen) {
+         return NextResponse.json({
+           error: "Sorry, restricted by admin",
+           status: 401,
+         });
+       } else {
+         const subAdmins = await User.find({ isSubAdminDeposits: true }).select(
+           "-password"
+         );
 
-            if (!anyAdminWithFunds) {
-              adminArray.forEach((admin) => {
-                admin.current = false;
-                admin.currentCount = 0;
-                admin.save();
-              });
+         const anySubAdminWithFunds = subAdmins.some(
+           (subAdmin) => !subAdmin.isOutOfFunds
+         );
 
-              user.current = true;
-              user.currentCount = 0;
-              await user.save();
-            }
-          }
-        }
+         if (!anySubAdminWithFunds) {
+           // Reset all sub-admins' current status and counts
+           subAdmins.forEach((subAdmin) => {
+             subAdmin.current = false;
+             subAdmin.currentCount = 0;
+             subAdmin.save();
+           });
+
+           // Set the user as the current user
+           user.current = true;
+           user.currentCount = 0;
+           await user.save();
+         }
+       }
+     }
+
       }
     }
 
