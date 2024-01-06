@@ -16,30 +16,29 @@ export async function POST(request: NextRequest) {
      return NextResponse.json({ error: "User not found" }, { status: 400 });
    }
     
-  
+  if (user.isUser === true) {
+    const apiUrl = `${process.env.APIURL}${fedapayId}`;
+    const apiKey = process.env.FEDAPAY_KEY;
 
-      const apiUrl = `https://api.fedapay.com/v1/customers/${fedapayId}`;
-      const apiKey = "sk_live_5cZOho9QtikRZnRNybRGg2Oo";
-  
-      const response = await fetch(apiUrl, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
+    const response = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname: fullname.split(" ")[0],
+        lastname: fullname.split(" ")[1],
+        email: email,
+        phone_number: {
+          number: `+229${mobileNumber}`,
+          country: "BJ",
         },
-        body: JSON.stringify({
-          firstname: fullname.split(" ")[0],
-          lastname: fullname.split(" ")[1],
-          email: email,
-          phone_number: {
-            number: `+229${mobileNumber}`,
-            country: "BJ",
-          },
-        }),
-      });
-    
-       
- console.log(response)
+      }),
+    });
+  }
+
+
    
   user.fullname = fullname
   user.email = email

@@ -202,9 +202,9 @@ const Deposit = () => {
         } else if (error.response.status === 401) {
           return toast.error("Impossible de lancer la transaction");
         } else if (error.response.status === 405) {
-          return toast.error(error.response.status);
+          return toast.error("Nous Sommes Actuellement En Maintenance");
         } else {
-          return toast.error(error.response.status);
+          return toast.error("error");
         }
       } finally {
         setLoading(false);

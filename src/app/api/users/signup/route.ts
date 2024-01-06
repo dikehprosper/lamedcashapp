@@ -322,7 +322,7 @@ export async function POST(request: NextRequest) {
         country: "BJ",
       },
     });
-    console.log(customer);
+ 
     //create a new user
     const newUser = new User({
       fullname,
