@@ -134,12 +134,12 @@ export async function GET(request: NextRequest) {
         const admins = await User.find({ isAdmin: true }).select("-password");
 
         for (const admin of admins) {
-          if (admin.isWithdrawalsOpen === false) {
+          if (!admin.isWithdrawalsOpen) {
             return NextResponse.json({
               error: "sorry, retricted by admin",
               status: 401,
             });
-          } else {
+          } 
             const adminArray = await User.find({
               isSubAdminWithdrawals: true,
             }).select("-password");
@@ -159,7 +159,7 @@ export async function GET(request: NextRequest) {
               user.currentCount = 0;
               await user.save();
             }
-          }
+          
         }
       }
 
@@ -173,7 +173,8 @@ export async function GET(request: NextRequest) {
            error: "Sorry, restricted by admin",
            status: 401,
          });
-       } else {
+       } 
+
          const subAdmins = await User.find({ isSubAdminDeposits: true }).select(
            "-password"
          );
@@ -195,7 +196,7 @@ export async function GET(request: NextRequest) {
            user.currentCount = 0;
            await user.save();
          }
-       }
+       
      }
 
       }
