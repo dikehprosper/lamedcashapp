@@ -19,7 +19,11 @@ const SubadminHead = ({ title, about, data }: any) => {
       setIsOutOfFunds(response.data.status);
       toast.success("Soumis avec succès");
     } catch (error: any) {
-      return toast.error("Échec de mise à jour");
+      if (error.response.status === 401) {
+        return toast.error("désolé, restreint par l'administrateur");
+      } else {
+        return toast.error("Échec de mise à jour");
+      }
     } finally {
       setIsSubmitting(false);
       setIsLoading(false);

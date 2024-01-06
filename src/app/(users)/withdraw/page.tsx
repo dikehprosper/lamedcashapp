@@ -123,16 +123,6 @@ betId: ""
 
 
 
-  // async function getAvailableCashdeskAddress() {
-  
-  //   try {
-  //     const res = await axios.post("/api/getAvailableCashdeskWithdrawal", newTimestamp);
-  //     setCashdeskAddress(res.data.subadminWithLowestPendingCountAddress);
-  //     setCashdeskId(res.data.subadminWithLowestPendingCountId);
-  //   } catch (error: any) {
-  //     console.error(error.message);
-  //   }
-  // }
 
  
 
@@ -244,6 +234,9 @@ betId: ""
         setIsVisible(true);
         toast.success("withdraw request Submitted");
       } catch (error: any) {
+         if (error.response.status === 405) {
+           return toast.error("Nous Sommes Actuellement En Maintenance");
+         } 
         console.log(error);
         return toast.error("error");
       } finally {

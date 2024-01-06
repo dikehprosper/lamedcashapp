@@ -40,10 +40,13 @@ export async function POST(request: NextRequest) {
     const newSessionId = generateUniqueSessionId();
 
     // Check for existing session and invalidate it
-    if (user.sessionId) {
-      // Implement your session invalidation logic here (e.g., update the database record)
-      invalidateSession(user.sessionId);
+    if (user.isAdmin === false) {
+   if (user.sessionId) {
+     // Implement your session invalidation logic here (e.g., update the database record)
+     invalidateSession(user.sessionId);
+   }
     }
+   
 
     // Set the user's session ID and isLoggedIn status
     user.sessionId = newSessionId;

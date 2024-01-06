@@ -19,7 +19,14 @@ export async function POST(request: NextRequest) {
       momoNumber,
       cashdeskId,
     } = reqBody;
+   const admin = await User.findOne({ isAdmin: true });
 
+   if (admin.isWithdrawalsOpen === false) {
+     return NextResponse.json(
+       { error: "We are currently under maintainance" },
+       { status: 405 }
+     );
+   }
     // Check if the User already exists
     const user = await User.findOne({ _id });
 
