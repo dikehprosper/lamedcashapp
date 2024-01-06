@@ -85,7 +85,7 @@ async function SendEmail({ email, emailType, userId, fullname }: any) {
             height: auto;
             align-self: center;
             margin: 0px auto;
-            background: rgba(128, 128, 128, 0.8)
+
         }
 
         .image {
@@ -221,8 +221,8 @@ async function SendEmail({ email, emailType, userId, fullname }: any) {
 </body>
 </html>
 
-          `
-                }
+          `,
+    };
 
     console.log(mailOptions, "mailOptions");
     const mailresponse = await transport.sendMail(mailOptions);

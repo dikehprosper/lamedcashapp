@@ -53,6 +53,17 @@ export async function POST(request: NextRequest) {
     // Handle the event
     if (event.name === "transaction.declined") {
       console.log("transaction declined");
+         const adminUser = await User.find({
+           isSubAdminDeposits: true,
+           isOutOfFunds: false,
+         });
+         if (!adminUser || adminUser.length === 0) {
+           const admin = await User.find({
+             isAdmin: true,
+           });
+           admin.isDepositsOpen = false;
+           await admin.save();
+         }
       const ticketIndex = user.pendingDeposit.findIndex(
         (t: any) => t.fedapayTransactionId === fedapayTransactionId
       );
@@ -80,6 +91,11 @@ export async function POST(request: NextRequest) {
       });
       if (!adminUser || adminUser.length === 0) {
         adminUsers[0].transactionHistory.push(subadminTransaction);
+         const admin = await User.find({
+           isAdmin: true,
+         });
+         admin.isDepositsOpen = false;
+         await admin.save();
         await adminUser.save();
       } else {
         // Example usage: Get the index of the subadmin with current: true
@@ -140,6 +156,17 @@ export async function POST(request: NextRequest) {
       await user.save();
     } else if (event.name === "transaction.canceled") {
       console.log("transaction canceled");
+             const adminUser = await User.find({
+               isSubAdminDeposits: true,
+               isOutOfFunds: false,
+             });
+             if (!adminUser || adminUser.length === 0) {
+               const admin = await User.find({
+                 isAdmin: true,
+               });
+               admin.isDepositsOpen = false;
+               await admin.save();
+             }
       const ticketIndex = user.pendingDeposit.findIndex(
         (t: any) => t.fedapayTransactionId === fedapayTransactionId
       );

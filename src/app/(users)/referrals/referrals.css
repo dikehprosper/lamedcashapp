@@ -191,6 +191,19 @@ padding: 40px 5px
     gap: 16px;
     flex-direction: column;
   }
+  .withdraw-button-retirer {
+display: flex;
+max-width: 700px ;
+height: 40px;
+justify-content: center;
+align-items: center;
+margin: 20px 10px ;
+border-radius: 3px;
+font-weight: bold;
+color: rgba(128, 128, 128, 0.8);
+position: relative;
+flex: 1
+}
 }
 
 @media (max-width: 320px) {
@@ -210,13 +223,18 @@ padding: 40px 5px
   }
 }
 
-.withdraw-button {
+.withdraw-button-retirer {
 display: flex;
-width: 300px;
+max-width: 500px;
 height: 40px;
 justify-content: center;
 align-items: center;
-background: rgba(128, 128, 128, 0.7)
+background: rgba(128, 128, 128, 0.2);
+margin: 20px 10px;
+border-radius: 3px;
+font-weight: bold;
+color: rgba(128, 128, 128, 0.8);
+position: relative
 }
 
 .body-referral-count {

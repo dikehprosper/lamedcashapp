@@ -16,6 +16,8 @@ import { usePathname } from "next/navigation";
 import Referral from "@/components/(referral)/referral";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import { CgTrashEmpty } from "react-icons/cg";
+import { TiCancel } from "react-icons/ti";
+
 const Referrals = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -241,14 +243,43 @@ const Referrals = () => {
                 }}
               />
             </div>
-            <div className='withdraw-button'>Retirer</div>
+            <div style={{ fontSize: "10px", color: "grey", margin: "10px" }}>
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Note: &nbsp; &nbsp;
+              </span>
+              Vous ne pouvez obtenir du GRAW qu’à partir de 20 000 XOF et plus.
+            </div>
+            <div
+              className='withdraw-button-retirer'
+              style={{
+                background:
+                  total >= 20000
+                    ? "rgba(128, 128, 128, 0.9)"
+                    : "rgba(128, 128, 128, 0.2)",
+                color: total >= 20000 ? "black" : "rgba(128, 128, 128, 0.8)",
+                pointerEvent: total >= 20000 ? "auto" : "none",
+              }}
+            >
+              Retirer
+              <div
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  height: "100%",
+                  width: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {total < 20000 ? (
+                  <TiCancel  fontSize='45px' />
+                ) : null}
+              </div>
+            </div>
             <div className='body-referral-count'>
-              <div className='body-referral-count2'>
-                <div className='body-referral-count3'>
-                  <div className='body-referral-count4'>Nom</div>
-                  <div className='body-referral-count4'>E-mail</div>
-                  <div className='body-referral-count4'>Montant réalisé</div>
-                </div>
+              <div className='body-referral-count2' >
+            
 
                 {referrals.length > 0 ? (
                   referrals.map((referral): any => {
@@ -262,6 +293,12 @@ const Referrals = () => {
 
                     return (
                       // eslint-disable-next-line react/jsx-key
+                      <>
+                          <div className='body-referral-count3'>
+                  <div className='body-referral-count4'>Nom</div>
+                  <div className='body-referral-count4'>E-mail</div>
+                  <div className='body-referral-count4'>Montant réalisé</div>
+                </div>
                       <div className='body-referral-count5'>
                         <div className='body-referral-count6'>
                           {referral.name}
@@ -273,6 +310,7 @@ const Referrals = () => {
                           XOF &nbsp; {formatNumberWithCommasAndDecimal(total)}
                         </div>
                       </div>
+                      </>
                     );
                   })
                 ) : (
@@ -287,11 +325,13 @@ const Referrals = () => {
                       justifyContent: "center",
                       gap: "30px",
                       flexDirection: "column",
-                      marginTop: "40px",
+                      textAlign: "center",
+                    alignSelf: "center",
+                    marginTop: "50px"
                     }}
                   >
                     <CgTrashEmpty fontSize='60px' />
-                    <h2>Vous N'avez Pas Encore De Référence</h2>
+                    <h5>Vous N'avez Pas Encore De Référence</h5>
                   </div>
                 )}
               </div>

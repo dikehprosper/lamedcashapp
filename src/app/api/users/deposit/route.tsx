@@ -9,7 +9,6 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-
     const {
       _id,
       betId,
@@ -20,7 +19,14 @@ export async function POST(request: NextRequest) {
       network,
       fedapayId,
     } = await reqBody;
+    const admin = await User.findOne({ isAdmin: true });
 
+  if (admin.isDepositsOpen === false) {
+    return NextResponse.json(
+      { error: "We are currently under maintainance" },
+      { status: 405 }
+    );
+  }
     FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
     FedaPay.setEnvironment(process.env.ENVIRONMENT!);
 

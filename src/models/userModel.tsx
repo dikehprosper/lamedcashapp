@@ -74,7 +74,14 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-
+  isDepositsOpen: {
+    type: Boolean,
+    default: true,
+  },
+  isWithdrawalsOpen: {
+    type: Boolean,
+    default: true,
+  },
   supplementaryBetId: {
     type: [
       {
@@ -97,7 +104,7 @@ const userSchema = new Schema({
         createdAt: String,
         status: String,
         amount: String || Number,
-         betId: String || Number,
+        betId: String || Number,
         momoName: String || Number,
         momoNumber: String || Number,
       },

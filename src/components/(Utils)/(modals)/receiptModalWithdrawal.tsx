@@ -20,6 +20,7 @@ const Modal = ({
 }: any) => {
 
   console.log(receipt?.type)
+    console.log(receipt?.fundingType)
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
       <div className={` ${containerStylesInner}`} id='receiptModal'>
@@ -64,18 +65,18 @@ const Modal = ({
             <TbPigMoney />
           </div>
           <div>
-            <div
-              style={{
-                color:
-                  receipt?.type || receipt?.fundingType === "withdrawals"
-                    ? "rgba(0, 118, 184, 0.7)"
-                    : "rgba(0, 184, 118, 0.7)",
-                fontWeight: "bold",
-              }}
-            >
-              Montant du{" "}
-              {receipt?.type || receipt?.fundingType === "withdrawals" ? "retraits" : "dépôt"}
-            </div>
+          <div
+  style={{
+    color: (receipt?.type || receipt?.fundingType) === "withdrawals"
+      ? "rgba(0, 118, 184, 0.7)"
+      : "rgba(0, 184, 118, 0.7)",
+    fontWeight: "bold",
+  }}
+>
+  Montant du{" "}
+  {(receipt?.type || receipt?.fundingType) === "withdrawals" ? "retraits" : "dépôt"}
+</div>
+
             <div style={{ fontWeight: "900", color: "white" }}>
               {" "}
               XOF{" "}
