@@ -10,9 +10,7 @@ export async function GET(request: NextRequest) {
 
     if (user.isOutOfFunds === false) {
       if (user.isSubAdminWithdrawals && user.current) {
-        // Check if the user is a sub-admin for withdrawals and has current set to true
-
-        // Find all sub-admins for withdrawals who are not out of funds
+        // Find all sub-admins for deposits who are not out of funds
         const adminArray = await User.find({
           isSubAdminWithdrawals: true,
           isOutOfFunds: false,
@@ -20,12 +18,15 @@ export async function GET(request: NextRequest) {
         if (adminArray.length === 1) {
           const admins = await User.find({ isAdmin: true }).select("-password");
 
-          for (const admin of admins) {
-            admin.isWithdrawalsOpen = false;
+          const resetSubadminPromises = admins.map(async (admin) => {
+            admin.current = false;
+            admin.currentCount = 0;
             await admin.save();
-          }
+          });
+          // Wait for all sub-admins to be saved
+          await Promise.all(resetSubadminPromises);
         }
-        // Find all sub-admins for withdrawals
+        // Find all sub-admins for deposits
         const adminArray2 = await User.find({
           isSubAdminWithdrawals: true,
         }).select("-password");
@@ -61,149 +62,157 @@ export async function GET(request: NextRequest) {
         if (adminArray.length === 1) {
           const admins = await User.find({ isAdmin: true }).select("-password");
 
-          for (const admin of admins) {
-            admin.isWithdrawalsOpen = false;
+          const resetSubadminPromises = admins.map(async (admin) => {
+            admin.current = false;
+            admin.currentCount = 0;
             await admin.save();
-          }
+          });
+          // Wait for all sub-admins to be saved
+          await Promise.all(resetSubadminPromises);
         }
       }
 
-      if (user.isSubAdminDeposits && user.current) {
-        // Check if the user is a sub-admin for deposits and has current set to true
+    if (user.isSubAdminDeposits && user.current) {
+      // Check if the user is a sub-admin for deposits and has current set to true
 
-        // Find all sub-admins for deposits who are not out of funds
-        const adminArray = await User.find({
-          isSubAdminDeposits: true,
-          isOutOfFunds: false,
-        }).select("-password");
-        if (adminArray.length === 1) {
-          const admins = await User.find({ isAdmin: true }).select("-password");
+      // Find all sub-admins for deposits who are not out of funds
+      const adminArray = await User.find({
+        isSubAdminDeposits: true,
+        isOutOfFunds: false,
+      }).select("-password");
+      if (adminArray.length === 1) {
+        const admins = await User.find({ isAdmin: true }).select("-password");
 
-          for (const admin of admins) {
-            admin.isDepositsOpen = false;
-            await admin.save();
-          }
-        }
-        // Find all sub-admins for deposits
-        const adminArray2 = await User.find({
-          isSubAdminDeposits: true,
-        }).select("-password");
-
-        // Find the index of the current sub-admin in the array
-        const currentIndex = adminArray.findIndex((admin) =>
-          admin._id.equals(user._id)
-        );
-
-        // Reset the current status and count for the current sub-admin
-        user.current = false;
-        user.currentCount = 0;
-        await user.save();
-        // Calculate the index of the next available sub-admin
-        let nextCurrentSubadminIndex = (currentIndex + 1) % adminArray.length;
-
-        // Get the next available sub-admin
-        let nextSubadmin =
-          adminArray[nextCurrentSubadminIndex] || adminArray2[0];
-
-        // Set the next available sub-admin as current
-        nextSubadmin.current = true;
-
-        // Save the changes for the next sub-admin
-        await nextSubadmin.save();
+        const resetSubadminPromises = admins.map(async (admin) => {
+          admin.current = false;
+          admin.currentCount = 0;
+          await admin.save();
+        });
+        // Wait for all sub-admins to be saved
+        await Promise.all(resetSubadminPromises);
       }
+      // Find all sub-admins for deposits
+      const adminArray2 = await User.find({
+        isSubAdminDeposits: true,
+      }).select("-password");
 
-      if (user.isSubAdminDeposits) {
-        const adminArray = await User.find({
-          isSubAdminDeposits: true,
-          isOutOfFunds: false,
-        }).select("-password");
-        if (adminArray.length === 1) {
-          const admins = await User.find({ isAdmin: true }).select("-password");
+      // Find the index of the current sub-admin in the array
+      const currentIndex = adminArray.findIndex((admin) =>
+        admin._id.equals(user._id)
+      );
 
-          for (const admin of admins) {
-            admin.isDepositsOpen = false;
-            await admin.save();
-          }
-        }
+      // Reset the current status and count for the current sub-admin
+      user.current = false;
+      user.currentCount = 0;
+      await user.save();
+      // Calculate the index of the next available sub-admin
+      let nextCurrentSubadminIndex = (currentIndex + 1) % adminArray.length;
+
+      // Get the next available sub-admin
+      let nextSubadmin = adminArray[nextCurrentSubadminIndex] || adminArray2[0];
+
+      // Set the next available sub-admin as current
+      nextSubadmin.current = true;
+
+      // Save the changes for the next sub-admin
+      await nextSubadmin.save();
+    }
+
+    if (user.isSubAdminDeposits) {
+      const adminArray = await User.find({
+        isSubAdminDeposits: true,
+        isOutOfFunds: false,
+      }).select("-password");
+      if (adminArray.length === 1) {
+        const admins = await User.find({ isAdmin: true }).select("-password");
+
+        const resetSubadminPromises = admins.map(async (admin) => {
+          admin.current = false;
+          admin.currentCount = 0;
+          await admin.save();
+        });
+        // Wait for all sub-admins to be saved
+        await Promise.all(resetSubadminPromises);
       }
+    }
     }
 
     if (user.isOutOfFunds === true) {
       if (user.isSubAdminWithdrawals) {
         // Find the index of the current admin in the array
         const admins = await User.find({ isAdmin: true }).select("-password");
-
         for (const admin of admins) {
           if (!admin.isWithdrawalsOpen) {
             return NextResponse.json({
-              error: "sorry, retricted by admin",
+              error: "Sorry, restricted by admin",
               status: 401,
             });
-          } 
-            const adminArray = await User.find({
-              isSubAdminWithdrawals: true,
-            }).select("-password");
+          }
+          const subAdmins = await User.find({
+            _id: { $ne: userId }, // Exclude the current user by ID
+            isSubAdminDeposits: true,
+          }).select("-password");
 
-            const anyAdminWithFunds = adminArray.some(
-              (admin) => !admin.isOutOfFunds
-            );
+          const subAdminsWithFunds = subAdmins.filter(
+            (subAdmin) => !subAdmin.isOutOfFunds
+          );
 
-            if (!anyAdminWithFunds) {
-              adminArray.forEach((admin) => {
-                admin.current = false;
-                admin.currentCount = 0;
-                admin.save();
-              });
-
-              user.current = true;
-              user.currentCount = 0;
-              await user.save();
-            }
-          
+          if (subAdminsWithFunds.length < 1) {
+            // Reset all sub-admins' current status and counts
+            const resetSubadminPromises = subAdmins.map(async (subAdmin) => {
+              subAdmin.current = false;
+              subAdmin.currentCount = 0;
+              await subAdmin.save();
+            });
+            // Wait for all sub-admins to be saved
+            await Promise.all(resetSubadminPromises);
+            // Set the user as the current user
+            user.current = true;
+            user.currentCount = 0;
+            await user.save();
+          }
         }
       }
-
       if (user.isSubAdminDeposits) {
         // Find the index of the current admin in the array
-     const admins = await User.find({ isAdmin: true }).select("-password");
+        const admins = await User.find({ isAdmin: true }).select("-password");
+        for (const admin of admins) {
+          if (!admin.isDepositsOpen) {
+            return NextResponse.json({
+              error: "Sorry, restricted by admin",
+              status: 401,
+            });
+          }
+          const subAdmins = await User.find({
+            _id: { $ne: userId }, // Exclude the current user by ID
+            isSubAdminDeposits: true,
+          }).select("-password");
 
-     for (const admin of admins) {
-       if (!admin.isDepositsOpen) {
-         return NextResponse.json({
-           error: "Sorry, restricted by admin",
-           status: 401,
-         });
-       } 
+          const subAdminsWithFunds = subAdmins.filter(
+            (subAdmin) => !subAdmin.isOutOfFunds
+          );
 
-         const subAdmins = await User.find({ isSubAdminDeposits: true }).select(
-           "-password"
-         );
-
-         const anySubAdminWithFunds = subAdmins.some(
-           (subAdmin) => !subAdmin.isOutOfFunds
-         );
-
-         if (!anySubAdminWithFunds) {
-           // Reset all sub-admins' current status and counts
-           subAdmins.forEach((subAdmin) => {
-             subAdmin.current = false;
-             subAdmin.currentCount = 0;
-             subAdmin.save();
-           });
-
-           // Set the user as the current user
-           user.current = true;
-           user.currentCount = 0;
-           await user.save();
-         }
-       
-     }
-
+          if (subAdminsWithFunds.length < 1) {
+            // Reset all sub-admins' current status and counts
+            const resetSubadminPromises = subAdmins.map(async (subAdmin) => {
+              subAdmin.current = false;
+              subAdmin.currentCount = 0;
+              await subAdmin.save();
+            });
+            // Wait for all sub-admins to be saved
+            await Promise.all(resetSubadminPromises);
+            // Set the user as the current user
+            user.current = true;
+            user.currentCount = 0;
+            await user.save();
+          }
+        }
       }
     }
 
-    // Update isOutOfFunds status for the user
     user.isOutOfFunds = !user.isOutOfFunds;
+
+    // Save the changes to the user document
     await user.save();
 
     const status = user.isOutOfFunds;

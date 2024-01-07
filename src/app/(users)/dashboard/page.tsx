@@ -12,6 +12,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
 import io from "socket.io-client"
+
+
+
+
 const Dashboard = () => {
   const router = useRouter();
   const [data, setData] = useState<any>();
@@ -166,20 +170,33 @@ const Dashboard = () => {
       withdrawalCode
     });
   };
+const [button, setButton] = useState(false);
+const socket = io("http://localhost:5000");
+
+useEffect(() => {
+  socket.on("connect", () => {
+    console.log(socket.id);
+  });
+  return () => {
+    socket.disconnect();
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
+ socket.on("responseEvent", (data) => {
+  setButton(true)
+    console.log(data);
+  });
 
 
-  const socket = io("http://localhost:5001") 
+const sendEvent = () => {
+  socket.emit("myevent",  "hello");
+};
 
-    useEffect(() => {
-      socket.on("connect", () => {
-        console.log(socket.id)
-      })
-      return () => {
-socket.disconnect()
-      }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-  
+
+
+
+
 
 
 // Function to clear all cookies
@@ -205,7 +222,7 @@ clearAllCookies();
 
   return (
     <div className='user_dashboard_container'>
-        {isVisible && (
+      {isVisible && (
         <Modal
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner'
@@ -217,8 +234,19 @@ clearAllCookies();
       <Head
         title='Bienvenue'
         about="Faites l'expérience de dépôts et de retraits rapides"
-         data={data}
+        data={data}
       />
+      <div
+        style={{ width: "20px", height: "30px", background: "red" }}
+        onClick={sendEvent}
+      >
+        click
+      </div>
+      {button && (
+        <div style={{ width: "100px", height: "60px", background: "green" }}>
+          dxfcghvhbgcfxtfycguvhj
+        </div>
+      )}
       <div className='user-dashboard-display'>
         <Display
           count={pendingDeposits?.length}
@@ -258,7 +286,7 @@ clearAllCookies();
         totalDeposits={totalDeposits}
         data={data?.transactionHistory}
         allData={data}
-          showReceipt={showReceipt}
+        showReceipt={showReceipt}
       />
     </div>
   );

@@ -17,14 +17,14 @@ const SubadminHead = ({ title, about, data }: any) => {
     try {
       const response = await axios.get("/api/updateOutOfFundsStatus");
       setIsOutOfFunds(response.data.status);
+ if (response.data.status === 401) {
+        return toast.error("désolé, restreint par l'administrateur");
+      }
       toast.success("Soumis avec succès");
     } catch (error: any) {
-      console.log(error)
-      if (error.response.status === 401) {
-        return toast.error("désolé, restreint par l'administrateur");
-      } else {
+   
         return toast.error("Échec de mise à jour");
-      }
+
     } finally {
       setIsSubmitting(false);
       setIsLoading(false);

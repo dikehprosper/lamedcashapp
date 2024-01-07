@@ -16,16 +16,62 @@ const Modal = ({
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
 
+  const handleLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    link: any
+  ) => {
+    event.preventDefault();
+
+    const navigationStart = performance.now();
+    window.location.href = link.pathname;
+
+    const navigationCompleteListener = () => {
+      const navigationEnd = performance.now();
+      const navigationTime = navigationEnd - navigationStart;
+
+      // Remove the event listener
+      document.removeEventListener(
+        "DOMContentLoaded",
+        navigationCompleteListener
+      );
+
+      // Trigger handleClick 1/5 of the way into the load process
+      const delay = navigationTime / 5;
+      setTimeout(() => {
+        handleClick && handleClick();
+      }, delay);
+    };
+
+    // Add an event listener to measure when the DOMContentLoaded event occurs
+    document.addEventListener("DOMContentLoaded", navigationCompleteListener);
+  };
+
   return (
-    <div className={` ${containerStyles}`} onClick={handleClick}>
-      <div className={` ${containerStylesInner}`}>
+    <div className={`${containerStyles}`}>
+      <div
+        onClick={handleClick}
+        style={{
+          width: "100%",
+          height: "100%",
+          flex: "1",
+          display: "flex",
+          zIndex: 2,
+          position: "absolute",
+          top: "0",
+          bottom: "0",
+          left: "0",
+          right: "0",
+        }}
+      ></div>
+
+      <div className={` ${containerStylesInner}`} style={{ zIndex: 60 }}>
         {navLinks?.map((link, index) => {
           return (
             <a
               key={index}
               className={` ${containerStylesInnerLink} `}
               href={link.pathname}
-              // onClick={handleClick}
+              onClick={(e) => handleLinkClick(e, link)}
             >
               <div
                 style={{
@@ -42,7 +88,7 @@ const Modal = ({
               ></div>
               <span
                 style={{
-                 position: "absolute",
+                  position: "absolute",
                   zIndex: 4,
                   left: 0,
                   right: 0,
@@ -52,13 +98,8 @@ const Modal = ({
                   justifyContent: "center",
                   alignItems: "center",
                   fontWeight:
-                    pathname === link.pathname
-                      ? "800"
-                      : "-moz-initial",
-                  color:
-                    pathname === link.pathname
-                      ? "black"
-                      : "-moz-initial",
+                    pathname === link.pathname ? "800" : "-moz-initial",
+                  color: pathname === link.pathname ? "black" : "-moz-initial",
                 }}
               >
                 {link.title}

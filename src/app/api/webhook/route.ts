@@ -6,8 +6,47 @@ const { Webhook } = require("fedapay");
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 connect();
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+
 
 export async function POST(request: NextRequest) {
+
+
+  const httpServer = createServer();
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on(
+  "connection",
+  async (socket: {
+    emit(arg0: string, arg1: { name: string; surname: string }): unknown;
+    on: (
+      arg0: string,
+      arg1: (
+        arg1: any,
+        arg2: any,
+        callback: (arg0: { status: string }) => void
+      ) => void
+    ) => void;
+  }) => {
+    socket.on("myevent", (data) => {
+      console.log("gvhvjh")
+      socket.emit("responseEvent", { name: "samuel", surname: "glamper" });
+    });
+  }
+);
+
+httpServer.listen(5000, () => {
+  console.log("Server is listening on port 5000");
+});
+
+
   try {
     const rawBody = await request.text();
     const sig = request.headers.get("x-fedapay-signature");
@@ -133,11 +172,14 @@ export async function POST(request: NextRequest) {
         // If the ticket is found in user.pendingDeposit, remove it
         user.pendingDeposit.splice(ticketIndex, 1);
       }
+
+      
       console.log(
         user.pendingDeposit,
         "user.pendingDeposit after cancellation"
       );
       await user.save();
+
     } else if (event.name === "transaction.canceled") {
       console.log("transaction canceled");
       const ticketIndex = user.pendingDeposit.findIndex(

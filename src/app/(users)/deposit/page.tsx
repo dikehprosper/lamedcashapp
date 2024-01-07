@@ -12,6 +12,7 @@ import { IoIosCopy } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { FedaPay } from "fedapay";
 import Modal from "@/components/(Utils)/(modals)/processingModal";
+import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
 // import App from "../pay";
 const Deposit = () => {
   const [loading, setLoading] = useState(false);
@@ -158,6 +159,7 @@ const Deposit = () => {
   };
 
   const [processing, setProcessing] = useState(false);
+    const [processing2, setProcessing2] = useState(false);
 
   async function submitDetails() {
     if (isSubmitting) {
@@ -190,38 +192,35 @@ const Deposit = () => {
         };
         setProcessing(true);
 
+        // Make the API request
         const res = await axios.post("/api/users/deposit", updatedUser);
 
-        router.push("/dashboard");
-        setProcessing(false);
-        toast.success("deposit request Submitted");
-        setLoading(false);
+        // Set processing state for an additional operation (if needed)
+        setProcessing2(true);
+
+        // Delay before navigating to "/dashboard"
+        setTimeout(() => {
+          router.push("/dashboard");
+
+          // Set processing state to false after navigation
+          setProcessing2(false);
+        }, 2000);
       } catch (error: any) {
         if (error.response.status === 400) {
-          return toast.error("Utilisateur non trouvé");
+          toast.error("Utilisateur non trouvé");
         } else if (error.response.status === 401) {
-          return toast.error("Impossible de lancer la transaction");
+          toast.error("Impossible de lancer la transaction");
         } else if (error.response.status === 405) {
-          return toast.error("Nous Sommes Actuellement En Maintenance");
+          toast.error("Nous Sommes Actuellement En Maintenance");
         } else {
-          return toast.error("error");
+          toast.error("Erreur inconnue");
         }
       } finally {
+        // Set processing state to false
+        setProcessing(false);
         setLoading(false);
         setIsSubmitting(false);
-        setProcessing(false);
       }
-    }
-  }
-
-  async function submitDetails1() {
-    try {
-      const res = await axios.post("/api/webhook", updatedUser);
-      // router.push("/dashboard");
-      console.log(res);
-      toast.success("deposit request Submitted");
-    } catch (error: any) {
-      return toast.error("error");
     }
   }
 
@@ -338,6 +337,13 @@ const Deposit = () => {
       />
       {processing && (
         <Modal
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner-processing'
+          title='Montant du dépôt'
+        />
+      )}
+      {processing2 && (
+        <Modal2
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
           title='Montant du dépôt'
