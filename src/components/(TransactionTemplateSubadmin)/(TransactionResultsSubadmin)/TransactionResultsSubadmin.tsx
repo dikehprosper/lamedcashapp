@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./transactionResultsSubadmin.css";
 import { TransactionResultsSubadminProps } from "@/types";
 import { FaDownload } from "react-icons/fa";
@@ -27,8 +27,8 @@ const TransactionResultsSubadmin = ({
   userNumber,
   momoName,
   momoNumber,
-   getUserDetails,
-    withdrawalCode
+  getUserDetails,
+  withdrawalCode,
 }: any) => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [acceptLoading, setAcceptLoading] = useState(false);
@@ -37,43 +37,57 @@ const TransactionResultsSubadmin = ({
   const [currentStatus, setCurrentStatus] = useState(status);
   const [isSubmittedStatus, setIsSubmittedStatus] = useState(isSubmitted);
 
+  async function reject() {
+    if (isSubmitting) {
+      return;
+    }
+    setRejectLoading(true);
+    setIsSubmitting(true);
+    try {
+      const info = {
+        updatetype: "Failed",
+        customerId: userId,
+        identifierId: identifierId,
+        cashdeskId: cashdeskId,
+        amount: amount,
+        type: type,
+      };
+      const response = await axios.post("/api/subadminTransactionUpdate", info);
+      setCurrentStatus(response.data.currentTransactionSubadminStatus);
+      setIsSubmittedStatus(response.data.currentTransactionSubadminIsSubmitted);
+      getUserDetails();
+      toast.success("Updated Successfully");
+      setRejectLoading(false);
+      setButtonDisabled(true);
+      toggleDropdown();
+    } catch (error: any) {
+      toggleDropdown();
+      setRejectLoading(false);
+      return toast.error("Échec de mise à jour");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
+  const spanRef = useRef<HTMLSpanElement>(null);
 
-   async function reject() {
-     if (isSubmitting) {
-       return;
-     }
-     setRejectLoading(true);
-     setIsSubmitting(true);
-     try {
-       const info = {
-         updatetype: "Failed",
-         customerId: userId,
-         identifierId: identifierId,
-         cashdeskId: cashdeskId,
-         amount: amount,
-         type: type,
-       };
-       const response = await axios.post("/api/subadminTransactionUpdate", info);
-       setCurrentStatus(response.data.currentTransactionSubadminStatus);
-       setIsSubmittedStatus(
-         response.data.currentTransactionSubadminIsSubmitted
-       );
-        getUserDetails()
-       toast.success("Updated Successfully");
-       setRejectLoading(false);
-       setButtonDisabled(true);
-       toggleDropdown();
-     } catch (error: any) {
-       toggleDropdown();
-       setRejectLoading(false);
-       return toast.error("Échec de mise à jour");
-     } finally {
-       setIsSubmitting(false);
-     }
-   }
+  const handleCopyClick = () => {
+    if (spanRef.current) {
+      const range = document.createRange();
+      range.selectNode(spanRef.current);
+      window.getSelection()?.removeAllRanges();
+      window.getSelection()?.addRange(range);
 
- 
+      try {
+        document.execCommand("copy");
+        toast.success("Text successfully copied!");
+      } catch (err) {
+        toast.error("Oops! Unable to copy text.");
+      }
+
+      window.getSelection()?.removeAllRanges();
+    }
+  };
 
   async function accept() {
     if (isSubmitting) {
@@ -87,14 +101,14 @@ const TransactionResultsSubadmin = ({
         customerId: userId,
         identifierId: identifierId,
         cashdeskId: cashdeskId,
-            amount: amount,
-         type: type,
+        amount: amount,
+        type: type,
       };
       // console.log(info)
       const response = await axios.post("/api/subadminTransactionUpdate", info);
       setCurrentStatus(response.data.currentTransactionSubadminStatus);
       setIsSubmittedStatus(response.data.currentTransactionSubadminIsSubmitted);
-       getUserDetails()
+      getUserDetails();
       toast.success("Soumis avec succès");
       setAcceptLoading(false);
       setButtonDisabled(true);
@@ -107,8 +121,6 @@ const TransactionResultsSubadmin = ({
       setIsSubmitting(false);
     }
   }
-
-
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
@@ -127,19 +139,21 @@ const TransactionResultsSubadmin = ({
       type,
       momoName,
       momoNumber,
-      withdrawalCode
+      withdrawalCode,
+      username,
+      userNumber,
     );
   };
 
   return (
     <>
       <div className='mobile-time'> {formatDate(time)}</div>
-      <div className='transaction_result-subadmin' >
+      <div className='transaction_result-subadmin'>
         <span
           style={{ background: type === "deposits" ? "#658900" : "#0076B8" }}
         ></span>
         <span>{formatDate(time)}</span>
-        <span className='small_device_group '>
+        <span className='small_device_group ' onClick={handleCopyClick}>
           {" "}
           <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>
           <span
@@ -158,12 +172,12 @@ const TransactionResultsSubadmin = ({
               </b>{" "}
               {betId}
             </span>
-            <span className='transactionId'>
+          {withdrawalCode &&  <span className='transactionId'>
               <b style={{ color: "rgba(256, 256, 256, 0.4" }}>
-               WithdrawalCode: &nbsp;
+                WithdrawalCode: &nbsp;
               </b>{" "}
-              {withdrawalCode}
-            </span>
+              <span ref={spanRef}>{withdrawalCode}</span>
+            </span> } 
           </span>
         </span>
         <span
@@ -209,7 +223,7 @@ const TransactionResultsSubadmin = ({
               pointerEvents: isSubmittedStatus ? "none" : "auto",
               color: isSubmittedStatus ? "rgba(128, 128, 128, 0.4)" : "white",
             }}
-        onClick={reject}
+            onClick={reject}
           >
             {rejectLoading ? (
               <div id='container-result_subadmin_all'>

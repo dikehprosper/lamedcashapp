@@ -21,6 +21,7 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
 }: any) => {
+  console.log(receipt?.withdrawalCode)
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
       <div className={` ${containerStylesInner}`} id='receiptModal'>
@@ -104,7 +105,9 @@ const Modal = ({
           </div>
           <div> {receipt?.identifierId} </div>
         </div>
-           <div className='receiptModal_inner4'>
+         {receipt.withdrawalCode !== undefined ?
+          <div className='receiptModal_inner4'>
+
           <div
             style={{
              color: "rgba(128, 128, 128, 0.9)",
@@ -116,7 +119,8 @@ const Modal = ({
             withdrawalCode:
           </div>
           <div> {receipt?.withdrawalCode} </div>
-        </div>
+        </div>: null
+        }
         <div className='receiptModal_inner5'>
           <div
             style={{

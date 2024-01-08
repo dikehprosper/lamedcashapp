@@ -97,16 +97,20 @@ function SubadminDepositDashboard() {
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
-  const showReceipt: ShowReceiptFunction = (
-    time,
-    amount,
-    transactionId,
-    identifierId,
-    betId,
-    status,
-    type,
-    username,
-    userNumber
+const showReceipt: ShowReceiptFunction = (
+  
+     time,
+      amount,
+      transactionId,
+      identifierId,
+      betId,
+      status,
+      type,
+      momoName,
+      momoNumber,
+      withdrawalCode,
+      username,
+      userNumber,
   ) => {
     setIsVisible(true);
     setReceipt({
@@ -116,6 +120,10 @@ function SubadminDepositDashboard() {
       identifierId,
       betId,
       status,
+      type,
+      momoName,
+      momoNumber,
+      withdrawalCode,
       username,
       userNumber,
     });

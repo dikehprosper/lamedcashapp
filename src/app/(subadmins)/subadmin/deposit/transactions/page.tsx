@@ -100,15 +100,19 @@ function SubadminWithdrawalDashboard() {
   const [isVisible, setIsVisible] = useState(false);
 
   const showReceipt: ShowReceiptFunction = (
-    time,
-    amount,
-    transactionId,
-    identifierId,
-    betId,
-    status,
-    type,
-    username,
-    userNumber
+  
+     time,
+      amount,
+      transactionId,
+      identifierId,
+      betId,
+      status,
+      type,
+      momoName,
+      momoNumber,
+      withdrawalCode,
+      username,
+      userNumber,
   ) => {
     setIsVisible(true);
     setReceipt({
@@ -118,14 +122,16 @@ function SubadminWithdrawalDashboard() {
       identifierId,
       betId,
       status,
+      type,
+      momoName,
+      momoNumber,
+      withdrawalCode,
       username,
       userNumber,
     });
   };
 
-  useEffect(() => {
-    console.log(receipt);
-  }, [receipt]);
+
 
   useEffect(() => {
     // Check initial network status

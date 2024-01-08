@@ -12,40 +12,50 @@ const { Server } = require("socket.io");
 
 
 export async function POST(request: NextRequest) {
+  //   const httpServer = createServer();
+  // const io = new Server(httpServer, {
+  //   cors: {
+  //     origin: "*",
+  //     methods: ["GET", "POST"],
+  //   },
+  // });
 
+  // io.on(
+  //   "connection",
+  //   async (socket: {
+  //     emit(arg0: string, arg1: { name: string; surname: string }): unknown;
+  //     on: (
+  //       arg0: string,
+  //       arg1: (
+  //         arg1: any,
+  //         arg2: any,
+  //         callback: (arg0: { status: string }) => void
+  //       ) => void
+  //     ) => void;
+  //   }) => {
+  //     socket.on("myevent", (data) => {
+  //       console.log("gvhvjh")
+  //       socket.emit("responseEvent", { name: "samuel", surname: "glamper" });
+  //     });
+  //   }
+  // );
 
-  const httpServer = createServer();
-const io = new Server(httpServer, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+  // httpServer.listen(5000, () => {
+  //   console.log("Server is listening on port 5000");
+  // });
 
-io.on(
-  "connection",
-  async (socket: {
-    emit(arg0: string, arg1: { name: string; surname: string }): unknown;
-    on: (
-      arg0: string,
-      arg1: (
-        arg1: any,
-        arg2: any,
-        callback: (arg0: { status: string }) => void
-      ) => void
-    ) => void;
-  }) => {
-    socket.on("myevent", (data) => {
-      console.log("gvhvjh")
-      socket.emit("responseEvent", { name: "samuel", surname: "glamper" });
-    });
-  }
-);
+  // Create WebSocket connection.
+  const socket = new WebSocket("ws://localhost:8080");
 
-httpServer.listen(5000, () => {
-  console.log("Server is listening on port 5000");
-});
+  // Connection opened
+  socket.addEventListener("open", (event) => {
+    socket.send("Hello Server!");
+  });
 
+  // Listen for messages
+  socket.addEventListener("message", (event) => {
+    console.log("Message from server ", event.data);
+  });
 
   try {
     const rawBody = await request.text();
@@ -173,13 +183,11 @@ httpServer.listen(5000, () => {
         user.pendingDeposit.splice(ticketIndex, 1);
       }
 
-      
       console.log(
         user.pendingDeposit,
         "user.pendingDeposit after cancellation"
       );
       await user.save();
-
     } else if (event.name === "transaction.canceled") {
       console.log("transaction canceled");
       const ticketIndex = user.pendingDeposit.findIndex(

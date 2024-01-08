@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdLogout } from "react-icons/md";
@@ -15,11 +15,13 @@ const Modal = ({
   logout,
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
-
+ const [state, setState] = useState(false);
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     link: any
   ) => {
+   
+setState(true);
     event.preventDefault();
 
     const navigationStart = performance.now();
@@ -99,7 +101,11 @@ const Modal = ({
                   alignItems: "center",
                   fontWeight:
                     pathname === link.pathname ? "800" : "-moz-initial",
-                  color: pathname === link.pathname ? "black" : "-moz-initial",
+                  color: state
+                    ? "#97CF13"
+                    : pathname === link.pathname
+                    ? "black"
+                    : "-moz-initial",
                 }}
               >
                 {link.title}
