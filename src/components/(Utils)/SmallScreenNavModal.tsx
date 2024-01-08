@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdLogout } from "react-icons/md";
@@ -15,13 +15,13 @@ const Modal = ({
   logout,
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
- const [state, setState] = useState(false);
+ const [state, setState] = useState();
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     link: any
   ) => {
-   
-setState(true);
+ 
+ setState(link);
     event.preventDefault();
 
     const navigationStart = performance.now();
@@ -47,6 +47,11 @@ setState(true);
     // Add an event listener to measure when the DOMContentLoaded event occurs
     document.addEventListener("DOMContentLoaded", navigationCompleteListener);
   };
+
+  useEffect(() => {
+    console.log(pathname);
+    console.log(state?.pathname)
+  }, [state])
 
   return (
     <div className={`${containerStyles}`}>
@@ -101,11 +106,9 @@ setState(true);
                   alignItems: "center",
                   fontWeight:
                     pathname === link.pathname ? "800" : "-moz-initial",
-                  color: state
+                  color: state?.title === link.title
                     ? "#97CF13"
-                    : pathname === link.pathname
-                    ? "black"
-                    : "-moz-initial",
+                    : pathname === link.pathname ? "black" : "-moz-initial",
                 }}
               >
                 {link.title}
@@ -122,3 +125,6 @@ setState(true);
 };
 
 export default Modal;
+
+
+
