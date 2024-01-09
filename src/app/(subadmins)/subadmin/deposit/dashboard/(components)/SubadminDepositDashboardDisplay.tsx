@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { AiOutlineCluster } from "react-icons/ai";
 import { TbPigMoney } from "react-icons/tb";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
-
+import "../subadminDepositDashboard.css";
 export default function SubadminDepositDashboardDisplay({ data }: any) {
   const [state, setState] = useState("Today");
   const select = ["Today", "7 days", "2 weeks", "1 month", "All Time"];

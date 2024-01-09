@@ -69,6 +69,9 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
+  registrationDateTime: {
+    type: String,
+  },
 
   isOutOfFunds: {
     type: Boolean,

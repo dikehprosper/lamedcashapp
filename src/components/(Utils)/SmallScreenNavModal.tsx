@@ -15,13 +15,12 @@ const Modal = ({
   logout,
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
- const [state, setState] = useState();
+  const [state, setState] = useState();
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     link: any
   ) => {
- 
- setState(link);
+    setState(link);
     event.preventDefault();
 
     const navigationStart = performance.now();
@@ -47,11 +46,6 @@ const Modal = ({
     // Add an event listener to measure when the DOMContentLoaded event occurs
     document.addEventListener("DOMContentLoaded", navigationCompleteListener);
   };
-
-  useEffect(() => {
-    console.log(pathname);
-    console.log(state?.pathname)
-  }, [state])
 
   return (
     <div className={`${containerStyles}`}>
@@ -106,9 +100,12 @@ const Modal = ({
                   alignItems: "center",
                   fontWeight:
                     pathname === link.pathname ? "800" : "-moz-initial",
-                  color: state?.title === link.title
-                    ? "#97CF13"
-                    : pathname === link.pathname ? "black" : "-moz-initial",
+                  color:
+                    state?.title === link.title
+                      ? "#97CF13"
+                      : pathname === link.pathname
+                      ? "black"
+                      : "-moz-initial",
                 }}
               >
                 {link.title}
@@ -125,6 +122,3 @@ const Modal = ({
 };
 
 export default Modal;
-
-
-

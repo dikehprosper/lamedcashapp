@@ -1,24 +1,24 @@
-.subadmin_dashboard_container_withdrawal {
+.subadmin_dashboard_container_admin_admin {
   display: flex;
   margin-left: 250px;
   padding: 27px 25px 20px 25px;
   height: auto;
   flex-direction: column;
-max-height: 100vh;
+min-height: 100vh;
 flex: 1;
   flex-direction: column;
   overflow: hidden;
 }
 
 @media (max-width: 1028px) {
-  .subadmin_dashboard_container_withdrawal {
+  .subadmin_dashboard_container_admin_admin {
     margin-left: 0px;
     padding: 90px 10px 10px 10px;
   }
 }
 
 @media (max-width: 620px) {
-  .subadmin_dashboard_container_withdrawal {
+  .subadmin_dashboard_container_admin_admin {
     padding: 82px 10px 30px 10px;
        max-height: 200vh;
 
@@ -26,47 +26,64 @@ flex: 1;
 }
 
 @media (max-width: 450px) {
-  .subadmin_dashboard_container_withdrawal {
+  .subadmin_dashboard_container_admin_admin {
     padding: 82px 10px 10px 10px;
   }
 }
 
-.subadmin_dashboard_container-display_withdrawal {
+.subadmin_dashboard_container-display_withdrawal_admin {
     display: flex;
     width: 100%;
-    height: 230px;
+    height: 180px;
     border-radius: 10px;
     /* background: rgba(0, 0, 0, 0.3); */
-    margin-top: 45px;
+    margin-top: 19px;
     padding: 15px;
-    gap: 10px;
-    border: .5px solid rgba(0, 118, 184, 0.3)
+    gap: 18px;
+    position: relative
 }
-.subadmin_dashboard_container-display-children_withdrawal {
+
+.subadmin_dashboard_container-display_withdrawal_admin_chart {
+    display: flex;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    /* background: rgba(0, 0, 0, 0.3); */
+    margin-top: 19px;
+    padding: 15px;
+    gap: 18px;
+    position: relative;
+      background: white ;
+      align-items: center;
+      justify-content: center
+}
+
+.subadmin_dashboard_container-display-children_withdrawal_admin {
 display: flex;
 flex-direction: column;
 justify-content: space-between;
 align-items: center;
-width: 100%;
+min-width: 32%;
+max-width: 32%;
 height: 100%;
 border-radius: 7px;
 padding-bottom: 20px;
 }
 
 
-.subadmin_dashboard_container-display-children_withdrawal:first-child {
-background: rgba(0, 0, 0, .4)
+.subadmin_dashboard_container-display-children_withdrawal_admin:first-child {
+background: rgba(184, 184, 184, 0.3) 
 }
 
-.subadmin_dashboard_container-display-children_withdrawal:nth-child(2) {
-  background:rgba(0, 118, 184, 0.3)
+.subadmin_dashboard_container-display-children_withdrawal_admin:nth-child(2) {
+  background:rgba(184, 184, 184, 0.3) 
 }
 
-.subadmin_dashboard_container-display-children_withdrawal:nth-child(3)  {
-  background: rgba(101, 137, 0, .3)
+.subadmin_dashboard_container-display-children_withdrawal_admin:nth-child(3)  {
+  background: rgba(184, 184, 184, 0.3)  
 }
 
-.display-body-300_withdrawal {
+.display-body-300_withdrawal_admin {
   display: flex;
    width: 100%;
    align-items: center;
@@ -75,7 +92,7 @@ background: rgba(0, 0, 0, .4)
    padding: 0px 30px
 }
 
-.display-body-300_withdrawal > div:first-child { 
+.display-body-300_withdrawal_admin > div:first-child { 
 height: 100%;
 width: 100%;
 border-radius: 5px;
@@ -85,7 +102,7 @@ border-radius: 5px;
    justify-content: flex-start
 }
 
-.display-body-300_withdrawal > div:nth-child(2) { 
+.display-body-300_withdrawal_admin > div:nth-child(2) { 
 height: 35px;
 width: 140px;
 border-radius: 5px;
@@ -99,14 +116,14 @@ border-radius: 5px;
 
 /* loading styling */
 
-#container_deposit_display_withdrawal {
+#container_deposit_display_withdrawal_admin {
   width: 23px;
   position: relative;
   height: 23px;
   align-self: center !important;
   justify-self: center !important
 }
-#container_deposit_display_inner_withdrawal {
+#container_deposit_display_inner_withdrawal_admin {
   width: 100%;
   height: 100%;
   border: 2.9px solid rgba(0, 118, 184, 0.3) ;
@@ -114,7 +131,7 @@ border-radius: 5px;
   border-radius: 50%;
 }
 
-#container_deposit_display_inner_withdrawal {
+#container_deposit_display_inner_withdrawal_admin {
   transition-property: transform;
   animation-name: rotate;
   animation-duration: 1.2s;
@@ -149,25 +166,55 @@ border-radius: 5px;
   }
 }
 
-.subadmin_dashboard_container-display-children-loading_withdrawal {
+.subadmin_dashboard_container-display-children-loading_withdrawal_admin {
   display: flex;
 justify-content: center;
 align-items: center;
 width: 100%;
-height: 100%
+height: 100%;
+min-height: 80px;
 }
 
-@media (max-width: 635px) {
-  .subadmin_dashboard_container-display_withdrawal {
+@media (max-width: 1106px) {
+  .subadmin_dashboard_container-display_withdrawal_admin {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 340px;
+    height: auto;
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.3);
-    margin-top: 45px;
+    margin-top: 24px;
     padding: 15px;
-    gap: 10px;
-    border: .5px solid rgba(0, 118, 184, 0.3)
+    gap: 18px;
 }
+
+.subadmin_dashboard_container-display_withdrawal_admin_chart {
+    display: flex;
+    width: 100%;
+    height: 350px;
+    border-radius: 10px;
+    /* background: rgba(0, 0, 0, 0.3); */
+    margin-top: 19px;
+    padding: 15px;
+    gap: 18px;
+    position: relative;
+    
+}
+
+.subadmin_dashboard_container-display-children_withdrawal_admin {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+min-width: 100%;
+max-width: 100%;
+height: 100%;
+border-radius: 7px;
+padding-bottom: 20px;
+}
+
+}
+
+.dashboard-display {
+
 }

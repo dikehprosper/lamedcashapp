@@ -50,17 +50,17 @@ const DropdownContent = ({ state, select, setState, setLoading }: any) => {
       onClick={adjustHeight}
     >
       {state}&nbsp; {height === 0 ? <IoMdArrowDropdown /> : <IoMdArrowDropup />}
-    {checkHeight()}
+      {checkHeight()}
       <AnimateHeight
         id='example-panel'
         duration={300}
         height={height}
         style={{
-          background: "black",
           position: "absolute",
           top: "100%",
-          zIndex: 90,
+          zIndex: "90",
           width: "inherit",
+          background: "black"
         }}
       >
         <div className='dropdown-content-configure-container'>

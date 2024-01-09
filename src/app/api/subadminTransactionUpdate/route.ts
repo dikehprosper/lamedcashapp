@@ -17,36 +17,49 @@ export async function POST(request: NextRequest) {
 
     const { customerId, identifierId, cashdeskId, updatetype, amount, type } =
       reqBody;
-
-    const filter = {
-      _id: cashdeskId,
-      "transactionHistory.identifierId": identifierId,
-    };
-    const update = {
-      $set: {
-        "transactionHistory.$.status": updatetype,
-        "transactionHistory.$.isSubmitted": true,
-      },
-    };
-    const options = { new: true }; // This option returns the modified document
-
-    const updatedCashdeskUser = await User.findOneAndUpdate(
-      filter,
-      update,
-      options
-    );
-
-    if (!updatedCashdeskUser) {
-      console.log("Failed to update transaction in cashdeskUser");
+    const currentCashdeskUser = await User.findById(cashdeskId);
+    console.log(currentCashdeskUser.email);
+    if (!currentCashdeskUser) {
+      console.log("subadmin not found");
       return NextResponse.json(
-        { error: "Failed to update transaction in cashdeskUser" },
-        { status: 500 }
+        { error: "subadmin not found" },
+        { status: 407 }
       );
     }
 
-    // Similarly, you can perform the update for the customer document
+    const updatedCashdeskUser = currentCashdeskUser.transactionHistory.find(
+      (t: any) => t.identifierId.toString() === identifierId
+    );
+    updatedCashdeskUser.status = updatetype;
 
-    // Retrieve the current customer
+    // Check if the fields exist, if not, initialize them
+    const currentDepositCountSubadmin =
+      updatedCashdeskUser.successfulDepositCount;
+    const currentWithdrawalCountSubadmin =
+      updatedCashdeskUser.succesfulWithdrawalCount;
+
+    // Calculate the new values
+    const newDepositCountSubadmin =
+      updatetype === "Successful" && type === "deposits"
+        ? currentDepositCountSubadmin + amount
+        : currentDepositCountSubadmin;
+
+    const newWithdrawalCountSubadmin =
+      updatetype === "Successful" && type === "withdrawals"
+        ? currentWithdrawalCountSubadmin + amount
+        : currentWithdrawalCountSubadmin;
+    currentCashdeskUser.successfulDepositCount = newDepositCountSubadmin;
+    currentCashdeskUser.succesfulWithdrawalCount = newWithdrawalCountSubadmin;
+    await currentCashdeskUser.save();
+
+    if (!currentCashdeskUser) {
+      console.log("Failed to update transaction in cashdeskUser");
+      return NextResponse.json(
+        { error: "Failed to update transaction in cashdeskUser" },
+        { status: 502 }
+      );
+    }
+
     const existingCustomer = await User.findById(customerId);
     console.log(existingCustomer.email);
     if (!existingCustomer) {

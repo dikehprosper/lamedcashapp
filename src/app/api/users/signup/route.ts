@@ -311,7 +311,8 @@ export async function POST(request: NextRequest) {
     //hash password
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
-
+    const date = new Date()
+    
     /* Créer le client */
     const customer = Customer.create({
       firstname: fullname.split(" ")[0],
@@ -335,6 +336,7 @@ export async function POST(request: NextRequest) {
       isLoggedIn: true,
       sessionId: generateUniqueSessionId(),
       fedapayId: customer.id,
+      registrationDateTime: date,
     });
 
     // save the new created user
