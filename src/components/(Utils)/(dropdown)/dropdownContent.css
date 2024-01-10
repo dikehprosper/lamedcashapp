@@ -40,7 +40,7 @@ white-space: nowrap
 
 @media (max-width: 500px) {
 .dropdown-content-configure{
-   height: 22px;
+
   width: 130px;
   font-size: 9px;
 }
@@ -49,12 +49,11 @@ white-space: nowrap
   display: flex;
  flex-direction: column;
  gap: 4px;
- height: 230px;
  align-items: end;
  border-radius: 5px;
      padding: 4px 0px;
 box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.4);
-background: black
+
 }
 
 .dropdown-content-configure-container_1 {

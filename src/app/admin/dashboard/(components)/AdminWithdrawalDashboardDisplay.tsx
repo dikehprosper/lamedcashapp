@@ -94,7 +94,17 @@ export default function AdminDashboardDisplay({ data, type }: any) {
   return (
     <div className='subadmin_dashboard_container-display_withdrawal_admin'>
       {data ? (
-        <div className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'>
+        <div
+          className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
+          style={{
+            background:
+              type === "1"
+                ? "rgba(0, 184, 128, 0.1)"
+                : type === "2"
+                ? "rgba(0, 128, 184, 0.3)"
+                : "rgba(128, 128, 128, 0.2)",
+          }}
+        >
           <div className='display-body-300_withdrawal_admin'>
             {type !== "4" && (
               <div>
@@ -130,8 +140,10 @@ export default function AdminDashboardDisplay({ data, type }: any) {
           style={{
             background:
               type === "1"
-                ? "rgba(184, 184, 184, 0.3)"
-                : "rgba(164, 184, 184, 0.3)",
+                ? "rgba(0, 184, 128, 0.1)"
+                : type === "2"
+                ? "rgba(0, 128, 184, 0.3)"
+                : "rgba(128, 128, 128, 0.2)",
           }}
         >
           <div
@@ -185,7 +197,18 @@ export default function AdminDashboardDisplay({ data, type }: any) {
         </div>
       )}
       {data ? (
-        <div className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'>
+        <div
+          className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
+          style={{
+            background:
+              type === "1"
+                ? "rgba(0, 184, 128, 0.1)"
+                : type === "2"
+                ? "rgba(0, 128, 184, 0.3)"
+                : "rgba(128, 128, 128, 0.2)",
+                display: type !== "1" && type !== "2"? "none" : "flex"
+          }}
+        >
           {type !== "4" && (
             <>
               <div
