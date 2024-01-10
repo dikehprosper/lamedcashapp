@@ -4,19 +4,19 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import "./adminDashboard.css";
-import AdminHead from "@/components/(adminhead)/adminHead";
+import AdminHead from "@/components/(adminHead)/adminHead";
 import { FaCheckCircle } from "react-icons/fa";
 import AdminDashboardDisplay from "./(components)/AdminWithdrawalDashboardDisplay";
 import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
-import BarsDataset from "./(components)/chart"
+import BarsDataset from "./(components)/chart";
 function Page() {
   const router = useRouter();
   const [data, setData] = useState<any>();
-   const [data2, setData2] = useState<any>();
-   const [data3, setData3] = useState<any>();
-   const [data4, setData4] = useState<any>();
+  const [data2, setData2] = useState<any>();
+  const [data3, setData3] = useState<any>();
+  const [data4, setData4] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);
 
   const getUserDetails = async () => {
@@ -24,9 +24,9 @@ function Page() {
       const res = await axios.get("/api/getAllSubadminDetails");
       setData(res.data.data.user);
       setData2(res.data.data.user2);
-       setData3(res.data.data.user3);
-            setData4(res.data.data.user4);
-            console.log(res.data.data.user4)
+      setData3(res.data.data.user3);
+      setData4(res.data.data.user4);
+      console.log(res.data.data.user4);
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration

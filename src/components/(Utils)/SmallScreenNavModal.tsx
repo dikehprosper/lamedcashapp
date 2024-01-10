@@ -4,6 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdLogout } from "react-icons/md";
 import { SmallScreenNavModalProps } from "@/types";
+interface State {
+  title: string;
+}
 
 const Modal = ({
   active,
@@ -15,7 +18,7 @@ const Modal = ({
   logout,
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
-  const [state, setState] = useState();
+ const [state, setState] = useState<State | undefined>(undefined);
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     link: any
