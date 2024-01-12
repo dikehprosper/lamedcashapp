@@ -94,8 +94,8 @@ const AdminNavLinks = [
     icon: <BiSolidDashboard />,
   },
   {
-    title: "Analytique",
-    pathname: "/admin/analytics",
+    title: "Toute l'histoire",
+    pathname: "/admin/allhistory",
     icon: <SiSimpleanalytics />,
   },
   {

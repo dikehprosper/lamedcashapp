@@ -140,7 +140,9 @@ const userSchema = new Schema({
         transactionId: String,
         fundingType: String,
         identifierId: String,
-        isSubmitted: {
+         userEmail: String,
+         subadminEmail: String,
+            isSubmitted: {
           type: Boolean,
           default: false,
         },

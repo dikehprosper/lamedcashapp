@@ -8,7 +8,7 @@ import { AiOutlineCluster } from "react-icons/ai";
 import { TbPigMoney } from "react-icons/tb";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 
-export default function AdminDashboardDisplay({ data, type }: any) {
+export default function AdminDashboardDisplay({ data, data2, data3,type }: any) {
   const [state, setState] = useState("All Time");
   const select = ["Today", "7 days", "2 weeks", "1 month", "All Time"];
   const [loading, setLoading] = useState(false);
@@ -80,6 +80,8 @@ export default function AdminDashboardDisplay({ data, type }: any) {
       (state === "All Time" && user.isUser === true)
   );
 
+ const totalSubadmins = (data2?.length || 0) + (data3?.length || 0);
+
   const sum = openOrders?.reduce((acc: any, obj: any) => acc + obj.amount, 0);
 
   const sum2 = completedOrders?.reduce(
@@ -118,12 +120,26 @@ export default function AdminDashboardDisplay({ data, type }: any) {
             {type === "2" && "Open Withdrawals"}
             {type === "4" && "Total Subadmins"}
           </h3>
-          <h1>{openOrders?.length}</h1>
-          {type !== "4" && (
-            <h4>
-              XOF &nbsp;
-              {formatNumberWithCommasAndDecimal(sum)}
-            </h4>
+        
+               {loading ? (
+            <div id='container_deposit_display_withdrawal_admin'>
+              <div id='container_deposit_display_inner_withdrawal_admin'></div>
+            </div>
+          ) : (
+            <>
+              {type !== "4" && (
+                <h1 className='animate-pop-in'>{openOrders?.length}</h1>
+              )}
+              {type === "4" && (
+                <h1 className='animate-pop-in'>{totalSubadmins}</h1>
+              )}
+              {type !== "4" && (
+                <h4 className='animate-pop-in'>
+                  XOF &nbsp;
+                  {formatNumberWithCommasAndDecimal(sum2)}
+                </h4>
+              )}
+            </>
           )}
         </div>
       ) : (

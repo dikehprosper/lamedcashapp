@@ -1,7 +1,7 @@
 /* eslint-disable */
 // @ts-nocheck
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReceiptModalProps } from "@/types";
@@ -13,6 +13,8 @@ import { IoMdDownload } from "react-icons/io";
 import html2canvas from "html2canvas";
 import formatNumberWithCommasAndDecimal from "../formatNumber";
 import { FaLongArrowAltLeft } from "react-icons/fa";
+import { FaRegCopy } from "react-icons/fa";
+import { toast } from "react-toastify";
 const Modal = ({
   active,
   receipt,
@@ -21,10 +23,37 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
 }: any) => {
-  console.log(receipt?.withdrawalCode)
+const pathname = usePathname;
+const handleChildClick = (event: React.MouseEvent) => {
+  // Stop the event propagation to the parent (receiptModal)
+  event.stopPropagation();
+};
+const spanRef = useRef<HTMLSpanElement>(null);
+
+const handleCopyClick = () => {
+  if (spanRef.current) {
+    const range = document.createRange();
+    range.selectNode(spanRef.current);
+    window.getSelection()?.removeAllRanges();
+    window.getSelection()?.addRange(range);
+
+    try {
+      document.execCommand("copy");
+      toast.success("Text successfully copied!");
+    } catch (err) {
+      toast.error("Oops! Unable to copy text.");
+    }
+
+    window.getSelection()?.removeAllRanges();
+  }
+};
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
-      <div className={` ${containerStylesInner}`} id='receiptModal'>
+      <div
+        className={` ${containerStylesInner}`}
+        id='receiptModal'
+        onClick={handleChildClick}
+      >
         <span
           onClick={handleClick}
           style={{ position: "absolute", right: "22px", top: "15px" }}
@@ -66,10 +95,27 @@ const Modal = ({
             <TbPigMoney />
           </div>
           <div>
-            <div style={{ color: receipt?.type === "withdrawals" ? "rgba(0, 118, 184, 0.7)" : "rgba(0, 184, 118, 0.7)", fontWeight: "bold" }}>
-              Montant du {receipt?.type === "withdrawals" ? "retraits" : "dépôt"}
+            <div
+              style={{
+                color:
+                  receipt?.type === "withdrawals"
+                    ? "rgba(0, 118, 184, 0.7)"
+                    : "rgba(0, 184, 118, 0.7)",
+                fontWeight: "bold",
+              }}
+            >
+              Montant du{" "}
+              {receipt?.type === "withdrawals" ? "retraits" : "dépôt"}
             </div>
-            <div style={{ fontWeight: "bold", color: receipt?.type === "withdrawals" ? "rgba(0, 118, 184, 0.7)" : "rgba(0, 184, 118, 0.7)", }}>
+            <div
+              style={{
+                fontWeight: "bold",
+                color:
+                  receipt?.type === "withdrawals"
+                    ? "rgba(0, 118, 184, 0.7)"
+                    : "rgba(0, 184, 118, 0.7)",
+              }}
+            >
               {" "}
               XOF{" "}
               {typeof receipt?.amount === "number"
@@ -81,8 +127,8 @@ const Modal = ({
         <div className='receiptModal_inner3'>
           <div
             style={{
-           color: "rgba(128, 128, 128, 0.9)",
-             display: "flex",
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
             }}
@@ -95,7 +141,7 @@ const Modal = ({
         <div className='receiptModal_inner4'>
           <div
             style={{
-            color: "rgba(128, 128, 128, 0.9)",
+              color: "rgba(128, 128, 128, 0.9)",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
@@ -103,29 +149,33 @@ const Modal = ({
           >
             identifiant de transaction:
           </div>
-          <div> {receipt?.identifierId} </div>
-        </div>
-         {receipt.withdrawalCode !== undefined ?
-          <div className='receiptModal_inner4'>
+          <div ref={spanRef}> {receipt?.identifierId} </div>
 
-          <div
-            style={{
-             color: "rgba(128, 128, 128, 0.9)",
-             display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
-            }}
-          >
-            withdrawalCode:
+          <div style={{ marginRight: "10px" }} onClick={handleCopyClick}>
+            {" "}
+            <FaRegCopy fontSize='12px' />
           </div>
-          <div> {receipt?.withdrawalCode} </div>
-        </div>: null
-        }
+        </div>
+        {receipt.withdrawalCode !== undefined ? (
+          <div className='receiptModal_inner4'>
+            <div
+              style={{
+                color: "rgba(128, 128, 128, 0.9)",
+                display: "flex",
+                justifyContent: "flex-end",
+                fontWeight: "bold",
+              }}
+            >
+              withdrawalCode:
+            </div>
+            <div> {receipt?.withdrawalCode} </div>
+          </div>
+        ) : null}
         <div className='receiptModal_inner5'>
           <div
             style={{
-               color: "rgba(128, 128, 128, 0.9)",
-            display: "flex",
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
             }}
@@ -147,14 +197,14 @@ const Modal = ({
           </div>
           <div>
             {" "}
-                 {receipt?.momoName ? receipt?.momoName : receipt?.momoName}
+            {receipt?.momoName ? receipt?.momoName : receipt?.momoName}
           </div>
         </div>
         <div className='receiptModal_inner7'>
           <div
             style={{
-            color: "rgba(128, 128, 128, 0.9)",
-             display: "flex",
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
             }}
@@ -166,6 +216,50 @@ const Modal = ({
             {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
           </div>
         </div>
+        <div className='receiptModal_inner7'>
+          <div
+            style={{
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
+              justifyContent: "flex-end",
+              fontWeight: "bold",
+            }}
+          >
+            numéro de maman:{" "}
+          </div>
+          <div>
+            {" "}
+            {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
+          </div>
+        </div>
+        {pathname.startsWith("/admin")? <>
+         <div className='receiptModal_inner7'>
+          <div
+            style={{
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
+              justifyContent: "flex-end",
+              fontWeight: "bold",
+            }}
+          >
+            E-mail de l'utilisateur:{" "}
+          </div>
+          <div> {receipt?.userEmail}</div>
+        </div>
+        <div className='receiptModal_inner7'>
+          <div
+            style={{
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
+              justifyContent: "flex-end",
+              fontWeight: "bold",
+            }}
+          >
+            E-mail du sous-administrateur:{" "}
+          </div>
+          <div> {receipt?.subadminEmail}</div>
+        </div></>: null}
+       
       </div>
     </div>
   );

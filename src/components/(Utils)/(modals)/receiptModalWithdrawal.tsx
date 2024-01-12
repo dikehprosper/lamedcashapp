@@ -1,7 +1,7 @@
 /* eslint-disable */
 // @ts-nocheck
 "use client";
-import React from "react";
+import React,{ useRef } from "react";
 import CompanyLogo from "../../../../public/Logo.webp";
 import Image from "next/image";
 import { TbPigMoney } from "react-icons/tb";
@@ -10,6 +10,9 @@ import { IoMdDownload } from "react-icons/io";
 import html2canvas from "html2canvas";
 import formatNumberWithCommasAndDecimal from "../formatNumber";
 import { FaLongArrowAltLeft } from "react-icons/fa";
+import { FaRegCopy } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { usePathname } from "next/navigation"
 const Modal = ({
   active,
   receipt,
@@ -18,12 +21,35 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
 }: any) => {
+  console.log(receipt)
+const pathname = usePathname()
+  const handleChildClick = (event: React.MouseEvent) => {
+    // Stop the event propagation to the parent (receiptModal)
+    event.stopPropagation();
 
-  console.log(receipt?.type)
-    console.log(receipt?.fundingType)
+  };
+    const spanRef = useRef<HTMLSpanElement>(null);
+
+  const handleCopyClick = () => {
+    if (spanRef.current) {
+      const range = document.createRange();
+      range.selectNode(spanRef.current);
+      window.getSelection()?.removeAllRanges();
+      window.getSelection()?.addRange(range);
+
+      try {
+        document.execCommand("copy");
+        toast.success("Text successfully copied!");
+      } catch (err) {
+        toast.error("Oops! Unable to copy text.");
+      }
+
+      window.getSelection()?.removeAllRanges();
+    }
+  };
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
-      <div className={` ${containerStylesInner}`} id='receiptModal'>
+      <div className={` ${containerStylesInner}`} id='receiptModal' onClick={handleChildClick}>
         <span
           onClick={handleClick}
           style={{ position: "absolute", right: "22px", top: "15px" }}
@@ -111,7 +137,9 @@ const Modal = ({
           >
             identifiant de transaction:
           </div>
-          <div> {receipt?.identifierId} </div>
+          <div ref={spanRef}> {receipt?.identifierId} </div> 
+
+ <div style={{marginRight: "10px"}}  onClick={handleCopyClick}> <FaRegCopy fontSize="12px" /></div>
         </div>
         <div className='receiptModal_inner5'>
           <div
@@ -175,6 +203,33 @@ const Modal = ({
             {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
           </div>
         </div>
+          {pathname.startsWith("/admin/allhistory")? <>
+         <div className='receiptModal_inner7'>
+          <div
+            style={{
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
+              justifyContent: "flex-end",
+              fontWeight: "bold",
+            }}
+          >
+            E-mail de l'utilisateur:{" "}
+          </div>
+          <div> {receipt?.userEmail}</div>
+        </div>
+        <div className='receiptModal_inner7'>
+          <div
+            style={{
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
+              justifyContent: "flex-end",
+              fontWeight: "bold",
+            }}
+          >
+            E-mail du sous-administrateur:{" "}
+          </div>
+          <div> {receipt?.subadminEmail}</div>
+        </div></>: null}
       </div>
     </div>
   );

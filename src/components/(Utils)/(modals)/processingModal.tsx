@@ -18,11 +18,13 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
 }: any) => {
-
-  console.log(receipt?.type)
+  const handleChildClick = (event: React.MouseEvent) => {
+    // Stop the event propagation to the parent (receiptModal)
+    event.stopPropagation();
+  };
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
-      <div className={` ${containerStylesInner}`} id='receiptModal'>
+      <div className={` ${containerStylesInner}`} id='receiptModal' onClick={handleChildClick}>
         <div
           style={{
             display: "flex",

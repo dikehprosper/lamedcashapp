@@ -117,7 +117,7 @@ function Page() {
       <div className='dashboard-display_admin'>
         <AdminDashboardDisplay data={data} type='1' />
         <AdminDashboardDisplay data={data2} type='2' />
-        <AdminDashboardDisplay data={data4} type='4' />
+        <AdminDashboardDisplay data={data4} data2={data2} data3={data} type='4' />
         <div className='subadmin_dashboard_container-display_withdrawal_admin_chart'>
           <BarsDataset data={data4} />
         </div>

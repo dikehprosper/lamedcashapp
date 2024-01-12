@@ -68,6 +68,7 @@ export async function POST(request: NextRequest) {
     const email = event.entity.customer.email;
 
     const user = await User.findOne({ email });
+    const admin = await User.findOne({ isAdmin: true });
     const ticket = user.pendingDeposit.find(
       (t: any) => t.fedapayTransactionId === fedapayTransactionId
     );
@@ -99,6 +100,7 @@ export async function POST(request: NextRequest) {
       identifierId: ticket.transactionId,
     };
 
+   
     // Handle the event
     if (event.name === "transaction.declined") {
       console.log("transaction declined");
@@ -129,7 +131,21 @@ export async function POST(request: NextRequest) {
       });
       if (!adminUser || adminUser.length === 0) {
         adminUsers[0].transactionHistory.push(subadminTransaction);
-        await adminUser.save();
+        admin.transactionHistory.push({
+        userid: user._id,
+        status: "Pending",
+        registrationDateTime: date,
+        amount: ticket.amount,
+        betId: ticket.betId,
+        momoName: ticket.momoName,
+        momoNumber: ticket.momoNumber,
+        fundingType: "deposits",
+        identifierId: ticket.transactionId,
+        userEmail: user.email,
+        subadminEmail: adminUsers[0].email
+      })
+       await adminUser.save();
+        await admin.save();
       } else {
         // Example usage: Get the index of the subadmin with current: true
         let currentSubadminIndex = -1;
@@ -163,14 +179,41 @@ export async function POST(request: NextRequest) {
           const updatedCount = nextSubadmin.currentCount + 1;
           nextSubadmin.currentCount = updatedCount;
           nextSubadmin.transactionHistory.push(subadminTransaction);
+             admin.transactionHistory.push({
+        userid: user._id,
+        status: "Pending",
+        registrationDateTime: date,
+        amount: ticket.amount,
+        betId: ticket.betId,
+        momoName: ticket.momoName,
+        momoNumber: ticket.momoNumber,
+        fundingType: "deposits",
+        identifierId: ticket.transactionId,
+        userEmail: user.email,
+        subadminEmail: nextSubadmin.email
+      })
 
           // Save changes to the database for both the current and next subadmin
-          await Promise.all([currentSubadmin.save(), nextSubadmin.save()]);
+          await Promise.all([currentSubadmin.save(), nextSubadmin.save(), admin.save()]);
         } else {
+           admin.transactionHistory.push({
+             userid: user._id,
+             status: "Pending",
+             registrationDateTime: date,
+             amount: ticket.amount,
+             betId: ticket.betId,
+             momoName: ticket.momoName,
+             momoNumber: ticket.momoNumber,
+             fundingType: "deposits",
+             identifierId: ticket.transactionId,
+             userEmail: user.email,
+             subadminEmail: currentSubadmin.email,
+           });
           currentSubadmin.transactionHistory.push(subadminTransaction);
           const updatedCount = currentSubadmin.currentCount + 1;
           currentSubadmin.currentCount = updatedCount;
           await currentSubadmin.save();
+          await admin.save();
         }
       }
 

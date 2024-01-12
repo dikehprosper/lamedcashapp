@@ -16,7 +16,7 @@ const BigScreenNavModal = ({
           <a
             key={index}
             className={` ${
-              pathname === link.pathname ? "active-user-nav" : ""
+              pathname.startsWith(link.pathname) ? "active-user-nav" : ""
             }`}
             href={link.pathname}
             // onClick={handleClick}

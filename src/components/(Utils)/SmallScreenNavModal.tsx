@@ -87,7 +87,7 @@ const Modal = ({
                   borderRadius: "0px 20px 20px 0px",
                   zIndex: 2,
                   background:
-                    pathname === link.pathname ? "rgba(189, 255, 0, 0.8)" : "",
+                    pathname.startsWith(link.pathname) ? "rgba(189, 255, 0, 0.8)" : "",
                 }}
               ></div>
               <span

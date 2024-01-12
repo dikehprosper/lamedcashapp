@@ -964,7 +964,9 @@ padding: 8px;
   gap: 8px;
   align-items: center;
   justify-content: center;
-  width: 100%
+  width: 100%;
+  white-space: wrap;
+ 
 }
 
 .receiptModal_inner4 > div:nth-child(1) {
@@ -972,7 +974,8 @@ padding: 8px;
 }
 .receiptModal_inner4 > div:nth-child(2) {
  font-size: 13px;
-   width: 100%
+   width: 100%;
+
 }
 
 .receiptModal_inner5 {
@@ -1166,4 +1169,23 @@ width: auto
 
 .ellipses:nth-child(3) {
   animation-delay: 2s; /* Adjust the delay as needed */
+}
+
+.tablesearch {
+  height: 40px;
+  width: 70%;
+  background: inherit;
+  border: .7px solid grey;
+  border-radius: 4px;
+  padding-left: 10px;
+  color: white !important
+}
+
+.tablesearch:focus {
+  outline: none;
+  border: 2px solid white; /* You can replace 'your-focus-color' with the desired color */
+}
+
+.tablesearch-h3 {
+  font-size: 8px
 }
