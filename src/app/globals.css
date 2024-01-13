@@ -85,7 +85,7 @@ a {
   margin: 1em auto;
   position: relative;
   height: 100%;
-  background: red;
+
 }
 #html-spinner {
   width: 100%;
@@ -413,6 +413,7 @@ a {
     justify-content: space-evenly;
     border-radius: 20px;
     animation: slideInFromRight 0.5s ease-in-out;
+    margin: 0px 25px
   }
 
   .users-nav-link2_inner {
@@ -527,6 +528,7 @@ a {
   width: 100%;
   color: rgba(256, 256, 256, 0.8);
   margin-top: 80px;
+
 }
 
 .user-nav-link a {
@@ -819,6 +821,10 @@ padding: 8px;
   animation: popUp 0.5s ease-in-out; /* Change the animation name */
   padding: 20px 0px;
   transform-origin: center center; /* Set the transform origin to the center */
+}
+
+.users-nav-link2_inner {
+margin: 0px 5px
 }
 }
 

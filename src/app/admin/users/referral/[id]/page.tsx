@@ -2,8 +2,8 @@
 // @ts-nocheck
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import "./users.css";
+import { useRouter, usePathname } from "next/navigation";
+import "./referral.css";
 import AdminHead from "@/components/(adminHead)/adminHead";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -12,6 +12,7 @@ import { IoMdArrowDropup } from "react-icons/io";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 function Page() {
   const router = useRouter();
+   const pathname = usePathname();
   const [data, setData] = useState<any>();
   const [data2, setData2] = useState<any>();
   const [data3, setData3] = useState<any>();
@@ -19,37 +20,8 @@ function Page() {
   const [isOnline, setIsOnline] = useState(true);
   const [height, setHeight] = useState(0);
 
-  const getUserDetails = async () => {
-    try {
-      const res = await axios.get("/api/getAllSubadminDetails");
-      setData(res.data.data.user4);
-      setData3(res.data.data.user3);
-      console.log(res.data.data.user4);
-    } catch (error: any) {
-      if (error.response) {
-        // Handle token expiration
-        if (error.response.status === 401) {
-          toast.error(
-            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
-          );
-          router.push("/signin");
-        } else if (error.response.status === 402) {
-          toast.error(
-            "Votre session a expiré. Redirection vers la connexion..."
-          );
-          router.push("/signin");
-        } else {
-          // Handle other errors
-          toast.error(
-            "Une erreur s'est produite. Veuillez réessayer plus tard."
-          );
-        }
-      } else if (error.request) {
-        // Handle network errors (no connection)
-        setIsOnline(false);
-      }
-    }
-  };
+  const [currentValue, setCurrentValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Check network status before making the request
@@ -92,34 +64,12 @@ function Page() {
   }
 
 
-
-  const [currentValue, setCurrentValue] = useState("");
- const [loading, setLoading] = useState(false);
-
-
-async function checkBonuses(id) {
-
-
-  try {
-    const res = await axios.post("/api/getSpecificReferral", { id }); // Wrap email in an object
-    console.log(res.data.result);
-     console.log(res.data.userDataArray);
-  } catch (error) {
-    console.error(error); // Log the error for debugging
-    toast.error("An error has occurred");
-  }
-}
-
-
-
-
-
   async function search() {
     try {
-        setData(null);
+      setData(null);
       setLoading(true);
       const res = await axios.get("/api/getAllSubadminDetails");
-      console.log(res)
+      console.log(res);
       res.data.data.user4.map((data: any) => {
         if (data.email === currentValue) {
           setData([data]);
@@ -138,16 +88,42 @@ async function checkBonuses(id) {
     }
   }
 
- 
+
+
+
+
+ // Extract ID from the URL
+  const extractIdFromUrl = () => {
+    const parts = pathname.split("/"); // Use router.asPath to get the full URL
+    const lastPart = parts[parts.length - 1];
+    return lastPart;
+  };
+
+
+    const getUserDetails = async () => {
+    try {
+      setLoading(true);
+      const idFromUrl = extractIdFromUrl();
+      console.log(idFromUrl);
+      const res = await axios.post("/api/getSpecificReferral", { id: idFromUrl });
+      console.log(res);
+      setData(res.data.result);
+        setLoading(false);
+    } catch (error: any) {
+      if (error.response.status === 402) {
+        setLoading(false);
+        toast.error("user does not exist");
+      } else {
+        setLoading(false);
+        toast.error("An error has occur");
+      }
+    }
+  };
+
+
 
   return (
     <div className='subadmin_dashboard_container_admin_admin_admin'>
-      <AdminHead
-        title='Tableau de bord'
-        about='Voir toutes les transactions ici'
-        data={data3}
-      />
-
       <div className='subadmin_dashboard_container_admin_admin_admin1'>
         <div className='subadmin_dashboard_container_admin_admin_admin2'>
           <div
@@ -159,7 +135,10 @@ async function checkBonuses(id) {
             }}
           >
             {" "}
-            <h3>All Users</h3>
+            <h3>
+              {/* {data.fullname}  */}
+              Referrals
+            </h3>
           </div>
           <div
             style={{
@@ -201,7 +180,6 @@ async function checkBonuses(id) {
             </div>
           ) : (
             data?.map((data, index) => {
-
               const openOrders = data.transactionHistory.filter(
                 (transaction: { status: string }) =>
                   transaction.status === "Pending"
@@ -224,12 +202,10 @@ async function checkBonuses(id) {
                 0
               );
 
-      
-           if (index === index1) {
- checkBonuses(data._id)
-           }
+              const result = totalSuccessfulAmount;
+              const threePercent = (3 / 100) * result;
+              const total = (5 / 100) * threePercent;
 
-      
               return (
                 <div
                   className='subadmin_dashboard_container_admin_admin_admin5-1'
@@ -286,7 +262,6 @@ async function checkBonuses(id) {
                         padding: "10px 0px",
                         width: "100%",
                         height: "100%",
-                  
                       }}
                     >
                       <div
@@ -294,8 +269,8 @@ async function checkBonuses(id) {
                           height: "25px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -314,9 +289,9 @@ async function checkBonuses(id) {
                         style={{
                           height: "25px",
                           width: "100%",
-                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -336,8 +311,8 @@ async function checkBonuses(id) {
                           height: "25px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -361,9 +336,9 @@ async function checkBonuses(id) {
                         style={{
                           height: "25px",
                           width: "100%",
-                         borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -388,8 +363,8 @@ async function checkBonuses(id) {
                           height: "25px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -409,9 +384,9 @@ async function checkBonuses(id) {
                         style={{
                           height: "25px",
                           width: "100%",
-                       borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -433,9 +408,9 @@ async function checkBonuses(id) {
                         style={{
                           height: "25px",
                           width: "100%",
-                         borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -455,8 +430,8 @@ async function checkBonuses(id) {
                           height: "25px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
@@ -466,167 +441,11 @@ async function checkBonuses(id) {
                           className='span1'
                           style={{ fontWeight: "bold", opacity: "0.65" }}
                         >
-                          Transaction History:
-                        </span>
-                        <span
-                          className='span2'
-                          style={{
-                            padding: "1px 8px",
-                            borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
-                            borderRadius: "5px",
-                            color: "black",
-                            background: "grey",
-                            cursor: "pointer",
-                          }}
-                          onClick={() =>
-                            router.push(`/admin/users/${data._id}`)
-                          }
-                        >
-                          view
-                        </span>
-                      </div>
-
-                      <div
-                        style={{
-                          height: "25px",
-                          width: "100%",
-                         borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <span
-                          className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
-                        >
-                          View Referrals:
-                        </span>
-                        <span
-                          className='span2'
-                          style={{
-                            padding: "1px 8px",
-                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
-                            borderRadius: "5px",
-                            color: "black",
-                            background: "grey",
-                            cursor: "pointer",
-                          }}
-                          onClick={() =>
-                            router.push(`/admin/users/referral/${data._id}`)
-                          }
-                        >
-                          view
-                        </span>
-                      </div>
-
-                      <div
-                        style={{
-                          height: "25px",
-                          width: "100%",
-                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <span
-                          className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
-                        >
-                          Referral Bonuses:
+                          R.R:
                         </span>{" "}
                         <span className='span2'>
-                       
-                        </span>
-                      </div>
-                      <div
-                        style={{
-                          height: "25px",
-                          width: "100%",
-                         borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <span
-                          className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
-                        >
-                          Total Referrals:
-                        </span>{" "}
-                        <span className='span2'>{data.referrals.length}</span>
-                      </div>
-
-                      <div
-                        style={{
-                          height: "25px",
-                          width: "100%",
-                         borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <span
-                          className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
-                        >
-                          Status:
-                        </span>
-                        <span className='span2'>Active</span>
-                      </div>
-
-                      <div
-                        style={{
-                          height: "33px",
-                          width: "100%",
-                        borderTop: "1px solid rgba(128, 128, 128, 0.1)",
-                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
-                                 padding: '0px 9px',
-                          display: "flex",
-                          justifyContent: "flex-end",
-                          alignItems: "center",
-                          gap: "9px",
-                        }}
-                      >
-                        <span
-                          className='span2'
-                          style={{
-                            padding: "1px 8px",
-                            border: ".3px solid rgba(128, 128, 128, 0.5)",
-                            borderRadius: "5px",
-                            background: "rgba(0, 128, 0, 0.7)",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Activate
-                        </span>{" "}
-                        &nbsp; &nbsp;{" "}
-                        <span
-                          className='span2'
-                          style={{
-                            padding: "1px 8px",
-                            border: ".3px solid rgba(128, 128, 128, 0.5)",
-                            borderRadius: "5px",
-                            background: "rgba(128, 0, 0, 0.6)",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Deactivate
+                          {" "}
+                          XOF &nbsp;{formatNumberWithCommasAndDecimal(total)}
                         </span>
                       </div>
                     </div>
@@ -642,5 +461,3 @@ async function checkBonuses(id) {
 }
 
 export default Page;
-
-

@@ -102,11 +102,11 @@ const Modal = ({
                   justifyContent: "center",
                   alignItems: "center",
                   fontWeight:
-                    pathname === link.pathname ? "800" : "-moz-initial",
+                    pathname.startsWith(link.pathname)? "800" : "-moz-initial",
                   color:
                     state?.title === link.title
                       ? "#97CF13"
-                      : pathname === link.pathname
+                      :  pathname.startsWith(link.pathname)
                       ? "black"
                       : "-moz-initial",
                 }}
@@ -117,7 +117,7 @@ const Modal = ({
           );
         })}
         <div style={{ padding: "10px" }} onClick={logout}>
-          <Link href='/'>Se déconnecter</Link>
+          <Link href='/'>Se déconnecterrrrr</Link>
         </div>
       </div>
     </div>
