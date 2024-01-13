@@ -138,6 +138,7 @@ const Dashboard = () => {
     },
     0
   );
+  
 
     const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
@@ -236,17 +237,7 @@ clearAllCookies();
         about="Faites l'expérience de dépôts et de retraits rapides"
         data={data}
       />
-      <div
-        style={{ width: "20px", height: "30px", background: "red" }}
-        onClick={sendEvent}
-      >
-        click
-      </div>
-      {button && (
-        <div style={{ width: "100px", height: "60px", background: "green" }}>
-          dxfcghvhbgcfxtfycguvhj
-        </div>
-      )}
+   
       <div className='user-dashboard-display'>
         <Display
           count={pendingDeposits?.length}
