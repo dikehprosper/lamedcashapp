@@ -82,7 +82,7 @@ const dataset = months.map((month) => {
       dataset={dataset}
       xAxis={[{ scaleType: "band", dataKey: "month" }]}
       series={[
-        { dataKey: "successfulDepositCount", label: "Total successful Deposits",  color: "rgba(101, 137, 0, 0.4)" },
+        { dataKey: "successfulDepositCount", label: "Total successful Deposits",  color: "rgba(101, 137, 0, 0.4)", marginRight: "10px" },
         { dataKey: "successfulWithdrawalCount", label: "Total successful Withdrawals",  color: "rgba(0, 118, 184, .4)" },
         // { dataKey: "newYork", label: "New York", valueFormatter },
         // { dataKey: "seoul", label: "Seoul", valueFormatter },

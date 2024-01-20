@@ -666,7 +666,9 @@ function Page() {
                         >
                           Status:
                         </span>
-                        <span className='span2'>Active</span>
+                        <span className='span2'>
+                            {data.isActivated ? "Active" : "Not Active"}
+                        </span>
                       </div>
 
   <div
@@ -1198,7 +1200,9 @@ function Page() {
                         >
                           Status:
                         </span>
-                        <span className='span2'>Active</span>
+                        <span className='span2'>
+                           {data.isActivated ? "Active" : "Not Active"}
+                        </span>
                       </div>
 
                       <div

@@ -609,7 +609,9 @@ return (
                       >
                         Status:
                       </span>
-                      <span className='span2'>Active</span>
+                      <span className='span2'>
+                         {data.isActivated ? "Active" : "Not Active"}
+                      </span>
                     </div>
 
                     <div
