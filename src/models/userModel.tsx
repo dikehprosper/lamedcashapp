@@ -53,6 +53,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isActivated: {
+    type: Boolean,
+    default: true,
+  },
   current: {
     type: Boolean,
     default: false,
@@ -140,9 +144,9 @@ const userSchema = new Schema({
         transactionId: String,
         fundingType: String,
         identifierId: String,
-         userEmail: String,
-         subadminEmail: String,
-            isSubmitted: {
+        userEmail: String,
+        subadminEmail: String,
+        isSubmitted: {
           type: Boolean,
           default: false,
         },

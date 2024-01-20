@@ -7,10 +7,16 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
+    const { referrals } = reqBody;
+    console.log(referrals);
 
-    const referrals = reqBody // Assuming your JSON structure has a 'referrals' key
+    const user = await User.findOne({ _id: referrals });
 
-    const userPromises = referrals.map(async (email: any) => {
+    if (!user) {
+      return NextResponse.json({ error: "User does not exist" }, { status: 402 });
+    }
+
+    const userPromises = user.referrals.map(async (email: any) => {
       try {
         const user = await User.findOne({ email });
         return user;
@@ -22,18 +28,20 @@ export async function POST(request: NextRequest) {
 
     const users = await Promise.all(userPromises);
 
-     const usersSuccesfulCountusers = users.map( user => {
-        return {"name": user.fullname, "email": user.email, "SuccesfulDepositCountusers": user.successfulDepositCount, "SuccesfulWithdrawalCountusers" : user.succesfulWithdrawalCount}
-    })
+    const usersSuccesfulCountusers = users.map((user) => ({
+      name: user.fullname,
+      email: user.email,
+      SuccesfulDepositCountusers: user.successfulDepositCount,
+      SuccesfulWithdrawalCountusers: user.succesfulWithdrawalCount,
+    }));
 
-    console.log(usersSuccesfulCountusers, "usersSuccesfulCountusers");
     const response = NextResponse.json({
-      message: "successful",
+      message: "Successful",
       success: true,
       usersSuccesfulCountusers,
     });
 
- return response;
+    return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

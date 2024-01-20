@@ -21,25 +21,30 @@ export async function POST(request: NextRequest) {
     } = await reqBody;
     const admin = await User.findOne({ isAdmin: true });
 
-  if (admin.isDepositsOpen === false) {
-    return NextResponse.json(
-      { error: "We are currently under maintainance" },
-      { status: 405 }
-    );
-  }
+    if (admin.isDepositsOpen === false) {
+      return NextResponse.json(
+        { error: "We are currently under maintainance" },
+        { status: 405 }
+      );
+    }
     FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
     FedaPay.setEnvironment(process.env.ENVIRONMENT!);
 
     //find user and add pending transaction
     const user = await User.findOne({ email });
-    console.log(user.pendingDeposit);
+
     if (!user) {
       return NextResponse.json(
         { error: "User does not exist" },
         { status: 400 }
       );
     }
-
+    if (!user.isActivated) {
+      return NextResponse.json(
+        { error: "your account has been deactivated" },
+        { status: 404 }
+      );
+    }
     if (momoNumber !== user.number) {
       const apiUrl = `${process.env.APIURL}${fedapayId}`;
       const apiKey = process.env.FEDAPAY_KEY!;

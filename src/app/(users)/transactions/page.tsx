@@ -26,18 +26,23 @@ const Transactions = () => {
         if (error.response) {
           // Handle token expiration
           if (error.response.status === 401) {
-          toast.error(
-            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
-          );
-          router.push("/signin"); // Replace '/login' with your actual login route
-        } else if (error.response.status === 402) {
+            toast.error(
+              "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+            );
+            router.push("/signin"); // Replace '/login' with your actual login route
+          } else if (error.response.status === 402) {
             toast.error(
               "Votre session a expiré. Redirection vers la connexion..."
             );
             router.push("/signin"); // Replace '/login' with your actual login route
+          } else if (error.response.status === 404) {
+            toast.error("Votre compte a été désactivé");
+            router.push("/signin");
           } else {
             // Handle other errors
-            toast.error("Une erreur s'est produite. Veuillez réessayer plus tard.");
+            toast.error(
+              "Une erreur s'est produite. Veuillez réessayer plus tard."
+            );
           }
         } else if (error.request) {
           // Handle network errors (no connection)

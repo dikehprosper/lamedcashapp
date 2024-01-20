@@ -11,6 +11,14 @@ export async function GET(request: NextRequest) {
     // Find the user and select all fields except password
     const user = await User.findOne({ _id: userId }).select("-password");
 
+
+    if (!user.isActivated) {
+      return NextResponse.json(
+        { error: "your account has been deactivated" },
+        { status: 404 }
+      );
+    }
+
     // Check if the stored sessionId matches the sessionId from the token
     if (user && user.sessionId === sessionId) {
       return NextResponse.json({

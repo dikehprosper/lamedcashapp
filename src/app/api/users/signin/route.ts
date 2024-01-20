@@ -11,7 +11,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: NextRequest) {
   try {
-  
     const reqBody = await request.json();
     const { email, password } = await reqBody;
 
@@ -24,11 +23,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+   
     // Check if the User already exists
     const user = await User.findOne({ email });
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 400 });
     }
+
+   
+    if (!user.isActivated) {
+      return NextResponse.json(
+        { error: "your account has been deactivated" },
+        { status: 404 }
+      );
+    }
+
 
     // Check if password is correct
     const validPassword = await bcryptjs.compare(password, user.password);

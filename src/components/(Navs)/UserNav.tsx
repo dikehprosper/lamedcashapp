@@ -107,22 +107,22 @@ const AdminNavLinks = [
     title: `Utilisatrices`,
     pathname: "/admin/users",
     icon: <FaUsers />,
-  },
-  {
-    title: `Messages`,
-    pathname: "/admin/messages",
-    icon: <BiSolidMessageSquareDetail />,
-  },
-  {
-    title: `Système`,
-    pathname: "/admin/system",
-    icon: <FaNetworkWired />,
-  },
-  {
-    title: `Références`,
-    pathname: "/admin/referrals",
-    icon: <IoMdPeople />,
-  },
+  }
+  // {
+  //   title: `Messages`,
+  //   pathname: "/admin/messages",
+  //   icon: <BiSolidMessageSquareDetail />,
+  // },
+  // {
+  //   title: `Système`,
+  //   pathname: "/admin/system",
+  //   icon: <FaNetworkWired />,
+  // },
+  // {
+  //   title: `Références`,
+  //   pathname: "/admin/referrals",
+  //   icon: <IoMdPeople />,
+  // },
 ];
 const UserNav = () => {
   const pathname = usePathname();

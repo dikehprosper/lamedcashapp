@@ -72,6 +72,9 @@ const Profile = () => {
             "Votre session a expiré. Redirection vers la connexion..."
           );
           router.push("/signin"); // Replace '/login' with your actual login route
+        } else if (error.response.status === 404) {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin");
         } else {
           // Handle other errors
           toast.error(
@@ -221,6 +224,9 @@ const Profile = () => {
         toast.error("betId de apuesta máximo agregado");
       } else if (error.response.status === 402) {
         toast.error("La apuesta ya existe.");
+      } else if (error.response.status === 404) {
+        toast.error("Votre compte a été désactivé");
+        router.push("/signin");
       } else {
         toast.error("algo salió mal");
       }
@@ -236,7 +242,13 @@ const Profile = () => {
       const res = await axios.post("/api/users/makeBetIdDefault", updatedUser);
       getUserDetails();
     } catch (error: any) {
-      toast.error("algo salió mal");
+      if (error.response.status === 404) {
+        toast.error("Votre compte a été désactivé");
+        router.push("/signin");
+      } else {
+    toast.error("algo salió mal");
+      }
+  
     }
   }
   async function deleteId(id: any) {
@@ -248,7 +260,12 @@ const Profile = () => {
       const res = await axios.post("/api/users/deleteBetId", updatedUser);
       getUserDetails();
     } catch (error: any) {
-      toast.error("algo salió mal");
+       if (error.response.status === 404) {
+         toast.error("Votre compte a été désactivé");
+         router.push("/signin");
+       } else {
+         toast.error("algo salió mal");
+       }
     }
   }
 
@@ -276,7 +293,10 @@ const Profile = () => {
         if (error.response.status === 402) {
           setLoading2(false);
           toast.error("l'ancien mot de passe n'est pas correct");
-        } else {
+        } else if (error.response.status === 404) {
+         toast.error("Votre compte a été désactivé");
+         router.push("/signin");
+       } else {
           setLoading2(false);
           toast.error("algo salió mal");
         }

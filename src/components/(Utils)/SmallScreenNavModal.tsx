@@ -117,7 +117,7 @@ const Modal = ({
           );
         })}
         <div style={{ padding: "10px" }} onClick={logout}>
-          <Link href='/'>Se déconnecterrrrr</Link>
+          <Link href='/'>Se déconnecter</Link>
         </div>
       </div>
     </div>

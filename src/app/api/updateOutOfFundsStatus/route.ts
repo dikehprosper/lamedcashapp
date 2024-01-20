@@ -8,6 +8,13 @@ export async function GET(request: NextRequest) {
     const { userId, sessionId } = await getDataFromToken(request);
     const user = await User.findOne({ _id: userId }).select("-password");
 
+     if (!user.isActivated) {
+       return NextResponse.json(
+         { error: "your account has been deactivated" },
+         { status: 404 }
+       );
+     }
+     
     if (user.isOutOfFunds === false) {
       if (user.isSubAdminWithdrawals && user.current) {
         // Find all sub-admins for deposits who are not out of funds

@@ -10,6 +10,12 @@ export async function POST(request: NextRequest) {
     // Function to count "Pending" transactions for a subadmin
 
     const user = await User.findOne({ _id });
+     if (!user.isActivated) {
+       return NextResponse.json(
+         { error: "your account has been deactivated" },
+         { status: 404 }
+       );
+     }
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 400 });
     }

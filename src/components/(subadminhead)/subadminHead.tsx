@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import "./subadminHead.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 const SubadminHead = ({ title, about, data }: any) => {
+  const router = useRouter();
   const [isOutOfFunds, setIsOutOfFunds] = useState(data?.isOutOfFunds);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setIsLoading] = useState(false);
@@ -23,7 +25,13 @@ const SubadminHead = ({ title, about, data }: any) => {
       toast.success("Soumis avec succès");
     } catch (error: any) {
    
-        return toast.error("Échec de mise à jour");
+      
+          if (error.response.status === 404) {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else  {
+  return toast.error("Échec de mise à jour");
+        }
 
     } finally {
       setIsSubmitting(false);

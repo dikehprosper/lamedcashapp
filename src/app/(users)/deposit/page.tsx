@@ -76,6 +76,9 @@ const Deposit = () => {
             "Votre session a expiré. Redirection vers la connexion..."
           );
           router.push("/signin"); // Replace '/login' with your actual login route
+        } else if (error.response.status === 404) {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin");
         } else {
           // Handle other errors
           toast.error(
@@ -210,6 +213,9 @@ const Deposit = () => {
           toast.error("Utilisateur non trouvé");
         } else if (error.response.status === 401) {
           toast.error("Impossible de lancer la transaction");
+        } else if (error.response.status === 404) {
+          toast.error("Votre compte a été désactivé");
+             router.push("/signin"); 
         } else if (error.response.status === 405) {
           toast.error("Nous Sommes Actuellement En Maintenance");
         } else {

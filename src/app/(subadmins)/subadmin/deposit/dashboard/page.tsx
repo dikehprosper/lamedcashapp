@@ -46,7 +46,10 @@ function SubadminDepositDashboard() {
          } else if (error.response.status === 402) {
            toast.error("Votre session a expiré. Redirection vers la connexion...");
            router.push("/signin"); // Replace '/login' with your actual login route
-         } else {
+         } else if (error.response.status === 404) {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin"); // Replace '/login' with your actual login route
+        } else {
            // Handle other errors
            toast.error(
              "Une erreur s'est produite. Veuillez réessayer plus tard."

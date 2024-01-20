@@ -104,6 +104,9 @@ betId: ""
             "Votre session a expiré. Redirection vers la connexion..."
           );
           router.push("/signin"); // Replace '/login' with your actual login route
+        } else if (error.response.status === 404) {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin");
         } else {
           // Handle other errors
           toast.error(

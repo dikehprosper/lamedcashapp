@@ -23,7 +23,7 @@ const Referrals = () => {
   const router = useRouter();
   const [data, setData] = useState<any>([]);
   const [isOnline, setIsOnline] = useState(true);
-  const [referrals, setReferrals] = useState([]);
+
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUser");
@@ -41,6 +41,9 @@ const Referrals = () => {
             "Votre session a expiré. Redirection vers la connexion..."
           );
           router.push("/signin"); // Replace '/login' with your actual login route
+        } else if (error.response.status === 404) {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin");
         } else {
           // Handle other errors
           toast.error(
@@ -54,6 +57,7 @@ const Referrals = () => {
     }
   };
   const [submitting, setSubmitting] = useState(false);
+
   async function getReferrals() {
     try {
       setSubmitting(true);
@@ -102,6 +106,26 @@ const Referrals = () => {
     };
   }, []);
 
+  const [referrals, setReferrals] = useState([]);
+
+  if ("referrals" in data) {
+    if (!submitting) {
+      getReferrals();
+    }
+  }
+
+  async function getReferrals() {
+    try {
+      setSubmitting(true);
+      const referrals = data.referrals;
+      const res = await axios.post("/api/getTotalReferral", referrals);
+      setReferrals(res.data.usersSuccesfulCountusers);
+      setSubmitting(false);
+    } catch (error: any) {
+      toast.error("error ");
+    }
+  }
+
   const amountsArray = referrals?.map((obj) => obj?.SuccesfulDepositCountusers);
   const totalAmount = amountsArray?.reduce(
     (acc, SuccesfulDepositCountusers) => acc + SuccesfulDepositCountusers,
@@ -123,9 +147,7 @@ const Referrals = () => {
 
   const [active, setActive] = useState("user-referral-container2-inner5");
 
-  useEffect(() => {
-    console.log(referrals);
-  }, [referrals]);
+
 
   return (
     <div className='user-referral-container'>

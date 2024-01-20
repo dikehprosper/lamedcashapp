@@ -9,7 +9,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
-import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber"
+import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
+import { TiCancel } from "react-icons/ti";
 function Page() {
   const router = useRouter();
   const [data, setData] = useState<any>();
@@ -23,6 +24,7 @@ function Page() {
     try {
       const res = await axios.get("/api/getAllSubadminDetails");
       setData(res.data.data.user);
+      console.log(res.data.data.user);
       setData2(res.data.data.user2);
       setData3(res.data.data.user3);
       setData4(res.data.data.user4);
@@ -39,6 +41,9 @@ function Page() {
           toast.error(
             "Votre session a expiré. Redirection vers la connexion..."
           );
+          router.push("/signin");
+        } else if (error.response.status === 403) {
+          toast.error("Your current session has expired");
           router.push("/signin");
         } else {
           // Handle other errors
@@ -103,15 +108,96 @@ function Page() {
     });
   }
 
+
+
+  const [state, setState] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+
+  async function changeActivationStatus(id, index) {
+    // Assuming index1 and index2 are defined somewhere in your code
+    if (index === "index1") {
+      setLoading(true);
+    } else if (index === "index2") {
+      setLoading1(true);
+    }
+
+    try {
+      console.log(id);
+      const res = await axios.post("/api/changeActivationStatus", { id: id });
+      const updatedUser = res.data.updatedUser
+      if(updatedUser.isActivated === true) {
+  toast.success(`Successfully activated ${res.data.updatedUser.name}`);
+      } else if (updatedUser.isActivated === false) {
+      toast.success(`Successfully deactivated ${res.data.updatedUser.name}`);
+      }
+    await getUserDetails();
+    } catch (error) {
+      if (error.response && error.response.status === 402) {
+        toast.error("User does not exist");
+      } else {
+        toast.error("An error occurred");
+      }
+    } finally {
+      // Set loading back to false, whether the request was successful or not
+      setLoading(false);
+      setLoading1(false);
+    }
+  }
+
+  const [loading3, setLoading3] = useState();
+  const [loading4, setLoading4] = useState(false);
+  const [index3, setIndex3] = useState()
+
+  async function changeAllActivationStatus(value) {
+        setLoading3(value);
+    try {
+      const res = await axios.post("/api/changeAllActivationStatus", {
+        value: value,
+      });
+      await getUserDetails();
+      if (value === "activateAllCashdeskDeposit") {
+    toast.success("Successfully activated all Cashdesk deposits")
+      } else  if (value === "deactivateAllCashdeskDeposit") {
+    toast.success("Successfully deactivated all Cashdesk deposits")
+      }  else  if (value === "activateAllCashDeskWithdrawal") {
+    toast.success("Successfully activated all Cashdesk Withdrawals")
+      }  else if (value === "deactivateAllCashDeskWithdrawal") {
+    toast.success("Successfully deactivated all Cashdesk Withdrawals")
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 402) {
+        toast.error("User does not exist");
+      } else {
+        toast.error("An error occurred");
+      }
+    } finally {
+      setLoading3();
+    }
+  }
+
+  function areActivated(data) {
+    if (data?.every((item) => item.isActivated)) {
+      return "true";
+    } else if (data?.every((item) => !item.isActivated)) {
+      return "false";
+    } else {
+      return "except";
+    }
+  }
+
+  function areActivatedLength(data) {
+     const activatedItems = data?.filter((item) => item.isActivated);
+  const activatedCount = activatedItems?.length;
+      return activatedCount
+  }
+
+
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-const [state, setState] = useState(false)
-
-
-
-
+    console.log(areActivated(data))
+      console.log(data?.length)
+  }, [data])
 
 
   return (
@@ -121,19 +207,24 @@ const [state, setState] = useState(false)
         about='Voir toutes les transactions ici'
         data={data3}
       />
-
       <div className='subadmin_dashboard_container_admin_admin_cashdesks1'>
+       
         <div className='subadmin_dashboard_container_admin_admin_cashdesks2'>
+   
+ { !data ? (
+            <div className='tag-container2'>
+              <div id='container_customerid'>
+                <div id='container_customerid_inner'></div>
+              </div>
+            </div>
+          ) : ( 
+    <>
           <div
-            style={{
-              width: "100%",
-              padding: "0px 10px 0px 10px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
+           className="header-activate"
           >
+        
             {" "}
-            <h3 className="zzz1">Deposit cashdesks</h3> 
+            <h3 className='zzz1'>Deposit cashdesks</h3>
             <span
               style={{
                 display: "flex",
@@ -144,49 +235,156 @@ const [state, setState] = useState(false)
             >
               <span
                 style={{
-                  padding: "4px",
-                  borderRadius: "3px",
-                  background: "rgba(128, 128, 128, 0.5)",
+                  background:
+                    areActivated(data) === "false" ||
+                    areActivated(data) === "except"
+                      ? "rgba(0, 128, 0, 0.9)"
+                      : "rgba(128, 128, 128, 0.2)",
+                  pointerEvents:
+                    areActivated(data) === "false" ||
+                    areActivated(data) === "except"
+                      ? "auto"
+                      : "none",
                 }}
-                className="zzz2"
+                className='zzz3'
+                onClick={() =>
+                  changeAllActivationStatus("activateAllCashdeskDeposit")
+                }
               >
-                Activate All
-              </span>{" "}
+                <span
+                  style={{
+                    zIndex: "10",
+                    color:
+                      areActivated(data) === "false" ||
+                      areActivated(data) === "except"
+                        ? "white"
+                        : "rgba(128, 128, 128, 0.8)",
+                  }}
+                >
+
+                  {loading3 === "activateAllCashdeskDeposit" ? (
+                            <div id='container-deposit-1'>
+                              <div id='html-spinner-deposit-1'></div>
+                            </div>
+                          ) :
+                  "Activate All" }
+                </span>
+                
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                    opacity: "0.6",
+                    display:
+                      areActivated(data) === "false" ||
+                      areActivated(data) === "except"
+                        ? "none"
+                        : "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: "10",
+                  }}
+                >
+                  {" "}
+                  <TiCancel fontSize='20px' />{" "}
+                </div>
+              </span>
+
               <span
                 style={{
-                  padding: "4px",
-                  borderRadius: "3px",
-                  background: "rgba(128, 128, 128, 0.5)",
+                  background:
+                    areActivated(data) === "true" ||
+                    areActivated(data) === "except"
+                      ? "rgba(128, 0, 0, 0.9)"
+                      : "rgba(128, 128, 128, 0.5)",
+                  pointerEvents:
+                    areActivated(data) === "true" ||
+                    areActivated(data) === "except"
+                      ? "auto"
+                      : "none",
                 }}
-                className="zzz3"
+                className='zzz3'
+                onClick={() =>
+                  changeAllActivationStatus("deactivateAllCashdeskDeposit")
+                }
               >
-                Deactivate All
+                <span
+                  style={{
+                    zIndex: "10",
+                    color:
+                      areActivated(data) === "true" ||
+                      areActivated(data) === "except"
+                        ? "white"
+                        : "rgba(128, 128, 128, 0.8)",
+                  }}
+                >
+                   {loading3 === "deactivateAllCashdeskDeposit" ? (
+                            <div id='container-deposit-1'>
+                              <div id='html-spinner-deposit-1'></div>
+                            </div>
+                          ) :
+                  "Deactivate All" }
+                </span>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                    opacity: "0.6",
+                    display:
+                      areActivated(data) === "true" ||
+                      areActivated(data) === "except"
+                        ? "none"
+                        : "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: "10",
+                  }}
+                >
+                  {" "}
+                  <TiCancel fontSize='20px' />{" "}
+                </div>
               </span>
             </span>
           </div>
 
-          {!data ? (
-            <div className='tag-container2'>
-              <div id='container_customerid'>
-                <div id='container_customerid_inner'></div>
-              </div>
-            </div>
-          ) : (
+                    { areActivated(data) === "true" && <div className="activated" style={{ width: "97%", margin: "10px 0px", fontWeight: "bold", color: 'rgba(256, 256, 256, 0.6)', alignSelf: "center", height: "50px", border: "2px solid rgba(0, 128, 0, 0.8)", borderRadius: "5px", background: "rgba(0, 128, 0, 0.6)", display: "flex", justifyContent: "center", alignItems: "center"}}> 
+                    All Cashdesk Deposits are Activated</div>}
+
+ { areActivated(data) === "except" && <div  className="activated" style={{ width: "97%", margin: "10px 0px", fontWeight: "bold", color: 'rgba(256, 256, 256, 0.6)', alignSelf: "center", height: "50px", border: "2px solid rgba(0, 128, 0, 0.8)", borderRadius: "5px", background: "rgba(0, 128, 0, 0.6)", display: "flex", justifyContent: "center", alignItems: "center"}}> 
+                   {areActivatedLength(data)} Cashdesk Deposits are Activated</div>}
+
+           { areActivated(data) === "false" &&  <div  className="activated" style={{ width: "97%", margin: "10px 0px", fontWeight: "bold", color: 'rgba(256, 256, 256, 0.6)',alignSelf: "center", height: "50px", border: "2px solid rgba(128, 0, 0, 0.8)", borderRadius: "5px" , background: "rgba(128, 0, 0, 0.6)", display: "flex", justifyContent: "center", alignItems: "center"}}>All Cashdesk Deposits are Deactivated</div>}
+
+
+          {
             data?.map((data, index) => {
+              const openOrders = data.transactionHistory.filter(
+                (transaction: { status: string }) =>
+                  transaction.status === "Pending"
+              );
 
-const openOrders = data.transactionHistory.filter((transaction: { status: string }) => transaction.status === "Pending");
+              const totalPendingAmount = openOrders.reduce(
+                (total: number, transaction: { amount: number }) =>
+                  total + transaction.amount,
+                0
+              );
 
-const totalPendingAmount = openOrders.reduce(
-  (total: number, transaction: { amount: number }) => total + transaction.amount,
-  0
-);
+              const successfulOrders = data.transactionHistory.filter(
+                (transaction: { status: string }) =>
+                  transaction.status === "Successful"
+              );
 
-const successfulOrders = data.transactionHistory.filter((transaction: { status: string }) => transaction.status === "Successful");
-
-const totalSuccessfulAmount = successfulOrders.reduce(
-  (total: number, transaction: { amount: number }) => total + transaction.amount,
-  0
-);
+              const totalSuccessfulAmount = successfulOrders.reduce(
+                (total: number, transaction: { amount: number }) =>
+                  total + transaction.amount,
+                0
+              );
               return (
                 <div
                   className='subadmin_dashboard_container_admin_admin_cashdesks5-1'
@@ -198,12 +396,13 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                 >
                   <div className='subadmin_dashboard_container_admin_admin_cashdesks5'>
                     <div
+                    className="activated2"
                       style={{
                         width: "155px",
                         gap: "10px",
                         height: "100%",
                         display: "flex",
-                        justifyContent: "space-between",
+                        justifyContent: "flex-start",
                         alignItems: "center",
                       }}
                     >
@@ -229,9 +428,9 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                     >
                       View Activities
                       {index === index2 ? (
-                        <IoMdArrowDropup fontSize='18px' />
+                        <IoMdArrowDropup className="view-activities1" />
                       ) : (
-                        <IoMdArrowDropdown fontSize='18px' />
+                        <IoMdArrowDropdown className="view-activities1" />
                       )}
                     </div>
                   </div>
@@ -281,7 +480,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           Email:
                         </span>{" "}
-                        <span className='span2'>{data.email}</span>
+                        <span className=' span2-email1 span2'>{data.email}</span>
                       </div>
 
                       <div
@@ -302,7 +501,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         </span>
                         <span
                           className='span2'
-                          style={{ color: data.isOutOfFunds ? "red" : "green" }}
+                          style={{ color: data.isOutOfFunds ? "rgba(128, 0, 0, 0.9)" : "rgba(0, 128, 0, 0.9)" }}
                         >
                           {data.isOutOfFunds ? "No" : "Yes"}
                         </span>
@@ -326,7 +525,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         </span>{" "}
                         <span
                           className='span2'
-                          style={{ color: data.isLoggedIn ? "green" : "red" }}
+                          style={{ color: data.isLoggedIn ? "rgba(0, 128, 0, 0.9)" : "rgba(128, 0, 0, 0.9)" }}
                         >
                           {data.isLoggedIn ? "Yes" : "No"}
                         </span>
@@ -349,12 +548,14 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           Successful Deposits:
                         </span>{" "}
-                        <span className='span2'>XOF &nbsp; {formatNumberWithCommasAndDecimal(totalSuccessfulAmount)}
-
-                 
+                        <span className='span2'>
+                          XOF &nbsp;{" "}
+                          {formatNumberWithCommasAndDecimal(
+                            totalSuccessfulAmount
+                          )}
                         </span>
                       </div>
-                        <div
+                      <div
                         style={{
                           height: "25px",
                           width: "100%",
@@ -370,7 +571,9 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           S.D Count:
                         </span>{" "}
-                        <span className='span2'>{successfulOrders?.length}</span>
+                        <span className='span2'>
+                          {successfulOrders?.length}
+                        </span>
                       </div>
                       <div
                         style={{
@@ -388,10 +591,13 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           Pending Deposits:
                         </span>{" "}
-                        <span className='span2'>XOF &nbsp; {formatNumberWithCommasAndDecimal(totalPendingAmount)}</span>
+                        <span className='span2'>
+                          XOF &nbsp;{" "}
+                          {formatNumberWithCommasAndDecimal(totalPendingAmount)}
+                        </span>
                       </div>
 
-                        <div
+                      <div
                         style={{
                           height: "25px",
                           width: "100%",
@@ -409,8 +615,6 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         </span>{" "}
                         <span className='span2'> {openOrders?.length}</span>
                       </div>
-
-                    
 
                       <div
                         style={{
@@ -465,7 +669,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         <span className='span2'>Active</span>
                       </div>
 
-                      <div
+  <div
                         style={{
                           height: "33px",
                           width: "100%",
@@ -479,79 +683,61 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         <span
                           className='span2'
                           style={{
-                            padding: "1px 8px",
-                            border: ".3px solid rgba(128, 128, 128, 0.5)",
                             borderRadius: "5px",
-                            background: "rgba(0, 128, 0, 0.7)",
+                            color: data.isActivated
+                              ? "rgba(0, 128, 0, 0.9)"
+                              : "rgba(128, 0, 0, 0.9)",
                             cursor: "pointer",
                           }}
                         >
-                          Activate
+                          {data.isActivated ? "Activated" : "Deactivated"}
                         </span>{" "}
                         &nbsp; &nbsp;{" "}
                         <span
                           className='span2'
                           style={{
-                            padding: "1px 8px",
-                            border: ".3px solid rgba(128, 128, 128, 0.5)",
+                            width: "100px",
+                            height: "25px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                             borderRadius: "5px",
-                            background: "rgba(128, 0, 0, 0.6)",
+                            border: ".3px solid rgba(128, 128, 128, 0.5)",
                             cursor: "pointer",
+                            background: data.isActivated
+                              ? "rgba(128, 0, 0, 0.6)"
+                              : "rgba(0, 128, 0, 0.7)",
                           }}
+                          onClick={(e) =>
+                            changeActivationStatus(data._id, "index2")
+                          }
                         >
-                          Deactivate
+                          {loading1 ? (
+                            <div id='container-deposit-1'>
+                              <div id='html-spinner-deposit-1'></div>
+                            </div>
+                          ) : data.isActivated ? (
+                            "Deactivate"
+                          ) : (
+                            "Activate"
+                          )}
                         </span>
                       </div>
+
+
+
+
+
+
+
                     </div>
                   )}
                 </div>
               );
             })
-          )}
+          }</>)}
         </div>
         <div className='subadmin_dashboard_container_admin_admin_cashdesks3'>
-          <div
-            style={{
-              width: "100%",
-              padding: "0px 10px 0px 10px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            {" "}
-            <h3  className="zzz1">Withdrawal cashdesks</h3>
-            <span
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "10px",
-              }}
-             
-            >
-              <span
-                style={{
-                  padding: "4px",
-                  borderRadius: "3px",
-                  background: "rgba(128, 128, 128, 0.5)",
-                }}
-                 className="zzz2"
-              >
-                Activate All
-              </span>{" "}
-              <span
-                style={{
-                  padding: "4px",
-                  borderRadius: "3px",
-                  background: "rgba(128, 128, 128, 0.5)",
-                }}
-                 className="zzz3"
-              >
-                Deactivate All
-              </span>
-            </span>
-          </div>
-
           {!data2 ? (
             <div className='tag-container2'>
               <div id='container_customerid'>
@@ -559,21 +745,172 @@ const totalSuccessfulAmount = successfulOrders.reduce(
               </div>
             </div>
           ) : (
+          <>
+          <div
+         className="header-activate"
+          >
+            {" "}
+            <h3 className='zzz1'>Withdrawal cashdesks</h3>
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              <span
+                style={{
+                  background:
+                    areActivated(data2) === "false" ||
+                    areActivated(data2) === "except"
+                      ? "rgba(0, 128, 0, 0.9)"
+                      : "rgba(128, 128, 128, 0.22)",
+                  pointerEvents:
+                    areActivated(data2) === "false" ||
+                    areActivated(data2) === "except"
+                      ? "auto"
+                      : "none",
+                }}
+                className='zzz3'
+                onClick={() =>
+                  changeAllActivationStatus("activateAllCashDeskWithdrawal")
+                }
+              >
+                <span
+                  style={{
+                    zIndex: "10",
+                    color:
+                      areActivated(data2) === "false" ||
+                      areActivated(data2) === "except"
+                        ? "white"
+                        : "rgba(128, 128, 128, 0.5)",
+                  }}
+                >
+                      {loading3 === "activateAllCashDeskWithdrawal" ? (
+                            <div id='container-deposit-1'>
+                              <div id='html-spinner-deposit-1'></div>
+                            </div>
+                          ) :
+                  "Activate All" }
+
+                </span>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                    opacity: "0.6",
+                    display:
+                      areActivated(data2) === "false" ||
+                      areActivated(data2) === "except"
+                        ? "none"
+                        : "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: "10",
+                  }}
+                >
+                  {" "}
+                  <TiCancel fontSize='20px' />{" "}
+                </div>
+              </span>
+              <span
+                style={{
+                  background:
+                    areActivated(data2) === "true" ||
+                    areActivated(data2) === "except"
+                      ? "rgba(128, 0, 0, 0.9)"
+                      : "rgba(128, 128, 128, 0.22)",
+                  pointerEvents:
+                    areActivated(data2) === "true" ||
+                    areActivated(data2) === "except"
+                      ? "auto"
+                      : "none",
+                }}
+                className='zzz3'
+                onClick={() =>
+                  changeAllActivationStatus("deactivateAllCashDeskWithdrawal")
+                }
+              >
+                <span
+                  style={{
+                    zIndex: "10",
+                    color:
+                      areActivated(data2) === "true" ||
+                      areActivated(data2) === "except"
+                        ? "white"
+                        : "rgba(128, 128, 128, 0.5)",
+                  }}
+                >
+                   {loading3 === "deactivateAllCashDeskWithdrawal" ? (
+                            <div id='container-deposit-1'>
+                              <div id='html-spinner-deposit-1'></div>
+                            </div>
+                          ) :
+                  "Deactivate All" }
+                </span>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                    opacity: "0.6",
+                    display:
+                      areActivated(data2) === "true" ||
+                      areActivated(data2) === "except"
+                        ? "none"
+                        : "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: "10",
+                  }}
+                >
+                  {" "}
+                  <TiCancel fontSize='20px' />{" "}
+                </div>
+              </span>
+            </span>
+          </div>
+
+
+                    { areActivated(data2) === "true" && <div  className="activated" style={{ width: "97%", margin: "10px 0px",  fontWeight: "bold", color: 'rgba(256, 256, 256, 0.6)', alignSelf: "center", height: "50px", border: "2px solid rgba(0, 128, 0, 0.8)", borderRadius: "5px", background: "rgba(0, 128, 0, 0.6)", display: "flex", justifyContent: "center", alignItems: "center"}}> 
+                    All Cashdesk Withdrawals are Activated</div>}
+
+ { areActivated(data2) === "except" && <div className="activated" style={{ width: "97%", margin: "10px 0px", fontWeight: "bold", color: 'rgba(256, 256, 256, 0.6)', alignSelf: "center", height: "50px", border: "2px solid rgba(0, 128, 0, 0.8)", borderRadius: "5px", background: "rgba(0, 128, 0, 0.6)", display: "flex", justifyContent: "center", alignItems: "center"}}> 
+                   {areActivatedLength(data2)} Cashdesk Withdrawals are Activated</div>}
+
+           { areActivated(data2) === "false" &&  <div className="activated" style={{ width: "97%", margin: "10px 0px", fontWeight: "bold", color: 'rgba(256, 256, 256, 0.6)',alignSelf: "center", height: "50px", border: "2px solid rgba(128, 0, 0, 0.8)", borderRadius: "5px" , background: "rgba(128, 0, 0, 0.6)", display: "flex", justifyContent: "center", alignItems: "center"}}>All Cashdesk Withdrawals are Deactivated</div>}
+
+
+
+          {
             data2?.map((data, index) => {
+              const openOrders = data.transactionHistory.filter(
+                (transaction: { status: string }) =>
+                  transaction.status === "Pending"
+              );
 
-const openOrders = data.transactionHistory.filter((transaction: { status: string }) => transaction.status === "Pending");
+              const totalPendingAmount = openOrders.reduce(
+                (total: number, transaction: { amount: number }) =>
+                  total + transaction.amount,
+                0
+              );
 
-const totalPendingAmount = openOrders.reduce(
-  (total: number, transaction: { amount: number }) => total + transaction.amount,
-  0
-);
+              const successfulOrders = data.transactionHistory.filter(
+                (transaction: { status: string }) =>
+                  transaction.status === "Successful"
+              );
 
-const successfulOrders = data.transactionHistory.filter((transaction: { status: string }) => transaction.status === "Successful");
-
-const totalSuccessfulAmount = successfulOrders.reduce(
-  (total: number, transaction: { amount: number }) => total + transaction.amount,
-  0
-);
+              const totalSuccessfulAmount = successfulOrders.reduce(
+                (total: number, transaction: { amount: number }) =>
+                  total + transaction.amount,
+                0
+              );
               return (
                 <div
                   className='subadmin_dashboard_container_admin_admin_cashdesks5-1'
@@ -588,12 +925,13 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                     key={index}
                   >
                     <div
+                         className="activated2"
                       style={{
                         width: "155px",
                         gap: "10px",
                         height: "100%",
                         display: "flex",
-                        justifyContent: "space-between",
+                        justifyContent: "flex-start",
                         alignItems: "center",
                       }}
                     >
@@ -619,9 +957,9 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                     >
                       View Activities &nbsp;
                       {index === index1 ? (
-                        <IoMdArrowDropup fontSize='18px' />
+                        <IoMdArrowDropup  className='view-activities1' />
                       ) : (
-                        <IoMdArrowDropdown fontSize='18px' />
+                        <IoMdArrowDropdown  className='view-activities1' />
                       )}
                     </div>
                   </div>
@@ -671,7 +1009,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           Email:
                         </span>{" "}
-                        <span className='span2'>{data.email}</span>
+                        <span className='span2-email1 span2 '>{data.email}</span>
                       </div>
 
                       <div
@@ -692,7 +1030,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         </span>
                         <span
                           className='span2'
-                          style={{ color: data.isOutOfFunds ? "red" : "green" }}
+                          style={{ color: data.isOutOfFunds ? "rgba(128, 0, 0, 0.9)" : "rgba(0, 128, 0, 0.9)" }}
                         >
                           {data.isOutOfFunds ? "No" : "Yes"}
                         </span>
@@ -716,7 +1054,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         </span>{" "}
                         <span
                           className='span2'
-                          style={{ color: data.isLoggedIn ? "green" : "red" }}
+                          style={{ color: data.isLoggedIn ? "rgba(0, 128, 0, 0.9)" : "rgba(128, 0, 0, 0.9)" }}
                         >
                           {data.isLoggedIn ? "Yes" : "No"}
                         </span>
@@ -739,10 +1077,15 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           Successful Withdrawals:
                         </span>{" "}
-                        <span className='span2'>XOF &nbsp; {formatNumberWithCommasAndDecimal(totalSuccessfulAmount)}</span>
+                        <span className='span2'>
+                          XOF &nbsp;{" "}
+                          {formatNumberWithCommasAndDecimal(
+                            totalSuccessfulAmount
+                          )}
+                        </span>
                       </div>
 
-                        <div
+                      <div
                         style={{
                           height: "25px",
                           width: "100%",
@@ -758,7 +1101,9 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           S.W Count:
                         </span>{" "}
-                        <span className='span2'>{successfulOrders?.length}</span>
+                        <span className='span2'>
+                          {successfulOrders?.length}
+                        </span>
                       </div>
 
                       <div
@@ -777,7 +1122,10 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           Pending Withdrawals:
                         </span>{" "}
-                        <span className='span2'>XOF &nbsp; {formatNumberWithCommasAndDecimal(totalPendingAmount)}</span>
+                        <span className='span2'>
+                          XOF &nbsp;{" "}
+                          {formatNumberWithCommasAndDecimal(totalPendingAmount)}
+                        </span>
                       </div>
 
                       <div
@@ -815,7 +1163,7 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         >
                           Transaction History:
                         </span>
-                    <span
+                        <span
                           className='span2'
                           style={{
                             padding: "1px 8px",
@@ -825,14 +1173,14 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                             background: "grey",
                             cursor: "pointer",
                           }}
-                                                 onClick={() => {
-  setState(true);
-  router.push(`/admin/cashdesks/${data._id}`);
-}}
+                          onClick={() => {
+                            setState(true);
+                            router.push(`/admin/cashdesks/${data._id}`);
+                          }}
                         >
-                      view
+                          view
                         </span>
-                 </div>
+                      </div>
 
                       <div
                         style={{
@@ -867,27 +1215,44 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                         <span
                           className='span2'
                           style={{
-                            padding: "1px 8px",
-                            border: ".3px solid rgba(128, 128, 128, 0.5)",
                             borderRadius: "5px",
-                            background: "rgba(0, 128, 0, 0.7)",
+                            color: data.isActivated
+                              ? "rgba(0, 128, 0, 0.9)"
+                              : "rgba(128, 0, 0, 0.9)",
                             cursor: "pointer",
                           }}
                         >
-                          Activate
+                          {data.isActivated ? "Activated" : "Deactivated"}
                         </span>{" "}
                         &nbsp; &nbsp;{" "}
                         <span
                           className='span2'
                           style={{
-                            padding: "1px 8px",
+                            width: "100px",
+                            height: "25px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: "5px",
                             border: ".3px solid rgba(128, 128, 128, 0.5)",
                             cursor: "pointer",
-                            borderRadius: "5px",
-                            background: "rgba(128, 0, 0, 0.6)",
+                            background: data.isActivated
+                              ? "rgba(128, 0, 0, 0.6)"
+                              : "rgba(0, 128, 0, 0.7)",
                           }}
+                          onClick={(e) =>
+                            changeActivationStatus(data._id, "index1")
+                          }
                         >
-                          Deactivate
+                          {loading ? (
+                            <div id='container-deposit-1'>
+                              <div id='html-spinner-deposit-1'></div>
+                            </div>
+                          ) : data.isActivated ? (
+                            "Deactivate"
+                          ) : (
+                            "Activate"
+                          )}
                         </span>
                       </div>
                     </div>
@@ -895,8 +1260,10 @@ const totalSuccessfulAmount = successfulOrders.reduce(
                 </div>
               );
             })
-          )}
+          }
+          </>)}
         </div>
+
       </div>
     </div>
   );

@@ -31,11 +31,6 @@ const userDataPromises = result.map(async (email: any) => {
 
 // Use Promise.all to wait for all promises to resolve
 const userDataArray = await Promise.all(userDataPromises);
-
-
-     
-
-
     return NextResponse.json({
       message: "",
       status: 200,

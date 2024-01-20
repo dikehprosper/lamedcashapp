@@ -67,11 +67,13 @@ const SignIn = () => {
       router.push("/dashboard");
     } catch (error: any) {
       if (error.response.status === 400) {
-        return toast.error("User not found!");
+        return toast.error("Utilisateur non trouvé!");
       } else if (error.response.status === 402) {
-        return toast.error("Invalid password");
+        return toast.error("Mot de passe incorrect");
+      } else if (error.response.status === 404) {
+        return toast.error("Votre compte a été désactivé");
       } else if (error.response.status === 500) {
-        return toast.error("Signin failed");
+        return toast.error("Échec de la connexion");
       } else {
         console.log(error);
         return toast.error(error);

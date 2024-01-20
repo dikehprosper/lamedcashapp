@@ -105,10 +105,13 @@ function Page() {
       setLoading(true);
       const idFromUrl = extractIdFromUrl();
       console.log(idFromUrl);
-      const res = await axios.post("/api/getSpecificReferral", { id: idFromUrl });
-      console.log(res);
-      setData(res.data.result);
+      const res = await axios.post("/api/getSpecificReferral", {
+        id: idFromUrl,
+      });
+      setData(res.data.userDataArray);
+       console.log(res.data.userDataArray)
         setLoading(false);
+      
     } catch (error: any) {
       if (error.response.status === 402) {
         setLoading(false);
@@ -179,24 +182,24 @@ function Page() {
               </div>
             </div>
           ) : (
-            data?.map((data, index) => {
-              const openOrders = data.transactionHistory.filter(
+       data.length >= 1? data?.map((data, index) => {
+              const openOrders = data?.transactionHistory?.filter(
                 (transaction: { status: string }) =>
                   transaction.status === "Pending"
               );
 
-              const totalPendingAmount = openOrders.reduce(
+              const totalPendingAmount = openOrders?.reduce(
                 (total: number, transaction: { amount: number }) =>
                   total + transaction.amount,
                 0
               );
 
-              const successfulOrders = data.transactionHistory.filter(
+              const successfulOrders = data?.transactionHistory?.filter(
                 (transaction: { status: string }) =>
                   transaction.status === "Successful"
               );
 
-              const totalSuccessfulAmount = successfulOrders.reduce(
+              const totalSuccessfulAmount = successfulOrders?.reduce(
                 (total: number, transaction: { amount: number }) =>
                   total + transaction.amount,
                 0
@@ -349,7 +352,7 @@ function Page() {
                           style={{ fontWeight: "bold", opacity: "0.65" }}
                           className='span1'
                         >
-                          Successful Deposits:
+                          Successful Transactions:
                         </span>{" "}
                         <span className='span2'>
                           XOF &nbsp;{" "}
@@ -374,7 +377,7 @@ function Page() {
                           className='span1'
                           style={{ fontWeight: "bold", opacity: "0.65" }}
                         >
-                          S.D Count:
+                          S.    T Count:
                         </span>{" "}
                         <span className='span2'>
                           {successfulOrders?.length}
@@ -396,7 +399,7 @@ function Page() {
                           className='span1'
                           style={{ fontWeight: "bold", opacity: "0.65" }}
                         >
-                          Pending Deposits:
+                          Pending Transactions:
                         </span>{" "}
                         <span className='span2'>
                           XOF &nbsp;{" "}
@@ -420,7 +423,7 @@ function Page() {
                           className='span1'
                           style={{ fontWeight: "bold", opacity: "0.65" }}
                         >
-                          P.D Count:
+                          P.T Count:
                         </span>{" "}
                         <span className='span2'>{openOrders?.length}</span>
                       </div>
@@ -452,7 +455,7 @@ function Page() {
                   )}
                 </div>
               );
-            })
+            }):(<div style={{width:"100%", height: "100%", justifyContent: "center", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: "20px"}}>No referral yet</div>)
           )}
         </div>
       </div>

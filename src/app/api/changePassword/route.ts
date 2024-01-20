@@ -9,11 +9,19 @@ export async function POST(request: NextRequest) {
 
     const {_id,  oldPassword,password, confirmPassword} = await reqBody;
     // Check if the User already exists
-    const user = await User.findOne({ _id });
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 400 });
-    }
+   
 
+    const user = await User.findOne({ _id });
+      if (!user) {
+        return NextResponse.json({ error: "User not found" }, { status: 400 });
+      }
+     if (!user.isActivated) {
+       return NextResponse.json(
+         { error: "your account has been deactivated" },
+         { status: 404 }
+       );
+     }
+   
     // Check if password is correct
     const validPassword = await bcryptjs.compare(oldPassword, user.password);
     if (!validPassword) {
