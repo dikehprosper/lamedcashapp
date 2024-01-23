@@ -45,29 +45,33 @@ export async function POST(request: NextRequest) {
   // });
 
   // Create WebSocket connection.
-  const socket = new WebSocket("ws://localhost:8080");
+  // const socket = new WebSocket("ws://localhost:8080");
 
-  // Connection opened
-  socket.addEventListener("open", (event) => {
-    socket.send("Hello Server!");
-  });
+  // // Connection opened
+  // socket.addEventListener("open", (event) => {
+  //   socket.send("Hello Server!");
+  // });
 
-  // Listen for messages
-  socket.addEventListener("message", (event) => {
-    console.log("Message from server ", event.data);
-  });
+  // // Listen for messages
+  // socket.addEventListener("message", (event) => {
+  //   console.log("Message from server ", event.data);
+  // });
 
   try {
     const rawBody = await request.text();
     const sig = request.headers.get("x-fedapay-signature");
     let event;
-    const endpointSecret = process.env.ENDPOINTSECRET_WEBHOOK_SANDBOX!;
+    const endpointSecret = process.env.ENDPOINTSECRET_WEBHOOK!;
     event = Webhook.constructEvent(rawBody, sig, endpointSecret);
 
     const fedapayTransactionId = event.entity.id.toString();
     const email = event.entity.customer.email;
 
+console.log(email, "email");
+console.log(fedapayTransactionId, "fedapayTransactionId");
+
     const user = await User.findOne({ email });
+    console.log(user, "user");
     const admin = await User.findOne({ isAdmin: true });
     const ticket = user.pendingDeposit.find(
       (t: any) => t.fedapayTransactionId === fedapayTransactionId

@@ -11,10 +11,10 @@ import { FedaPay, Customer } from "fedapay";
 connect();
 
 /* Remplacez VOTRE_CLE_API par votre véritable clé API */
-FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
+FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
 
 /* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
-FedaPay.setEnvironment(process.env.ENVIRONMENT!); //ou setEnvironment('live');
+FedaPay.setEnvironment(process.env.ENVIRONMENT1!); //ou setEnvironment('live');
 
 // import { PhoneNumberUtil } from "google-libphonenumber";
 
@@ -311,10 +311,10 @@ export async function POST(request: NextRequest) {
     //hash password
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
-    const date = new Date()
-    
+    const date = new Date();
+
     /* Créer le client */
-    const customer = Customer.create({
+    const customer = await Customer.create({
       firstname: fullname.split(" ")[0],
       lastname: fullname.split(" ")[1],
       email: email,
@@ -323,7 +323,7 @@ export async function POST(request: NextRequest) {
         country: "BJ",
       },
     });
- 
+    console.log(customer, "customer");
     //create a new user
     const newUser = new User({
       fullname,

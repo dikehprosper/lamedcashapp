@@ -39,3 +39,4 @@ fetch.ts
 
 # # .gitignore
 # .env
+.env

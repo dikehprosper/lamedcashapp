@@ -19,6 +19,13 @@ export async function POST(request: NextRequest) {
       network,
       fedapayId,
     } = await reqBody;
+
+    const deductionPercentage = 1.8;
+    const deductionAmount = (deductionPercentage / 100) * amount;
+
+    // Calculate the new amount after deduction
+    const newAmount = amount - deductionAmount;
+    console.log(newAmount);
     const admin = await User.findOne({ isAdmin: true });
 
     if (admin.isDepositsOpen === false) {
@@ -27,8 +34,8 @@ export async function POST(request: NextRequest) {
         { status: 405 }
       );
     }
-    FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
-    FedaPay.setEnvironment(process.env.ENVIRONMENT!);
+    FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
+    FedaPay.setEnvironment(process.env.ENVIRONMENT1!);
 
     //find user and add pending transaction
     const user = await User.findOne({ email });
@@ -46,8 +53,8 @@ export async function POST(request: NextRequest) {
       );
     }
     if (momoNumber !== user.number) {
-      const apiUrl = `${process.env.APIURL}${fedapayId}`;
-      const apiKey = process.env.FEDAPAY_KEY!;
+      const apiUrl = `${process.env.APIURL1}${fedapayId}`;
+      const apiKey = process.env.FEDAPAY_KEY1!;
 
       const response = await fetch(apiUrl, {
         method: "PUT",
@@ -69,7 +76,7 @@ export async function POST(request: NextRequest) {
 
     const transaction = await Transaction.create({
       description: "Description",
-      amount: amount,
+      amount: newAmount,
       callback_url: `${process.env.DOMAIN!}/payments`,
       currency: {
         iso: "XOF",
@@ -81,8 +88,8 @@ export async function POST(request: NextRequest) {
 
     const token = await transaction.generateToken();
 
-    const apiUrl1 = `${process.env.SECONDAPIURL}${network}`;
-    const apiKey1 = process.env.FEDAPAY_KEY_SANDBOX!;
+    const apiUrl1 = `${process.env.SECONDAPIURL1}${network}`;
+    const apiKey1 = process.env.FEDAPAY_KEY1!;
 
     const response1 = await fetch(apiUrl1, {
       method: "POST",
@@ -120,8 +127,8 @@ export async function POST(request: NextRequest) {
     }
 
     if (momoNumber !== user.number) {
-      const apiUrl = `${process.env.APIURL}${fedapayId}`;
-      const apiKey = process.env.FEDAPAY_KEY!;
+      const apiUrl = `${process.env.APIURL1}${fedapayId}`;
+      const apiKey = process.env.FEDAPAY_KEY1!;
 
       const response2 = await fetch(apiUrl, {
         method: "PUT",

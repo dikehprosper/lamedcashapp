@@ -2,6 +2,34 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
+import { AiOutlineRocket } from "react-icons/ai";
+
+// const {createServer} = require("http");
+// const { Server } = require("socket.io");
+
+// const httpServer = createServer();
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: "*",
+//     methods: ["GET", "POST"]
+//   }
+// })
+
+// io.on("connection", async (socket) => {
+//   console.log(socket.id);
+
+//   socket.on("myevent", (data) => {
+//     socket.emit("responseEvent", "Hello client")
+ 
+//   })
+// });
+
+// httpServer.listen(3000, () => {
+//   console.log('listening on *:${PORT')
+// })
+
+
+
 
 export async function GET(request: NextRequest) {
   try {

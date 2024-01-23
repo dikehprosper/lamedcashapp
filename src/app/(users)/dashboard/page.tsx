@@ -175,115 +175,94 @@ const Dashboard = () => {
     });
   };
 const [button, setButton] = useState(false);
-const socket = io("http://localhost:5000");
 
-useEffect(() => {
-  socket.on("connect", () => {
-    console.log(socket.id);
-  });
-  return () => {
-    socket.disconnect();
-  };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+// const socket = io();
+// useEffect(() => {
+//   socket.on("connect", () => {
+//     console.log(socket.id);
+//   });
 
- socket.on("responseEvent", (data) => {
-  setButton(true)
-    console.log(data);
-  });
+//   socket.on("responseEvent", (data) => {
+//     setButton(true);
+//   });
 
+//   return () => {
+//     socket.disconnect();
+//   };
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, []);
 
-const sendEvent = () => {
-  socket.emit("myevent",  "hello");
-};
-
-
-
+// const sendEvent = () => {
+//   socket.emit("myevent", "a", "b", (response) => {
+//     setButton(true)
+//   } );
+// };
 
 
-
-
-// Function to clear all cookies
-function clearAllCookies() {
-  const cookies = document.cookie.split(';');
-
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i];
-    const eqPos = cookie.indexOf('=');
-    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-  }
-}
-
-useEffect(() => {
-clearAllCookies();
-}, [])
-
-
-
-
-
-
-  return (
-    <div className='user_dashboard_container'>
-      {isVisible && (
-        <Modal
-          containerStyles='receiptModal'
-          containerStylesInner='receiptModal_inner'
-          handleClick={handleClick}
-          receipt={receipt}
-          title='Montant du dépôt'
-        />
-      )}
-      <Head
-        title='Bienvenue'
-        about="Faites l'expérience de dépôts et de retraits rapides"
-        data={data}
+return (
+  <div className='user_dashboard_container'>
+    {isVisible && (
+      <Modal
+        containerStyles='receiptModal'
+        containerStylesInner='receiptModal_inner'
+        handleClick={handleClick}
+        receipt={receipt}
+        title='Montant du dépôt'
       />
-   
-      <div className='user-dashboard-display'>
-        <Display
-          count={pendingDeposits?.length}
-          title='Dépôt'
-          term={1}
-          amount={totalPendingDepositAmount}
-          data={data?.transactionHistory}
-          allData={data}
-          style={{
-            color: "#658900",
-            background: "rgba(101, 137, 0, 0.4)",
-            icon: <TbPigMoney />,
-          }}
-        />
-        <Display
-          count={pendingWithdrawals?.length}
-          term={2}
-          title='Retirer'
-          amount={totalPendingWithdrawalAmount}
-          data={data?.transactionHistory}
-          allData={data}
-          style={{
-            color: "#0076B8",
-            background: "rgba(0, 118, 184, .4)",
-            icon: <RiMoneyDollarCircleLine />,
-          }}
-        />
-      </div>
-      <TransactionTemplate
-        title={{ name: "Historique des Transactions", icon: <LuHistory /> }}
-        select={{
-          firstSelect: { big: "Voir tout", small: "Tout" },
-          secondSelect: { big: "Voir les Dépôts", small: "Dépôts" },
-          thirdSelect: { big: "Afficher les Retraits", small: "Retraits" },
-        }}
-        totalWithdrawals={totalWithdrawals}
-        totalDeposits={totalDeposits}
+    )}
+    {/* <div onClick={sendEvent}>click</div>
+    {button && (
+      <div style={{ width: "40px", height: "40px" }}>clickiiiiiii</div>
+    )} */}
+    <Head
+      title='Bienvenue'
+      about="Faites l'expérience de dépôts et de retraits rapides"
+      data={data}
+    />
+
+    <div className='user-dashboard-display'>
+      <Display
+        count={pendingDeposits?.length}
+        title='Dépôt'
+        term={1}
+        amount={totalPendingDepositAmount}
         data={data?.transactionHistory}
         allData={data}
-        showReceipt={showReceipt}
+        style={{
+          color: "#658900",
+          background: "rgba(101, 137, 0, 0.4)",
+          icon: <TbPigMoney />,
+        }}
+      />
+      <Display
+        count={pendingWithdrawals?.length}
+        term={2}
+        title='Retirer'
+        amount={totalPendingWithdrawalAmount}
+        data={data?.transactionHistory}
+        allData={data}
+        style={{
+          color: "#0076B8",
+          background: "rgba(0, 118, 184, .4)",
+          icon: <RiMoneyDollarCircleLine />,
+        }}
       />
     </div>
-  );
+    <TransactionTemplate
+      title={{ name: "Historique des Transactions", icon: <LuHistory /> }}
+      select={{
+        firstSelect: { big: "Voir tout", small: "Tout" },
+        secondSelect: { big: "Voir les Dépôts", small: "Dépôts" },
+        thirdSelect: { big: "Afficher les Retraits", small: "Retraits" },
+      }}
+      totalWithdrawals={totalWithdrawals}
+      totalDeposits={totalDeposits}
+      data={data?.transactionHistory}
+      allData={data}
+      showReceipt={showReceipt}
+    />
+  </div>
+);
 };
 
 export default Dashboard;

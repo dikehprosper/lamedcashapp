@@ -17,9 +17,9 @@ export async function POST(request: NextRequest) {
    }
     
   if (user.isUser === true) {
-    const apiUrl = `${process.env.APIURL}${fedapayId}`;
-    const apiKey = process.env.FEDAPAY_KEY;
-
+    const apiUrl = `${process.env.APIURL1!}${fedapayId}`;
+    const apiKey = process.env.FEDAPAY_KEY1!;
+console.log(apiUrl)
     const response = await fetch(apiUrl, {
       method: "PUT",
       headers: {

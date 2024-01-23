@@ -239,7 +239,9 @@ betId: ""
       } catch (error: any) {
          if (error.response.status === 405) {
            return toast.error("Nous Sommes Actuellement En Maintenance");
-         } 
+         } else if (error.response.status === 402) {
+           return toast.error("Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance");
+         }
         console.log(error);
         return toast.error("error");
       } finally {

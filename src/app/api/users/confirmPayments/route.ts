@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     console.log(reqBody);
     // Create the transaction
     /* Replace YOUR_API_SECRET_KEY by your API secret key */
-    FedaPay.setApiKey(process.env.FEDAPAY_KEY!);
+    FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
     /* Specify whenever you are willing to execute your request in test or live mode */
     FedaPay.setEnvironment("sandbox"); //or setEnvironment('live');
     /* Create the transaction */

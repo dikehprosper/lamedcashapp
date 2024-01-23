@@ -58,7 +58,7 @@ const DropdownContent = ({ state, select, setState, setLoading }: any) => {
         style={{
           position: "absolute",
           top: "100%",
-          zIndex: "90",
+          zIndex: "150",
           width: "inherit",
           background: "black"
         }}
