@@ -135,18 +135,18 @@ const newAmount = Math.round(amount - deductionAmount);
 
     console.log(user.email, "user email second time");
 
-    // user.pendingDeposit.push({
-    //   fedapayTransactionId: transaction.id,
-    //   transactionId: newUuid,
-    //   createdAt: date,
-    //   status: "Pending",
-    //   amount: amount,
-    //   betId: betId,
-    //   momoName: momoName,
-    //   momoNumber: momoNumber,
-    // });
+    user.pendingDeposit.push({
+      fedapayTransactionId: transaction.id,
+      transactionId: newUuid,
+      createdAt: date,
+      status: "Pending",
+      amount: amount,
+      betId: betId,
+      momoName: momoName,
+      momoNumber: momoNumber,
+    });
 
-    
+
     await user.save();
     console.log("successfully added");
     console.log(transaction.id);
@@ -156,6 +156,7 @@ const newAmount = Math.round(amount - deductionAmount);
     console.log(betId, "betId");
     console.log(momoName, "momoName");
     console.log(momoNumber, "momoNumber");
+
 
     if (momoNumber !== user.number) {
       console.log("phone number wasn't the original o has to be edited");
