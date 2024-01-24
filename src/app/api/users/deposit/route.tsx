@@ -4,6 +4,7 @@ import { FedaPay, Transaction, Customer } from "fedapay";
 import { v4 as uuidv4 } from "uuid";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
+import { getDataFromToken } from "@/helpers/getDataFromToken";
 
 connect();
 export async function POST(request: NextRequest) {
@@ -20,11 +21,24 @@ export async function POST(request: NextRequest) {
       fedapayId,
     } = await reqBody;
 
-    const deductionPercentage = 1.8;
-    const deductionAmount = (deductionPercentage / 100) * amount;
+    // Find the subadmin user by cashdeskId
 
-    // Calculate the new amount after deduction
-    const newAmount = amount - deductionAmount;
+    const adminUser = await User.find({
+      isSubAdminDeposits: true,
+      isOutOfFunds: false,
+    });
+    if (!adminUser || adminUser.length === 0) {
+      return NextResponse.json(
+        { error: "No available Subadmin User" },
+        { status: 403 }
+      );
+    }
+const deductionPercentage = 1.8;
+const deductionAmount = (deductionPercentage / 100) * amount;
+
+// Calculate the new amount after deduction and round to the nearest whole number
+const newAmount = Math.round(amount - deductionAmount);
+
     console.log(newAmount);
     const admin = await User.findOne({ isAdmin: true });
 
@@ -37,8 +51,12 @@ export async function POST(request: NextRequest) {
     FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
     FedaPay.setEnvironment(process.env.ENVIRONMENT1!);
 
+    console.log(process.env.FEDAPAY_KEY1!, "FEDAPAY_KEY1! key");
+    console.log(process.env.ENVIRONMENT1!, "ENVIRONMENT1! key");
+
     //find user and add pending transaction
     const user = await User.findOne({ email });
+    console.log(user.email);
 
     if (!user) {
       return NextResponse.json(
@@ -53,6 +71,7 @@ export async function POST(request: NextRequest) {
       );
     }
     if (momoNumber !== user.number) {
+      console.log("phone number wasn't the original o has to be edited");
       const apiUrl = `${process.env.APIURL1}${fedapayId}`;
       const apiKey = process.env.FEDAPAY_KEY1!;
 
@@ -113,20 +132,31 @@ export async function POST(request: NextRequest) {
     }
     const newUuid = uuidv4();
     const date = new Date();
-    if (user) {
-      user.pendingDeposit.push({
-        fedapayTransactionId: transaction.id,
-        transactionId: newUuid,
-        createdAt: date,
-        status: "Pending",
-        amount: amount,
-        betId: betId,
-        momoName: momoName,
-        momoNumber: momoNumber,
-      });
-    }
+
+    console.log(user.email, "user email second time");
+
+    user.pendingDeposit.push({
+      fedapayTransactionId: transaction.id,
+      transactionId: newUuid,
+      createdAt: date,
+      status: "Pending",
+      amount: amount,
+      betId: betId,
+      momoName: momoName,
+      momoNumber: momoNumber,
+    });
+    await user.save();
+    console.log("successfully added");
+    console.log(transaction.id);
+    console.log(newUuid, "newUuid");
+    console.log(date, "date");
+    console.log(amount, "amount");
+    console.log(betId, "betId");
+    console.log(momoName, "momoName");
+    console.log(momoNumber, "momoNumber");
 
     if (momoNumber !== user.number) {
+      console.log("phone number wasn't the original o has to be edited");
       const apiUrl = `${process.env.APIURL1}${fedapayId}`;
       const apiKey = process.env.FEDAPAY_KEY1!;
 
@@ -155,11 +185,19 @@ export async function POST(request: NextRequest) {
       status: 200,
     });
   } catch (error: any) {
-    // Handle errors and return a JSON response
-    console.error(error, "error");
-    return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
-      { status: 500 }
-    );
+    if (error.message === "Token has expired") {
+      // Handle token expiry error
+      return NextResponse.json(
+        { error: "Token has expired. Please log in again." },
+        { status: 402 }
+      );
+    } else {
+      // Handle other errors
+
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status || 500 }
+      );
+    }
   }
 }

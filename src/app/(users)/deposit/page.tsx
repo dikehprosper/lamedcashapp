@@ -121,21 +121,7 @@ const Deposit = () => {
     };
   }, []);
 
-  // setUser((prevUser) => ({ ...prevUser, _id: res.data.data._id, betId: res.data.data.betID[0]}));
-  function initiatePhoneCall(phoneNumber: any) {
-    // Check if the browser supports the tel protocol
-    if ("href" in HTMLAnchorElement.prototype) {
-      // Create an anchor element with the tel link
-      var link = document.createElement("a");
-      link.href = "tel:" + phoneNumber;
-
-      // Trigger a click on the link to open the default phone application
-      link.click();
-    } else {
-      // Handle browsers that do not support the tel protocol
-      console.error("Phone call initiation is not supported in this browser.");
-    }
-  }
+  
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
@@ -213,9 +199,14 @@ const Deposit = () => {
           toast.error("Utilisateur non trouvé");
         } else if (error.response.status === 401) {
           toast.error("Impossible de lancer la transaction");
+        } else if (error.response.status === 403) {
+         return toast.error("Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance");
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
-             router.push("/signin"); 
+          router.push("/signin");
+        } else if (error.response.status === 407) {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin");
         } else if (error.response.status === 405) {
           toast.error("Nous Sommes Actuellement En Maintenance");
         } else {
@@ -305,34 +296,7 @@ const Deposit = () => {
     }
   };
 
-  const createTransaction2 = async () => {
-    if (isSubmitting) {
-      return;
-    }
 
-    const amountValue = parseInt(user.amount, 10);
-    if (isNaN(amountValue)) {
-      // Handle the case where user.amount is not a valid number
-      return toast.error("Vous n'avez pas saisi de montant");
-    }
-
-    if (amountValue < 100) {
-      return toast.error("Le montant saisi ne doit pas être inférieur à 100");
-    } else if (user.betId === "") {
-      return toast.error("Entrez le betId à utiliser");
-    } else {
-      try {
-        setLoading(true);
-        const response = await axios.post("/api/users/deposit3", user); // Replace with your actual route
-        console.log(response);
-      } catch (error) {
-        console.error("Error creating transaction:", error);
-      } finally {
-        setLoading(false);
-        setIsSubmitting(false);
-      }
-    }
-  };
 
   return (
     <div className='user_withdraw_container'>
