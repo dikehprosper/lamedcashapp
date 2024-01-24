@@ -145,6 +145,8 @@ const newAmount = Math.round(amount - deductionAmount);
     //   momoName: momoName,
     //   momoNumber: momoNumber,
     // });
+
+    
     await user.save();
     console.log("successfully added");
     console.log(transaction.id);
@@ -178,7 +180,7 @@ const newAmount = Math.round(amount - deductionAmount);
       });
     }
 
-    await user.save();
+
     // Return a JSON response with the transaction status
     return NextResponse.json({
       message: "Transaction  created",
