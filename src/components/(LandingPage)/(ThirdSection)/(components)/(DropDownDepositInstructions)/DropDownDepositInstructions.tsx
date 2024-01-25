@@ -79,7 +79,7 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px',  fontSize: '16px'}}>Cliquez sur Dépôt</div>
             </div>
           </div>
           <div className="body_innerbody_006">
@@ -91,7 +91,8 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>
+                Vous pouvez modifier l&apos;identifiant 1xbet</div>
             </div>
           </div>
           <div className="body_innerbody_006">
@@ -103,7 +104,7 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>Entrez un montant d&apos;au moins 500</div>
             </div>
           </div>
           <div className="body_innerbody_006">
@@ -115,7 +116,7 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>Choisissez le réseau</div>
             </div>
           </div>
 
@@ -131,7 +132,7 @@ const DropDownDepositInstructions = () => {
               <div className="body_innerbody_0016"></div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012">jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>Modifier ou laisser le numéro d&apos;origine</div>
             </div>
           </div>
         </div>

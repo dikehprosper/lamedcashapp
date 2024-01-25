@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
     } = await reqBody;
 
     // Find the subadmin user by cashdeskId
-
     const adminUser = await User.find({
       isSubAdminDeposits: true,
       isOutOfFunds: false,
@@ -33,26 +32,25 @@ export async function POST(request: NextRequest) {
         { status: 403 }
       );
     }
-const deductionPercentage = 1.8;
-const deductionAmount = (deductionPercentage / 100) * amount;
 
-// Calculate the new amount after deduction and round to the nearest whole number
-const newAmount = Math.round(amount - deductionAmount);
+    // calculate the percentage of amount
+    const deductionPercentage = 1.8;
+    const deductionAmount = (deductionPercentage / 100) * amount;
 
-    console.log(newAmount);
+    // Calculate the new amount after deduction and round to the nearest whole number
+    const newAmount = Math.round(amount - deductionAmount);
+
+    // Find available admin
     const admin = await User.findOne({ isAdmin: true });
-
     if (admin.isDepositsOpen === false) {
       return NextResponse.json(
         { error: "We are currently under maintainance" },
         { status: 405 }
       );
     }
+
     FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
     FedaPay.setEnvironment(process.env.ENVIRONMENT1!);
-
-    console.log(process.env.FEDAPAY_KEY1!, "FEDAPAY_KEY1! key");
-    console.log(process.env.ENVIRONMENT1!, "ENVIRONMENT1! key");
 
     //find user and add pending transaction
     const user = await User.findOne({ email });
@@ -64,12 +62,16 @@ const newAmount = Math.round(amount - deductionAmount);
         { status: 400 }
       );
     }
+
+    //Check if user is activated
     if (!user.isActivated) {
       return NextResponse.json(
         { error: "your account has been deactivated" },
         { status: 404 }
       );
     }
+
+    // Change number if originally saved number is different from number sent in
     if (momoNumber !== user.number) {
       console.log("phone number wasn't the original o has to be edited");
       const apiUrl = `${process.env.APIURL1}${fedapayId}`;
@@ -93,6 +95,7 @@ const newAmount = Math.round(amount - deductionAmount);
       });
     }
 
+    // Generate token and Create the transaction on Fedapay
     const transaction = await Transaction.create({
       description: "Description",
       amount: newAmount,
@@ -106,7 +109,6 @@ const newAmount = Math.round(amount - deductionAmount);
     });
 
     const token = await transaction.generateToken();
-
     const apiUrl1 = `${process.env.SECONDAPIURL1}${network}`;
     const apiKey1 = process.env.FEDAPAY_KEY1!;
 
@@ -130,11 +132,10 @@ const newAmount = Math.round(amount - deductionAmount);
     if (response1.status === 200) {
       console.log("successful2");
     }
+
+    // add the current transaction to the user
     const newUuid = uuidv4();
     const date = new Date();
-
-    console.log(user.email, "user email second time");
-
     user.pendingDeposit.push({
       fedapayTransactionId: transaction.id,
       transactionId: newUuid,
@@ -145,19 +146,9 @@ const newAmount = Math.round(amount - deductionAmount);
       momoName: momoName,
       momoNumber: momoNumber,
     });
-
-
     await user.save();
-    console.log("successfully added");
-    console.log(transaction.id);
-    console.log(newUuid, "newUuid");
-    console.log(date, "date");
-    console.log(amount, "amount");
-    console.log(betId, "betId");
-    console.log(momoName, "momoName");
-    console.log(momoNumber, "momoNumber");
 
-
+    // Change number back to original
     if (momoNumber !== user.number) {
       console.log("phone number wasn't the original o has to be edited");
       const apiUrl = `${process.env.APIURL1}${fedapayId}`;
@@ -180,8 +171,6 @@ const newAmount = Math.round(amount - deductionAmount);
         }),
       });
     }
-
-
     // Return a JSON response with the transaction status
     return NextResponse.json({
       message: "Transaction  created",
@@ -196,7 +185,6 @@ const newAmount = Math.round(amount - deductionAmount);
       );
     } else {
       // Handle other errors
-
       return NextResponse.json(
         { error: error.message },
         { status: error.status || 500 }

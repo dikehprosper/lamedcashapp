@@ -83,7 +83,7 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className='body_innerbody_2012'>Cliquez sur Retirer</div>
             </div>
           </div>
           <div className='body_innerbody_206'>
@@ -95,7 +95,7 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className='body_innerbody_2012'>Vous pouvez modifier l&apos;identifiant 1xbet</div>
             </div>
           </div>
           <div className='body_innerbody_206'>
@@ -107,7 +107,7 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className='body_innerbody_2012'>  Entrez le code de retrait 1xbet  </div>
             </div>
           </div>
           <div className='body_innerbody_206'>
@@ -119,7 +119,7 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className='body_innerbody_2012'>Entrez un montant</div>
             </div>
           </div>
 
@@ -135,7 +135,7 @@ const DropDownWithdrawalInstructions = () => {
               <div className='body_innerbody_2016'></div>
             </div>
             <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>jhvjhvhvivjvuchjvhjuhvj</div>
+              <div className='body_innerbody_2012'>Modifier ou laisser le numéro d&apos;origine</div>
             </div>
           </div>
         </div>
