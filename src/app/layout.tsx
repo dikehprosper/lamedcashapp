@@ -5,15 +5,14 @@ import NavState from "@/components/(Navs)/NavState";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 const inter = Inter({ subsets: ["latin"] });
-// import Head from "next/head";
 export const metadata: Metadata = {
   title: "Betfundr",
   description: "Fund and withdraw your 1xBet account",
   icons: {
-    icon: ['/favicon.ico?v=4'],
-    apple:['/apple-touch-icon.png?v=4'],
-    shortcut:['/apple-touch-icon.png']
-  }
+    icon: ["/favicon.ico?v=4"],
+    apple: ["/apple-touch-icon.png?v=4"],
+    shortcut: ["/apple-touch-icon.png"],
+  },
 };
 
 export default function RootLayout({
@@ -22,10 +21,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html>
+      {/* <Head>
+        <Script src="/scripts/translation.js" strategy="beforeInteractive" />
+        {process.env.GOOGLE_TRANSLATION_CONFIG && (
+          <Script
+            src="https://translate.google.com/translate_a/element.js?cb=TranslateInit"
+            strategy="afterInteractive"
+          />
+        )}
+      </Head> */}
       <body className={inter.className}>
         <ToastContainer
-          position='top-right'
+          position="top-right"
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -34,13 +42,12 @@ export default function RootLayout({
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme='dark'
+          theme="dark"
         />
         <NavState />
         {children}
+        {/* <NextScript /> */}
       </body>
     </html>
   );
 }
-
-

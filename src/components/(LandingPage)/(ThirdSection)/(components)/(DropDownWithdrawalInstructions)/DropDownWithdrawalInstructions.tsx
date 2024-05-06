@@ -8,8 +8,10 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
+import useTranslation from "next-translate/useTranslation";
 const DropDownWithdrawalInstructions = () => {
   const [height, setHeight] = useState(0);
+  const { t, lang } = useTranslation("home");
 
   function adjustHeight() {
     setHeight((prev): any => {
@@ -22,38 +24,38 @@ const DropDownWithdrawalInstructions = () => {
   }
 
   return (
-    <div className='body_201'>
-      <div className='body_innerbody_201' onClick={adjustHeight}>
-        <div className='body_innerbody_202'>
+    <div className="body_201">
+      <div className="body_innerbody_201" onClick={adjustHeight}>
+        <div className="body_innerbody_202">
           <div
             aria-expanded={height !== 0}
-            aria-controls='example-panel'
-            className='body_innerbody_204'
+            aria-controls="example-panel"
+            className="body_innerbody_204"
           >
             <p>Retrait</p>{" "}
             {height === 0 ? (
-              <MdOutlineKeyboardArrowDown fontSize='32px' />
+              <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
-              <MdOutlineKeyboardArrowUp fontSize='32px' />
+              <MdOutlineKeyboardArrowUp fontSize="32px" />
             )}
           </div>
         </div>
-        <div className='body_innerbody_203'>
+        <div className="body_innerbody_203">
           <Image
             src={image}
             fill
-            loading='eager'
+            loading="eager"
             style={{
               objectFit: "cover",
             }}
-            alt='Picture of the background'
-            placeholder='blur'
+            alt="Picture of the background"
+            placeholder="blur"
           />
         </div>
       </div>
 
       <AnimateHeight
-        id='example-panel'
+        id="example-panel"
         duration={500}
         height={height}
         style={{
@@ -61,81 +63,83 @@ const DropDownWithdrawalInstructions = () => {
           borderRadius: "10px",
         }}
       >
-        <div className='body_innerbody_205'>
-          <div className='body_innerbody_2017' onClick={adjustHeight}>
+        <div className="body_innerbody_205">
+          <div className="body_innerbody_2017" onClick={adjustHeight}>
             <p>Retrait</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown
-                data-aos='flip-down'
-                data-aos-duration='2000'
-                fontSize='32px'
+                data-aos="flip-down"
+                data-aos-duration="2000"
+                fontSize="32px"
               />
             ) : (
-              <MdOutlineKeyboardArrowUp fontSize='32px' />
+              <MdOutlineKeyboardArrowUp fontSize="32px" />
             )}
           </div>
-          <div className='body_innerbody_206'>
-            <div className='body_innerbody_207'>
-              <div className='body_innerbody_209'></div>
+          <div className="body_innerbody_206">
+            <div className="body_innerbody_207">
+              <div className="body_innerbody_209"></div>
 
-              <div className='body_innerbody_2010'>
-                <div className='body_innerbody_2011'>Step 1</div>
+              <div className="body_innerbody_2010">
+                <div className="body_innerbody_2011">Step 1</div>
               </div>
             </div>
-            <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>Cliquez sur Retirer</div>
+            <div className="body_innerbody_208">
+              <div className="body_innerbody_2012">{t("click withdraw")}</div>
             </div>
           </div>
-          <div className='body_innerbody_206'>
-            <div className='body_innerbody_207'>
-              <div className='body_innerbody_209'></div>
+          <div className="body_innerbody_206">
+            <div className="body_innerbody_207">
+              <div className="body_innerbody_209"></div>
 
-              <div className='body_innerbody_2010'>
-                <div className='body_innerbody_2011'>Step 2</div>
+              <div className="body_innerbody_2010">
+                <div className="body_innerbody_2011">Step 2</div>
               </div>
             </div>
-            <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>Vous pouvez modifier l&apos;identifiant 1xbet</div>
+            <div className="body_innerbody_208">
+              <div className="body_innerbody_2012">{t("change ID")}</div>
             </div>
           </div>
-          <div className='body_innerbody_206'>
-            <div className='body_innerbody_207'>
-              <div className='body_innerbody_209'></div>
+          <div className="body_innerbody_206">
+            <div className="body_innerbody_207">
+              <div className="body_innerbody_209"></div>
 
-              <div className='body_innerbody_2010'>
-                <div className='body_innerbody_2011'>Step 3</div>
+              <div className="body_innerbody_2010">
+                <div className="body_innerbody_2011">Step 3</div>
               </div>
             </div>
-            <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>  Entrez le code de retrait 1xbet  </div>
+            <div className="body_innerbody_208">
+              <div className="body_innerbody_2012">{t("enter code")}</div>
             </div>
           </div>
-          <div className='body_innerbody_206'>
-            <div className='body_innerbody_207'>
-              <div className='body_innerbody_209'></div>
+          <div className="body_innerbody_206">
+            <div className="body_innerbody_207">
+              <div className="body_innerbody_209"></div>
 
-              <div className='body_innerbody_2010'>
-                <div className='body_innerbody_2011'>Step 4</div>
+              <div className="body_innerbody_2010">
+                <div className="body_innerbody_2011">Step 4</div>
               </div>
             </div>
-            <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>Entrez un montant</div>
+            <div className="body_innerbody_208">
+              <div className="body_innerbody_2012">
+                {t("enter amount (withdrawal)")}
+              </div>
             </div>
           </div>
 
-          <div className='body_innerbody_206'>
-            <div className='body_innerbody_2015'>
-              <div className='body_innerbody_2014'></div>
+          <div className="body_innerbody_206">
+            <div className="body_innerbody_2015">
+              <div className="body_innerbody_2014"></div>
 
-              <div className='body_innerbody_2010'>
-                <div className='body_innerbody_2011 body_innerbody_2020'>
+              <div className="body_innerbody_2010">
+                <div className="body_innerbody_2011 body_innerbody_2020">
                   Step 5
                 </div>
               </div>
-              <div className='body_innerbody_2016'></div>
+              <div className="body_innerbody_2016"></div>
             </div>
-            <div className='body_innerbody_208'>
-              <div className='body_innerbody_2012'>Modifier ou laisser le numéro d&apos;origine</div>
+            <div className="body_innerbody_208">
+              <div className="body_innerbody_2012">{t("change or leave")}</div>
             </div>
           </div>
         </div>

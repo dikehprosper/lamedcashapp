@@ -1,12 +1,13 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdMenuOpen } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Modal from "../(Utils)/VisitorNavModal";
 import image from "../../../public/Logo.webp";
+import useTranslation from "next-translate/useTranslation";
 
 const navLinks = [
   {
@@ -14,7 +15,7 @@ const navLinks = [
     pathname: "/",
   },
   {
-    title: " À propos de nous",
+    title: "À propos de nous",
     pathname: "/about",
   },
   {
@@ -22,19 +23,18 @@ const navLinks = [
     pathname: "/signin",
   },
   {
-    title: `S'inscrire`,
+    title: "S'inscrire",
     pathname: "/signup",
   },
 ];
 
 const Nav = () => {
+  const { t, lang } = useTranslation("header");
   const pathname = usePathname();
   const [state, setState] = useState(true);
 
   function changeState() {
-    setState((prev) => {
-      return !prev;
-    });
+    setState((prev) => !prev);
   }
 
   function handleClick() {
@@ -47,36 +47,35 @@ const Nav = () => {
         <div className="nav-img">
           <Image
             src={image}
-            loading='eager'
-             fill
-            style={{
-              objectFit: "cover"
-            }}
+            loading="eager"
+            fill
+            style={{ objectFit: "cover" }}
             alt="Picture of the author"
           />
         </div>
         <div className="nav-link">
           <Link className={` ${pathname === "/" ? "active" : ""}`} href="/">
-            Accueil
+            {t("Accueil")}
           </Link>
           <Link
             className={` ${pathname === "/about" ? "active" : ""}`}
             href="/about"
           >
-            À propos de nous
+            {t("À propos de nous")}
           </Link>
           <Link
             className={` ${pathname === "/signin" ? "active" : ""}`}
             href="/signin"
           >
-            Se connecter
+            {t("Se connecter")}
           </Link>
           <Link
             className={` ${pathname === "/signup" ? "active" : ""}`}
             href="/signup"
           >
-            S&apos;inscrire
+            {t("S'inscrire")}
           </Link>
+          {/* <LanguageSwitcher /> */}
         </div>
         <div className="nav-language"></div>
         <div onClick={changeState}>

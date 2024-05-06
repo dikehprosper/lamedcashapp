@@ -1,11 +1,14 @@
+"use client";
 import "./secondQuestion.css";
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import AnimateHeight from "react-animate-height";
+import useTranslation from "next-translate/useTranslation";
 
-const SecondQuestion = ({height, adjustHeight}:any) => {
+const SecondQuestion = ({ height, adjustHeight }: any) => {
+  const { t, lang } = useTranslation("home");
   return (
     <div
       className="body_innerbody_601"
@@ -14,9 +17,7 @@ const SecondQuestion = ({height, adjustHeight}:any) => {
       onClick={adjustHeight}
     >
       <div className="body_innerbody_604">
-        <p>
-          Puis-je désigner un compte spécifique pour mes retraits de fonds ?
-        </p>
+        <p>{t("designate specific account question")}</p>
         {height === 0 ? (
           <MdOutlineKeyboardArrowUp fontSize="32px" color="#bdff00" />
         ) : (
@@ -27,14 +28,10 @@ const SecondQuestion = ({height, adjustHeight}:any) => {
         id="example-panel"
         duration={400}
         height={height}
-      className="animate-height"
+        className="animate-height"
       >
         <div className="requirements-container">
-          <p>
-            Oui, vous pouvez désigner un montant spécifique pour votre retrait
-            de fonds, mais il devrait être le même pour votre demande de retrait
-            effectuée sur la plateforme 1xbet.
-          </p>
+          <p>{t("designate specific account answer")}</p>
         </div>
       </AnimateHeight>
     </div>

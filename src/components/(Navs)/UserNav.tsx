@@ -28,121 +28,125 @@ import BigScreenNavModal from "../(Utils)/BigScreenNavModal";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-const UsersNavLinks = [
-  {
-    title: "Tableau de bord",
-    pathname: "/dashboard",
-    icon: <BiSolidDashboard />,
-  },
-  {
-    title: "Dépôt",
-    pathname: "/deposit",
-    icon: <BiLogInCircle />,
-  },
-  {
-    title: "Retirer",
-    pathname: "/withdraw",
-    icon: <BiLogOutCircle />,
-  },
-  {
-    title: `Transactions`,
-    pathname: "/transactions",
-    icon: <LuHistory />,
-  },
-  {
-    title: `Profil`,
-    pathname: "/profile",
-    icon: <BsFillPersonFill />,
-  },
-  {
-    title: `Références`,
-    pathname: "/referrals",
-    icon: <IoMdPeople />,
-  },
-];
+import useTranslation from "next-translate/useTranslation";
 
-const SubAdminsNavLinksDeposits = [
-  {
-    title: "Tableau de bord",
-    pathname: "/subadmin/deposit/dashboard",
-    icon: <BiSolidDashboard />,
-  },
-  {
-    title: "Transactions",
-    pathname: "/subadmin/deposit/transactions",
-    icon: <LuHistory />,
-  }
-];
-
-const SubAdminsNavLinksWithdrawal = [
-  {
-    title: "Tableau de bord",
-    pathname: "/subadmin/withdrawal/dashboard",
-    icon: <BiSolidDashboard />,
-  },
-  {
-    title: "Transactions",
-    pathname: "/subadmin/withdrawal/transactions",
-    icon: <LuHistory />,
-  }
-];
-
-const AdminNavLinks = [
-  {
-    title: "Tableau de bord",
-    pathname: "/admin/dashboard",
-    icon: <BiSolidDashboard />,
-  },
-  {
-    title: "Toute l'histoire",
-    pathname: "/admin/allhistory",
-    icon: <SiSimpleanalytics />,
-  },
-  {
-    title: "Caisses",
-    pathname: "/admin/cashdesks",
-    icon: <TbDeviceDesktopAnalytics />,
-  },
-  {
-    title: `Utilisatrices`,
-    pathname: "/admin/users",
-    icon: <FaUsers />,
-  }
-  // {
-  //   title: `Messages`,
-  //   pathname: "/admin/messages",
-  //   icon: <BiSolidMessageSquareDetail />,
-  // },
-  // {
-  //   title: `Système`,
-  //   pathname: "/admin/system",
-  //   icon: <FaNetworkWired />,
-  // },
-  // {
-  //   title: `Références`,
-  //   pathname: "/admin/referrals",
-  //   icon: <IoMdPeople />,
-  // },
-];
 const UserNav = () => {
+  const { t, lang } = useTranslation("dashboard");
   const pathname = usePathname();
   const router = useRouter();
   const [state, setState] = useState(true);
 
+  const UsersNavLinks = [
+    {
+      title: t("navLinks.dashboard"),
+      pathname: "/dashboard",
+      icon: <BiSolidDashboard />,
+    },
+    {
+      title: t("navLinks.deposit"),
+      pathname: "/deposit",
+      icon: <BiLogInCircle />,
+    },
+    {
+      title: t("navLinks.withdraw"),
+      pathname: "/withdraw",
+      icon: <BiLogOutCircle />,
+    },
+    {
+      title: `Transactions`,
+      pathname: "/transactions",
+      icon: <LuHistory />,
+    },
+    {
+      title: t("navLinks.profile"),
+      pathname: "/profile",
+      icon: <BsFillPersonFill />,
+    },
+    {
+      title: t("navLinks.referrals"),
+      pathname: "/referrals",
+      icon: <IoMdPeople />,
+    },
+  ];
+
+  const SubAdminsNavLinksDeposits = [
+    {
+      title: t("navLinks.dashboard"),
+      pathname: "/subadmin/deposit/dashboard",
+      icon: <BiSolidDashboard />,
+    },
+    {
+      title: "Transactions",
+      pathname: "/subadmin/deposit/transactions",
+      icon: <LuHistory />,
+    },
+  ];
+
+  const SubAdminsNavLinksWithdrawal = [
+    {
+      title: t("navLinks.dashboard"),
+      pathname: "/subadmin/withdrawal/dashboard",
+      icon: <BiSolidDashboard />,
+    },
+    {
+      title: "Transactions",
+      pathname: "/subadmin/withdrawal/transactions",
+      icon: <LuHistory />,
+    },
+  ];
+
+  const AdminNavLinks = [
+    {
+      title: t("navLinks.dashboard"),
+      pathname: "/admin/dashboard",
+      icon: <BiSolidDashboard />,
+    },
+    {
+      title: t("adminDashboard.allHistory"),
+      pathname: "/admin/allhistory",
+      icon: <SiSimpleanalytics />,
+    },
+    {
+      title: t("adminNavLinks.cashdesks"),
+      pathname: "/admin/cashdesks",
+      icon: <TbDeviceDesktopAnalytics />,
+    },
+    {
+      title: t("adminNavLinks.users"),
+      pathname: "/admin/users",
+      icon: <FaUsers />,
+    },
+    // {
+    //   title: `Messages`,
+    //   pathname: "/admin/messages",
+    //   icon: <BiSolidMessageSquareDetail />,
+    // },
+    // {
+    //   title: `Système`,
+    //   pathname: "/admin/system",
+    //   icon: <FaNetworkWired />,
+    // },
+    // {
+    //   title: `Références`,
+    //   pathname: "/admin/referrals",
+    //   icon: <IoMdPeople />,
+    // },
+  ];
+
   const logout = async () => {
-  try {
-  await axios.get("/api/users/logout");
-  // localStorage.removeItem("activeTab");
-  toast.success("Logout successful");
-  // Only redirect if the axios request is successful
-  // localStorage.removeItem("activeTab");
-  // router.push("/signin");
-} catch (error: any) {
-  // console.log(error.message);
-  // toast.error(error.message);
-    toast.error("failed");
-}
-  }
+    try {
+      await axios.get("/api/users/logout");
+      // localStorage.removeItem("activeTab");
+      toast.success("Logout successful");
+      // Only redirect if the axios request is successful
+      // localStorage.removeItem("activeTab");
+      // router.push("/signin");
+    } catch (error: any) {
+      // console.log(error.message);
+      // toast.error(error.message);
+      toast.error("failed");
+    }
+  };
   function changeState() {
     setState((prev) => {
       return !prev;
@@ -167,71 +171,71 @@ const UserNav = () => {
 
   return (
     <>
-      <div className='user-nav for-larger-devices'>
+      <div className="user-nav for-larger-devices">
         <div style={{ width: "100%" }}>
-          <div className='user-nav-img-container'>
-            <div className='user-nav-img'>
+          <div className="user-nav-img-container">
+            <div className="user-nav-img">
               <Image
                 src={CompanyLogo}
-                loading='eager'
+                loading="eager"
                 fill
                 style={{
                   objectFit: "cover",
                 }}
-                alt='Picture of the author'
-                placeholder='blur'
+                alt="Picture of the author"
+                placeholder="blur"
               />
             </div>
           </div>
           <BigScreenNavModal
-            containerStyles='user-nav-link'
+            containerStyles="user-nav-link"
             navLinks={findPath()}
           />
         </div>
 
-        <div className='user-nav-link-bottom'>
+        <div className="user-nav-link-bottom">
           <Link
             // className={` ${pathname === "/logout" ? "active" : ""}`}
-            href='/'
+            href="/"
             onClick={logout}
           >
             <MdLogout />
-            &nbsp; &nbsp; Se déconnecter
+            &nbsp; &nbsp; {t("logout")}
           </Link>
-          <div className='user-nav-social-media'>
+          <div className="user-nav-social-media">
             <h4>Follow</h4>
-            <div className='user-nav-social-media-icons'>
-              <div className='user-nav-logo facebook'>
+            <div className="user-nav-social-media-icons">
+              <div className="user-nav-logo facebook">
                 <Image
                   src={FacebookLogo}
-                  loading='eager'
+                  loading="eager"
                   fill
                   style={{
                     objectFit: "cover",
                   }}
-                  alt='Picture of the author'
+                  alt="Picture of the author"
                 />
               </div>
-              <div className='user-nav-logo whatsapp'>
+              <div className="user-nav-logo whatsapp">
                 <Image
                   src={WhatsappLogo}
-                  loading='eager'
+                  loading="eager"
                   fill
                   style={{
                     objectFit: "cover",
                   }}
-                  alt='Picture of the author'
+                  alt="Picture of the author"
                 />
               </div>
-              <div className='user-nav-logo tiktok'>
+              <div className="user-nav-logo tiktok">
                 <Image
                   src={TiktokLogo}
-                  loading='eager'
+                  loading="eager"
                   fill
                   style={{
                     objectFit: "cover",
                   }}
-                  alt='Picture of the author'
+                  alt="Picture of the author"
                 />
               </div>
             </div>
@@ -240,57 +244,57 @@ const UserNav = () => {
       </div>
 
       <>
-        <div className='nav for-smaller-devices'>
-          <div className='nav-img'>
+        <div className="nav for-smaller-devices">
+          <div className="nav-img">
             <Image
               src={CompanyLogo}
-              loading='lazy'
+              loading="lazy"
               fill
               style={{
                 objectFit: "cover",
               }}
-              alt='Picture of the author'
+              alt="Picture of the author"
             />
           </div>
-          <div className='nav-link'>
-            <Link className={` ${pathname === "/" ? "active" : ""}`} href='/'>
+          <div className="nav-link">
+            <Link className={` ${pathname === "/" ? "active" : ""}`} href="/">
               Accueil
             </Link>
             <Link
               className={` ${pathname === "/about" ? "active" : ""}`}
-              href='/about'
+              href="/about"
             >
               À propos de nous
             </Link>
             <Link
               className={` ${pathname === "/signin" ? "active" : ""}`}
-              href='/signin'
+              href="/signin"
             >
               Se connecter
             </Link>
             <Link
               className={` ${pathname === "/signup" ? "active" : ""}`}
-              href='/signup'
+              href="/signup"
             >
               S&apos;inscrire
             </Link>
           </div>
-          <div className='nav-language'></div>
-          <div className='user-profile-icon-container'>
-            <Link href='/profile'>
+          <div className="nav-language"></div>
+          <div className="user-profile-icon-container">
+            <Link href="/profile">
               <div
                 className={`user-profile-icon ${
                   pathname === "/profile" ? "disappear" : ""
                 }`}
               >
-                D<span className='user-profile-online-icon-mobile'> </span>
+                D<span className="user-profile-online-icon-mobile"> </span>
               </div>
             </Link>
             <div onClick={changeState}>
               {state ? (
-                <MdMenuOpen className='MdMenuOpen' />
+                <MdMenuOpen className="MdMenuOpen" />
               ) : (
-                <AiOutlineClose className='MdMenuOpen' />
+                <AiOutlineClose className="MdMenuOpen" />
               )}
             </div>
           </div>
@@ -298,12 +302,12 @@ const UserNav = () => {
         {!state && (
           <Modal
             navLinks={findPath()}
-            containerStyles='nav-link2'
+            containerStyles="nav-link2"
             handleClick={handleClick}
             logout={logout}
-            containerStylesInner='users-nav-link2_inner'
-            containerStylesInnerLink='nav-link2_inner_link-mobile'
-            active='active-user-nav'
+            containerStylesInner="users-nav-link2_inner"
+            containerStylesInnerLink="nav-link2_inner_link-mobile"
+            active="active-user-nav"
           />
         )}
       </>

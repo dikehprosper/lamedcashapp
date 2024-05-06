@@ -5,9 +5,10 @@ import "./referral.css";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { CiCircleCheck } from "react-icons/ci";
-
+import useTranslation from "next-translate/useTranslation";
 
 const Referral = ({ data }: any) => {
+  const { t, lang } = useTranslation("dashboard");
   const [user, setUser] = useState("");
   const [id, setId] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);
@@ -137,14 +138,14 @@ const Referral = ({ data }: any) => {
     };
   }, []);
 
-useEffect(() => {
-console.log(data)
-}, [data])
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <>
       {data._id ? (
-        <div className='referral-body-espece'>
+        <div className="referral-body-espece">
           <div
             style={{
               display: "flex",
@@ -174,27 +175,27 @@ console.log(data)
                 height: "39px",
                 borderRadius: "4.5px 0px 0px 4.5px",
               }}
-              className='signup-input-espece form3-espece source'
-              id='address' // Added id to identify the input element
-              type='text'
+              className="signup-input-espece form3-espece source"
+              id="address" // Added id to identify the input element
+              type="text"
               value={referralLink || ""}
               readOnly // Add this attribute to make it non-editable
               placeholder={referralLink || ""}
             />
             <div
-              className='referral-link-input-espece'
+              className="referral-link-input-espece"
               onClick={copyContent} // Call the copyContent function on click
             >
               {copied === "true" && "Copy Referral Link"}
 
               {copied === "true2" && (
-                <CiCircleCheck className='CiCircleCheck' />
+                <CiCircleCheck className="CiCircleCheck" />
               )}
               {copied === "true3" && (
-                <div className='tag-container2-copy'>
+                <div className="tag-container2-copy">
                   {" "}
-                  <div id='container_customerid-copy'>
-                    <div id='container_customerid_inner-copy'></div>
+                  <div id="container_customerid-copy">
+                    <div id="container_customerid_inner-copy"></div>
                   </div>
                 </div>
               )}
@@ -202,9 +203,9 @@ console.log(data)
           </div>
         </div>
       ) : (
-        <div className='referral-body-espece-referral1'>
-          <div id='container-referral1'>
-            <div id='html-spinner-referral1'></div>
+        <div className="referral-body-espece-referral1">
+          <div id="container-referral1">
+            <div id="html-spinner-referral1"></div>
           </div>
         </div>
       )}
@@ -212,4 +213,4 @@ console.log(data)
   );
 };
 
-export default Referral
+export default Referral;

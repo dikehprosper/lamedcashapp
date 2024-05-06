@@ -10,10 +10,12 @@ import GetInitials from "../../../components/(Utils)/getInitials";
 import BasicModal from "./profileModal";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import useTranslation from "next-translate/useTranslation";
 interface YourComponentProps {
   savedID: number[];
 }
 const Profile = () => {
+  const { t, lang } = useTranslation("dashboard");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
@@ -246,9 +248,8 @@ const Profile = () => {
         toast.error("Votre compte a été désactivé");
         router.push("/signin");
       } else {
-    toast.error("algo salió mal");
+        toast.error("algo salió mal");
       }
-  
     }
   }
   async function deleteId(id: any) {
@@ -260,12 +261,12 @@ const Profile = () => {
       const res = await axios.post("/api/users/deleteBetId", updatedUser);
       getUserDetails();
     } catch (error: any) {
-       if (error.response.status === 404) {
-         toast.error("Votre compte a été désactivé");
-         router.push("/signin");
-       } else {
-         toast.error("algo salió mal");
-       }
+      if (error.response.status === 404) {
+        toast.error("Votre compte a été désactivé");
+        router.push("/signin");
+      } else {
+        toast.error("algo salió mal");
+      }
     }
   }
 
@@ -294,9 +295,9 @@ const Profile = () => {
           setLoading2(false);
           toast.error("l'ancien mot de passe n'est pas correct");
         } else if (error.response.status === 404) {
-         toast.error("Votre compte a été désactivé");
-         router.push("/signin");
-       } else {
+          toast.error("Votre compte a été désactivé");
+          router.push("/signin");
+        } else {
           setLoading2(false);
           toast.error("algo salió mal");
         }
@@ -305,61 +306,57 @@ const Profile = () => {
   }
 
   return (
-    <div className='user_profile_container'>
-      <Head
-        title='Profil'
-        about='Modifiez vos informations personnelles ici'
-        data={user}
-      />
+    <div className="user_profile_container">
+      <Head title={t("profile.title")} about={t("profile.about")} data={user} />
 
-      <div className='user_profile_container_001'>
+      <div className="user_profile_container_001">
         {fullname ? (
-          <form className='profile-form-container'>
-            <div className='add-photo'>
-              <div className='add-photo-container appear'>
+          <form className="profile-form-container">
+            <div className="add-photo">
+              <div className="add-photo-container appear">
                 <GetInitials name={fullname} />
               </div>
             </div>
             <div>
-              <label className='label'>Prénom</label>
+              <label className="label">{t("profile.first_name")}</label>
               <input
-                type='text'
-                className='profile-form input-first-child'
+                type="text"
+                className="profile-form input-first-child"
                 value={user.firstName}
                 onChange={handleChangeFirstName}
-                placeholder='Modifier votre prénom'
+                placeholder="Modifier votre prénom"
               />
             </div>
             <div>
-              <label className='label'>Nom de famille</label>{" "}
+              <label className="label">{t("profile.last_name")}</label>{" "}
               <input
-                type='text'
-                className='profile-form input-second-child'
+                type="text"
+                className="profile-form input-second-child"
                 value={user.lastName}
                 onChange={handleChangeLastName}
-                placeholder='Modifier le nom de famille'
+                placeholder="Modifier le nom de famille"
               />
             </div>
             <div>
-              <label className='label'>E-mail</label>
+              <label className="label">E-mail</label>
               <input
-                type='email'
-                className='profile-form'
+                type="email"
+                className="profile-form"
                 value={user.email}
                 onChange={handleChangeEmail}
                 placeholder="EntModifierrez l'e-mail"
               />
             </div>
             <div>
-              <label className='label'>Numéro de portable</label>
-              <div style={{ position: "relative" }} className='profile-form4'>
+              <label className="label">{t("profile.mobile_number")}</label>
+              <div style={{ position: "relative" }} className="profile-form4">
                 <input
                   style={{ paddingLeft: "70px" }}
-                  type='number'
-                  className='profile-form3'
+                  type="number"
+                  className="profile-form3"
                   value={user.mobileNumber}
                   onChange={handlechangeMobileNumber}
-                  placeholder='Modifier le numéro de téléphone'
+                  placeholder="Modifier le numéro de téléphone"
                 />
                 <div
                   style={{
@@ -382,7 +379,7 @@ const Profile = () => {
             </div>
             <button
               onClick={handleSubmit}
-              className='submit-button-profile'
+              className="submit-button-profile"
               style={{
                 background: buttonDisabled
                   ? "rgba(128, 128, 128, 0.2)"
@@ -393,17 +390,17 @@ const Profile = () => {
               }}
             >
               {loading3 ? (
-                <div id='container_customerid'>
-                  <div id='container_customerid_inner'></div>
+                <div id="container_customerid">
+                  <div id="container_customerid_inner"></div>
                 </div>
               ) : (
-                "mettre à jour les détails"
+                t("profile.update_details")
               )}
             </button>
 
-            <div className='betid-section' style={{ marginTop: "50px" }}>
-              <label className='label'>1XBET ID</label>
-              <div className='saved_id_container_outer'>
+            <div className="betid-section" style={{ marginTop: "50px" }}>
+              <label className="label">1XBET ID</label>
+              <div className="saved_id_container_outer">
                 <div
                   style={{
                     color: "rgba(256, 256, 256, 0.5)",
@@ -414,7 +411,7 @@ const Profile = () => {
                   Enregistrez 2 identifiants 1XBET différents dans votre profil
                   pour les afficher ici{" "}
                 </div>
-                <div className='saved_id_container'>
+                <div className="saved_id_container">
                   <BasicModal
                     savedID={savedID}
                     betId={user.betId}
@@ -424,14 +421,14 @@ const Profile = () => {
                 </div>
               </div>
               <input
-                type='text'
-                className='profile-form'
+                type="text"
+                className="profile-form"
                 value={user.betId}
                 onChange={handlechangeBetID}
                 placeholder="Entrez l'identifiant 1XBET"
               />
               <div
-                className='submit-button1-profile'
+                className="submit-button1-profile"
                 style={{
                   background: "rgba(128, 128, 128, 1)",
                   color: "black",
@@ -441,20 +438,20 @@ const Profile = () => {
                 onClick={addExtraId}
               >
                 {loading ? (
-                  <div id='container_customerid'>
-                    <div id='container_customerid_inner'></div>
+                  <div id="container_customerid">
+                    <div id="container_customerid_inner"></div>
                   </div>
                 ) : (
-                  "Sauvegarder BetID"
+                  t("profile.save_bet_id")
                 )}
               </div>
             </div>
 
             <div
-              className='password-section'
+              className="password-section"
               style={{ marginTop: "60px", width: "100%" }}
             >
-              <h3>Réinitialiser votre mot de passe ici</h3>
+              <h3>{t("profile.reset_password")}</h3>
               <div
                 style={{
                   color: "rgba(256, 256, 256, 0.5)",
@@ -472,49 +469,47 @@ const Profile = () => {
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     Note:
                   </span>{" "}
-                  &nbsp; Pour mettre à jour votre mot de passe... entrez
-                  l&apos;ancien mot de passe et le nouveau que vous souhaitez
-                  utiliser{" "}
+                  &nbsp; {t("profile.password_note")}
                 </span>
               </div>
               <div>
-                <label className='label'>
+                <label className="label">
                   {" "}
                   Entrez l&apos;ancien mot de passe
                 </label>
                 <input
-                  type='text'
-                  className='profile-form'
+                  type="text"
+                  className="profile-form"
                   value={user.oldPassword}
                   onChange={handleOldPassword}
                   placeholder="entrez l'ancien mot de passe"
                 />{" "}
               </div>
               <div style={{ marginTop: "20px" }}>
-                <label className='label'> L&apos;ancien mot de passe</label>
+                <label className="label"> L&apos;ancien mot de passe</label>
                 <input
-                  type='text'
-                  className='profile-form'
+                  type="text"
+                  className="profile-form"
                   value={user.password}
                   onChange={handlePassword}
                   placeholder="entrez l'ancien mot de passe"
                 />
               </div>
               <div style={{ marginTop: "20px" }}>
-                <label className='label'>Nouveau mot de passe</label>
+                <label className="label">{t("profile.new_password")}</label>
                 <input
-                  type='text'
-                  className='profile-form'
+                  type="text"
+                  className="profile-form"
                   value={user.confirmPassword}
                   onChange={handleConfirmPassword}
-                  placeholder='Entrez un nouveau mot de passe'
+                  placeholder="Entrez un nouveau mot de passe"
                 />
               </div>
             </div>
 
             <button
               onClick={changePassword}
-              className='submit-button-profile'
+              className="submit-button-profile"
               style={{
                 background: buttonDisabled1
                   ? "rgba(128, 128, 128, 0.2)"
@@ -527,11 +522,11 @@ const Profile = () => {
               }}
             >
               {loading2 ? (
-                <div id='container_customerid'>
-                  <div id='container_customerid_inner'></div>
+                <div id="container_customerid">
+                  <div id="container_customerid_inner"></div>
                 </div>
               ) : (
-                "Réinitialiser le mot de passe"
+                t("profile.reset_password")
               )}
             </button>
           </form>
@@ -546,10 +541,10 @@ const Profile = () => {
             }}
           >
             <div
-              id='container_customerid2'
+              id="container_customerid2"
               style={{ alignSelf: "center", justifySelf: "center" }}
             >
-              <div id='container_customerid_inner'></div>
+              <div id="container_customerid_inner"></div>
             </div>{" "}
           </div>
         )}

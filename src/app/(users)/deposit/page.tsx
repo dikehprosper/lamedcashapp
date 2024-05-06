@@ -13,8 +13,10 @@ import { useRouter } from "next/navigation";
 import { FedaPay } from "fedapay";
 import Modal from "@/components/(Utils)/(modals)/processingModal";
 import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
+import useTranslation from "next-translate/useTranslation";
 // import App from "../pay";
 const Deposit = () => {
+  const { t, lang } = useTranslation("dashboard");
   const [loading, setLoading] = useState(false);
   const [savedID, setSavedID] = useState([]);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -121,8 +123,6 @@ const Deposit = () => {
     };
   }, []);
 
-  
-
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
     const newValue = event.target.value;
@@ -148,7 +148,7 @@ const Deposit = () => {
   };
 
   const [processing, setProcessing] = useState(false);
-    const [processing2, setProcessing2] = useState(false);
+  const [processing2, setProcessing2] = useState(false);
 
   async function submitDetails() {
     if (isSubmitting) {
@@ -200,7 +200,9 @@ const Deposit = () => {
         } else if (error.response.status === 401) {
           toast.error("Impossible de lancer la transaction");
         } else if (error.response.status === 403) {
-         return toast.error("Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance");
+          return toast.error(
+            "Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance"
+          );
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
           router.push("/signin");
@@ -296,33 +298,31 @@ const Deposit = () => {
     }
   };
 
-
-
   return (
-    <div className='user_withdraw_container'>
+    <div className="user_withdraw_container">
       <Head
-        title='Dépôts'
-        about='Effectuez vos dépôts sur votre 1XBET ici'
+        title="Dépôts"
+        about="Effectuez vos dépôts sur votre 1XBET ici"
         data={user}
       />
       {processing && (
         <Modal
-          containerStyles='receiptModal'
-          containerStylesInner='receiptModal_inner-processing'
-          title='Montant du dépôt'
+          containerStyles="receiptModal"
+          containerStylesInner="receiptModal_inner-processing"
+          title="Montant du dépôt"
         />
       )}
       {processing2 && (
         <Modal2
-          containerStyles='receiptModal'
-          containerStylesInner='receiptModal_inner-processing'
-          title='Montant du dépôt'
+          containerStyles="receiptModal"
+          containerStylesInner="receiptModal_inner-processing"
+          title="Montant du dépôt"
         />
       )}
-      <div className='user_deposit_container_001'>
-        <form onSubmit={handleSubmit} className='deposit-form-container'>
+      <div className="user_deposit_container_001">
+        <form onSubmit={handleSubmit} className="deposit-form-container">
           <label>1XBET ID</label>
-          <div className='saved_id_container_outer'>
+          <div className="saved_id_container_outer">
             <div
               style={{
                 color: "rgba(256, 256, 256, 0.5)",
@@ -330,18 +330,17 @@ const Deposit = () => {
                 display: "flex",
               }}
             >
-              Enregistrez 2 identifiants 1XBET différents dans votre profil pour
-              les afficher ici{" "}
+              {t("deposit_page.about")}{" "}
             </div>
-            <div className='saved_id_container'>
+            <div className="saved_id_container">
               {!savedID.length > 0 ? (
-                <div id='container-deposit'>
-                  <div id='html-spinner-deposit'></div>
+                <div id="container-deposit">
+                  <div id="html-spinner-deposit"></div>
                 </div>
               ) : (
                 savedID?.map((id, index) => (
                   <div
-                    className='saved_id_container-inner'
+                    className="saved_id_container-inner"
                     key={index}
                     onClick={() => changeBetId(id)}
                     style={{
@@ -358,9 +357,9 @@ const Deposit = () => {
                   >
                     {id}{" "}
                     {activeBetId === id ? (
-                      <FaCircle color='white' />
+                      <FaCircle color="white" />
                     ) : (
-                      <FaCircle color='rgba(256, 256, 256, 0.2' />
+                      <FaCircle color="rgba(256, 256, 256, 0.2" />
                     )}
                     <span
                       style={{
@@ -375,8 +374,8 @@ const Deposit = () => {
             </div>
           </div>
           <input
-            type='text'
-            className='deposit-form'
+            type="text"
+            className="deposit-form"
             value={user.betId}
             onChange={handleChangeId}
             placeholder="Entrez l'identifiant 1XBET"
@@ -398,43 +397,42 @@ const Deposit = () => {
               <span style={{ color: "red", fontWeight: "bold" }}>
                 Note:
               </span>{" "}
-              &nbsp; Le montant de la transaction ne doit pas être inférieur à
-              500
+              {t("deposit_page.note_message")}
             </span>
           </div>
           <label>Montant</label>
           <input
-            type='number'
-            className='deposit-form'
+            type="number"
+            className="deposit-form"
             value={user.amount}
             onChange={handleChangeAmount}
-            placeholder='Entrez le montant du dépôt'
+            placeholder="Entrez le montant du dépôt"
           />
 
-          <label htmlFor='network'>Réseau</label>
+          <label htmlFor="network">{t("deposit_page.network")}</label>
           <select
-            id='network'
-            className='deposit-form' // Apply the same class as the input for styling
+            id="network"
+            className="deposit-form" // Apply the same class as the input for styling
             value={user.network}
             onChange={handleChangeNetwork}
           >
-            <option value='' disabled hidden>
+            <option value="" disabled hidden>
               -- Choose Network --
             </option>{" "}
-            <option value='mtn'> Mtn Benin</option>
-            <option value='moov'>Moov Benin</option>
+            <option value="mtn"> Mtn Benin</option>
+            <option value="moov">Moov Benin</option>
           </select>
 
-          <label>Numéro momo</label>
+          <label>{t("deposit_page.momo_number")}</label>
           <input
-            type='number'
-            className='deposit-form'
+            type="number"
+            className="deposit-form"
             value={user.momoNumber}
             onChange={handleChangeMomoNumber}
-            placeholder='Entrez le numéro Momo'
+            placeholder="Entrez le numéro Momo"
           />
           <div
-            className='submit-button-deposit'
+            className="submit-button-deposit"
             style={{
               background: buttonDisabled
                 ? "rgba(128, 128, 128, 0.5)"
@@ -445,8 +443,8 @@ const Deposit = () => {
             onClick={submitDetails}
           >
             {loading ? (
-              <div id='container-deposit'>
-                <div id='html-spinner-deposit'></div>
+              <div id="container-deposit">
+                <div id="html-spinner-deposit"></div>
               </div>
             ) : (
               "Procéder"

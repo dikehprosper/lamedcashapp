@@ -1,0 +1,29 @@
+{
+  "signup": {
+    "join_us": "Join Us",
+    "enter_fullname": "Enter your full name",
+    "bet_id": "1XBET Identification Number",
+    "whatsapp_number": "Whatsapp/mobile number",
+    "enter_email": "Enter your email address",
+    "enter_password": "Enter password",
+    "confirm_password": "Confirm password",
+    "accept_conditions": "I accept the conditions (NOT SUITABLE FOR UNDER 18)",
+    "already_have_account": "Already have an account?",
+    "sign_in": "Sign in!",
+    "register": "Register",
+    "continue_with": "Or continue with",
+    "contact_us": "Contact Us"
+  },
+  "errors": {
+    "name_required": "Please enter your name",
+    "bet_id_length": "1XBET Identification Number must be at least 4 characters",
+    "invalid_phone_number": "Number must be 8 digits",
+    "invalid_email": "Please enter a valid email address",
+    "password_length": "Password must be more than four (4) characters",
+    "password_mismatch": "Password and Confirm Password do not match",
+    "accept_conditions": "Click the check button to continue"
+  },
+  "tooltips": {
+    "click_to_continue": "Click to continue"
+  }
+}

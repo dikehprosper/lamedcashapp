@@ -17,9 +17,11 @@ import Referral from "@/components/(referral)/referral";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import { CgTrashEmpty } from "react-icons/cg";
 import { TiCancel } from "react-icons/ti";
+import useTranslation from "next-translate/useTranslation";
 
 const Referrals = () => {
   const pathname = usePathname();
+  const { t, lang } = useTranslation("dashboard");
   const router = useRouter();
   const [data, setData] = useState<any>([]);
   const [isOnline, setIsOnline] = useState(true);
@@ -147,22 +149,20 @@ const Referrals = () => {
 
   const [active, setActive] = useState("user-referral-container2-inner5");
 
-
-
   return (
-    <div className='user-referral-container'>
+    <div className="user-referral-container">
       <Head
-        title='Références'
-        about='Voir les parrainages gagnés ici'
+        title={t("referral_page.title")}
+        about={t("referral_page.about")}
         data={data}
       />
 
       <Referral data={data} />
 
-      <div className='user-referral-container2'>
-        <div className='user-referral-container2-inner1'>
+      <div className="user-referral-container2">
+        <div className="user-referral-container2-inner1">
           <div
-            className='user-referral-container2-inner2'
+            className="user-referral-container2-inner2"
             onClick={() => setActive("user-referral-container2-inner3")}
             style={{
               color:
@@ -177,10 +177,12 @@ const Referrals = () => {
                   : active
               }
             ></div>
-            <span style={{ zIndex: "10" }}>Comment ça fonctionne</span>
+            <span style={{ zIndex: "10" }}>
+              {t("referral_page.how_it_works")}
+            </span>
           </div>
           <div
-            className='user-referral-container2-inner2'
+            className="user-referral-container2-inner2"
             onClick={() => setActive("user-referral-container2-inner4")}
             style={{
               color:
@@ -195,21 +197,21 @@ const Referrals = () => {
                   : active
               }
             ></div>
-            <span style={{ zIndex: "10" }}>références</span>
+            <span style={{ zIndex: "10" }}>{t("referral_page.title")}</span>
           </div>
         </div>
 
         {active === "user-referral-container2-inner3" ||
         active === "user-referral-container2-inner5" ? (
-          <div className='user-referral-container2-inner1-inner2'>
+          <div className="user-referral-container2-inner1-inner2">
             <p
               style={{
                 textTransform: "capitalize",
                 color: "rgba(256, 256, 256, 0.7)",
               }}
             >
-              <span style={{ color: "red" }}>*</span> copiez votre lien de
-              parrainage et partagez-le avec vos amis
+              <span style={{ color: "red" }}>*</span>{" "}
+              {t("referral_page.copyReferralLink")}
             </p>
             <p
               style={{
@@ -218,8 +220,8 @@ const Referrals = () => {
               }}
             >
               {" "}
-              <span style={{ color: "red" }}>*</span> soyez payé jusqu&apos;à
-              10 % sur les transactions de vos filleuls à vie
+              <span style={{ color: "red" }}>*</span>{" "}
+              {t("referral_page.10_percent")}
             </p>
             <p
               style={{
@@ -230,19 +232,18 @@ const Referrals = () => {
               <span style={{ color: "red", textTransform: "capitalize" }}>
                 *
               </span>{" "}
-              une fois que vos gains dépassent 20000 XOF, ils sont versés sur
-              votre compte de pari
+              {t("referral_page.exceed")}
             </p>
           </div>
         ) : null}
 
         {active === "user-referral-container2-inner4" ||
         active === "user-referral-container2-inner6" ? (
-          <div className='user-referral-container2-inner1-inner'>
-            <div className='user-referral-display'>
+          <div className="user-referral-container2-inner1-inner">
+            <div className="user-referral-display">
               <Display
                 count={totalCount}
-                title='Dépôt'
+                title={t("deposit")}
                 term={1}
                 data={data?.transactionHistory}
                 allData={data}
@@ -254,7 +255,7 @@ const Referrals = () => {
               />
               <Display
                 term={2}
-                title='Retirer'
+                title={t("withdraw")}
                 amount={total}
                 data={data?.transactionHistory}
                 allData={data}
@@ -269,10 +270,10 @@ const Referrals = () => {
               <span style={{ color: "red", fontWeight: "bold" }}>
                 Note: &nbsp; &nbsp;
               </span>
-              Vous ne pouvez obtenir du GRAW qu’à partir de 20 000 XOF et plus.
+              {t("referral_page.earningsNote")}{" "}
             </div>
             <div
-              className='withdraw-button-retirer'
+              className="withdraw-button-retirer"
               style={{
                 background:
                   total >= 20000
@@ -282,7 +283,7 @@ const Referrals = () => {
                 pointerEvent: total >= 20000 ? "auto" : "none",
               }}
             >
-              Retirer
+              {t("referral_page.withdraw")}
               <div
                 style={{
                   position: "absolute",
@@ -294,15 +295,11 @@ const Referrals = () => {
                   alignItems: "center",
                 }}
               >
-                {total < 20000 ? (
-                  <TiCancel  fontSize='45px' />
-                ) : null}
+                {total < 20000 ? <TiCancel fontSize="45px" /> : null}
               </div>
             </div>
-            <div className='body-referral-count'>
-              <div className='body-referral-count2' >
-            
-
+            <div className="body-referral-count">
+              <div className="body-referral-count2">
                 {referrals.length > 0 ? (
                   referrals.map((referral): any => {
                     const number = referral.SuccesfulDepositCountusers;
@@ -316,28 +313,32 @@ const Referrals = () => {
                     return (
                       // eslint-disable-next-line react/jsx-key
                       <>
-                          <div className='body-referral-count3'>
-                  <div className='body-referral-count4'>Nom</div>
-                  <div className='body-referral-count4'>E-mail</div>
-                  <div className='body-referral-count4'>Montant réalisé</div>
-                </div>
-                      <div className='body-referral-count5'>
-                        <div className='body-referral-count6'>
-                          {referral.name}
+                        <div className="body-referral-count3">
+                          <div className="body-referral-count4">
+                            {t("referral_page.name")}
+                          </div>
+                          <div className="body-referral-count4">E-mail</div>
+                          <div className="body-referral-count4">
+                            {t("transaction_page.amount")}
+                          </div>
                         </div>
-                        <div className='body-referral-count6'>
-                          {referral.email}
+                        <div className="body-referral-count5">
+                          <div className="body-referral-count6">
+                            {referral.name}
+                          </div>
+                          <div className="body-referral-count6">
+                            {referral.email}
+                          </div>
+                          <div className="body-referral-count6">
+                            XOF &nbsp; {formatNumberWithCommasAndDecimal(total)}
+                          </div>
                         </div>
-                        <div className='body-referral-count6'>
-                          XOF &nbsp; {formatNumberWithCommasAndDecimal(total)}
-                        </div>
-                      </div>
                       </>
                     );
                   })
                 ) : (
                   <div
-                    className='no-result animate-pop-in'
+                    className="no-result animate-pop-in"
                     style={{
                       display: "flex",
                       width: "100%",
@@ -348,12 +349,12 @@ const Referrals = () => {
                       gap: "30px",
                       flexDirection: "column",
                       textAlign: "center",
-                    alignSelf: "center",
-                    marginTop: "50px"
+                      alignSelf: "center",
+                      marginTop: "50px",
                     }}
                   >
-                    <CgTrashEmpty fontSize='60px' />
-                    <h5>Vous N'avez Pas Encore De Référence</h5>
+                    <CgTrashEmpty fontSize="60px" />
+                    <h5>{t("referral_page.noReferrals")}</h5>
                   </div>
                 )}
               </div>

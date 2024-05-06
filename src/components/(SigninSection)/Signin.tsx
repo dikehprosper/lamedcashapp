@@ -11,6 +11,7 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./signin.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+import useTranslation from "next-translate/useTranslation";
 
 const SignIn = () => {
   const [user, setUser] = useState({
@@ -21,6 +22,7 @@ const SignIn = () => {
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const { t, lang } = useTranslation("sign-in");
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -93,54 +95,54 @@ const SignIn = () => {
   }, [user]);
 
   return (
-    <div className='signin-container'>
-      <div className='signin-header'>
-        <h2>Bienvenue</h2>
+    <div className="signin-container">
+      <div className="signin-header">
+        <h2>{t("welcome")}</h2>
       </div>
       {/* first section */}
-      <div className='signin-container_inner'>
-        <div className='signin-container_inner_background_image'>
+      <div className="signin-container_inner">
+        <div className="signin-container_inner_background_image">
           <Image
             src={image}
             fill
             style={{
               objectFit: "cover",
             }}
-            alt='Picture of the background'
-            placeholder='blur'
-            loading='eager'
+            alt="Picture of the background"
+            placeholder="blur"
+            loading="eager"
           />
         </div>
-        <form onSubmit={handleSubmit} className='signin-form-container'>
+        <form onSubmit={handleSubmit} className="signin-form-container">
           <input
-            type='email'
-            className='signin-form'
+            type="email"
+            className="signin-form"
             value={user.email}
             onChange={handleUserEmail}
-            placeholder='Entrez votre e-mail'
+            placeholder={t("email_placeholder")}
           />
-          <div className='signin-form-password'>
+          <div className="signin-form-password">
             <input
               type={isVisible ? "text" : "password"}
-              className='signin-form'
+              className="signin-form"
               value={user.password}
               onChange={handleUserPassword}
-              placeholder='Entrer le mot de passe'
+              placeholder={t("password_placeholder")}
             />
             <div
               onClick={toggleVisibility}
-              className='signin-form-password-visibility'
+              className="signin-form-password-visibility"
             >
               {isVisible ? <BsEye /> : <BsEyeSlash />}
             </div>
           </div>
-          <div className='forgot-password'>
+          <div className="forgot-password">
             {" "}
-            <a href='/forgotpassword'>Mot de passe oublié?</a>
+            <a href="/forgotpassword">{t("forgot_password")}</a>
           </div>
           <button
-            type='submit'
-            className='submit-button-signin-special'
+            type="submit"
+            className="submit-button-signin-special"
             style={{
               color: "black !important;",
               fontWeight: "600 !important",
@@ -151,62 +153,62 @@ const SignIn = () => {
             }}
           >
             {loading ? (
-              <div id='container-signin-signin-special'>
-                <div id='html-spinner-signin-signin-special'></div>
+              <div id="container-signin-signin-special">
+                <div id="html-spinner-signin-signin-special"></div>
               </div>
             ) : (
               "Se connecter"
             )}
           </button>
         </form>
-        <div className='welcome-section'>
-          <div className='welcome-section-first'>
-            <h2 className='welcome-section-first_h2'>Bienvenue</h2>
+        <div className="welcome-section">
+          <div className="welcome-section-first">
+            <h2 className="welcome-section-first_h2">{t("welcome")}</h2>
           </div>
-          <div className='welcome-section-second'>
-            <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
-            <div className='signin-img google'>
+          <div className="welcome-section-second">
+            <h5 className="welcome-section-second_h5">{t("continue_with")}</h5>
+            <div className="signin-img google">
               <Image
                 src={image4}
                 fill
                 style={{
                   objectFit: "cover",
                 }}
-                alt='Picture of the author'
-                loading='eager'
+                alt="Picture of the author"
+                loading="eager"
               />
             </div>
-            <p className='welcome-section-second_p'>
-              Vous n&apos;avez pas de compte?,{" "}
+            <p className="welcome-section-second_p">
+              {t("create_account")},{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href='/signup'>Créez un compte !</a>
+                <a href="/signup">{t("create_account_link")}</a>
               </span>
             </p>
           </div>
         </div>
       </div>
       {/* last section */}
-      <div className='signin-container_inner23'>
-        <div className='welcome-section-mobile'>
-          <div className='welcome-section-second-mobile'>
-            <h5 className='welcome-section-second_h5-mobile'>
-              Ou continuez avec
+      <div className="signin-container_inner23">
+        <div className="welcome-section-mobile">
+          <div className="welcome-section-second-mobile">
+            <h5 className="welcome-section-second_h5-mobile">
+              {t("continue_with")}
             </h5>
-            <div className='signin-img google'>
+            <div className="signin-img google">
               <Image
                 src={image4}
-                loading='eager'
+                loading="eager"
                 fill
                 style={{
                   objectFit: "cover",
                 }}
-                alt='Picture of the author'
+                alt="Picture of the author"
               />
             </div>
-            <p className='welcome-section-second_p-mobile'>
-              Vous n&apos;avez pas de compte?,{" "}
+            <p className="welcome-section-second_p-mobile">
+              {t("create_account")},{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href='/signup'>Créez un compte !</a>
+                <a href="/signup">{t("create_account_link")}</a>
               </span>
             </p>
           </div>
@@ -222,40 +224,40 @@ const SignIn = () => {
             justifyContent: "center",
           }}
         >
-          Contactez-nous
+          {t("contact_us")}
         </div>
-        <div className='signin-social-media-icons'>
-          <div className='signin-img facebook'>
+        <div className="signin-social-media-icons">
+          <div className="signin-img facebook">
             <Image
               src={image1}
-              loading='eager'
+              loading="eager"
               fill
               style={{
                 objectFit: "cover",
               }}
-              alt='Picture of the author'
+              alt="Picture of the author"
             />
           </div>
-          <div className='signin-img whatsapp'>
+          <div className="signin-img whatsapp">
             <Image
               src={image2}
-              loading='eager'
+              loading="eager"
               fill
               style={{
                 objectFit: "cover",
               }}
-              alt='Picture of the author'
+              alt="Picture of the author"
             />
           </div>
-          <div className='signin-img tiktok'>
+          <div className="signin-img tiktok">
             <Image
               src={image3}
-              loading='eager'
+              loading="eager"
               fill
               style={{
                 objectFit: "cover",
               }}
-              alt='Picture of the author'
+              alt="Picture of the author"
             />
           </div>
         </div>

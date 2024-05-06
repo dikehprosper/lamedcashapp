@@ -11,35 +11,30 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
-import io from "socket.io-client"
-
-
-
+import io from "socket.io-client";
+import useTranslation from "next-translate/useTranslation";
 
 const Dashboard = () => {
   const router = useRouter();
   const [data, setData] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);
+  const { t, lang } = useTranslation("dashboard");
 
   const getUserDetails = async () => {
     try {
-       const res = await axios.get("/api/getUser");
-       setData(res.data.data);
+      const res = await axios.get("/api/getUser");
+      setData(res.data.data);
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
         if (error.response.status === 401) {
-          toast.error(
-            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
-          );
+          toast.error(t("token_expired") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
-        } else  if (error.response.status === 402) {
-          toast.error(
-            "Votre session a expiré. Redirection vers la connexion..."
-          );
+        } else if (error.response.status === 402) {
+          toast.error(t("session_expired") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
-          toast.error("Votre compte a été désactivé");
+          toast.error(t("account_disabled") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
         } else {
           // Handle other errors
@@ -54,40 +49,35 @@ const Dashboard = () => {
     }
   };
 
+  useEffect(() => {
+    // Check network status before making the request
+    if (isOnline) {
+      getUserDetails();
+    } else {
+      toast.error(
+        "No network connection. Please check your connection and try again."
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOnline]);
 
+  useEffect(() => {
+    // Check initial network status
+    setIsOnline(window.navigator.onLine);
 
- useEffect(() => {
-   // Check network status before making the request
-   if (isOnline) {
-     getUserDetails();
-   } else {
-     toast.error(
-       "No network connection. Please check your connection and try again."
-     );
-   }
- // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [isOnline]);
+    // Add event listeners for online/offline changes
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
 
- useEffect(() => {
-   // Check initial network status
-   setIsOnline(window.navigator.onLine);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
-   // Add event listeners for online/offline changes
-   const handleOnline = () => setIsOnline(true);
-   const handleOffline = () => setIsOnline(false);
-
-   window.addEventListener("online", handleOnline);
-   window.addEventListener("offline", handleOffline);
-
-   // Clean up event listeners on component unmount
-   return () => {
-     window.removeEventListener("online", handleOnline);
-     window.removeEventListener("offline", handleOffline);
-   };
- }, []);
-
-
-
+    // Clean up event listeners on component unmount
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   // Filter deposit transactions
   const allDeposits = data?.transactionHistory?.filter(
@@ -117,7 +107,6 @@ const Dashboard = () => {
       transaction.fundingType === "deposits" && transaction.status === "Pending"
   );
 
-
   // Filter withdrawal transactions with status "pending"
   const pendingWithdrawals = data?.transactionHistory?.filter(
     (transaction: any) =>
@@ -141,16 +130,15 @@ const Dashboard = () => {
     },
     0
   );
-  
 
-    const [receipt, setReceipt] = useState({});
+  const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
-   const handleClick = () => {
+  const handleClick = () => {
     setIsVisible(false);
   };
 
-     function showReceipt(
+  function showReceipt(
     time: any,
     amount: any,
     identifierId: any,
@@ -168,101 +156,96 @@ const Dashboard = () => {
       identifierId,
       betId,
       status,
-       type,
+      type,
       momoName,
       momoNumber,
-      withdrawalCode
+      withdrawalCode,
     });
-  };
-const [button, setButton] = useState(false);
+  }
+  const [button, setButton] = useState(false);
 
-// const socket = io();
-// useEffect(() => {
-//   socket.on("connect", () => {
-//     console.log(socket.id);
-//   });
+  // const socket = io();
+  // useEffect(() => {
+  //   socket.on("connect", () => {
+  //     console.log(socket.id);
+  //   });
 
-//   socket.on("responseEvent", (data) => {
-//     setButton(true);
-//   });
+  //   socket.on("responseEvent", (data) => {
+  //     setButton(true);
+  //   });
 
-//   return () => {
-//     socket.disconnect();
-//   };
-//   // eslint-disable-next-line react-hooks/exhaustive-deps
-// }, []);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-// const sendEvent = () => {
-//   socket.emit("myevent", "a", "b", (response) => {
-//     setButton(true)
-//   } );
-// };
+  // const sendEvent = () => {
+  //   socket.emit("myevent", "a", "b", (response) => {
+  //     setButton(true)
+  //   } );
+  // };
 
-
-return (
-  <div className='user_dashboard_container'>
-    {isVisible && (
-      <Modal
-        containerStyles='receiptModal'
-        containerStylesInner='receiptModal_inner'
-        handleClick={handleClick}
-        receipt={receipt}
-        title='Montant du dépôt'
-      />
-    )}
-    {/* <div onClick={sendEvent}>click</div>
+  return (
+    <div className="user_dashboard_container">
+      {isVisible && (
+        <Modal
+          containerStyles="receiptModal"
+          containerStylesInner="receiptModal_inner"
+          handleClick={handleClick}
+          receipt={receipt}
+          title={t("deposit_amount")}
+        />
+      )}
+      {/* <div onClick={sendEvent}>click</div>
     {button && (
       <div style={{ width: "40px", height: "40px" }}>clickiiiiiii</div>
     )} */}
-    <Head
-      title='Bienvenue'
-      about="Faites l'expérience de dépôts et de retraits rapides"
-      data={data}
-    />
+      <Head title={t("welcome_title")} about={t("welcome_about")} data={data} />
 
-    <div className='user-dashboard-display'>
-      <Display
-        count={pendingDeposits?.length}
-        title='Dépôt'
-        term={1}
-        amount={totalPendingDepositAmount}
+      <div className="user-dashboard-display">
+        <Display
+          count={pendingDeposits?.length}
+          title={t("deposit")}
+          term={1}
+          amount={totalPendingDepositAmount}
+          data={data?.transactionHistory}
+          allData={data}
+          style={{
+            color: "#658900",
+            background: "rgba(101, 137, 0, 0.4)",
+            icon: <TbPigMoney />,
+          }}
+        />
+        <Display
+          count={pendingWithdrawals?.length}
+          term={2}
+          title={t("withdraw")}
+          amount={totalPendingWithdrawalAmount}
+          data={data?.transactionHistory}
+          allData={data}
+          style={{
+            color: "#0076B8",
+            background: "rgba(0, 118, 184, .4)",
+            icon: <RiMoneyDollarCircleLine />,
+          }}
+        />
+      </div>
+      <TransactionTemplate
+        title={{ name: t("transaction_history"), icon: <LuHistory /> }}
+        select={{
+          firstSelect: { big: t("see_all"), small: "Tout" },
+          secondSelect: { big: t("see_deposits"), small: t("deposit") },
+          thirdSelect: { big: t("see_withdrawals"), small: t("withdraw") },
+        }}
+        totalWithdrawals={totalWithdrawals}
+        totalDeposits={totalDeposits}
         data={data?.transactionHistory}
         allData={data}
-        style={{
-          color: "#658900",
-          background: "rgba(101, 137, 0, 0.4)",
-          icon: <TbPigMoney />,
-        }}
-      />
-      <Display
-        count={pendingWithdrawals?.length}
-        term={2}
-        title='Retirer'
-        amount={totalPendingWithdrawalAmount}
-        data={data?.transactionHistory}
-        allData={data}
-        style={{
-          color: "#0076B8",
-          background: "rgba(0, 118, 184, .4)",
-          icon: <RiMoneyDollarCircleLine />,
-        }}
+        showReceipt={showReceipt}
       />
     </div>
-    <TransactionTemplate
-      title={{ name: "Historique des Transactions", icon: <LuHistory /> }}
-      select={{
-        firstSelect: { big: "Voir tout", small: "Tout" },
-        secondSelect: { big: "Voir les Dépôts", small: "Dépôts" },
-        thirdSelect: { big: "Afficher les Retraits", small: "Retraits" },
-      }}
-      totalWithdrawals={totalWithdrawals}
-      totalDeposits={totalDeposits}
-      data={data?.transactionHistory}
-      allData={data}
-      showReceipt={showReceipt}
-    />
-  </div>
-);
+  );
 };
 
 export default Dashboard;
