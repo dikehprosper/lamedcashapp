@@ -2,6 +2,7 @@
 // @ts-nocheck
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
+import {User2} from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -261,7 +262,7 @@ export async function POST(request: NextRequest) {
       const hashedPassword = await bcryptjs.hash(password, salt);
 
       //create a new user
-      const newUser = new User({
+      const newUser = new User2({
         fullname,
         betId,
         number,

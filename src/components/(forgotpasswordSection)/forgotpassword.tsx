@@ -49,7 +49,7 @@ const ForgotPassword = () => {
     } catch (error: any) {
       if (error.response && error.response.status === 400) {
         // Corrected the way to check the status code
-        toast.error("User already exists"); // Corrected the error message
+        toast.error("User does not exists"); // Corrected the error message
       } else {
         toast.error("Error occurred"); // Moved this toast outside of the specific status code check
       }

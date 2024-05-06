@@ -2,6 +2,18 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
+// Import WebSocket or event emitter module
+import { EventEmitter } from 'events';
+
+// Create an event emitter instance
+const emitter = new EventEmitter();
+
+// Function to emit real-time updates
+const emitRealTimeUpdate = (userId: any, updatedUserData: any) => {
+  console.log(updatedUserData);
+  emitter.emit('userUpdated', { userId, updatedUserData });
+};
+
 
 export async function GET(request: NextRequest) {
   try {
@@ -39,6 +51,7 @@ export async function GET(request: NextRequest) {
 
     // Check if the stored sessionId matches the sessionId from the token
     if (user && user.sessionId === sessionId) {
+       emitRealTimeUpdate(userId, user.betId);
       return NextResponse.json({
         message: "User found",
         data: {

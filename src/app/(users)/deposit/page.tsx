@@ -14,6 +14,15 @@ import { FedaPay } from "fedapay";
 import Modal from "@/components/(Utils)/(modals)/processingModal";
 import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
 // import App from "../pay";
+import io from "socket.io-client";
+
+
+
+// Function to handle real-time updates
+const handleRealTimeUpdate = (updatedUserData) => {
+  console.log(updatedUserData);
+};
+
 const Deposit = () => {
   const [loading, setLoading] = useState(false);
   const [savedID, setSavedID] = useState([]);
@@ -37,6 +46,26 @@ const Deposit = () => {
   function generateTimestamp() {
     return Date.now();
   }
+
+
+ const socket = io("http://localhost:5000");
+
+  useEffect(() => {
+    // Listen for real-time updates from the backend
+    socket.on("connect", () => {
+console.log(socket.id)
+    } );
+
+    // Clean up on unmount
+    return () => {
+      socket.off("userUpdated", handleRealTimeUpdate);
+    };
+  }, []);
+
+
+
+
+
 
   // Example usage:
   const newTimestamp = generateTimestamp();
@@ -121,23 +150,21 @@ const Deposit = () => {
     };
   }, []);
 
-  
-
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
     const newValue = event.target.value;
-    setUser((prevUser) => ({ ...prevUser, betId: newValue }));
+    setUser((prevUser) => ({...prevUser, betId: newValue}));
   };
 
   const changeBetId = (id: any) => {
     setActiveBetId(id);
     const newValue = id;
-    setUser((prevUser) => ({ ...prevUser, betId: newValue }));
+    setUser((prevUser) => ({...prevUser, betId: newValue}));
   };
 
   const changeTransactionId = (event: any) => {
     const newValue = event.target.value;
-    setUser((prevUser) => ({ ...prevUser, transactionId: newValue }));
+    setUser((prevUser) => ({...prevUser, transactionId: newValue}));
   };
 
   const handleChangeNetwork = (event: any) => {
@@ -148,7 +175,7 @@ const Deposit = () => {
   };
 
   const [processing, setProcessing] = useState(false);
-    const [processing2, setProcessing2] = useState(false);
+  const [processing2, setProcessing2] = useState(false);
 
   async function submitDetails() {
     if (isSubmitting) {
@@ -200,7 +227,9 @@ const Deposit = () => {
         } else if (error.response.status === 401) {
           toast.error("Impossible de lancer la transaction");
         } else if (error.response.status === 403) {
-         return toast.error("Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance");
+          return toast.error(
+            "Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance"
+          );
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
           router.push("/signin");
@@ -295,8 +324,6 @@ const Deposit = () => {
       }
     }
   };
-
-
 
   return (
     <div className='user_withdraw_container'>
@@ -395,9 +422,7 @@ const Deposit = () => {
               }}
             >
               {" "}
-              <span style={{ color: "red", fontWeight: "bold" }}>
-                Note:
-              </span>{" "}
+              <span style={{color: "red", fontWeight: "bold"}}>Note:</span>{" "}
               &nbsp; Le montant de la transaction ne doit pas être inférieur à
               500
             </span>

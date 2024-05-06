@@ -156,8 +156,8 @@ export async function GET(request: NextRequest) {
             });
           }
           const subAdmins = await User.find({
-            _id: { $ne: userId }, // Exclude the current user by ID
-            isSubAdminDeposits: true,
+            _id: {$ne: userId}, // Exclude the current user by ID
+            isSubAdminWithdrawals: true,
           }).select("-password");
 
           const subAdminsWithFunds = subAdmins.filter(
