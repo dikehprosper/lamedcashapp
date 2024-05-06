@@ -11,7 +11,7 @@ import image4 from "../../../public/Google.svg";
 import { ImCheckmark } from "react-icons/im";
 import "./signup.css";
 import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
+import { auth, googleProvider } from "@/app/[lng]/firebase/firebaseConfig";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import useTranslation from "next-translate/useTranslation";

@@ -3,11 +3,11 @@ import SecondSection from "@/components/(LandingPage)/(SecondSection)/SecondSect
 import ThirdSection from "@/components/(LandingPage)/(ThirdSection)/(ThirdSection)/ThirdSection";
 import FourthSection from "@/components/(LandingPage)/(FourthSection)/(FourthSection)/FourthSection";
 import Footer from "@/components/(LandingPage)/(Footer)/Footer";
-import Nav from "../components/(Navs)/Nav";
+import Nav from "../../components/(Navs)/Nav";
 export default function Home() {
   return (
     <>
-      <div className='main'>
+      <div className="main">
         <Hero />
         <SecondSection />
         <ThirdSection />
