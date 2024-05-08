@@ -13,7 +13,7 @@ import { IoMdArrowDropup } from "react-icons/io";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
 import { FaFilter } from "react-icons/fa";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const TransactionTemplate = ({
   title,
@@ -29,7 +29,7 @@ const TransactionTemplate = ({
   const pathname = usePathname();
   const [height, setHeight] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { t, lang } = useTranslation("dashboard");
+  const t = useTranslations("dashboard");
 
   function adjustHeight() {
     setHeight((prev): any => {
@@ -168,7 +168,7 @@ const TransactionTemplate = ({
                 state === "All" && "active_selection_big"
               }`}
               style={{
-                borderColor: state === t("transaction.all") ? "#5E968B" : "",
+                borderColor: state === t("see_all") ? "#5E968B" : "",
               }}
               onClick={() => changeState1(select.firstSelect.big)}
             >
@@ -179,8 +179,7 @@ const TransactionTemplate = ({
               onClick={() => changeState2(select.secondSelect.big)}
               className="transaction_template_container_body_1_2_1"
               style={{
-                borderColor:
-                  state === t("transaction.deposits:") ? "#5E968B" : "",
+                borderColor: state === t("see_deposits") ? "#5E968B" : "",
               }}
             >
               {select.secondSelect.big} &nbsp;{" "}
@@ -190,8 +189,7 @@ const TransactionTemplate = ({
               onClick={() => changeState3(select.thirdSelect.big)}
               className="transaction_template_container_body_1_2_1"
               style={{
-                borderColor:
-                  state === t("transaction.withdrawals") ? "#5E968B" : "",
+                borderColor: state === t("see_withdrawals") ? "#5E968B" : "",
               }}
             >
               {select.thirdSelect.big} &nbsp;{" "}
@@ -273,7 +271,7 @@ const TransactionTemplate = ({
               marginTop: "5px",
             }}
           >
-            {pathname === "/transactions" ? (
+            {pathname.includes("/transactions") ? (
               state === t("transaction.deposits:") ? (
                 data?.filter((item: any) => item.fundingType === "deposits")
                   .length > 0 ? (
@@ -518,7 +516,7 @@ const TransactionTemplate = ({
               </div>
             )}
 
-            {pathname === "/transactions" ? null : viewMore === true ? (
+            {pathname.includes("/transactions") ? null : viewMore === true ? (
               <div className="view-more">
                 <Link
                   href={{

@@ -1,12 +1,14 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import CustomButton from "../(components)/CustomBotton";
 import mainBackgroundMobile from "../../../../../public/mainBackgroundMobile.webp";
 import image from "../../../../../public/image8.webp";
-import createTranslation from "next-translate/createTranslation";
+import { useTranslations } from "next-intl";
 import "./hero.css";
+import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 const hero = () => {
-  const { t, lang } = createTranslation("home");
+  const t = useTranslations("home");
   return (
     <>
       <div className="hero large-device">

@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { MdMenuOpen } from "react-icons/md";
@@ -7,32 +7,32 @@ import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Modal from "../(Utils)/VisitorNavModal";
 import image from "../../../public/Logo.webp";
-import useTranslation from "next-translate/useTranslation";
-
-const navLinks = [
-  {
-    title: "Accueil",
-    pathname: "/",
-  },
-  {
-    title: "À propos de nous",
-    pathname: "/about",
-  },
-  {
-    title: "Se connecter",
-    pathname: "/signin",
-  },
-  {
-    title: "S'inscrire",
-    pathname: "/signup",
-  },
-];
+import { useTranslations } from "next-intl";
 
 const Nav = () => {
-  const { t, lang } = useTranslation("header");
+  const t = useTranslations("header");
   const pathname = usePathname();
+  const params = useParams();
   const [state, setState] = useState(true);
 
+  const navLinks = [
+    {
+      title: t("Accueil"),
+      pathname: "/",
+    },
+    {
+      title: t("À propos de nous"),
+      pathname: "/about",
+    },
+    {
+      title: t("Se connecter"),
+      pathname: "/signin",
+    },
+    {
+      title: t("S'inscrire"),
+      pathname: "/signup",
+    },
+  ];
   function changeState() {
     setState((prev) => !prev);
   }
@@ -54,23 +54,26 @@ const Nav = () => {
           />
         </div>
         <div className="nav-link">
-          <Link className={` ${pathname === "/" ? "active" : ""}`} href="/">
+          <Link
+            className={` ${pathname === `/${params.locale}` ? "active" : ""}`}
+            href="/"
+          >
             {t("Accueil")}
           </Link>
           <Link
-            className={` ${pathname === "/about" ? "active" : ""}`}
+            className={` ${pathname.includes("/about") ? "active" : ""}`}
             href="/about"
           >
             {t("À propos de nous")}
           </Link>
           <Link
-            className={` ${pathname === "/signin" ? "active" : ""}`}
+            className={` ${pathname.includes("/signin") ? "active" : ""}`}
             href="/signin"
           >
             {t("Se connecter")}
           </Link>
           <Link
-            className={` ${pathname === "/signup" ? "active" : ""}`}
+            className={` ${pathname.includes("/signup") ? "active" : ""}`}
             href="/signup"
           >
             {t("S'inscrire")}

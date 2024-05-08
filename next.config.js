@@ -1,18 +1,10 @@
 /** @type {import('next').NextConfig} */
+
+const createNextIntlPlugin = require("next-intl/plugin");
+
+const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   reactStrictMode: true,
-  env: {
-    GOOGLE_TRANSLATION_CONFIG: JSON.stringify({
-      languages: [
-        { title: "English", name: "en" },
-        { title: "Français", name: "fr" },
-      ],
-      defaultLanguage: "fr",
-    }),
-  },
-  i18n: { localeDetection: false },
 };
 
-const nextTranslate = require("next-translate-plugin");
-
-module.exports = nextTranslate(nextConfig);
+module.exports = withNextIntl(nextConfig);

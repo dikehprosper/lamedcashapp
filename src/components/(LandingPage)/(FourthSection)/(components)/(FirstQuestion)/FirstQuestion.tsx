@@ -5,10 +5,10 @@ import {
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import AnimateHeight from "react-animate-height";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const FirstQuestion = ({ height, adjustHeight }: any) => {
-  const { t, lang } = useTranslation("home");
+  const t = useTranslations("home");
   return (
     <div
       className="body_innerbody_501"

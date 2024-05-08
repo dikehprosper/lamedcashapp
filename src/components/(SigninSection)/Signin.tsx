@@ -11,7 +11,7 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./signin.css";
 import { toast } from "react-toastify";
 import axios from "axios";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const SignIn = () => {
   const [user, setUser] = useState({
@@ -22,7 +22,7 @@ const SignIn = () => {
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const { t, lang } = useTranslation("sign-in");
+  const t = useTranslations("sign-in");
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -157,7 +157,7 @@ const SignIn = () => {
                 <div id="html-spinner-signin-signin-special"></div>
               </div>
             ) : (
-              "Se connecter"
+              t("login_button")
             )}
           </button>
         </form>

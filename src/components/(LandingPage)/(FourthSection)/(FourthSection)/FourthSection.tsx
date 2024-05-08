@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import "./fourthSection.css";
 import FirstQuestion from "../(components)/(FirstQuestion)/FirstQuestion";
 import SecondQuestion from "../(components)/(SecondQuestion)/SecondQuestion";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const FourthSection = () => {
   const [height, setHeight] = useState(0);
   const [height2, setHeight2] = useState(0);
-  const { t, lang } = useTranslation("home");
+  const t = useTranslations("home");
 
   function adjustHeight() {
     setHeight2(0);

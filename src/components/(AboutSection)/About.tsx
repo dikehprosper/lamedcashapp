@@ -3,10 +3,9 @@ import "./about.css";
 import React from "react";
 import Image from "next/image";
 import image from "../../../public/about-section.webp";
-import createTranslation from "next-translate/createTranslation";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 const AboutSection = () => {
-  const { t, lang } = useTranslation("about");
+  const t = useTranslations("about");
   return (
     <>
       <div className="AboutSection">

@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import React, { useState } from "react";
 import { MdMenuOpen } from "react-icons/md";
@@ -28,92 +28,93 @@ import BigScreenNavModal from "../(Utils)/BigScreenNavModal";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const UserNav = () => {
-  const { t, lang } = useTranslation("dashboard");
+  const t = useTranslations("dashboard");
   const pathname = usePathname();
+  const { locale } = useParams<{ locale: string }>();
   const router = useRouter();
   const [state, setState] = useState(true);
 
   const UsersNavLinks = [
     {
       title: t("navLinks.dashboard"),
-      pathname: "/dashboard",
+      pathname: `/${locale}/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
-      title: t("navLinks.deposit"),
-      pathname: "/deposit",
+      title: t(`navLinks.deposit`),
+      pathname: `/${locale}/deposit`,
       icon: <BiLogInCircle />,
     },
     {
-      title: t("navLinks.withdraw"),
-      pathname: "/withdraw",
+      title: t(`navLinks.withdraw`),
+      pathname: `/${locale}/withdraw`,
       icon: <BiLogOutCircle />,
     },
     {
       title: `Transactions`,
-      pathname: "/transactions",
+      pathname: `/${locale}/transactions`,
       icon: <LuHistory />,
     },
     {
-      title: t("navLinks.profile"),
-      pathname: "/profile",
+      title: t(`navLinks.profile`),
+      pathname: `/${locale}/profile`,
       icon: <BsFillPersonFill />,
     },
     {
-      title: t("navLinks.referrals"),
-      pathname: "/referrals",
+      title: t(`navLinks.referrals`),
+      pathname: `/${locale}/referrals`,
       icon: <IoMdPeople />,
     },
   ];
 
   const SubAdminsNavLinksDeposits = [
     {
-      title: t("navLinks.dashboard"),
-      pathname: "/subadmin/deposit/dashboard",
+      title: t(`navLinks.dashboard`),
+      pathname: `/${locale}/subadmin/deposit/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
-      title: "Transactions",
-      pathname: "/subadmin/deposit/transactions",
+      title: `Transactions`,
+      pathname: `/${locale}/subadmin/deposit/transactions`,
       icon: <LuHistory />,
     },
   ];
 
   const SubAdminsNavLinksWithdrawal = [
     {
-      title: t("navLinks.dashboard"),
-      pathname: "/subadmin/withdrawal/dashboard",
+      title: t(`navLinks.dashboard`),
+      pathname: `/${locale}/subadmin/withdrawal/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
-      title: "Transactions",
-      pathname: "/subadmin/withdrawal/transactions",
+      title: `Transactions`,
+      pathname: `/${locale}/subadmin/withdrawal/transactions`,
       icon: <LuHistory />,
     },
   ];
 
   const AdminNavLinks = [
     {
-      title: t("navLinks.dashboard"),
-      pathname: "/admin/dashboard",
+      title: t(`navLinks.dashboard`),
+      pathname: `/${locale}/admin/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
-      title: t("adminDashboard.allHistory"),
-      pathname: "/admin/allhistory",
+      title: t(`adminDashboard.allHistory`),
+      pathname: `/${locale}/admin/allhistory`,
       icon: <SiSimpleanalytics />,
     },
     {
-      title: t("adminNavLinks.cashdesks"),
-      pathname: "/admin/cashdesks",
+      title: t(`adminNavLinks.cashdesks`),
+      pathname: `/${locale}/admin/cashdesks`,
       icon: <TbDeviceDesktopAnalytics />,
     },
     {
-      title: t("adminNavLinks.users"),
-      pathname: "/admin/users",
+      title: t(`adminNavLinks.users`),
+      pathname: `/${locale}/admin/users`,
       icon: <FaUsers />,
     },
     // {

@@ -1,7 +1,16 @@
 .toggleBtn {
   border-radius: 100px;
   background-color: white;
-  padding: 10px;
+  width: 50px;
+  height: 50px;
   color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  font-weight: 600;
   position: fixed;
+  right: 10px;
+  bottom: 10px;
 }

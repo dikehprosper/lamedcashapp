@@ -5,10 +5,10 @@ import "./referral.css";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { CiCircleCheck } from "react-icons/ci";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const Referral = ({ data }: any) => {
-  const { t, lang } = useTranslation("dashboard");
+  const t = useTranslations("dashboard");
   const [user, setUser] = useState("");
   const [id, setId] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);

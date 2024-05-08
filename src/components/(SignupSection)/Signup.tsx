@@ -14,7 +14,7 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
 import axios from "axios";
 import { usePathname } from "next/navigation";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 const SignUp = () => {
   const pathname = usePathname();
   const [user, setUser] = useState({
@@ -32,7 +32,7 @@ const SignUp = () => {
   const [IsChecked, setIsChecked] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userDetailsVerified, setUserDetailsVerified] = useState(false);
-  const { t, lang } = useTranslation("sign-up");
+  const t = useTranslations("sign-up");
   const toggleIsChecked = () => {
     setIsChecked(!IsChecked);
     setIsCheckedError(false);

@@ -8,10 +8,10 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 const DropDownWithdrawalInstructions = () => {
   const [height, setHeight] = useState(0);
-  const { t, lang } = useTranslation("home");
+  const t = useTranslations("home");
 
   function adjustHeight() {
     setHeight((prev): any => {

@@ -1,10 +1,11 @@
+"use client";
 import "./footer.css";
 import Image from "next/image";
 import image from "../../../../public/TikTok.svg";
-import createTranslation from "next-translate/createTranslation";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
-  const { t, lang } = createTranslation("home");
+  const t = useTranslations("home");
   return (
     <div className="footer">
       <h4>{t("contact us")}</h4>

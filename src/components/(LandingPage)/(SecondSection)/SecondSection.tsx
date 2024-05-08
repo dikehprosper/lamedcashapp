@@ -1,13 +1,14 @@
+"use client";
 import React from "react";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import "./secondSection.css";
 import Link from "next/link";
-import createTranslation from "next-translate/createTranslation";
+import { useTranslations } from "next-intl";
 
 const SecondSection = () => {
-  const { t, lang } = createTranslation("home");
+  const t = useTranslations("home");
   return (
     <div className="secondSection-container">
       <h2>{t("we offer")}</h2>
