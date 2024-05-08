@@ -4,14 +4,14 @@ import { FedaPay, Transaction, Customer } from "fedapay";
 import { v4 as uuidv4 } from "uuid";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
-
+import {SubAdminUser, AdminUser} from "@/models/userModel";
 connect();
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
     const {id} = reqBody;
-    const user = await User.findOne({ _id : id });
+    const user = await SubAdminUser.findOne({_id: id});
   if (!user) {
     return NextResponse.json(
       { error: "user does not exist" },

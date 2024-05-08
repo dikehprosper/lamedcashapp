@@ -1,6 +1,6 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/userModel";
+import User, { AdminUser, SubAdminUser } from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 
 export async function GET(request: NextRequest) {
@@ -26,10 +26,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Find the user and select all fields except password
-    const user = await User.find({ isSubAdminDeposits: true });
-    const user2 = await User.find({ isSubAdminWithdrawals: true });
-    const user3 = await User.findOne({ _id: userId });
-    const user4 = await User.find({ isUser: true });
+    const user = await SubAdminUser.find({isSubAdminDeposits: true});
+    const user2 = await SubAdminUser.find({isSubAdminWithdrawals: true});
+    const user3 = await AdminUser.findOne({ _id: userId });
+    const user4 = await User.find({isUser: true});
 
     if (user3 && user3.sessionId === sessionId) {
       return NextResponse.json({

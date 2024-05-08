@@ -121,34 +121,34 @@ console.log(socket.id)
     }
   };
 
-  useEffect(() => {
-    // Check network status before making the request
-    if (isOnline) {
-      getUserDetails();
-    } else {
-      toast.error(
-        "No network connection. Please check your connection and try again."
-      );
-    }
-  }, [isOnline]);
+  // useEffect(() => {
+  //   // Check network status before making the request
+  //   if (isOnline) {
+  //     getUserDetails();
+  //   } else {
+  //     toast.error(
+  //       "No network connection. Please check your connection and try again."
+  //     );
+  //   }
+  // }, [isOnline]);
 
-  useEffect(() => {
-    // Check initial network status
-    setIsOnline(window.navigator.onLine);
+  // useEffect(() => {
+  //   // Check initial network status
+  //   setIsOnline(window.navigator.onLine);
 
-    // Add event listeners for online/offline changes
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
+  //   // Add event listeners for online/offline changes
+  //   const handleOnline = () => setIsOnline(true);
+  //   const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+  //   window.addEventListener("online", handleOnline);
+  //   window.addEventListener("offline", handleOffline);
 
-    // Clean up event listeners on component unmount
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
+  //   // Clean up event listeners on component unmount
+  //   return () => {
+  //     window.removeEventListener("online", handleOnline);
+  //     window.removeEventListener("offline", handleOffline);
+  //   };
+  // }, []);
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);

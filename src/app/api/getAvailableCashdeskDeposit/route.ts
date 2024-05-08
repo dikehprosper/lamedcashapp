@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/userModel";
+import User, { SubAdminUser } from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 
 
@@ -15,7 +15,9 @@ export async function POST(request: NextRequest) {
       ).length;
     };
 
-    const subadminUsers = await User.find({ isSubAdminWithdrawals: true });
+    const subadminUsers = await SubAdminUser.find({
+      isSubAdminWithdrawals: true,
+    });
 
     // Filter subadmin users who are not out of funds
     const subadminUsersWithFunds = subadminUsers.filter(

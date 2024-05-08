@@ -158,7 +158,7 @@ async function changeActivationStatus(id) {
 
   try {
   setLoading(true);
-    const res = await axios.post("/api/changeActivationStatus", { id: id });
+    const res = await axios.post("/api/changeActivationStatus2", { id: id });
     await getUserDetails();
   } catch (error) {
     if (error.response && error.response.status === 402) {
