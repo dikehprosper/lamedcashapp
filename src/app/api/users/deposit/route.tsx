@@ -146,8 +146,9 @@ export async function POST(request: NextRequest) {
       createdAt: date,
       status: "Pending",
       amount: amount,
+      totalAmount: amount,
       betId: betId,
-      momoName: momoName,
+      // momoName: momoName,
       momoNumber: momoNumber,
       service: service,
       paymentConfirmation: "Pending",
@@ -158,13 +159,14 @@ export async function POST(request: NextRequest) {
       registrationDateTime: date,
       amount: amount,
       betId: betId,
-      momoName: momoName,
+      // momoName: momoName,
       momoNumber: momoNumber,
       fundingType: "deposits",
       fedapayTransactionId: transaction.id,
       identifierId: newUuid,
       service: service,
       paymentConfirmation: "Pending",
+      totalAmount: amount,
     };
     user.transactionHistory.push(userTransaction);
 
@@ -174,14 +176,16 @@ export async function POST(request: NextRequest) {
       registrationDateTime: date,
       amount: amount,
       betId: betId,
-      momoName: momoName,
+      // momoName: momoName,
       momoNumber: momoNumber,
       fundingType: "deposits",
       identifierId: newUuid,
       userEmail: email,
       subadminEmail: "none",
       service: service,
+      totalAmount: amount,
       paymentConfirmation: "Pending",
+      fedapayTransactionId: transaction.id,
     });
 
     await user.save();

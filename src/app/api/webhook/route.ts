@@ -142,6 +142,7 @@ export async function POST(request: NextRequest) {
         await user.save();
       }
       await user.save();
+      
       const adminUsers = await SubAdminUser.find({
         isSubAdminDeposits: true,
       });
