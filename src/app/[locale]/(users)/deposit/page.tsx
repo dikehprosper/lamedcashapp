@@ -15,6 +15,13 @@ import Modal from "@/components/(Utils)/(modals)/processingModal";
 import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
 import { useTranslations } from "next-intl";
 // import App from "../pay";
+import io from "socket.io-client";
+
+// Function to handle real-time updates
+const handleRealTimeUpdate = (updatedUserData) => {
+  console.log(updatedUserData);
+};
+
 const Deposit = () => {
   const t = useTranslations("dashboard");
   const [loading, setLoading] = useState(false);
@@ -39,6 +46,20 @@ const Deposit = () => {
   function generateTimestamp() {
     return Date.now();
   }
+
+  const socket = io("http://localhost:5000");
+
+  useEffect(() => {
+    // Listen for real-time updates from the backend
+    socket.on("connect", () => {
+      console.log(socket.id);
+    });
+
+    // Clean up on unmount
+    return () => {
+      socket.off("userUpdated", handleRealTimeUpdate);
+    };
+  }, []);
 
   // Example usage:
   const newTimestamp = generateTimestamp();
@@ -149,6 +170,7 @@ const Deposit = () => {
 
   const [processing, setProcessing] = useState(false);
   const [processing2, setProcessing2] = useState(false);
+  const [processing2, setProcessing2] = useState(false);
 
   async function submitDetails() {
     if (isSubmitting) {
@@ -200,6 +222,9 @@ const Deposit = () => {
         } else if (error.response.status === 401) {
           toast.error("Impossible de lancer la transaction");
         } else if (error.response.status === 403) {
+          return toast.error(
+            "Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance"
+          );
           return toast.error(
             "Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance"
           );
@@ -394,6 +419,11 @@ const Deposit = () => {
               }}
             >
               {" "}
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Note:
+              </span>{" "}
+              &nbsp; Le montant de la transaction ne doit pas être inférieur à
+              500
               <span style={{ color: "red", fontWeight: "bold" }}>
                 Note:
               </span>{" "}

@@ -459,3 +459,19 @@
     transform: rotate(360deg);
   }
 }
+
+.fhhhf{
+  -webkit-text-fill-color: black;
+  background: linear-gradient(transparent, transparent, transparent, transparent, #fff, transparent, transparent, transparent, transparent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 400%;
+  background-position:  0;
+  animation: animate 4s linear infinite;
+}
+
+@keyframes animate {
+  100%{
+    background-position:  400%;
+  }
+}
