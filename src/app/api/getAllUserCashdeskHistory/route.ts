@@ -2,13 +2,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { FedaPay, Transaction, Customer } from "fedapay";
 import { v4 as uuidv4 } from "uuid";
-import User from "@/models/userModel";
+import User, { AdminUser } from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 
 connect();
 export async function GET(request: NextRequest) {
   try {
-    const user = await User.findOne({ isAdmin: true });
+    const user = await AdminUser.findOne({isAdmin: true});
   if (!user) {
     return NextResponse.json(
       { error: "no admin exist" },

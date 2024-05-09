@@ -2,7 +2,7 @@
 // @ts-nocheck
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
-import {User2} from "@/models/userModel";
+import {SubAdminUser, AdminUser} from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -63,11 +63,11 @@ export async function POST(request: NextRequest) {
       //hash password
       const salt = await bcryptjs.genSalt(10);
       const hashedPassword = await bcryptjs.hash(password, salt);
-      const user = await User.find({ isSubAdminDeposits: true });
+      const subAdminUser = await SubAdminUser.find({isSubAdminDeposits: true});
       let newUser;
-      if (user.length < 1) {
-        //create a new user
-        newUser = new User({
+      if (subAdminUser.length < 1) {
+        //create a new cashdesk deposit user
+        newUser = new SubAdminUser({
           fullname,
           betId,
           number,
@@ -80,9 +80,9 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      if (user.length >= 1) {
+      if (subAdminUser.length >= 1) {
         //create a new user
-        newUser = new User({
+        newUser = new SubAdminUser({
           fullname,
           betId,
           number,
@@ -157,41 +157,73 @@ export async function POST(request: NextRequest) {
 
       // GIVING WITHDRAW CASHDESK DIAL CODE
       const cashdesk =
-        email === "cashdesk6@betfundr.com"
+        email === "cashdeskWithdrawals@betfundr.com"
           ? {
-              city: "Porto-Novo (Benin)",
-              street: "RechargeB Cashier 1",
+              city: "city 1",
+              street: "Address 1",
             }
-          : email === "cashdesk7@betfundr.com"
+          : email === "cashdeskWithdrawals1@betfundr.com"
           ? {
-              city: "YourCity2",
-              street: "YourStreet2",
+              city: "city 1",
+              street: "Address 1",
             }
-          : email === "cashdesk8@betfundr.com"
+          : email === "cashdeskWithdrawals2@betfundr.com"
           ? {
-              city: "YourCity3",
-              street: "YourStreet3",
+              city: "city 2",
+              street: "Address 2",
             }
-          : email === "cashdesk9@betfundr.com"
+          : email === "cashdeskWithdrawals3@betfundr.com"
           ? {
-              city: "YourCity4",
-              street: "YourStreet4",
+              city: "city 3",
+              street: "Address 3",
             }
-          : email === "cashdesk10@betfundr.com"
+          : email === "cashdeskWithdrawals4@betfundr.com"
           ? {
-              city: "YourCity5",
-              street: "YourStreet5",
+              city: "city 4",
+              street: "Address 4",
+            }
+          : email === "cashdeskWithdrawals5@betfundr.com"
+          ? {
+              city: "city 5",
+              street: "Address 5",
+            }
+          : email === "cashdeskWithdrawals6@betfundr.com"
+          ? {
+              city: "city 6",
+              street: "Address 6",
+            }
+          : email === "cashdeskWithdrawals7@betfundr.com"
+          ? {
+              city: "city 7",
+              street: "Address 7",
+            }
+          : email === "cashdeskWithdrawals8@betfundr.com"
+          ? {
+              city: "city 8",
+              street: "Address 8",
+            }
+          : email === "cashdeskWithdrawals9@betfundr.com"
+          ? {
+              city: "city 9",
+              street: "Address 9",
+            }
+          : email === "cashdeskWithdrawals10@betfundr.com"
+          ? {
+              city: "city 10",
+              street: "Address 10",
             }
           : null; // Handle the case when the email doesn't match any condition
 
       // You can use the 'cashdesk' value as needed in your code.
 
-      const user = await User.find({ isSubAdminWithdrawals: true });
+      const subAdminUser = await SubAdminUser.find({
+        isSubAdminWithdrawals: true,
+      });
 
       let newUser;
-      if (user.length < 1) {
+      if (subAdminUser.length < 1) {
         //create a new user
-        newUser = new User({
+        newUser = new SubAdminUser({
           fullname,
           betId,
           number,
@@ -205,9 +237,9 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      if (user.length >= 1) {
+      if (subAdminUser.length >= 1) {
         //create a new user
-        newUser = new User({
+        newUser = new SubAdminUser({
           fullname,
           betId,
           number,
@@ -262,7 +294,7 @@ export async function POST(request: NextRequest) {
       const hashedPassword = await bcryptjs.hash(password, salt);
 
       //create a new user
-      const newUser = new User2({
+      const newUser = new AdminUser({
         fullname,
         betId,
         number,
@@ -326,6 +358,14 @@ export async function POST(request: NextRequest) {
     });
     console.log(customer, "customer");
     //create a new user
+
+    const count = await User.countDocuments();
+    const parts = fullname.split(" ");
+    let firstName = parts[0];
+    const name = firstName.replace(/\d/g, "");
+
+    const tag = `betfundr-${name}${count + 1}`;
+
     const newUser = new User({
       fullname,
       betId,
@@ -338,6 +378,9 @@ export async function POST(request: NextRequest) {
       sessionId: generateUniqueSessionId(),
       fedapayId: customer.id,
       registrationDateTime: date,
+      colorScheme: 2,
+      image: "",
+      tag: tag,
     });
 
     // save the new created user

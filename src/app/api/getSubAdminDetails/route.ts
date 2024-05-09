@@ -2,6 +2,7 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
+import {SubAdminUser, AdminUser} from "@/models/userModel";
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest) {
     const { userId, sessionId } = await getDataFromToken(request);
 
     // Find the user and select all fields except password
-    const user = await User.findOne({ _id: userId }).select("-password");
+    const user = await SubAdminUser.findOne({ _id: userId }).select("-password");
 
 
     if (!user.isActivated) {

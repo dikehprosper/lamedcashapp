@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
-
+import {SubAdminUser, AdminUser} from "@/models/userModel";
 
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const  newTimestamp = await reqBody;
+    const newTimestamp = await reqBody;
     // Function to count "Pending" transactions for a subadmin
     const countPendingTransactions = (subadmin: any) => {
       return subadmin.transactionHistory.filter(
@@ -15,7 +15,9 @@ export async function POST(request: NextRequest) {
       ).length;
     };
 
-    const subadminUsers = await User.find({ isSubAdminWithdrawals: true });
+    const subadminUsers = await SubAdminUser.find({
+      isSubAdminWithdrawals: true,
+    });
 
     // Filter subadmin users who are not out of funds
     const subadminUsersWithFunds = subadminUsers.filter(
@@ -67,7 +69,7 @@ export async function POST(request: NextRequest) {
     // Return the response or use it as needed
     return response;
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({error: error.message}, {status: 500});
   }
 }
 

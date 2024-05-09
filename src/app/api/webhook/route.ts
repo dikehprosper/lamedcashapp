@@ -5,12 +5,12 @@ import { FedaPay, Transaction, Customer } from "fedapay";
 const { Webhook } = require("fedapay");
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
+import {SubAdminUser, AdminUser} from "@/models/userModel";
 connect();
-const { createServer } = require("http");
-const { Server } = require("socket.io");
-
-
-
+const {createServer} = require("http");
+const {Server} = require("socket.io");
+// const newUuid = uuidv4();
+const date = new Date();
 export async function POST(request: NextRequest) {
   //   const httpServer = createServer();
   // const io = new Server(httpServer, {
@@ -63,45 +63,17 @@ export async function POST(request: NextRequest) {
     let event;
     const endpointSecret = process.env.ENDPOINTSECRET_WEBHOOK!;
     event = Webhook.constructEvent(rawBody, sig, endpointSecret);
-
     const fedapayTransactionId = event.entity.id.toString();
     const email = event.entity.customer.email;
 
-    console.log(email, "email");
-    console.log(fedapayTransactionId, "fedapayTransactionId");
+    // console.log(email, "email");
+    // console.log(fedapayTransactionId, "fedapayTransactionId");
 
-    const user = await User.findOne({ email });
-    console.log(user, "user");
-    const admin = await User.findOne({ isAdmin: true });
+    const user = await User.findOne({email});
+    const admin = await AdminUser.findOne({isAdmin: true});
     const ticket = user.pendingDeposit.find(
       (t: any) => t.fedapayTransactionId === fedapayTransactionId
     );
-    console.log(ticket, "ticket");
-    // const newUuid = uuidv4();
-    const date = new Date();
-
-    // Create a new transaction hist ory entry for the user
-    const userTransaction = {
-      status: "Pending",
-      registrationDateTime: date,
-      amount: ticket.amount,
-      betId: ticket.betId,
-      momoName: ticket.momoName,
-      momoNumber: ticket.momoNumber,
-      fundingType: "deposits",
-      identifierId: ticket.transactionId,
-    };
-
-    const userTransaction1 = {
-      status: "Failed",
-      registrationDateTime: date,
-      amount: ticket.amount,
-      betId: ticket.betId,
-      momoName: ticket.momoName,
-      momoNumber: ticket.momoNumber,
-      fundingType: "deposits",
-      identifierId: ticket.transactionId,
-    };
 
     const subadminTransaction = {
       userid: user._id,
@@ -113,32 +85,39 @@ export async function POST(request: NextRequest) {
       momoNumber: ticket.momoNumber,
       fundingType: "deposits",
       identifierId: ticket.transactionId,
+      paymentConfirmation: "Successful",
     };
 
     // Handle the event
     if (event.name === "transaction.declined") {
       console.log("transaction declined");
-
-      user.transactionHistory.push(userTransaction);
-          admin.transactionHistory.push({
-            userid: user._id,
-            status: "Failed",
-            registrationDateTime: date,
-            amount: ticket.amount,
-            betId: ticket.betId,
-            momoName: ticket.momoName,
-            momoNumber: ticket.momoNumber,
-            fundingType: "deposits",
-            identifierId: ticket.transactionId,
-            userEmail: user.email,
-            subadminEmail: "none",
-          });
+      const transactionToEdit = user.transactionHistory.find(
+        (transaction) =>
+          transaction.fedapayTransactionId === fedapayTransactionId
+      );
+      if (transactionToEdit) {
+        // Update the status property
+        transactionToEdit.status = "Failed";
+        transactionToEdit.paymentConfirmation = "Failed";
         await user.save();
-         await admin.save()
- 
+      }
+      const transactionToEditForAdmin = admin.transactionHistory.find(
+        (transaction) =>
+          transaction.fedapayTransactionId === fedapayTransactionId
+      );
+      if (transactionToEditForAdmin) {
+        // Update the status property
+        transactionToEditForAdmin.status = "Failed";
+        transactionToEditForAdmin.paymentConfirmation = "Failed";
+        await admin.save();
+      }
+
       const ticketIndex = user.pendingDeposit.findIndex(
         (t: any) => t.fedapayTransactionId === fedapayTransactionId
       );
+
+
+
 
       if (ticketIndex !== -1) {
         // If the ticket is found in user.pendingDeposit, remove it
@@ -152,30 +131,54 @@ export async function POST(request: NextRequest) {
     } else if (event.name === "transaction.approved") {
       console.log("transaction approved");
 
-      user.transactionHistory.push(userTransaction);
+      const transactionToEdit = user.transactionHistory.find(
+        (transaction) =>
+          transaction.fedapayTransactionId === fedapayTransactionId
+      );
+      if (transactionToEdit) {
+        // Update the status property
+        transactionToEdit.status = "Pending";
+        transactionToEdit.paymentConfirmation = "Successful";
+        await user.save();
+      }
       await user.save();
-      const adminUsers = await User.find({
+      
+      const adminUsers = await SubAdminUser.find({
         isSubAdminDeposits: true,
       });
-      const adminUser = await User.find({
+      const adminUser = await SubAdminUser.find({
         isSubAdminDeposits: true,
         isOutOfFunds: false,
       });
       if (!adminUser || adminUser.length === 0) {
         adminUsers[0].transactionHistory.push(subadminTransaction);
-        admin.transactionHistory.push({
-          userid: user._id,
-          status: "Pending",
-          registrationDateTime: date,
-          amount: ticket.amount,
-          betId: ticket.betId,
-          momoName: ticket.momoName,
-          momoNumber: ticket.momoNumber,
-          fundingType: "deposits",
-          identifierId: ticket.transactionId,
-          userEmail: user.email,
-          subadminEmail: adminUsers[0].email,
-        });
+
+        const transactionToEditForAdmin = admin.transactionHistory.find(
+          (transaction) =>
+            transaction.fedapayTransactionId === fedapayTransactionId
+        );
+        if (transactionToEditForAdmin) {
+          // Update the status property
+          transactionToEditForAdmin.status = "Pending";
+          (transactionToEditForAdmin.subadminEmail = adminUsers[0].email),
+            (transactionToEditForAdmin.paymentConfirmation = "Successful"),
+            await admin.save();
+        }
+
+        // admin.transactionHistory.push({
+        //   userid: user._id,
+        //   status: "Pending",
+        //   registrationDateTime: date,
+        //   amount: ticket.amount,
+        //   betId: ticket.betId,
+        //   momoName: ticket.momoName,
+        //   momoNumber: ticket.momoNumber,
+        //   fundingType: "deposits",
+        //   identifierId: ticket.transactionId,
+        //   userEmail: user.email,
+        //   subadminEmail: adminUsers[0].email,
+        //   paymentConfirmation: "Successful",
+        // });
         await adminUser.save();
         await admin.save();
       } else {
@@ -211,19 +214,18 @@ export async function POST(request: NextRequest) {
           const updatedCount = nextSubadmin.currentCount + 1;
           nextSubadmin.currentCount = updatedCount;
           nextSubadmin.transactionHistory.push(subadminTransaction);
-          admin.transactionHistory.push({
-            userid: user._id,
-            status: "Pending",
-            registrationDateTime: date,
-            amount: ticket.amount,
-            betId: ticket.betId,
-            momoName: ticket.momoName,
-            momoNumber: ticket.momoNumber,
-            fundingType: "deposits",
-            identifierId: ticket.transactionId,
-            userEmail: user.email,
-            subadminEmail: nextSubadmin.email,
-          });
+
+          const transactionToEditForAdmin = admin.transactionHistory.find(
+            (transaction) =>
+              transaction.fedapayTransactionId === fedapayTransactionId
+          );
+          if (transactionToEditForAdmin) {
+            // Update the status property
+            transactionToEditForAdmin.status = "Pending";
+            (transactionToEditForAdmin.subadminEmail = nextSubadmin.email),
+              (transactionToEditForAdmin.paymentConfirmation = "Successful"),
+              await admin.save();
+          }
 
           // Save changes to the database for both the current and next subadmin
           await Promise.all([
@@ -232,19 +234,17 @@ export async function POST(request: NextRequest) {
             admin.save(),
           ]);
         } else {
-          admin.transactionHistory.push({
-            userid: user._id,
-            status: "Pending",
-            registrationDateTime: date,
-            amount: ticket.amount,
-            betId: ticket.betId,
-            momoName: ticket.momoName,
-            momoNumber: ticket.momoNumber,
-            fundingType: "deposits",
-            identifierId: ticket.transactionId,
-            userEmail: user.email,
-            subadminEmail: currentSubadmin.email,
-          });
+          const transactionToEditForAdmin = admin.transactionHistory.find(
+            (transaction) =>
+              transaction.fedapayTransactionId === fedapayTransactionId
+          );
+          if (transactionToEditForAdmin) {
+            transactionToEditForAdmin.status = "Pending";
+            (transactionToEditForAdmin.subadminEmail = currentSubadmin.email),
+              (transactionToEditForAdmin.paymentConfirmation = "Successful"),
+              await admin.save();
+          }
+
           currentSubadmin.transactionHistory.push(subadminTransaction);
           const updatedCount = currentSubadmin.currentCount + 1;
           currentSubadmin.currentCount = updatedCount;
@@ -266,22 +266,30 @@ export async function POST(request: NextRequest) {
       await user.save();
     } else if (event.name === "transaction.canceled") {
       console.log("transaction canceled");
-           user.transactionHistory.push(userTransaction);
-          admin.transactionHistory.push({
-            userid: user._id,
-            status: "Failed",
-            registrationDateTime: date,
-            amount: ticket.amount,
-            betId: ticket.betId,
-            momoName: ticket.momoName,
-            momoNumber: ticket.momoNumber,
-            fundingType: "deposits",
-            identifierId: ticket.transactionId,
-            userEmail: user.email,
-            subadminEmail: "none",
-          });
-        await user.save()
-         await admin.save()
+
+          const transactionToEdit = user.transactionHistory.find(
+            (transaction) =>
+              transaction.fedapayTransactionId === fedapayTransactionId
+          );
+          if (transactionToEdit) {
+            // Update the status property
+            transactionToEdit.status = "Failed";
+            transactionToEdit.paymentConfirmation = "Failed";
+            await user.save();
+          }
+          const transactionToEditForAdmin = admin.transactionHistory.find(
+            (transaction) =>
+              transaction.fedapayTransactionId === fedapayTransactionId
+          );
+          if (transactionToEditForAdmin) {
+            // Update the status property
+            transactionToEditForAdmin.status = "Failed";
+            transactionToEditForAdmin.paymentConfirmation = "Failed";
+            await admin.save();
+          }
+
+      await user.save();
+      await admin.save();
 
       const ticketIndex = user.pendingDeposit.findIndex(
         (t: any) => t.fedapayTransactionId === fedapayTransactionId
@@ -299,15 +307,14 @@ export async function POST(request: NextRequest) {
     } else {
       console.log(`Unhandled event type ${event.type}`);
     }
-
     return NextResponse.json({
       success: true,
     });
   } catch (error: any) {
     console.error(error, "error");
     return NextResponse.json(
-      { error: error.message || "Webhook Error" },
-      { status: 400 }
+      {error: error.message || "Webhook Error"},
+      {status: 400}
     );
   }
 }
