@@ -10,62 +10,52 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const {
-      _id,
-      betId,
-      withdrawalCode,
+    const {_id, betId, withdrawalCode, amount, momoName, momoNumber} = reqBody;
+
+    const admin = await User.findOne({isAdmin: true});
+    if (admin.isWithdrawalsOpen === false) {
+      return NextResponse.json(
+        {error: "We are currently under maintainance"},
+        {status: 405}
+      );
+    }
+    // Check if the User already exists
+    const user = await User.findOne({_id});
+
+    if (!user) {
+      return NextResponse.json({error: "User does not exist"}, {status: 400});
+    }
+
+    const newUuid = uuidv4();
+    const date = new Date();
+
+    // Create a new transaction history entry for the user
+    const userTransaction = {
+      status: "Pending",
+      registrationDateTime: date,
       amount,
+      withdrawalCode,
+      betId,
       momoName,
       momoNumber,
-      cashdeskId,
-    } = reqBody;
-   const admin = await User.findOne({ isAdmin: true });
-   if (admin.isWithdrawalsOpen === false) {
-     return NextResponse.json(
-       { error: "We are currently under maintainance" },
-       { status: 405 }
-     );
-   }
-   // Check if the User already exists
-   const user = await User.findOne({ _id });
+      fundingType: "withdrawals",
+      identifierId: newUuid,
+    };
 
-   if (!user) {
-     return NextResponse.json(
-       { error: "User does not exist" },
-       { status: 400 }
-     );
-   }
+    // Add the current pending transaction to the user
 
-   const newUuid = uuidv4();
-   const date = new Date();
+    // Find the subadmin user by cashdeskId
 
-   // Create a new transaction history entry for the user
-   const userTransaction = {
-     status: "Pending",
-     registrationDateTime: date,
-     amount,
-     withdrawalCode,
-     betId,
-     momoName,
-     momoNumber,
-     fundingType: "withdrawals",
-     identifierId: newUuid,
-   };
-
-   // Add the current pending transaction to the user
-
-   // Find the subadmin user by cashdeskId
-
-   const adminUser = await User.find({
-     isSubAdminWithdrawals: true,
-     isOutOfFunds: false,
-   });
-   if (!adminUser || adminUser.length === 0) {
-     return NextResponse.json(
-       { error: "No available Subadmin User" },
-       { status: 402 }
-     );
-   }
+    const adminUser = await User.find({
+      isSubAdminWithdrawals: true,
+      isOutOfFunds: false,
+    });
+    if (!adminUser || adminUser.length === 0) {
+      return NextResponse.json(
+        {error: "No available Subadmin User"},
+        {status: 402}
+      );
+    }
 
    const subadminTransaction = {
      userid: _id,
@@ -94,6 +84,7 @@ export async function POST(request: NextRequest) {
    const currentSubadmin = adminUser.find(
      (subadmin) => subadmin.current === true
    );
+   console.log(currentSubadmin, "currentSubadmin");
 
    // Check if the request count for the current subadmin is divisible by 10
    if (currentSubadmin && currentSubadmin.currentCount === 5) {

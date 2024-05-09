@@ -36,7 +36,6 @@ betId: ""
   const [success, setSuccess] = useState(false);
   const [activeBetId, setActiveBetId] = useState("");
   // const [cashdeskAddress, setCashdeskAddress] = useState<any>({});
-  const [cashdeskId, setCashdeskId] = useState<any>({});
   const [isOnline, setIsOnline] = useState(true);
   const [user, setUser] = useState({
     _id: "",
@@ -45,7 +44,6 @@ betId: ""
     amount: "",
     momoName: "",
     momoNumber: "",
-    cashdeskId: "",
    fullname: ""
   });
   
@@ -227,9 +225,8 @@ betId: ""
           amount: user.amount,
           momoName: user.momoName,
           momoNumber: user.momoNumber,
-          cashdeskId: cashdeskId,
         };
-
+console.log(updatedUser)
         // Send the updated user to the server
         const res = await axios.post("/api/users/withdraw", updatedUser);
         console.log(res.data.userTransaction)

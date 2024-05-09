@@ -20,6 +20,10 @@ function Page() {
   const [isOnline, setIsOnline] = useState(true);
   const [height, setHeight] = useState(0);
 
+  useEffect(() => {
+      console.log(data2, "These are the data");
+  }, [data2])
+
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getAllSubadminDetails");
@@ -194,10 +198,7 @@ function Page() {
   }
 
 
-  useEffect(() => {
-    console.log(areActivated(data))
-      console.log(data?.length)
-  }, [data])
+
 
 
   return (
@@ -927,7 +928,7 @@ function Page() {
                     key={index}
                   >
                     <div
-                         className="activated2"
+                      className='activated2'
                       style={{
                         width: "155px",
                         gap: "10px",
@@ -947,9 +948,7 @@ function Page() {
                           borderRadius: "5px",
                         }}
                       ></span>
-                      <span
-                        style={{ whiteSpace: "nowrap", fontWeight: "bold" }}
-                      >
+                      <span style={{whiteSpace: "nowrap", fontWeight: "bold"}}>
                         {data.fullname}
                       </span>
                     </div>
@@ -959,9 +958,9 @@ function Page() {
                     >
                       View Activities &nbsp;
                       {index === index1 ? (
-                        <IoMdArrowDropup  className='view-activities1' />
+                        <IoMdArrowDropup className='view-activities1' />
                       ) : (
-                        <IoMdArrowDropdown  className='view-activities1' />
+                        <IoMdArrowDropdown className='view-activities1' />
                       )}
                     </div>
                   </div>
@@ -988,7 +987,7 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Name:
                         </span>{" "}
@@ -1006,12 +1005,14 @@ function Page() {
                         }}
                       >
                         <span
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                           className='span1'
                         >
                           Email:
                         </span>{" "}
-                        <span className='span2-email1 span2 '>{data.email}</span>
+                        <span className='span2-email1 span2 '>
+                          {data.email}
+                        </span>
                       </div>
 
                       <div
@@ -1026,13 +1027,17 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Funded:
                         </span>
                         <span
                           className='span2'
-                          style={{ color: data.isOutOfFunds ? "rgba(128, 0, 0, 0.9)" : "rgba(0, 128, 0, 0.9)" }}
+                          style={{
+                            color: data.isOutOfFunds
+                              ? "rgba(128, 0, 0, 0.9)"
+                              : "rgba(0, 128, 0, 0.9)",
+                          }}
                         >
                           {data.isOutOfFunds ? "No" : "Yes"}
                         </span>
@@ -1050,13 +1055,17 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Logged in:
                         </span>{" "}
                         <span
                           className='span2'
-                          style={{ color: data.isLoggedIn ? "rgba(0, 128, 0, 0.9)" : "rgba(128, 0, 0, 0.9)" }}
+                          style={{
+                            color: data.isLoggedIn
+                              ? "rgba(0, 128, 0, 0.9)"
+                              : "rgba(128, 0, 0, 0.9)",
+                          }}
                         >
                           {data.isLoggedIn ? "Yes" : "No"}
                         </span>
@@ -1074,7 +1083,7 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                           className='span1'
                         >
                           Successful Withdrawals:
@@ -1099,7 +1108,7 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           S.W Count:
                         </span>{" "}
@@ -1120,7 +1129,7 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Pending Withdrawals:
                         </span>{" "}
@@ -1142,7 +1151,7 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           P.W Count:
                         </span>{" "}
@@ -1161,7 +1170,7 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Transaction History:
                         </span>
@@ -1196,12 +1205,12 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Status:
                         </span>
                         <span className='span2'>
-                           {data.isActivated ? "Active" : "Not Active"}
+                          {data.isActivated ? "Active" : "Not Active"}
                         </span>
                       </div>
 
