@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import User from "@/models/userModel";
 import mongoose from "mongoose";
 import { connect } from "@/dbConfig/dbConfig";
-
+import {SubAdminUser, AdminUser} from "@/models/userModel";
 connect();
 
 export async function POST(request: NextRequest) {
@@ -12,13 +12,15 @@ export async function POST(request: NextRequest) {
 
     const {_id, betId, withdrawalCode, amount, momoName, momoNumber} = reqBody;
 
-    const admin = await User.findOne({isAdmin: true});
+    const admin = await AdminUser.findOne({isAdmin: true});
+
     if (admin.isWithdrawalsOpen === false) {
       return NextResponse.json(
         {error: "We are currently under maintainance"},
         {status: 405}
       );
     }
+
     // Check if the User already exists
     const user = await User.findOne({_id});
 
@@ -45,8 +47,7 @@ export async function POST(request: NextRequest) {
     // Add the current pending transaction to the user
 
     // Find the subadmin user by cashdeskId
-
-    const adminUser = await User.find({
+    const adminUser = await SubAdminUser.find({
       isSubAdminWithdrawals: true,
       isOutOfFunds: false,
     });
@@ -138,7 +139,7 @@ export async function POST(request: NextRequest) {
      const updatedCount = currentSubadmin.currentCount + 1;
      currentSubadmin.currentCount = updatedCount;
 
-     const admin = await User.findOne({
+     const admin = await AdminUser.findOne({
        isAdmin: true,
      });
 
