@@ -15,6 +15,7 @@ import { auth, googleProvider } from "@/app/firebase/firebaseConfig";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import CountryPicker from "../(CountryPicker)/CountryPicker";
 const SignUp = () => {
   const pathname = usePathname();
   const [user, setUser] = useState({
@@ -32,6 +33,8 @@ const SignUp = () => {
   const [IsChecked, setIsChecked] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userDetailsVerified, setUserDetailsVerified] = useState(false);
+  const [showCountryPicker, setShowCountryPicker] = useState(false);
+  const [countryCode, setCountryCode] = useState("+229");
   const t = useTranslations("sign-up");
   const toggleIsChecked = () => {
     setIsChecked(!IsChecked);
@@ -392,12 +395,21 @@ const SignUp = () => {
               }}
             >
               <div className="signup-form1111" style={{ position: "relative" }}>
+                {showCountryPicker && (
+                  <CountryPicker
+                    setShow={setShowCountryPicker}
+                    setCountryCode={setCountryCode}
+                    countryCode={countryCode}
+                  />
+                )}
                 <div
+                  onClick={() => setShowCountryPicker(true)}
                   style={{
                     position: "absolute",
                     top: "0",
                     left: "0",
                     width: "60px",
+                    cursor: "pointer",
                     bottom: "0",
                     display: "flex",
                     justifyContent: "center",
@@ -407,7 +419,7 @@ const SignUp = () => {
                     borderRight: "2px solid rgba(256, 256, 256, 0.09)",
                   }}
                 >
-                  +229
+                  {countryCode}
                 </div>
                 <input
                   type="number"
@@ -654,12 +666,21 @@ const SignUp = () => {
             </p>
           )}
           <div className="signup-form1111" style={{ position: "relative" }}>
+            {showCountryPicker && (
+              <CountryPicker
+                setShow={setShowCountryPicker}
+                setCountryCode={setCountryCode}
+                countryCode={countryCode}
+              />
+            )}
             <div
+              onClick={() => setShowCountryPicker(true)}
               style={{
                 position: "absolute",
                 top: "0",
                 left: "0",
                 width: "60px",
+                cursor: "pointer",
                 bottom: "0",
                 display: "flex",
                 justifyContent: "center",
@@ -669,7 +690,7 @@ const SignUp = () => {
                 borderRight: "2px solid rgba(256, 256, 256, 0.09)",
               }}
             >
-              +229
+              {countryCode}
             </div>
             <input
               type="number"

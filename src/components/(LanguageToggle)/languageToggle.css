@@ -1,9 +1,9 @@
 .toggleBtn {
   border-radius: 100px;
-  background-color: white;
+  background-color: rgba(73, 166, 106, 1);
   width: 50px;
   height: 50px;
-  color: black;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,5 +12,5 @@
   font-weight: 600;
   position: fixed;
   right: 10px;
-  bottom: 10px;
+  top: 30dvh;
 }

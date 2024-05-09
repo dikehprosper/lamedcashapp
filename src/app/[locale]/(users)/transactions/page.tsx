@@ -9,10 +9,13 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
 import { useTranslations } from "next-intl";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { setUser } from "@/lib/features/userSlice";
 const Transactions = () => {
   const t = useTranslations("dashboard");
   const router = useRouter();
-  const [data, setData] = useState<any>();
+  const data = useAppSelector((state: any) => state.user.value);
+  const dispatch = useAppDispatch();
   // Filter deposit transactions
   const allDeposits = data?.transactionHistory?.filter(
     (transaction: any) => transaction.fundingType === "deposits"
@@ -23,7 +26,7 @@ const Transactions = () => {
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUser");
-      setData(res.data.data);
+      dispatch(setUser(res.data.data));
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration

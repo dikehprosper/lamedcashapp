@@ -11,15 +11,15 @@ export default function BottomNav() {
   const t = useTranslations("dashboard");
   const pathname = usePathname();
   return (
-    <div className="bottom-nav for-smaller-devices">
+    <div className="bottom-nav for-bottom-nav">
       <Link
         href={"/dashboard"}
         className={`${
           pathname.includes("/dashboard") ? "bottom-nav-item-active" : ""
         } bottom-nav-item`}
       >
-        <MdDashboard fontSize={25} />
-        <h4>{t("navLinks.dashboard")}</h4>
+        <MdDashboard fontSize={27} />
+        <h4>{t("home")}</h4>
       </Link>
       <Link
         href={"/deposit"}
@@ -27,7 +27,7 @@ export default function BottomNav() {
           pathname.includes("/deposit") ? "bottom-nav-item-active" : ""
         } bottom-nav-item`}
       >
-        <BiLogInCircle fontSize={25} />
+        <BiLogInCircle fontSize={27} />
         <h4>{t("navLinks.deposit")}</h4>
       </Link>
       <Link
@@ -36,7 +36,7 @@ export default function BottomNav() {
           pathname.includes("/withdraw") ? "bottom-nav-item-active" : ""
         } bottom-nav-item`}
       >
-        <BiLogOutCircle fontSize={25} />
+        <BiLogOutCircle fontSize={27} />
         <h4>{t("navLinks.withdraw")}</h4>
       </Link>
       <Link
@@ -45,7 +45,7 @@ export default function BottomNav() {
           pathname.includes("/transactions") ? "bottom-nav-item-active" : ""
         } bottom-nav-item`}
       >
-        <LuHistory fontSize={25} />
+        <LuHistory fontSize={27} />
         <h4>{t("navLinks.transactions")}</h4>
       </Link>
     </div>

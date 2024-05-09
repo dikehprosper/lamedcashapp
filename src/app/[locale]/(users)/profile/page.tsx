@@ -408,8 +408,7 @@ const Profile = () => {
                     display: "flex",
                   }}
                 >
-                  Enregistrez 2 identifiants 1XBET différents dans votre profil
-                  pour les afficher ici{" "}
+                  {t("withdraw_page.saved_id_info")}
                 </div>
                 {/* <div className="saved_id_container">
                   <BasicModal
@@ -425,7 +424,7 @@ const Profile = () => {
                 className="profile-form"
                 value={user.betId}
                 onChange={handlechangeBetID}
-                placeholder="Entrez l'identifiant 1XBET"
+                placeholder={t("withdraw_page.enter_bet_id")}
               />
               <div
                 className="submit-button1-profile"
@@ -474,35 +473,36 @@ const Profile = () => {
               </div>
               <div>
                 <label className="label">
-                  {" "}
-                  Entrez l&apos;ancien mot de passe
+                  {t("profile.enter_old_password")}
                 </label>
                 <input
                   type="text"
                   className="profile-form"
                   value={user.oldPassword}
                   onChange={handleOldPassword}
-                  placeholder="entrez l'ancien mot de passe"
+                  placeholder={t("profile.enter_old_password")}
                 />{" "}
               </div>
               <div style={{ marginTop: "20px" }}>
-                <label className="label"> L&apos;ancien mot de passe</label>
+                <label className="label">{t("profile.old_password")}</label>
                 <input
                   type="text"
                   className="profile-form"
                   value={user.password}
                   onChange={handlePassword}
-                  placeholder="entrez l'ancien mot de passe"
+                  placeholder={t("profile.enter_old_password")}
                 />
               </div>
               <div style={{ marginTop: "20px" }}>
-                <label className="label">{t("profile.new_password")}</label>
+                <label className="label">
+                  {t("profile.enter_new_password")}
+                </label>
                 <input
                   type="text"
                   className="profile-form"
                   value={user.confirmPassword}
                   onChange={handleConfirmPassword}
-                  placeholder="Entrez un nouveau mot de passe"
+                  placeholder={t("profile.new_password")}
                 />
               </div>
             </div>

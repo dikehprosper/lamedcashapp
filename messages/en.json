@@ -111,6 +111,8 @@
       "reset_password": "Reset Password",
       "old_password": "Old Password",
       "new_password": "New Password",
+      "enter_old_password": "Enter old password",
+      "enter_new_password": "Enter new password",
       "confirm_password": "Confirm Password",
       "note": "Note:",
       "password_note": "To update your password, enter the old password and the new one you want to use",
