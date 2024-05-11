@@ -157,6 +157,10 @@ const userSchema = new Schema({
         momoNumber: String || Number,
         paymentConfirmation: String,
         totalAmount: String,
+        authenticatedDeposit: {
+          type: Boolean,
+          default: true,
+        },
       },
     ],
   },
@@ -194,6 +198,10 @@ const userSchema = new Schema({
         bonusBalance: Number,
         paymentConfirmation: String,
         totalAmount: String,
+        authenticatedDeposit: {
+          type: Boolean,
+          default: true,
+        },
         isSubmitted: {
           type: Boolean,
           default: false,
@@ -369,6 +377,10 @@ const adminSchema = new Schema({
         momoNumber: String || Number,
         paymentConfirmation: String,
         totalAmount: String,
+        authenticatedDeposit: {
+          type: Boolean,
+          default: true,
+        },
       },
     ],
   },
@@ -405,6 +417,10 @@ const adminSchema = new Schema({
         paymentConfirmation: String,
         totalAmount: String,
         fedapayTransactionId: String || Number,
+        authenticatedDeposit: {
+          type: Boolean,
+          default: true,
+        },
         isSubmitted: {
           type: Boolean,
           default: false,
@@ -592,9 +608,25 @@ const subAdminSchema = new Schema({
   forgotPasswordTokenExpiry: Date,
 });
 
+const GenerateQrCodeSchema = new Schema({
+  betId: {type: String, required: true},
+  amount: {type: Number, required: true},
+  email: String,
+  createdAt: String,
+  validUntil: String,
+  qrcodeStatus: {type: String, required: true, default: "Pending"},
+  number: Number,
+  fullname: String,
+  service: String,
+  used: {type: Boolean, required: true, default: false},
+  paymentConfirmation: {type: String, required: true, default: "Pending"},
+});
+
+const QrCodeDeposits =
+  models.QrCodeDeposits || model("QrCodeDeposits", GenerateQrCodeSchema);
 const User = models.users || model("users", userSchema);
 const AdminUser = models.admins || model("admins", adminSchema);
 const SubAdminUser = models.subadmins || model("subadmins", subAdminSchema);
 
-export {User as default, AdminUser, SubAdminUser};
+export {User as default, AdminUser, SubAdminUser, QrCodeDeposits};
 

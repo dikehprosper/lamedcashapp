@@ -5,7 +5,7 @@ import { FedaPay, Transaction, Customer } from "fedapay";
 const { Webhook } = require("fedapay");
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
-import {SubAdminUser, AdminUser} from "@/models/userModel";
+import {SubAdminUser, AdminUser, QrCodeDeposits} from "@/models/userModel";
 connect();
 const {createServer} = require("http");
 const {Server} = require("socket.io");
@@ -97,6 +97,15 @@ export async function POST(request: NextRequest) {
       );
       if (transactionToEdit) {
         // Update the status property
+
+        const qrCodeTransactionToEdit = QrCodeDeposits.find(
+          (transaction) =>
+            transaction._id === transactionToEdit.QrCodeDepositsId
+        );
+        if (qrCodeTransactionToEdit) {
+          qrCodeTransactionToEdit.used = true;
+          await QrCodeDeposits.save();
+        }
         transactionToEdit.status = "Failed";
         transactionToEdit.paymentConfirmation = "Failed";
         await user.save();
@@ -116,9 +125,6 @@ export async function POST(request: NextRequest) {
         (t: any) => t.fedapayTransactionId === fedapayTransactionId
       );
 
-
-
-
       if (ticketIndex !== -1) {
         // If the ticket is found in user.pendingDeposit, remove it
         user.pendingDeposit.splice(ticketIndex, 1);
@@ -137,12 +143,20 @@ export async function POST(request: NextRequest) {
       );
       if (transactionToEdit) {
         // Update the status property
+        const qrCodeTransactionToEdit = QrCodeDeposits.find(
+          (transaction) =>
+            transaction._id === transactionToEdit.QrCodeDepositsId
+        );
+        if (qrCodeTransactionToEdit) {
+          qrCodeTransactionToEdit.used = true;
+          await QrCodeDeposits.save();
+        }
         transactionToEdit.status = "Pending";
         transactionToEdit.paymentConfirmation = "Successful";
         await user.save();
       }
       await user.save();
-      
+
       const adminUsers = await SubAdminUser.find({
         isSubAdminDeposits: true,
       });
@@ -267,26 +281,34 @@ export async function POST(request: NextRequest) {
     } else if (event.name === "transaction.canceled") {
       console.log("transaction canceled");
 
-          const transactionToEdit = user.transactionHistory.find(
-            (transaction) =>
-              transaction.fedapayTransactionId === fedapayTransactionId
-          );
-          if (transactionToEdit) {
-            // Update the status property
-            transactionToEdit.status = "Failed";
-            transactionToEdit.paymentConfirmation = "Failed";
-            await user.save();
-          }
-          const transactionToEditForAdmin = admin.transactionHistory.find(
-            (transaction) =>
-              transaction.fedapayTransactionId === fedapayTransactionId
-          );
-          if (transactionToEditForAdmin) {
-            // Update the status property
-            transactionToEditForAdmin.status = "Failed";
-            transactionToEditForAdmin.paymentConfirmation = "Failed";
-            await admin.save();
-          }
+      const transactionToEdit = user.transactionHistory.find(
+        (transaction) =>
+          transaction.fedapayTransactionId === fedapayTransactionId
+      );
+      if (transactionToEdit) {
+        // Update the status property
+        const qrCodeTransactionToEdit = QrCodeDeposits.find(
+          (transaction) =>
+            transaction._id === transactionToEdit.QrCodeDepositsId
+        );
+        if (qrCodeTransactionToEdit) {
+          qrCodeTransactionToEdit.used = true;
+          await QrCodeDeposits.save();
+        }
+        transactionToEdit.status = "Failed";
+        transactionToEdit.paymentConfirmation = "Failed";
+        await user.save();
+      }
+      const transactionToEditForAdmin = admin.transactionHistory.find(
+        (transaction) =>
+          transaction.fedapayTransactionId === fedapayTransactionId
+      );
+      if (transactionToEditForAdmin) {
+        // Update the status property
+        transactionToEditForAdmin.status = "Failed";
+        transactionToEditForAdmin.paymentConfirmation = "Failed";
+        await admin.save();
+      }
 
       await user.save();
       await admin.save();
