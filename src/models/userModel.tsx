@@ -198,6 +198,7 @@ const userSchema = new Schema({
         bonusBalance: Number,
         paymentConfirmation: String,
         totalAmount: String,
+        QrCodeDepositsId: String,
         authenticatedDeposit: {
           type: Boolean,
           default: true,
@@ -417,6 +418,7 @@ const adminSchema = new Schema({
         paymentConfirmation: String,
         totalAmount: String,
         fedapayTransactionId: String || Number,
+        QrCodeDepositsId: String,
         authenticatedDeposit: {
           type: Boolean,
           default: true,
@@ -623,7 +625,7 @@ const GenerateQrCodeSchema = new Schema({
 });
 
 const QrCodeDeposits =
-  models.QrCodeDeposits || model("QrCodeDeposits", GenerateQrCodeSchema);
+  models.qrcodedeposits || model("qrcodedeposits", GenerateQrCodeSchema);
 const User = models.users || model("users", userSchema);
 const AdminUser = models.admins || model("admins", adminSchema);
 const SubAdminUser = models.subadmins || model("subadmins", subAdminSchema);
