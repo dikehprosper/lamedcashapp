@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       userid: user._id,
       status: "Pending",
       registrationDateTime: date,
-      amount: ticket.amount,
+      amount: ticket.totalAmount,
       betId: ticket.betId,
       momoName: ticket.momoName,
       momoNumber: ticket.momoNumber,
