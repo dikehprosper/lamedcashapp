@@ -8,7 +8,12 @@ import { AiOutlineCluster } from "react-icons/ai";
 import { TbPigMoney } from "react-icons/tb";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 
-export default function AdminDashboardDisplay({ data, data2, data3,type }: any) {
+export default function AdminDashboardDisplay({
+  data,
+  data2,
+  data3,
+  type,
+}: any) {
   const [state, setState] = useState("All Time");
   const select = ["Today", "7 days", "2 weeks", "1 month", "All Time"];
   const [loading, setLoading] = useState(false);
@@ -80,7 +85,7 @@ export default function AdminDashboardDisplay({ data, data2, data3,type }: any) 
       (state === "All Time" && user.isUser === true)
   );
 
- const totalSubadmins = (data2?.length || 0) + (data3?.length || 0);
+  const totalSubadmins = (data2?.length || 0) + (data3?.length || 0);
 
   const sum = openOrders?.reduce((acc: any, obj: any) => acc + obj.amount, 0);
 
@@ -94,47 +99,42 @@ export default function AdminDashboardDisplay({ data, data2, data3,type }: any) 
   );
 
   return (
-    <div className='subadmin_dashboard_container-display_withdrawal_admin'>
+    <div className="subadmin_dashboard_container-display_withdrawal_admin">
       {data ? (
         <div
-          className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
+          className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
           style={{
-            background:
-              type === "1"
-                ? "rgba(0, 184, 128, 0.1)"
-                : type === "2"
-                ? "rgba(0, 128, 184, 0.3)"
-                : "rgba(128, 128, 128, 0.2)",
+            background: "rgba(128, 128, 128, 0.2)",
           }}
         >
-          <div className='display-body-300_withdrawal_admin'>
+          <div className="display-body-300_withdrawal_admin">
             {type !== "4" && (
-              <div>
-                <TbPigMoney fontSize='30px' />
+              <div className="card-icon">
+                <TbPigMoney fontSize="20px" />
               </div>
             )}
           </div>
-          <h3>
+          <h3 className="admin-card-title">
             {" "}
             {type === "1" && "Open Deposits"}
             {type === "2" && "Open Withdrawals"}
             {type === "4" && "Total Subadmins"}
           </h3>
-        
-               {loading ? (
-            <div id='container_deposit_display_withdrawal_admin'>
-              <div id='container_deposit_display_inner_withdrawal_admin'></div>
+
+          {loading ? (
+            <div id="container_deposit_display_withdrawal_admin">
+              <div id="container_deposit_display_inner_withdrawal_admin"></div>
             </div>
           ) : (
             <>
               {type !== "4" && (
-                <h1 className='animate-pop-in'>{openOrders?.length}</h1>
+                <h1 className="animate-pop-in">{openOrders?.length}</h1>
               )}
               {type === "4" && (
-                <h1 className='animate-pop-in'>{totalSubadmins}</h1>
+                <h1 className="animate-pop-in">{totalSubadmins}</h1>
               )}
               {type !== "4" && (
-                <h4 className='animate-pop-in'>
+                <h4 className="animate-pop-in card-price">
                   XOF &nbsp;
                   {formatNumberWithCommasAndDecimal(sum2)}
                 </h4>
@@ -143,32 +143,27 @@ export default function AdminDashboardDisplay({ data, data2, data3,type }: any) 
           )}
         </div>
       ) : (
-        <div className='subadmin_dashboard_container-display-children-loading_withdrawal_admin '>
-          <div id='container_deposit_display_withdrawal_admin'>
-            <div id='container_deposit_display_inner_withdrawal_admin'></div>
+        <div className="subadmin_dashboard_container-display-children-loading_withdrawal_admin ">
+          <div id="container_deposit_display_withdrawal_admin">
+            <div id="container_deposit_display_inner_withdrawal_admin"></div>
           </div>
         </div>
       )}
 
       {data ? (
         <div
-          className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
+          className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
           style={{
-            background:
-              type === "1"
-                ? "rgba(0, 184, 128, 0.1)"
-                : type === "2"
-                ? "rgba(0, 128, 184, 0.3)"
-                : "rgba(128, 128, 128, 0.2)",
+            background: "rgba(128, 128, 128, 0.2)",
           }}
         >
           <div
-            className='display-body-300_withdrawal_admin'
-            style={{ zIndex: "700000000" }}
+            className="display-body-300_withdrawal_admin"
+            style={{ zIndex: "999" }}
           >
-            <div>
-              <AiOutlineCluster fontSize='30px' />
-            </div>{" "}
+            <div className="card-icon">
+              <AiOutlineCluster fontSize="20px" />
+            </div>
             <div>
               <DropdownContent
                 state={state}
@@ -178,26 +173,26 @@ export default function AdminDashboardDisplay({ data, data2, data3,type }: any) 
               />
             </div>
           </div>
-          <h3>
+          <h3 className="admin-card-title">
             {" "}
             {type === "1" && "Completed Deposits"}
             {type === "2" && "Completed Withdrawals"}{" "}
             {type === "4" && "Total Users"}
           </h3>
           {loading ? (
-            <div id='container_deposit_display_withdrawal_admin'>
-              <div id='container_deposit_display_inner_withdrawal_admin'></div>
+            <div id="container_deposit_display_withdrawal_admin">
+              <div id="container_deposit_display_inner_withdrawal_admin"></div>
             </div>
           ) : (
             <>
               {type !== "4" && (
-                <h1 className='animate-pop-in'>{completedOrders?.length}</h1>
+                <h1 className="animate-pop-in">{completedOrders?.length}</h1>
               )}
               {type === "4" && (
-                <h1 className='animate-pop-in'>{totalUsers?.length}</h1>
+                <h1 className="animate-pop-in">{totalUsers?.length}</h1>
               )}
               {type !== "4" && (
-                <h4 className='animate-pop-in'>
+                <h4 className="animate-pop-in card-price">
                   XOF &nbsp;
                   {formatNumberWithCommasAndDecimal(sum2)}
                 </h4>
@@ -206,35 +201,30 @@ export default function AdminDashboardDisplay({ data, data2, data3,type }: any) 
           )}
         </div>
       ) : (
-        <div className='subadmin_dashboard_container-display-children-loading_withdrawal_admin'>
-          <div id='container_deposit_display_withdrawal_admin'>
-            <div id='container_deposit_display_inner_withdrawal_admin'></div>
+        <div className="subadmin_dashboard_container-display-children-loading_withdrawal_admin">
+          <div id="container_deposit_display_withdrawal_admin">
+            <div id="container_deposit_display_inner_withdrawal_admin"></div>
           </div>
         </div>
       )}
       {data ? (
         <div
-          className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
+          className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
           style={{
-            background:
-              type === "1"
-                ? "rgba(0, 184, 128, 0.1)"
-                : type === "2"
-                ? "rgba(0, 128, 184, 0.3)"
-                : "rgba(128, 128, 128, 0.2)",
-                display: type !== "1" && type !== "2"? "none" : "flex"
+            background: "rgba(128, 128, 128, 0.2)",
+            display: type !== "1" && type !== "2" ? "none" : "flex",
           }}
         >
           {type !== "4" && (
             <>
               <div
-                className='display-body-300_withdrawal_admin'
+                className="display-body-300_withdrawal_admin"
                 style={{ zIndex: "7000000" }}
               >
-                <div>
-                  <AiOutlineCluster fontSize='30px' />
+                <div className="card-icon">
+                  <AiOutlineCluster fontSize="20px" />
                 </div>{" "}
-                <div>
+                <div className="admin-drop">
                   <DropdownContent
                     state={state}
                     select={select}
@@ -243,16 +233,18 @@ export default function AdminDashboardDisplay({ data, data2, data3,type }: any) 
                   />
                 </div>
               </div>
-              <h3>{type == "1" ? "Failed Deposits" : "Failed Withdrawals"} </h3>
+              <h3 className="admin-card-title">
+                {type == "1" ? "Failed Deposits" : "Failed Withdrawals"}{" "}
+              </h3>
               {loading ? (
-                <div id='container_deposit_display_withdrawal_admin'>
-                  <div id='container_deposit_display_inner_withdrawal_admin'></div>
+                <div id="container_deposit_display_withdrawal_admin">
+                  <div id="container_deposit_display_inner_withdrawal_admin"></div>
                 </div>
               ) : (
                 <>
                   {" "}
-                  <h1 className='animate-pop-in'>{failedOrders?.length}</h1>
-                  <h4 className='animate-pop-in'>
+                  <h1 className="animate-pop-in">{failedOrders?.length}</h1>
+                  <h4 className="animate-pop-in card-price">
                     XOF &nbsp;
                     {formatNumberWithCommasAndDecimal(sum3)}
                   </h4>
@@ -262,9 +254,9 @@ export default function AdminDashboardDisplay({ data, data2, data3,type }: any) 
           )}
         </div>
       ) : (
-        <div className='subadmin_dashboard_container-display-children-loading_withdrawal_admin '>
-          <div id='container_deposit_display_withdrawal_admin'>
-            <div id='container_deposit_display_inner_withdrawal_admin'></div>
+        <div className="subadmin_dashboard_container-display-children-loading_withdrawal_admin ">
+          <div id="container_deposit_display_withdrawal_admin">
+            <div id="container_deposit_display_inner_withdrawal_admin"></div>
           </div>
         </div>
       )}

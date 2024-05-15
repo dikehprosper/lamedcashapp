@@ -14,8 +14,8 @@
     "@formatjs/intl-localematcher": "^0.5.4",
     "@mui/material": "^5.14.18",
     "@mui/x-charts": "^6.18.7",
-    "aws-sdk": "^2.1613.0",
     "@reduxjs/toolkit": "^2.2.3",
+    "aws-sdk": "^2.1613.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -46,6 +46,7 @@
     "sharp": "^0.32.6",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
+    "swiper": "^11.1.1",
     "toast": "^0.5.4",
     "uuid": "^9.0.1"
   },

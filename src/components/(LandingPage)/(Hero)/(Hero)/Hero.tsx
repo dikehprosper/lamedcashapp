@@ -7,6 +7,7 @@ import image from "../../../../../public/image8.webp";
 import { useTranslations } from "next-intl";
 import "./hero.css";
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
+import Banner from "@/components/Banner/Banner";
 const hero = () => {
   const t = useTranslations("home");
   return (

@@ -183,7 +183,7 @@ const SignUp = () => {
       }
       if (!isValidPhoneNumber) {
         setPhoneNumberError(true);
-        console.error("Number must be 8 digits:", user.number);
+        console.error(t("errors.invalid_phone_number"), user.number);
         setLoading(false);
       }
       if (!isValidEmail) {
@@ -447,7 +447,7 @@ const SignUp = () => {
                   className="animate-pop-in"
                 >
                   {" "}
-                  Number must be 8 digits
+                  {t("errors.invalid_phone_number")}
                 </p>
               )}
             </div>
@@ -482,7 +482,7 @@ const SignUp = () => {
                 className="animate-pop-in"
               >
                 {" "}
-                Please input a valid mail
+                {t("errors.invalid_email")}
               </p>
             )}
           </div>
@@ -518,7 +518,7 @@ const SignUp = () => {
                   className="animate-pop-in"
                 >
                   {" "}
-                  Password must be more than four(4) characters
+                  {t("errors.password_length")}
                 </p>
               )}
             </div>
@@ -590,7 +590,7 @@ const SignUp = () => {
               className="animate-pop-in"
             >
               {" "}
-              click the check button to continue
+              {t("errors.accept_conditions")}
             </p>
           )}
           <button

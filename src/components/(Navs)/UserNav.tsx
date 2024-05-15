@@ -29,6 +29,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import LanguageToggle from "../(LanguageToggle)/languageToggle";
 
 const UserNav = () => {
   const t = useTranslations("dashboard");
@@ -257,6 +258,7 @@ const UserNav = () => {
               alt="Picture of the author"
             />
           </div>
+
           <div className="nav-link">
             <Link className={` ${pathname === "/" ? "active" : ""}`} href="/">
               Accueil
@@ -282,6 +284,7 @@ const UserNav = () => {
           </div>
           <div className="nav-language"></div>
           <div className="user-profile-icon-container">
+            <LanguageToggle />
             <Link href="/profile">
               <div
                 className={`user-profile-icon ${

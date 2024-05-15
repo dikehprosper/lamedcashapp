@@ -5,6 +5,7 @@ import "./head.css";
 import GetInitials from "../../(Utils)/getInitials";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 const Head = ({ title, about, data }: any) => {
   const spanRef = useRef<HTMLSpanElement>(null);
   const t = useTranslations("dashboard");
@@ -70,6 +71,8 @@ const Head = ({ title, about, data }: any) => {
                   copier
                 </span>
               </span>
+              <div style={{ marginLeft: "5px" }}></div>
+              <LanguageToggle />
             </div>
           ) : (
             <div className="tag-container2">

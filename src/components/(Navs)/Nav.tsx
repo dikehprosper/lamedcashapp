@@ -8,6 +8,7 @@ import Image from "next/image";
 import Modal from "../(Utils)/VisitorNavModal";
 import image from "../../../public/Logo.webp";
 import { useTranslations } from "next-intl";
+import LanguageToggle from "../(LanguageToggle)/languageToggle";
 
 const Nav = () => {
   const t = useTranslations("header");
@@ -80,13 +81,20 @@ const Nav = () => {
           </Link>
           {/* <LanguageSwitcher /> */}
         </div>
-        <div className="nav-language"></div>
-        <div onClick={changeState}>
-          {state ? (
-            <MdMenuOpen className="MdMenuOpen" />
-          ) : (
-            <AiOutlineClose className="MdMenuOpen" />
-          )}
+        <div className="nav-language">
+          <LanguageToggle />
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <div className="for-smaller-devices">
+            <LanguageToggle />
+          </div>
+          <div onClick={changeState}>
+            {state ? (
+              <MdMenuOpen className="MdMenuOpen" />
+            ) : (
+              <AiOutlineClose className="MdMenuOpen" />
+            )}
+          </div>
         </div>
       </div>
       {!state && (

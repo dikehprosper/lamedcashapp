@@ -11,6 +11,14 @@ import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
 import BarsDataset from "./(components)/chart";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
 function Page() {
   const router = useRouter();
   const [data, setData] = useState<any>();
@@ -107,20 +115,27 @@ function Page() {
   }, []);
 
   return (
-    <div className='subadmin_dashboard_container_admin_admin'>
+    <div className="subadmin_dashboard_container_admin_admin">
       <AdminHead
-        title='Tableau de bord'
-        about='Voir toutes les transactions ici'
+        title="Tableau de bord"
+        about="Voir toutes les transactions ici"
         data={data3}
       />
 
-      <div className='dashboard-display_admin'>
-        <AdminDashboardDisplay data={data} type='1' />
-        <AdminDashboardDisplay data={data2} type='2' />
-        <AdminDashboardDisplay data={data4} data2={data2} data3={data} type='4' />
-        <div className='subadmin_dashboard_container-display_withdrawal_admin_chart'>
-          <BarsDataset data={data4} />
-        </div>
+      <div className="dashboard-display_admin">
+        <AdminDashboardDisplay data={data} type="1" />
+        <AdminDashboardDisplay data={data2} type="2" />
+        <AdminDashboardDisplay
+          data={data4}
+          data2={data2}
+          data3={data}
+          type="4"
+        />
+        <ThemeProvider theme={darkTheme}>
+          <div className="subadmin_dashboard_container-display_withdrawal_admin_chart">
+            <BarsDataset data={data4} />
+          </div>
+        </ThemeProvider>
       </div>
     </div>
   );

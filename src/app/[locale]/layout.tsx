@@ -48,7 +48,7 @@ export default function RootLayout({
         <NextIntlClientProvider messages={messages} locale={locale}>
           <StoreProvider>
             <NavState />
-            <LanguageToggle />
+            {/* <LanguageToggle /> */}
             {children}
           </StoreProvider>
         </NextIntlClientProvider>
