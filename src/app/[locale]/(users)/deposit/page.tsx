@@ -170,7 +170,7 @@ const Deposit = () => {
 
   const [processing, setProcessing] = useState(false);
   const [processing2, setProcessing2] = useState(false);
-  const [processing2, setProcessing2] = useState(false);
+ 
 
   async function submitDetails() {
     if (isSubmitting) {
