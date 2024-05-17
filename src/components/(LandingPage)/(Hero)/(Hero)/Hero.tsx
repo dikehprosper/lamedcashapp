@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import "./hero.css";
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Banner from "@/components/Banner/Banner";
-const hero = () => {
+const Hero = () => {
   const t = useTranslations("home");
   return (
     <>
@@ -119,4 +119,4 @@ const hero = () => {
   );
 };
 
-export default hero;
+export default Hero;

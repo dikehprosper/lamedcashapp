@@ -6,7 +6,7 @@ import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber"
 import "./display.css";
 import { useTranslations } from "next-intl";
 
-const display = ({
+const Display = ({
   count,
   term,
   title,
@@ -117,4 +117,4 @@ const display = ({
   );
 };
 
-export default display;
+export default Display;

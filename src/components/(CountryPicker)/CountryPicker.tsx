@@ -29,6 +29,7 @@ export default function CountryPicker({
     <div className="country-picker">
       {Object.keys(countries).map((item, key) => (
         <div
+          key={key}
           className="country-picker-item"
           onClick={() => handleClick(countries[item as keyof object])}
         >
