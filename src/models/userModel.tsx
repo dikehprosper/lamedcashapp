@@ -177,6 +177,7 @@ const userSchema = new Schema({
   transactionHistory: {
     type: [
       {
+        recipientid: String,
         username: String,
         userNumber: Number,
         userid: String,
@@ -398,6 +399,7 @@ const adminSchema = new Schema({
   transactionHistory: {
     type: [
       {
+        recipientid: String,
         username: String,
         userNumber: Number,
         userid: String,
