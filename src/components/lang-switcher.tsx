@@ -6,7 +6,7 @@ import React from "react";
 
 export type LanguageSwitcherProps = {
   context?: NextPageContext;
-};
+}
 
 export const LanguageSwitcher = ({ context }: LanguageSwitcherProps = {}) => {
   const { currentLanguage, switchLanguage, languageConfig } =
