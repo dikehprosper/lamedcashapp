@@ -4,8 +4,11 @@ import { IoIosCopy } from "react-icons/io";
 import "./head.css";
 import GetInitials from "../../(Utils)/getInitials";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
+import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 const Head = ({ title, about, data }: any) => {
   const spanRef = useRef<HTMLSpanElement>(null);
+  const t = useTranslations("dashboard");
 
   const handleCopyClick = () => {
     if (spanRef.current) {
@@ -26,32 +29,33 @@ const Head = ({ title, about, data }: any) => {
   };
   return (
     <>
-      <div className='head-container big'>
-        <div className='title-container'>
-          <h2 className='title-container-h2'>{title}</h2>
-          <p className='title-container-p'>{about}</p>
+      <div className="head-container big">
+        <div className="title-container">
+          <h2 className="title-container-h2">{title}</h2>
+          <p className="title-container-p">{about}</p>
         </div>
-        <div className='tag'>
+        <div className="tag">
           {data?._id ? (
-            <div className='tag-container animate-pop-in '>
-              <div className='tag-container-icon'>
+            <div className="tag-container animate-pop-in ">
+              <div className="tag-container-icon">
                 <GetInitials name={data?.fullname} />
               </div>
-              <span className='tag-container-name'>
+              <span className="tag-container-name">
                 {" "}
                 {data?.fullname ? (
                   data?.fullname
                 ) : (
-                  <div id='container_outoffunds'>
-                    <div id='container_outoffunds_inner'></div>
+                  <div id="container_outoffunds">
+                    <div id="container_outoffunds_inner"></div>
                   </div>
                 )}
               </span>
-              <span className='tag-container-online-container'>
-                En ligne <span className='tag-container-online-logo'> </span>{" "}
+              <span className="tag-container-online-container">
+                {t("online")}{" "}
+                <span className="tag-container-online-logo"> </span>{" "}
               </span>
-              <span className='tag-container-id'>
-                <span className='tag-container-id-span1'>
+              <span className="tag-container-id">
+                <span className="tag-container-id-span1">
                   <span style={{ fontWeight: "300" }}>1XBet Id:</span> &nbsp;
                   <span onClick={handleCopyClick} ref={spanRef}>
                     {" "}
@@ -59,7 +63,7 @@ const Head = ({ title, about, data }: any) => {
                   </span>
                 </span>
                 <span
-                  className='tag-container-id-span2'
+                  className="tag-container-id-span2"
                   onClick={handleCopyClick}
                   style={{ cursor: "pointer" }}
                 >
@@ -67,32 +71,34 @@ const Head = ({ title, about, data }: any) => {
                   copier
                 </span>
               </span>
+              <div style={{ marginLeft: "5px" }}></div>
+              <LanguageToggle />
             </div>
           ) : (
-            <div className='tag-container2'>
+            <div className="tag-container2">
               {" "}
-              <div id='container_customerid'>
-                <div id='container_customerid_inner'></div>
+              <div id="container_customerid">
+                <div id="container_customerid_inner"></div>
               </div>
             </div>
           )}
         </div>
       </div>
 
-      <div className='head-container small'>
-        <div className='tag'>
-          <span className='tag-container-id'>
+      <div className="head-container small">
+        <div className="tag">
+          <span className="tag-container-id">
             {data?._id ? (
               <>
-                <span className='tag-container-id-span1'>
-                  <span className='tag-container-id-span3'>1XBet Id: </span>
+                <span className="tag-container-id-span1">
+                  <span className="tag-container-id-span3">1XBet Id: </span>
                   <span onClick={handleCopyClick} ref={spanRef}>
                     {" "}
                     {data?.betId}{" "}
                   </span>
                 </span>
                 <span
-                  className='tag-container-id-span2'
+                  className="tag-container-id-span2"
                   onClick={handleCopyClick}
                 >
                   <IoIosCopy />
@@ -100,17 +106,17 @@ const Head = ({ title, about, data }: any) => {
                 </span>{" "}
               </>
             ) : (
-              <span className='tag-container-id2'>
-                <div id='container_customerid'>
-                  <div id='container_customerid_inner'></div>
+              <span className="tag-container-id2">
+                <div id="container_customerid">
+                  <div id="container_customerid_inner"></div>
                 </div>
               </span>
             )}
           </span>
         </div>
-        <div className='title-container'>
-          <h2 className='title-container-h2'>{title}</h2>
-          <p className='title-container-p'>{about}</p>
+        <div className="title-container">
+          <h2 className="title-container-h2">{title}</h2>
+          <p className="title-container-p">{about}</p>
         </div>
       </div>
     </>

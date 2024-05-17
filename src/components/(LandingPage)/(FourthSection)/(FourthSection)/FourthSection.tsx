@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import "./fourthSection.css";
 import FirstQuestion from "../(components)/(FirstQuestion)/FirstQuestion";
 import SecondQuestion from "../(components)/(SecondQuestion)/SecondQuestion";
+import { useTranslations } from "next-intl";
 
 const FourthSection = () => {
   const [height, setHeight] = useState(0);
   const [height2, setHeight2] = useState(0);
+  const t = useTranslations("home");
 
   function adjustHeight() {
     setHeight2(0);
@@ -30,7 +32,7 @@ const FourthSection = () => {
   }
   return (
     <div className="component_400">
-      <h2>Questions fréquemment posées</h2>
+      <h2>{t("faq")}</h2>
       <div className="body_400">
         <FirstQuestion height={height} adjustHeight={adjustHeight} />
         <SecondQuestion height={height2} adjustHeight={adjustHeight2} />

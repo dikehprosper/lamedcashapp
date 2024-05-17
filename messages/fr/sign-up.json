@@ -1,0 +1,29 @@
+{
+  "signup": {
+    "join_us": "Rejoignez-nous",
+    "enter_fullname": "Entrez votre nom complet",
+    "bet_id": "Numéro d’identification XBET",
+    "whatsapp_number": "Numéro Whatsapp/mobile",
+    "enter_email": "Entrez votre adresse email",
+    "enter_password": "Entrer le mot de passe",
+    "confirm_password": "Confirmez le mot de passe",
+    "accept_conditions": "J'accepte les conditions (DÉCONSEILLÉ AUX MOINS DE 18 ANS)",
+    "already_have_account": "Vous avez déjà un compte?",
+    "sign_in": "S'identifier!",
+    "register": "S'inscrire",
+    "continue_with": "Ou continuez avec",
+    "contact_us": "Contactez-nous"
+  },
+  "errors": {
+    "name_required": "Veuillez entrer votre nom",
+    "bet_id_length": "Le numéro d'identification doit avoir au moins 4 caractères",
+    "invalid_phone_number": "Le numéro doit comporter 8 chiffres",
+    "invalid_email": "Veuillez saisir une adresse e-mail valide",
+    "password_length": "Le mot de passe doit comporter plus de quatre (4) caractères",
+    "password_mismatch": "La confirmation du mot de passe ne correspond pas",
+    "accept_conditions": "Cliquez sur le bouton de vérification pour continuer"
+  },
+  "tooltips": {
+    "click_to_continue": "Cliquez pour continuer"
+  }
+}

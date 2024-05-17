@@ -1,21 +1,21 @@
+"use client";
 import "./footer.css";
 import Image from "next/image";
 import image from "../../../../public/TikTok.svg";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations("home");
   return (
     <div className="footer">
-      <h4>PRENEZ CONTACT AVEC NOUS</h4>
-      <p>
-        Si vous avez un problème ou des questions pertinentes, utilisez les
-        liens ci-dessous pour nous contacter
-      </p>
-    
+      <h4>{t("contact us")}</h4>
+      <p>{t("contact us description")}</p>
+
       <div className="footer-social-media-icons">
         <div className="footer-img facebook">
           <Image
             src="/Facebook.svg"
-            loading='eager'
+            loading="eager"
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"
@@ -24,7 +24,7 @@ const Footer = () => {
         <div className="footer-img whatsapp">
           <Image
             src="/Whatsapp.svg"
-            loading='eager'
+            loading="eager"
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"
@@ -33,7 +33,7 @@ const Footer = () => {
         <div className="footer-img tiktok">
           <Image
             src={image}
-            loading='eager'
+            loading="eager"
             fill
             style={{ objectFit: "cover" }}
             alt="Picture of the author"

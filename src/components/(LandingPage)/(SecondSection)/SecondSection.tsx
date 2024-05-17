@@ -1,49 +1,40 @@
+"use client";
 import React from "react";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import "./secondSection.css";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const SecondSection = () => {
+  const t = useTranslations("home");
   return (
-    <div className='secondSection-container'>
-      <h2>Nous offrons</h2>
-      <div className='secondSection-box'>
-        <div className='secondSection-box-inner animate-pop-in '>
+    <div className="secondSection-container">
+      <h2>{t("we offer")}</h2>
+      <div className="secondSection-box">
+        <div className="secondSection-box-inner animate-pop-in ">
           <div>
             {" "}
-            <AiFillThunderbolt className='secondSection-icons' />
+            <AiFillThunderbolt className="secondSection-icons" />
           </div>
-          <h5>Rapide et facile</h5>
-          <p>
-            Dites adieu à la gestion compliquée de vos fonds 1XBET. Avec Espese,
-            le financement et les retraits ne sont qu&apos;à quelques clics de
-            distance.
-          </p>
+          <h5>{t("quick")}</h5>
+          <p>{t("quick description")}</p>
         </div>
-        <div className='secondSection-box-inner animate-pop-in '>
+        <div className="secondSection-box-inner animate-pop-in ">
           <div>
-            <BsShieldLock className='secondSection-icons' />
+            <BsShieldLock className="secondSection-icons" />
           </div>
-          <h5>Sécurité et commodité</h5>
-          <p>
-            Vos fonds, à votre façon. Nous accordons la priorité à la sécurité
-            et à la commodité, garantissant votre tranquillité d&apos;esprit à
-            chaque transaction.
-          </p>
+          <h5>{t("secure")}</h5>
+          <p>{t("secure description")}</p>
         </div>
-        <div className='secondSection-box-inner animate-pop-in '>
+        <div className="secondSection-box-inner animate-pop-in ">
           <div>
             {" "}
-            <MdOutlineSupportAgent className='secondSection-icons' />
+            <MdOutlineSupportAgent className="secondSection-icons" />
           </div>
           <h5>Support 24/7</h5>
-          <p>
-            Nous sommes là pour vous à toute heure du jour et de la nuit. Notre
-            équipe d&apos;assistance dévouée est prête à vous aider à tout
-            moment et n&apos;importe où.
-          </p>
+          <p>{t("support description")}</p>
         </div>
       </div>
     </div>

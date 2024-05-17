@@ -2,21 +2,26 @@
 import React, { useState } from "react";
 import Nav from "./Nav";
 import UserNav from "./UserNav";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import BottomNav from "./BottomNav";
 
 const NavState = () => {
   const pathname = usePathname();
+  const params = useParams<{ locale: string }>();
 
-  return pathname === "/" ||
-    pathname === "/about" ||
-    pathname === "/signin" ||
-    pathname === "/signup" ||
-    pathname === "/resetpassword" ||
-    pathname === "/forgotpassword" ||
-    pathname.startsWith("/signup") ? (
+  return pathname === `/${params.locale}` ||
+    pathname === `/${params.locale}/about` ||
+    pathname === `/${params.locale}/signin` ||
+    pathname === `/${params.locale}/signup` ||
+    pathname === `/${params.locale}/resetpassword` ||
+    pathname === `/${params.locale}/forgotpassword` ||
+    pathname.startsWith(`/${params.locale}/signup`) ? (
     <Nav />
   ) : (
-    <UserNav />
+    <>
+      <UserNav />
+      <BottomNav />
+    </>
   );
 };
 

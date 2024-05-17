@@ -1,13 +1,18 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import CustomButton from "../(components)/CustomBotton";
 import mainBackgroundMobile from "../../../../../public/mainBackgroundMobile.webp";
 import image from "../../../../../public/image8.webp";
+import { useTranslations } from "next-intl";
 import "./hero.css";
+import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
+import Banner from "@/components/Banner/Banner";
 const hero = () => {
+  const t = useTranslations("home");
   return (
     <>
-      <div className='hero large-device'>
+      <div className="hero large-device">
         <div
           style={{
             width: "70%",
@@ -16,45 +21,43 @@ const hero = () => {
             paddingLeft: "50px",
           }}
         >
-          <section className='hero-text'>
-            <h1 className='hero-title animate-pop-in'>
-              <span className='hero-span'>Votre Solution</span> Tout-En-Un Pour
-              Des Transactions 1XBET
-              <span className='hero-span'> Sans Effort</span>.
+          <section className="hero-text">
+            <h1 className="hero-title animate-pop-in">
+              <span className="hero-span">{t("hero span 1")}</span>{" "}
+              {t("hero span 2")}
+              <span className="hero-span"> {t("hero span 3")}</span>.
             </h1>
-            <p className='hero-subtitle animate-pop-in'>
-              Effectuez facilement vos dépôts et retraits vers et depuis votre
-              compte 1XBET.
+            <p className="hero-subtitle animate-pop-in">
+              {t("hero description")}
             </p>
-            <div className='hero_button_container'>
+            <div className="hero_button_container">
               <CustomButton
-                containerStyles='hero-button animate-pop-in deposit'
-                title='Dépôt'
+                containerStyles="hero-button animate-pop-in deposit"
+                title={t("deposit")}
               />
               <CustomButton
-                containerStyles='hero-button animate-pop-in'
-                title='Retrait'
+                containerStyles="hero-button animate-pop-in"
+                title={t("withdrawal")}
               />
             </div>
           </section>
         </div>
-        <div className='hero-img'>
+        <div className="hero-img">
           <Image
             src={image}
             fill
-            loading='eager'
+            loading="eager"
             style={{
               objectFit: "cover",
             }}
-            sizes='(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw'
-            alt='Picture of the background'
-            placeholder='blur'
+            sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            alt="Picture of the background"
+            placeholder="blur"
           />
-
         </div>
       </div>
-      <div className='small-device'>
-        <div className='small-device-hero'>
+      <div className="small-device">
+        <div className="small-device-hero">
           <div
             style={{
               position: "fixed",
@@ -78,23 +81,22 @@ const hero = () => {
                 alignItems: "center",
               }}
             >
-              <h1 className='hero-title animate-pop-in'>
-                <span className='hero-span'>Votre Solution</span> Tout-En-Un
-                Pour Des Transactions 1XBET
-                <span className='hero-span'> Sans Effort</span>.
+              <h1 className="hero-title animate-pop-in">
+                <span className="hero-span">{t("hero span 1")}</span>{" "}
+                {t("hero span 2")}
+                <span className="hero-span"> {t("hero span 3")}</span>.
               </h1>
-              <p className='hero-subtitle animate-pop-in'>
-                Effectuez facilement vos dépôts et retraits vers et depuis votre
-                compte 1XBET.
+              <p className="hero-subtitle animate-pop-in">
+                {t("hero description")}
               </p>
-              <div className='hero_button_container'>
+              <div className="hero_button_container">
                 <CustomButton
-                  containerStyles='hero-button animate-pop-in deposit'
-                  title='Dépôt'
+                  containerStyles="hero-button animate-pop-in deposit"
+                  title={t("deposit")}
                 />
                 <CustomButton
-                  containerStyles='hero-button animate-pop-in'
-                  title='Retrait'
+                  containerStyles="hero-button animate-pop-in"
+                  title={t("withdrawal")}
                 />
               </div>
             </div>
@@ -102,14 +104,14 @@ const hero = () => {
           <Image
             src={mainBackgroundMobile}
             fill
-            loading='eager'
+            loading="eager"
             style={{
               objectFit: "cover",
               width: "100%",
               height: "100%",
             }}
-            placeholder='blur'
-            alt='Picture of the background'
+            placeholder="blur"
+            alt="Picture of the background"
           />
         </div>
       </div>

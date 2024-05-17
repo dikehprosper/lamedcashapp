@@ -1,12 +1,14 @@
-
+"use client";
 import "./firstQuestion.css";
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import AnimateHeight from "react-animate-height";
+import { useTranslations } from "next-intl";
 
-const FirstQuestion = ({height, adjustHeight}:any) => {
+const FirstQuestion = ({ height, adjustHeight }: any) => {
+  const t = useTranslations("home");
   return (
     <div
       className="body_innerbody_501"
@@ -15,7 +17,7 @@ const FirstQuestion = ({height, adjustHeight}:any) => {
       onClick={adjustHeight}
     >
       <div className="body_innerbody_504">
-        <p>Comment se déroule le processus de retrait avec Espece ?</p>
+        <p>{t("how does withdrawal work")}</p>
         {height === 0 ? (
           <MdOutlineKeyboardArrowUp fontSize="32px" color="#bdff00" />
         ) : (
@@ -29,17 +31,14 @@ const FirstQuestion = ({height, adjustHeight}:any) => {
         className="animate-height"
       >
         <div className="requirements-container">
-          <p>Conditions De Retrait Des Espèces :</p>
+          <p>{t("cash withdrawal conditions")} :</p>
           <ul>
-            <li>1. Votre identifiant 1xbet</li>
-            <li>2. Code de retrait 1Xbet obtenu depuis la plateforme 1xbet</li>
-            <li>3. Montante</li>
-            <li>4. Votre nom et numéro MOMO</li>
+            <li>1. {t("your 1xbet ID")}</li>
+            <li>2. {t("1xbet withdrawal code")}</li>
+            <li>3. {t("amount")}</li>
+            <li>4. {t("your momo number")}</li>
           </ul>
-          <p>
-            Après avoir fourni ces informations, votre demande de retrait sera
-            traité.
-          </p>
+          <p>{t("first question description")}</p>
         </div>
       </AnimateHeight>
     </div>

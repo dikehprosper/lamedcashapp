@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdLogout } from "react-icons/md";
 import { SmallScreenNavModalProps } from "@/types";
+import { useTranslations } from "next-intl";
 interface State {
   title: string;
 }
@@ -18,7 +19,8 @@ const Modal = ({
   logout,
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
- const [state, setState] = useState<State | undefined>(undefined);
+  const t = useTranslations("dashboard");
+  const [state, setState] = useState<State | undefined>(undefined);
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     link: any
@@ -72,6 +74,15 @@ const Modal = ({
         {navLinks?.map((link, index) => {
           return (
             <a
+              style={{
+                display:
+                  link.pathname.includes("dashboard") ||
+                  link.pathname.includes("deposit") ||
+                  link.pathname.includes("withdraw") ||
+                  link.pathname.includes("transactions")
+                    ? "none"
+                    : "flex",
+              }}
               key={index}
               className={` ${containerStylesInnerLink} `}
               href={link.pathname}
@@ -86,8 +97,9 @@ const Modal = ({
                   width: "85%",
                   borderRadius: "0px 20px 20px 0px",
                   zIndex: 2,
-                  background:
-                    pathname.startsWith(link.pathname) ? "rgba(189, 255, 0, 0.8)" : "",
+                  background: pathname.startsWith(link.pathname)
+                    ? "rgba(189, 255, 0, 0.8)"
+                    : "",
                 }}
               ></div>
               <span
@@ -101,12 +113,13 @@ const Modal = ({
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  fontWeight:
-                    pathname.startsWith(link.pathname)? "800" : "-moz-initial",
+                  fontWeight: pathname.startsWith(link.pathname)
+                    ? "800"
+                    : "-moz-initial",
                   color:
                     state?.title === link.title
                       ? "#97CF13"
-                      :  pathname.startsWith(link.pathname)
+                      : pathname.startsWith(link.pathname)
                       ? "black"
                       : "-moz-initial",
                 }}
@@ -117,7 +130,7 @@ const Modal = ({
           );
         })}
         <div style={{ padding: "10px" }} onClick={logout}>
-          <Link href='/'>Se déconnecter</Link>
+          <Link href="/">{t("logout")}</Link>
         </div>
       </div>
     </div>

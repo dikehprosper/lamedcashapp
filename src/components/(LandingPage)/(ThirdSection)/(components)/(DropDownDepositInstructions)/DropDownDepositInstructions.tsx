@@ -8,8 +8,11 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
+import { useTranslations } from "next-intl";
+
 const DropDownDepositInstructions = () => {
   const [height, setHeight] = useState(0);
+  const t = useTranslations("home");
 
   function adjustHeight() {
     setHeight((prev): any => {
@@ -42,9 +45,9 @@ const DropDownDepositInstructions = () => {
           <Image
             src={image}
             fill
-            loading='eager'
-               style={{
-              objectFit: "cover",  
+            loading="eager"
+            style={{
+              objectFit: "cover",
             }}
             placeholder="blur"
             alt="Picture of the background"
@@ -63,7 +66,7 @@ const DropDownDepositInstructions = () => {
       >
         <div className="body_innerbody_005">
           <div className="body_innerbody_0017" onClick={adjustHeight}>
-            <p>Recharger</p>{" "}
+            <p>{t("recharge")}</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
@@ -79,7 +82,16 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px',  fontSize: '16px'}}>Cliquez sur Dépôt</div>
+              <div
+                className="body_innerbody_0012"
+                style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}
+              >
+                {t("click on deposit")}
+              </div>
             </div>
           </div>
           <div className="body_innerbody_006">
@@ -91,8 +103,16 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>
-                Vous pouvez modifier l&apos;identifiant 1xbet</div>
+              <div
+                className="body_innerbody_0012"
+                style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}
+              >
+                {t("change ID")}
+              </div>
             </div>
           </div>
           <div className="body_innerbody_006">
@@ -104,7 +124,16 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>Entrez un montant d&apos;au moins 500</div>
+              <div
+                className="body_innerbody_0012"
+                style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}
+              >
+                {t("enter amount")}
+              </div>
             </div>
           </div>
           <div className="body_innerbody_006">
@@ -116,7 +145,16 @@ const DropDownDepositInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>Choisissez le réseau</div>
+              <div
+                className="body_innerbody_0012"
+                style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}
+              >
+                {t("choose network")}
+              </div>
             </div>
           </div>
 
@@ -132,7 +170,16 @@ const DropDownDepositInstructions = () => {
               <div className="body_innerbody_0016"></div>
             </div>
             <div className="body_innerbody_008">
-              <div className="body_innerbody_0012" style={{fontWeight: 'bold', paddingLeft: '80px', fontSize: '16px'}}>Modifier ou laisser le numéro d&apos;origine</div>
+              <div
+                className="body_innerbody_0012"
+                style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}
+              >
+                {t("change or leave")}
+              </div>
             </div>
           </div>
         </div>
