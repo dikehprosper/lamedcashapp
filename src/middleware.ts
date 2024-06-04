@@ -104,7 +104,7 @@ export async function middleware(request: NextRequest) {
     } else {
       const handleI18nRouting = createIntlMiddleware({
         locales: ["en", "fr"],
-        defaultLocale: "en",
+        defaultLocale: "fr",
       });
       const response = handleI18nRouting(request);
       return response;

@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const {email, password} = await reqBody;
 
+
     // Check if the device is online
     const online = await isOnline();
     if (!online) {
@@ -79,12 +80,11 @@ export async function POST(request: NextRequest) {
       // Check for existing session and invalidate it
       if (subAdminUser.isAdmin === false) {
         if (subAdminUser.sessionId) {
-          
           // Implement your session invalidation logic here (e.g., update the database record)
           invalidateSession(subAdminUser.sessionId);
         }
       }
-   console.log("subAdminUser")
+      console.log("subAdminUser");
       // Set the user's session ID and isLoggedIn status
       subAdminUser.sessionId = newSessionId;
       subAdminUser.isLoggedIn = true;
@@ -216,11 +216,14 @@ export async function POST(request: NextRequest) {
 
     // CREATE USER FOR CASHDESK ADMIN
     if (
-      (email === process.env.A_EMAIL && password === process.env.A_PASSWORD) ||
-      (email === process.env.A_EMAIL1 && password === process.env.A_PASSWORD1)
+      (email === process.env.A_EMAIL ) ||
+      (email === process.env.A_EMAIL1)
     ) {
       // Check if the User already exists
+      console.log(email, "gggghhhhh");
       const adminUser = await AdminUser.findOne({email});
+
+      console.log(adminUser, "gggghhhhhhhjjjj");
       if (!adminUser) {
         return NextResponse.json({error: "Subadmin not found"}, {status: 400});
       }
@@ -286,6 +289,10 @@ export async function POST(request: NextRequest) {
 
       return response;
     }
+
+
+        console.log(email, "nnnnnn");
+
 
     // Check if the User already exists
     const user = await User.findOne({email});

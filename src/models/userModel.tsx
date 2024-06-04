@@ -88,7 +88,7 @@ const userSchema = new Schema({
     default: 0,
   },
   registrationDateTime: {
-    type: String,
+    type: Date,
   },
   bonus: {
     type: [

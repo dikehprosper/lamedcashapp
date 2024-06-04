@@ -10,7 +10,9 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const {_id, betId, withdrawalCode, amount, momoName, momoNumber} = reqBody;
+    const {_id, betId, withdrawalCode,
+      //  amount, momoName, 
+       momoNumber} = reqBody;
 
     const admin = await AdminUser.findOne({isAdmin: true});
 
@@ -35,10 +37,10 @@ export async function POST(request: NextRequest) {
     const userTransaction = {
       status: "Pending",
       registrationDateTime: date,
-      amount,
+      // amount,
       withdrawalCode,
       betId,
-      momoName,
+      // momoName,
       momoNumber,
       fundingType: "withdrawals",
       identifierId: newUuid,
@@ -63,11 +65,11 @@ export async function POST(request: NextRequest) {
      status: "Pending",
      registrationDateTime: date,
      withdrawalCode,
-     amount,
+    //  amount,
      betId,
      fundingType: "withdrawals",
      identifierId: newUuid,
-     momoName,
+    //  momoName,
      momoNumber,
    };
 
@@ -110,11 +112,11 @@ export async function POST(request: NextRequest) {
        status: "Pending",
        registrationDateTime: date,
        withdrawalCode,
-       amount,
+      //  amount,
        betId,
        fundingType: "withdrawals",
        identifierId: newUuid,
-       momoName,
+      //  momoName,
        momoNumber,
        userEmail: user.email,
        subadminEmail: nextSubadmin.email,
@@ -148,11 +150,11 @@ export async function POST(request: NextRequest) {
        status: "Pending",
        registrationDateTime: date,
        withdrawalCode,
-       amount,
+      //  amount,
        betId,
        fundingType: "withdrawals",
        identifierId: newUuid,
-       momoName,
+      //  momoName,
        momoNumber,
        userEmail: user.email,
        subadminEmail: currentSubadmin.email,

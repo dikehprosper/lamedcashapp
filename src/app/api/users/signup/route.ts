@@ -9,13 +9,14 @@ import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 // import { sendEmail } from "@/helpers/mailer";
 import { FedaPay, Customer } from "fedapay";
+
 connect();
 
-/* Remplacez VOTRE_CLE_API par votre véritable clé API */
-FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
+// /* Remplacez VOTRE_CLE_API par votre véritable clé API */
+// FedaPay.setApiKey(process.env.FEDAPAY_KEY1!);
 
-/* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
-FedaPay.setEnvironment(process.env.ENVIRONMENT1!); //ou setEnvironment('live');
+// /* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
+// FedaPay.setEnvironment(process.env.ENVIRONMENT1!); //ou setEnvironment('live');
 
 // import { PhoneNumberUtil } from "google-libphonenumber";
 
@@ -23,16 +24,13 @@ export async function POST(request: NextRequest) {
   try {
     //  const { phoneNumber, countryCode } = req.body;
     const reqBody = await request.json();
-    const { fullname, betId, number, email, password, referrerId } =
+    const {fullname, betId, number, email, password, referrerId} =
       await reqBody;
     //Check if the User already exist
-    const user = await User.findOne({ email });
+    const user = await User.findOne({email});
 
     if (user) {
-      return NextResponse.json(
-        { error: "User already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({error: "User already exists"}, {status: 400});
     }
     // CREATE USER FOR CASHDESK DEPOSITS
     // CREATE USER FOR CASHDESK DEPOSITS
@@ -346,17 +344,33 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcryptjs.hash(password, salt);
     const date = new Date();
 
-    /* Créer le client */
-    const customer = await Customer.create({
-      firstname: fullname.split(" ")[0],
-      lastname: fullname.split(" ")[1],
-      email: email,
-      phone_number: {
-        number: `+229${number}`,
-        country: "BJ",
-      },
-    });
-    console.log(customer, "customer");
+  
+
+    // //  CREATE FEDAPAY   /* Créer le client */
+    // let customer;
+    // try {
+    //   // Create Fedapay customer
+    //   customer = await Customer.create({
+    //     firstname: fullname.split(" ")[0],
+    //     lastname: fullname.split(" ")[1],
+    //     email: email,
+    //     phone_number: {
+    //       number: `+229${number}`,
+    //       country: "BJ",
+    //     },
+    //   });
+    //   console.log(customer, "customer");
+    // } catch (customerError) {
+    //   // Handle Fedapay customer creation error
+    //   console.error("Error creating Fedapay customer:", customerError);
+    //   transactionInProgress = false;
+    //   return res.status(501).send({
+    //     success: 501,
+    //     message: "Failed to create Fedapay customer",
+    //     status: 501,
+    //   });
+    // }
+
     //create a new user
 
     const count = await User.countDocuments();
@@ -376,7 +390,7 @@ export async function POST(request: NextRequest) {
       isUser: true,
       isLoggedIn: true,
       sessionId: generateUniqueSessionId(),
-      fedapayId: customer.id,
+      // fedapayId: customer.id,
       registrationDateTime: date,
       colorScheme: 2,
       image: "",
@@ -389,7 +403,7 @@ export async function POST(request: NextRequest) {
     //Check if the User already exist
 
     if (referrerId) {
-      const user2 = await User.findOne({ _id: referrerId });
+      const user2 = await User.findOne({_id: referrerId});
       user2.referrals.push(email);
       await user2.save();
     }

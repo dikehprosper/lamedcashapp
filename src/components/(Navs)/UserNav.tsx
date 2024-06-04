@@ -99,12 +99,12 @@ const UserNav = () => {
 
   const AdminNavLinks = [
     {
-      title: t(`navLinks.dashboard`),
+      title: t(`adminNavLinks.dashboard`),
       pathname: `/${locale}/admin/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
-      title: t(`adminDashboard.allHistory`),
+      title: t(`adminNavLinks.allHistory`),
       pathname: `/${locale}/admin/allhistory`,
       icon: <SiSimpleanalytics />,
     },
@@ -160,11 +160,11 @@ const UserNav = () => {
   }
 
   function findPath() {
-    if (pathname.startsWith("/admin")) {
+    if (pathname.startsWith("/en/admin") || pathname.startsWith("/fr/admin")) {
       return AdminNavLinks;
-    } else if (pathname.startsWith("/subadmin/deposit")) {
+    } else if (pathname.startsWith("/en/subadmin/deposit") || pathname.startsWith("/fr/subadmin/deposit")) {
       return SubAdminsNavLinksDeposits;
-    } else if (pathname.startsWith("/subadmin/withdrawal")) {
+    } else if (pathname.startsWith("/en/subadmin/withdrawal") || pathname.startsWith("/fr/subadmin/withdrawal")) {
       return SubAdminsNavLinksWithdrawal;
     } else {
       return UsersNavLinks;
@@ -285,7 +285,7 @@ const UserNav = () => {
           <div className="nav-language"></div>
           <div className="user-profile-icon-container">
             <LanguageToggle />
-            <Link href="/profile">
+            {/* <Link href="/profile">
               <div
                 className={`user-profile-icon ${
                   pathname === "/profile" ? "disappear" : ""
@@ -293,7 +293,7 @@ const UserNav = () => {
               >
                 D<span className="user-profile-online-icon-mobile"> </span>
               </div>
-            </Link>
+            </Link> */}
             <div onClick={changeState}>
               {state ? (
                 <MdMenuOpen className="MdMenuOpen" />

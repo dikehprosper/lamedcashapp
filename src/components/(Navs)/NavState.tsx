@@ -20,7 +20,7 @@ const NavState = () => {
   ) : (
     <>
       <UserNav />
-      <BottomNav />
+      {/* <BottomNav /> */}
     </>
   );
 };

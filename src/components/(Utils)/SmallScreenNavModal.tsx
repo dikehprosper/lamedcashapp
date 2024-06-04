@@ -80,7 +80,7 @@ const Modal = ({
                   link.pathname.includes("deposit") ||
                   link.pathname.includes("withdraw") ||
                   link.pathname.includes("transactions")
-                    ? "none"
+                    ? "flex"
                     : "flex",
               }}
               key={index}

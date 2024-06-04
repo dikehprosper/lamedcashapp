@@ -14,6 +14,7 @@ import { FedaPay } from "fedapay";
 import Modal from "@/components/(Utils)/(modals)/processingModal";
 import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
 import { useTranslations } from "next-intl";
+import Feexpay from '@feexpay/react-sdk'
 // import App from "../pay";
 import io from "socket.io-client";
 
@@ -323,7 +324,7 @@ const Deposit = () => {
   };
 
   return (
-    <div className="user_withdraw_container">
+    <div className='user_withdraw_container'>
       <Head
         title={t("deposit_page.title")}
         about={t("deposit_page.about")}
@@ -331,22 +332,22 @@ const Deposit = () => {
       />
       {processing && (
         <Modal
-          containerStyles="receiptModal"
-          containerStylesInner="receiptModal_inner-processing"
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner-processing'
           title={t("amount_deposit")}
         />
       )}
       {processing2 && (
         <Modal2
-          containerStyles="receiptModal"
-          containerStylesInner="receiptModal_inner-processing"
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner-processing'
           title={t("amount_deposit")}
         />
       )}
-      <div className="user_deposit_container_001">
-        <form onSubmit={handleSubmit} className="deposit-form-container">
-          <label>1XBET ID</label>
-          <div className="saved_id_container_outer">
+      <div className='user_deposit_container_001'>
+        <form onSubmit={handleSubmit} className='deposit-form-container'>
+          <label>ID</label>
+          <div className='saved_id_container_outer'>
             <div
               style={{
                 color: "rgba(256, 256, 256, 0.5)",
@@ -356,15 +357,15 @@ const Deposit = () => {
             >
               {t("deposit_page.about")}{" "}
             </div>
-            <div className="saved_id_container">
+            <div className='saved_id_container'>
               {!savedID.length > 0 ? (
-                <div id="container-deposit">
-                  <div id="html-spinner-deposit"></div>
+                <div id='container-deposit'>
+                  <div id='html-spinner-deposit'></div>
                 </div>
               ) : (
                 savedID?.map((id, index) => (
                   <div
-                    className="saved_id_container-inner"
+                    className='saved_id_container-inner'
                     key={index}
                     onClick={() => changeBetId(id)}
                     style={{
@@ -381,9 +382,9 @@ const Deposit = () => {
                   >
                     {id}{" "}
                     {activeBetId === id ? (
-                      <FaCircle color="white" />
+                      <FaCircle color='white' />
                     ) : (
-                      <FaCircle color="rgba(256, 256, 256, 0.2" />
+                      <FaCircle color='rgba(256, 256, 256, 0.2' />
                     )}
                     <span
                       style={{
@@ -398,13 +399,13 @@ const Deposit = () => {
             </div>
           </div>
           <input
-            type="text"
-            className="deposit-form"
+            type='text'
+            className='deposit-form'
             value={user.betId}
             onChange={handleChangeId}
             placeholder={t("desposit_page.placeholder_1xbet_id")}
           />
-          <div
+          {/* <div
             style={{
               color: "rgba(256, 256, 256, 0.5)",
               width: "100%",
@@ -418,50 +419,58 @@ const Deposit = () => {
               }}
             >
               {" "}
-              <span style={{ color: "red", fontWeight: "bold" }}>
-                Note:
-              </span>{" "}
+              <span style={{color: "red", fontWeight: "bold"}}>Note:</span>{" "}
               &nbsp; Le montant de la transaction ne doit pas être inférieur à
               500
-              <span style={{ color: "red", fontWeight: "bold" }}>
-                Note:
-              </span>{" "}
+              <span style={{color: "red", fontWeight: "bold"}}>Note:</span>{" "}
               {t("deposit_page.note_message")}
             </span>
-          </div>
+          </div> */}
           <label>{t("deposit_page.amount")}</label>
           <input
-            type="number"
-            className="deposit-form"
+            type='number'
+            className='deposit-form'
             value={user.amount}
             onChange={handleChangeAmount}
             placeholder={t("deposit_page.placeholder_amount")}
           />
 
-          <label htmlFor="network">{t("deposit_page.network")}</label>
+          <label htmlFor='network'>{t("deposit_page.network")}</label>
           <select
-            id="network"
-            className="deposit-form" // Apply the same class as the input for styling
+            id='network'
+            className='deposit-form' // Apply the same class as the input for styling
             value={user.network}
             onChange={handleChangeNetwork}
           >
-            <option value="" disabled hidden>
+            <option value='' disabled hidden>
               -- Choose Network --
             </option>{" "}
-            <option value="mtn"> Mtn Benin</option>
-            <option value="moov">Moov Benin</option>
+            <option value='mtn'> Mtn Benin</option>
+            <option value='moov'>Moov Benin</option>
           </select>
 
           <label>{t("deposit_page.momo_number")}</label>
           <input
-            type="number"
-            className="deposit-form"
+            type='number'
+            className='deposit-form'
             value={user.momoNumber}
             onChange={handleChangeMomoNumber}
-            placeholder="Entrez le numéro Momo"
+            placeholder='Entrez le numéro Momo'
           />
+            <Feexpay
+          token='fp_hmeMdZ5WV2ZfF436avb9tg14fNFMmIjYmP4oBgxAVNljQKroh1vOavIHvxK5hOe6'
+          id="663beb50e13f3f8696c62799"
+          amount={6000}
+          description='DESCRIPTION'
+          callback={() => alert("Pay")}
+          callback_url='https://www.feexpay.me'
+          callback_info='CALLBACK_INFO'
+          buttonText='Payer'
+          buttonClass='mt-3'
+          defaultValueField={{country_iban: "BJ", network: "MOOV"}}
+        />
           <div
-            className="submit-button-deposit"
+            className='submit-button-deposit'
             style={{
               background: buttonDisabled
                 ? "rgba(128, 128, 128, 0.5)"
@@ -472,14 +481,15 @@ const Deposit = () => {
             onClick={submitDetails}
           >
             {loading ? (
-              <div id="container-deposit">
-                <div id="html-spinner-deposit"></div>
+              <div id='container-deposit'>
+                <div id='html-spinner-deposit'></div>
               </div>
             ) : (
               t("deposit_page.proceed")
             )}
           </div>
         </form>
+      
       </div>
       <FooterMobile />
     </div>
