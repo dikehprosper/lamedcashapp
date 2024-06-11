@@ -32,6 +32,7 @@ export default function RootLayout({
   store.dispatch(fetchUser());
   return (
     <html lang={locale}>
+      
       <body className={inter.className}>
         <ToastContainer
           position="top-right"
