@@ -44,11 +44,13 @@ const TransactionResults = ({  time,
         <span>{formatDate(time)}</span>
         <span className='small_device_group'>
           {" "}
-          <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>
           <span>
             <b style={{ color: "rgba(256, 256, 256, 0.4" }}>1xBet ID: &nbsp;</b>{" "}
             {betId}
           </span>
+          {type === "deposits"? <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>: <span> {withdrawalCode}</span> }
+          
+          
         </span>
         <span style={{ overflow: "hidden" }}>
           <b style={{ color: "rgba(256, 256, 256, 0.4" }}>REÇU: &nbsp;</b>{" "}

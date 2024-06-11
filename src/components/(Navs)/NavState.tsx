@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Nav from "./Nav";
 import UserNav from "./UserNav";
 import { useParams, usePathname } from "next/navigation";
@@ -9,15 +9,26 @@ const NavState = () => {
   const pathname = usePathname();
   const params = useParams<{ locale: string }>();
 
-  return pathname === `/${params.locale}` ||
-    pathname === `/${params.locale}/about` ||
-    pathname === `/${params.locale}/signin` ||
-    pathname === `/${params.locale}/signup` ||
-    pathname === `/${params.locale}/resetpassword` ||
-    pathname === `/${params.locale}/forgotpassword` ||
-    pathname.startsWith(`/${params.locale}/signup`) ? (
-    <Nav />
-  ) : (
+  const showNav = [
+    `/${params.locale}`,
+    `/${params.locale}/about`,
+    `/${params.locale}/signin`,
+    `/${params.locale}/signup`,
+    `/${params.locale}/resetpassword`,
+    `/${params.locale}/forgotpassword`,
+  ];
+
+  const shouldShowNav = showNav.includes(pathname) || pathname.startsWith(`/${params.locale}/signup`);
+
+  if (shouldShowNav) {
+    return <Nav />;
+  }
+
+  if (pathname === `/${params.locale}/kkkk`) {
+    return null;
+  }
+
+  return (
     <>
       <UserNav />
       {/* <BottomNav /> */}

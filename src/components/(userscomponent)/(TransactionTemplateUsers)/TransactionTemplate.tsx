@@ -146,11 +146,11 @@ const TransactionTemplate = ({
               {t("transaction.total_withdrawals")}{" "}
             </span>{" "}
             <span>
-              {" "}
+              {/* {" "}
               XOF{" "}
               {formatNumberWithCommasAndDecimal(
                 totalWithdrawals === undefined ? 0 : totalWithdrawals
-              )}
+              )} */}
             </span>
           </div>
         </span>

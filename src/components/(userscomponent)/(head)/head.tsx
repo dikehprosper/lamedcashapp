@@ -35,7 +35,7 @@ const Head = ({ title, about, data }: any) => {
           <p className="title-container-p">{about}</p>
         </div>
         <div className="tag">
-          {data?._id ? (
+          {data?.fullname ? (
             <div className="tag-container animate-pop-in ">
               <div className="tag-container-icon">
                 <GetInitials name={data?.fullname} />
@@ -88,7 +88,7 @@ const Head = ({ title, about, data }: any) => {
       <div className="head-container small">
         <div className="tag">
           <span className="tag-container-id">
-            {data?._id ? (
+            {data?.fullname ? (
               <>
                 <span className="tag-container-id-span1">
                   <span className="tag-container-id-span3">1XBet Id: </span>

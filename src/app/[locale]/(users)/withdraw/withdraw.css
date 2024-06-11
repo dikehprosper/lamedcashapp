@@ -33,10 +33,13 @@ flex: 0 0 auto
 .user_withdraw_container_001 {
     width: 100%;
     flex: 0 0 auto;
-    padding: 20px;
+    padding-top: 5px;
+      padding-bottom: 5px;
+     padding-left: 15px;
+      padding-right: 15px;
     background: rgba( 0, 0, 0, 0.4);
     border-radius: 10px;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .user_withdraw_container_002 {
@@ -51,7 +54,7 @@ margin-bottom: 15px
  padding: 10px 20px;
  border-radius: 10px;
  font-weight: 800;
-background: rgba(0, 118, 184, 0.5);
+background: rgba(120, 120, 120, 1);
 display: flex;
 justify-content: center;
 align-items: center
@@ -69,7 +72,7 @@ align-items: center
 .withdraw-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     width: 100%
 }
 .withdraw-form > label {
@@ -141,7 +144,7 @@ align-self: center
 }
 
 .user_withdraw_container_002 {
-  flex-direction: column;
+
   gap: 10px;
   
 }
@@ -154,17 +157,17 @@ align-self: center
 
 @media(max-width: 395px){
 .user_withdraw_container_002 > div {
- padding: 7px 14px;
+ padding: 7px ;
  border-radius: 8px;
  font-weight: 800;
-background: rgba(0, 118, 184, 0.5);
+background: rgba(120, 120, 120, 1);
 font-size: 12px
 }
 .user_withdraw_container_001 > div {
   font-size: 12px!important
 }
 p {
-  font-size: 12px
+  font-size: 10px
 }
 }
 
@@ -388,7 +391,7 @@ width: 100%
 .withdraw-form-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   width: 100%;
   padding: 40px;
   align-items: center;
@@ -396,13 +399,15 @@ width: 100%
 label{
   font-weight: 600;
   align-self: flex-start;
+
+  margin-top: 10px
 }
 .withdraw-form {
   border: none;
   outline: none;
   padding: 15px;
   color: white;
-  background: transparent;
+  background: red;
   width: 100%;
   border: 2px solid rgba(256, 256, 256, 0.09);
   border-radius: 4px;
@@ -528,6 +533,7 @@ label{
 
   .withdraw-form {
     height: 50px;
+    background-color: blue;
   }
 
   .submit-button-withdraw {
@@ -765,11 +771,28 @@ label{
             width: 100%;
             display: flex;
             margin: 8px 0px;
+         justify-content: center;
+    
+}
+.detail2 {
+   color: white;
+            font-size: 22px;
+            font-weight: bold;
+            width: 100%;
+            display: flex;
+            margin: 8px 0px;
+         justify-content: center;
+    
 }
 
 @media(max-width: 620px) {
   .detail {
      font-size: 16px;
+  }
+   .detail_2 {
+     font-size: 12px;
+     text-align: center;
+     align-self: center;
   }
 }
 

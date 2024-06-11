@@ -398,7 +398,7 @@ const Profile = () => {
               )}
             </button>
 
-            <div className="betid-section" style={{ marginTop: "50px" }}>
+            {/* <div className="betid-section" style={{ marginTop: "50px" }}>
               <label className="label">1XBET ID</label>
               <div className="saved_id_container_outer">
                 <div
@@ -417,7 +417,7 @@ const Profile = () => {
                     makeDefaultId={makeDefaultId}
                     deleteId={deleteId}
                   />
-                </div> */}
+                </div> 
               </div>
               <input
                 type="text"
@@ -444,7 +444,7 @@ const Profile = () => {
                   t("profile.save_bet_id")
                 )}
               </div>
-            </div>
+            </div> */}
 
             <div
               className="password-section"
