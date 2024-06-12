@@ -24,7 +24,7 @@ const NavState = () => {
     return <Nav />;
   }
 
-  if (pathname === `/${params.locale}/kkkk`) {
+  if (pathname === `/${params.locale}/kkkk` || pathname === `/${params.locale}/backend`) {
     return null;
   }
 

@@ -17,10 +17,10 @@ import {useTranslations} from "next-intl";
 import Feexpay from "@feexpay/react-sdk";
 import {useParams, usePathname} from "next/navigation";
 
-const keyee = process.env.DOMAIN;
+const DOMAIN = process.env.DOMAIN;
 
 const Deposit = () => {
-  console.log(keyee, "ybvjff");
+  console.log(`${DOMAIN}${locale}/deposit`, "ybvjfuuuuuuuuuf");
   const t = useTranslations("dashboard");
   const {locale} = useParams<{locale: string}>();
   const [loading, setLoading] = useState(false);
@@ -372,7 +372,7 @@ const Deposit = () => {
                 description='DESCRIPTION'
                 callback={() => {
                   alert("Pay");
-                  window.location.href = `http://localhost:3000/${locale}/deposit`;
+                  window.location.href = `${DOMAIN}${locale}/deposit`;
                 }}
                 //  callback_url=`http://localhost:3000/${locale}/deposit`
                 callback_info='CALLBACK_INFO'
@@ -382,6 +382,7 @@ const Deposit = () => {
                     ? "rgba(128, 128, 128, 0.5)"
                     : "rgba(128, 128, 128, 1)",
                 }}
+                fieldsToHide={["email", "full_name"]}
                 defaultValueField={{
                   country_iban: "BJ",
                   network: user.network,

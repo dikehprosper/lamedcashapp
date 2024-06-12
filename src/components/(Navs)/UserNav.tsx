@@ -64,11 +64,11 @@ const UserNav = () => {
       pathname: `/${locale}/profile`,
       icon: <BsFillPersonFill />,
     },
-    {
-      title: t(`navLinks.referrals`),
-      pathname: `/${locale}/referrals`,
-      icon: <IoMdPeople />,
-    },
+    // {
+    //   title: t(`navLinks.referrals`),
+    //   pathname: `/${locale}/referrals`,
+    //   icon: <IoMdPeople />,
+    // },
   ];
 
   const SubAdminsNavLinksDeposits = [
