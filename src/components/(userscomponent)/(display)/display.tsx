@@ -17,7 +17,7 @@ const Display = ({
   allData,
 }: UserDashboardDisplayProps) => {
   const t = useTranslations("dashboard");
-  console.log(allData);
+ 
   return !allData ? (
     // Render the loading spinner when loading is true
     <div
@@ -57,10 +57,13 @@ const Display = ({
             {title} {t("amount")}:
           </p>
           <p>
-            XOF &nbsp;
-            {formatNumberWithCommasAndDecimal(
+             {title === "Dépôt" ?   `XOF 
+            ${formatNumberWithCommasAndDecimal(
               amount === undefined ? 0 : amount
-            )}
+            )}`: formatNumberWithCommasAndDecimal(
+ 0 
+            ) }
+          
           </p>
         </span>
         <Link
@@ -83,37 +86,7 @@ const Display = ({
           </span>
         </Link>
       </div>
-      {allData.pendingDeposit.length >= 1 && title === t("deposit") && (
-        <div
-          style={{
-            position: "absolute",
-            background: "rgba(0, 0, 0, 0.7)",
-            padding: "1px 5px",
-            top: "3px",
-            right: "14px",
-            fontSize: "8px",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <span
-            style={{
-              fontWeight: "bold",
-              fontSize: "12px",
-              color: "rgba(101, 256, 0, 0.7)",
-            }}
-          >
-            {allData.pendingDeposit.length}
-          </span>{" "}
-          &nbsp; &nbsp;Les transactions attendent l &apos; approbation
-          &nbsp;&nbsp;
-          <div className="ellipses-container">
-            <div className="ellipses"></div>
-            <div className="ellipses"></div>
-            <div className="ellipses"></div>
-          </div>
-        </div>
-      )}
+     
     </div>
   );
 };

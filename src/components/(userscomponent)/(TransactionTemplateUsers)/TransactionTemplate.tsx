@@ -110,27 +110,27 @@ const TransactionTemplate = ({
   return allData === undefined ? (
     // Render the loading spinner when loading is true
     <div
-      className="transaction_template_container "
+      className='transaction_template_container '
       style={{
         background: "rgba(0, 0, 0, 0.5)",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      <div id="container-signin">
-        <div id="html-spinner-signin"></div>
+      <div id='container-signin'>
+        <div id='html-spinner-signin'></div>
       </div>
     </div>
   ) : (
-    <div className="transaction_template_container">
-      <div className="transaction_template_container_header">
-        <span className="transaction_template_container_header_1">
+    <div className='transaction_template_container'>
+      <div className='transaction_template_container_header'>
+        <span className='transaction_template_container_header_1'>
           {title.name} {title.icon}
         </span>
-        <span className="transaction_template_container_header_2">
+        {/* <span className='transaction_template_container_header_2'>
           <div>
             {" "}
-            <span className="transaction_template_container_header_2_span_1">
+            <span className='transaction_template_container_header_2_span_1'>
               {t("transaction.total_deposits")}{" "}
             </span>{" "}
             <span>
@@ -142,27 +142,27 @@ const TransactionTemplate = ({
             </span>
           </div>
           <div>
-            <span className="transaction_template_container_header_2_span_2">
-              {t("transaction.total_withdrawals")}{" "}
+            <span className='transaction_template_container_header_2_span_2'>
+               {t("transaction.total_withdrawals")}{" "} 
             </span>{" "}
             <span>
-              {/* {" "}
+               {" "}
               XOF{" "}
               {formatNumberWithCommasAndDecimal(
                 totalWithdrawals === undefined ? 0 : totalWithdrawals
-              )} */}
+              )} 
             </span>
           </div>
-        </span>
+        </span> */}
       </div>
-      <div className="transaction_template_container_body">
-        <div className="transaction_template_container_body_1">
-          <div className="transaction_template_container_body_1_1">
+      <div className='transaction_template_container_body'>
+        <div className='transaction_template_container_body_1'>
+          <div className='transaction_template_container_body_1_1'>
             {/* filtre &nbsp;
             <FaFilter /> */}
           </div>
 
-          <div className="transaction_template_container_body_1_2">
+          <div className='transaction_template_container_body_1_2'>
             <span
               className={`transaction_template_container_body_1_2_1 ${
                 state === "All" && "active_selection_big"
@@ -173,39 +173,39 @@ const TransactionTemplate = ({
               onClick={() => changeState1(select.firstSelect.big)}
             >
               {select.firstSelect.big} &nbsp;{" "}
-              <FaCircle color="#fff" fontSize="10px" />
+              <FaCircle color='#fff' fontSize='10px' />
             </span>
             <span
               onClick={() => changeState2(select.secondSelect.big)}
-              className="transaction_template_container_body_1_2_1"
+              className='transaction_template_container_body_1_2_1'
               style={{
                 borderColor: state === t("see_deposits") ? "#5E968B" : "",
               }}
             >
               {select.secondSelect.big} &nbsp;{" "}
-              <FaCircle color="#658900" fontSize="10px" />
+              <FaCircle color='rgba(73, 166, 106, 1)' fontSize='10px' />
             </span>
             <span
               onClick={() => changeState3(select.thirdSelect.big)}
-              className="transaction_template_container_body_1_2_1"
+              className='transaction_template_container_body_1_2_1'
               style={{
                 borderColor: state === t("see_withdrawals") ? "#5E968B" : "",
               }}
             >
               {select.thirdSelect.big} &nbsp;{" "}
-              <FaCircle color="#0076B8" fontSize="10px" />
+              <FaCircle color='rgba(120, 120, 120,1)' fontSize='10px' />
             </span>
           </div>
           <div
-            className="transaction_template_container_body_1_3"
+            className='transaction_template_container_body_1_3'
             aria-expanded={height !== 0}
-            aria-controls="example-panel"
+            aria-controls='example-panel'
             onClick={adjustHeight}
           >
             {state}&nbsp;{" "}
             {height === 0 ? <IoMdArrowDropdown /> : <IoMdArrowDropup />}
             <AnimateHeight
-              id="example-panel"
+              id='example-panel'
               duration={300}
               height={height}
               style={{
@@ -217,9 +217,9 @@ const TransactionTemplate = ({
                 zIndex: 30,
               }}
             >
-              <div className="dropdown-content">
+              <div className='dropdown-content'>
                 <div
-                  className="dropdown-content_1"
+                  className='dropdown-content_1'
                   onClick={() => changeState1(select.firstSelect.big)}
                   style={{
                     background: state === t("transaction.all") ? "grey" : "",
@@ -230,7 +230,7 @@ const TransactionTemplate = ({
                 </div>
                 <div
                   onClick={() => changeState2(select.secondSelect.big)}
-                  className="dropdown-content_2"
+                  className='dropdown-content_2'
                   style={{
                     background:
                       state === t("transaction.deposits:") ? "grey" : "",
@@ -241,7 +241,7 @@ const TransactionTemplate = ({
                 </div>
                 <div
                   onClick={() => changeState3(select.thirdSelect.big)}
-                  className="dropdown-content_3"
+                  className='dropdown-content_3'
                   style={{
                     background:
                       state === t("transaction.withdrawals") ? "grey" : "",
@@ -256,14 +256,14 @@ const TransactionTemplate = ({
           </div>
         </div>
         {loading ? (
-          <div id="container-signin-outer">
-            <div id="container-signin">
-              <div id="html-spinner-signin"></div>
+          <div id='container-signin-outer'>
+            <div id='container-signin'>
+              <div id='html-spinner-signin'></div>
             </div>
           </div>
         ) : (
           <div
-            className="transaction_template_container_body_2 animate-pop-in"
+            className='transaction_template_container_body_2 animate-pop-in'
             style={{
               display: "flex",
               flexDirection: "column",
@@ -278,12 +278,12 @@ const TransactionTemplate = ({
                   data
                     ?.filter((item: any) => item.fundingType === "deposits")
                     .slice()
-                    .reverse()
+
                     .map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
                         time={filteredData.registrationDateTime}
-                        amount={filteredData.amount}
+                        amount={filteredData.totalAmount}
                         receipt={filteredData._id}
                         betId={filteredData.betId}
                         status={filteredData.status}
@@ -297,7 +297,7 @@ const TransactionTemplate = ({
                     ))
                 ) : (
                   <div
-                    className="no-result animate-pop-in"
+                    className='no-result animate-pop-in'
                     style={{
                       display: "flex",
                       width: "100%",
@@ -309,7 +309,7 @@ const TransactionTemplate = ({
                       flexDirection: "column",
                     }}
                   >
-                    <CgTrashEmpty fontSize="80px" />
+                    <CgTrashEmpty fontSize='80px' />
                     <h2>{t("transaction.no_data")}</h2>
                   </div>
                 )
@@ -319,12 +319,12 @@ const TransactionTemplate = ({
                   data
                     ?.filter((item: any) => item.fundingType === "withdrawals")
                     .slice()
-                    .reverse()
+
                     .map((filteredData: any, index: any) => (
                       <TransactionResults
                         key={index}
                         time={filteredData.registrationDateTime}
-                        amount={filteredData.amount}
+                        amount={filteredData.totalAmount}
                         receipt={filteredData._id}
                         betId={filteredData.betId}
                         status={filteredData.status}
@@ -338,7 +338,7 @@ const TransactionTemplate = ({
                     ))
                 ) : (
                   <div
-                    className="no-result animate-pop-in"
+                    className='no-result animate-pop-in'
                     style={{
                       display: "flex",
                       width: "100%",
@@ -350,19 +350,19 @@ const TransactionTemplate = ({
                       flexDirection: "column",
                     }}
                   >
-                    <CgTrashEmpty fontSize="80px" />
+                    <CgTrashEmpty fontSize='80px' />
                     <h2>{t("transaction.no_data")}</h2>
                   </div>
                 )
               ) : data?.length > 0 ? (
                 data
                   ?.slice()
-                  .reverse()
+
                   .map((data: any, index: any) => (
                     <TransactionResults
                       key={index}
                       time={data.registrationDateTime}
-                      amount={data.amount}
+                      amount={data.totalAmount}
                       receipt={data._id}
                       betId={data.betId}
                       status={data.status}
@@ -376,7 +376,7 @@ const TransactionTemplate = ({
                   ))
               ) : (
                 <div
-                  className="no-result animate-pop-in"
+                  className='no-result animate-pop-in'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -388,7 +388,7 @@ const TransactionTemplate = ({
                     flexDirection: "column",
                   }}
                 >
-                  <CgTrashEmpty fontSize="80px" />
+                  <CgTrashEmpty fontSize='80px' />
                   <h2>{t("transaction.no_data")}</h2>
                 </div>
               )
@@ -398,13 +398,13 @@ const TransactionTemplate = ({
                 data
                   ?.filter((item: any) => item.fundingType === "deposits")
                   .slice()
-                  .reverse()
+
                   .slice(0, 3)
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
                       time={filteredData.registrationDateTime}
-                      amount={filteredData.amount}
+                      amount={filteredData.totalAmount}
                       receipt={filteredData._id}
                       betId={filteredData.betId}
                       status={filteredData.status}
@@ -418,7 +418,7 @@ const TransactionTemplate = ({
                   ))
               ) : (
                 <div
-                  className="no-result animate-pop-in"
+                  className='no-result animate-pop-in'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -430,7 +430,7 @@ const TransactionTemplate = ({
                     flexDirection: "column",
                   }}
                 >
-                  <CgTrashEmpty fontSize="80px" />
+                  <CgTrashEmpty fontSize='80px' />
                   <h2>{t("transaction.no_data")}</h2>
                 </div>
               )
@@ -440,13 +440,13 @@ const TransactionTemplate = ({
                 data
                   ?.filter((item: any) => item.fundingType === "withdrawals")
                   .slice()
-                  .reverse()
+
                   .slice(0, 3)
                   .map((filteredData: any, index: any) => (
                     <TransactionResults
                       key={index}
                       time={filteredData.registrationDateTime}
-                      amount={filteredData.amount}
+                      amount={filteredData.totalAmount}
                       receipt={filteredData._id}
                       betId={filteredData.betId}
                       status={filteredData.status}
@@ -460,7 +460,7 @@ const TransactionTemplate = ({
                   ))
               ) : (
                 <div
-                  className="no-result animate-pop-in"
+                  className='no-result animate-pop-in'
                   style={{
                     display: "flex",
                     width: "100%",
@@ -472,20 +472,20 @@ const TransactionTemplate = ({
                     flexDirection: "column",
                   }}
                 >
-                  <CgTrashEmpty fontSize="80px" />
+                  <CgTrashEmpty fontSize='80px' />
                   <h2>{t("transaction.no_data")}</h2>
                 </div>
               )
             ) : data?.length > 0 ? (
               data
                 ?.slice()
-                .reverse()
+
                 .slice(0, 3)
                 .map((data: any, index: any) => (
                   <TransactionResults
                     key={index}
                     time={data.registrationDateTime}
-                    amount={data.amount}
+                    amount={data.totalAmount}
                     receipt={data._id}
                     betId={data.betId}
                     status={data.status}
@@ -499,7 +499,7 @@ const TransactionTemplate = ({
                 ))
             ) : (
               <div
-                className="no-result animate-pop-in"
+                className='no-result animate-pop-in'
                 style={{
                   display: "flex",
                   width: "100%",
@@ -511,17 +511,17 @@ const TransactionTemplate = ({
                   flexDirection: "column",
                 }}
               >
-                <CgTrashEmpty fontSize="80px" />
+                <CgTrashEmpty fontSize='80px' />
                 <h2>{t("transaction.no_data")}</h2>
               </div>
             )}
 
             {pathname.includes("/transactions") ? null : viewMore === true ? (
-              <div className="view-more">
+              <div className='view-more'>
                 <Link
                   href={{
                     pathname: "/transactions",
-                    query: { slug: state },
+                    query: {slug: state},
                   }}
                 >
                   Voir plus &nbsp;

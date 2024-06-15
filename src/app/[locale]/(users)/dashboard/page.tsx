@@ -13,18 +13,19 @@ import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
 import io from "socket.io-client";
 import { useTranslations } from "next-intl";
-import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
 
 const Dashboard = () => {
-  const data = useAppSelector((state: any) => state.user.value);
+
+   const data = useAppSelector((state: any) => state.user.value);
+  // const data = data1.user
+    const transactions = useAppSelector((state: any) => state.user.pendingTransactions);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  // const [data, setData] = useState<any>();
+  // const [transactions , setTransactions] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);
   const t = useTranslations("dashboard");
-
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUser");
@@ -50,7 +51,7 @@ const Dashboard = () => {
         setIsOnline(false);
       }
     }
-  };
+  }
 
   useEffect(() => {
     // Check network status before making the request
@@ -82,13 +83,15 @@ const Dashboard = () => {
   //   };
   // }, []);
 
+ 
+
   // Filter deposit transactions
   const allDeposits = data?.transactionHistory?.filter(
     (transaction: any) => transaction.fundingType === "deposits"
   );
 
   const totalDeposits = allDeposits
-    ?.filter((data: { status: string }) => data.status === "Successful")
+    ?.filter((data: {status: string}) => data.status === "Successful")
     .reduce((total: any, transaction: any) => {
       return (total += transaction.amount);
     }, 0);
@@ -99,22 +102,19 @@ const Dashboard = () => {
   );
 
   const totalWithdrawals = allWithdrawals
-    ?.filter((data: { status: string }) => data.status === "Successful")
+    ?.filter((data: {status: string}) => data.status === "Successful")
     .reduce((total: any, transaction: any) => {
       return (total += transaction.amount);
     }, 0);
 
   // Filter deposit transactions with status "pending"
-  const pendingDeposits = data?.transactionHistory.filter(
-    (transaction: any) =>
-      transaction.fundingType === "deposits" && transaction.status === "Pending"
+  const pendingDeposits = transactions?.filter(
+    (transaction: any) => transaction.fundingType === "deposits"
   );
 
   // Filter withdrawal transactions with status "pending"
-  const pendingWithdrawals = data?.transactionHistory?.filter(
-    (transaction: any) =>
-      transaction.fundingType === "withdrawals" &&
-      transaction.status === "Pending"
+  const pendingWithdrawals = transactions?.filter(
+    (transaction: any) => transaction.fundingType === "withdrawals"
   );
 
   // Calculate total cost of pending deposits
@@ -167,27 +167,8 @@ const Dashboard = () => {
   }
   const [button, setButton] = useState(false);
 
-  // const socket = io();
-  // useEffect(() => {
-  //   socket.on("connect", () => {
-  //     console.log(socket.id);
-  //   });
 
-  //   socket.on("responseEvent", (data) => {
-  //     setButton(true);
-  //   });
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // const sendEvent = () => {
-  //   socket.emit("myevent", "a", "b", (response) => {
-  //     setButton(true)
-  //   } );
-  // };
 
   return (
     <div className="user_dashboard_container">

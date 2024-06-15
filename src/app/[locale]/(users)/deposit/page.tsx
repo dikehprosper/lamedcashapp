@@ -14,14 +14,17 @@ import {FedaPay} from "fedapay";
 import Modal from "@/components/(Utils)/(modals)/processingModal";
 import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
 import {useTranslations} from "next-intl";
-import Feexpay from "@feexpay/react-sdk";
 import {useParams, usePathname} from "next/navigation";
+  import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { setUser } from "@/lib/features/userSlice";
 
 const DOMAIN = process.env.DOMAIN;
 
 const Deposit = () => {
-  console.log(`${DOMAIN}${locale}/deposit`, "ybvjfuuuuuuuuuf");
+
   const t = useTranslations("dashboard");
+     const data = useAppSelector((state: any) => state.user.value);
+  const dispatch = useAppDispatch();
   const {locale} = useParams<{locale: string}>();
   const [loading, setLoading] = useState(false);
   const [savedID, setSavedID] = useState([]);
@@ -29,8 +32,8 @@ const Deposit = () => {
   const [success, setSuccess] = useState(false);
   const [activeBetId, setActiveBetId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isRequestingCall, setIsRequestingCall] = useState(false);
-  const [cashdesk, setCashdeskId] = useState();
+
+
   const [user, setUser] = useState({
     email: "",
     amount: "",
@@ -38,10 +41,7 @@ const Deposit = () => {
     betId: savedID[0],
     momoNumber: "",
   });
-  const [data, setData] = useState({
-    fullname: "",
-    betId: "",
-  });
+
   const router = useRouter();
   const [phoneDial, setPhoneDial] = useState("");
   const [isOnline, setIsOnline] = useState(true);
@@ -52,25 +52,8 @@ const Deposit = () => {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("/api/getUserInfo");
-      setUser({
-        ...user,
-        _id: res.data.data._id,
-        betId: res.data.data.betID[0],
-        momoName: res.data.data.fullname,
-        momoNumber: res.data.data.number,
-        fullname: res.data.data.fullname,
-        fedapayId: res.data.data.fedapayId,
-        email: res.data.data.email,
-      });
-      setSavedID(res.data.data.betID);
-      setActiveBetId(res.data.data.betID[0]);
-
-      setData({
-        ...data,
-        fullname: res.data.data.fullname,
-        betId: res.data.data.betId,
-      });
+       const res = await axios.get("/api/getUser")
+       dispatch(setUser(res.data.data));
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -100,34 +83,34 @@ const Deposit = () => {
     }
   };
 
-  useEffect(() => {
-    // Check network status before making the request
-    if (isOnline) {
-      getUserDetails();
-    } else {
-      toast.error(
-        "No network connection. Please check your connection and try again."
-      );
-    }
-  }, [isOnline]);
+  // useEffect(() => {
+  //   // Check network status before making the request
+  //   if (isOnline) {
+  //     getUserDetails();
+  //   } else {
+  //     toast.error(
+  //       "No network connection. Please check your connection and try again."
+  //     );
+  //   }
+  // }, [isOnline]);
 
-  useEffect(() => {
-    // Check initial network status
-    setIsOnline(window.navigator.onLine);
+  // useEffect(() => {
+  //   // Check initial network status
+  //   setIsOnline(window.navigator.onLine);
 
-    // Add event listeners for online/offline changes
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
+  //   // Add event listeners for online/offline changes
+  //   const handleOnline = () => setIsOnline(true);
+  //   const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+  //   window.addEventListener("online", handleOnline);
+  //   window.addEventListener("offline", handleOffline);
 
-    // Clean up event listeners on component unmount
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
+  //   // Clean up event listeners on component unmount
+  //   return () => {
+  //     window.removeEventListener("online", handleOnline);
+  //     window.removeEventListener("offline", handleOffline);
+  //   };
+  // }, []);
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
@@ -264,9 +247,7 @@ const Deposit = () => {
     setButtonDisabled(!(user.amount && user.network));
   }, [user]);
 
-  useEffect(() => {
-    console.log(data, "print data");
-  }, [data]);
+
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -301,7 +282,7 @@ const Deposit = () => {
       try {
         const response = await axios.post("/api/users/deposit2", user); // Replace with your actual route
         const data = response.data.url1;
-        console.log(data);
+ 
         window.location.href = data;
       } catch (error) {
         console.error("Error creating transaction:", error);
@@ -310,6 +291,10 @@ const Deposit = () => {
       }
     }
   };
+
+  useEffect(() => {
+    console.log(data, "hvbhvvds")
+  },[data])
 
   return (
     <div className='user_withdraw_container'>
@@ -365,32 +350,7 @@ const Deposit = () => {
               >
                 Vous êtes sur le point d'effectuer un paiement de {user.amount}
               </h6>
-              <Feexpay
-                token='fp_rbtFv0wBIzB4OzZUg1oJtFP3ITcfzaSh8wyOqetJkulyqpL0sATFu1iJMzGIyxhY'
-                id='663beb50e13f3f8696c62799'
-                amount={user.amount}
-                description='DESCRIPTION'
-                callback={() => {
-                  alert("Pay");
-                  window.location.href = `${DOMAIN}${locale}/deposit`;
-                }}
-                //  callback_url=`http://localhost:3000/${locale}/deposit`
-                callback_info='CALLBACK_INFO'
-                buttonText='Payer'
-                buttonStyles={{
-                  background: buttonDisabled
-                    ? "rgba(128, 128, 128, 0.5)"
-                    : "rgba(128, 128, 128, 1)",
-                }}
-                fieldsToHide={["email", "full_name"]}
-                defaultValueField={{
-                  country_iban: "BJ",
-                  network: user.network,
-                  name: user.fullname,
-                  email: user.email,
-                  phoneNumber: user.momoNumber,
-                }}
-              />
+        
             </div>
           </div>
         </div>
@@ -405,57 +365,7 @@ const Deposit = () => {
       <div className='user_deposit_container_001'>
         <form onSubmit={handleSubmit} className='deposit-form-container'>
           <label>ID</label>
-          {/* <div className='saved_id_container_outer'>
-            <div
-              style={{
-                color: "rgba(256, 256, 256, 0.5)",
-                width: "100%",
-                display: "flex",
-              }}
-            >
-              {t("deposit_page.about")}{" "}
-            </div>
-            <div className='saved_id_container'>
-              {!savedID.length > 0 ? (
-                <div id='container-deposit'>
-                  <div id='html-spinner-deposit'></div>
-                </div>
-              ) : (
-                savedID?.map((id, index) => (
-                  <div
-                    className='saved_id_container-inner'
-                    key={index}
-                    onClick={() => changeBetId(id)}
-                    style={{
-                      border:
-                        activeBetId === id
-                          ? "2px solid white"
-                          : "2px solid rgba(256, 256, 256, 0.2)",
-                      color:
-                        activeBetId === id
-                          ? "white"
-                          : "rgba(256, 256, 256, 0.2)",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {id}{" "}
-                    {activeBetId === id ? (
-                      <FaCircle color='white' />
-                    ) : (
-                      <FaCircle color='rgba(256, 256, 256, 0.2' />
-                    )}
-                    <span
-                      style={{
-                        fontSize: "8px",
-                        fontWeight: "light",
-                        color: "rgba(256, 256, 256, 0.5)",
-                      }}
-                    ></span>
-                  </div>
-                ))
-              )}
-            </div>
-          </div> */}
+        
           <input
             type='text'
             className='deposit-form'
@@ -463,27 +373,7 @@ const Deposit = () => {
             onChange={handleChangeId}
             placeholder={t("deposit_page.placeholder_1xbet_id")}
           />
-          {/* <div
-            style={{
-              color: "rgba(256, 256, 256, 0.5)",
-              width: "100%",
-              display: "flex",
-              marginTop: "15px",
-            }}
-          >
-            <span
-              style={{
-                width: "100%",
-              }}
-            >
-              {" "}
-              <span style={{color: "red", fontWeight: "bold"}}>Note:</span>{" "}
-              &nbsp; Le montant de la transaction ne doit pas être inférieur à
-              500
-              <span style={{color: "red", fontWeight: "bold"}}>Note:</span>{" "}
-              {t("deposit_page.note_message")}
-            </span>
-          </div> */}
+         
           <label>{t("deposit_page.amount")}</label>
           <input
             type='number'

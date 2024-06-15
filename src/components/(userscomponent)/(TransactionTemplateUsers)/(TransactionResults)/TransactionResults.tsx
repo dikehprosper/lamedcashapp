@@ -30,6 +30,7 @@ const TransactionResults = ({  time,
     );
   };
 
+  console.log(amount, "betId")
   return (
     <>
       <div className='mobile-time'> {formatDate(time)}</div>
@@ -37,7 +38,7 @@ const TransactionResults = ({  time,
         <span
           className='first-span'
           style={{
-            background: type === "deposits" ? "#658900" : "#0076B8",
+            background: type === "deposits" ? "rgba(73, 166, 106, 1)" : "rgba(120, 120, 120,1)",
             width: "13px !important",
           }}
         ></span>
@@ -45,7 +46,7 @@ const TransactionResults = ({  time,
         <span className='small_device_group'>
           {" "}
           <span>
-            <b style={{ color: "rgba(256, 256, 256, 0.4" }}>1xBet ID: &nbsp;</b>{" "}
+            <b style={{ color: "rgba(256, 256, 256, 0.4" }}>ID: &nbsp;</b>{" "}
             {betId}
           </span>
           {type === "deposits"? <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>: <span> {withdrawalCode}</span> }

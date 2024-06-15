@@ -171,7 +171,7 @@ const pathname = usePathname()
           </div>
         )}
 
-        <div className='receiptModal_inner6'>
+        {/* <div className='receiptModal_inner6'>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
@@ -186,7 +186,7 @@ const pathname = usePathname()
             {" "}
             {receipt?.username ? receipt?.username : receipt?.momoName}
           </div>
-        </div>
+        </div> */}
         <div className='receiptModal_inner7'>
           <div
             style={{

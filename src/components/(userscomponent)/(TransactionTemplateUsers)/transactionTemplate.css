@@ -217,10 +217,11 @@
 
   .transaction_template_container_header {
     flex-direction: column;
-    gap: 23px;
+    gap: 4px;
     padding: 5px;
-    min-height: 70px;
+    min-height: 30px;
     max-height: 70px;
+  
   }
   .transaction_template_container_header_2 div {
     justify-content: space-between;
