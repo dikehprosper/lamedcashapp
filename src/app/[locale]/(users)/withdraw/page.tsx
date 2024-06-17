@@ -12,7 +12,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
 import { useTranslations } from "next-intl";
-
+import {useParams, usePathname} from "next/navigation";
+  import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 type ShowReceiptFunction = (
   time: string,
   amount: number,
@@ -26,10 +27,8 @@ type ShowReceiptFunction = (
 ) => void;
 
 const Withdraw = () => {
-  const [data, setData] = useState({
-    fullname: "",
-    betId: "",
-  });
+    const data = useAppSelector((state: any) => state.user.value);
+    const dispatch = useAppDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [savedID, setSavedID] = useState([]);
@@ -73,25 +72,8 @@ const Withdraw = () => {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("/api/getUserInfo");
-      console.log(res.data.data.betID[0]);
-      setUser({
-        ...user,
-        _id: res.data.data._id,
-        betId: res.data.data.betID[0],
-        momoName: res.data.data.fullname,
-        momoNumber: res.data.data.number,
-        confirmMomoNumber: res.data.data.number,
-        fullname: res.data.data.fullname,
-      });
-      setSavedID(res.data.data.betID);
-      setActiveBetId(res.data.data.betID[0]);
-
-      setData({
-        ...data,
-        fullname: res.data.data.fullname,
-        betId: res.data.data.betId,
-      });
+      const res = await axios.get("/api/getUser");
+      dispatch(setUser(res.data.data));
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration

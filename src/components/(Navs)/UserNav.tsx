@@ -59,6 +59,11 @@ const UserNav = () => {
       pathname: `/${locale}/transactions`,
       icon: <LuHistory />,
     },
+      {
+      title: `Références`,
+      pathname: `/${locale}/referrals`,
+      icon: <IoMdPeople />,
+    },
     {
       title: t(`navLinks.profile`),
       pathname: `/${locale}/profile`,

@@ -146,7 +146,7 @@
       "show_receipt": "Show Receipt",
       "transaction_details": "Transaction Details",
       "time": "Time",
-      "amount": "Amount",
+      "image": "Image",
       "identifier_id": "Identifier ID",
       "bet_id": "Bet ID",
       "status": "Status",
@@ -179,7 +179,7 @@
     "referral_page": {
       "title": "Referrals",
       "about": "View earned referrals here",
-      "copyReferralLink": "Copy your referral link and share it with friends",
+      "copyReferralLink": "Refer friends to BetFundr and earn rewards! Share your code and get bonuses when they sign up and make transactions. You will also receive up to 30% bonus on the deposits of your referrals. Start sharing your unique code now! ",
       "earningsNote": "Note: You can only earn GRAW from 20,000 XOF and above.",
       "withdraw": "Withdraw",
       "noReferrals": "You don't have any referrals yet",
@@ -190,7 +190,9 @@
       "10_percent": "get paid up to 10% on your referrals' transactions for life",
       "exceed": "once your winnings exceed 20,000 XOF, they are paid to your betting account",
       "error": "An error occurred. Please try again later.",
-      "networkError": "No network connection. Please check your connection and try again."
+      "networkError": "No network connection. Please check your connection and try again.",
+      "referalLink": "My Referral Link",
+       "referalLink_copy": "Copy Referral Link"
     }
   },
   "header": {

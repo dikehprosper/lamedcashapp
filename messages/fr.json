@@ -146,7 +146,7 @@
       "show_receipt": "Afficher le reçu",
       "transaction_details": "Détails de la transaction",
       "time": "Temps",
-      "amount": "Montant",
+      "image": "Image",
       "identifier_id": "Identifiant",
       "bet_id": "ID de Pari",
       "status": "Statut",
@@ -179,7 +179,7 @@
     "referral_page": {
       "title": "Références",
       "about": "Voir les parrainages gagnés ici",
-      "copyReferralLink": "Copiez votre lien de parrainage et partagez-le avec des amis",
+      "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions. Vous recevrez également jusqu'à 30% de bonus sur les dépôts de vos parrainages. Commencez à partager votre code unique maintenant!",
       "earningsNote": "Vous ne pouvez obtenir du GRAW qu'à partir de 20 000 XOF et plus.",
       "withdraw": "Retirer",
       "noReferrals": "Vous n'avez pas encore de références",
@@ -190,7 +190,9 @@
       "exceed": "une fois que vos gains dépassent 20000 XOF, ils sont versés sur votre compte de pari",
       "10_percent": "soyez payé jusqu'à 10% sur les transactions de vos filleuls à vie",
       "error": "Une erreur s'est produite. Veuillez réessayer plus tard.",
-      "networkError": "Pas de connexion réseau. Veuillez vérifier votre connexion et réessayer."
+      "networkError": "Pas de connexion réseau. Veuillez vérifier votre connexion et réessayer.",
+      "referalLink": "Mon lien de parrainage",
+      "referalLink_copy": "Copier le lien"
     }
   },
   "header": {

@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import {getDataFromToken} from "@/helpers/getDataFromToken";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 export async function POST(request: NextRequest) {
   try {
+        const {userId, sessionId} = await getDataFromToken(request);
     const reqBody = await request.json();
 
     const {_id,  oldPassword,password, confirmPassword} = await reqBody;

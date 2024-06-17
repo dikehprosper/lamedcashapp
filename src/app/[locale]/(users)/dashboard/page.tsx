@@ -65,23 +65,23 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOnline]);
 
-  // useEffect(() => {
-  //   // Check initial network status
-  //   setIsOnline(window.navigator.onLine);
+  useEffect(() => {
+    // Check initial network status
+    setIsOnline(window.navigator.onLine);
 
-  //   // Add event listeners for online/offline changes
-  //   const handleOnline = () => setIsOnline(true);
-  //   const handleOffline = () => setIsOnline(false);
+    // Add event listeners for online/offline changes
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
 
-  //   window.addEventListener("online", handleOnline);
-  //   window.addEventListener("offline", handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
-  //   // Clean up event listeners on component unmount
-  //   return () => {
-  //     window.removeEventListener("online", handleOnline);
-  //     window.removeEventListener("offline", handleOffline);
-  //   };
-  // }, []);
+    // Clean up event listeners on component unmount
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
  
 

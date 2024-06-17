@@ -11,12 +11,16 @@ import BasicModal from "./profileModal";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { updateUser } from "@/lib/features/userSlice";
+import { setUser } from "@/lib/features/userSlice";
 interface YourComponentProps {
   savedID: number[];
 }
 const Profile = () => {
   const t = useTranslations("dashboard");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);``
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [loading3, setLoading3] = useState(false);
@@ -25,175 +29,55 @@ const Profile = () => {
   const [savedID, setSavedID] = useState([]);
   const [activeBetId, setActiveBetId] = useState("");
   const [success, setSuccess] = useState(false);
-  const [fullname, setFullname] = useState("");
-  const [fedapayId, setFedapayId] = useState();
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    fullname: "",
-    email: "",
-    mobileNumber: "",
+ const data = useAppSelector((state: any) => state.user.value);
+  const dispatch = useAppDispatch();
+  const [user, setUser1] = useState({
+firstName: data.fullname.split(' ')[0],
+    lastName: data.fullname.split(' ')[1],
+    fullname: data.fullname,
+    email: data.email,
+    mobileNumber: data.number,
     betId: "",
     oldPassword: "",
     password: "",
     confirmPassword: "",
-    _id: "",
+    _id: data._id,
   });
   const router = useRouter();
-  const [data, setData] = useState<any>();
-  const [isOnline, setIsOnline] = useState(true);
-
+ 
+   const [isOnline, setIsOnline] = useState(true);
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("/api/getUserInfo");
-      console.log(res.data.data.betID);
-      setUser({
-        ...user,
-        firstName: res.data.data.fullname.split(" ")[0],
-        lastName: res.data.data.fullname.split(" ")[1],
-        fullname: res.data.data.fullname,
-        email: res.data.data.email,
-        mobileNumber: res.data.data.number,
-        betId: res.data.data.betID[0],
-        _id: res.data.data._id,
-      });
-      setFullname(res.data.data.fullname);
-      setSavedID(res.data.data.betID);
-      setActiveBetId(res.data.data.betID[0]);
-      setFedapayId(res.data.data.fedapayId);
+      const res = await axios.get("/api/getUser");
+      dispatch(setUser(res.data.data))
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
         if (error.response.status === 401) {
-          toast.error(
-            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
-          );
+          toast.error(t("token_expired") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
-          toast.error(
-            "Votre session a expiré. Redirection vers la connexion..."
-          );
+          toast.error(t("session_expired") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
-          toast.error("Votre compte a été désactivé");
-          router.push("/signin");
+          toast.error(t("account_disabled") as string);
+          router.push("/signin"); // Replace '/login' with your actual login route
         } else {
           // Handle other errors
-          toast.error(
-            "Une erreur s'est produite. Veuillez réessayer plus tard."
-          );
+          toast.error(t("unknown_error"));
         }
       } else if (error.request) {
         // Handle network errors (no connection)
         setIsOnline(false);
       }
     }
-  };
-
-  const handleChangeFirstName = (event: any) => {
-    setButtonDisabled(false);
-    setUser({
-      ...user,
-      firstName: event.target.value,
-    });
-  };
-
-  const handleChangeLastName = (event: any) => {
-    setButtonDisabled(false);
-    setUser({
-      ...user,
-      lastName: event.target.value,
-    });
-  };
-
-  const handleChangeEmail = (event: any) => {
-    setButtonDisabled(false);
-    setUser({
-      ...user,
-      email: event.target.value,
-    });
-  };
-
-  const handlechangeMobileNumber = (event: any) => {
-    setButtonDisabled(false);
-    setUser({
-      ...user,
-      mobileNumber: event.target.value,
-    });
-  };
-
-  const handlechangeBetID = (event: any) => {
-    setUser({
-      ...user,
-      betId: event.target.value,
-    });
-  };
-
-  const handlePassword = (event: any) => {
-    setButtonDisabled1(false);
-    setUser({
-      ...user,
-      password: event.target.value,
-    });
-  };
-  const handleOldPassword = (event: any) => {
-    setButtonDisabled1(false);
-    setUser({
-      ...user,
-      oldPassword: event.target.value,
-    });
-  };
-
-  const handleConfirmPassword = (event: any) => {
-    setButtonDisabled1(false);
-    setUser({
-      ...user,
-      confirmPassword: event.target.value,
-    });
-  };
-
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    setLoading3(true);
-    const updatedUser = {
-      _id: user._id,
-      fullname: `${user.firstName} ${user.lastName}`,
-      email: user.email,
-      mobileNumber: user.mobileNumber,
-      fedapayId: fedapayId,
-    };
-    if (
-      updatedUser.mobileNumber.length < 8 ||
-      updatedUser.mobileNumber.length > 8
-    ) {
-      setLoading3(false);
-      return toast.error(
-        "le numéro de portable doit être composé de 8 chiffres"
-      );
-    } else {
-      try {
-        const res = await axios.post("/api/updateCurrentUserInfo", updatedUser);
-        toast.success("le profil a été mis à jour avec succès");
-        getUserDetails();
-        setLoading3(false);
-      } catch (error: any) {
-        setLoading3(false);
-        toast.error("échec de la mise à jour des informations utilisateur");
-      }
-    }
   }
 
-  useEffect(() => {
-    // Check network status before making the request
-    if (isOnline) {
+    useEffect(() => {
+ 
       getUserDetails();
-    } else {
-      toast.error(
-        "No network connection. Please check your connection and try again."
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOnline]);
+
+  }, []);
 
   useEffect(() => {
     // Check initial network status
@@ -213,62 +97,96 @@ const Profile = () => {
     };
   }, []);
 
-  async function addExtraId() {
-    try {
-      const updatedUser = {
-        _id: user._id,
-        betId: user.betId,
-      };
-      const res = await axios.post("/api/users/addBetId", updatedUser);
-      setSavedID(res.data.res);
-    } catch (error: any) {
-      if (error.response.status === 401) {
-        toast.error("betId de apuesta máximo agregado");
-      } else if (error.response.status === 402) {
-        toast.error("La apuesta ya existe.");
-      } else if (error.response.status === 404) {
-        toast.error("Votre compte a été désactivé");
-        router.push("/signin");
-      } else {
-        toast.error("algo salió mal");
+
+
+
+  const handleChangeFirstName = (event: any) => {
+    setButtonDisabled(false);
+    setUser1({
+      ...user,
+      firstName: event.target.value,
+    });
+  };
+
+  const handleChangeLastName = (event: any) => {
+    setButtonDisabled(false);
+    setUser1({
+      ...user,
+      lastName: event.target.value,
+    });
+  };
+
+  const handleChangeEmail = (event: any) => {
+    setButtonDisabled(false);
+    setUser1({
+      ...user,
+      email: event.target.value,
+    });
+  };
+
+  const handlechangeMobileNumber = (event: any) => {
+    console.log("documenting")
+    setButtonDisabled(false);
+    setUser1({
+      ...user,
+      mobileNumber: event.target.value,
+    });
+  };
+
+ 
+  const handlePassword = (event: any) => {
+    setButtonDisabled1(false);
+    setUser1({
+      ...user,
+      password: event.target.value,
+    });
+  };
+  const handleOldPassword = (event: any) => {
+    setButtonDisabled1(false);
+    setUser1({
+      ...user,
+      oldPassword: event.target.value,
+    });
+  };
+
+  const handleConfirmPassword = (event: any) => {
+    setButtonDisabled1(false);
+    setUser1({
+      ...user,
+      confirmPassword: event.target.value,
+    });
+  };
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    setLoading3(true);
+    const updatedUser = {
+      _id: user._id,
+      fullname: `${user.firstName} ${user.lastName}`,
+      email: user.email,
+      mobileNumber: user.mobileNumber,
+    };
+    if (
+      updatedUser?.mobileNumber?.length < 8 ||
+      updatedUser?.mobileNumber?.length > 8
+    ) {
+      setLoading3(false);
+      return toast.error(
+        "le numéro de portable doit être composé de 8 chiffres"
+      );
+    } else {
+      try {
+        const res = await axios.post("/api/updateCurrentUserInfo", updatedUser);
+        toast.success("le profil a été mis à jour avec succès");
+        dispatch(updateUser(res.data.resultData));
+        setLoading3(false);
+      } catch (error: any) {
+        setLoading3(false);
+        toast.error("échec de la mise à jour des informations utilisateur");
       }
     }
   }
 
-  async function makeDefaultId(id: any) {
-    try {
-      const updatedUser = {
-        _id: user._id,
-        betId: id,
-      };
-      const res = await axios.post("/api/users/makeBetIdDefault", updatedUser);
-      getUserDetails();
-    } catch (error: any) {
-      if (error.response.status === 404) {
-        toast.error("Votre compte a été désactivé");
-        router.push("/signin");
-      } else {
-        toast.error("algo salió mal");
-      }
-    }
-  }
-  async function deleteId(id: any) {
-    try {
-      const updatedUser = {
-        _id: user._id,
-        betId: id,
-      };
-      const res = await axios.post("/api/users/deleteBetId", updatedUser);
-      getUserDetails();
-    } catch (error: any) {
-      if (error.response.status === 404) {
-        toast.error("Votre compte a été désactivé");
-        router.push("/signin");
-      } else {
-        toast.error("algo salió mal");
-      }
-    }
-  }
 
   async function changePassword(e: { preventDefault: () => void }) {
     setLoading2(true);
@@ -305,16 +223,27 @@ const Profile = () => {
     }
   }
 
+
+
+const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d" : data.image
+
   return (
     <div className="user_profile_container">
-      <Head title={t("profile.title")} about={t("profile.about")} data={user} />
+      <Head title={t("profile.title")} about={t("profile.about")} data={data} />
 
       <div className="user_profile_container_001">
-        {fullname ? (
+        {data ? (
           <form className="profile-form-container">
             <div className="add-photo">
               <div className="add-photo-container appear">
-                <GetInitials name={fullname} />
+                 <Image
+          src={imageUrl}
+          style={{ objectFit: "contain", borderRadius: 40 }}
+          alt="background"
+           width={80}
+        height={80}
+        />
+      
               </div>
             </div>
             <div>

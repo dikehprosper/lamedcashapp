@@ -152,12 +152,13 @@ const Referral = ({ data }: any) => {
               height: "50%",
               width: "100%",
               alignItems: "start",
-              opacity: "0.3",
+              opacity: "0.6",
               fontWeight: "300",
               fontSize: "15px",
             }}
           >
-            My Referral Link
+  
+               {t("referral_page.referalLink")}
           </div>
           <div
             style={{
@@ -186,7 +187,7 @@ const Referral = ({ data }: any) => {
               className="referral-link-input-espece"
               onClick={copyContent} // Call the copyContent function on click
             >
-              {copied === "true" && "Copy Referral Link"}
+              {copied === "true" &&  t("referral_page.referalLink_copy")}
 
               {copied === "true2" && (
                 <CiCircleCheck className="CiCircleCheck" />

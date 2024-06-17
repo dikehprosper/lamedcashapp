@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const users = await Promise.all(userPromises);
 
      const usersSuccesfulCountusers = users.map( user => {
-        return {"name": user.fullname, "email": user.email, "SuccesfulDepositCountusers": user.successfulDepositCount, "SuccesfulWithdrawalCountusers" : user.succesfulWithdrawalCount}
+        return {"name": user.fullname, "email": user.email, "image": user.image, "SuccesfulDepositCountusers": user.successfulDepositCount, "SuccesfulWithdrawalCountusers" : user.succesfulWithdrawalCount}
     })
 
     console.log(usersSuccesfulCountusers, "usersSuccesfulCountusers");

@@ -98,7 +98,7 @@
   width: 100% !important;
   border-radius: 9px !important;
   flex-direction: column !important;
-  /* overflow: scroll !important; */
+  overflow: scroll !important;
   min-height: 300px !important;
   padding-bottom: 20px !important;
 }

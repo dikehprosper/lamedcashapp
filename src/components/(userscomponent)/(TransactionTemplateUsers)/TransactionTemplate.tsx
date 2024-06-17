@@ -107,7 +107,7 @@ const TransactionTemplate = ({
     }, 1000);
   }
 
-  return allData === undefined ? (
+  return data === undefined ? (
     // Render the loading spinner when loading is true
     <div
       className='transaction_template_container '
