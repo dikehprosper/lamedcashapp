@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 import {SubAdminUser, AdminUser} from "@/models/userModel";
-
+import {getDataFromToken} from "@/helpers/getDataFromToken";
 export async function POST(request: NextRequest) {
   try {
+              const {userId, sessionId} = await getDataFromToken(request);
     const reqBody = await request.json();
 
     const newTimestamp = await reqBody;

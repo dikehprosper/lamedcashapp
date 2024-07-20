@@ -1,3 +1,4 @@
+
 /* eslint-disable */
 // @ts-nocheck
 "use client";
@@ -9,8 +10,7 @@ import { TbPigMoney } from "react-icons/tb";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 
 export default function AdminDashboardDisplay({
-  data,
-  data2,
+  data4,
   data3,
   type,
 }: any) {
@@ -49,34 +49,21 @@ export default function AdminDashboardDisplay({
   };
 
   // Filter transactions based on the calculated start time
-  const completedOrders = data
-    ?.flatMap((item) => item.transactionHistory) // Flatten the array of objects into an array of transactionHistory arrays
-    .filter(
-      (transaction: { status: string; registrationDateTime: string }) =>
-        (state !== "All Time" &&
-          transaction.status === "Successful" &&
-          new Date(transaction.registrationDateTime) >=
-            new Date(calculateStartTime())) ||
-        (state === "All Time" && transaction.status === "Successful")
-    );
+  // const completedOrders = data
+  //   ?.flatMap((item) => item.transactionHistory) // Flatten the array of objects into an array of transactionHistory arrays
+  //   .filter(
+  //     (transaction: { status: string; registrationDateTime: string }) =>
+  //       (state !== "All Time" &&
+  //         transaction.status === "Successful" &&
+  //         new Date(transaction.registrationDateTime) >=
+  //           new Date(calculateStartTime())) ||
+  //       (state === "All Time" && transaction.status === "Successful")
+  //   );
 
-  const failedOrders = data
-    ?.flatMap((item) => item.transactionHistory) // Flatten the array of objects into an array of transactionHistory arrays
-    .filter(
-      (transaction: { status: string; registrationDateTime: string }) =>
-        (state !== "All Time" &&
-          transaction.status === "Failed" &&
-          new Date(transaction.registrationDateTime) >=
-            new Date(calculateStartTime())) ||
-        (state === "All Time" && transaction.status === "Failed")
-    );
-  const openOrders = data
-    ?.flatMap((item) => item.transactionHistory) // Flatten the array of objects into an array of transactionHistory arrays
-    .filter(
-      (transaction: { status: string }) => transaction.status === "Pending"
-    );
+ 
+ 
 
-  const totalUsers = data?.filter(
+  const totalUsers = data4?.filter(
     (user: { isUser: boolean; registrationDateTime: string }) =>
       (state !== "All Time" &&
         user.isUser === true &&
@@ -85,22 +72,13 @@ export default function AdminDashboardDisplay({
       (state === "All Time" && user.isUser === true)
   );
 
-  const totalSubadmins = (data2?.length || 0) + (data3?.length || 0);
 
-  const sum = openOrders?.reduce((acc: any, obj: any) => acc + obj.amount, 0);
 
-  const sum2 = completedOrders?.reduce(
-    (acc: any, obj: any) => acc + obj.amount,
-    0
-  );
-  const sum3 = failedOrders?.reduce(
-    (acc: any, obj: any) => acc + obj.amount,
-    0
-  );
+ 
 
   return (
     <div className="subadmin_dashboard_container-display_withdrawal_admin">
-      {data ? (
+      {data4 ? (
         <div
           className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
           style={{
@@ -108,17 +86,14 @@ export default function AdminDashboardDisplay({
           }}
         >
           <div className="display-body-300_withdrawal_admin">
-            {type !== "4" && (
+        
               <div className="card-icon">
                 <TbPigMoney fontSize="20px" />
               </div>
-            )}
+         
           </div>
           <h3 className="admin-card-title">
-            {" "}
-            {type === "1" && "Open Deposits"}
-            {type === "2" && "Open Withdrawals"}
-            {type === "4" && "Total Subadmins"}
+      Dispersed bonus
           </h3>
 
           {loading ? (
@@ -127,18 +102,11 @@ export default function AdminDashboardDisplay({
             </div>
           ) : (
             <>
-              {type !== "4" && (
-                <h1 className="animate-pop-in">{openOrders?.length}</h1>
-              )}
-              {type === "4" && (
-                <h1 className="animate-pop-in">{totalSubadmins}</h1>
-              )}
-              {type !== "4" && (
-                <h4 className="animate-pop-in card-price">
-                  XOF &nbsp;
-                  {formatNumberWithCommasAndDecimal(sum2)}
-                </h4>
-              )}
+        
+        <h4 className='animate-pop-in card-price'>
+                XOF &nbsp;
+             {formatNumberWithCommasAndDecimal(data3.disbursedBonusBalance)}
+              </h4>
             </>
           )}
         </div>
@@ -150,7 +118,7 @@ export default function AdminDashboardDisplay({
         </div>
       )}
 
-      {data ? (
+      {data4 ? (
         <div
           className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
           style={{
@@ -164,20 +132,10 @@ export default function AdminDashboardDisplay({
             <div className="card-icon">
               <AiOutlineCluster fontSize="20px" />
             </div>
-            <div>
-              <DropdownContent
-                state={state}
-                select={select}
-                setState={setState}
-                setLoading={setLoading}
-              />
-            </div>
+           
           </div>
           <h3 className="admin-card-title">
-            {" "}
-            {type === "1" && "Completed Deposits"}
-            {type === "2" && "Completed Withdrawals"}{" "}
-            {type === "4" && "Total Users"}
+          Available bonus
           </h3>
           {loading ? (
             <div id="container_deposit_display_withdrawal_admin">
@@ -185,18 +143,11 @@ export default function AdminDashboardDisplay({
             </div>
           ) : (
             <>
-              {type !== "4" && (
-                <h1 className="animate-pop-in">{completedOrders?.length}</h1>
-              )}
-              {type === "4" && (
-                <h1 className="animate-pop-in">{totalUsers?.length}</h1>
-              )}
-              {type !== "4" && (
-                <h4 className="animate-pop-in card-price">
-                  XOF &nbsp;
-                  {formatNumberWithCommasAndDecimal(sum2)}
-                </h4>
-              )}
+            <h4 className='animate-pop-in card-price'>
+                XOF &nbsp;
+                {formatNumberWithCommasAndDecimal(data3.restrictedBonusBalance)}
+              </h4>
+            
             </>
           )}
         </div>
@@ -207,34 +158,35 @@ export default function AdminDashboardDisplay({
           </div>
         </div>
       )}
-      {data ? (
+      {data4 ? (
         <div
           className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
           style={{
             background: "rgba(128, 128, 128, 0.2)",
-            display: type !== "1" && type !== "2" ? "none" : "flex",
+            display: "flex",
           }}
         >
-          {type !== "4" && (
+    
             <>
               <div
                 className="display-body-300_withdrawal_admin"
-                style={{ zIndex: "7000000" }}
+                style={{ zIndex: 7000000 }}
               >
                 <div className="card-icon">
                   <AiOutlineCluster fontSize="20px" />
-                </div>{" "}
-                <div className="admin-drop">
-                  <DropdownContent
-                    state={state}
-                    select={select}
-                    setState={setState}
-                    setLoading={setLoading}
-                  />
                 </div>
+                 <div  style={{ zIndex: 7000000 }}>
+              <DropdownContent
+                state={state}
+                select={select}
+                setState={setState}
+                setLoading={setLoading}
+              />
+            </div>
+               
               </div>
               <h3 className="admin-card-title">
-                {type == "1" ? "Failed Deposits" : "Failed Withdrawals"}{" "}
+    Total Users
               </h3>
               {loading ? (
                 <div id="container_deposit_display_withdrawal_admin">
@@ -242,16 +194,13 @@ export default function AdminDashboardDisplay({
                 </div>
               ) : (
                 <>
-                  {" "}
-                  <h1 className="animate-pop-in">{failedOrders?.length}</h1>
-                  <h4 className="animate-pop-in card-price">
-                    XOF &nbsp;
-                    {formatNumberWithCommasAndDecimal(sum3)}
-                  </h4>
+               
+                 
+                      <h1 className="animate-pop-in">{totalUsers?.length}</h1>
                 </>
               )}
             </>
-          )}
+          
         </div>
       ) : (
         <div className="subadmin_dashboard_container-display-children-loading_withdrawal_admin ">

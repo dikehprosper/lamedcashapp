@@ -1,34 +1,34 @@
 /* eslint-disable */
 // @ts-nocheck
 "use client";
-import React,{ useRef } from "react";
+import React, {useRef, useState} from "react";
 import CompanyLogo from "../../../../public/Logo.webp";
 import Image from "next/image";
-import { TbPigMoney } from "react-icons/tb";
+import {TbPigMoney} from "react-icons/tb";
 import formatDate from "../formatDate";
-import { IoMdDownload } from "react-icons/io";
+import {IoMdDownload} from "react-icons/io";
 import html2canvas from "html2canvas";
 import formatNumberWithCommasAndDecimal from "../formatNumber";
-import { FaLongArrowAltLeft } from "react-icons/fa";
-import { FaRegCopy } from "react-icons/fa";
-import { toast } from "react-toastify";
-import { usePathname } from "next/navigation"
+import {FaLongArrowAltLeft} from "react-icons/fa";
+import {FaRegCopy} from "react-icons/fa";
+import {toast} from "react-toastify";
+import {usePathname, useRouter} from "next/navigation";
+import axios from "axios";
 const Modal = ({
-  active,
-  receipt,
   containerStyles,
   containerStylesInner,
-  containerStylesInnerLink,
   handleClick,
+  receipt,
+  title,
 }: any) => {
-  console.log(receipt)
-const pathname = usePathname()
+  console.log(receipt);
+  const pathname = usePathname();
+  const router = useRouter();
   const handleChildClick = (event: React.MouseEvent) => {
     // Stop the event propagation to the parent (receiptModal)
     event.stopPropagation();
-
   };
-    const spanRef = useRef<HTMLSpanElement>(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   const handleCopyClick = () => {
     if (spanRef.current) {
@@ -47,189 +47,572 @@ const pathname = usePathname()
       window.getSelection()?.removeAllRanges();
     }
   };
+
+  const [loading, setLoading] = useState(null);
+
+  const handleSubmit = async (value) => {
+    try {
+      setLoading(value);
+      const transactionId = receipt.identifierId;
+      const sentData = {
+        value: value,
+        transactionId: transactionId,
+      };
+      const res = await axios.post(
+        "/api/updatedTransactionHistoryForAdmin",
+        sentData
+      );
+      handleClick(value, transactionId);
+      setLoading(null);
+    } catch (error: any) {
+      if (error.response) {
+        // Handle token expiration
+        if (error.response.status === 401) {
+          toast.error(
+            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+          );
+          setLoading(null);
+          router.replace("/signin");
+        } else if (error.response.status === 402) {
+          toast.error(
+            "Votre session a expiré. Redirection vers la connexion..."
+          );
+          router.replace("/signin");
+          setLoading(null);
+        } else {
+          // Handle other errors
+          setLoading(false);
+          toast.error(
+            "Une erreur s'est produite. Veuillez réessayer plus tard."
+          );
+        }
+      } else if (error.request) {
+        setLoading(null);
+        // Handle network errors (no connection)
+        setIsOnline(null);
+      }
+    }
+  };
+
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
-      <div className={` ${containerStylesInner}`} id='receiptModal' onClick={handleChildClick}>
-        <span
-          onClick={handleClick}
-          style={{ position: "absolute", right: "22px", top: "15px" }}
-        >
-          {" "}
-          <FaLongArrowAltLeft className='FaLongArrowAltLeft' />
-        </span>
-        <div className='receiptModal_inner1'>
-          <div className='receiptModalImage'>
-            <Image
-              src={CompanyLogo}
-              loading='eager'
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-              alt='Picture of the author'
-            />
-          </div>
-          <h3
-            style={{
-              background:
-                receipt.status === "Successful"
-                  ? "rgba(0, 128, 0, 0.6)"
-                  : receipt.status === "Pending"
-                  ? "rgba(128, 128, 128, 0.6)"
-                  : "rgba(256, 0, 0, 0.6)",
-              color: "rgba(256, 256, 256, 0.8)",
-              borderRadius: "3px",
-            }}
-          >
-            {" "}
-            {receipt.status}
-          </h3>
-        </div>
-        <div className='receiptModal_inner2'>
-          <div>
-            {" "}
-            <TbPigMoney />
-          </div>
-          <div>
-          <div
-  style={{
-    color: (receipt?.type || receipt?.fundingType) === "withdrawals"
-      ? "rgba(0, 118, 184, 0.7)"
-      : "rgba(0, 184, 118, 0.7)",
-    fontWeight: "bold",
-  }}
->
-  Montant du{" "}
-  {(receipt?.type || receipt?.fundingType) === "withdrawals" ? "retraits" : "dépôt"}
-</div>
-
-            <div style={{ fontWeight: "900", color: "white" }}>
-              {" "}
-              XOF{" "}
-              {typeof receipt?.amount === "number"
-                ? formatNumberWithCommasAndDecimal(receipt?.amount)
-                : receipt?.amount}
-            </div>
-          </div>
-        </div>
-        <div className='receiptModal_inner3'>
-          <div
-            style={{
-              color: "rgba(128, 128, 128, 0.9)",
-              display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
-            }}
-          >
-            1xBET ID:
-          </div>
-
-          <div> {receipt?.betId} </div>
-        </div>
-        <div className='receiptModal_inner4'>
-          <div
-            style={{
-              color: "rgba(128, 128, 128, 0.9)",
-              display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
-            }}
-          >
-            identifiant de transaction:
-          </div>
-          <div ref={spanRef}> {receipt?.identifierId} </div> 
-
- <div style={{marginRight: "10px"}}  onClick={handleCopyClick}> <FaRegCopy fontSize="12px" /></div>
-        </div>
-        <div className='receiptModal_inner5'>
-          <div
-            style={{
-              color: "rgba(128, 128, 128, 0.9)",
-              display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
-            }}
-          >
-            date et l&apos;heure:{" "}
-          </div>
-          <div> {formatDate(receipt?.time)}</div>
-        </div>
-
-        {receipt.withdrawalCode && (
-          <div className='receiptModal_inner6'>
+      <div
+        className={` ${containerStylesInner}`}
+        id='receiptModal'
+        onClick={handleChildClick}
+        style={{gap: 10}}
+      >
+        {receipt?.betId && (
+          <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
                 color: "rgba(128, 128, 128, 0.9)",
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: "center",
                 fontWeight: "bold",
+                textAlign: "center",
               }}
             >
-              code de retrait 1xbet:{" "}
+              ID:
             </div>
-            <div> {receipt?.withdrawalCode}</div>
+
+            <div
+              style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {receipt?.betId}
+            </div>
+          </div>
+        )}
+        {receipt.bonusBalance ? (
+          <div className='receiptModal_inner3' style={{height: "50px"}}>
+            <div
+              style={{
+                color: "rgba(128, 128, 128, 0.9)",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              SOURCE:
+            </div>
+
+            <div
+              style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              BONUS
+            </div>
+          </div>
+        ) : (
+          <div className='receiptModal_inner3' style={{height: "50px"}}>
+            <div
+              style={{
+                color: "rgba(128, 128, 128, 0.9)",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              SOURCE:
+            </div>
+
+            <div
+              style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              FROM BET ACCOUNT
+            </div>
           </div>
         )}
 
-        {/* <div className='receiptModal_inner6'>
+        {receipt?.withdrawalCode && (
+          <div className='receiptModal_inner3' style={{height: "50px"}}>
+            <div
+              style={{
+                color: "rgba(128, 128, 128, 0.9)",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              WITHDRAWAL CODE:
+            </div>
+
+            <div
+              style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {receipt?.withdrawalCode}
+            </div>
+          </div>
+        )}
+        {receipt?.service && (
+          <div className='receiptModal_inner3' style={{height: "50px"}}>
+            <div
+              style={{
+                color: "rgba(128, 128, 128, 0.9)",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              SERVICE:
+            </div>
+
+            <div
+              style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {receipt?.service}
+            </div>
+          </div>
+        )}
+
+        {receipt?.totalAmount && (
+          <div className='receiptModal_inner3' style={{height: "50px"}}>
+            <div
+              style={{
+                color: "rgba(128, 128, 128, 0.9)",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              AMOUNT:
+            </div>
+
+            <div
+              style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {receipt?.totalAmount}
+            </div>
+          </div>
+        )}
+
+        {receipt?.fundingType && (
+          <div className='receiptModal_inner3' style={{height: "50px"}}>
+            <div
+              style={{
+                color: "rgba(128, 128, 128, 0.9)",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              TYPE:
+            </div>
+
+            <div
+              style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {receipt?.fundingType}
+            </div>
+          </div>
+        )}
+
+        <div className='receiptModal_inner4' style={{height: "50px"}}>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "center",
               fontWeight: "bold",
+              textAlign: "center",
             }}
           >
-            nom:{" "}
+            iDENTIFIANT DE TRANSACTION:
           </div>
-          <div>
+          <div
+            ref={spanRef}
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
             {" "}
-            {receipt?.username ? receipt?.username : receipt?.momoName}
+            {receipt?.identifierId}{" "}
           </div>
-        </div> */}
-        <div className='receiptModal_inner7'>
+        </div>
+        <div
+          className='receiptModal_inner5'
+          style={{justifyContent: "flex-start", width: "100%", height: "50px"}}
+        >
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "center",
               fontWeight: "bold",
+              textAlign: "center",
             }}
           >
-            numéro de maman:{" "}
+            DATE ET l&apos;HEURE:
           </div>
-          <div>
+          <div
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
             {" "}
+            {formatDate(receipt?.time)}
+          </div>
+        </div>
+
+        <div className='receiptModal_inner7' style={{height: "50px"}}>
+          <div
+            style={{
+              color: "rgba(128, 128, 128, 0.9)",
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            NUMÉRO DE MAMAN:
+          </div>
+          <div
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
             {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
           </div>
         </div>
-          {pathname.startsWith("/admin/allhistory")? <>
-         <div className='receiptModal_inner7'>
+
+        <div className='receiptModal_inner7' style={{height: "50px"}}>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "center",
               fontWeight: "bold",
+              textAlign: "center",
             }}
           >
-            E-mail de l'utilisateur:{" "}
+            E-MAIL DE L'UTILISATEUR:
           </div>
-          <div> {receipt?.userEmail}</div>
+          <div
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            {" "}
+            {receipt?.userEmail}
+          </div>
         </div>
-        <div className='receiptModal_inner7'>
+
+        {receipt.status === "Pending" && (
           <div
+            className='receiptModal_inner7'
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
-              display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
+              height: "50px",
+              justifyContent: "space-evenly",
+              padding: "40px",
             }}
           >
-            E-mail du sous-administrateur:{" "}
+            <div
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                textAlign: "center",
+                background: "green",
+                borderRadius: "4px",
+                alignItems: "center",
+                fontSize: "15px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                maxWidth: "110px",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                height: "40px",
+                justifyContent: "center",
+              }}
+              onClick={() => handleSubmit("accept")}
+            >
+              {loading === "accept" && (
+                <div
+                  id='container-deposit'
+                  style={{width: "15px", height: "15px"}}
+                >
+                  <div id='html-spinner-deposit'></div>
+                </div>
+              )}
+              ACCEPT
+            </div>
+            <div
+              style={{
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+                background: "red",
+                color: "white",
+                borderRadius: "4px",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "15px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                maxWidth: "110px",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                height: "40px",
+                justifyContent: "center",
+              }}
+              onClick={() => handleSubmit("reject")}
+            >
+              {" "}
+              {loading === "reject" && (
+                <div
+                  id='container-deposit'
+                  style={{width: "15px", height: "15px"}}
+                >
+                  <div id='html-spinner-deposit'></div>
+                </div>
+              )}
+              REJECT
+            </div>
           </div>
-          <div> {receipt?.subadminEmail}</div>
-        </div></>: null}
+        )}
+
+        {receipt.status === "Successful" && (
+          <div
+            className='receiptModal_inner7'
+            style={{
+              height: "50px",
+              justifyContent: "space-evenly",
+              padding: "40px",
+            }}
+          >
+            <div
+              style={{
+                color: "black",
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+                background: "gold",
+                borderRadius: "4px",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "15px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                maxWidth: "110px",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                height: "40px",
+              }}
+              onClick={() => handleSubmit("pend")}
+            >
+              {loading === "pend" && (
+                <div id='container-deposit'>
+                  <div id='html-spinner-deposit'></div>
+                </div>
+              )}
+              PEND
+            </div>
+            <div
+              style={{
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+                background: "red",
+                color: "white",
+                borderRadius: "4px",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "15px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                maxWidth: "110px",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                height: "40px",
+              }}
+              onClick={() => handleSubmit("reject")}
+            >
+           
+              {loading === "reject" && (
+                <div id='container-deposit'>
+                  <div id='html-spinner-deposit'></div>
+                </div>
+              )}
+              REJECT
+            </div>
+          </div>
+        )}
+
+        {receipt.status === "Failed" && (
+          <div
+            className='receiptModal_inner7'
+            style={{
+              height: "50px",
+              justifyContent: "space-evenly",
+              padding: "40px",
+            }}
+          >
+            <div
+              style={{
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+                background: "green",
+                color: "white",
+                borderRadius: "4px",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "15px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                maxWidth: "110px",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                height: "40px",
+              }}
+              onClick={() => handleSubmit("accept")}
+            >
+              {" "}
+              {loading === "accept"  && (
+                <div id='container-deposit'>
+                  <div id='html-spinner-deposit'></div>
+                </div>
+              )}
+              ACCEPT
+            </div>
+            <div
+              style={{
+                justifyContent: "center",
+                fontWeight: "bold",
+                textAlign: "center",
+                background: "gold",
+                color: "black",
+                borderRadius: "4px",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "15px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                maxWidth: "110px",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "row",
+                height: "40px",
+              }}
+              onClick={() => handleSubmit("pend")}
+            >
+
+              {loading === "pend" && (
+                <div id='container-deposit'>
+                  <div id='html-spinner-deposit'></div>
+                </div>
+              )}
+              PEND
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

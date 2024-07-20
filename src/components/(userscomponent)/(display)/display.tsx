@@ -61,7 +61,7 @@ const Display = ({
             ${formatNumberWithCommasAndDecimal(
               amount === undefined ? 0 : amount
             )}`: formatNumberWithCommasAndDecimal(
- 0 
+               amount === undefined ? 0 : amount
             ) }
           
           </p>

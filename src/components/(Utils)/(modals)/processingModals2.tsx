@@ -37,7 +37,7 @@ const Modal = ({
             gap: "10px"
           }}
         >
-          <h4>Traité</h4>
+          <h4>Réussi</h4>
           <div style={{ height: "30px", color: "rgba(0, 180, 0, 1)" }}>
             {/* <IoIosCheckmarkCircle fontSize="50px" /> */}
             <IoCheckmarkDoneSharp  fontSize="50px" />
@@ -46,7 +46,6 @@ const Modal = ({
         </div>
        
       </div>
-       <div style={{alignSelf: "center", fontSize: "10px", marginTop: "10px"}}>Transaction initiée et envoyée. En attente de votre approbation</div>
     </div>
   );
 };

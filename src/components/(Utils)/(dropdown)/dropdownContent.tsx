@@ -30,11 +30,11 @@ const DropdownContent = ({ state, select, setState, setLoading }: any) => {
       return  <div
           style={{
             position: "fixed",
-            zIndex: 80,
+            zIndex: 80000000000000000000,
             width: "100vw",
             height: "100vh",
             background: "",
-            top: 0,
+            top: -20,
             left: 0,
             right: 0,
           }}
@@ -57,8 +57,8 @@ const DropdownContent = ({ state, select, setState, setLoading }: any) => {
         height={height}
         style={{
           position: "absolute",
-          top: "100%",
-          zIndex: "150",
+          top: "10%",
+          zIndex: "10000000000000000000",
           width: "inherit",
           background: "black"
         }}

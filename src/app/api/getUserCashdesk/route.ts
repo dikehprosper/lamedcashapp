@@ -5,9 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
 import {SubAdminUser, AdminUser} from "@/models/userModel";
+import { getDataFromToken } from "@/helpers/getDataFromToken";
 connect();
 export async function POST(request: NextRequest) {
   try {
+      const {userId, sessionId} = await getDataFromToken(request);
     const reqBody = await request.json();
 
     const {id} = reqBody;

@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 // import { sendEmail } from "@/helpers/mailer";
 // pages/api/generateUuid.js
 import {v4 as uuidv4} from "uuid";
+import { getDataFromToken } from "@/helpers/getDataFromToken";
 
 connect();
 
@@ -14,6 +15,7 @@ connect();
 
 export async function POST(request: NextRequest) {
   try {
+     const {userId, sessionId} = await getDataFromToken(request);
     const reqBody = await request.json();
 
     const {customerId, identifierId, cashdeskId, updatetype, amount, type} =

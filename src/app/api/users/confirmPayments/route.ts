@@ -1,13 +1,14 @@
 // Import necessary modules
 import { NextRequest, NextResponse } from "next/server";
 import { FedaPay, Transaction, Customer } from "fedapay";
-
+import {getDataFromToken} from "@/helpers/getDataFromToken";
 // // Set up FedaPay configuration
 // FedaPay.setApiKey("pk_sandbox_OijzqH50c_AHBHtHsUWYcz80");
 // FedaPay.setEnvironment("sandbox"); // or setEnvironment('live');
 // Export named function for the GET method
 export async function POST(request: NextRequest) {
   try {
+        const {userId, sessionId} = await getDataFromToken(request);
     const reqBody = await request.json();
 
     const { _id, betId, amount, email } = await reqBody;

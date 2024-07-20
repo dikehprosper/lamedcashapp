@@ -50,6 +50,7 @@ firstName: data.fullname.split(' ')[0],
     try {
       const res = await axios.get("/api/getUser");
       dispatch(setUser(res.data.data))
+      
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -178,7 +179,14 @@ firstName: data.fullname.split(' ')[0],
       try {
         const res = await axios.post("/api/updateCurrentUserInfo", updatedUser);
         toast.success("le profil a été mis à jour avec succès");
-        dispatch(updateUser(res.data.resultData));
+        console.log(res.data.resultData, "res.data.data.resultData")
+              setUser1({
+                ...user,
+                firstName: res.data.resultData.fullname.split(" ")[0],
+                lastName: res.data.resultData.fullname.split(" ")[1],
+                email: res.data.resultData.email,
+                mobileNumber: res.data.resultData.number,
+              });
         setLoading3(false);
       } catch (error: any) {
         setLoading3(false);
@@ -207,6 +215,7 @@ firstName: data.fullname.split(' ')[0],
         console.log(updatedUser);
         const res = await axios.post("/api/changePassword", updatedUser);
         toast.success("votre mot de passe a été mis à jour avec succès");
+    
         setLoading2(false);
       } catch (error: any) {
         if (error.response.status === 402) {

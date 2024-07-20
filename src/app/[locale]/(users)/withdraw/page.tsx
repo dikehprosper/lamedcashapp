@@ -8,6 +8,8 @@ import Head from "@/components/(userscomponent)/(head)/head";
 import { FaCircle } from "react-icons/fa";
 import FooterMobile from "@/components/(Utils)/FooterMobile";
 import data from "../../../components/file";
+import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
+import Modal3 from "@/components/(Utils)/(modals)/processingModals3";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
@@ -152,7 +154,7 @@ const Withdraw = () => {
 
   //check email and password state to determine ButtonDisabled state
   useEffect(() => {
-    if (user.betId && user.withdrawalCode && user.amount && user.momoNumber) {
+    if (user.betId && user.withdrawalCode && user.momoNumber) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
@@ -160,22 +162,27 @@ const Withdraw = () => {
   }, [user]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+ const [processing, setProcessing] = useState(false);
+  const [processing2, setProcessing2] = useState(false);
+    const [processing3, setProcessing3] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
     if (isSubmitting) {
       return;
     }
-    setLoading(true);
+    
+    
 
   if (user.betId === "") {
       return toast.error("Entrez le betId à utiliser");
     } else if (user.withdrawalCode === "") {
       return toast.error("Entrez votre code de retrait");
-    }  else if (user.withdrawalCode === "") {
-      return toast.error("Entrez votre code de retrait");
+    }  else if (user.momoNumber !== user.confirmMomoNumber) {
+      return toast.error("les chiffres ne correspondent pas");
     } else {
       try {
+        setLoading(true);
         setIsSubmitting(true);
 
         // Update user with the new values
@@ -185,27 +192,61 @@ const Withdraw = () => {
           withdrawalCode: user.withdrawalCode,
           momoName: user.momoName,
           momoNumber: user.momoNumber,
+          email: data.email
         };
-        console.log(updatedUser);
+         setProcessing(true);
+     
         // Send the updated user to the server
         const res = await axios.post("/api/users/withdraw", updatedUser);
-        console.log(res.data.userTransaction);
-        setReceipt(res.data.userTransaction);
-        setIsVisible(true);
+      setProcessing3(true);
+         setTimeout(() => {
+       router.push("/dashboard");
+        setProcessing3(false);
+      }, 900)
+    
+       setLoading(false);
         toast.success("withdraw request Submitted");
       } catch (error: any) {
-        if (error.response.status === 405) {
-          return toast.error("Nous Sommes Actuellement En Maintenance");
+         if (error.response.status === 401) {
+          toast.error("Utilisateur non trouvé");
+ setLoading(false);
+
         } else if (error.response.status === 402) {
-          return toast.error(
-            "Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance"
-          );
+          toast.error("L'utilisateur est désactivé");
+           setLoading(false);
+          router.push("/signin");
+         
+        } else if (error.response.status === 403) {
+           setLoading(false);
+          router.push("/signin");
+       
+          toast.error("Votre session a expiré");
+        } else if (error.response.status === 504) {
+           setLoading(false);
+         
+          toast.error("Actuellement en maintenance");
+        } else if (error.response.status === 508) {
+           setLoading(false);
+          toast.error("vous venez d'effectuer une transaction du même montant avec le même identifiant, réessayez dans cinq minutes");
+        } else if (error.response.status === 509) {
+           setLoading(false);
+          toast.error("Le jeton a expiré. Veuillez vous reconnecter.");
+        }  else if (error.response.status === 500) {
+           setLoading(false);
+          toast.error("La transaction n'a pas été entièrement finalisée");
+        } else {
+           setLoading(false);
+          console.log(error.response.status)
+          toast.error("Erreur inconnue");
         }
         console.log(error);
         return toast.error("error");
       } finally {
+         setLoading(false);
         setLoading(false);
         setIsSubmitting(false);
+        setProcessing(false)
+        setButtonDisabled(true)
       }
     }
   }
@@ -214,6 +255,11 @@ const Withdraw = () => {
     router.push("/dashboard");
     setIsVisible(false);
   };
+
+
+  function closeModal() {
+    setProcessing(false);
+  }
 
   return (
     <div className='user_withdraw_container'>
@@ -233,6 +279,68 @@ const Withdraw = () => {
       />
 
       <div className='user_withdraw_container_001'>
+         {processing && (
+        <div className='receiptModal'>
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            }}
+            onClick={closeModal}
+          ></div>
+          <div
+            className='receiptModal_inner-processing'
+            id='receiptModal'
+            style={{
+              width: "80%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "29%",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                paddingRight: "20px",
+                paddingLeft: "20px",
+                paddingTop: "10px",
+                paddingBottom: "50px",
+                height: "50%",
+              }}
+            >
+              <h6
+                style={{
+                  color: "white",
+                  marginBottom: "13px",
+                  width: "100%",
+                  alignSelf: "center",
+                  textAlign: "center",
+                }}
+              >
+                Vous êtes sur le point d'effectuer un retrait de {user.amount}
+              </h6>
+               <div id='container-deposit2'>
+                <div id='html-spinner-deposit2'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    
+      {processing3 && (
+        <Modal3
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner-processing'
+          title={t("amount_deposit")}
+        />
+      )}
         <form onSubmit={handleSubmit} className='withdraw-form-container'>
           <div
             style={{
@@ -272,12 +380,13 @@ const Withdraw = () => {
             ) : (
               <div>Street: {cashdeskAddress?.street}</div>
             )} */}
-              <div>{t("withdraw_page.use_address_city")}: &nbsp; city one</div>
+              <div>{t("withdraw_page.use_address_city")}: &nbsp; Porto-Novo</div>
               <div>
-                {t("withdraw_page.use_address_street")}: &nbsp; street one
+                {t("withdraw_page.use_address_street")}: &nbsp; Betfundr
               </div>
             </div>
           </div>
+
 
           <label> ID</label>
 
@@ -346,6 +455,7 @@ const Withdraw = () => {
               marginTop: "35px",
               marginBottom: "30px",
             }}
+            onClick={handleSubmit}
           >
             {loading ? (
               <div id='container-withdraw'>

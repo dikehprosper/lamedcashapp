@@ -4,12 +4,13 @@ import { FedaPay, Transaction, Customer } from "fedapay";
 import { v4 as uuidv4 } from "uuid";
 import User, {AdminUser, SubAdminUser} from "@/models/userModel";
 import {connect} from "@/dbConfig/dbConfig";
-
+import {getDataFromToken} from "@/helpers/getDataFromToken";
 // Establish a database connection
 connect();
 
 export async function POST(request: NextRequest) {
   try {
+    const {userId, sessionId} = await getDataFromToken(request);
     // Parse the incoming JSON request body
     const reqBody = await request.json();
 

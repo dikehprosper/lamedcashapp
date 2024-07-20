@@ -64,6 +64,18 @@
   gap: 18px;
   position: relative;
 }
+.subadmin_dashboard_container-display_withdrawal_admin_power {
+  display: flex;
+  width: 100%;
+  height: 65px;
+  border-radius: 10px;
+  /* background: rgba(0, 0, 0, 0.3); */
+  /* margin-top: 19px; */
+  padding: 15px;
+  gap: 18px;
+  position: relative;
+  align-items: "flex-end";
+}
 
 .subadmin_dashboard_container-display_withdrawal_admin_chart {
   display: flex;
@@ -198,6 +210,17 @@
     gap: 18px;
   }
 
+   .subadmin_dashboard_container-display_withdrawal_admin_power {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 24px;
+    padding: 15px;
+    gap: 18px;
+  }
   .subadmin_dashboard_container-display_withdrawal_admin_chart {
     display: flex;
     width: 100%;
@@ -232,6 +255,21 @@
   background: rgba(73, 166, 106, 1);
   width: fit-content !important;
   position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+.card-icon-power {
+ 
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+.card-icon2 {
+  background: "white";
+  width: fit-content !important;
+  position: absolute;
+    top: 10;
+  right: 10px;
   bottom: 0;
   right: 10px;
 }

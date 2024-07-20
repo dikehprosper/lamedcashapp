@@ -172,7 +172,7 @@
     },
     "logout": "Se déconnecter",
     "follow": "Suivez-nous",
-    "home": "Accueil",
+    "home": "Acc",
     "aboutUs": "À propos de nous",
     "signIn": "Se connecter",
     "signUp": "S'inscrire",
@@ -199,7 +199,8 @@
     "Accueil": "Accueil",
     "À propos de nous": "À propos de nous",
     "Se connecter": "Se connecter",
-    "S'inscrire": "S'inscrire"
+    "S'inscrire": "S'inscrire",
+    "Télécharger": "Télécharger"
   },
   "home": {
     "hero span 1": "Votre Solution",

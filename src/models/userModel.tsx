@@ -144,6 +144,19 @@ const userSchema = new Schema({
       },
     ],
   },
+  bonusBalance: {
+    type: Number,
+    default: 0,
+  },
+  restrictedBonusBalance: {
+    type: Number,
+    default: 0,
+  },
+  disbursedBonusBalance: {
+    type: Number,
+    default: 0,
+  },
+  referer: {type: String, default: ""},
   pendingDeposit: {
     type: [
       {

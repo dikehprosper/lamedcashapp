@@ -7,7 +7,7 @@ import { LuHistory } from "react-icons/lu";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
+import Modal from "@/components/(Utils)/(modals)/receiptModalForUsers";
 import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";

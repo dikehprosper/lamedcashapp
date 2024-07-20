@@ -65,17 +65,18 @@ function Page() {
 
 
   async function search() {
+     console.log(currentValue, "currentValue");
     try {
       setData(null);
       setLoading(true);
+     
       const res = await axios.get("/api/getAllSubadminDetails");
-      console.log(res);
-      res.data.data.user4.map((data: any) => {
-        if (data.email === currentValue) {
-          setData([data]);
-          console.log(data);
-        }
-      });
+      const filteredData = res.data.data.user4.filter((data: any) =>
+        data.email.startsWith(currentValue)
+      );
+      console.log(filteredData, "console.log(filteredData);");
+      setData(filteredData);
+      console.log(filteredData);
       setLoading(false);
     } catch (error: any) {
       if (error.response.status === 401) {
@@ -90,27 +91,32 @@ function Page() {
 
 
 
- // Extract ID from the URL
+  
+  // Extract ID from the URL
   const extractIdFromUrl = () => {
     const parts = pathname.split("/"); // Use router.asPath to get the full URL
     const lastPart = parts[parts.length - 1];
     return lastPart;
   };
 
-
-    const getUserDetails = async () => {
+  const getUserDetails = async () => {
     try {
       setLoading(true);
       const idFromUrl = extractIdFromUrl();
       console.log(idFromUrl);
-      const res = await axios.post("/api/getSpecificReferral", { id: idFromUrl });
+      const res = await axios.post("/api/getSpecificReferral", {id: idFromUrl});
       console.log(res);
       setData(res.data.result);
-        setLoading(false);
+      setLoading(false);
     } catch (error: any) {
-      if (error.response.status === 402) {
+      if (error.response.status === 401) {
         setLoading(false);
         toast.error("user does not exist");
+        router.replace("/signin");
+      } else if (error.response.status === 403) {
+        setLoading(false);
+        toast.error("Your session has expired");
+        router.replace("/signin");
       } else {
         setLoading(false);
         toast.error("An error has occur");

@@ -10,28 +10,33 @@ const TransactionResultsCashdesk = ({
   receipt,
   betId,
   status,
-  type,
+  fundingType,
   showReceipt,
+  withdrawalCode,
   momoName,
   momoNumber,
-  withdrawalCode,
   identifierId,
-    userEmail,
-  subadminEmail
+  userEmail,
+  subadminEmail,
+  totalAmount,
+  bonusBalance,
 }: any) => {
   const handleClick = () => {
     showReceipt(
       time,
       amount,
-      identifierId,
+      receipt,
       betId,
       status,
-      type,
+      fundingType,
+      withdrawalCode,
       momoName,
       momoNumber,
-      withdrawalCode,
-        userEmail,
-  subadminEmail
+      identifierId,
+      userEmail,
+      subadminEmail,
+      totalAmount,
+      bonusBalance
     );
   };
 
@@ -42,7 +47,7 @@ const TransactionResultsCashdesk = ({
         <span
           className='first-span-cashdesk'
           style={{
-            background: type === "deposits" ? "#658900" : "#0076B8",
+            background: fundingType === "deposits" ? "#658900" : "#0076B8",
             width: "13px !important",
           }}
         ></span>
@@ -51,12 +56,12 @@ const TransactionResultsCashdesk = ({
           {" "}
           <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>
           <span>
-            <b style={{ color: "rgba(256, 256, 256, 0.4" }}>1xBet ID: &nbsp;</b>{" "}
+            <b style={{color: "rgba(256, 256, 256, 0.4"}}>1xBet ID: &nbsp;</b>{" "}
             {betId}
           </span>
         </span>
-        <span style={{ overflow: "hidden" }}>
-          <b style={{ color: "rgba(256, 256, 256, 0.4" }}>REÇU: &nbsp;</b>{" "}
+        <span style={{overflow: "hidden"}}>
+          <b style={{color: "rgba(256, 256, 256, 0.4"}}>REÇU: &nbsp;</b>{" "}
           {identifierId}
         </span>
         <span

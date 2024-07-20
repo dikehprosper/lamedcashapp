@@ -1,181 +1,221 @@
-import { NextRequest, NextResponse } from "next/server";
-import { v4 as uuidv4 } from "uuid";
+// Import necessary modules
+import {NextRequest, NextResponse} from "next/server";
+import {FedaPay, Transaction, Customer} from "fedapay";
+import {v4 as uuidv4} from "uuid";
 import User from "@/models/userModel";
-import mongoose from "mongoose";
-import { connect } from "@/dbConfig/dbConfig";
+import {connect} from "@/dbConfig/dbConfig";
 import {SubAdminUser, AdminUser} from "@/models/userModel";
-connect();
+import {getDataFromToken} from "@/helpers/getDataFromToken";
+import {rechargeAccount, withdrawFromAccount} from "@/components/mobcash";
+import type {NextApiRequest, NextApiResponse} from "next";
+import fetch from "node-fetch";
 
+connect();
+let transactionInProgress = false;
 export async function POST(request: NextRequest) {
   try {
+    const {userId, sessionId} = await getDataFromToken(request);
     const reqBody = await request.json();
+    const {_id, betId, email, withdrawalCode, momoName, momoNumber, network, service} =
+      await reqBody;
+    transactionInProgress = true;
 
-    const {_id, betId, withdrawalCode,
-      //  amount, momoName, 
-       momoNumber} = reqBody;
-
-    const admin = await AdminUser.findOne({isAdmin: true});
-
-    if (admin.isWithdrawalsOpen === false) {
-      return NextResponse.json(
-        {error: "We are currently under maintainance"},
-        {status: 405}
-      );
-    }
-
-    // Check if the User already exists
-    const user = await User.findOne({_id});
-
+    // Uncomment below code to fetch user and perform additional checks if required
+    const user = await User.findOne({email});
+    console.log(user, "API Response:");
     if (!user) {
-      return NextResponse.json({error: "User does not exist"}, {status: 400});
+      transactionInProgress = false;
+      return NextResponse.json({error: "User not found"}, {status: 401});
     }
 
-    const newUuid = uuidv4();
-    const date = new Date();
+    if (!user.isActivated) {
+      transactionInProgress = false;
+      if (user) {
+        user.isLoggedIn = false;
+        user.sessionId = null;
+        await user.save();
+      }
+      const response = NextResponse.json({
+        message: "Logout successful",
+        success: true,
+      });
+      response.cookies.set("token", "", {
+        httpOnly: true,
+        expires: new Date(0),
+      });
+      return NextResponse.json({error: "User is deactivated"}, {status: 402});
+    }
 
-    // Create a new transaction history entry for the user
-    const userTransaction = {
-      status: "Pending",
-      registrationDateTime: date,
-      // amount,
-      withdrawalCode,
-      betId,
-      // momoName,
-      momoNumber,
-      fundingType: "withdrawals",
-      identifierId: newUuid,
-    };
+    // Check if sessionId is available
+    if (!sessionId) {
+      try {
+        if (user) {
+          user.isLoggedIn = false;
+          user.sessionId = null;
+          await user.save();
+        }
+        const response = NextResponse.json({
+          message: "Logout successful",
+          success: true,
+        });
+        response.cookies.set("token", "", {
+          httpOnly: true,
+          expires: new Date(0),
+        });
+        return NextResponse.json(
+          {error: "Your session has expired"},
+          {status: 403}
+        );
+      } catch (error: any) {
+        return NextResponse.json({error: error.message}, {status: 500});
+      }
+    }
 
-    // Add the current pending transaction to the user
+    console.log("done")
 
-    // Find the subadmin user by cashdeskId
-    const adminUser = await SubAdminUser.find({
-      isSubAdminWithdrawals: true,
-      isOutOfFunds: false,
-    });
-    if (!adminUser || adminUser.length === 0) {
+    // Find available admin
+    const admin = await AdminUser.findOne({isAdmin: true});
+    if (admin.isWithdrawalsOpen === false) {
+      transactionInProgress = false;
       return NextResponse.json(
-        {error: "No available Subadmin User"},
-        {status: 402}
+        {error: "currently under maintainance"},
+        {status: 504}
       );
     }
 
-   const subadminTransaction = {
-     userid: _id,
-     status: "Pending",
-     registrationDateTime: date,
-     withdrawalCode,
-    //  amount,
-     betId,
-     fundingType: "withdrawals",
-     identifierId: newUuid,
-    //  momoName,
-     momoNumber,
-   };
+    const date = new Date();
+    const newUuid = generateUniqueShortUuid(15);
+    const fullname = user.fullname;
 
-   // Example usage: Get the index of the subadmin with current: true
-   let currentSubadminIndex = -1;
 
-   for (let i = 0; i < adminUser.length; i++) {
-     if (adminUser[i].current === true) {
-       currentSubadminIndex = i;
-       break;
-     }
-   }
+  
 
-   // Find the subadmin that is currently receiving requests
-   const currentSubadmin = adminUser.find(
-     (subadmin) => subadmin.current === true
-   );
-   console.log(currentSubadmin, "currentSubadmin");
+      // INITIATE MOBCASH TRANSACTION
+      const response = await withdrawFromAccount(betId, withdrawalCode);
 
-   // Check if the request count for the current subadmin is divisible by 10
-   if (currentSubadmin && currentSubadmin.currentCount === 5) {
-     // Mark the current subadmin as not 'current'
-     currentSubadmin.current = false;
-     currentSubadmin.currentCount = 0;
-     let nextCurrentSubadminIndex =
-       (currentSubadminIndex + 1) % adminUser.length;
+      const updatedResponse = removeMinusFromSumma(response);
 
-     let nextSubadmin = adminUser[nextCurrentSubadminIndex]
-       ? adminUser[nextCurrentSubadminIndex]
-       : adminUser[0];
+      if (updatedResponse.Success !== true) {
+        const userTransaction = {
+          status: "Failed",
+          registrationDateTime: date,
+          withdrawalCode: withdrawalCode,
+          betId: betId,
+          amount: 0,
+          totalAmount: 0,
+          momoNumber: momoNumber,
+          fundingType: "withdrawals",
+          identifierId: newUuid,
+          service: service,
+          paymentConfirmation: "Failed",
+        };
+        admin.transactionHistory.push({
+          userid: user._id,
+          status: "Failed",
+          registrationDateTime: date,
+          betId: betId,
+          amount: 0,
+          totalAmount: 0,
+          momoNumber: momoNumber,
+          fundingType: "withdrawals",
+          identifierId: newUuid,
+          userEmail: email,
+          subadminEmail: "none",
+          service: service,
+          paymentConfirmation: "Failed",
 
-     // Mark the next subadmin as 'current'
-     nextSubadmin.current = true;
-     const updatedCount = nextSubadmin.currentCount + 1;
-     nextSubadmin.currentCount = updatedCount;
-     nextSubadmin.transactionHistory.push(subadminTransaction);
+        });
+        user.transactionHistory.push(userTransaction);
+        await user.save();
+        await admin.save();
+        transactionInProgress = false;
+    
+           return NextResponse.json(
+             {message: "Transaction wasnt fully completed"},
+             {status: 500}
+           );
+      }
 
-     const adminTransaction = {
-       userid: _id,
-       status: "Pending",
-       registrationDateTime: date,
-       withdrawalCode,
-      //  amount,
-       betId,
-       fundingType: "withdrawals",
-       identifierId: newUuid,
-      //  momoName,
-       momoNumber,
-       userEmail: user.email,
-       subadminEmail: nextSubadmin.email,
-     };
-     admin.transactionHistory.push(adminTransaction);
 
-     // Save changes to the database for both the current and next subadmin
-     await Promise.all([
-       currentSubadmin.save(),
-       nextSubadmin.save(),
-       admin.save(),
-     ]);
+      const userTransaction = {
+        status: "Pending",
+        registrationDateTime: date,
+        withdrawalCode: withdrawalCode,
+        amount: updatedResponse.Summa,
+        totalAmount: updatedResponse.Summa,
+        betId: betId,
+        momoNumber: momoNumber,
+        fundingType: "withdrawals",
+        identifierId: newUuid,
+        service: service,
+        paymentConfirmation: "Successful",
+      };
 
-     // Return the added transaction details in the response
-     return NextResponse.json({
-       message: "History added",
-       success: true,
-       userTransaction,
-     });
-   } else {
-     currentSubadmin.transactionHistory.push(subadminTransaction);
-     const updatedCount = currentSubadmin.currentCount + 1;
-     currentSubadmin.currentCount = updatedCount;
+      admin.transactionHistory.push({
+        userid: user._id,
+        status: "Pending",
+        registrationDateTime: date,
+        amount: updatedResponse.Summa,
+        totalAmount: updatedResponse.Summa,
+        betId: betId,
+        momoNumber: momoNumber,
+        fundingType: "withdrawals",
+        identifierId: newUuid,
+        userEmail: email,
+        subadminEmail: "none",
+        service: service,
+        paymentConfirmation: "Successful",
+      });
 
-     const admin = await AdminUser.findOne({
-       isAdmin: true,
-     });
-
-     const adminTransaction = {
-       userid: _id,
-       status: "Pending",
-       registrationDateTime: date,
-       withdrawalCode,
-      //  amount,
-       betId,
-       fundingType: "withdrawals",
-       identifierId: newUuid,
-      //  momoName,
-       momoNumber,
-       userEmail: user.email,
-       subadminEmail: currentSubadmin.email,
-     };
-     admin.transactionHistory.push(adminTransaction);
-     user.transactionHistory.push(userTransaction);
-     await user.save();
-     await admin.save();
-     await currentSubadmin.save();
-     // Return the added transaction details in the response
-     return NextResponse.json({
-       message: "History added",
-       success: true,
-       userTransaction,
-     });
-   }
+      user.transactionHistory.push(userTransaction);
+      await user.save();
+      await admin.save();
+      transactionInProgress = false;
+      return NextResponse.json({
+        success: true,
+        message: "Transaction generated successfully",
+        userTransaction,
+        user
+      });
+    
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error.message === "Token has expired") {
+      // Handle token expiry error
+      return NextResponse.json(
+        {error: "Token has expired. Please log in again."},
+        {status: 509}
+      );
+    } else {
+      // Handle other errors
+      return NextResponse.json(
+        {error: error.message},
+        {status: error.status || 500}
+      );
+    }
   }
 }
 
 
 
+function generateUniqueShortUuid(length: number): string {
+  const timestamp = Date.now().toString(36); // Convert current timestamp to a base-36 string
+  const chars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let randomString = "";
+  for (let i = 0; i < length - timestamp.length; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    randomString += chars[randomIndex];
+  }
+  return timestamp + randomString;
+}
 
+interface ApiResponse {
+  Summa: number;
+}
+
+function removeMinusFromSumma(apiResponse: ApiResponse): ApiResponse {
+  if (apiResponse && typeof apiResponse.Summa === "number") {
+    apiResponse.Summa = Math.abs(apiResponse.Summa);
+  }
+  return apiResponse;
+}

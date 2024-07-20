@@ -10,14 +10,13 @@ import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
+import Modal from "@/components/(Utils)/(modals)/receiptModalForUsers";
 import io from "socket.io-client";
 import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
 
 const Dashboard = () => {
-
    const data = useAppSelector((state: any) => state.user.value);
   // const data = data1.user
     const transactions = useAppSelector((state: any) => state.user.pendingTransactions);
@@ -30,23 +29,29 @@ const Dashboard = () => {
     try {
       const res = await axios.get("/api/getUser");
       dispatch(setUser(res.data.data));
+  
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
         if (error.response.status === 401) {
+          console.log("1")
           toast.error(t("token_expired") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
+             console.log("2")
           toast.error(t("session_expired") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
+             console.log("3")
           toast.error(t("account_disabled") as string);
           router.push("/signin"); // Replace '/login' with your actual login route
         } else {
+             console.log("4")
           // Handle other errors
           toast.error(t("unknown_error"));
         }
       } else if (error.request) {
+           console.log("5")
         // Handle network errors (no connection)
         setIsOnline(false);
       }
@@ -93,7 +98,7 @@ const Dashboard = () => {
   const totalDeposits = allDeposits
     ?.filter((data: {status: string}) => data.status === "Successful")
     .reduce((total: any, transaction: any) => {
-      return (total += transaction.amount);
+      return (total += parseFloat(transaction.totalAmount));
     }, 0);
 
   // Filter withdrawal transactions
@@ -104,35 +109,44 @@ const Dashboard = () => {
   const totalWithdrawals = allWithdrawals
     ?.filter((data: {status: string}) => data.status === "Successful")
     .reduce((total: any, transaction: any) => {
-      return (total += transaction.amount);
+      return (total += parseFloat(transaction.totalAmount));
     }, 0);
 
-  // Filter deposit transactions with status "pending"
-  const pendingDeposits = transactions?.filter(
-    (transaction: any) => transaction.fundingType === "deposits"
-  );
+ 
 
   // Filter withdrawal transactions with status "pending"
-  const pendingWithdrawals = transactions?.filter(
-    (transaction: any) => transaction.fundingType === "withdrawals"
+  const pendingWithdrawals = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.fundingType === "withdrawals" && transaction.status === "Pending"
   );
 
   // Calculate total cost of pending deposits
 
-  const totalPendingDepositAmount = pendingDeposits?.reduce(
-    (total: any, transaction: any) => {
-      return (total += transaction.amount);
-    },
-    0
-  );
+// Calculate total cost of pending deposits
+let totalPendingDepositAmount = 0;
+if (transactions) {
+  for (const transaction of transactions) {
+    totalPendingDepositAmount += parseFloat(transaction.totalAmount);
+  }
+}
 
-  // Calculate total cost of pending withdrawals
-  const totalPendingWithdrawalAmount = pendingWithdrawals?.reduce(
-    (total: any, transaction: any) => {
-      return (total += transaction.amount);
-    },
-    0
-  );
+// Calculate total cost of pending withdrawals
+function parseAmount(amount: any): number {
+  const parsedAmount = parseFloat(amount);
+  if (isNaN(parsedAmount)) {
+    return 0;
+  }
+  return parsedAmount;
+}
+
+let totalPendingWithdrawalAmount = 0;
+if (pendingWithdrawals) {
+  for (const transaction of pendingWithdrawals) {
+    console.log(transaction.totalAmount);
+    totalPendingWithdrawalAmount += parseAmount(transaction.totalAmount);
+  }
+}
+
+
 
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
@@ -189,7 +203,7 @@ const Dashboard = () => {
 
       <div className="user-dashboard-display">
         <Display
-          count={pendingDeposits?.length}
+          count={transactions?.length}
           title={t("deposit")}
           term={1}
           amount={totalPendingDepositAmount}

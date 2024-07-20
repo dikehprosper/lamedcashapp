@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
+import Image from "next/image";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 function Page() {
   const router = useRouter();
@@ -20,7 +21,7 @@ function Page() {
   const [isOnline, setIsOnline] = useState(true);
   const [height, setHeight] = useState(0);
 
-  const [currentValue, setCurrentValue] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -64,29 +65,59 @@ function Page() {
   }
 
 
-  async function search() {
-    try {
-      setData(null);
-      setLoading(true);
-      const res = await axios.get("/api/getAllSubadminDetails");
-      console.log(res);
-      res.data.data.user4.map((data: any) => {
-        if (data.email === currentValue) {
-          setData([data]);
-          console.log(data);
-        }
+  const [currentValue, setCurrentValue] = useState("")
+  const [debouncedValue, setDebouncedValue] = useState(currentValue);
+  
+
+   useEffect(() => {
+     const handler = setTimeout(() => {
+       setDebouncedValue(currentValue);
+     }, 500); // Wait for 500ms
+
+     return () => {
+       clearTimeout(handler);
+     };
+   }, [currentValue]);
+
+   useEffect(() => {
+     if (debouncedValue) {
+       search(debouncedValue);
+     }
+   }, [debouncedValue]);
+
+
+     async function search(debouncedValue: any) {
+     try {
+      const idFromUrl = extractIdFromUrl();
+      const res = await axios.post("/api/getSpecificReferral", {
+        id: idFromUrl,
       });
-      setLoading(false);
-    } catch (error: any) {
-      if (error.response.status === 401) {
-        setLoading(false);
-        toast.error("user does not exist");
-      } else {
-        setLoading(false);
-        toast.error("An error has occur");
-      }
-    }
-  }
+       const filteredData = res.data.userDataArray.filter((data: any) =>
+         data.email.startsWith(currentValue)
+       );
+       setData(filteredData);
+       console.log(filteredData);
+       
+     } catch (error: any) {
+       if (error.response.status === 401) {
+         toast.error(
+           "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+         );
+      
+         toast.error("user does not exist");
+       } else if (error.response.status === 403) {
+         toast.error(
+           "Votre session a expiré. Redirection vers la connexion..."
+         );
+     
+         router.replace("/signin");
+       } else {
+
+         toast.error("An error has occur");
+       }
+     }
+   }
+
 
 
 
@@ -113,15 +144,68 @@ function Page() {
         setLoading(false);
       
     } catch (error: any) {
-      if (error.response.status === 402) {
+    if (error.response.status === 401) {
+         toast.error(
+           "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+         );
         setLoading(false);
-        toast.error("user does not exist");
-      } else {
-        setLoading(false);
-        toast.error("An error has occur");
-      }
+         toast.error("user does not exist");
+       } else if (error.response.status === 403) {
+         toast.error(
+           "Votre session a expiré. Redirection vers la connexion..."
+         );
+       setLoading(false);
+         router.replace("/signin");
+       } else {
+       setLoading(false);
+         toast.error("An error has occur");
+       }
     }
   };
+
+
+   async function changeActivationStatus(id) {
+     try {
+       setLoading(true);
+       const res = await axios.post("/api/changeActivationStatus2", {id: id});
+        setData((prevData: any[]) => {
+    const updatedData = prevData.map((transaction: any) => {
+      if (transaction._id === id) {
+        return {
+          ...transaction,
+          isActivated: !transaction.isActivated,
+        };
+      }
+      return transaction;
+    });
+
+    return updatedData;
+  });
+   
+     } catch (error) {
+       if (error.response.status === 401) {
+         toast.error(
+           "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
+         );
+         setLoading(false);
+         toast.error("user does not exist");
+       } else if (error.response.status === 403) {
+         toast.error(
+           "Votre session a expiré. Redirection vers la connexion..."
+         );
+         setLoading(false);
+         router.replace("/signin");
+       } else {
+         toast.error("An error occurred");
+       }
+     } finally {
+       // Set loading back to false, whether the request was successful or not
+       setLoading(false);
+     }
+   }
+
+
+
 
 
 
@@ -182,39 +266,42 @@ function Page() {
               </div>
             </div>
           ) : (
-       data.length >= 1? data?.map((data, index) => {
-              const openOrders = data?.transactionHistory?.filter(
-                (transaction: { status: string }) =>
-                  transaction.status === "Pending"
+            data?.map((data, index) => {
+              const successfulDeposits = data.transactionHistory.filter(
+                (transaction: {status: string; fundingType: string}) =>
+                  transaction.status === "Successful" &&
+                  transaction.fundingType === "deposits"
               );
 
-              const totalPendingAmount = openOrders?.reduce(
-                (total: number, transaction: { amount: number }) =>
-                  total + transaction.amount,
+              const totalSuccessfulDeposits = successfulDeposits.reduce(
+                (total: number, transaction: any) =>
+                  total + parseFloat(transaction.totalAmount),
                 0
               );
 
-              const successfulOrders = data?.transactionHistory?.filter(
-                (transaction: { status: string }) =>
-                  transaction.status === "Successful"
+              const successfulWithdrawals = data.transactionHistory.filter(
+                (transaction: {status: string; fundingType: string}) =>
+                  transaction.status === "Successful" &&
+                  transaction.fundingType === "withdrawals"
               );
 
-              const totalSuccessfulAmount = successfulOrders?.reduce(
-                (total: number, transaction: { amount: number }) =>
-                  total + transaction.amount,
+              const totalSuccessfulWithdrawals = successfulWithdrawals.reduce(
+                (total: number, transaction: any) =>
+                  total + parseFloat(transaction.totalAmount),
                 0
               );
 
-              const result = totalSuccessfulAmount;
-              const threePercent = (3 / 100) * result;
-              const total = (5 / 100) * threePercent;
+              const imageUrl =
+                data.image === ""
+                  ? "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d"
+                  : data.image;
 
               return (
                 <div
                   className='subadmin_dashboard_container_admin_admin_admin5-1'
                   key={index}
                   style={{
-                    height: index === index1 ? "400px" : "40px",
+                    height: index === index1 ? "590px" : "40px",
                     transition: "height .5s ease-out",
                   }} // Adjust the height as needed
                 >
@@ -228,18 +315,43 @@ function Page() {
                         alignItems: "center",
                       }}
                     >
-                      {" "}
                       <span
                         style={{
                           minWidth: "8px",
                           maxWidth: "8px",
-                          background: "rgba(128, 128, 128, 01)",
+                          background: "rgba(120, 120, 120, 1)",
                           height: "100%",
                           borderRadius: "5px",
                         }}
                       ></span>
+                      <div
+                        className='add-photo-container appear'
+                        style={{
+                          border: "1px solid rgba(120, 120, 120, 1)",
+                          height: "100%",
+                          width: 30,
+                          height: 30,
+                          borderRadius: 15,
+                        }}
+                      >
+                        <Image
+                          src={imageUrl}
+                          style={{objectFit: "contain", borderRadius: 15}}
+                          alt='background'
+                          width={28}
+                          height={28}
+                        />
+                      </div>
+
                       <span
-                        style={{ whiteSpace: "nowrap", fontWeight: "bold" }}
+                        style={{
+                          whiteSpace: "nowrap",
+                          fontWeight: "bold",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          maxWidth: "100px", // Set the desired maximum width
+                          display: "inline-block",
+                        }}
                       >
                         {data.fullname}
                       </span>
@@ -269,7 +381,7 @@ function Page() {
                     >
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -281,7 +393,7 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Name:
                         </span>{" "}
@@ -290,7 +402,7 @@ function Page() {
 
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -301,7 +413,7 @@ function Page() {
                         }}
                       >
                         <span
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                           className='span1'
                         >
                           Email:
@@ -311,7 +423,7 @@ function Page() {
 
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -323,13 +435,13 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
                           Logged in:
                         </span>{" "}
                         <span
                           className='span2'
-                          style={{ color: data.isLoggedIn ? "green" : "red" }}
+                          style={{color: data.isLoggedIn ? "green" : "red"}}
                         >
                           {data.isLoggedIn ? "Yes" : "No"}
                         </span>
@@ -337,7 +449,7 @@ function Page() {
 
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -349,21 +461,21 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                           className='span1'
                         >
-                          Successful Transactions:
+                          Successful Deposits:
                         </span>{" "}
                         <span className='span2'>
                           XOF &nbsp;{" "}
                           {formatNumberWithCommasAndDecimal(
-                            totalSuccessfulAmount
+                            totalSuccessfulDeposits
                           )}
                         </span>
                       </div>
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -375,17 +487,17 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
-                          S.    T Count:
+                          S.D Count:
                         </span>{" "}
                         <span className='span2'>
-                          {successfulOrders?.length}
+                          {successfulDeposits?.length}
                         </span>
                       </div>
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -397,19 +509,21 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
-                          Pending Transactions:
+                          Successful Withdrawals:
                         </span>{" "}
                         <span className='span2'>
                           XOF &nbsp;{" "}
-                          {formatNumberWithCommasAndDecimal(totalPendingAmount)}{" "}
+                          {formatNumberWithCommasAndDecimal(
+                            totalSuccessfulWithdrawals
+                          )}
                         </span>
                       </div>
 
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -421,16 +535,113 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
-                          P.T Count:
+                          S.W Count:
                         </span>{" "}
-                        <span className='span2'>{openOrders?.length}</span>
+                        <span className='span2'>
+                          {successfulWithdrawals?.length}
+                        </span>
+                      </div>
+
+                    
+
+                     
+
+                       <div
+                         style={{
+                             height: "35px",
+                           width: "100%",
+                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                           padding: "0px 9px",
+                           display: "flex",
+                           justifyContent: "space-between",
+                           alignItems: "center",
+                         }}
+                       >
+                         <span
+                           className='span1'
+                           style={{fontWeight: "bold", opacity: "0.65"}}
+                         >
+                           Bonus Balances:
+                         </span>{" "}
+                         <span className='span2'>
+                           XOF &nbsp; {formatNumberWithCommasAndDecimal(data.bonusBalance)}
+                         </span>
+                       </div>
+                        <div
+                         style={{
+                             height: "35px",
+                           width: "100%",
+                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                           padding: "0px 9px",
+                           display: "flex",
+                           justifyContent: "space-between",
+                           alignItems: "center",
+                         }}
+                       >
+                         <span
+                           className='span1'
+                           style={{fontWeight: "bold", opacity: "0.65"}}
+                         >
+                           Disbursed Bonuses:
+                         </span>{" "}
+                         <span className='span2'>
+                           XOF &nbsp; {formatNumberWithCommasAndDecimal(data.disbursedBonusBalance)}
+                         </span>
+                       </div>
+
+
+
+                        <div
+                         style={{
+                             height: "35px",
+                           width: "100%",
+                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                           padding: "0px 9px",
+                           display: "flex",
+                           justifyContent: "space-between",
+                           alignItems: "center",
+                         }}
+                       >
+                         <span
+                           className='span1'
+                           style={{fontWeight: "bold", opacity: "0.65"}}
+                         >
+                           Restricted Bonuses:
+                         </span>{" "}
+                         <span className='span2'>
+                           XOF &nbsp; {formatNumberWithCommasAndDecimal(data.restrictedBonusBalance)}
+                         </span>
+                       </div>
+
+                      <div
+                        style={{
+                          height: "35px",
+                          width: "100%",
+                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <span
+                          className='span1'
+                          style={{fontWeight: "bold", opacity: "0.65"}}
+                        >
+                          Total Referrals:
+                        </span>{" "}
+                        <span className='span2'>{data.referrals.length}</span>
                       </div>
 
                       <div
                         style={{
-                          height: "25px",
+                          height: "35px",
                           width: "100%",
                           borderTop: "1px solid rgba(128, 128, 128, 0.1)",
                           borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
@@ -442,20 +653,76 @@ function Page() {
                       >
                         <span
                           className='span1'
-                          style={{ fontWeight: "bold", opacity: "0.65" }}
+                          style={{fontWeight: "bold", opacity: "0.65"}}
                         >
-                          R.R:
-                        </span>{" "}
+                          Status:
+                        </span>
                         <span className='span2'>
-                          {" "}
-                          XOF &nbsp;{formatNumberWithCommasAndDecimal(total)}
+                          {data.isActivated ? "Active" : "Not Active"}
+                        </span>
+                      </div>
+
+                      <div
+                        style={{
+                         height: "35px",
+                          width: "100%",
+                          borderTop: "1px solid rgba(128, 128, 128, 0.1)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.1)",
+                          padding: "0px 9px",
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "center",
+                          gap: "9px",
+                        }}
+                      >
+                        <span
+                          className='span2'
+                          style={{
+                            padding: "1px 8px",
+                            borderRadius: "5px",
+                            color: data.isActivated
+                              ? "rgba(0, 128, 0, 0.9)"
+                              : "rgba(128, 0, 0, 0.9)",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {data.isActivated ? "Activated" : "Deactivated"}
+                        </span>{" "}
+                        &nbsp; &nbsp;{" "}
+                        <span
+                          className='span2'
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: "1px 8px",
+                            width: "100px",
+                            height: "25px",
+                            border: ".3px solid rgba(128, 128, 128, 0.5)",
+                            borderRadius: "5px",
+                            background: data.isActivated
+                              ? "rgba(128, 0, 0, 0.6)"
+                              : "rgba(0, 128, 0, 0.7)",
+                            cursor: "pointer",
+                          }}
+                          onClick={(e) => changeActivationStatus(data._id)}
+                        >
+                          {loading ? (
+                            <div id='container-deposit-1'>
+                              <div id='html-spinner-deposit-1'></div>
+                            </div>
+                          ) : data.isActivated ? (
+                            "Deactivate"
+                          ) : (
+                            "Activate"
+                          )}
                         </span>
                       </div>
                     </div>
                   )}
                 </div>
               );
-            }):(<div style={{width:"100%", height: "100%", justifyContent: "center", display: "flex", alignItems: "center", fontWeight: "bold", fontSize: "20px"}}>No referral yet</div>)
+            })
           )}
         </div>
       </div>

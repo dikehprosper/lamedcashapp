@@ -12,7 +12,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
-import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
+import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal2";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -21,9 +21,10 @@ const TransactionTemplate = () => {
   const pathname = usePathname();
   const [data, setData] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);
-  const [loading, setLoading] = useState("two");
+  const [loading, setLoading] = useState<any>("two");
   const [isVisible, setIsVisible] = useState(false);
   const [receipt, setReceipt] = useState({});
+   const [userData, setAllUserData] = useState<any>(null);
 
   // Extract ID from the URL
   const extractIdFromUrl = () => {
@@ -35,73 +36,134 @@ const TransactionTemplate = () => {
   const getUserDetails = async () => {
     try {
       setLoading("one");
-      const res = await axios.get("/api/getAllUserCashdeskHistory");
-      setData(res.data.result);
-      console.log(res.data.result);
+      const res = await axios.get("/api/getAllTransactions");
+      setData(res.data.data);
+      console.log(res.data.data);
       setLoading("three");
     } catch (error: any) {
-      if (error.response.status === 402) {
-        setLoading("two");
-        toast.error("user does not exist");
-      } else {
-        setLoading("two");
+     if (error.response.status === 401) {
+         router.replace("/signin");
+      setLoading("three");
+       toast.error("L'utilisateur n'existe pas");
+    } else if (error.response.status === 403) {
+        toast.error(
+            "Votre session a expiré. Redirection vers la connexion..."
+          );
+        setLoading("three");
+        router.replace("/signin");
+    } else {
+        setLoading("three");
         toast.error("An error has occur");
       }
     }
   };
 
-  const handleClick = () => {
-    setIsVisible(false);
-  };
-
+ 
   const showReceipt = (
-    time: any,
-    amount: any,
-    identifierId: any,
-    betId: any,
-    status: any,
-    type: any,
-    momoName: any,
-    momoNumber: any,
-    withdrawalCode: any,
-    userEmail: any,
-    subadminEmail: any
+     time: any,
+  receiptId: any,
+  betId: any,
+  status: any,
+  fundingType: any,
+  withdrawalCode: any,
+  momoName: any,
+  momoNumber: any,
+  identifierId: any,
+  userEmail: any,
+  totalAmount: any,
+  bonusBalance: any,
   ) => {
     setIsVisible(true);
-    setReceipt({
-      time,
-      amount,
-      identifierId,
-      betId,
-      status,
-      type,
-      momoName,
-      momoNumber,
-      withdrawalCode,
-      userEmail,
-      subadminEmail,
-    });
+    setReceipt({time, receiptId, betId, status, fundingType, withdrawalCode, momoName , momoNumber, identifierId, userEmail, totalAmount, bonusBalance})
   };
 
-  const [currentValue, setCurrentValue] = useState("");
+    const [currentValue, setCurrentValue] = useState("")
+  const [debouncedValue, setDebouncedValue] = useState(currentValue);
+  
+   useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(currentValue);
+    }, 500); // Wait for 500ms
 
-  async function search() {
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [currentValue]);
+
+  useEffect(() => {
+    if (debouncedValue) {
+      search(debouncedValue);
+    }if (currentValue === "") {
+      getUserDetails();
+    }
+  }, [debouncedValue]);
+
+
+  const handleClick = (value: string, transactionId: any) => {
+     setData((prevData: any[]) => {
+    // Find the specific transaction
+    const updatedData = prevData.map((transaction: { identifierId: any; }) => {
+      if (transaction.identifierId === transactionId) {
+        // Update the transaction state based on the value
+        if (value === "accept") {
+          return {
+            ...transaction,
+            status: "Successful", 
+            paymentConfirmation: "Successful",
+          };
+        } else if (value === "pend") {
+             return {
+            ...transaction,
+            status: "Pending", 
+            paymentConfirmation: "Successful",
+          };
+        } else if (value === "reject") {
+           return {
+            ...transaction,
+            status: "Failed", 
+            paymentConfirmation: "Failed",
+          };
+        }
+      }
+      return transaction;
+    });
+
+    return updatedData;
+  });
+  setIsVisible(false);
+  };
+
+
+  async function search(debouncedValue: any) {
+     if (userData) {
+       const filteredData = userData.filter((data: any) =>
+        data.email.startsWith(currentValue)
+      );
+    return setData(filteredData);
+  }
     try {
-      setLoading("one");
       const res = await axios.get("/api/getAllUserCashdeskHistory");
+      setData(res.data.result)
       res.data.result.map((data: any) => {
-        if (data.identifierId === currentValue) {
+        if (data.identifierId.startsWith(currentValue)) {
           setData([data]);
           console.log(data);
         }
       });
-      setLoading("three");
+   
     } catch (error: any) {
-      if (error.response.status === 402) {
-        setLoading("two");
-        toast.error("user does not exist");
-      } else {
-        setLoading("two");
+     if (error.response.status === 401) {
+        toast.error("L'utilisateur n'existe pas");
+      setLoading(false);
+       router.replace("/signin");
+    } else if (error.response.status === 403) {
+        toast.error(
+            "Votre session a expiré. Redirection vers la connexion..."
+          );
+        setLoading(false);
+        router.replace("/signin");
+    } else {
+ 
         toast.error("An error has occur");
       }
     }
@@ -227,18 +289,18 @@ const TransactionTemplate = () => {
                 <TransactionResultsCashdesk
                   key={index}
                   time={filteredData.registrationDateTime}
-                  amount={filteredData.amount}
-                  receipt={filteredData._id}
+                  receiptId={filteredData._id}
                   betId={filteredData.betId}
                   status={filteredData.status}
-                  type={filteredData.fundingType}
-                  showReceipt={showReceipt}
+                  fundingType={filteredData.fundingType}
                   withdrawalCode={filteredData.withdrawalCode}
                   momoName={filteredData.momoName}
                   momoNumber={filteredData.momoNumber}
                   identifierId={filteredData.identifierId}
                   userEmail={filteredData.userEmail}
-                  subadminEmail={filteredData.subadminEmail}
+                  totalAmount={filteredData.totalAmount}
+                  bonusBalance={filteredData.bonusBalance}
+                  showReceipt={showReceipt}
                 />
               ))
           )}

@@ -6,12 +6,15 @@ import { useRouter } from "next/navigation";
 import "./adminDashboard.css";
 import AdminHead from "@/components/(adminHead)/adminHead";
 import { FaCheckCircle } from "react-icons/fa";
-import AdminDashboardDisplay from "./(components)/AdminWithdrawalDashboardDisplay";
-import { LuHistory } from "react-icons/lu";
-import { toast } from "react-toastify";
+import AdminDashboardDisplay from "./(components)/adminDashboardDisplay";
+import AdminDashboardDisplay1 from "./(components)/adminDashboardDisplay1";
+import AdminDashboardDisplay2 from "./(components)/adminDashboardDisplay2";
+import AdminDashboardDisplay3 from "./(components)/adminDashboardDisplay3";
+import {LuHistory} from "react-icons/lu";
+import {toast} from "react-toastify";
 import axios from "axios";
 import BarsDataset from "./(components)/chart";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {ThemeProvider, createTheme} from "@mui/material/styles";
 
 const darkTheme = createTheme({
   palette: {
@@ -34,7 +37,6 @@ function Page() {
       setData2(res.data.data.user2);
       setData3(res.data.data.user3);
       setData4(res.data.data.user4);
-      console.log(res.data.data.user4);
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -42,12 +44,12 @@ function Page() {
           toast.error(
             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
           );
-          router.push("/signin");
-        } else if (error.response.status === 402) {
+       router.replace("/signin");
+        } else if (error.response.status === 403) {
           toast.error(
             "Votre session a expiré. Redirection vers la connexion..."
           );
-          router.push("/signin");
+          router.replace("/signin");
         } else {
           // Handle other errors
           toast.error(
@@ -60,30 +62,6 @@ function Page() {
       }
     }
   };
-
-  // Filter withdrawal transactions
-  const allSuccessfulWithdrawal = data?.transactionHistory?.filter(
-    (transaction: any) => transaction.status === "Successful"
-  );
-
-  const totalSuccessfulWithdrawal = allSuccessfulWithdrawal?.reduce(
-    (total: any, transaction: any) => {
-      return (total += transaction.amount);
-    },
-    0
-  );
-
-  // Filter withdrawal transactions
-  const allFailedWithdrawal = data?.transactionHistory?.filter(
-    (transaction: any) => transaction.status === "Failed"
-  );
-
-  const totalFailedWithdrawal = allFailedWithdrawal?.reduce(
-    (total: any, transaction: any) => {
-      return (total += transaction.amount);
-    },
-    0
-  );
 
   useEffect(() => {
     // Check network status before making the request
@@ -114,26 +92,28 @@ function Page() {
     };
   }, []);
 
+
+
+
   return (
-    <div className="subadmin_dashboard_container_admin_admin">
+    <div className='subadmin_dashboard_container_admin_admin'>
       <AdminHead
-        title="Tableau de bord"
-        about="Voir toutes les transactions ici"
+        title='Tableau de bord'
+        about='Voir toutes les transactions ici'
         data={data3}
       />
 
-      <div className="dashboard-display_admin">
-        <AdminDashboardDisplay data={data} type="1" />
-        <AdminDashboardDisplay data={data2} type="2" />
+      <div className='dashboard-display_admin'>
+        <AdminDashboardDisplay3 data3={data3} />
+        <AdminDashboardDisplay1 data3={data3} />
+        <AdminDashboardDisplay2 data3={data3} />
         <AdminDashboardDisplay
-          data={data4}
-          data2={data2}
-          data3={data}
-          type="4"
+          data4={data4}
+          data3={data3}
         />
         <ThemeProvider theme={darkTheme}>
-          <div className="subadmin_dashboard_container-display_withdrawal_admin_chart">
-            <BarsDataset data={data4} />
+          <div className='subadmin_dashboard_container-display_withdrawal_admin_chart'>
+            <BarsDataset data={data3} />
           </div>
         </ThemeProvider>
       </div>

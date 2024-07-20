@@ -84,6 +84,12 @@ const Nav = () => {
         <div className="nav-language">
           <LanguageToggle />
         </div>
+         {/* <Link
+            style={{paddingLeft : 30, paddingRight: 30, paddingBottom: 10, paddingTop: 10, borderRadius: 30, border: "1px solid rgba(120, 120, 120, 1)"}}
+            href=""
+          >
+            {t("Télécharger")}
+          </Link> */}
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           <div className="for-smaller-devices">
             <LanguageToggle />

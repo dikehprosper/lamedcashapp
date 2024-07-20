@@ -4,10 +4,11 @@ import { FedaPay, Transaction, Customer } from "fedapay";
 import { v4 as uuidv4 } from "uuid";
 import User, { AdminUser } from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
-
+import {getDataFromToken} from "@/helpers/getDataFromToken";
 connect();
 export async function GET(request: NextRequest) {
   try {
+        const {userId, sessionId} = await getDataFromToken(request);
     const user = await AdminUser.findOne({isAdmin: true});
   if (!user) {
     return NextResponse.json(

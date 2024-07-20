@@ -395,6 +395,7 @@ export async function POST(request: NextRequest) {
       colorScheme: 2,
       image: "",
       tag: tag,
+      referer: referrerId ? referrerId : "",
     });
 
     // save the new created user

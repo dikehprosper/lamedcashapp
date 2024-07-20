@@ -11,8 +11,10 @@ import axios from "axios";
 import {IoIosCopy} from "react-icons/io";
 import {useRouter} from "next/navigation";
 import {FedaPay} from "fedapay";
-import Modal from "@/components/(Utils)/(modals)/processingModal";
+import Modal from "@/components/(Utils)/(modals)/receiptModalForUsers";
 import Modal2 from "@/components/(Utils)/(modals)/processingModals2";
+import Modal3 from "@/components/(Utils)/(modals)/processingModals3";
+import Modal4 from "@/components/(Utils)/(modals)/processingModal4";
 import {useTranslations} from "next-intl";
 import {useParams, usePathname} from "next/navigation";
   import { useAppDispatch, useAppSelector } from "@/lib/hooks";
@@ -21,9 +23,8 @@ import { setUser } from "@/lib/features/userSlice";
 const DOMAIN = process.env.DOMAIN;
 
 const Deposit = () => {
-
   const t = useTranslations("dashboard");
-     const data = useAppSelector((state: any) => state.user.value);
+  const data = useAppSelector((state: any) => state.user.value);
   const dispatch = useAppDispatch();
   const {locale} = useParams<{locale: string}>();
   const [loading, setLoading] = useState(false);
@@ -33,9 +34,8 @@ const Deposit = () => {
   const [activeBetId, setActiveBetId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
   const [user, setUser] = useState({
-    email: "",
+    email: data?.email,
     amount: "",
     network: "",
     betId: savedID[0],
@@ -52,8 +52,8 @@ const Deposit = () => {
 
   const getUserDetails = async () => {
     try {
-       const res = await axios.get("/api/getUser")
-       dispatch(setUser(res.data.data));
+      const res = await axios.get("/api/getUser");
+      dispatch(setUser(res.data.data));
     } catch (error: any) {
       if (error.response) {
         // Handle token expiration
@@ -61,15 +61,15 @@ const Deposit = () => {
           toast.error(
             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
           );
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.replace("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
           toast.error(
             "Votre session a expiré. Redirection vers la connexion..."
           );
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.replace("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
-          router.push("/signin");
+          router.replace("/signin");
         } else {
           // Handle other errors
           toast.error(
@@ -138,82 +138,96 @@ const Deposit = () => {
 
   const [processing, setProcessing] = useState(false);
   const [processing2, setProcessing2] = useState(false);
+    const [processing3, setProcessing3] = useState(false);
+const [processing4, setProcessing4] = useState(false);
 
-  // async function submitDetails() {
-  //   if (isSubmitting) {
-  //     return;
-  //   }
+  const [receipt, setReceipt] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
 
-  //   const amountValue = parseInt(user.amount, 10);
-  //   if (isNaN(amountValue)) {
-  //     // Handle the case where user.amount is not a valid number
-  //     return toast.error("Vous n'avez pas saisi de montant");
-  //   }
 
-  //   if (amountValue < 500) {
-  //     return toast.error("Le montant saisi ne doit pas être inférieur à 500");
-  //   } else if (user.betId === "") {
-  //     return toast.error("Entrez le betId à utiliser");
-  //   } else {
-  //     setLoading(true);
-  //     try {
-  //       setIsSubmitting(true);
-  //       const updatedUser = {
-  //         _id: user._id,
-  //         betId: user.betId,
-  //         amount: user.amount,
-  //         network: user.network,
-  //         email: user.email,
-  //         momoNumber: user.momoNumber,
-  //         fedapayId: user.fedapayId,
-  //         momoName: user.fullname,
-  //       };
-  //       setProcessing(true);
+  async function submitDetails() {
+    if (isSubmitting) {
+      return;
+    }
 
-  //       // Make the API request
-  //       const res = await axios.post("/api/users/deposit", updatedUser);
+    const amountValue = parseInt(user.amount, 10);
+    if (isNaN(amountValue)) {
+      // Handle the case where user.amount is not a valid number
+      return toast.error("Vous n'avez pas saisi de montant");
+    }
 
-  //       // Set processing state for an additional operation (if needed)
-  //       setProcessing2(true);
+    if (amountValue < 100) {
+      return toast.error("Le montant saisi ne doit pas être inférieur à 100");
+    } else if (user.betId === "") {
+      return toast.error("Entrez le betId à utiliser");
+    } else {
+      setLoading(true);
+      try {
+        setIsSubmitting(true);
+        const updatedUser = {
+          _id: user._id,
+          betId: user.betId,
+          amount: user.amount,
+          network: user.network,
+          email: user.email,
+          momoNumber: user.momoNumber,
+          momoName: user.fullname,
+          service: "1xbet",
+        };
+        setProcessing(true);
 
-  //       // Delay before navigating to "/dashboard"
-  //       setTimeout(() => {
-  //         router.push("/dashboard");
-
-  //         // Set processing state to false after navigation
-  //         setProcessing2(false);
-  //       }, 2000);
-  //     } catch (error: any) {
-  //       if (error.response.status === 400) {
-  //         toast.error("Utilisateur non trouvé");
-  //       } else if (error.response.status === 401) {
-  //         toast.error("Impossible de lancer la transaction");
-  //       } else if (error.response.status === 403) {
-  //         return toast.error(
-  //           "Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance"
-  //         );
-  //         return toast.error(
-  //           "Impossible d'effectuer des retraits pour le moment, Nous Sommes Actuellement En Maintenance"
-  //         );
-  //       } else if (error.response.status === 404) {
-  //         toast.error("Votre compte a été désactivé");
-  //         router.push("/signin");
-  //       } else if (error.response.status === 407) {
-  //         toast.error("Votre compte a été désactivé");
-  //         router.push("/signin");
-  //       } else if (error.response.status === 405) {
-  //         toast.error("Nous Sommes Actuellement En Maintenance");
-  //       } else {
-  //         toast.error("Erreur inconnue");
-  //       }
-  //     } finally {
-  //       // Set processing state to false
-  //       setProcessing(false);
-  //       setLoading(false);
-  //       setIsSubmitting(false);
-  //     }
-  //   }
-  // }
+        // Make the API request
+        const res = await axios.post("/api/users/deposit", updatedUser);
+        setProcessing(false);
+      
+        // console.log(res.data.success, "jhbvkabvjkbkjv");
+      if (res.data.success === 211) {
+     setProcessing3(true);
+      setTimeout(() => {
+       router.push("/dashboard");
+        setProcessing3(false);
+      }, 900)
+      } else if (res.data.success === 209) {
+     setProcessing4(true);
+      setTimeout(() => {
+       router.push("/dashboard");
+        setProcessing4(false);
+      }, 900)
+      } else {
+         setProcessing2(true);
+         setTimeout(() => {
+       router.push("/dashboard");
+        setProcessing2(false);
+      }, 900)
+      }
+      
+      } catch (error: any) {
+        if (error.response.status === 401) {
+          toast.error("Utilisateur non trouvé");
+          router.push("/signin");
+        } else if (error.response.status === 402) {
+          toast.error("L'utilisateur est désactivé");
+          router.push("/signin");
+        } else if (error.response.status === 403) {
+          router.push("/signin");
+          toast.error("Votre session a expiré");
+        } else if (error.response.status === 504) {
+          toast.error("Actuellement en maintenance");
+        } else if (error.response.status === 508) {
+          toast.error("vous venez d'effectuer une transaction du même montant avec le même identifiant, réessayez dans cinq minutes");
+        } else if (error.response.status === 509) {
+          toast.error("Le jeton a expiré. Veuillez vous reconnecter.");
+        } else {
+          toast.error("Erreur inconnue");
+        }
+      } finally {
+        // Set processing state to false
+        setProcessing(false);
+        setLoading(false);
+        setIsSubmitting(false);
+      }
+    }
+  }
 
   const handleChangeAmount = (event: any) => {
     setUser({
@@ -247,8 +261,6 @@ const Deposit = () => {
     setButtonDisabled(!(user.amount && user.network));
   }, [user]);
 
-
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleCopyClick = () => {
@@ -262,39 +274,43 @@ const Deposit = () => {
     toast.success("USSD CODE successfully copied!");
   };
 
-  // Example using fetch
-  const createTransaction = async () => {
-    if (isSubmitting) {
-      return;
-    }
+  // // Example using fetch
+  // const createTransaction = async () => {
+  //   if (isSubmitting) {
+  //     return;
+  //   }
 
-    const amountValue = parseInt(user.amount, 10);
-    if (isNaN(amountValue)) {
-      // Handle the case where user.amount is not a valid number
-      return toast.error("Vous n'avez pas saisi de montant");
-    }
+  //   const amountValue = parseInt(user.amount, 10);
+  //   if (isNaN(amountValue)) {
+  //     // Handle the case where user.amount is not a valid number
+  //     return toast.error("Vous n'avez pas saisi de montant");
+  //   }
 
-    if (amountValue < 500) {
-      return toast.error("Le montant saisi ne doit pas être inférieur à 500");
-    } else if (user.betId === "") {
-      return toast.error("Entrez le betId à utiliser");
-    } else {
-      try {
-        const response = await axios.post("/api/users/deposit2", user); // Replace with your actual route
-        const data = response.data.url1;
- 
-        window.location.href = data;
-      } catch (error) {
-        console.error("Error creating transaction:", error);
-      } finally {
-        setIsSubmitting(false);
-      }
-    }
-  };
+  //   if (amountValue < 100) {
+  //     return toast.error("Le montant saisi ne doit pas être inférieur à 100");
+  //   } else if (user.betId === "") {
+  //     return toast.error("Entrez le betId à utiliser");
+  //   } else {
+  //     try {
+  //       const response = await axios.post("/api/users/deposit2", user); // Replace with your actual route
+  //       const data = response.data.url1;
+
+  //       window.location.href = data;
+  //     } catch (error) {
+  //       console.error("Error creating transaction:", error);
+  //     } finally {
+  //       setIsSubmitting(false);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
-    console.log(data, "hvbhvvds")
-  },[data])
+    console.log(data, "hvbhvvds");
+  }, [data]);
+
+  function handleClick() {
+
+  }
 
   return (
     <div className='user_withdraw_container'>
@@ -350,7 +366,9 @@ const Deposit = () => {
               >
                 Vous êtes sur le point d'effectuer un paiement de {user.amount}
               </h6>
-        
+               <div id='container-deposit2'>
+                <div id='html-spinner-deposit2'></div>
+              </div>
             </div>
           </div>
         </div>
@@ -362,10 +380,50 @@ const Deposit = () => {
           title={t("amount_deposit")}
         />
       )}
+      {processing3 && (
+        <Modal3
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner-processing'
+          title={t("amount_deposit")}
+        />
+      )}
+
+      {processing4 && (
+        <Modal4
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner-processing'
+          title={t("amount_deposit")}
+        />
+      )}
+    
       <div className='user_deposit_container_001'>
-        <form onSubmit={handleSubmit} className='deposit-form-container'>
+        <form onSubmit={submitDetails} className='deposit-form-container'>
+           <div
+            style={{
+              width: "100%",
+              borderWidth: "2px",
+              border: "1px solid rgba(120, 120, 120, 1)",
+              background: "rgba(120, 120, 120, .4)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "10px",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              paddingTop: "5px",
+              paddingBottom: "5px",
+              gap: "9px",
+            }}
+          >
+            <div className='detail' style={{fontWeight: "bold"}}>{t("withdraw_page.use_address")}</div>
+            <div className='detail_2' style={{textAlign: "center", fontWeight: 500}}>
+              {t("withdraw_page.use_address_info")}
+            </div>
+            
+          </div>
           <label>ID</label>
-        
+
           <input
             type='text'
             className='deposit-form'
@@ -373,7 +431,7 @@ const Deposit = () => {
             onChange={handleChangeId}
             placeholder={t("deposit_page.placeholder_1xbet_id")}
           />
-         
+
           <label>{t("deposit_page.amount")}</label>
           <input
             type='number'
@@ -415,7 +473,7 @@ const Deposit = () => {
               pointerEvents: buttonDisabled ? "none" : "auto",
               cursor: "pointer",
             }}
-            onClick={handleSubmit}
+            onClick={submitDetails}
           >
             {loading ? (
               <div id='container-deposit'>

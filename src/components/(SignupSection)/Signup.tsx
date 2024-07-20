@@ -292,27 +292,27 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-header">
+    <div className='signup-container'>
+      <div className='signup-header'>
         <h2>{t("signup.join_us")}</h2>
       </div>
       {/* first section */}
-      <div className="signup-container_inner">
-        <div className="signup-container_inner_background_image">
+      <div className='signup-container_inner'>
+        <div className='signup-container_inner_background_image'>
           <Image
             src={image}
             fill
-            loading="eager"
+            loading='eager'
             style={{
               objectFit: "cover",
             }}
-            alt="Picture of the background"
-            placeholder="blur"
+            alt='Picture of the background'
+            placeholder='blur'
           />
         </div>
         <form
           onSubmit={handleSubmit}
-          className="signup-form-container big-screens"
+          className='signup-form-container big-screens'
         >
           <div
             style={{
@@ -323,15 +323,15 @@ const SignUp = () => {
             }}
           >
             <input
-              type="text"
-              className="signup-form"
+              type='text'
+              className='signup-form'
               value={user.fullname}
               onChange={(e) => {
                 handleFullname(e);
                 SignupReVerification();
               }}
               placeholder={t("signup.enter_fullname")}
-              style={{ borderColor: fullNameError ? "red" : "" }}
+              style={{borderColor: fullNameError ? "red" : ""}}
             />
             {fullNameError && (
               <p
@@ -347,7 +347,7 @@ const SignUp = () => {
               </p>
             )}
           </div>
-          <div style={{ display: "flex", gap: "20px", width: "100%" }}>
+          <div style={{display: "flex", gap: "20px", width: "100%"}}>
             <div
               style={{
                 display: "flex",
@@ -357,8 +357,8 @@ const SignUp = () => {
               }}
             >
               <input
-                type="text"
-                className="signup-form"
+                type='text'
+                className='signup-form'
                 value={user.betId}
                 onChange={(e) => {
                   handleBetId(e);
@@ -378,7 +378,7 @@ const SignUp = () => {
                     paddingLeft: "14px",
                     fontSize: "13px",
                   }}
-                  className="animate-pop-in"
+                  className='animate-pop-in'
                 >
                   {" "}
                   Fill in your BET ID
@@ -394,7 +394,7 @@ const SignUp = () => {
                 position: "relative",
               }}
             >
-              <div className="signup-form1111" style={{ position: "relative" }}>
+              <div className='signup-form1111' style={{position: "relative"}}>
                 {showCountryPicker && (
                   <CountryPicker
                     setShow={setShowCountryPicker}
@@ -422,8 +422,8 @@ const SignUp = () => {
                   {countryCode}
                 </div>
                 <input
-                  type="number"
-                  className="signup-form111"
+                  type='number'
+                  className='signup-form111'
                   value={user.number}
                   onChange={(e) => {
                     handleNumber(e);
@@ -444,7 +444,7 @@ const SignUp = () => {
                     paddingLeft: "14px",
                     fontSize: "13px",
                   }}
-                  className="animate-pop-in"
+                  className='animate-pop-in'
                 >
                   {" "}
                   {t("errors.invalid_phone_number")}
@@ -461,15 +461,15 @@ const SignUp = () => {
             }}
           >
             <input
-              type="email"
-              className="signup-form"
+              type='email'
+              className='signup-form'
               value={user.email}
               onChange={(e) => {
                 handleUserEmail(e);
                 SignupReVerification();
               }}
               placeholder={t("signup.enter_email")}
-              style={{ borderColor: emailError ? "red" : "" }}
+              style={{borderColor: emailError ? "red" : ""}}
             />
             {emailError && (
               <p
@@ -479,7 +479,7 @@ const SignUp = () => {
                   paddingLeft: "14px",
                   fontSize: "13px",
                 }}
-                className="animate-pop-in"
+                className='animate-pop-in'
               >
                 {" "}
                 {t("errors.invalid_email")}
@@ -487,7 +487,7 @@ const SignUp = () => {
             )}
           </div>
 
-          <div style={{ display: "flex", gap: "20px", width: "100%" }}>
+          <div style={{display: "flex", gap: "20px", width: "100%"}}>
             <div
               style={{
                 display: "flex",
@@ -497,15 +497,15 @@ const SignUp = () => {
               }}
             >
               <input
-                type="password"
-                className="signup-form"
+                type='password'
+                className='signup-form'
                 value={user.password}
                 onChange={(e) => {
                   handleUserPassword(e);
                   SignupReVerification();
                 }}
                 placeholder={t("signup.enter_password")}
-                style={{ borderColor: passwordError ? "red" : "" }}
+                style={{borderColor: passwordError ? "red" : ""}}
               />
               {passwordError && (
                 <p
@@ -515,7 +515,7 @@ const SignUp = () => {
                     paddingLeft: "14px",
                     fontSize: "13px",
                   }}
-                  className="animate-pop-in"
+                  className='animate-pop-in'
                 >
                   {" "}
                   {t("errors.password_length")}
@@ -531,8 +531,8 @@ const SignUp = () => {
               }}
             >
               <input
-                type="password"
-                className="signup-form"
+                type='password'
+                className='signup-form'
                 value={user.confirmPassword}
                 onChange={(e) => {
                   handleUserConfirmPassword(e);
@@ -551,7 +551,7 @@ const SignUp = () => {
                     paddingLeft: "14px",
                     fontSize: "13px",
                   }}
-                  className="animate-pop-in"
+                  className='animate-pop-in'
                 >
                   {" "}
                   The password field confirmation does not match
@@ -559,9 +559,9 @@ const SignUp = () => {
               )}
             </div>
           </div>
-          <div className="signup-condition">
+          <div className='signup-condition'>
             <span
-              className="signup-condition-checkbox"
+              className='signup-condition-checkbox'
               onClick={toggleIsChecked}
               style={{
                 background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
@@ -569,10 +569,10 @@ const SignUp = () => {
               }}
             >
               {IsChecked ? (
-                <ImCheckmark className="BiCheck" color="black" />
+                <ImCheckmark className='BiCheck' color='black' />
               ) : null}
             </span>
-            <p className="signup-condition-checkbox-p">
+            <p className='signup-condition-checkbox-p'>
               {t("signup.accept_conditions")}
               {/* <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
@@ -587,15 +587,15 @@ const SignUp = () => {
                 paddingLeft: "14px",
                 fontSize: "13px",
               }}
-              className="animate-pop-in"
+              className='animate-pop-in'
             >
               {" "}
               {t("errors.accept_conditions")}
             </p>
           )}
           <button
-            type="submit"
-            className="submit-button-signup"
+            type='submit'
+            className='submit-button-signup'
             style={{
               background: "rgba(189, 255, 5, 1) !important",
               color: "black !important",
@@ -603,8 +603,8 @@ const SignUp = () => {
             onClick={handleSubmit}
           >
             {loading ? (
-              <div id="container-signup-signup">
-                <div id="html-spinner-signup-special"></div>
+              <div id='container-signup-signup'>
+                <div id='html-spinner-signup-special'></div>
               </div>
             ) : (
               t("signup.register")
@@ -614,18 +614,18 @@ const SignUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="signup-form-container small-screens"
+          className='signup-form-container small-screens'
         >
           <input
-            type="text"
-            className="signup-form"
+            type='text'
+            className='signup-form'
             value={user.fullname}
             onChange={(e) => {
               handleFullname(e);
               SignupReVerification();
             }}
             placeholder={t("signup.enter_fullname")}
-            style={{ borderColor: fullNameError ? "red" : "" }}
+            style={{borderColor: fullNameError ? "red" : ""}}
           />
           {fullNameError && (
             <p
@@ -641,15 +641,15 @@ const SignUp = () => {
             </p>
           )}
           <input
-            type="text"
-            className="signup-form"
+            type='text'
+            className='signup-form'
             value={user.betId}
             onChange={(e) => {
               handleBetId(e);
               SignupReVerification();
             }}
             placeholder={t("signup.bet_id")}
-            style={{ borderColor: betIdError ? "red" : "" }}
+            style={{borderColor: betIdError ? "red" : ""}}
           />
           {betIdError && (
             <p
@@ -659,13 +659,13 @@ const SignUp = () => {
                 fontSize: "10px",
                 paddingLeft: "14px",
               }}
-              className="animate-pop-in"
+              className='animate-pop-in'
             >
               {" "}
-              Fill in your BET ID
+              Fill in your ID
             </p>
           )}
-          <div className="signup-form1111" style={{ position: "relative" }}>
+          <div className='signup-form1111' style={{position: "relative"}}>
             {showCountryPicker && (
               <CountryPicker
                 setShow={setShowCountryPicker}
@@ -693,8 +693,8 @@ const SignUp = () => {
               {countryCode}
             </div>
             <input
-              type="number"
-              className="signup-form111"
+              type='number'
+              className='signup-form111'
               value={user.number}
               onChange={(e) => {
                 handleNumber(e);
@@ -715,21 +715,21 @@ const SignUp = () => {
                 fontSize: "10px",
                 paddingLeft: "14px",
               }}
-              className="animate-pop-in"
+              className='animate-pop-in'
             >
               Number must be 8 digits
             </p>
           )}
           <input
-            type="email"
-            className="signup-form"
+            type='email'
+            className='signup-form'
             value={user.email}
             onChange={(e) => {
               handleUserEmail(e);
               SignupReVerification();
             }}
             placeholder={t("signup.enter_email")}
-            style={{ borderColor: emailError ? "red" : "" }}
+            style={{borderColor: emailError ? "red" : ""}}
           />
           {emailError && (
             <p
@@ -739,22 +739,22 @@ const SignUp = () => {
                 fontSize: "10px",
                 paddingLeft: "14px",
               }}
-              className="animate-pop-in"
+              className='animate-pop-in'
             >
               {" "}
               Please input a valid mail
             </p>
           )}
           <input
-            type="password"
-            className="signup-form"
+            type='password'
+            className='signup-form'
             value={user.password}
             onChange={(e) => {
               handleUserPassword(e);
               SignupReVerification();
             }}
             placeholder={t("signup.enter_password")}
-            style={{ borderColor: passwordError ? "red" : "" }}
+            style={{borderColor: passwordError ? "red" : ""}}
           />
           {passwordError && (
             <p
@@ -764,22 +764,22 @@ const SignUp = () => {
                 fontSize: "10px",
                 paddingLeft: "14px",
               }}
-              className="animate-pop-in"
+              className='animate-pop-in'
             >
               {" "}
               Password must be more than four(4) characters
             </p>
           )}
           <input
-            type="password"
-            className="signup-form"
+            type='password'
+            className='signup-form'
             value={user.confirmPassword}
             onChange={(e) => {
               handleUserConfirmPassword(e);
               SignupReVerification();
             }}
             placeholder={t("signup.confirm_password")}
-            style={{ borderColor: confirmPasswordError ? "red" : "" }}
+            style={{borderColor: confirmPasswordError ? "red" : ""}}
           />
           {confirmPasswordError && (
             <p
@@ -789,15 +789,15 @@ const SignUp = () => {
                 fontSize: "10px",
                 paddingLeft: "14px",
               }}
-              className="animate-pop-in"
+              className='animate-pop-in'
             >
               {" "}
               The password field confirmation does not match
             </p>
           )}
-          <div className="signup-condition">
+          <div className='signup-condition'>
             <span
-              className="signup-condition-checkbox"
+              className='signup-condition-checkbox'
               onClick={toggleIsChecked}
               style={{
                 background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
@@ -805,10 +805,10 @@ const SignUp = () => {
               }}
             >
               {IsChecked ? (
-                <ImCheckmark className="BiCheck" color="black" />
+                <ImCheckmark className='BiCheck' color='black' />
               ) : null}
             </span>
-            <p className="signup-condition-checkbox-p">
+            <p className='signup-condition-checkbox-p'>
               {t("signup.accept_conditions")}
               {/* <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
@@ -823,23 +823,23 @@ const SignUp = () => {
                 fontSize: "10px",
                 paddingLeft: "14px",
               }}
-              className="animate-pop-in"
+              className='animate-pop-in'
             >
               {" "}
               click the check button to continue
             </p>
           )}
           <button
-            type="submit"
-            className="submit-button-signup"
+            type='submit'
+            className='submit-button-signup'
             style={{
               background: "rgba(189, 255, 5, 1) !important",
               color: "black !important",
             }}
           >
             {loading ? (
-              <div id="container-signup-signup">
-                <div id="html-spinner-signup-special"></div>
+              <div id='container-signup-signup'>
+                <div id='html-spinner-signup-special'></div>
               </div>
             ) : (
               t("signup.register")
@@ -847,56 +847,56 @@ const SignUp = () => {
           </button>
         </form>
 
-        <div className="welcome-section">
-          <div className="welcome-section-first">
-            <h2 className="welcome-section-first_h2">{t("signup.join_us")}</h2>
+        <div className='welcome-section'>
+          <div className='welcome-section-first'>
+            <h2 className='welcome-section-first_h2'>{t("signup.join_us")}</h2>
           </div>
-          <div className="welcome-section-second">
-            <h5 className="welcome-section-second_h5">
+          <div className='welcome-section-second'>
+            <h5 className='welcome-section-second_h5'>
               {t("signup.continue_with")}
             </h5>
-            <div className="signup-img google" onClick={handleSubmitForGoogle}>
+            <div className='signup-img google' onClick={handleSubmitForGoogle}>
               <Image
                 src={image4}
-                loading="eager"
+                loading='eager'
                 fill
                 style={{
                   objectFit: "cover",
                 }}
-                alt="Picture of the author"
+                alt='Picture of the author'
               />
             </div>
-            <p className="welcome-section-second_p">
+            <p className='welcome-section-second_p'>
               {t("signup.already_have_account")}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signin">{t("signup.sign_in")}</a>
+              <span style={{color: "#FCBB45", fontWeight: "500"}}>
+                <a href='/signin'>{t("signup.sign_in")}</a>
               </span>
             </p>
           </div>
         </div>
       </div>
       {/* last section */}
-      <div className="signup-container_inner23">
-        <div className="welcome-section-mobile">
-          <div className="welcome-section-second-mobile">
-            <h5 className="welcome-section-second_h5-mobile">
+      <div className='signup-container_inner23'>
+        <div className='welcome-section-mobile'>
+          <div className='welcome-section-second-mobile'>
+            <h5 className='welcome-section-second_h5-mobile'>
               {t("signup.continue_with")}
             </h5>
-            <div className="signup-img google" onClick={handleSubmitForGoogle}>
+            <div className='signup-img google' onClick={handleSubmitForGoogle}>
               <Image
                 src={image4}
-                loading="eager"
+                loading='eager'
                 fill
                 style={{
                   objectFit: "cover",
                 }}
-                alt="Picture of the author"
+                alt='Picture of the author'
               />
             </div>
-            <p className="welcome-section-second_p-mobile">
+            <p className='welcome-section-second_p-mobile'>
               {t("signup.already_have_account")}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href="/signin">S&apos;identifier!</a>
+              <span style={{color: "#FCBB45", fontWeight: "500"}}>
+                <a href='/signin'>S&apos;identifier!</a>
               </span>
             </p>
           </div>
@@ -914,38 +914,38 @@ const SignUp = () => {
         >
           {t("signup.contact_us")}
         </div>
-        <div className="signup-social-media-icons">
-          <div className="signup-img facebook">
+        <div className='signup-social-media-icons'>
+          <div className='signup-img facebook'>
             <Image
               src={image1}
-              loading="eager"
+              loading='eager'
               fill
               style={{
                 objectFit: "cover",
               }}
-              alt="Picture of the author"
+              alt='Picture of the author'
             />
           </div>
-          <div className="signup-img whatsapp">
+          <div className='signup-img whatsapp'>
             <Image
               src={image2}
-              loading="eager"
+              loading='eager'
               fill
               style={{
                 objectFit: "cover",
               }}
-              alt="Picture of the author"
+              alt='Picture of the author'
             />
           </div>
-          <div className="signup-img tiktok">
+          <div className='signup-img tiktok'>
             <Image
               src={image3}
-              loading="eager"
+              loading='eager'
               fill
               style={{
                 objectFit: "cover",
               }}
-              alt="Picture of the author"
+              alt='Picture of the author'
             />
           </div>
         </div>

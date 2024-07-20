@@ -23,7 +23,7 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
 }: any) => {
-const pathname = usePathname;
+const pathname = usePathname();
 const handleChildClick = (event: React.MouseEvent) => {
   // Stop the event propagation to the parent (receiptModal)
   event.stopPropagation();
@@ -61,7 +61,7 @@ const handleCopyClick = () => {
           {" "}
           <FaLongArrowAltLeft className='FaLongArrowAltLeft' />
         </span>
-        <div className='receiptModal_inner1'>
+        <div className='receiptModal_inner1' style={{ height: "100px"}}>
           <div className='receiptModalImage'>
             <Image
               src={CompanyLogo}
@@ -124,7 +124,7 @@ const handleCopyClick = () => {
             </div>
           </div>
         </div>
-        <div className='receiptModal_inner3'>
+        <div className='receiptModal_inner3' style={{ height: "30px", marginTop: "20px"}}>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
@@ -133,12 +133,12 @@ const handleCopyClick = () => {
               fontWeight: "bold",
             }}
           >
-            1xBET ID:
+             ID:
           </div>
 
           <div>{receipt?.betId}</div>
         </div>
-        <div className='receiptModal_inner4'>
+        <div className='receiptModal_inner4' style={{ height: "30px", marginTop: "20px", background: 'red !important'}}>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
@@ -157,7 +157,7 @@ const handleCopyClick = () => {
           </div>
         </div>
         {receipt.withdrawalCode !== undefined ? (
-          <div className='receiptModal_inner4'>
+          <div className='receiptModal_inner4' style={{ height: "30px", marginTop: "20px", background: 'red !important' }}>
             <div
               style={{
                 color: "rgba(128, 128, 128, 0.9)",
@@ -171,7 +171,7 @@ const handleCopyClick = () => {
             <div> {receipt?.withdrawalCode} </div>
           </div>
         ) : null}
-        <div className='receiptModal_inner5'>
+        <div className='receiptModal_inner5' style={{ height: "30px", marginTop: "20px",  background: 'red !important'}}>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
@@ -184,7 +184,7 @@ const handleCopyClick = () => {
           </div>
           <div> {formatDate(receipt?.time)}</div>
         </div>
-        <div className='receiptModal_inner6'>
+        {receipt?.momoName &&  <div className='receiptModal_inner6' style={{ height: "30px", marginTop: "20px",  background: 'red !important'}}>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
@@ -199,8 +199,9 @@ const handleCopyClick = () => {
             {" "}
             {receipt?.momoName ? receipt?.momoName : receipt?.momoName}
           </div>
-        </div>
-        <div className='receiptModal_inner7'>
+        </div> }
+       
+        <div className='receiptModal_inner7' style={{ height: "30px", marginTop: "20px",  background: 'red !important'}}>
           <div
             style={{
               color: "rgba(128, 128, 128, 0.9)",
@@ -216,49 +217,8 @@ const handleCopyClick = () => {
             {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
           </div>
         </div>
-        <div className='receiptModal_inner7'>
-          <div
-            style={{
-              color: "rgba(128, 128, 128, 0.9)",
-              display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
-            }}
-          >
-            numéro de maman:{" "}
-          </div>
-          <div>
-            {" "}
-            {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
-          </div>
-        </div>
-        {pathname.startsWith("/admin")? <>
-         <div className='receiptModal_inner7'>
-          <div
-            style={{
-              color: "rgba(128, 128, 128, 0.9)",
-              display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
-            }}
-          >
-            E-mail de l'utilisateur:{" "}
-          </div>
-          <div> {receipt?.userEmail}</div>
-        </div>
-        <div className='receiptModal_inner7'>
-          <div
-            style={{
-              color: "rgba(128, 128, 128, 0.9)",
-              display: "flex",
-              justifyContent: "flex-end",
-              fontWeight: "bold",
-            }}
-          >
-            E-mail du sous-administrateur:{" "}
-          </div>
-          <div> {receipt?.subadminEmail}</div>
-        </div></>: null}
+       
+      
        
       </div>
     </div>

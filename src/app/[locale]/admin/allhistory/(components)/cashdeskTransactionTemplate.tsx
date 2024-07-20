@@ -1,37 +1,38 @@
 import React from "react";
 import "./cashdeskTransactionTemplate.css";
-import { TransactionResultsProps } from "@/types";
+import {TransactionResultsProps} from "@/types";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
-import { FaDownload } from "react-icons/fa";
+import {FaDownload} from "react-icons/fa";
 import Moment from "moment";
-const TransactionResultsCashdesk = ({
+const PendingTransactionTemplate = ({
   time,
-  amount,
-  receipt,
+  receiptId,
   betId,
   status,
-  type,
-  showReceipt,
+  fundingType,
+  withdrawalCode,
   momoName,
   momoNumber,
-  withdrawalCode,
   identifierId,
   userEmail,
-  subadminEmail
+  totalAmount,
+  bonusBalance,
+  showReceipt,
 }: any) => {
   const handleClick = () => {
     showReceipt(
-      time,
-      amount,
-      identifierId,
-      betId,
-      status,
-      type,
-      momoName,
-      momoNumber,
-      withdrawalCode,
-      userEmail,
-      subadminEmail
+  time,
+  receiptId,
+  betId,
+  status,
+  fundingType,
+  withdrawalCode,
+  momoName,
+  momoNumber,
+  identifierId,
+  userEmail,
+  totalAmount,
+  bonusBalance,
     );
   };
 
@@ -42,21 +43,19 @@ const TransactionResultsCashdesk = ({
         <span
           className='first-span-cashdesk'
           style={{
-            background: type === "deposits" ? "#658900" : "#0076B8",
-            width: "13px !important",
+            background: "rgba(120, 120, 120, 1)",
           }}
         ></span>
         <span>{formatDate(time)}</span>
         <span className='small_device_group-cashdesk'>
-          {" "}
-          <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>
+          <span> XOF {formatNumberWithCommasAndDecimal(totalAmount)}</span>
           <span>
-            <b style={{ color: "rgba(256, 256, 256, 0.4" }}>1xBet ID: &nbsp;</b>{" "}
-            {betId}
+            <b style={{color: "rgba(256, 256, 256, 0.4"}}>SOURCE: &nbsp;</b>
+            {withdrawalCode === undefined || withdrawalCode === "" || withdrawalCode === null ?  "BONUS" : "FROM BET ACCOUNT"  }
           </span>
         </span>
-        <span style={{ overflow: "hidden" }}>
-          <b style={{ color: "rgba(256, 256, 256, 0.4" }}>REÇU: &nbsp;</b>{" "}
+        <span style={{overflow: "hidden"}}>
+          <b style={{color: "rgba(256, 256, 256, 0.4"}}>REÇU: &nbsp;</b>{" "}
           {identifierId}
         </span>
         <span
@@ -71,16 +70,13 @@ const TransactionResultsCashdesk = ({
           className='last-span-cashdesk'
         >
           <span>{status}</span>
-          <span className='download-button-cashdesk' onClick={handleClick}>
-            <FaDownload />
-          </span>
         </span>
       </div>
     </>
   );
 };
 
-export default TransactionResultsCashdesk;
+export default PendingTransactionTemplate;
 
 const formatDate = (inputDate: any) => {
   const date = new Date(inputDate);

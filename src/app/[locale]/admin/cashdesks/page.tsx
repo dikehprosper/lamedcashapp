@@ -37,9 +37,8 @@ function Page() {
       if (error.response) {
         // Handle token expiration
         if (error.response.status === 401) {
-          toast.error(
-            "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
-          );
+       
+          toast.error("L'utilisateur n'existe pas");
           router.push("/signin");
         } else if (error.response.status === 402) {
           toast.error(

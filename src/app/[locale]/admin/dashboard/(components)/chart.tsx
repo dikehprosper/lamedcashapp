@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
-import { BarChart } from "@mui/x-charts/BarChart";
-import { axisClasses, mangoFusionPaletteDark } from "@mui/x-charts";
+import React, {useEffect} from "react";
+import {BarChart} from "@mui/x-charts/BarChart";
+import {axisClasses, mangoFusionPaletteDark} from "@mui/x-charts";
 
 const chartSettings = {
   yAxis: [
@@ -9,7 +9,6 @@ const chartSettings = {
       label: "Total XOF",
     },
   ],
-
   width: 800,
   height: 350,
   sx: {
@@ -21,7 +20,7 @@ const chartSettings = {
 
 // const valueFormatter = (value) => `${value}mm`;
 
-export default function BarsDataset({ data }: any) {
+export default function BarsDataset({data}: any) {
   const months = [
     "Jan",
     "Feb",
@@ -44,28 +43,27 @@ export default function BarsDataset({ data }: any) {
       month: month,
     };
 
-    data?.forEach((user: any) => {
-      if (user.isUser) {
-        user.transactionHistory.forEach((transaction: any) => {
-          const transactionMonth = new Date(
-            transaction.registrationDateTime
-          ).toLocaleString("en-US", {
-            month: "short",
-            year: "numeric",
-            day: "2-digit",
-          });
+    // Assuming data is the admin object containing transactionHistory
+    const transactionHistory = data?.transactionHistory || [];
 
-          if (
-            transactionMonth.includes(month) &&
-            transaction.status === "Successful"
-          ) {
-            if (transaction.fundingType === "deposits") {
-              monthlyData.successfulDepositCount += transaction.amount;
-            } else if (transaction.fundingType === "withdrawals") {
-              monthlyData.successfulWithdrawalCount += transaction.amount;
-            }
-          }
-        });
+    transactionHistory.forEach((transaction: any) => {
+      const transactionMonth = new Date(
+        transaction.registrationDateTime
+      ).toLocaleString("en-US", {
+        month: "short",
+        year: "numeric",
+        day: "2-digit",
+      });
+
+      if (
+        transactionMonth.includes(month) &&
+        transaction.status === "Successful"
+      ) {
+        if (transaction.fundingType === "deposits") {
+          monthlyData.successfulDepositCount += Number(transaction.totalAmount);
+        } else if (transaction.fundingType === "withdrawals") {
+          monthlyData.successfulWithdrawalCount += Number(transaction.totalAmount);
+        }
       }
     });
 
@@ -75,10 +73,10 @@ export default function BarsDataset({ data }: any) {
 
   return (
     <BarChart
-      className="chart-settings"
+      className='chart-settings'
       dataset={dataset}
       // colors={mangoFusionPaletteDark}
-      xAxis={[{ scaleType: "band", dataKey: "month" }]}
+      xAxis={[{scaleType: "band", dataKey: "month"}]}
       series={[
         {
           dataKey: "successfulDepositCount",

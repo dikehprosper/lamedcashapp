@@ -290,10 +290,6 @@ export async function POST(request: NextRequest) {
       return response;
     }
 
-
-        console.log(email, "nnnnnn");
-
-
     // Check if the User already exists
     const user = await User.findOne({email});
     if (!user) {

@@ -12,6 +12,7 @@
   background: inherit;
   position: relative;
   white-space: nowrap;
+   z-index: 100000000,
 }
 
 @media (max-width: 1220px) {
@@ -44,6 +45,7 @@
   border-radius: 5px;
   padding: 4px 0px;
   box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.4);
+     z-index: 100000000,
 }
 
 .dropdown-content-configure-container_1 {

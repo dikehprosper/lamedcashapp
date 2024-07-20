@@ -6,13 +6,13 @@ import AnimateHeight from "react-animate-height";
 import { TransactionTemplateProps } from "@/types";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import { FaCircle } from "react-icons/fa6";
-import TransactionResultsCashdesk from "./(components)/userTemplate";
+import TransactionResultsCashdesk from "../../dashboard/pendingtransaction/pendingTransactionTemplate";
 import { FaArrowRight } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import Link from "next/link";
 import { CgTrashEmpty } from "react-icons/cg";
-import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal";
+import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal2";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -37,53 +37,140 @@ const TransactionTemplate = () => {
       setLoading("one");
       const idFromUrl = extractIdFromUrl();
       console.log(idFromUrl);
-      const res = await axios.post("/api/getAllUsers", { id: idFromUrl });
+      const res = await axios.post("/api/getAllUsersTransaction", { id: idFromUrl });
       console.log(res);
       setData(res.data.result);
       setLoading("three");
     } catch (error: any) {
-      if (error.response.status === 402) {
+      if (error.response.status === 401) {
         setLoading("two");
-        toast.error("user does not exist");
-      } else {
+           toast.error("L'utilisateur n'existe pas");
+       router.replace("/signin");
+      } else if (error.response.status === 403) {
+        toast.error(
+            "Votre session a expiré. Redirection vers la connexion..."
+          );
+          setLoading("two");
+        router.replace("/signin");
+    } else { 
         setLoading("two");
         toast.error("An error has occur");
       }
     }
   };
 
-   const handleClick = () => {
+  useEffect(() => {
+getUserDetails()
+  }, [])
+
+  const handleClick = (value: string, transactionId: any) => {
+
+    setData((prevData: any[]) => {
+    // Find the specific transaction
+    const updatedData = prevData.map((transaction: { identifierId: any; }) => {
+      if (transaction.identifierId === transactionId) {
+        // Update the transaction state based on the value
+        if (value === "accept") {
+          return {
+            ...transaction,
+            status: "Successful", 
+            paymentConfirmation: "Successful",
+          };
+        } else if (value === "pend") {
+             return {
+            ...transaction,
+            status: "Pending", 
+            paymentConfirmation: "Successful",
+          };
+        } else if (value === "reject") {
+           return {
+            ...transaction,
+            status: "Failed", 
+            paymentConfirmation: "Failed",
+          };
+        }
+      }
+      return transaction;
+    });
+
+    return updatedData;
+  });
     setIsVisible(false);
   };
 
   const showReceipt = (
-    time: any,
-    amount: any,
-    identifierId: any,
-    betId: any,
-    status: any,
-    type: any,
-    momoName: any,
-    momoNumber: any,
-    withdrawalCode: any,
-    userEmail: any,
-    subadminEmail: any
+     time: any,
+  receiptId: any,
+  betId: any,
+  status: any,
+  fundingType: any,
+  withdrawalCode: any,
+  momoName: any,
+  momoNumber: any,
+  identifierId: any,
+  userEmail: any,
+  totalAmount: any,
+  bonusBalance: any,
   ) => {
     setIsVisible(true);
-    setReceipt({
-      time,
-      amount,
-      identifierId,
-      betId,
-      status,
-      type,
-      momoName,
-      momoNumber,
-      withdrawalCode,
-      userEmail,
-      subadminEmail,
-    });
+     setReceipt({time, receiptId, betId, status, fundingType, withdrawalCode, momoName , momoNumber, identifierId, userEmail, totalAmount, bonusBalance})
   };
+
+
+    const [currentValue, setCurrentValue] = useState("");
+    const [debouncedValue, setDebouncedValue] = useState(currentValue);
+
+    useEffect(() => {
+      const handler = setTimeout(() => {
+        setDebouncedValue(currentValue);
+      }, 500); // Wait for 500ms
+
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [currentValue]);
+
+    useEffect(() => {
+      if (debouncedValue) {
+        search(debouncedValue);
+      }
+      if (currentValue === "") {
+        getUserDetails();
+      }
+    }, [debouncedValue]);
+
+
+  async function search(debouncedValue: any) {
+    try {
+         setLoading("one");
+      const idFromUrl = extractIdFromUrl();
+        const res = await axios.post("/api/getAllUsersTransaction", { id: idFromUrl });
+      setData(res.data.result);
+      setLoading("three");
+      res.data.result.map((data: any) => {
+        if (data.identifierId.startsWith(currentValue)) {
+          setData([data]);
+          console.log(data);
+        }
+      });
+   
+    } catch (error: any) {
+     if (error.response.status === 401) {
+        toast.error("L'utilisateur n'existe pas");
+      setLoading("three");
+       router.replace("/signin");
+    } else if (error.response.status === 403) {
+        toast.error(
+            "Votre session a expiré. Redirection vers la connexion..."
+          );
+        setLoading("three");
+        router.replace("/signin");
+    } else {
+
+        toast.error("An error has occur");
+      }
+    }
+  }
 
 
 
@@ -136,7 +223,37 @@ const TransactionTemplate = () => {
       </div>
 
       <div className='transaction_template_container'>
-       
+          <div
+          style={{
+            width: "100%",
+            height: "40px",
+            gap: "10px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <input
+            className='tablesearch'
+            value={currentValue}
+            onChange={(e) => setCurrentValue(e.target.value)}
+            placeholder='Input the ID to search for transactions'
+          />
+
+          <button
+            style={{
+              height: "100%",
+              fontWeight: "bold",
+              width: "70px",
+              borderRadius: "5px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={search}
+          >
+            Search
+          </button>
+        </div>
         {isVisible && (
           <Modal
             containerStyles='receiptModal'
@@ -173,20 +290,20 @@ const TransactionTemplate = () => {
           ) : (
             data?.reverse().map((filteredData: any, index: any) => (
               <TransactionResultsCashdesk
-                key={index}
-                time={filteredData.registrationDateTime}
-                amount={filteredData.amount}
-                receipt={filteredData._id}
-                betId={filteredData.betId}
-                status={filteredData.status}
-                type={filteredData.fundingType}
-                showReceipt={showReceipt}
-                withdrawalCode={filteredData.withdrawalCode}
-                momoName={filteredData.momoName}
-                momoNumber={filteredData.momoNumber}
-                identifierId={filteredData.identifierId}
-                 userEmail={filteredData.userEmail}
-                  subadminEmail={filteredData.subadminEmail}
+                  key={index}
+                  time={filteredData.registrationDateTime}
+                  receipt={filteredData._id}
+                  betId={filteredData.betId}
+                  status={filteredData.status}
+                  fundingType={filteredData.fundingType}
+                  withdrawalCode={filteredData.withdrawalCode}
+                  momoName={filteredData.momoName}
+                  momoNumber={filteredData.momoNumber}
+                  identifierId={filteredData.identifierId}
+                  userEmail={filteredData.userEmail}
+                  totalAmount={filteredData.totalAmount}
+                  bonusBalance={filteredData.bonusBalance}
+                  showReceipt={showReceipt}
               />
             ))
           )}
