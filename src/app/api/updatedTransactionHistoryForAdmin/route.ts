@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     const result2 = await User.findOne({email: userEmail})
      const result3 = result2.transactionHistory
 const findTransactionById = (result3: any, transactionId: any) => {
-  return result3.find(transaction => transaction.identifierId === transactionId);
+  return result3.find((transaction: { identifierId: any; }) => transaction.identifierId === transactionId);
 };
 const transaction = findTransactionById(result3, transactionId);
 
