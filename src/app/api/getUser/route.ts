@@ -2,7 +2,7 @@ import {getDataFromToken} from "@/helpers/getDataFromToken";
 import {NextRequest, NextResponse} from "next/server";
 import User, {AdminUser} from "@/models/userModel";
 import {connect} from "@/dbConfig/dbConfig";
-await connect();
+connect();
 let transactionInProgress = false
 export async function GET(request: NextRequest) {
   try {
