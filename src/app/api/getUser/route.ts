@@ -83,7 +83,7 @@ console.log(user)
 
     // // Filter the user's transactions from their transactionHistory with status of pending
     const pendingTransactions = user3.transactionHistory.filter(
-      (transaction: {status: string}) => transaction.status === "Pending" && transaction.fundingType === "deposits"
+      (transaction: any) => transaction.status === "Pending" && transaction.fundingType === "deposits"
     );
 
     // // Update the user's transactionHistory with the filtered transactions
