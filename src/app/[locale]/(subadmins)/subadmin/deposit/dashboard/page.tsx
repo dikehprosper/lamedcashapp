@@ -10,7 +10,7 @@ import SubadminDepositDashboardDisplay from "./(components)/SubadminDepositDashb
 import { LuHistory } from "react-icons/lu";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Modal from "@/components/(Utils)/(modals)/receiptModalSubadminDeposit";
+// import Modal from "@/components/(Utils)/(modals)/receiptModalSubadminDeposit";
 import SubadminTransactionTemplate from "@/components/(TransactionTemplateSubadmin)/transactionTemplateSubadminDashboard";
 
 type ShowReceiptFunction = (
