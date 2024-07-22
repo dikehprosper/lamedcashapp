@@ -11,6 +11,10 @@ import type {NextApiRequest, NextApiResponse} from "next";
 import fetch from "node-fetch";
 
 connect();
+interface ApiResponse {
+  Success: boolean;
+  // other properties...
+}
 let transactionInProgress = false;
 export async function POST(request: NextRequest) {
   try {
@@ -94,8 +98,9 @@ export async function POST(request: NextRequest) {
       const response = await withdrawFromAccount(betId, withdrawalCode);
 
       const updatedResponse = removeMinusFromSumma(response);
-
-      if (updatedResponse.Success !== true) {
+    console.log("Response:", updatedResponse.Success);
+    
+      if (updatedResponse?.Success !== true) {
         const userTransaction = {
           status: "Failed",
           registrationDateTime: date,
