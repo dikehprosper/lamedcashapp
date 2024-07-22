@@ -98,23 +98,33 @@ export async function POST(request: NextRequest) {
       // Check for similar transactions in the last 5 minutes
       const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000); // Corrected the time calculation
 
-      const recentTransaction = admin.transactionHistory.find(transaction => {
-        console.log('Checking transaction:', transaction);
-        const betIdMatch = transaction.betId === betId;
-        const amountMatch = parseFloat(transaction.amount) === parseFloat(amount);
-        const paymentConfirmationMatch = transaction.paymentConfirmation === "Successful";
-        const statusMatch = transaction.status === "Successful";
-        const registrationTimeCheck = new Date(transaction.registrationDateTime) >= fiveMinutesAgo;
-        const isRecent = (
-          betIdMatch &&
-          amountMatch &&
-          paymentConfirmationMatch &&
-          statusMatch &&
-          registrationTimeCheck
-        );
-        console.log('Overall condition:', isRecent);
-        return isRecent;
-      });
+      const recentTransaction = admin.transactionHistory.find(
+        (transaction: {
+          betId: any;
+          amount: string;
+          paymentConfirmation: string;
+          status: string;
+          registrationDateTime: string | number | Date;
+        }) => {
+          console.log("Checking transaction:", transaction);
+          const betIdMatch = transaction.betId === betId;
+          const amountMatch =
+            parseFloat(transaction.amount) === parseFloat(amount);
+          const paymentConfirmationMatch =
+            transaction.paymentConfirmation === "Successful";
+          const statusMatch = transaction.status === "Successful";
+          const registrationTimeCheck =
+            new Date(transaction.registrationDateTime) >= fiveMinutesAgo;
+          const isRecent =
+            betIdMatch &&
+            amountMatch &&
+            paymentConfirmationMatch &&
+            statusMatch &&
+            registrationTimeCheck;
+          console.log("Overall condition:", isRecent);
+          return isRecent;
+        }
+      );
 
       if (recentTransaction) {
         console.log('Found recent transaction:', recentTransaction);
@@ -563,64 +573,75 @@ async function makePaymentRequest(
   newUuid: string
 ): Promise<PaymentResult> {
   try {
-    const [firstname, lastname] = fullname.split(" ");
-    const QOS_string =
-      network.toLowerCase() === "mtn"
-        ? process.env.QOS_STRING_FOR_MTN_PAYMENT
-        : process.env.QOS_STRING_FOR_MOOV_PAYMENT;
-    const QOS_username =
-      network.toLowerCase() === "mtn"
-        ? process.env.QOS_USERNAME1
-        : process.env.QOS_USERNAME2;
-    const QOS_password = process.env.QOS_PASSWORD!;
-    const QOS_string_check_transaction =
-      process.env.QOS_STRING_CHECK_TRANSACTION!;
-    const QOS_clientid =
-      network.toLowerCase() === "mtn"
-        ? process.env.QOS_CLIENTID1
-        : process.env.QOS_CLIENTID2;
+ const [firstname, lastname] = fullname.split(" ");
+ const QOS_string =
+   network.toLowerCase() === "mtn"
+     ? process.env.QOS_STRING_FOR_MTN_PAYMENT
+     : process.env.QOS_STRING_FOR_MOOV_PAYMENT;
+ const QOS_username =
+   network.toLowerCase() === "mtn"
+     ? process.env.QOS_USERNAME1
+     : process.env.QOS_USERNAME2;
+ const QOS_password = process.env.QOS_PASSWORD;
+ const QOS_string_check_transaction = process.env.QOS_STRING_CHECK_TRANSACTION;
+ const QOS_clientid =
+   network.toLowerCase() === "mtn"
+     ? process.env.QOS_CLIENTID1
+     : process.env.QOS_CLIENTID2;
 
-    console.log("Sending request to:", QOS_string);
-    console.log(
-      "Authorization:",
-      Buffer.from(`${QOS_username}:${QOS_password}`).toString("base64")
-    );
+        console.log(
+          momoNumber,
+          amount,
+          firstname,
+          newUuid,
+          QOS_clientid,
+          "these are the detaisl"
+        );
+        const response = await fetch(QOS_string!, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Basic " +
+              Buffer.from(`${QOS_username}:${QOS_password}`).toString("base64"),
+          },
+          body: JSON.stringify({
+            msisdn: `229${momoNumber}`,
+            amount: amount,
+            firstname: firstname,
+            lastname: lastname ? lastname : firstname,
+            transref: newUuid,
+            clientid: QOS_clientid,
+          }),
+        });
+        const response2 = await response.json();
+        console.log(response2, "responseresponse");
 
-    const response = await fetch(QOS_string!, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Basic " +
-          Buffer.from(`${QOS_username}:${QOS_password}`).toString("base64"),
-        Expect: "", // Explicitly set Expect header to empty string
-      },
-      body: JSON.stringify({
-        msisdn: `229${momoNumber}`,
-        amount: amount,
-        firstname: firstname,
-        lastname: lastname ? lastname : firstname,
-        transref: newUuid,
-        clientid: QOS_clientid,
-      }),
-    });
+        if (
+          response2.responsemsg !== "PENDING" &&
+          response2.responsemsg !== "SUCCESSFUL"
+        ) {
+          const result = {
+            status: "Failed",
+            transactionId: newUuid,
+          };
 
-   
-    console.log(response, "response")
-    // const data = await pollTransactionStatus(
-    //   QOS_string_check_transaction,
-    //   QOS_username!,
-    //   QOS_password!,
-    //   QOS_clientid!,
-    //   newUuid
-    // );
+          return result;
+        }
+        const data = await pollTransactionStatus(
+          QOS_string_check_transaction!,
+          QOS_username!,
+          QOS_password!,
+          QOS_clientid!,
+          newUuid
+        );
 
-    // const result = {
-    //   status: data,
-    //   transactionId: newUuid,
-    // };
+        const result = {
+          status: data,
+          transactionId: newUuid,
+        };
 
-    // return result;
+    return result;
   } catch (error) {
     console.error("Error making payment request:", error);
     throw new Error("Payment request failed");

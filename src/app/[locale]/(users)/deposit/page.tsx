@@ -190,7 +190,6 @@ const [processing4, setProcessing4] = useState(false);
       } else if (res.data.success === 209) {
      setProcessing4(true);
       setTimeout(() => {
-       router.push("/dashboard");
         setProcessing4(false);
       }, 900)
       } else {
