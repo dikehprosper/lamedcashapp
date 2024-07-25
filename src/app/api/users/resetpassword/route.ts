@@ -11,10 +11,15 @@ export async function POST(request: NextRequest) {
     const { password, token } = reqBody;
     console.log(password, token);
 
-    const user = await User.findOne({
-      forgotPasswordToken: token,
-      forgotPasswordTokenExpiry: { $gt: Date.now() },
-    });
+const decodedHash = decodeURIComponent(token);
+
+  const user = await User.findOne({forgotPasswordToken: decodedHash});
+  console.error(user, "user detail");
+  if (!user || user.forgotPasswordTokenExpiry <= Date.now()) {
+    console.error("Token invalid or expired");
+    return NextResponse.json({error: "Invalid token"}, {status: 400});
+  }
+
 
     if (!user) {
       return NextResponse.json({ error: "Invalid token" }, { status: 400 });

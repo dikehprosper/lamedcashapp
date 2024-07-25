@@ -6,6 +6,12 @@ const AWS = require("aws-sdk");
 async function SendEmail({email, emailType, userId, fullname}: any) {
   try {
     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
+
+
+    const encodedHash = encodeURIComponent(hashedToken);
+
+
+
     const randomNumbers = Array.from(
       {length: 4},
       () => Math.floor(Math.random() * 9) + 1
@@ -14,11 +20,13 @@ async function SendEmail({email, emailType, userId, fullname}: any) {
 
     if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId, {
-        verifyToken: hashedToken,
+        verifyToken: encodedHash,
         verifyTokenExpiry: Date.now() + 86400000,
       });
     }
 
+    console.log(encodedHash, "hashedToken 1");
+    
     if (emailType === "RESET") {
       await User.findByIdAndUpdate(userId, {
         forgotPasswordToken: hashedToken,
@@ -26,35 +34,35 @@ async function SendEmail({email, emailType, userId, fullname}: any) {
       });
     }
 
-    if (emailType === "SEND") {
-      await User.findByIdAndUpdate(userId, {
-        faToken: randomNumbersString,
-        faTokenExpiry: Date.now() + 7200000,
-      });
-    }
+if (emailType === "SEND") {
+  await User.findByIdAndUpdate(userId, {
+    faToken: randomNumbersString,
+    faTokenExpiry: Date.now() + 7200000,
+  });
+}
 
-    const adminEmail = process.env.EMAIL!;
-    const adminEmailKey = process.env.EMAIL_KEY!;
+const adminEmail = process.env.EMAIL!;
+const adminEmailKey = process.env.EMAIL_KEY!;
 
-    const SES_CONFIG = {
-      accessKeyId: process.env.AWS_ACCESS_KEY!,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-      region: process.env.AWS_SES_REGION!,
-    };
+const SES_CONFIG = {
+  accessKeyId: process.env.AWS_ACCESS_KEY!,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  region: process.env.AWS_SES_REGION!,
+};
 
-    const AWS_SES = new AWS.SES(SES_CONFIG);
+const AWS_SES = new AWS.SES(SES_CONFIG);
 
-    let params = {
-      Source: adminEmail,
-      Destination: {
-        ToAddresses: [email],
-      },
-      ReplyToAddresses: [],
-      Message: {
-        Body: {
-          Html: {
-            Charset: "UTF-8",
-            Data: `<!DOCTYPE html>
+let params = {
+  Source: adminEmail,
+  Destination: {
+    ToAddresses: [email],
+  },
+  ReplyToAddresses: [],
+  Message: {
+    Body: {
+      Html: {
+        Charset: "UTF-8",
+        Data: `<!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -186,10 +194,10 @@ async function SendEmail({email, emailType, userId, fullname}: any) {
             <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le bouton ci-dessous</p>
             <div class="reset-link">
 
-                <a href="${process.env
-                  .DOMAIN!}/resetpassword?token=${hashedToken}">
+                <a href="http://localhost:3001/resetpassword?token=${encodedHash}">
                               <div class="reset-link-inner">
                              RÉINITIALISEZ VOTRE MOT DE PASSE
+                             http://localhost:3001/resetpassword?token=${encodedHash}
                                           </div>
                               </a>
 
@@ -210,10 +218,10 @@ async function SendEmail({email, emailType, userId, fullname}: any) {
 </html>
 
           `,
-          },
-          Text: {
-            Charset: "UTF-8",
-            Data: `<!DOCTYPE html>
+      },
+      Text: {
+        Charset: "UTF-8",
+        Data: `<!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -345,8 +353,7 @@ async function SendEmail({email, emailType, userId, fullname}: any) {
             <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le bouton ci-dessous</p>
             <div class="reset-link">
 
-                <a href="${process.env
-                  .DOMAIN!}/resetpassword?token=${hashedToken}">
+                <a href="http://localhost:3001/resetpassword?token=${encodedHash}">
                               <div class="reset-link-inner">
                              RÉINITIALISEZ VOTRE MOT DE PASSE
                                           </div>
@@ -369,14 +376,14 @@ async function SendEmail({email, emailType, userId, fullname}: any) {
 </html>
 
           `,
-          },
-        },
-        Subject: {
-          Charset: "UTF-8",
-          Data: `Bonjour, ${fullname},  Réinitialisez votre mot de passe`,
-        },
       },
-    };
+    },
+    Subject: {
+      Charset: "UTF-8",
+      Data: `Bonjour, ${fullname},  Réinitialisez votre mot de passe`,
+    },
+  },
+};
 
     const mailresponse = await AWS_SES.sendEmail(params).promise();
     console.log(mailresponse, "Email has been Sent");

@@ -468,26 +468,45 @@ export async function POST(request: NextRequest) {
         paymentConfirmation: "Successful",
       });
 
-       const referer = user.referer
-      if (user.referer !== "") {
-        const user = await User.findOne({tag: referer});
-        if (user) {
-          const result = calculatePercentage(amount);
-          const eightyPercent = getEightyPercentOfResult(result);
-          const twentyPercent = getTwentyPercentOfResult(result);
-          user.disbursedBonusBalance = user.disbursedBonusBalance + eightyPercent
-          user.restrictedBonusBalance = user.restrictedBonusBalance + twentyPercent
-          admin.disbursedBonusBalance = admin.disbursedBonusBalance + eightyPercent
-          admin.restrictedBonusBalance = admin.restrictedBonusBalance + twentyPercent
-        }
-      }
-      if (user.disbursedBonusBalance >= 2000) {
-        const randomNumber = Math.floor(Math.random() * 11) * 100 + 1000;
-        user.disbursedBonusBalance = user.disbursedBonusBalance - randomNumber
-        admin.disbursedBonusBalance = admin.disbursedBonusBalance - randomNumber
-        user.bonusBalance = user.bonusBalance + randomNumber
-      }
-
+       const referer = user.referer;
+       if (user.referer !== "") {
+         const refererUser = await User.findOne({email: referer});
+         if (refererUser) {
+           const result = calculatePercentage(amount);
+           const eightyPercent = getEightyPercentOfResult(result);
+           const twentyPercent = getTwentyPercentOfResult(result);
+           refererUser.disbursedBonusBalance =
+             refererUser.disbursedBonusBalance + eightyPercent;
+           refererUser.restrictedBonusBalance =
+             refererUser.restrictedBonusBalance + twentyPercent;
+           admin.disbursedBonusBalance =
+             admin.disbursedBonusBalance + eightyPercent;
+           admin.restrictedBonusBalance =
+             admin.restrictedBonusBalance + twentyPercent;
+           await refererUser.save();
+           await admin.save();
+           if (refererUser.disbursedBonusBalance >= 2000) {
+             const randomNumber = Math.floor(Math.random() * 11) * 100 + 1000;
+             refererUser.disbursedBonusBalance =
+               refererUser.disbursedBonusBalance - randomNumber;
+             admin.disbursedBonusBalance =
+               admin.disbursedBonusBalance - randomNumber;
+             refererUser.bonusBalance = refererUser.bonusBalance + randomNumber;
+             const userTransaction = {
+               status: "Successful",
+               registrationDateTime: date,
+               amount: amount,
+               totalAmount: amount,
+               fundingType: "bonus",
+               identifierId: newUuid,
+             };
+             refererUser.transactionHistory.push(userTransaction);
+             await refererUser.save();
+             await admin.save();
+           }
+         }
+       }
+       
       await admin.save();
       await user.save();
       transactionInProgress = false

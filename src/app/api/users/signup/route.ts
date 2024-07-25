@@ -380,23 +380,40 @@ export async function POST(request: NextRequest) {
 
     const tag = `betfundr-${name}${count + 1}`;
 
-    const newUser = new User({
-      fullname,
-      betId,
-      number: number,
-      email,
-      password: hashedPassword,
-      supplementaryBetId: [betId],
-      isUser: true,
-      isLoggedIn: true,
-      sessionId: generateUniqueSessionId(),
-      // fedapayId: customer.id,
-      registrationDateTime: date,
-      colorScheme: 2,
-      image: "",
-      tag: tag,
-      referer: referrerId ? referrerId : "",
-    });
+     let referrerIdMail;
+     if (referrerId) {
+       const user2 = await User.findOne({tag: referrerId});
+       if (user2) {
+         user2.referrals.push(email);
+         referrerIdMail = user2.email;
+         await user2.save();
+       } else if (!user2) {
+         transactionInProgress = false;
+         return res.send({
+           success: 503,
+           message: "Referer does not exist",
+           status: 503,
+         });
+       }
+     }
+
+     const newUser = new User({
+       fullname,
+       betId,
+       number: number,
+       email,
+       password: hashedPassword,
+       supplementaryBetId: [betId],
+       isUser: true,
+       isLoggedIn: true,
+       sessionId: generateUniqueSessionId(),
+       // fedapayId: customer.id,
+       registrationDateTime: date,
+       colorScheme: 2,
+       image: "",
+       tag: tag,
+       referer: referrerIdMail ? referrerIdMail : "",
+     });
 
     // save the new created user
     const savedUser = await newUser.save();
