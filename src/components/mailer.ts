@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import User from "@/models/userModel";
 import bcryptjs from "bcryptjs";
-const AWS = require("aws-sdk");
+import AWS from "aws-sdk";
 
 async function SendEmail({email, emailType, userId, fullname}: any) {
   try {
@@ -194,10 +194,10 @@ let params = {
             <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le bouton ci-dessous</p>
             <div class="reset-link">
 
-                <a href="http://localhost:3001/resetpassword?token=${encodedHash}">
+                <a href="https://betfundr.com/resetpassword?token=${encodedHash}">
                               <div class="reset-link-inner">
                              RÉINITIALISEZ VOTRE MOT DE PASSE
-                             http://localhost:3001/resetpassword?token=${encodedHash}
+
                                           </div>
                               </a>
 
@@ -353,7 +353,7 @@ let params = {
             <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le bouton ci-dessous</p>
             <div class="reset-link">
 
-                <a href="http://localhost:3001/resetpassword?token=${encodedHash}">
+                <a href="https://betfundr.com/resetpassword?token=${encodedHash}">
                               <div class="reset-link-inner">
                              RÉINITIALISEZ VOTRE MOT DE PASSE
                                           </div>
