@@ -1,15 +1,15 @@
 {
   "about": {
     "about_us": "About Us",
-    "mission": "At Espese, we are committed to simplifying the management of your 1XBET funds. Our mission is to provide a transparent and secure platform that allows users to manage their finances effortlessly. With a commitment to user satisfaction and security, we strive to make the process of funding and withdrawing from your 1XBET account as smooth as possible. Our team is driven by the vision of redefining how users interact with their gaming finances, ensuring peace of mind and convenience at every step of the process.",
+    "mission": "At Betfundr, we are committed to simplifying the management of your 1XBET funds. Our mission is to provide a transparent and secure platform that allows users to manage their finances effortlessly. With a commitment to user satisfaction and security, we strive to make the process of funding and withdrawing from your 1XBET account as smooth as possible. Our team is driven by the vision of redefining how users interact with their gaming finances, ensuring peace of mind and convenience at every step of the process.",
     "our_services": "Our Services",
     "financing": {
       "title": "Financing",
-      "description": "With Espese, you can easily fund your 1XBET account without any hassle. Our streamlined process ensures fast and secure transactions, allowing you to focus on what truly matters: the thrill of gaming."
+      "description": "With Betfundr, you can easily fund your 1XBET account without any hassle. Our streamlined process ensures fast and secure transactions, allowing you to focus on what truly matters: the thrill of gaming."
     },
     "withdrawal": {
       "title": "Withdrawal",
-      "description": "Say goodbye to complex withdrawal processes. Espese offers a simple and efficient withdrawal system, ensuring that your funds are seamlessly transferred to your personal or designated account, giving you full control over your winnings."
+      "description": "Say goodbye to complex withdrawal processes. Betfundr offers a simple and efficient withdrawal system, ensuring that your funds are seamlessly transferred to your personal or designated account, giving you full control over your winnings."
     },
     "support": {
       "title": "24/7 Support",
@@ -63,7 +63,7 @@
       "amount": "Amount",
       "network": "Network",
       "momo_number": "Number",
-        "confirm_momo_number": "Confirm Number",
+      "confirm_momo_number": "Confirm Number",
       "placeholder_1xbet_id": "Enter your 1XBET ID",
       "placeholder_amount": "Enter deposit amount",
       "choose_network": "-- Choose Network --",
@@ -80,16 +80,16 @@
       "title": "Withdraw",
       "about": "Make your withdrawals from your 1XBET here",
       "use_address": "-- Take Note --",
-       "use_address_info": "The currency of your account must be in XOF",
-         "use_address_street": "STREET",
-       "use_address_city": "CITY",
+      "use_address_info": "The currency of your account must be in XOF",
+      "use_address_street": "STREET",
+      "use_address_city": "CITY",
       "saved_id_info": "Save 2 different 1XBET identifiers in your profile to display them here",
       "enter_bet_id": "Enter 1XBET ID",
       "enter_withdrawal_code": "Enter 1XBET withdrawal code",
       "enter_amount": "Enter withdrawal amount",
       "enter_momo_name": "Enter Momo name",
       "enter_momo_number": "Enter number",
-       "enter_confirm_momo_number": "Enter Confirm number",
+      "enter_confirm_momo_number": "Enter Confirm number",
       "momo_name": "Momo Name",
       "withdrawal_code": "Withdrawal Code",
       "submit_details": "Submit Details",
@@ -179,7 +179,7 @@
     "referral_page": {
       "title": "Referrals",
       "about": "View earned referrals here",
-      "copyReferralLink": "Refer friends to BetFundr and earn rewards! Share your code and get bonuses when they sign up and make transactions. You will also receive up to 30% bonus on the deposits of your referrals. Start sharing your unique code now! ",
+      "copyReferralLink": "Refer Friends to BetFundr and Earn Rewards! Share Your Code And Get Bonuses When They Sign Up And Make Transactions. You Will Also Receive 25% Bonus On Your Referral Deposits. Start Sharing Your Unique Code Now!",
       "earningsNote": "Note: You can only earn GRAW from 20,000 XOF and above.",
       "withdraw": "Withdraw",
       "noReferrals": "You don't have any referrals yet",
@@ -192,7 +192,7 @@
       "error": "An error occurred. Please try again later.",
       "networkError": "No network connection. Please check your connection and try again.",
       "referalLink": "My Referral Link",
-       "referalLink_copy": "Copy Referral Link"
+      "referalLink_copy": "Copy Referral Link"
     }
   },
   "header": {
@@ -211,7 +211,7 @@
     "withdrawal": "Withdrawal",
     "we offer": "We Offer",
     "quick": "Quick and easy",
-    "quick description": "Say goodbye to complicated management of your 1XBET funds. With Espese, funding and withdrawals are just a few clicks away.",
+    "quick description": "Say goodbye to complicated management of your 1XBET funds. With Betfundr, funding and withdrawals are just a few clicks away.",
     "secure": "Security and convenience",
     "secure description": "Your funds, your way. We prioritize security and convenience, ensuring your peace of mind with every transaction.",
     "support description": "We're here for you around the clock. Our dedicated support team is ready to assist you anytime, anywhere.",
@@ -236,7 +236,7 @@
     "designate specific account question": "Can I designate a specific account for my fund withdrawals?",
     "designate specific account answer": "Yes, you can designate a specific amount for your fund withdrawal, but it should be the same as your withdrawal request made on the 1xbet platform.",
     "contact us": "CONTACT US",
-    "contact us description": "If you have an issue or relevant questions, use the links below to contact us."
+    "contact us description": "Privacy policy"
   },
   "sign-in": {
     "welcome": "Welcome",

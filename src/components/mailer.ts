@@ -392,5 +392,4 @@ let params = {
     throw new Error(error.message);
   }
 }
-
 export default SendEmail;

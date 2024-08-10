@@ -1,15 +1,15 @@
 {
   "about": {
     "about_us": "À propos de nous",
-    "mission": "Chez Espese, nous nous engageons à simplifier la gestion de vos fonds 1XBET. Notre mission est de fournir une plateforme transparente et sécurisée qui permet aux utilisateurs de gérer leurs finances sans effort. Avec un engagement envers la satisfaction et la sécurité des utilisateurs, nous nous efforçons de rendre le processus de financement et de retrait de votre compte 1XBET aussi fluide que possible. Notre équipe est motivée par la vision de redéfinir la façon dont les utilisateurs interagissent avec leurs finances de jeu, en garantissant tranquillité d'esprit et commodité à chaque étape du processus.",
+    "mission": "Chez Betfundr, nous nous engageons à simplifier la gestion de vos fonds 1XBET. Notre mission est de fournir une plateforme transparente et sécurisée qui permet aux utilisateurs de gérer leurs finances sans effort. Avec un engagement envers la satisfaction et la sécurité des utilisateurs, nous nous efforçons de rendre le processus de financement et de retrait de votre compte 1XBET aussi fluide que possible. Notre équipe est motivée par la vision de redéfinir la façon dont les utilisateurs interagissent avec leurs finances de jeu, en garantissant tranquillité d'esprit et commodité à chaque étape du processus.",
     "our_services": "Nos services",
     "financing": {
       "title": "Financement",
-      "description": "Avec Espese, vous pouvez facilement approvisionner votre compte 1XBET sans aucun problème. Notre processus rationalisé garantit des transactions rapides et sécurisées, vous permettant de vous concentrer sur ce qui compte vraiment : le frisson du jeu."
+      "description": "Avec Betfundr, vous pouvez facilement approvisionner votre compte 1XBET sans aucun problème. Notre processus rationalisé garantit des transactions rapides et sécurisées, vous permettant de vous concentrer sur ce qui compte vraiment : le frisson du jeu."
     },
     "withdrawal": {
       "title": "Retrait",
-      "description": "Dites adieu aux processus de retrait complexes. Espese propose un système de retrait simple et efficace, garantissant que vos fonds sont transférés de manière transparente vers votre compte personnel ou désigné, vous donnant un contrôle total sur vos gains."
+      "description": "Dites adieu aux processus de retrait complexes. Betfundr propose un système de retrait simple et efficace, garantissant que vos fonds sont transférés de manière transparente vers votre compte personnel ou désigné, vous donnant un contrôle total sur vos gains."
     },
     "support": {
       "title": "Assistance 24h/24 et 7j/7",
@@ -80,16 +80,16 @@
       "title": "Retirer",
       "about": "Effectuez vos retraits depuis votre 1XBET ici",
       "use_address": "-- Prendre Note --",
-     "use_address_info": "La deise de votre compte doit ètre en XOF",
+      "use_address_info": "La deise de votre compte doit ètre en XOF",
       "use_address_street": "RUE",
-       "use_address_city": "VILLE",
+      "use_address_city": "VILLE",
       "saved_id_info": "Enregistrez 2 identifiants 1XBET différents dans votre profil pour les afficher ici",
       "enter_bet_id": "Entrez l'identifiant 1XBET",
       "enter_withdrawal_code": "Entrez le code de retrait 1XBET",
       "enter_amount": "Entrez le montant du retrait",
       "enter_momo_name": "Entrez le nom de Momo",
       "enter_momo_number": "Entrez le numéro Momo",
-       "enter_confirm_momo_number": "Entrez le numéro de confirmation",
+      "enter_confirm_momo_number": "Entrez le numéro de confirmation",
       "withdrawal_code": "Code de Retrait",
       "submit_details": "Ensuite, soumettez vos coordonnées ici",
       "submit_button": "Soumettre ma demande",
@@ -179,7 +179,7 @@
     "referral_page": {
       "title": "Références",
       "about": "Voir les parrainages gagnés ici",
-      "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions. Vous recevrez également jusqu'à 30% de bonus sur les dépôts de vos parrainages. Commencez à partager votre code unique maintenant!",
+      "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions.Vous recevrez également un bonus de 25% sur vos dépôts de parrainage. Commencez à partager votre code unique maintenant !",
       "earningsNote": "Vous ne pouvez obtenir du GRAW qu'à partir de 20 000 XOF et plus.",
       "withdraw": "Retirer",
       "noReferrals": "Vous n'avez pas encore de références",
@@ -211,7 +211,7 @@
     "withdrawal": "Retrait",
     "we offer": "Nous offrons",
     "quick": "Rapide et facile",
-    "quick description": "Dites adieu à la gestion compliquée de vos fonds 1XBET. Avec Espese, le financement et les retraits ne sont qu'à quelques clics de distance.",
+    "quick description": "Dites adieu à la gestion compliquée de vos fonds 1XBET. Avec Betfundr, le financement et les retraits ne sont qu'à quelques clics de distance.",
     "secure": "Sécurité et commodité",
     "secure description": "Vos fonds, à votre façon. Nous accordons la priorité à la sécurité et à la commodité, garantissant votre tranquillité d'esprit à chaque transaction.",
     "support description": "Nous sommes là pour vous à toute heure du jour et de la nuit. Notre équipe d'assistance dévouée est prête à vous aider à tout moment et n'importe où.",
@@ -236,7 +236,7 @@
     "designate specific account question": "Puis-je désigner un compte spécifique pour mes retraits de fonds ?",
     "designate specific account answer": "Oui, vous pouvez désigner un montant spécifique pour votre retrait de fonds, mais il devrait être le même pour votre demande de retrait effectuée sur la plateforme 1xbet.",
     "contact us": "PRENEZ CONTACT AVEC NOUS",
-    "contact us description": "Si vous avez un problème ou des questions pertinentes, utilisez les liens ci-dessous pour nous contacter"
+    "contact us description": "Politique de confidentialité"
   },
   "sign-in": {
     "welcome": "Bienvenue",

@@ -8,20 +8,22 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // Change to 'node' for better compatibility with Node.js-style module resolution
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".", // Ensure the base URL is set if you are using path aliases
+    "paths": {
+      "@/*": ["src/*"],
+      "@/helpers/*": ["src/helpers/*"] // Adjust this to reflect actual directory structure, assuming 'helpers' is directly under 'src'
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/(SigninSection)/(components)/SoftTypography/SoftTypography.tsx", "src/app/paid/[id]", "src/app/[locale]/(visitors)/signup/[id]id]", "src/app/api/getDevices"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

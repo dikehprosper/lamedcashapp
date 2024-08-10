@@ -129,10 +129,9 @@ setIsSubmitting(true)
           />
 
           <div className='forgot-password1'>
-            {" "}
             <a href='/signin' className='forgot-password2'>
               Allez à La Connexion
-            </a>{" "}
+            </a>
             &nbsp; &nbsp; &nbsp;
             <a href='/signup' className='forgot-password3'>
               Allez à L&apos;Inscription
