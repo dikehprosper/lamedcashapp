@@ -72,7 +72,7 @@ if (value === 1 ) {
     initialResult.isDepositsOpen = !initialResult.isDepositsOpen;
     await initialResult.save();
 } else if (value === 2) {
-   initialResult.isWithdrawalssOpen = !initialResult.isWithdrawalssOpen;
+   initialResult.isWithdrawalsOpen = !initialResult.isWithdrawalsOpen;
     await initialResult.save();
 }
 
