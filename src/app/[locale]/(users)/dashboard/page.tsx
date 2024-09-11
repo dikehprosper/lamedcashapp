@@ -18,6 +18,7 @@ import { setUser } from "@/lib/features/userSlice";
 
 const Dashboard = () => {
    const data = useAppSelector((state: any) => state.user.value);
+
   // const data = data1.user
     const transactions = useAppSelector((state: any) => state.user.pendingTransactions);
   const dispatch = useAppDispatch();
@@ -119,15 +120,11 @@ const Dashboard = () => {
     (transaction: any) => transaction.fundingType === "withdrawals" && transaction.status === "Pending"
   );
 
-  // Calculate total cost of pending deposits
+   const pendingDeposits = data?.transactionHistory?.filter(
+    (transaction: any) => transaction.fundingType === "deposits" && transaction.status === "Pending"
+  );
 
-// Calculate total cost of pending deposits
-let totalPendingDepositAmount = 0;
-if (transactions) {
-  for (const transaction of transactions) {
-    totalPendingDepositAmount += parseFloat(transaction.totalAmount);
-  }
-}
+
 
 // Calculate total cost of pending withdrawals
 function parseAmount(amount: any): number {
@@ -145,6 +142,21 @@ if (pendingWithdrawals) {
     totalPendingWithdrawalAmount += parseAmount(transaction.totalAmount);
   }
 }
+
+
+
+// Calculate total cost of pending deposits
+
+
+ let totalPendingDepositAmount = 0;
+if (pendingDeposits) {
+  for (const transaction of pendingDeposits) {
+    console.log(transaction.totalAmount);
+    totalPendingDepositAmount += parseAmount(transaction.totalAmount);
+  }
+}
+
+
 
 
 
@@ -203,7 +215,7 @@ if (pendingWithdrawals) {
 
       <div className="user-dashboard-display">
         <Display
-          count={transactions?.length}
+          count={pendingDeposits?.length}
           title={t("deposit")}
           term={1}
           amount={totalPendingDepositAmount}

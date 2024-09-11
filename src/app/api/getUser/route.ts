@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       const user = await User.findOne({ _id: userId });
     // Connect to the database
     
-console.log(user)
+      console.log(user)
        if (!user) {
         transactionInProgress = false;
          return NextResponse.json({error: "User not found"}, {status: 401});
