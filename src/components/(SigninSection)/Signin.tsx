@@ -166,7 +166,7 @@ const SignIn = () => {
             <h2 className="welcome-section-first_h2">{t("welcome")}</h2>
           </div>
           <div className="welcome-section-second">
-            <h5 className="welcome-section-second_h5">{t("continue_with")}</h5>
+            {/* <h5 className="welcome-section-second_h5">{t("continue_with")}</h5>
             <div className="signin-img google">
               <Image
                 src={image4}
@@ -177,7 +177,7 @@ const SignIn = () => {
                 alt="Picture of the author"
                 loading="eager"
               />
-            </div>
+            </div> */}
             <p className="welcome-section-second_p">
               {t("create_account")},{" "}
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>

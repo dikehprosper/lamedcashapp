@@ -9,6 +9,7 @@ import {getDataFromToken} from "@/helpers/getDataFromToken";
 import {rechargeAccount, withdrawFromAccount} from "@/components/mobcash";
 import type {NextApiRequest, NextApiResponse} from "next";
 import fetch from "node-fetch";
+import SendEmail from "@/components/mailer";
 
 connect();
 interface ApiResponse {
@@ -20,8 +21,16 @@ export async function POST(request: NextRequest) {
   try {
     const {userId, sessionId} = await getDataFromToken(request);
     const reqBody = await request.json();
-    const {_id, betId, email, withdrawalCode, momoName, momoNumber, network, service} =
-      await reqBody;
+    const {
+      _id,
+      betId,
+      email,
+      withdrawalCode,
+      momoName,
+      momoNumber,
+      network,
+      service,
+    } = await reqBody;
     transactionInProgress = true;
 
     // Uncomment below code to fetch user and perform additional checks if required
@@ -75,7 +84,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log("done")
+    console.log("done");
 
     // Find available admin
     const admin = await AdminUser.findOne({isAdmin: true});
@@ -91,98 +100,118 @@ export async function POST(request: NextRequest) {
     const newUuid = generateUniqueShortUuid(15);
     const fullname = user.fullname;
 
+    // INITIATE MOBCASH TRANSACTION
+    const response = await withdrawFromAccount(betId, withdrawalCode);
 
-  
-
-      // INITIATE MOBCASH TRANSACTION
-      const response = await withdrawFromAccount(betId, withdrawalCode);
-
-      const updatedResponse = removeMinusFromSumma(response);
+    const updatedResponse = removeMinusFromSumma(response);
     console.log("Response:", updatedResponse.Success);
-    
-      if (updatedResponse?.Success !== true) {
-        const userTransaction = {
-          status: "Failed",
-          registrationDateTime: date,
-          withdrawalCode: withdrawalCode,
-          betId: betId,
-          amount: 0,
-          totalAmount: 0,
-          momoNumber: momoNumber,
-          fundingType: "withdrawals",
-          identifierId: newUuid,
-          service: service,
-          paymentConfirmation: "Failed",
-        };
-        admin.transactionHistory.push({
-          userid: user._id,
-          status: "Failed",
-          registrationDateTime: date,
-          betId: betId,
-          amount: 0,
-          totalAmount: 0,
-          momoNumber: momoNumber,
-          fundingType: "withdrawals",
-          identifierId: newUuid,
-          userEmail: email,
-          subadminEmail: "none",
-          service: service,
-          paymentConfirmation: "Failed",
 
-        });
-        user.transactionHistory.push(userTransaction);
-        await user.save();
-        await admin.save();
-        transactionInProgress = false;
-    
-           return NextResponse.json(
-             {message: "Transaction wasnt fully completed"},
-             {status: 500}
-           );
-      }
-
-
+    if (updatedResponse?.Success !== true) {
       const userTransaction = {
-        status: "Pending",
+        status: "Failed",
         registrationDateTime: date,
         withdrawalCode: withdrawalCode,
-        amount: updatedResponse.Summa,
-        totalAmount: updatedResponse.Summa,
         betId: betId,
+        amount: 0,
+        totalAmount: 0,
         momoNumber: momoNumber,
         fundingType: "withdrawals",
         identifierId: newUuid,
         service: service,
-        paymentConfirmation: "Successful",
+        paymentConfirmation: "Failed",
       };
-
       admin.transactionHistory.push({
         userid: user._id,
-        status: "Pending",
+        status: "Failed",
         registrationDateTime: date,
-        amount: updatedResponse.Summa,
-        totalAmount: updatedResponse.Summa,
         betId: betId,
+        amount: 0,
+        totalAmount: 0,
         momoNumber: momoNumber,
         fundingType: "withdrawals",
         identifierId: newUuid,
         userEmail: email,
         subadminEmail: "none",
         service: service,
-        paymentConfirmation: "Successful",
+        paymentConfirmation: "Failed",
       });
-
       user.transactionHistory.push(userTransaction);
       await user.save();
       await admin.save();
+      try {
+        await SendEmail({
+          email: email,
+          userId: user._id,
+          emailType: "FAILEDWITHDRAWAL",
+          fullname: user.fullname,
+          amount: 0,
+          betId: betId,
+        });
+      } catch (emailError) {
+        console.error("Failed to send deposit email:", emailError);
+        // Optionally, you can log this failure or send a different notification to admins
+      }
       transactionInProgress = false;
-      return NextResponse.json({
-        success: true,
-        message: "Transaction generated successfully",
-        userTransaction,
-        user
+
+      return NextResponse.json(
+        {message: "Transaction wasnt fully completed"},
+        {status: 500}
+      );
+    }
+
+    const userTransaction = {
+      status: "Pending",
+      registrationDateTime: date,
+      withdrawalCode: withdrawalCode,
+      amount: updatedResponse.Summa,
+      totalAmount: updatedResponse.Summa,
+      betId: betId,
+      momoNumber: momoNumber,
+      fundingType: "withdrawals",
+      identifierId: newUuid,
+      service: service,
+      paymentConfirmation: "Successful",
+    };
+
+    admin.transactionHistory.push({
+      userid: user._id,
+      status: "Pending",
+      registrationDateTime: date,
+      amount: updatedResponse.Summa,
+      totalAmount: updatedResponse.Summa,
+      betId: betId,
+      momoNumber: momoNumber,
+      fundingType: "withdrawals",
+      identifierId: newUuid,
+      userEmail: email,
+      subadminEmail: "none",
+      service: service,
+      paymentConfirmation: "Successful",
+    });
+
+    user.transactionHistory.push(userTransaction);
+    await user.save();
+    await admin.save();
+    try {
+      await SendEmail({
+        email: email,
+        userId: user._id,
+        emailType: "PENDINGWITHDRAWAL",
+        fullname: user.fullname,
+        amount: updatedResponse.Summa,
+        betId: betId,
       });
-    
+    } catch (emailError) {
+      console.error("Failed to send deposit email:", emailError);
+      // Optionally, you can log this failure or send a different notification to admins
+    }
+    transactionInProgress = false;
+    return NextResponse.json({
+      success: true,
+      message: "Transaction generated successfully",
+      userTransaction,
+      user,
+    });
   } catch (error: any) {
     if (error.message === "Token has expired") {
       // Handle token expiry error

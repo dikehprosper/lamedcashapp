@@ -44,61 +44,63 @@ const Nav = () => {
 
   return (
     <>
-      <div className="nav">
-        <div className="nav-img">
+      <div className='nav'>
+        <div className='nav-img'>
           <Image
             src={image}
-            loading="eager"
+            loading='eager'
             fill
-            style={{ objectFit: "cover" }}
-            alt="Picture of the author"
+            style={{objectFit: "cover"}}
+            alt='Picture of the author'
           />
         </div>
-        <div className="nav-link">
+        <div className='nav-link'>
           <Link
             className={` ${pathname === `/${params.locale}` ? "active" : ""}`}
-            href="/"
+            href='/'
           >
             {t("Accueil")}
           </Link>
           <Link
-            className={` ${pathname.includes("/about") ? "active" : ""}`}
-            href="/about"
+            className={` ${
+              pathname.includes(`/${params.locale}/about`) ? "active" : ""
+            }`}
+            href='/about'
           >
             {t("À propos de nous")}
           </Link>
           <Link
-            className={` ${pathname.includes("/signin") ? "active" : ""}`}
-            href="/signin"
+            className={` ${pathname.includes(`/${params.locale}/signin`) ? "active" : ""}`}
+            href='/signin'
           >
             {t("Se connecter")}
           </Link>
           <Link
-            className={` ${pathname.includes("/signup") ? "active" : ""}`}
-            href="/signup"
+            className={` ${pathname.includes(`/${params.locale}/signup`) ? "active" : ""}`}
+            href='/signup'
           >
             {t("S'inscrire")}
           </Link>
           {/* <LanguageSwitcher /> */}
         </div>
-        <div className="nav-language">
+        <div className='nav-language'>
           <LanguageToggle />
         </div>
-         {/* <Link
+        {/* <Link
             style={{paddingLeft : 30, paddingRight: 30, paddingBottom: 10, paddingTop: 10, borderRadius: 30, border: "1px solid rgba(120, 120, 120, 1)"}}
             href=""
           >
             {t("Télécharger")}
           </Link> */}
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <div className="for-smaller-devices">
+        <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
+          <div className='for-smaller-devices'>
             <LanguageToggle />
           </div>
           <div onClick={changeState}>
             {state ? (
-              <MdMenuOpen className="MdMenuOpen" />
+              <MdMenuOpen className='MdMenuOpen' />
             ) : (
-              <AiOutlineClose className="MdMenuOpen" />
+              <AiOutlineClose className='MdMenuOpen' />
             )}
           </div>
         </div>
@@ -106,11 +108,11 @@ const Nav = () => {
       {!state && (
         <Modal
           navLinks={navLinks}
-          containerStyles="nav-link2"
+          containerStyles='nav-link2'
           handleClick={handleClick}
-          containerStylesInner="nav-link2_inner"
-          containerStylesInnerLink="nav-link2_inner_link"
-          active="active"
+          containerStylesInner='nav-link2_inner'
+          containerStylesInnerLink='nav-link2_inner_link'
+          active='active'
         />
       )}
     </>

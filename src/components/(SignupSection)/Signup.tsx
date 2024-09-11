@@ -852,7 +852,7 @@ const SignUp = () => {
             <h2 className='welcome-section-first_h2'>{t("signup.join_us")}</h2>
           </div>
           <div className='welcome-section-second'>
-            <h5 className='welcome-section-second_h5'>
+            {/* <h5 className='welcome-section-second_h5'>
               {t("signup.continue_with")}
             </h5>
             <div className='signup-img google' onClick={handleSubmitForGoogle}>
@@ -865,7 +865,7 @@ const SignUp = () => {
                 }}
                 alt='Picture of the author'
               />
-            </div>
+            </div> */}
             <p className='welcome-section-second_p'>
               {t("signup.already_have_account")}
               <span style={{color: "#FCBB45", fontWeight: "500"}}>

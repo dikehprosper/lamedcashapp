@@ -85,7 +85,11 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_208">
-              <div className="body_innerbody_2012">{t("click withdraw")}</div>
+              <div className="body_innerbody_2012"  style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}>{t("click withdraw")}</div>
             </div>
           </div>
           <div className="body_innerbody_206">
@@ -97,7 +101,11 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_208">
-              <div className="body_innerbody_2012">{t("change ID")}</div>
+              <div className="body_innerbody_2012"  style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}>{t("change ID")}</div>
             </div>
           </div>
           <div className="body_innerbody_206">
@@ -109,7 +117,11 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_208">
-              <div className="body_innerbody_2012">{t("enter code")}</div>
+              <div className="body_innerbody_2012"   style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}>{t("enter code")}</div>
             </div>
           </div>
           <div className="body_innerbody_206">
@@ -121,7 +133,11 @@ const DropDownWithdrawalInstructions = () => {
               </div>
             </div>
             <div className="body_innerbody_208">
-              <div className="body_innerbody_2012">
+              <div className="body_innerbody_2012" style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}>
                 {t("enter amount (withdrawal)")}
               </div>
             </div>
@@ -139,7 +155,11 @@ const DropDownWithdrawalInstructions = () => {
               <div className="body_innerbody_2016"></div>
             </div>
             <div className="body_innerbody_208">
-              <div className="body_innerbody_2012">{t("change or leave")}</div>
+              <div className="body_innerbody_2012" style={{
+                  fontWeight: "bold",
+                  paddingLeft: "80px",
+                  fontSize: "16px",
+                }}>{t("change or leave")}</div>
             </div>
           </div>
         </div>

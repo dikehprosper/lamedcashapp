@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 // import { sendEmail } from "@/helpers/mailer";
 import { FedaPay, Customer } from "fedapay";
+import SendEmail from "@/components/mailer";
 
 connect();
 
@@ -418,6 +419,8 @@ export async function POST(request: NextRequest) {
     // save the new created user
     const savedUser = await newUser.save();
 
+    
+
     //Check if the User already exist
 
     if (referrerId) {
@@ -442,6 +445,18 @@ export async function POST(request: NextRequest) {
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d", // "1m" stands for 1 minute
     });
+ // Send the welcome email without blocking the user registration process
+            try {
+                await SendEmail({
+                    email: savedUser.email,
+                    userId: savedUser._id,
+                    emailType: "WELCOME",
+                    fullname: savedUser.fullname,
+                });
+            } catch (emailError) {
+                console.error("Failed to send welcome email:", emailError);
+                // Optionally, you can log this failure or send a different notification to admins
+            }
 
     const response = NextResponse.json({
       message: "signup Successful",

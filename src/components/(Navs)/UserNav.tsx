@@ -109,8 +109,8 @@ const UserNav = () => {
       icon: <SiSimpleanalytics />,
     },
     {
-      title: t(`adminNavLinks.cashdesks`),
-      pathname: `/${locale}/admin/cashdesks`,
+      title: t(`adminNavLinks.withdrawals`),
+      pathname: `/${locale}/admin/withdrawals`,
       icon: <TbDeviceDesktopAnalytics />,
     },
     {

@@ -167,7 +167,7 @@
     "adminNavLinks": {
       "dashboard": "Tableau de bord",
       "allHistory": "Toute l'histoire",
-      "cashdesks": "Caisses",
+      "withdrawals": "Retraits",
       "users": "Utilisatrices"
     },
     "logout": "Se déconnecter",
@@ -222,7 +222,7 @@
     "recharge": "Recharger",
     "click on deposit": "Cliquez sur Dépôt",
     "change ID": "Vous pouvez modifier l'identifiant 1xbet",
-    "enter amount": "Entrez un montant d'au moins 500",
+    "enter amount": "Entrez un montant d'au moins 100",
     "choose network": "Choisissez le réseau",
     "change or leave": "Modifier ou laisser le numéro d'origine",
     "click withdraw": "Cliquez sur Retirer",
@@ -230,7 +230,7 @@
     "enter amount (withdrawal)": "Entrez un montant",
     "faq": "Questions fréquemment posées",
     "how does withdrawal work": "Comment se déroule le processus de retrait avec Espece ?",
-    "cash withdrawal conditions": "Conditions De Retrait Des Espèces",
+    "cash withdrawal conditions": "Conditions De Retrait Des Betfundr",
     "your 1xbet ID": "Votre identifiant 1xbet",
     "1xbet withdrawal code": "Code de retrait 1Xbet obtenu depuis la plateforme 1xbet",
     "amount": "Montante",
