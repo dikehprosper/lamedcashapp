@@ -1,5 +1,5 @@
 "use client";
-import "./withdrawals.css";
+import "./withdrawals-admin.css";
 import { useRouter, usePathname } from "next/navigation"; // Remove unnecessary import
 import React, { useState, useEffect } from "react";
 import AnimateHeight from "react-animate-height";
@@ -36,7 +36,7 @@ const TransactionTemplate = () => {
   const getUserDetails = async () => {
     try {
       setLoading("one");
-      const res = await axios.get("/api/getAllTransactions");
+      const res = await axios.get("/api/getAllTransactionsForOnlyWithdrawals");
       setData(res.data.data);
       console.log(res.data.data);
       setLoading("three");
@@ -173,7 +173,7 @@ const TransactionTemplate = () => {
     <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2> All History</h2>
+          <h2> Withdrawals</h2>
         </span>
       </div>
       <div
@@ -193,7 +193,7 @@ const TransactionTemplate = () => {
     <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2>All History</h2>
+          <h2>Withdrawals</h2>
         </span>
       </div>
       <div
@@ -213,7 +213,7 @@ const TransactionTemplate = () => {
     <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2>All History</h2>
+          <h2> Withdrawals </h2>
         </span>
       </div>
 

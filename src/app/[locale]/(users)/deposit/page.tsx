@@ -39,7 +39,8 @@ const Deposit = () => {
     amount: "",
     network: "",
     betId: savedID[0],
-    momoNumber: "",
+    momoNumber: data?.number,
+    betId: data?.betId
   });
 
   const router = useRouter();
@@ -61,14 +62,17 @@ const Deposit = () => {
           toast.error(
             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
           );
+          await axios.get("/api/users/logout");
           router.replace("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
           toast.error(
             "Votre session a expiré. Redirection vers la connexion..."
           );
+          await axios.get("/api/users/logout");
           router.replace("/signin"); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
+          await axios.get("/api/users/logout");
           router.replace("/signin");
         } else {
           // Handle other errors
@@ -193,7 +197,7 @@ const [processing4, setProcessing4] = useState(false);
           setProcessing4(true);
           setTimeout(() => {
             setProcessing4(false);
-          }, 29000);
+          }, 1000);
         } else {
           setProcessing2(true);
           setTimeout(() => {
@@ -204,11 +208,14 @@ const [processing4, setProcessing4] = useState(false);
       } catch (error: any) {
         if (error.response.status === 401) {
           toast.error("Utilisateur non trouvé");
+          await axios.get("/api/users/logout");
           router.push("/signin");
         } else if (error.response.status === 402) {
           toast.error("L'utilisateur est désactivé");
+          await axios.get("/api/users/logout");
           router.push("/signin");
         } else if (error.response.status === 403) {
+          await axios.get("/api/users/logout");
           router.push("/signin");
           toast.error("Votre session a expiré");
         } else if (error.response.status === 504) {
