@@ -14,7 +14,10 @@
     "support": {
       "title": "Assistance 24h/24 et 7j/7",
       "description": "Nous comprenons que des questions et des préoccupations peuvent survenir à tout moment. C'est pourquoi notre équipe d'assistance dédiée est disponible 24 heures sur 24 pour vous aider. Qu'il s'agisse d'une question concernant une transaction ou d'une demande générale, notre équipe d'assistance est là pour vous fournir une assistance rapide et fiable, garantissant une expérience fluide et sans stress."
-    }
+    },
+     "account_deletion_title": "Suppression de compte",
+    "account_deletion_description": "Si vous souhaitez supprimer votre compte Betfundr, veuillez utiliser le lien ci-dessous.",
+    "account_deletion_link_text": "Cliquez ici pour supprimer votre compte"
   },
   "dashboard": {
     "welcome_title": "Bienvenue",

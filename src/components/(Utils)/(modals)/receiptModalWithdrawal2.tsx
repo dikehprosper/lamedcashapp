@@ -62,7 +62,15 @@ const Modal = ({
         "/api/updatedTransactionHistoryForAdmin",
         sentData
       );
-   handleClick(value, transactionId);
+
+      if (res.finalResult === "Successful") {
+     handleClick(value, transactionId);
+      } else {
+          toast.error(
+            "Désolé, vous ne pouvez pas effectuer cette opération"
+          );
+      }
+       
       setLoading(null);
     } catch (error: any) {
       if (error.response) {

@@ -36,6 +36,8 @@ const PendingTransactionTemplate = ({
     );
   };
 
+  console.log(bonusBalance, "bonusBalance")
+  
   return (
     <>
       <div className='mobile-time-cashdesk'> {formatDate(time)}</div>
@@ -51,7 +53,11 @@ const PendingTransactionTemplate = ({
           <span> XOF {formatNumberWithCommasAndDecimal(totalAmount)}</span>
           <span>
             <b style={{color: "rgba(256, 256, 256, 0.4"}}>SOURCE: &nbsp;</b>
-            {withdrawalCode === undefined || withdrawalCode === "" || withdrawalCode === null ?   "BONUS" : "FROM BET ACCOUNT"  }
+   {bonusBalance === undefined ||
+            bonusBalance === "" ||
+            bonusBalance === null
+              ? "FROM BET ACCOUNT"
+              : "BONUS INCLUDED"}
           </span>
         </span>
         <span style={{overflow: "hidden"}}>

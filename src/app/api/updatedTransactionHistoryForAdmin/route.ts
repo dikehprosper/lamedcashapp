@@ -97,25 +97,36 @@ const findTransactionById = (result3: any, transactionId: any) => {
 const transaction = findTransactionById(result3, transactionId);
 
     // Update transaction status
+    let finalResult;
     if (value === "accept") {
-      result.status = "Successful";
+       finalResult = "Failed"
+      if (result.status === 'Pending'){
+     result.status = "Successful";
       result.paymentConfirmation = "Successful";
         transaction.status = "Successful";
       transaction.paymentConfirmation = "Successful";
+      finalResult = "Successful"
+      }
     } else if (value === "reject") {
+       finalResult = "Failed"
+         if (result.status === 'Pending'){ 
       result.status = "Failed";
       result.paymentConfirmation = "Failed";
          transaction.status = "Failed";
       transaction.paymentConfirmation = "Failed";
-    } else if (value === "pend") {
-      result.status = "Pending";
-      result.paymentConfirmation = "Successful";
-        transaction.status = "Pending";
-      transaction.paymentConfirmation = "Successful";
+        finalResult = "Successful"
+         } 
+    }
+     else if (value === "pend") {
+      finalResult = "Failed"
+      // result.status = "Pending";
+      // result.paymentConfirmation = "Successful";
+      //   transaction.status = "Pending";
+      // transaction.paymentConfirmation = "Successful";
     }
 
     // Save the updated admin user
-    await initialResult.save();
+    await initialResult.save(); 
 
     // Save the updated  user
     await result2.save();
@@ -124,7 +135,7 @@ const transaction = findTransactionById(result3, transactionId);
     if (initialResult.sessionId === sessionId) {
       return NextResponse.json({
         message: "Transaction updated successfully",
-        data: result,
+        data: finalResult 
       });
     } else {
       return NextResponse.json(

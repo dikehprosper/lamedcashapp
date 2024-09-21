@@ -3,13 +3,16 @@ import "./about.css";
 import React from "react";
 import Image from "next/image";
 import image from "../../../public/about-section.webp";
-import { useTranslations } from "next-intl";
-import {form1, form2} from "./form"
-
+import {useTranslations} from "next-intl";
+import {form1, form2} from "./form";
 
 const AboutSection = () => {
   const t = useTranslations("about");
   const t2 = useTranslations("home");
+
+  // Define the URL for account deletion
+  const accountDeletionLink = "https://forms.gle/BmwYVMmxtJ1cwi4b9";
+
   return (
     <div>
       <div className='AboutSection'>
@@ -46,6 +49,15 @@ const AboutSection = () => {
               : form2}
           </p>
         </div>
+      </div>
+
+      {/* Add Account Deletion Link Section */}
+      <div className='AccountDeletion' style={{display: "flex", flexDirection: 'column', width: '100%', gap: "2px",height: "100px", justifyContent: 'center', alignItems: 'center', marginBottom: '50px'}}>
+        <h2>{t("account_deletion_title")}</h2>
+        <p>{t("account_deletion_description")}</p>
+        <a href={accountDeletionLink} target='_blank' rel='noopener noreferrer' style={{padding: "10px", borderRadius: "3px", background: "rgba(120, 120, 120, 0.4)", marginTop: "10px"}}>
+          {t("account_deletion_link_text")}
+        </a>
       </div>
     </div>
   );

@@ -14,7 +14,10 @@
     "support": {
       "title": "24/7 Support",
       "description": "We understand that questions and concerns can arise at any time. That's why our dedicated support team is available 24/7 to assist you. Whether it's a question about a transaction or a general inquiry, our support team is here to provide you with quick and reliable assistance, ensuring a smooth and stress-free experience."
-    }
+    },
+    "account_deletion_title": "Account Deletion",
+    "account_deletion_description": "If you wish to delete your Betfundr account, please use the link below.",
+    "account_deletion_link_text": "Click here to delete your account"
   },
   "dashboard": {
     "welcome_title": "Welcome",
@@ -210,7 +213,7 @@
     "deposit": "Deposit",
     "withdrawal": "Withdrawal",
     "we offer": "We Offer",
-     "Download": "Download",
+    "Download": "Download",
     "Download-now": "Download Now",
     "quick": "Quick and easy",
     "quick description": "Say goodbye to complicated management of your 1XBET funds. With Betfundr, funding and withdrawals are just a few clicks away.",
@@ -240,6 +243,7 @@
     "designate specific account answer": "Yes, you can designate a specific amount for your fund withdrawal, but it should be the same as your withdrawal request made on the 1xbet platform.",
     "contact us": "CONTACT US",
     "contact us description": "Privacy policy"
+   
   },
   "sign-in": {
     "welcome": "Welcome",
