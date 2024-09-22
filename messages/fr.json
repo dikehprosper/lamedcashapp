@@ -21,6 +21,9 @@
   },
   "dashboard": {
     "welcome_title": "Bienvenue",
+     "marque_text": "UTILISEZ LE CODE PROMO 1XBET   '229LERICHE' ET OBTENEZ  200%  DE BONUS SUR VOTRE 1ER DÉPÔT",
+      "deposit_text":"DÉPÔTS",
+       "withdrawal_text":"RETRAITS",
     "welcome_about": "Faites l'expérience de dépôts et de retraits rapides",
     "deposit": "Dépôt",
     "withdraw": "Retirer",

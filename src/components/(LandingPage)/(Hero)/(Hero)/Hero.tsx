@@ -4,7 +4,8 @@ import React from "react";
 import Image from "next/image";
 import CustomButton from "../(components)/CustomBotton";
 import mainBackgroundMobile from "../../../../../public/mainBackgroundMobile.webp";
-import image from "../../../../../public/image8.webp";
+import image from "../../../../../public/app-image.png";
+import image2 from "../../../../../public/Google_Play_Store_badge_EN.svg.png";
 import { useTranslations } from "next-intl";
 import "./hero.css";
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
@@ -13,7 +14,7 @@ const Hero = () => {
   const t = useTranslations("home");
   return (
     <>
-      <div className="hero large-device">
+      <div className='hero large-device'>
         <div
           style={{
             width: "70%",
@@ -22,49 +23,86 @@ const Hero = () => {
             paddingLeft: "50px",
           }}
         >
-          <section className="hero-text">
-            <h1 className="hero-title animate-pop-in">
-              <span className="hero-span">{t("hero span 1")}</span>{" "}
+          <section className='hero-text'>
+            <h1 className='hero-title animate-pop-in'>
+              <span className='hero-span'>{t("hero span 1")}</span>{" "}
               {t("hero span 2")}
-              <span className="hero-span"> {t("hero span 3")}</span>.
+              <span className='hero-span'> {t("hero span 3")}</span>.
             </h1>
-            <p className="hero-subtitle animate-pop-in">
+            <p className='hero-subtitle animate-pop-in'>
               {t("hero description")}
             </p>
-            <div className="hero_button_container">
-              <CustomButton
-                containerStyles="hero-button animate-pop-in deposit"
-                title={t("deposit")}
-              />
-              <CustomButton
-                containerStyles="hero-button animate-pop-in"
-                title={t("withdrawal")}
-              />
+            <div className='hero_button_container'>
+              <Image
+            src={image2}
+            loading='eager'
+            style={{
+              objectFit: "contain",
+              height: "100%",
+              width: "100%",
+            }}
+            alt='Picture of the background'
+          />
             </div>
           </section>
         </div>
-        <div className="hero-img">
-          <Image
+        <div className='hero-img'>
+          {/* <Image
             src={image}
             fill
-            loading="eager"
+            loading='eager'
             style={{
               objectFit: "cover",
             }}
-            sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            alt="Picture of the background"
-            placeholder="blur"
+            sizes='(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 25vw'
+            alt='Picture of the background'
+            placeholder='blur'
+          /> */}
+          <Image
+            src={image}
+            loading='eager'
+            style={{
+              objectFit: "contain",
+              height: "100%",
+              width: "100%",
+            }}
+            alt='Picture of the background'
           />
         </div>
       </div>
-      <div className="small-device">
-        <div className="small-device-hero">
-          <div
+      <div className='small-device'>
+        <div className='small-device-hero'>
+           <div
             style={{
               position: "fixed",
               top: 20,
               left: 30,
               right: 30,
+              height: "40%",
+              width: "100%",
+              alignItems: "flex-end",
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "center",
+              justifyContent: "end",
+              zIndex: 2,
+            }}
+          >
+        
+            <Image
+              src={image}
+              fill
+              loading='eager'
+              style={{
+                objectFit: "contain",
+              }}
+          
+              alt='Picture of the background'
+            />
+          </div>
+          <div
+            style={{
+             marginTop: "50px",
               height: "40%",
               alignItems: "flex-end",
               display: "flex",
@@ -74,6 +112,7 @@ const Hero = () => {
               zIndex: 2,
             }}
           >
+           
             <div
               style={{
                 display: "flex",
@@ -82,38 +121,30 @@ const Hero = () => {
                 alignItems: "center",
               }}
             >
-              <h1 className="hero-title animate-pop-in">
-                <span className="hero-span">{t("hero span 1")}</span>{" "}
+              <h1 className='hero-title animate-pop-in'>
+                <span className='hero-span'>{t("hero span 1")}</span>{" "}
                 {t("hero span 2")}
-                <span className="hero-span"> {t("hero span 3")}</span>.
+                <span className='hero-span'> {t("hero span 3")}</span>.
               </h1>
-              <p className="hero-subtitle animate-pop-in">
+              <p className='hero-subtitle animate-pop-in'>
                 {t("hero description")}
               </p>
-              <div className="hero_button_container">
-                <CustomButton
-                  containerStyles="hero-button animate-pop-in deposit"
-                  title={t("deposit")}
-                />
-                <CustomButton
-                  containerStyles="hero-button animate-pop-in"
-                  title={t("withdrawal")}
+              <div className='hero_button_container'>
+                <Image
+                  src={image2}
+                  fill
+                  loading='eager'
+                  style={{
+                    objectFit: "contain",
+                  }}
+                
+                  alt='Picture of the background'
                 />
               </div>
             </div>
           </div>
-          <Image
-            src={mainBackgroundMobile}
-            fill
-            loading="eager"
-            style={{
-              objectFit: "cover",
-              width: "100%",
-              height: "100%",
-            }}
-            placeholder="blur"
-            alt="Picture of the background"
-          />
+
+          
         </div>
       </div>
     </>

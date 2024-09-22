@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { MdLogout } from "react-icons/md";
+import { useParams, usePathname } from "next/navigation";
 import { SmallScreenNavModalProps } from "@/types";
 
 const Modal = ({
-    active,
+  active,
   navLinks,
   containerStyles,
   containerStylesInner,
@@ -14,22 +13,27 @@ const Modal = ({
   handleClick,
 }: SmallScreenNavModalProps) => {
   const pathname = usePathname();
+  const params = useParams();
 
   return (
     <div className={` ${containerStyles}`} onClick={handleClick}>
       <div className={` ${containerStylesInner}`}>
         {navLinks?.map((link, index) => {
-          console.log(pathname === link.pathname);
+          // Check if the current link is active
+          const isActive = pathname === link.pathname 
+
           return (
             <Link
               key={index}
-              className={` ${containerStylesInnerLink} ${
-                pathname === link.pathname ? active : ""
-              } `}
+              className={` ${containerStylesInnerLink} ${isActive ? active : ""} `}
               href={link.pathname}
-              // onClick={handleClick}
+              style={{
+                color:  "white", 
+               width: "80%",
+       textAlign: "center",
+              }}
             >
-              {link.title}
+              {link.title} 
             </Link>
           );
         })}

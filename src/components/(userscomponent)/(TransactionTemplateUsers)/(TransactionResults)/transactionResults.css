@@ -7,7 +7,7 @@
   padding: 0px 10px;
   font-size: 12px;
   color: rgba(256, 256, 256, 0.9);
-  grid-template-columns: 12px 1fr 2fr 1fr 1fr ;
+  grid-template-columns: 30px 1fr 2fr 1fr 1fr ;
   position: relative;
   gap: 24px
 }
@@ -16,9 +16,13 @@
   display: none;
 }
 
+.last-span-for-small{
+    display: none !important;
+}
 
 .first-span {
-  height: 80%;
+  height: 33px !important;
+  width: 30px !important;
   border-radius: 4px;
 }
 
@@ -26,7 +30,7 @@
    display: flex;
     justify-content: flex-end;
     width: 100%;
-    padding-right: 35px
+    padding-right: 5px
   }
 
 
@@ -57,9 +61,9 @@
   font-weight: bolder;
 }
 
-.transaction_result > span:nth-child(5) > span:first-child {
-  height: 30px;
-  width: 100px;
+/* .transaction_result > span:nth-child(5) > span:nth-child(2) {
+  height: 23px;
+  width: 70px;
   border-radius: 4px;
   border: 0.3px solid rgba(0, 255, 0, 0.2);
   display: flex;
@@ -67,38 +71,27 @@
   align-items: center;
   font-weight: bolder;
   position: relative;
-}
+} */
 
-.download-button {
-  position: absolute;
-  right: 20px;
-  bottom: -9px;
-  cursor: pointer;
-  color: #5f978a;
-}
+
 
 
 @media (max-width: 1360px) {
   .transaction_result {
-       grid-template-columns: 13px 1fr 2fr 1fr;
+       grid-template-columns: 30px 1fr 2fr 1fr;
   }
   .transaction_result > span:nth-child(4) {
     display: none;
   }
      .last-span {
-    padding-right: 40px
+    padding-right: 5px
    }
 
-    .download-button {
-    right: 25px;
-    bottom: -7px;
-    cursor: pointer;
-    color: #5f978a;
-  }
+    
 }
 @media (max-width: 1204px) {
   .transaction_result {
-    grid-template-columns: 13px 1fr 1fr 1fr;
+    grid-template-columns: 30px 1fr 1fr 1fr;
   }
   /* .transaction_result > span:nth-child(4) {
         display: none
@@ -111,13 +104,13 @@
     font-size: 10px;
   }
       .last-span {
-    padding-right: 35px
+    padding-right: 5px
    }
 }
 
 @media (max-width: 705px) {
   .transaction_result {
-      grid-template-columns: 11.5px 1fr 1fr;
+      grid-template-columns: 30px 1fr 1fr;
   }
   .transaction_result > span:nth-child(2) {
     display: none;
@@ -133,12 +126,7 @@
     justify-content: flex-end;
   }
 
-  .download-button {
-    right: 15px;
-    bottom: -7px;
-    cursor: pointer;
-    color: #5f978a;
-  }
+ 
   .mobile-time {
     display: flex;
     justify-content: center;
@@ -150,14 +138,22 @@
       .last-span {
     padding-right: 10px
    }
+   .last-span-for-small{
+    display: flex !important;
+}
 }
 
 @media (max-width: 440px) {
+  .last-span-for-small{
+    display: flex
+  }
   .transaction_result {
-   grid-template-columns: 9px 1fr 1fr;
+   grid-template-columns: 30px 1fr 1fr;
    gap: 10px
   }
-
+.last-span-for-small{
+    display: flex !important;
+}
 
   .transaction_result > span {
     max-height: 43px !important;
@@ -177,12 +173,7 @@
     font-size: 9px;
   }
 
-  .download-button {
-    right: 15px;
-    bottom: 0px;
-    cursor: pointer;
-    color: #5f978a;
-  }
+
 
     .last-span {
     padding-right: 10px
@@ -193,7 +184,7 @@
 @media (max-width: 358px) {
   .transaction_result {
     height: 45px !important;
-    grid-template-columns: 8px 1fr 1fr;
+    grid-template-columns: 30px 1fr 1fr;
     gap: 5px;
   }
 
@@ -224,12 +215,7 @@
     font-size: 9px;
   }
 
-  .download-button {
-    right: 15px;
-    bottom: 0px;
-    cursor: pointer;
-    color: #5f978a;
-  }
+
   .last-span {
     padding-right: 4px
    }
@@ -263,10 +249,7 @@
     font-size: 8px;
   }
 
-  .download-button {
-    right: 15px;
-    bottom: 0px;
-    cursor: pointer;
-    color: #5f978a;
-  }
+
 }
+
+

@@ -19,19 +19,19 @@ const Nav = () => {
   const navLinks = [
     {
       title: t("Accueil"),
-      pathname: "/",
+      pathname: `/${params.locale}`,
     },
     {
       title: t("À propos de nous"),
-      pathname: "/about",
+      pathname: `/${params.locale}/about`
     },
     {
       title: t("Se connecter"),
-      pathname: "/signin",
+      pathname: `/${params.locale}/signin`
     },
     {
       title: t("S'inscrire"),
-      pathname: "/signup",
+      pathname: `/${params.locale}/signup`
     },
   ];
   function changeState() {

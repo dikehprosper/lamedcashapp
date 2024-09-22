@@ -60,9 +60,9 @@ const Display = ({
              {title === "Dépôt" ?   `XOF 
             ${formatNumberWithCommasAndDecimal(
               amount === undefined ? 0 : amount
-            )}`: formatNumberWithCommasAndDecimal(
+            )}`: ` XOF ${formatNumberWithCommasAndDecimal(
                amount === undefined ? 0 : amount
-            ) }
+          )}` }
           
           </p>
         </span>

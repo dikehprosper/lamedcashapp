@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Image from "next/image";
+import image from "../../../../public/wavingHand.png";
+
 const Head = ({title, about, data}: any) => {
   const spanRef = useRef<HTMLSpanElement>(null);
   const t = useTranslations("dashboard");
@@ -124,9 +126,23 @@ const Head = ({title, about, data}: any) => {
             )}
           </span>
         </div>
-        <div className='title-container'>
-          <h2 className='title-container-h2'>{title}</h2>
-          <p className='title-container-p'>{about}</p>
+        <div className='title-container'> {data?.fullname?  <> <h3 className='title-container-h2'>{title} &nbsp;
+                  {data?.fullname} &nbsp;
+             <Image
+          src={image}
+          style={{ objectFit: "contain"}}
+          alt="background"
+           width={20}
+          height={40}
+        />
+          </h3>
+          <p className='title-container-p'>{about}</p></>:
+           <span className='tag-container-id2'>
+                <div id='container_customerid'>
+                  <div id='container_customerid_inner'></div>
+                </div>
+              </span>}
+         
         </div>
       </div>
     </>

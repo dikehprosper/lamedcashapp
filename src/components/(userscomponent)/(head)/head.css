@@ -16,7 +16,10 @@
 }
 
 .title-container-h2 {
-  font-size: 1.7vw;
+  font-size: 30px;
+  align-items: center;
+  display: flex;
+  opacity: 0.7
 }
 
 .title-container-p {

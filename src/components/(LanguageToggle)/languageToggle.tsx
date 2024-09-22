@@ -14,7 +14,7 @@ export default function LanguageToggle() {
         pathname.split(`/${locale}`)[1]
       }`}
       locale={locale === "en" ? "fr" : "en"}
-      className="toggleBtn"
+      className='toggleBtn'
     >
       {locale === "en" ? "FR" : "EN"}
     </Link>

@@ -7,7 +7,6 @@ const loading = () => {
       style={{
         width: "100%",
         minHeight: "100vh",
-        backgroundColor: "black",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

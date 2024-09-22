@@ -15,6 +15,9 @@ import io from "socket.io-client";
 import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
+import image from "../../../../../public/arrow-next-svgrepo-com.svg";
+import image2 from "../../../../../public/arrow-prev-svgrepo-com.svg";
+import Image from "next/image";
 
 const Dashboard = () => {
    const data = useAppSelector((state: any) => state.user.value);
@@ -211,8 +214,28 @@ if (pendingDeposits) {
     {button && (
       <div style={{ width: "40px", height: "40px" }}>clickiiiiiii</div>
     )} */}
-      <Head title={t("welcome_title")} about={t("welcome_about")} data={data} />
-
+      <Head title={t("welcome_title")}  data={data} />
+      
+  <div className="marquee">
+      
+      <div className="marqueeInner">
+        <span className="marqueeText">{t("marque_text")}</span>
+      </div>
+      <Image
+          src={image2}
+          style={{ objectFit: "contain", borderRadius: 40, background:"rgba(73, 166, 106, 1)", position: 'absolute', left: 0 }}
+          alt="background"
+           width={30}
+          height={50}
+        />
+          <Image
+          src={image}
+          style={{ objectFit: "contain", borderRadius: 40, background:"rgba(73, 166, 106, 1)", position: 'absolute', right: 0 }}
+          alt="background"
+           width={30}
+          height={50}
+        />
+    </div>
       <div className="user-dashboard-display">
         <Display
           count={pendingDeposits?.length}
@@ -241,6 +264,7 @@ if (pendingDeposits) {
           }}
         />
       </div>
+      
       <TransactionTemplate
         title={{ name: t("transaction_history"), icon: <LuHistory /> }}
         select={{

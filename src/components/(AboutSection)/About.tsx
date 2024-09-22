@@ -40,7 +40,7 @@ const AboutSection = () => {
           </p>
         </div>
       </div>
-      <div className='AboutSection3'>
+      {/* <div className='AboutSection3'>
         <div className='AboutSection3-text'>
           <h3>{t2("contact us description")}</h3>
           <p>
@@ -49,13 +49,35 @@ const AboutSection = () => {
               : form2}
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* Add Account Deletion Link Section */}
-      <div className='AccountDeletion' style={{display: "flex", flexDirection: 'column', width: '100%', gap: "2px",height: "100px", justifyContent: 'center', alignItems: 'center', marginBottom: '50px'}}>
+      <div
+        className='AccountDeletion'
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          gap: "2px",
+          height: "100px",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "50px",
+        }}
+      >
         <h2>{t("account_deletion_title")}</h2>
         <p>{t("account_deletion_description")}</p>
-        <a href={accountDeletionLink} target='_blank' rel='noopener noreferrer' style={{padding: "10px", borderRadius: "3px", background: "rgba(120, 120, 120, 0.4)", marginTop: "10px"}}>
+        <a
+          href={accountDeletionLink}
+          target='_blank'
+          rel='noopener noreferrer'
+          style={{
+            padding: "10px",
+            borderRadius: "3px",
+            background: "rgba(120, 120, 120, 0.4)",
+            marginTop: "10px",
+          }}
+        >
           {t("account_deletion_link_text")}
         </a>
       </div>

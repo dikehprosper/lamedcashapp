@@ -12,7 +12,7 @@ export default function Home() {
       <div className='main'>
         <div className='home-banner'>{/* <Banner /> */}</div>
         <Hero />
-        <FifthSection />
+      
         <SecondSection />
         <ThirdSection />
         <FourthSection />

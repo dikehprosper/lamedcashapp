@@ -10,7 +10,7 @@
   white-space: nowrap;
   overflow: hidden;
   flex: 1;
-  min-height: 500px;
+  min-height: 400px;
 }
 
 .active_selection_small {

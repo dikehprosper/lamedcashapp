@@ -4,19 +4,23 @@ import { TransactionResultsProps } from "@/types";
 import formatNumberWithCommasAndDecimal from "../../../(Utils)/formatNumber";
 import { FaDownload } from "react-icons/fa";
 import Moment from 'moment';
-const TransactionResults = ({  time,
+import {MdLogin} from "react-icons/md";
+import {useTranslations} from "next-intl";
+const TransactionResults = ({
+  time,
   amount,
   receipt,
   betId,
   status,
   type,
-    showReceipt,
-       momoName,
-      momoNumber,
-      withdrawalCode,
-       identifierId,
+  showReceipt,
+  momoName,
+  momoNumber,
+  withdrawalCode,
+  identifierId,
 }: any) => {
- const handleClick = () => {
+  const t = useTranslations("dashboard");
+  const handleClick = () => {
     showReceipt(
       time,
       amount,
@@ -30,47 +34,101 @@ const TransactionResults = ({  time,
     );
   };
 
-  console.log(amount, "betId")
+
   return (
     <>
-      <div className='mobile-time'> {formatDate(time)}</div>
+
       <div className='transaction_result' onClick={handleClick}>
         <span
           className='first-span'
           style={{
-            background: type === "deposits" ? "rgba(73, 166, 106, 1)" : "rgba(120, 120, 120,1)",
-            width: "13px !important",
+            background:
+              type === "deposits"
+                ? "rgba(73, 166, 106, 0.3)"
+                : "rgba(120, 120, 120,0.3)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        ></span>
+        >
+          <MdLogin
+            size={24}
+            color={
+              type === "deposits"
+                ? "rgba(73, 166, 106, 1)"
+                : "rgba(120, 120, 120,1)"
+            }
+          />
+        </span>
+
         <span>{formatDate(time)}</span>
-        <span className='small_device_group'>
+        <span
+          className='small_device_group'
+          style={{color: "rgba(256, 256, 256, 0.8"}}
+        >
           {" "}
           <span>
-            <b style={{ color: "rgba(256, 256, 256, 0.4" }}>ID: &nbsp;</b>{" "}
-            {betId}
+            <b>
+              {type === "deposits"
+                ? `${t("deposit_text")}`
+                : `${t("withdrawal_text")}`}{" "}
+              ||
+            </b>
+            <b> {betId}</b>
           </span>
-          {type === "deposits"? <span> XOF {formatNumberWithCommasAndDecimal(amount)}</span>: <span> {withdrawalCode}</span> }
-          
-          
+    
+            <span>  {type === "deposits" ? (
+            <span
+              
+      style={{justifyContent: "flex-end", alignItems: "center" }}
+            >
+              XOF {formatNumberWithCommasAndDecimal(amount)}
+            </span>
+          ) : (
+            <span   style={{   justifyContent: "flex-end",alignItems: "center" }} > {withdrawalCode}</span>
+          )}</span>
+       
         </span>
-        <span style={{ overflow: "hidden" }}>
-          <b style={{ color: "rgba(256, 256, 256, 0.4" }}>REÇU: &nbsp;</b>{" "}
+        <span style={{overflow: "hidden"}}>
+          <b style={{color: "rgba(256, 256, 256, 0.4"}}>REÇU: &nbsp;</b>{" "}
           {identifierId}
         </span>
         <span
           style={{
-            color:
-              status === "Pending"
-                ? "rgba(256, 256, 256, 0.4)"
-                : status === "Successful"
-                ? "#BDFF00"
-                : "#FF0000",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
           }}
           className='last-span'
         >
-          <span>{status}</span>
-          <span className='download-button' onClick={handleClick}>
-            <FaDownload />
+          {type === "deposits" ? (
+            <span
+              className='last-span-for-small'
+      style={{  fontWeight: "800", fontSize: "10px", justifyContent: "flex-end", alignItems: "center" }}
+            >
+              XOF {formatNumberWithCommasAndDecimal(amount)}
+            </span>
+          ) : (
+            <span className='last-span-for-small'   style={{  fontWeight: "800", fontSize: "10px",  justifyContent: "center",alignItems: "center" }} > {withdrawalCode}</span>
+          )}
+          <span
+            style={{
+              color:
+                status === "Pending"
+                  ? "rgba(256, 256, 256, 0.4)"
+                  : status === "Successful"
+                  ? "#BDFF00"
+                  : "#FF0000",
+              fontWeight: "800",
+              justifyContent: "center",
+              marginRight: "10px",
+              fontSize: "13px",
+                borderRadius: "4px",
+               border: "0.3px solid rgba(0, 255, 0, 0.2)" ,
+             
+            }}
+          >
+            {status}
           </span>
         </span>
       </div>
