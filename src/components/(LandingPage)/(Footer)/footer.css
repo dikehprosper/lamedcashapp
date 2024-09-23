@@ -1,10 +1,9 @@
 .footer {
   display: flex;
-  gap: 35px;
+  gap: 15px;
   align-items: center;
   width: 100vw;
   flex-direction: column;
-
 }
 
 .footer2 {
@@ -12,8 +11,11 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  margin: 30px 40px;
-  border-top: 1px solid rgba(120, 120, 120, 0.3)
+  margin: 10px 20px;
+  border-top: 1px solid rgba(120, 120, 120, 0.3);
+padding-top: 10px;
+padding-bottom: 30px;
+
 }
 
 .footer2-text {
@@ -80,7 +82,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 50%;
-    margin-bottom: 90px;
+    margin-bottom: 20px;
   }
 
 @media (max-width: 1028px) {
@@ -105,4 +107,14 @@
   .footer-social-media-icons {
   width: 80%;
 }
+
+
 }
+
+@media (max-width: 708px) {
+.footer2-text {
+  font-size: 10px;
+   text-align: center;
+}
+}
+

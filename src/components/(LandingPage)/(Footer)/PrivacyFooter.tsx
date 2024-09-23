@@ -13,7 +13,7 @@ const PrivacyFooter = () => {
         © 2024 Betfundr. All rights reserved.
         {/* {t("contact us description")} */}
       </p>
-      <div className='footer2-div'>
+    
         <Link
           className='footer2-text'
           // className={` ${pathname === "/logout" ? "active" : ""}`}
@@ -21,7 +21,7 @@ const PrivacyFooter = () => {
         >
           {t("contact us description")}
         </Link>
-      </div>
+   
     </div>
   );
 };

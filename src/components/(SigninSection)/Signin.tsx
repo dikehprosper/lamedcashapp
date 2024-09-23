@@ -178,8 +178,9 @@ const SignIn = () => {
                 loading="eager"
               />
             </div> */}
+            
             <p className="welcome-section-second_p">
-              {t("create_account")},{" "}
+              {t("create_account")}, &nbsp;
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 <a href="/signup">{t("create_account_link")}</a>
               </span>
@@ -194,7 +195,7 @@ const SignIn = () => {
             <h5 className="welcome-section-second_h5-mobile">
               {t("continue_with")}
             </h5>
-            <div className="signin-img google">
+            {/* <div className="signin-img google">
               <Image
                 src={image4}
                 loading="eager"
@@ -204,9 +205,9 @@ const SignIn = () => {
                 }}
                 alt="Picture of the author"
               />
-            </div>
+            </div> */}
             <p className="welcome-section-second_p-mobile">
-              {t("create_account")},{" "}
+              {t("create_account")},&nbsp;
               <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 <a href="/signup">{t("create_account_link")}</a>
               </span>

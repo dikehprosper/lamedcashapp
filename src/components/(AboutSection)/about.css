@@ -25,6 +25,10 @@
   position: relative;
 }
 
+.AccountDeletion_2 {
+  font-size: 13px
+}
+
 .AboutSection3 {
   display: flex;
   width: 100%;
@@ -152,6 +156,10 @@
   gap: 12px;
   text-align: center;
   line-height: 2
+}
+.AccountDeletion_2 {
+  font-size: 11px;
+  width: 85%
 }
 }
 @media (max-width: 347px) {

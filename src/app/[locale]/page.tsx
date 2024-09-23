@@ -8,7 +8,7 @@ import PrivacyFooter from "@/components/(LandingPage)/(Footer)/PrivacyFooter";
 import Banner from "@/components/Banner/Banner";
 export default function Home() {
   return (
-    <>
+    
       <div className='main'>
         <div className='home-banner'>{/* <Banner /> */}</div>
         <Hero />
@@ -19,6 +19,6 @@ export default function Home() {
         <Footer />
         <PrivacyFooter />
       </div>
-    </>
+    
   );
 }

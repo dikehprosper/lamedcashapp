@@ -8,6 +8,7 @@ import Image from "next/image";
 import Modal from "../(Utils)/SmallScreenNavModal";
 import CompanyLogo from "../../../public/Logo.webp";
 import FacebookLogo from "../../../public/Facebook.svg";
+import TwitterLogo from "../../../public/twitter-logo.avif";
 import WhatsappLogo from "../../../public/Whatsapp.svg";
 import TiktokLogo from "../../../public/TikTok.svg";
 import { BiSolidDashboard } from "react-icons/bi";
@@ -207,18 +208,31 @@ const UserNav = () => {
           <div className="user-nav-social-media">
             <h4>Follow</h4>
             <div className="user-nav-social-media-icons">
+              
               <div className="user-nav-logo facebook">
-                <Image
-                  src={FacebookLogo}
-                  loading="eager"
-                  fill
-                  style={{
-                    objectFit: "cover",
-                  }}
-                  alt="Picture of the author"
-                />
-              </div>
+      <a
+        href="https://www.facebook.com" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+      >
+        <Image
+          src={FacebookLogo}
+          loading="eager"
+          fill
+          style={{
+            objectFit: "cover",
+          }}
+          alt="Facebook logo"
+        />
+      </a>
+    </div>
+
               <div className="user-nav-logo whatsapp">
+                  <a
+        href="https://wa.me/22957577103" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+      >
                 <Image
                   src={WhatsappLogo}
                   loading="eager"
@@ -227,19 +241,25 @@ const UserNav = () => {
                     objectFit: "cover",
                   }}
                   alt="Picture of the author"
-                />
+                /></a>
               </div>
-              <div className="user-nav-logo tiktok">
-                <Image
-                  src={TiktokLogo}
-                  loading="eager"
-                  fill
-                  style={{
-                    objectFit: "cover",
-                  }}
-                  alt="Picture of the author"
-                />
-              </div>
+            <div className="user-nav-logo twitter">
+      <a
+        href="" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+      >
+        <Image
+          src={TwitterLogo}
+          loading="eager"
+          fill
+          style={{
+            objectFit: "cover",
+          }}
+          alt="Twitter logo"
+        />
+      </a>
+    </div>
             </div>
           </div>
         </div>

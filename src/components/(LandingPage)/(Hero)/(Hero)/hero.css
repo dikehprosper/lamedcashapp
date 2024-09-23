@@ -5,7 +5,7 @@
   width: 100%;
   margin: 0px auto;
   align-items: center;
-  height: 70vh;
+  height: 90vh !important;
   justify-content: flex-end;
   z-index: 0;
   overflow: hidden;
@@ -142,7 +142,7 @@
     width: 100%;
     margin: 0px auto;
     align-items: center;
-    height: 93vh;
+    min-height: 100vh;
     justify-content: flex-end;
     z-index: 0;
     overflow: hidden;
@@ -196,12 +196,13 @@
   .hero-title {
     font-size: 26px;
     line-height: 42px;
+       margin: 5px;
   }
 
   .hero-subtitle {
     font-size: 15px;
     line-height: 19px;
-    margin: 0px 0px 15px 0px;
+    margin: 5px;
   }
 
   .hero_button_container {

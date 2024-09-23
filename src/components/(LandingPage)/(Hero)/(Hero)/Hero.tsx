@@ -102,14 +102,16 @@ const Hero = () => {
           </div>
           <div
             style={{
-             marginTop: "50px",
+             marginTop: "100px",
               height: "40%",
-              alignItems: "flex-end",
+              alignItems: "center",
               display: "flex",
               flexDirection: "column",
               textAlign: "center",
-              justifyContent: "end",
+              justifyContent: "center",
               zIndex: 2,
+              paddingLeft: "10px",
+              paddingRight: "10px",
             }}
           >
            
@@ -117,9 +119,11 @@ const Hero = () => {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "12px",
+                gap: "2px",
                 alignItems: "center",
+
               }}
+             
             >
               <h1 className='hero-title animate-pop-in'>
                 <span className='hero-span'>{t("hero span 1")}</span>{" "}
