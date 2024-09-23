@@ -72,13 +72,14 @@ const Hero = () => {
       </div>
       <div className='small-device'>
         <div className='small-device-hero'>
+          
            <div
             style={{
               position: "fixed",
-              top: 20,
+              top: 30,
               left: 30,
               right: 30,
-              height: "40%",
+              height: "44%",
               width: "100%",
               alignItems: "flex-end",
               display: "flex",
@@ -102,7 +103,7 @@ const Hero = () => {
           </div>
           <div
             style={{
-             marginTop: "100px",
+             marginTop: "150px",
               height: "40%",
               alignItems: "center",
               display: "flex",
@@ -121,7 +122,7 @@ const Hero = () => {
                 flexDirection: "column",
                 gap: "2px",
                 alignItems: "center",
-
+               marginTop: "70px"
               }}
              
             >
@@ -133,20 +134,30 @@ const Hero = () => {
               <p className='hero-subtitle animate-pop-in'>
                 {t("hero description")}
               </p>
-              <div className='hero_button_container'>
-                <Image
-                  src={image2}
-                  fill
-                  loading='eager'
-                  style={{
-                    objectFit: "contain",
-                  }}
-                
-                  alt='Picture of the background'
-                />
-              </div>
+           
             </div>
+
+
+             <div className='hero_button_container'>
+              <Image
+            src={image2}
+            loading='eager'
+            style={{
+              objectFit: "contain",
+              height: "100%",
+              width: "100%",
+            }}
+            alt='Picture of the background'
+          />
+            </div>
+
           </div>
+
+
+
+
+
+
 
           
         </div>
