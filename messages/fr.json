@@ -85,8 +85,8 @@
     "withdraw_page": {
       "title": "Retirer",
       "about": "Effectuez vos retraits depuis votre 1XBET ici",
-      "use_address": "-- Prendre Note --",
-      "use_address_info": "La deise de votre compte doit ètre en XOF",
+       "use_address": "-- IMPORTANT --",
+      "use_address_info": "La devise de votre compte doit être en XOF. Aussi assurez vous de ne pas avoir de retrait en attente",
       "use_address_street": "RUE",
       "use_address_city": "VILLE",
       "saved_id_info": "Enregistrez 2 identifiants 1XBET différents dans votre profil pour les afficher ici",

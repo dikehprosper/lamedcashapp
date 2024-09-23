@@ -40,7 +40,61 @@ const Head = ({title, about, data}: any) => {
           <h2 className='title-container-h2'>{title}</h2>
           <p className='title-container-p'>{about}</p>
         </div>
-      
+        <div className='tag'>
+          {data?.fullname ? (
+            <div className='tag-container animate-pop-in '>
+              <div className='tag-container-icon'>
+                <Image
+                  src={imageUrl}
+                  style={{objectFit: "contain", borderRadius: 25}}
+                  alt='background'
+                  width={50}
+                  height={50}
+                />
+              </div>
+              <span className='tag-container-name'>
+                {" "}
+                {data?.fullname ? (
+                  data?.fullname
+                ) : (
+                  <div id='container_outoffunds'>
+                    <div id='container_outoffunds_inner'></div>
+                  </div>
+                )}
+              </span>
+              <span className='tag-container-online-container'>
+                {t("online")}{" "}
+                <span className='tag-container-online-logo'> </span>{" "}
+              </span>
+              <span className='tag-container-id'>
+                <span className='tag-container-id-span1'>
+                  <span style={{fontWeight: "300"}}>1XBet Id:</span> &nbsp;
+                  <span onClick={handleCopyClick} ref={spanRef}>
+                    {" "}
+                    {data?.betId}{" "}
+                  </span>
+                </span>
+                <span
+                  className='tag-container-id-span2'
+                  onClick={handleCopyClick}
+                  style={{cursor: "pointer"}}
+                >
+                  <IoIosCopy />
+                  copier
+                </span>
+              </span>
+              <div style={{marginLeft: "5px"}}></div>
+              <LanguageToggle />
+            </div>
+          ) : (
+            <div className='tag-container2'>
+              {" "}
+              <div id='container_customerid'>
+                <div id='container_customerid_inner'></div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className='head-container small'>

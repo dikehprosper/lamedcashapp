@@ -21,9 +21,9 @@
   },
   "dashboard": {
     "welcome_title": "Welcome",
-       "marque_text": "USE THIS PROMO CODE '229LERICHE' ON 1XBET AND GET 200% BONUS ON YOUR FIRST DEPOSIT",
-         "deposit_text":"DEPOSITS",
-       "withdrawal_text":"WITHDRAWALS",
+    "marque_text": "USE THIS PROMO CODE '229LERICHE' ON 1XBET AND GET 200% BONUS ON YOUR FIRST DEPOSIT",
+    "deposit_text": "DEPOSITS",
+    "withdrawal_text": "WITHDRAWALS",
     "welcome_about": "Experience fast deposits and withdrawals",
     "deposit": "Deposit",
     "withdraw": "Withdraw",
@@ -64,6 +64,8 @@
     },
     "deposit_page": {
       "title": "Deposits",
+       "use_address": "-- IMPORTANT --",
+      "use_address_info": "Your account currency must be in XOF. Make sure you don't have any pending withdrawals",
       "about": "Make your deposits to your 1XBET account here",
       "1xbet_id": "1XBET ID",
       "amount": "Amount",

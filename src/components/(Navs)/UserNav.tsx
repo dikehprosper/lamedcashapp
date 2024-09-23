@@ -8,8 +8,8 @@ import Image from "next/image";
 import Modal from "../(Utils)/SmallScreenNavModal";
 import CompanyLogo from "../../../public/Logo.webp";
 import FacebookLogo from "../../../public/Facebook.svg";
-import TwitterLogo from "../../../public/twitter-logo.avif";
 import WhatsappLogo from "../../../public/Whatsapp.svg";
+import TwitterLogo from "../../../public/twitter-logo.avif";
 import TiktokLogo from "../../../public/TikTok.svg";
 import { BiSolidDashboard } from "react-icons/bi";
 import { IoMdPeople } from "react-icons/io";
@@ -208,10 +208,53 @@ const UserNav = () => {
           <div className="user-nav-social-media">
             <h4>Follow</h4>
             <div className="user-nav-social-media-icons">
-              
               <div className="user-nav-logo facebook">
+                <Image
+                  src={FacebookLogo}
+                  loading="eager"
+                  fill
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  alt="Picture of the author"
+                />
+              </div>
+              <div className="user-nav-logo whatsapp">
+                           <a
+                           style={{flex: 1, display: 'flex'}}
+        href="https://wa.me/22957577103" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+      >
+         
+                <Image
+                  src={WhatsappLogo}
+                  loading="eager"
+                  fill
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  alt="Picture of the author"
+                />
+                  </a>
+              </div>
+              <div className="user-nav-logo tiktok">
+                <Image
+                  src={TiktokLogo}
+                  loading="eager"
+                  fill
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  alt="Picture of the author"
+                />
+              </div>
+
+
+
+                      <div className="user-nav-logo facebook">
       <a
-        href="https://www.facebook.com" 
+        href="" 
         target="_blank" 
         rel="noopener noreferrer" 
       >
@@ -260,6 +303,9 @@ const UserNav = () => {
         />
       </a>
     </div>
+
+
+
             </div>
           </div>
         </div>

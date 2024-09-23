@@ -411,8 +411,8 @@ const [processing4, setProcessing4] = useState(false);
             style={{
               width: "100%",
               borderWidth: "2px",
-              border: "1px solid rgba(120, 120, 120, 1)",
-              background: "rgba(120, 120, 120, .4)",
+              border: "1px solid rgba(73, 166, 106, 1)",
+              background: "rgba(73, 166, 106, 0.3)",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -425,9 +425,9 @@ const [processing4, setProcessing4] = useState(false);
               gap: "9px",
             }}
           >
-            <div className='detail' style={{fontWeight: "bold"}}>{t("withdraw_page.use_address")}</div>
+            <div className='detail' style={{fontWeight: "bold"}}>{t("deposit_page.use_address")}</div>
             <div className='detail_2' style={{textAlign: "center", fontWeight: 500}}>
-              {t("withdraw_page.use_address_info")}
+              {t("deposit_page.use_address_info")}
             </div>
             
           </div>
