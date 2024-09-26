@@ -7,7 +7,7 @@ import {
 import AnimateHeight from "react-animate-height";
 import { useTranslations } from "next-intl";
 
-const FirstQuestion = ({ height, adjustHeight }: any) => {
+const FirstQuestion = ({ height, adjustHeight, updatedTheme }: any) => {
   const t = useTranslations("home");
   return (
     <div
@@ -15,13 +15,14 @@ const FirstQuestion = ({ height, adjustHeight }: any) => {
       aria-expanded={height !== 0}
       aria-controls="example-panel"
       onClick={adjustHeight}
+      style={{background: updatedTheme === "dark"? "rgba(120, 120, 120, 0.1)" : "rgba(120, 120, 120,0.1)" }}
     >
       <div className="body_innerbody_504">
-        <p>{t("how does withdrawal work")}</p>
+        <p style={{color: updatedTheme === "dark" ? "white": "black"}}>{t("how does withdrawal work")}</p>
         {height === 0 ? (
-          <MdOutlineKeyboardArrowUp fontSize="32px" color="#bdff00" />
+          <MdOutlineKeyboardArrowUp fontSize="32px" style={{color: updatedTheme === "dark" ? "white": "black"}} />
         ) : (
-          <MdOutlineKeyboardArrowDown fontSize="32px" color="#bdff00" />
+          <MdOutlineKeyboardArrowDown fontSize="32px" style={{color: updatedTheme === "dark" ? "white": "black"}} />
         )}
       </div>
       <AnimateHeight
@@ -31,14 +32,14 @@ const FirstQuestion = ({ height, adjustHeight }: any) => {
         className="animate-height"
       >
         <div className="requirements-container">
-          <p>{t("cash withdrawal conditions")} :</p>
+          <p style={{color: updatedTheme === "dark" ? "white": "black"}}>{t("cash withdrawal conditions")} :</p>
           <ul>
-            <li>1. {t("your 1xbet ID")}</li>
-            <li>2. {t("1xbet withdrawal code")}</li>
-            <li>3. {t("amount")}</li>
-            <li>4. {t("your momo number")}</li>
+            <li style={{color: updatedTheme === "dark" ? "white": "black"}}>1. {t("your 1xbet ID")}</li>
+            <li style={{color: updatedTheme === "dark" ? "white": "black"}}>2. {t("1xbet withdrawal code")}</li>
+            <li style={{color: updatedTheme === "dark" ? "white": "black"}}>3. {t("amount")}</li>
+            <li style={{color: updatedTheme === "dark" ? "white": "black"}}>4. {t("your momo number")}</li>
           </ul>
-          <p>{t("first question description")}</p>
+          <p style={{color: updatedTheme === "dark" ? "white": "black"}}>{t("first question description")}</p>
         </div>
       </AnimateHeight>
     </div>

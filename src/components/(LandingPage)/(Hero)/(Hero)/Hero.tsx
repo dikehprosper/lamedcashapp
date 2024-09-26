@@ -10,11 +10,12 @@ import { useTranslations } from "next-intl";
 import "./hero.css";
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Banner from "@/components/Banner/Banner";
-const Hero = () => {
+
+const Hero = ({updatedTheme}: any) => {
   const t = useTranslations("home");
   return (
     <>
-      <div className='hero large-device'>
+      <div className='hero large-device' style={{background: updatedTheme === "dark" ? "" : "rgba(250, 250, 250, 1)", color: updatedTheme === "dark"? "white" : "rgba(0, 0, 0, 1)" }}>
         <div
           style={{
             width: "70%",
@@ -23,13 +24,13 @@ const Hero = () => {
             paddingLeft: "50px",
           }}
         >
-          <section className='hero-text'>
+          <section className='hero-text' >
             <h1 className='hero-title animate-pop-in'>
-              <span className='hero-span'>{t("hero span 1")}</span>{" "}
+              <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}>{t("hero span 1")}</span>{" "}
               {t("hero span 2")}
-              <span className='hero-span'> {t("hero span 3")}</span>.
+              <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}> {t("hero span 3")}</span>.
             </h1>
-            <p className='hero-subtitle animate-pop-in'>
+            <p className='hero-subtitle animate-pop-in' >
               {t("hero description")}
             </p>
             <div className='hero_button_container'>
@@ -70,7 +71,7 @@ const Hero = () => {
           />
         </div>
       </div>
-      <div className='small-device'>
+      <div className='small-device' style={{color: updatedTheme === "dark"? null : "rgba(0, 0, 0, 1)"}}>
         <div className='small-device-hero'>
           
            <div
@@ -127,9 +128,9 @@ const Hero = () => {
              
             >
               <h1 className='hero-title animate-pop-in'>
-                <span className='hero-span'>{t("hero span 1")}</span>{" "}
+                <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}>{t("hero span 1")}</span>{" "}
                 {t("hero span 2")}
-                <span className='hero-span'> {t("hero span 3")}</span>.
+                <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}> {t("hero span 3")}</span>.
               </h1>
               <p className='hero-subtitle animate-pop-in'>
                 {t("hero description")}

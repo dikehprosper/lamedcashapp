@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Head from "@/components/(userscomponent)/(head)/head2";
+import Head from "@/components/(userscomponent)/(head)/head";
 import Display from "@/components/(userscomponent)/(display)/display";
 import "./dash.css";
 import { TbPigMoney } from "react-icons/tb";

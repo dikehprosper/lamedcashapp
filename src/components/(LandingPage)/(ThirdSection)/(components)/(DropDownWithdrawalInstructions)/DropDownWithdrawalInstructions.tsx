@@ -9,7 +9,7 @@ import {
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import { useTranslations } from "next-intl";
-const DropDownWithdrawalInstructions = () => {
+const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
   const [height, setHeight] = useState(0);
   const t = useTranslations("home");
 
@@ -25,12 +25,13 @@ const DropDownWithdrawalInstructions = () => {
 
   return (
     <div className="body_201">
-      <div className="body_innerbody_201" onClick={adjustHeight}>
-        <div className="body_innerbody_202">
+      <div className="body_innerbody_201" onClick={adjustHeight} style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 0.3)":  "rgba(120, 120, 120, 0.3)"}}>
+        <div className="body_innerbody_202" >
           <div
             aria-expanded={height !== 0}
             aria-controls="example-panel"
             className="body_innerbody_204"
+           style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: updatedTheme === "dark" ? "white":  "black"}}
           >
             <p>Retrait</p>{" "}
             {height === 0 ? (
@@ -40,7 +41,7 @@ const DropDownWithdrawalInstructions = () => {
             )}
           </div>
         </div>
-        <div className="body_innerbody_203">
+        <div className="body_innerbody_203" style={{border: updatedTheme === "dark" ? " 14px solid rgba(120, 120, 120, 1)":  "14px solid rgba(120, 120, 120, 1)"}} >
           <Image
             src={image}
             fill
@@ -61,10 +62,11 @@ const DropDownWithdrawalInstructions = () => {
         style={{
           background: "rgba(254, 254, 254, 0.08)",
           borderRadius: "10px",
+          
         }}
       >
         <div className="body_innerbody_205">
-          <div className="body_innerbody_2017" onClick={adjustHeight}>
+          <div className="body_innerbody_2017" onClick={adjustHeight} style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: updatedTheme === "dark" ? "white":  "black"}} >
             <p>Retrait</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown
@@ -76,12 +78,12 @@ const DropDownWithdrawalInstructions = () => {
               <MdOutlineKeyboardArrowUp fontSize="32px" />
             )}
           </div>
-          <div className="body_innerbody_206">
-            <div className="body_innerbody_207">
-              <div className="body_innerbody_209"></div>
+          <div className="body_innerbody_206" >
+            <div className="body_innerbody_207" >
+              <div className="body_innerbody_209" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)"}}></div>
 
-              <div className="body_innerbody_2010">
-                <div className="body_innerbody_2011">Step 1</div>
+              <div className="body_innerbody_2010" >
+                <div className="body_innerbody_2011" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: "white"}}>Step 1</div>
               </div>
             </div>
             <div className="body_innerbody_208">
@@ -94,10 +96,10 @@ const DropDownWithdrawalInstructions = () => {
           </div>
           <div className="body_innerbody_206">
             <div className="body_innerbody_207">
-              <div className="body_innerbody_209"></div>
+              <div className="body_innerbody_209" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)"}}></div>
 
               <div className="body_innerbody_2010">
-                <div className="body_innerbody_2011">Step 2</div>
+                <div className="body_innerbody_2011" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: "white"}}>Step 2</div>
               </div>
             </div>
             <div className="body_innerbody_208">
@@ -110,10 +112,10 @@ const DropDownWithdrawalInstructions = () => {
           </div>
           <div className="body_innerbody_206">
             <div className="body_innerbody_207">
-              <div className="body_innerbody_209"></div>
+              <div className="body_innerbody_209" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)"}}></div>
 
               <div className="body_innerbody_2010">
-                <div className="body_innerbody_2011">Step 3</div>
+                <div className="body_innerbody_2011" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: "white"}}>Step 3</div>
               </div>
             </div>
             <div className="body_innerbody_208">
@@ -126,10 +128,10 @@ const DropDownWithdrawalInstructions = () => {
           </div>
           <div className="body_innerbody_206">
             <div className="body_innerbody_207">
-              <div className="body_innerbody_209"></div>
+              <div className="body_innerbody_209" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)"}}></div>
 
               <div className="body_innerbody_2010">
-                <div className="body_innerbody_2011">Step 4</div>
+                <div className="body_innerbody_2011" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: "white"}}>Step 4</div>
               </div>
             </div>
             <div className="body_innerbody_208">
@@ -145,10 +147,10 @@ const DropDownWithdrawalInstructions = () => {
 
           <div className="body_innerbody_206">
             <div className="body_innerbody_2015">
-              <div className="body_innerbody_2014"></div>
+              <div className="body_innerbody_2014" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)"}}></div>
 
               <div className="body_innerbody_2010">
-                <div className="body_innerbody_2011 body_innerbody_2020">
+                <div className="body_innerbody_2011 body_innerbody_2020" style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: "white"}}>
                   Step 5
                 </div>
               </div>

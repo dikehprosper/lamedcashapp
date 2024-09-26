@@ -10,7 +10,7 @@ import {
 } from "react-icons/md";
 import { useTranslations } from "next-intl";
 
-const DropDownDepositInstructions = () => {
+const DropDownDepositInstructions = ({updatedTheme}: any) => {
   const [height, setHeight] = useState(0);
   const t = useTranslations("home");
 
@@ -26,12 +26,14 @@ const DropDownDepositInstructions = () => {
 
   return (
     <div className="body_001">
-      <div className="body_innerbody_001" onClick={adjustHeight}>
+      <div className="body_innerbody_001" onClick={adjustHeight} style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 0.3)":  "rgba(120, 120, 120, 0.3)"}} >
         <div className="body_innerbody_002">
           <div
             aria-expanded={height !== 0}
             aria-controls="example-panel"
             className="body_innerbody_004"
+             style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: updatedTheme === "dark" ? "white":  "black" }}
+             
           >
             <p>Recharger</p>{" "}
             {height === 0 ? (
@@ -41,7 +43,7 @@ const DropDownDepositInstructions = () => {
             )}
           </div>
         </div>
-        <div className="body_innerbody_003">
+        <div className="body_innerbody_003" style={{border: updatedTheme === "dark" ? "14px solid rgba(73, 166, 106, 1)":  "14px solid rgba(73, 166, 106, 1)"}}>
           <Image
             src={image}
             fill
@@ -64,8 +66,8 @@ const DropDownDepositInstructions = () => {
           borderRadius: "10px",
         }}
       >
-        <div className="body_innerbody_005">
-          <div className="body_innerbody_0017" onClick={adjustHeight}>
+        <div className="body_innerbody_005" >
+          <div className="body_innerbody_0017" onClick={adjustHeight} style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: updatedTheme === "dark" ? "white":  "black"}}>
             <p>{t("recharge")}</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown fontSize="32px" />
@@ -75,10 +77,10 @@ const DropDownDepositInstructions = () => {
           </div>
           <div className="body_innerbody_006">
             <div className="body_innerbody_007">
-              <div className="body_innerbody_009"></div>
+              <div className="body_innerbody_009" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)"}}></div>
 
               <div className="body_innerbody_0010">
-                <div className="body_innerbody_0011">Step 1</div>
+                <div className="body_innerbody_0011" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: "white"}}>Step 1</div>
               </div>
             </div>
             <div className="body_innerbody_008">
@@ -96,10 +98,10 @@ const DropDownDepositInstructions = () => {
           </div>
           <div className="body_innerbody_006">
             <div className="body_innerbody_007">
-              <div className="body_innerbody_009"></div>
+              <div className="body_innerbody_009" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)"}}></div>
 
               <div className="body_innerbody_0010">
-                <div className="body_innerbody_0011">Step 2</div>
+                <div className="body_innerbody_0011" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: "white"}}>Step 2</div>
               </div>
             </div>
             <div className="body_innerbody_008">
@@ -117,10 +119,10 @@ const DropDownDepositInstructions = () => {
           </div>
           <div className="body_innerbody_006">
             <div className="body_innerbody_007">
-              <div className="body_innerbody_009"></div>
+              <div className="body_innerbody_009" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)"}}></div>
 
               <div className="body_innerbody_0010">
-                <div className="body_innerbody_0011">Step 3</div>
+                <div className="body_innerbody_0011" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: "white"}}>Step 3</div>
               </div>
             </div>
             <div className="body_innerbody_008">
@@ -138,10 +140,10 @@ const DropDownDepositInstructions = () => {
           </div>
           <div className="body_innerbody_006">
             <div className="body_innerbody_007">
-              <div className="body_innerbody_009"></div>
+              <div className="body_innerbody_009" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)"}}></div>
 
               <div className="body_innerbody_0010">
-                <div className="body_innerbody_0011">Step 4</div>
+                <div className="body_innerbody_0011" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: "white"}}>Step 4</div>
               </div>
             </div>
             <div className="body_innerbody_008">
@@ -160,10 +162,10 @@ const DropDownDepositInstructions = () => {
 
           <div className="body_innerbody_006">
             <div className="body_innerbody_0015">
-              <div className="body_innerbody_0014"></div>
+              <div className="body_innerbody_0014"  style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)"}}></div>
 
               <div className="body_innerbody_0010">
-                <div className="body_innerbody_0011 body_innerbody_0020">
+                <div className="body_innerbody_0011 body_innerbody_0020" style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: "white"}}>
                   Step 5
                 </div>
               </div>

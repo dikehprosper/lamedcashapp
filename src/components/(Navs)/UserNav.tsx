@@ -1,7 +1,7 @@
 "use client";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdMenuOpen } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
@@ -31,6 +31,10 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import LanguageToggle from "../(LanguageToggle)/languageToggle";
+import ThemeToggle from "@/components/ThemeToggle.tsx";
+import { setTheme } from "@/lib/features/themeSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+
 
 const UserNav = () => {
   const t = useTranslations("dashboard");
@@ -38,6 +42,7 @@ const UserNav = () => {
   const { locale } = useParams<{ locale: string }>();
   const router = useRouter();
   const [state, setState] = useState(true);
+
 
   const UsersNavLinks = [
     {
@@ -172,6 +177,31 @@ const UserNav = () => {
     }
   }
 
+
+
+
+ const dispatch = useAppDispatch();
+    const updatedTheme = useAppSelector((state) => state.theme.theme);
+
+    useEffect(() => {
+        // Get the value from local storage if it exists
+        const value = localStorage.getItem("theme") // Default to light
+        dispatch(setTheme(value)); // Set the theme in Redux
+    }, [dispatch]);
+
+    const toggleTheme = () => {
+        const newTheme = updatedTheme === "light" ? "dark" : "light";
+        localStorage.setItem("theme", newTheme);
+        dispatch(setTheme(newTheme)); // Update the Redux state
+    };
+
+    useEffect(() => {
+        console.log(updatedTheme, "updatedTheme"); // Log the current theme
+    }, [updatedTheme]);
+
+
+
+
   return (
     <>
       <div className="user-nav for-larger-devices">
@@ -206,7 +236,8 @@ const UserNav = () => {
             &nbsp; &nbsp; {t("logout")}
           </Link>
           <div className="user-nav-social-media">
-            <h4>Follow</h4>
+            <h4 ><div style={{display: 'flex', justifyContent: "space-evenly", gap: "17px",flexDirection: "row"}}>Follow      <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />         <LanguageToggle /></div></h4>
+     
             <div className="user-nav-social-media-icons">
               <div className="user-nav-logo facebook">
                 <Image
@@ -351,6 +382,12 @@ const UserNav = () => {
           <div className="nav-language"></div>
           <div className="user-profile-icon-container">
             <LanguageToggle />
+
+
+  <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
+
+        
+
             {/* <Link href="/profile">
               <div
                 className={`user-profile-icon ${

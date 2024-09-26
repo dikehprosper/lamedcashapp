@@ -5,11 +5,11 @@ import Image from "next/image";
 import image from "../../../../public/TikTok.svg";
 import {useTranslations} from "next-intl";
 
-const PrivacyFooter = () => {
+const PrivacyFooter = ({updatedTheme}: any) => {
   const t = useTranslations("home");
   return (
     <div className='footer2'>
-      <p className='footer2-text'>
+      <p className='footer2-text' style={{color: updatedTheme === "dark"? "white": "black" }}>
         © 2024 Betfundr. All rights reserved.
         {/* {t("contact us description")} */}
       </p>
@@ -18,6 +18,7 @@ const PrivacyFooter = () => {
           className='footer2-text'
           // className={` ${pathname === "/logout" ? "active" : ""}`}
           href='/about'
+          style={{color: updatedTheme === "dark"? "white": "black" }}
         >
           {t("contact us description")}
         </Link>

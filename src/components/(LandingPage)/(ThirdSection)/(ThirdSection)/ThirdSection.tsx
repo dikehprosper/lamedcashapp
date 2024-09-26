@@ -5,14 +5,14 @@ import DropDownWithdrawalInstructions from "../(components)/(DropDownWithdrawalI
 import "./thirdSection.css";
 import { useTranslations } from "next-intl";
 
-const ThirdSection = () => {
+const ThirdSection = ({updatedTheme}: any) => {
   const t = useTranslations("home");
   return (
     <div className="body">
-      <h2>{t("how it works")}</h2>
+      <h2 style={{color: updatedTheme === "dark"?  "white" : "black"}}>{t("how it works")}</h2>
       <div className="body_100">
-        <DropDownDepositInstructions />
-        <DropDownWithdrawalInstructions />
+        <DropDownDepositInstructions updatedTheme={updatedTheme} />
+        <DropDownWithdrawalInstructions updatedTheme={updatedTheme} />
       </div>
     </div>
   );

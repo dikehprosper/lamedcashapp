@@ -7,13 +7,18 @@ import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Modal from "../(Utils)/VisitorNavModal";
 import image from "../../../public/Logo.webp";
+import image1 from "../../../public/Logo1.webp";
 import { useTranslations } from "next-intl";
 import LanguageToggle from "../(LanguageToggle)/languageToggle";
+import ThemeToggle from "@/components/ThemeToggle.tsx";
+import { setTheme } from "@/lib/features/themeSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 const Nav = () => {
   const t = useTranslations("header");
   const pathname = usePathname();
   const params = useParams();
+
   const [state, setState] = useState(true);
 
   const navLinks = [
@@ -42,19 +47,75 @@ const Nav = () => {
     setState(true);
   }
 
+
+
+//  useEffect(() => {
+//    let value;
+//    // Get the value from local storage if it exists
+//    value = localStorage.getItem("theme")
+//    setUpdatedTheme(value);
+//     dispatch(setTheme(value));
+//   //  localStorage.setItem("theme", "light");
+//  }, []);
+
+//   // When user submits the form, save the favorite number to the local storage
+//   const toggleTheme = () => {
+//     if(updatedTheme === "light") {
+//      localStorage.setItem("theme", "dark");
+//      setUpdatedTheme("dark")
+//     } else if (updatedTheme === "dark") {
+//        localStorage.setItem("theme", "light");
+//           setUpdatedTheme("light")
+//     }
+//   };
+
+//   useEffect(() => {
+//  console.log(updatedTheme, "updatedTheme")
+//  });
+
+
+ const dispatch = useAppDispatch();
+    const updatedTheme = useAppSelector((state) => state.theme.theme);
+
+    useEffect(() => {
+        // Get the value from local storage if it exists
+        const value: any = localStorage.getItem("theme") // Default to light
+        dispatch(setTheme(value)); // Set the theme in Redux
+    }, [dispatch]);
+
+    const toggleTheme = () => {
+        const newTheme = updatedTheme === "light" ? "dark" : "light";
+        localStorage.setItem("theme", newTheme);
+        dispatch(setTheme(newTheme)); // Update the Redux state
+    };
+
+    useEffect(() => {
+        console.log(updatedTheme, "updatedTheme"); // Log the current theme
+    }, [updatedTheme]);
+
+
+
   return (
     <>
-      <div className='nav'>
-        <div className='nav-img'>
+      <div className='nav' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)": "white"}}>
+        <div className='nav-img'>{!updatedTheme?  "":
+          updatedTheme === "light"? 
           <Image
+            src={image1}
+            loading='eager'
+            fill
+            style={{objectFit: "contain", }}
+            alt='Picture of the author'
+          />:
+           <Image
             src={image}
             loading='eager'
             fill
-            style={{objectFit: "cover"}}
+            style={{objectFit: "contain"}}
             alt='Picture of the author'
-          />
+          />}
         </div>
-        <div className='nav-link'>
+        <div className='nav-link' style={{background: updatedTheme === "dark" ? "": "white", color: !updatedTheme? "transparent":updatedTheme === "dark"? "white": "black"}}>
           <Link
             className={` ${pathname === `/${params.locale}` ? "active" : ""}`}
             href='/'
@@ -83,8 +144,10 @@ const Nav = () => {
           </Link>
           {/* <LanguageSwitcher /> */}
         </div>
-        <div className='nav-language'>
-          <LanguageToggle />
+        <div className='nav-language' style={{ flexDirection: "row", alignItems: "center", gap: "9px"}}>
+          <LanguageToggle updatedTheme={updatedTheme} />
+          <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
+
         </div>
         {/* <Link
             style={{paddingLeft : 30, paddingRight: 30, paddingBottom: 10, paddingTop: 10, borderRadius: 30, border: "1px solid rgba(120, 120, 120, 1)"}}
@@ -93,14 +156,16 @@ const Nav = () => {
             {t("Télécharger")}
           </Link> */}
         <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
-          <div className='for-smaller-devices'>
-            <LanguageToggle />
+          <div className='for-smaller-devices' style={{ flexDirection: "row", alignItems: "center", gap: "9px"}}>
+            <LanguageToggle updatedTheme={updatedTheme}  />
+              <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
+
           </div>
           <div onClick={changeState}>
             {state ? (
-              <MdMenuOpen className='MdMenuOpen' />
+              <MdMenuOpen className='MdMenuOpen' style={{color: !updatedTheme? "transparent":updatedTheme === "dark"? "white": "black"}} />
             ) : (
-              <AiOutlineClose className='MdMenuOpen' />
+              <AiOutlineClose className='MdMenuOpen' style={{color: !updatedTheme? "transparent":updatedTheme === "dark"? "white": "black"}} />
             )}
           </div>
         </div>

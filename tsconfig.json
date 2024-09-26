@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "preserve", // Allow JSX syntax
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -11,7 +12,6 @@
     "moduleResolution": "node", // Change to 'node' for better compatibility with Node.js-style module resolution
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".", // Ensure the base URL is set if you are using path aliases
     "paths": {

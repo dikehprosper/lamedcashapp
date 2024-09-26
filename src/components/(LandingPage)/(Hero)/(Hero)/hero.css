@@ -210,7 +210,8 @@
   .hero_button_container {
  
     font-size: 5px;
-    background: transparent
+    background: transparent;
+    
   }
 
   .hero-button {
@@ -265,7 +266,8 @@
 @media (max-width: 630px) {
   .hero_button_container {
   margin-top: 15px;
-    height: 35px;
+    height: 40px;
     font-size: 10px;
+     width: 125px;
   }
 }

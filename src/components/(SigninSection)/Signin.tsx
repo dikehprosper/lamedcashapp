@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 
-const SignIn = () => {
+const SignIn = ({updatedTheme}: any) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -97,7 +97,7 @@ const SignIn = () => {
   return (
     <div className="signin-container">
       <div className="signin-header">
-        <h2>{t("welcome")}</h2>
+        <h2 style={{color: updatedTheme === "dark"? "white": "black"}}>{t("welcome")}</h2>
       </div>
       {/* first section */}
       <div className="signin-container_inner">
@@ -120,6 +120,7 @@ const SignIn = () => {
             value={user.email}
             onChange={handleUserEmail}
             placeholder={t("email_placeholder")}
+            style={{color: updatedTheme === "dark"? "white": "black"}}
           />
           <div className="signin-form-password">
             <input
@@ -128,15 +129,16 @@ const SignIn = () => {
               value={user.password}
               onChange={handleUserPassword}
               placeholder={t("password_placeholder")}
+              style={{color: updatedTheme === "dark"? "white": "black", border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
             />
             <div
               onClick={toggleVisibility}
               className="signin-form-password-visibility"
             >
-              {isVisible ? <BsEye /> : <BsEyeSlash />}
+              {isVisible ? <BsEye style={{color: updatedTheme === "dark"? "white": "black"}}/> : <BsEyeSlash style={{color: updatedTheme === "dark"? "white": "black"}}/>}
             </div>
           </div>
-          <div className="forgot-password">
+          <div className="forgot-password" style={{color: updatedTheme === "dark"? "white": "black"}}>
             {" "}
             <a href="/forgotpassword">{t("forgot_password")}</a>
           </div>
