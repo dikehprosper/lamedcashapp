@@ -195,7 +195,7 @@ const Nav = () => {
                 style={{
                color:   updatedTheme === "dark"
                     ? "white"
-                    : updatedTheme === "light"? "black" : null, 
+                    : updatedTheme === "light"? "black" : "transparent", 
                 }}
               />
             ) : (
@@ -204,7 +204,7 @@ const Nav = () => {
                 style={{
                   color:   updatedTheme === "dark"
                     ? "white"
-                    : updatedTheme === "light"? "black" : null, 
+                    : updatedTheme === "light"? "black" : "transparent", 
                     
                 }}
               />
