@@ -20,7 +20,7 @@ export default function LanguageToggle({updatedTheme}: any) {
 
   return (
     <div
-      style={{color: updatedTheme === "dark" ? "white" : updatedTheme === "light"?  "black": null}}
+      style={{color: updatedTheme === "dark" ? "white" : updatedTheme === "light"?  "black": "transparent"}}
       className='toggleBtn'
     >
       <Link
