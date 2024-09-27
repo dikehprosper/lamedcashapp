@@ -11,7 +11,23 @@ import Banner from "@/components/Banner/Banner";
 import {  useAppSelector } from "@/lib/hooks";
 
 export default function Home() {
- const updatedTheme = useAppSelector((state) => state.theme.theme);
+ // Get the theme from the Redux store or default to "light"
+  const storedTheme = useAppSelector((state) => state.theme.theme) || "light";
+  const [updatedTheme, setUpdatedTheme] = useState(storedTheme);
+
+  // Sync with localStorage
+  useEffect(() => {
+    // Set the theme in localStorage
+    localStorage.setItem('theme', updatedTheme);
+  }, [updatedTheme]);
+
+  // Load the theme from localStorage on initial render
+  useEffect(() => {
+    const localTheme = localStorage.getItem('theme');
+    if (localTheme) {
+      setUpdatedTheme(localTheme);
+    }
+  }, []);
 
   return (updatedTheme === "dark" || updatedTheme === "light"? 
       <div className='main' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)" : "white"}}>
