@@ -15,7 +15,7 @@ const Loading = () => {
         justifyContent: "center",
         alignItems: "center",
         color: "white",
-        background: updatedTheme === "light" ? "white" : updatedTheme === "dark" ? "rgba(10, 20, 38)" : null
+        background: updatedTheme === "light" ? "white" : updatedTheme === "dark" ? "rgba(10, 20, 38)" : "transparent"
       }}
     >
       <div
