@@ -8,9 +8,9 @@ interface LanguageToggleProps {
   updatedTheme: string; // Assuming updatedTheme can be "light" or "dark"
 }
 
-export default function LanguageToggle({ updatedTheme }: LanguageToggleProps) {
+export default function LanguageToggle({updatedTheme}: any) {
   const pathname = usePathname();
-  const { locale } = useParams<{ locale: string }>();
+  const {locale} = useParams<{locale: string}>();
 
   // Set styles based on the updatedTheme
   const toggleStyle = {
@@ -18,12 +18,18 @@ export default function LanguageToggle({ updatedTheme }: LanguageToggleProps) {
     color: updatedTheme === "dark" ? "#fff" : "#000", // White text for dark theme, black for light
   };
 
-  return (!updatedTheme? "" :
-    <div style={{color: updatedTheme === "dark" ? "": "black"}}  className="toggleBtn">
+  return !updatedTheme ? (
+    ""
+  ) : (
+    <div
+      style={{color: updatedTheme === "dark" ? "" : "black"}}
+      className='toggleBtn'
+    >
       <Link
-        href={`/${locale === "en" ? "fr" : "en"}${pathname.split(`/${locale}`)[1]}`}
+        href={`/${locale === "en" ? "fr" : "en"}${
+          pathname.split(`/${locale}`)[1]
+        }`}
         locale={locale === "en" ? "fr" : "en"}
-       
       >
         {locale === "en" ? "FR" : "EN"}
       </Link>
