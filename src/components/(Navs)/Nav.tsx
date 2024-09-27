@@ -75,13 +75,19 @@ const Nav = () => {
 
 
  const dispatch = useAppDispatch();
-    const updatedTheme = useAppSelector((state) => state.theme.theme);
+    const storedTheme = useAppSelector((state) => state.theme.theme) ;
+  const [updatedTheme, setUpdatedTheme] = useState(storedTheme);
+  if (storedTheme === null) {
+    localStorage.setItem('theme', "light");
+      setUpdatedTheme("light");
+  }
+    
 
-    useEffect(() => {
-        // Get the value from local storage if it exists
-        const value: any = localStorage.getItem("theme") // Default to light
-        dispatch(setTheme(value)); // Set the theme in Redux
-    }, [dispatch]);
+    // useEffect(() => {
+    //     // Get the value from local storage if it exists
+    //     const value: any = localStorage.getItem("theme") // Default to light
+    //     dispatch(setTheme(value)); // Set the theme in Redux
+    // }, [dispatch]);
 
     const toggleTheme = () => {
         const newTheme = updatedTheme === "light" ? "dark" : "light";
@@ -89,9 +95,7 @@ const Nav = () => {
         dispatch(setTheme(newTheme)); // Update the Redux state
     };
 
-    useEffect(() => {
-        console.log(updatedTheme, "updatedTheme"); // Log the current theme
-    }, [updatedTheme]);
+   
 
 
 
