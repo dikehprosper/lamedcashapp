@@ -18,9 +18,7 @@ export default function LanguageToggle({updatedTheme}: any) {
     color: updatedTheme === "dark" ? "#fff" : "#000", // White text for dark theme, black for light
   };
 
-  return !updatedTheme ? (
-    ""
-  ) : (
+  return (
     <div
       style={{color: updatedTheme === "dark" ? "" : "black"}}
       className='toggleBtn'

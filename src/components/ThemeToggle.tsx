@@ -8,7 +8,7 @@ export default function ThemeToggle({updatedTheme, toggleTheme }: any) {
       onClick={toggleTheme}
       className='p-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded cursor-pointer'
     >
-      {!updatedTheme ? "" : updatedTheme === "light" ? <IoMoonOutline color={ updatedTheme === "dark"? "white": "black"}/> : <IoMoonSharp color={ updatedTheme === "dark"? "white": "black"} />}
+      {updatedTheme === "light" ? <IoMoonOutline color={ updatedTheme === "dark"? "white": "black"}/> : <IoMoonSharp color={ updatedTheme === "dark"? "white": "black"} />}
     </div>
   );
 }

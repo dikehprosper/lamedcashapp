@@ -97,25 +97,41 @@ const Nav = () => {
 
   return (
     <>
-      <div className='nav' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)": "white"}}>
-        <div className='nav-img'>{!updatedTheme?  "":
-          updatedTheme === "light"? 
-          <Image
-            src={image1}
-            loading='eager'
-            fill
-            style={{objectFit: "contain", }}
-            alt='Picture of the author'
-          />:
-           <Image
-            src={image}
-            loading='eager'
-            fill
-            style={{objectFit: "contain"}}
-            alt='Picture of the author'
-          />}
+      <div
+        className='nav'
+        style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}
+      >
+        <div className='nav-img'>
+          {updatedTheme === "light" ? (
+            <Image
+              src={image1}
+              loading='eager'
+              fill
+              style={{objectFit: "contain"}}
+              alt='Picture of the author'
+            />
+          ) : (
+            <Image
+              src={image}
+              loading='eager'
+              fill
+              style={{objectFit: "contain"}}
+              alt='Picture of the author'
+            />
+          )}
         </div>
-        <div className='nav-link' style={{background: updatedTheme === "dark" ? "": "white", color: !updatedTheme? "transparent":updatedTheme === "dark"? "white": "black"}}>
+        <div
+          className='nav-link'
+          style={{
+            background: updatedTheme === "dark" ? "" : "white",
+            color: 
+              updatedTheme === "dark"
+              ? "white"
+              : "black",
+          }}
+        >
           <Link
             className={` ${pathname === `/${params.locale}` ? "active" : ""}`}
             href='/'
@@ -131,23 +147,29 @@ const Nav = () => {
             {t("À propos de nous")}
           </Link>
           <Link
-            className={` ${pathname.includes(`/${params.locale}/signin`) ? "active" : ""}`}
+            className={` ${
+              pathname.includes(`/${params.locale}/signin`) ? "active" : ""
+            }`}
             href='/signin'
           >
             {t("Se connecter")}
           </Link>
           <Link
-            className={` ${pathname.includes(`/${params.locale}/signup`) ? "active" : ""}`}
+            className={` ${
+              pathname.includes(`/${params.locale}/signup`) ? "active" : ""
+            }`}
             href='/signup'
           >
             {t("S'inscrire")}
           </Link>
           {/* <LanguageSwitcher /> */}
         </div>
-        <div className='nav-language' style={{ flexDirection: "row", alignItems: "center", gap: "9px"}}>
+        <div
+          className='nav-language'
+          style={{flexDirection: "row", alignItems: "center", gap: "9px"}}
+        >
           <LanguageToggle updatedTheme={updatedTheme} />
           <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
-
         </div>
         {/* <Link
             style={{paddingLeft : 30, paddingRight: 30, paddingBottom: 10, paddingTop: 10, borderRadius: 30, border: "1px solid rgba(120, 120, 120, 1)"}}
@@ -156,16 +178,36 @@ const Nav = () => {
             {t("Télécharger")}
           </Link> */}
         <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
-          <div className='for-smaller-devices' style={{ flexDirection: "row", alignItems: "center", gap: "9px"}}>
-            <LanguageToggle updatedTheme={updatedTheme}  />
-              <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
-
+          <div
+            className='for-smaller-devices'
+            style={{flexDirection: "row", alignItems: "center", gap: "9px"}}
+          >
+            <LanguageToggle updatedTheme={updatedTheme} />
+            <ThemeToggle
+              updatedTheme={updatedTheme}
+              toggleTheme={toggleTheme}
+            />
           </div>
           <div onClick={changeState}>
             {state ? (
-              <MdMenuOpen className='MdMenuOpen' style={{color: !updatedTheme? "transparent":updatedTheme === "dark"? "white": "black"}} />
+              <MdMenuOpen
+                className='MdMenuOpen'
+                style={{
+                  color: 
+                     updatedTheme === "dark"
+                    ? "white"
+                    : "black",
+                }}
+              />
             ) : (
-              <AiOutlineClose className='MdMenuOpen' style={{color: !updatedTheme? "transparent":updatedTheme === "dark"? "white": "black"}} />
+              <AiOutlineClose
+                className='MdMenuOpen'
+                style={{
+                  color:  updatedTheme === "dark"
+                    ? "white"
+                    : "black",
+                }}
+              />
             )}
           </div>
         </div>
