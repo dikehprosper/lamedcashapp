@@ -4,7 +4,7 @@ import Image from "next/image";
 import image from "../../../public/Logo.webp";
 import image1 from "../../../public/Logo1.webp";
 import {  useAppSelector } from "@/lib/hooks";
-const loading = () => {
+const Loading = () => {
   const updatedTheme = useAppSelector((state) => state.theme.theme);
   return (
     <div
@@ -42,6 +42,13 @@ const loading = () => {
           ): null}
       </div>
     </div>
+  );
+};
+
+const loading = () => {
+
+  return (
+<Loading />
   );
 };
 
