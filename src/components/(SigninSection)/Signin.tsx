@@ -140,7 +140,7 @@ const SignIn = ({updatedTheme}: any) => {
             value={user.email}
             onChange={handleUserEmail}
             placeholder={t("email_placeholder")}
-            style={{color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+            style={{color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           <div className="signin-form-password">
             <input
@@ -149,7 +149,7 @@ const SignIn = ({updatedTheme}: any) => {
               value={user.password}
               onChange={handleUserPassword}
               placeholder={t("password_placeholder")}
-              style={{color: updatedTheme === "dark"? "black": "black", border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+              style={{color: updatedTheme === "dark"? "white": "black", border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
             />
             <div
               onClick={toggleVisibility}

@@ -12,7 +12,7 @@ import "./forgotpassword.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const ForgotPassword = () => {
+const ForgotPassword = ({updatedTheme}: any) => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [sent, setSent] = useState(false)
@@ -57,6 +57,28 @@ const ForgotPassword = () => {
     }
   }
 
+   useEffect(() => {
+  // Dynamically add a style tag to the document head for placeholder and input styling
+  const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, .2)";
+  const color = updatedTheme === "dark" ? "rgba(255, 255, 255, .2)" : "rgba(0, 0, 0, .2)";
+  
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .signin-form::placeholder {
+      color: ${placeholderColor};
+    }
+   
+  `;
+
+  document.head.appendChild(style);
+
+  // Clean up the style tag on component unmount
+  return () => {
+    document.head.removeChild(style);
+  };
+}, [updatedTheme]);
+
+
   return (
     <div className='signin-container'>
       <div className='signin-header'>
@@ -84,6 +106,7 @@ const ForgotPassword = () => {
             value={user.email}
             onChange={handleUserEmail}
             placeholder='Entrez votre mot de passe pour recevoir le lien de réinitialisation'
+            style={{  color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
 
           <div className='forgot-password1'>

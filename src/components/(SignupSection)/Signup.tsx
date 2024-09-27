@@ -359,7 +359,7 @@ const SignUp = ({updatedTheme}: any) => {
                 SignupReVerification();
               }}
               placeholder={t("signup.enter_fullname")}
-                     style={{borderColor: fullNameError ? "red" : "", color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+                     style={{borderColor: fullNameError ? "red" : "", color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
             />
             {fullNameError && (
               <p
@@ -396,7 +396,7 @@ const SignUp = ({updatedTheme}: any) => {
                 style={{
                   borderColor: betIdError ? "red" : "",
                   transition: betIdError ? "1s border-color ease-in-out" : "",
-                  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
+                  color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
                 }}
                 
               />
@@ -463,7 +463,7 @@ const SignUp = ({updatedTheme}: any) => {
                   style={{
                     borderColor: phoneNumberError ? "red" : "",
                     paddingLeft: "65px",
-                      color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
+                      color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
                   }}
                 />
               </div>
@@ -500,7 +500,7 @@ const SignUp = ({updatedTheme}: any) => {
                 SignupReVerification();
               }}
               placeholder={t("signup.enter_email")}
-              style={{borderColor: emailError ? "red" : "",   color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+              style={{borderColor: emailError ? "red" : "",   color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
             />
             {emailError && (
               <p
@@ -537,7 +537,7 @@ const SignUp = ({updatedTheme}: any) => {
                 }}
                 placeholder={t("signup.enter_password")}
                 style={{borderColor: passwordError ? "red" : "", 
-                    color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
+                    color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
                   }}
               />
               {passwordError && (
@@ -574,7 +574,7 @@ const SignUp = ({updatedTheme}: any) => {
                 placeholder={t("signup.confirm_password")}
                 style={{
                   borderColor: confirmPasswordError ? "red" : "",
-                    color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
+                    color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
                 }}
               />
               {confirmPasswordError && (
@@ -659,7 +659,7 @@ const SignUp = ({updatedTheme}: any) => {
               SignupReVerification();
             }}
             placeholder={t("signup.enter_fullname")}
-            style={{borderColor: fullNameError ? "red" : "",  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+            style={{borderColor: fullNameError ? "red" : "",  color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {fullNameError && (
             <p
@@ -683,7 +683,7 @@ const SignUp = ({updatedTheme}: any) => {
               SignupReVerification();
             }}
             placeholder={t("signup.bet_id")}
-            style={{borderColor: betIdError ? "red" : "", color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+            style={{borderColor: betIdError ? "red" : "", color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {betIdError && (
             <p
@@ -764,7 +764,7 @@ const SignUp = ({updatedTheme}: any) => {
               SignupReVerification();
             }}
             placeholder={t("signup.enter_email")}
-            style={{borderColor: emailError ? "red" : "",  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+            style={{borderColor: emailError ? "red" : "",  color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {emailError && (
             <p
@@ -789,7 +789,7 @@ const SignUp = ({updatedTheme}: any) => {
               SignupReVerification();
             }}
             placeholder={t("signup.enter_password")}
-            style={{borderColor: passwordError ? "red" : "",   color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+            style={{borderColor: passwordError ? "red" : "",   color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {passwordError && (
             <p
@@ -814,7 +814,7 @@ const SignUp = ({updatedTheme}: any) => {
               SignupReVerification();
             }}
             placeholder={t("signup.confirm_password")}
-            style={{borderColor: confirmPasswordError ? "red" : "",  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+            style={{borderColor: confirmPasswordError ? "red" : "",  color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {confirmPasswordError && (
             <p

@@ -3,7 +3,7 @@ import SignUp from "@/components/(SignupSection)/Signup";
 import React from "react";
 import Nav from "../../../../components/(Navs)/Nav";
 import {  useAppSelector } from "@/lib/hooks";
-const signup = () => {
+const Signup = () => {
    const updatedTheme = useAppSelector((state) => state.theme.theme);
   return ( !updatedTheme? "": 
     <div style={{background: updatedTheme === "dark" ? "rgb(10, 20, 38)": "white"}}>
@@ -12,4 +12,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;
