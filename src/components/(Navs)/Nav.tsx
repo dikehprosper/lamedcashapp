@@ -95,7 +95,7 @@ const Nav = () => {
 
 
 
-  return ( 
+  return ( updatedTheme === "dark" || updatedTheme === "light" ?
     <>
       <div
         className='nav'
@@ -222,7 +222,7 @@ const Nav = () => {
           active='active'
         />
       )}
-    </>
+    </>: null
   );
 };
 
