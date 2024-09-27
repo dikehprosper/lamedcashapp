@@ -8,9 +8,9 @@ import FifthSection from "@/components/(LandingPage)/(FifthSection)/FifthSection
 import Footer from "@/components/(LandingPage)/(Footer)/Footer";
 import PrivacyFooter from "@/components/(LandingPage)/(Footer)/PrivacyFooter";
 import Banner from "@/components/Banner/Banner";
-import {  useAppSelector } from "@/lib/hooks";
-
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 export default function Home() {
+   const dispatch = useAppDispatch();
  const updatedTheme = useAppSelector((state) => state.theme.theme);
    useEffect(() => {
     if (updatedTheme === null) {
