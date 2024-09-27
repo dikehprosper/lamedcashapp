@@ -83,11 +83,11 @@ const Nav = () => {
   }
     
 
-    // useEffect(() => {
-    //     // Get the value from local storage if it exists
-    //     const value: any = localStorage.getItem("theme") // Default to light
-    //     dispatch(setTheme(value)); // Set the theme in Redux
-    // }, [dispatch]);
+    useEffect(() => {
+        // Get the value from local storage if it exists
+        const value: any = localStorage.getItem("theme") // Default to light
+        dispatch(setTheme(value)); // Set the theme in Redux
+    }, [dispatch]);
 
     const toggleTheme = () => {
         const newTheme = updatedTheme === "light" ? "dark" : "light";
