@@ -278,6 +278,10 @@
       "continue_with": "Or continue with",
       "contact_us": "Contact Us"
     },
+    "forgotpassword": {
+    "forgotpassword": {
+   "send_link": " send a link"
+    }},
     "errors": {
       "name_required": "Please enter your name",
       "bet_id_length": "1XBET Identification Number must be at least 4 characters",

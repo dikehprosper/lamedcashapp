@@ -12,16 +12,16 @@ import "./resetpassword.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const ResetPassword = () => {
-    const router = useRouter()
+const ResetPassword = ({updatedTheme}: any) => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState({
     token: "",
     password: "",
   });
-  const [confirmpassword, setConfirmpassword] = useState("")
+  const [confirmpassword, setConfirmpassword] = useState("");
 
   useEffect(() => {
     if (user.password && confirmpassword) {
@@ -51,44 +51,41 @@ const ResetPassword = () => {
     });
   }, []);
 
-
-
-async function handleSubmit(e: any) {
-  e.preventDefault();
-setIsSubmitting(true)
-  try {
-    if(isSubmitting) {
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      if (isSubmitting) {
         return;
-    }
-    if (user.password !== confirmpassword) {
-      return toast.error("Le mot de passe ne correspond pas");
-    }
+      }
+      if (user.password !== confirmpassword) {
+        return toast.error("Le mot de passe ne correspond pas");
+      }
 
-    setLoading(true);
+      setLoading(true);
 
-    const userData = {
-      password: user.password,
-      token: user.token,
-    };
+      const userData = {
+        password: user.password,
+        token: user.token,
+      };
 
-    const response = await axios.post("/api/users/resetpassword", userData);
-    if (response.data && response.data.success) {
-      toast.success("Password reset successful");
-    } 
+      const response = await axios.post("/api/users/resetpassword", userData);
+      if (response.data && response.data.success) {
+        toast.success("Password reset successful");
+      }
       router.push("/signin");
-    setLoading(false);
-    setIsSubmitting(false)
-  } catch (error: any) {
-    if (error.response && error.response.status === 400) {
-      toast.error("Password reset Link expired");
-    } else {
-      toast.error("Error occurred. Please try again."); // Moved this toast outside of the specific status code check
+      setLoading(false);
+      setIsSubmitting(false);
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        toast.error("Password reset Link expired");
+      } else {
+        toast.error("Error occurred. Please try again."); // Moved this toast outside of the specific status code check
+      }
+      setLoading(false);
+      setIsSubmitting(false);
     }
-    setLoading(false);
-     setIsSubmitting(false)
   }
-}
-
 
   return (
     <div className='signin-container'>
@@ -118,7 +115,7 @@ setIsSubmitting(true)
             onChange={handleUserPassword}
             placeholder='Entrez un nouveau mot de passe'
           />
-          
+
           <label>Confirmez le mot de passe</label>
           <input
             type='text'
@@ -165,11 +162,10 @@ setIsSubmitting(true)
             <h2 className='welcome-section-first_h2'>Mot de passe oublié</h2>
           </div>
           <div className='welcome-section-second'>
-            <div className='signin-img google'>
-            </div>
+            <div className='signin-img google'></div>
             <p className='welcome-section-second_p'>
               Vous n&apos;avez pas de compte?,{" "}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+              <span style={{color: "#FCBB45", fontWeight: "500"}}>
                 <a href='/signup'>Créez un compte !</a>
               </span>
             </p>
@@ -182,7 +178,7 @@ setIsSubmitting(true)
           <div className='welcome-section-second-mobile'>
             <p className='welcome-section-second_p-mobile'>
               Vous n&apos;avez pas de compte?,{" "}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+              <span style={{color: "#FCBB45", fontWeight: "500"}}>
                 <a href='/signup'>Créez un compte !</a>
               </span>
             </p>

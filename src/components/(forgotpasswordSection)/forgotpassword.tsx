@@ -11,7 +11,7 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./forgotpassword.css";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { useTranslations } from "next-intl";
 const ForgotPassword = ({updatedTheme}: any) => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -19,6 +19,8 @@ const ForgotPassword = ({updatedTheme}: any) => {
   const [user, setUser] = useState({
     email: "",
   });
+
+   const t = useTranslations("forgotpassword");
 
   useEffect(() => {
     if (user.email) {
@@ -128,8 +130,8 @@ const ForgotPassword = ({updatedTheme}: any) => {
               fontWeight: "600 !important",
               cursor: "pointer",
               background: buttonDisabled
-                ? "rgba(189, 255, 5, .7) !important;"
-                : "rgba(189, 255, 5, 1) !important;",
+                ? "rgba(73, 166, 106, 1) !important;"
+                : "rgba(73, 166, 106, .7) !important;",
               pointerEvents: buttonDisabled ? "none" : "auto",
             }}
           >
@@ -138,7 +140,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
                 <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
-              "envoyer un lien"
+               {t("forgotpassword.send_link")}
             )}
           </button>
               {sent &&    <div style={{background: "rgba(0, 128, 0, 0.18)", marginTop: "20px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center",  height: "60px", width: "100%", borderRadius: "4px", border: ".5px solid rgba(0, 128, 0, 0.7)"}}>Le lien de réinitialisation a été envoyé avec succès à votre adresse e-mail</div>}

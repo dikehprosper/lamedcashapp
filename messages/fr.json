@@ -275,6 +275,10 @@
       "continue_with": "Ou continuez avec",
       "contact_us": "Contactez-nous"
     },
+     "forgotpassword": {
+    "forgotpassword": {
+   "send_link": "envoyer un lien"
+    }},
     "errors": {
       "name_required": "Veuillez entrer votre nom",
       "bet_id_length": "Le numéro d'identification doit avoir au moins 4 caractères",
