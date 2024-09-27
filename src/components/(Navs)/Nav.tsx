@@ -75,14 +75,15 @@ const Nav = () => {
 
 
  const dispatch = useAppDispatch();
-    const storedTheme = useAppSelector((state) => state.theme.theme) ;
-  const [updatedTheme, setUpdatedTheme] = useState(storedTheme);
-  if (storedTheme === null) {
-    localStorage.setItem('theme', "light");
-      setUpdatedTheme("light");
-  }
-    
+    const updatedTheme = useAppSelector((state) => state.theme.theme);
 
+   useEffect(() => {
+    if (updatedTheme === null) {
+        dispatch(setTheme("light")); // Set the theme in Redux
+    }
+       
+    }, [updatedTheme]);
+  
     useEffect(() => {
         // Get the value from local storage if it exists
         const value: any = localStorage.getItem("theme") // Default to light
