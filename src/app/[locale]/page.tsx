@@ -8,6 +8,7 @@ import FifthSection from "@/components/(LandingPage)/(FifthSection)/FifthSection
 import Footer from "@/components/(LandingPage)/(Footer)/Footer";
 import PrivacyFooter from "@/components/(LandingPage)/(Footer)/PrivacyFooter";
 import Banner from "@/components/Banner/Banner";
+import { setTheme } from "@/lib/features/themeSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 export default function Home() {
    const dispatch = useAppDispatch();
