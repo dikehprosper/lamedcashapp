@@ -13,7 +13,7 @@ import {  useAppSelector } from "@/lib/hooks";
 export default function Home() {
  const updatedTheme = useAppSelector((state) => state.theme.theme);
 
-  return (updatedTheme? 
+  return (
       <div className='main' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)" : "white"}}>
        
         <div className='home-banner'>{/* <Banner /> */}</div>
@@ -25,7 +25,7 @@ export default function Home() {
         <FourthSection updatedTheme={updatedTheme} /> 
          <Footer updatedTheme={updatedTheme} />
         <PrivacyFooter updatedTheme={updatedTheme} />
-      </div>: null
+      </div>
     
   );
 }

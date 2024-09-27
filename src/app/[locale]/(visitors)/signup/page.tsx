@@ -5,7 +5,7 @@ import Nav from "../../../../components/(Navs)/Nav";
 import {  useAppSelector } from "@/lib/hooks";
 const Signup = () => {
    const updatedTheme = useAppSelector((state) => state.theme.theme);
-  return ( !updatedTheme? "": 
+  return ( 
     <div style={{background: updatedTheme === "dark" ? "rgb(10, 20, 38)": "white"}}>
       <SignUp updatedTheme={updatedTheme} />
     </div>
