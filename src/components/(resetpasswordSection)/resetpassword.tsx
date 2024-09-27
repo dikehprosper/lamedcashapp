@@ -11,6 +11,7 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./resetpassword.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 const ResetPassword = ({updatedTheme}: any) => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const ResetPassword = ({updatedTheme}: any) => {
     password: "",
   });
   const [confirmpassword, setConfirmpassword] = useState("");
-
+ const t = useTranslations("resetpassword");
   useEffect(() => {
     if (user.password && confirmpassword) {
       setButtonDisabled(false);
@@ -87,10 +88,40 @@ const ResetPassword = ({updatedTheme}: any) => {
     }
   }
 
+
+   useEffect(() => {
+  // Dynamically add a style tag to the document head for placeholder and input styling
+  const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, .2)";
+  const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+  
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .signin-form::placeholder {
+      color: ${placeholderColor};
+    }
+    .signin-form {
+      color: ${color};
+    }
+  `;
+
+  document.head.appendChild(style);
+
+  // Clean up the style tag on component unmount
+  return () => {
+    document.head.removeChild(style);
+  };
+}, [updatedTheme]);
+
+
   return (
-    <div className='signin-container'>
+    <div className='signin-container'  style={{
+        background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+      }}>
       <div className='signin-header'>
-        <h2>Mot de passe oublié</h2>
+        <h2 style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{ t("resetpassword.title")}</h2>
       </div>
       {/* first section */}
       <div className='signin-container_inner'>
@@ -107,31 +138,49 @@ const ResetPassword = ({updatedTheme}: any) => {
           />
         </div>
         <form onSubmit={handleSubmit} className='signin-form-container'>
-          <label>Mot de passe</label>
+          <label style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{ t("resetpassword.password")}</label>
           <input
             type='text'
             className='signin-form last'
             value={user.password}
             onChange={handleUserPassword}
-            placeholder='Entrez un nouveau mot de passe'
+            placeholder={t("resetpassword.placeholder")}
+              style={{
+              border:
+                updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
+            }}
+            
           />
 
-          <label>Confirmez le mot de passe</label>
+          <label style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{ t("resetpassword.confirm")}</label>
           <input
             type='text'
             className='signin-form'
             value={confirmpassword}
             onChange={handleUserConfirmPassword}
-            placeholder='Entrez Confirmer le mot de passe'
+            placeholder={t("resetpassword.placeholder2")}
+              style={{
+              border:
+                updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
+            }}
           />
 
-          <div className='forgot-password1'>
+          <div className='forgot-password1' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
             <a href='/signin' className='forgot-password2'>
-              Allez à La Connexion
+           {t("resetpassword.signin")}
             </a>
             &nbsp; &nbsp; &nbsp;
             <a href='/signup' className='forgot-password3'>
-              Allez à L&apos;Inscription
+              {t("resetpassword.signup")}
             </a>
           </div>
 
@@ -143,8 +192,8 @@ const ResetPassword = ({updatedTheme}: any) => {
               fontWeight: "600 !important",
               cursor: "pointer",
               background: buttonDisabled
-                ? "rgba(189, 255, 5, .7) !important"
-                : "rgba(189, 255, 5, 1) !important",
+                ? "rgba(73, 166, 106, .7)"
+                : "rgba(73, 166, 106, 1) ",
               pointerEvents: buttonDisabled ? "none" : "auto",
             }}
           >
@@ -153,20 +202,26 @@ const ResetPassword = ({updatedTheme}: any) => {
                 <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
-              "envoyer un lien"
+             t("resetpassword.send_link")
             )}
           </button>
         </form>
         <div className='welcome-section'>
           <div className='welcome-section-first'>
-            <h2 className='welcome-section-first_h2'>Mot de passe oublié</h2>
+            <h2 className='welcome-section-first_h2' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{ t("resetpassword.title")}</h2>
           </div>
           <div className='welcome-section-second'>
             <div className='signin-img google'></div>
-            <p className='welcome-section-second_p'>
-              Vous n&apos;avez pas de compte?,{" "}
-              <span style={{color: "#FCBB45", fontWeight: "500"}}>
-                <a href='/signup'>Créez un compte !</a>
+            <p className='welcome-section-second_p' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
+             { t("resetpassword.question")}  &nbsp;
+              <span style={{color: "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
+                <a href='/signup'>{ t("resetpassword.solution")} </a>
               </span>
             </p>
           </div>
@@ -176,10 +231,13 @@ const ResetPassword = ({updatedTheme}: any) => {
       <div className='signin-container_inner23'>
         <div className='welcome-section-mobile'>
           <div className='welcome-section-second-mobile'>
-            <p className='welcome-section-second_p-mobile'>
-              Vous n&apos;avez pas de compte?,{" "}
-              <span style={{color: "#FCBB45", fontWeight: "500"}}>
-                <a href='/signup'>Créez un compte !</a>
+            <p className='welcome-section-second_p-mobile' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
+              { t("resetpassword.question")}  &nbsp;
+              <span style={{color: "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
+                <a href='/signup'>{ t("resetpassword.solution")}</a>
               </span>
             </p>
           </div>
@@ -193,9 +251,14 @@ const ResetPassword = ({updatedTheme}: any) => {
             width: "100%",
             display: "flex",
             justifyContent: "center",
+             color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"
+          
           }}
         >
-          Contactez-nous
+         { t("resetpassword.contact")}
         </div>
         <div className='signin-social-media-icons'>
           <div className='signin-img facebook'>

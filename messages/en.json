@@ -55,9 +55,9 @@
     "transaction": {
       "copy_success": "Text successfully copied!",
       "copy_failure": "Oops! Unable to copy text.",
-      "all": "All",
-      "deposits": "View Deposits",
-      "withdrawals": "Show Withdrawals",
+      "all": "See All",
+      "deposits": "See Deposits",
+      "withdrawals": "See Withdrawals",
       "total_deposits": "Total Deposits:",
       "total_withdrawals": "Total Withdrawals:",
       "no_data": "No Data to Display"
@@ -263,7 +263,30 @@
   },
   "forgotpassword": {
     "forgotpassword": {
-      "send_link": " send a link"
+      "send_link": " send a link",
+      "signin": "Sign in",
+      "signup": "Sign up",
+      "placeholder": "Enter your password to receive the reset link",
+      "successMessage": "The reset link has been successfully sent to your email address",
+      "title": "Forgotten password",
+     "question": "Don't have an account?",
+     "solution": "Create an account!",
+     "contact": "Contact us"
+    }},
+    "resetpassword": {
+    "resetpassword": {
+      "send_link": " send a link",
+      "signin": "Sign in",
+      "signup": "Sign up",
+      "placeholder": "Enter a new password",
+         "placeholder2": "Enter Confirm Password",
+      "successMessage": "The reset link has been successfully sent to your email address",
+      "title": "Reset password",
+     "question": "Don't have an account?",
+     "solution": "Create an account!",
+     "contact": "Contact us",
+     "password": "Password",
+     "confirm": "Confirm password"
     }
   },
   "sign-up": {

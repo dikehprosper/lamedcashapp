@@ -9,7 +9,7 @@ import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Image from "next/image";
 import image from "../../../../public/wavingHand.png";
 
-const Head = ({title, about, data}: any) => {
+const Head = ({title, about, data, updatedTheme}: any) => {
   const spanRef = useRef<HTMLSpanElement>(null);
   const t = useTranslations("dashboard");
 
@@ -35,22 +35,43 @@ const Head = ({title, about, data}: any) => {
 
   return (
     <>
-      <div className='head-container big'>
+      <div className='head-container big' style={{background: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "white"
+              : "transparent" }}>
         <div className='title-container'>
-          <h2 className='title-container-h2'>{title}</h2>
-          <p className='title-container-p'>{about}</p>
+          <h2 className='title-container-h2' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{title}</h2>
+          <p className='title-container-p' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{about}</p>
         </div>
       
       </div>
 
       <div className='head-container small'>
         <div className='tag'>
-          <span className='tag-container-id'>
+          <span className='tag-container-id'  style={{boxShadow: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? " 0px 4px 10px rgba(0, 0, 0, 1)"
+              : "transparent", background: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "rgba(256, 256, 256, 0.3)"
+              : "transparent"}}>
             {data?.fullname ? (
               <>
-                <span className='tag-container-id-span1'>
-                  <span className='tag-container-id-span3'>1XBet Id: </span>
-                  <span onClick={handleCopyClick} ref={spanRef}>
+                <span className='tag-container-id-span1' >
+                  <span className='tag-container-id-span3' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}> </span>
+                  <span onClick={handleCopyClick} ref={spanRef} style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
                     {" "}
                     {data?.betId}{" "}
                   </span>
@@ -58,10 +79,11 @@ const Head = ({title, about, data}: any) => {
                 <span
                   className='tag-container-id-span2'
                   onClick={handleCopyClick}
+                  style={{color: "rgba(73, 166, 106, 1)"}}
                 >
                   <IoIosCopy />
                   copier
-                </span>{" "}
+                </span>
               </>
             ) : (
               <span className='tag-container-id2'>
@@ -72,7 +94,10 @@ const Head = ({title, about, data}: any) => {
             )}
           </span>
         </div>
-        <div className='title-container'> {data?.fullname?  <> <h3 className='title-container-h2'>{title} &nbsp;
+        <div className='title-container' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}> {data?.fullname?  <> <h3 className='title-container-h2'>{title} &nbsp;
                   {data?.fullname} &nbsp;
              <Image
           src={image}
@@ -82,7 +107,10 @@ const Head = ({title, about, data}: any) => {
           height={40}
         />
           </h3>
-          <p className='title-container-p'>{about}</p></>:
+          <p className='title-container-p' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{about}</p></>:
            <span className='tag-container-id2'>
                 <div id='container_customerid'>
                   <div id='container_customerid_inner'></div>

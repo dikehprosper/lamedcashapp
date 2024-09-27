@@ -24,6 +24,7 @@ const TransactionTemplate = ({
   data,
   allData,
   showReceipt,
+  updatedTheme
 }: any) => {
   const [state, setState] = useState(select.firstSelect.big);
   const [viewMore, setStateViewMore] = useState<boolean>();
@@ -110,22 +111,44 @@ const TransactionTemplate = ({
 
   return data === undefined ? (
     // Render the loading spinner when loading is true
-    <div
-      className='transaction_template_container '
-      style={{
-        background: "rgba(0, 0, 0, 0.5)",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div>
       <div id='container-signin'>
         <div id='html-spinner-signin'></div>
       </div>
     </div>
   ) : (
-    <div className='transaction_template_container'>
+    <div
+     className='transaction_template_container '
+      style={{
+        boxShadow:
+          updatedTheme === "dark"
+            ? ""
+            : updatedTheme === "light"
+            ? " 0px 4px 10px rgba(0, 0, 0, .3)"
+            : "transparent",
+        background:
+          updatedTheme === "dark"
+            ? "rgba(0, 0, 0, 0.4)"
+            : updatedTheme === "light"
+            ? "white"
+            : "transparent",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+     
+    >
       <div className='transaction_template_container_header'>
-        <span className='transaction_template_container_header_1'>
+        <span
+          className='transaction_template_container_header_1'
+          style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+          }}
+        >
           {title.name} {title.icon}
         </span>
         {/* <span className='transaction_template_container_header_2'>
@@ -156,20 +179,46 @@ const TransactionTemplate = ({
           </div>
         </span> */}
       </div>
-      <div className='transaction_template_container_body'>
+      <div
+        className='transaction_template_container_body'
+        style={{
+          color:
+            updatedTheme === "dark"
+              ? "white"
+              : updatedTheme === "light"
+              ? "black"
+              : "transparent",
+          background:
+            updatedTheme === "dark"
+              ? ""
+              : updatedTheme === "light"
+              ? "white"
+              : "transparent",
+        }}
+      >
         <div className='transaction_template_container_body_1'>
           <div className='transaction_template_container_body_1_1'>
             {/* filtre &nbsp;
             <FaFilter /> */}
           </div>
 
-          <div className='transaction_template_container_body_1_2'>
+          <div
+            className='transaction_template_container_body_1_2'
+          
+          >
             <span
               className={`transaction_template_container_body_1_2_1 ${
                 state === "All" && "active_selection_big"
               }`}
               style={{
                 borderColor: state === t("see_all") ? "#5E968B" : "",
+              
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent"
               }}
               onClick={() => changeState1(select.firstSelect.big)}
             >
@@ -181,6 +230,12 @@ const TransactionTemplate = ({
               className='transaction_template_container_body_1_2_1'
               style={{
                 borderColor: state === t("see_deposits") ? "#5E968B" : "",
+                 color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent"
               }}
             >
               {select.secondSelect.big} &nbsp;{" "}
@@ -191,6 +246,12 @@ const TransactionTemplate = ({
               className='transaction_template_container_body_1_2_1'
               style={{
                 borderColor: state === t("see_withdrawals") ? "#5E968B" : "",
+                 color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent"
               }}
             >
               {select.thirdSelect.big} &nbsp;{" "}
@@ -202,6 +263,24 @@ const TransactionTemplate = ({
             aria-expanded={height !== 0}
             aria-controls='example-panel'
             onClick={adjustHeight}
+             style={{
+                boxShadow:
+          updatedTheme === "dark"
+            ? ""
+            : updatedTheme === "light"
+            ? " 0px 4px 10px rgba(0, 0, 0, .3)"
+            : "transparent",
+        background:
+          updatedTheme === "dark"
+            ? "rgba(0, 0, 0, 1)"
+            : updatedTheme === "light"
+            ? "white"
+            : "transparent",  color:
+          updatedTheme === "dark"
+            ? "white"
+            : updatedTheme === "light"
+            ? "black"
+            : "transparent",}}
           >
             {state}&nbsp;{" "}
             {height === 0 ? <IoMdArrowDropdown /> : <IoMdArrowDropup />}
@@ -210,7 +289,7 @@ const TransactionTemplate = ({
               duration={300}
               height={height}
               style={{
-                background: "black",
+                background: "transparent",
                 position: "absolute",
                 top: "28px",
                 right: 0,
@@ -218,15 +297,37 @@ const TransactionTemplate = ({
                 zIndex: 30,
               }}
             >
-              <div className='dropdown-content'>
+              <div className='dropdown-content'  style={{
+               
+                background:
+          updatedTheme === "dark"
+            ? "rgba(0, 0, 0, 0.4)"
+            : updatedTheme === "light"
+            ? "white"
+            : "transparent",
+              boxShadow:
+          updatedTheme === "dark"
+            ? ""
+            : updatedTheme === "light"
+            ? " 0px 4px 10px rgba(0, 0, 0, .3)"
+            : "transparent",
+              }}>
                 <div
                   className='dropdown-content_1'
                   onClick={() => changeState1(select.firstSelect.big)}
                   style={{
                     background: state === t("transaction.all") ? "grey" : "",
-                    color: state === t("transaction.all") ? "black" : "",
+                  color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent"
                   }}
+
+               
                 >
+                
                   {select.firstSelect.big}
                 </div>
                 <div
@@ -234,8 +335,13 @@ const TransactionTemplate = ({
                   className='dropdown-content_2'
                   style={{
                     background:
-                      state === t("transaction.deposits:") ? "grey" : "",
-                    color: state === t("transaction.deposits:") ? "black" : "",
+                      state === t("transaction.deposits") ? "grey" : "",
+                    color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent"
                   }}
                 >
                   {select.secondSelect.big}
@@ -246,8 +352,12 @@ const TransactionTemplate = ({
                   style={{
                     background:
                       state === t("transaction.withdrawals") ? "grey" : "",
-                    color:
-                      state === t("transaction.withdrawals") ? "black" : "",
+                     color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent"
                   }}
                 >
                   {select.thirdSelect.big}
@@ -294,6 +404,7 @@ const TransactionTemplate = ({
                         momoName={filteredData.momoName}
                         momoNumber={filteredData.momoNumber}
                         identifierId={filteredData.identifierId}
+                        updatedTheme={updatedTheme}
                       />
                     ))
                 ) : (
@@ -335,6 +446,7 @@ const TransactionTemplate = ({
                         momoName={filteredData.momoName}
                         momoNumber={filteredData.momoNumber}
                         identifierId={filteredData.identifierId}
+                        updatedTheme={updatedTheme}
                       />
                     ))
                 ) : (
@@ -373,6 +485,7 @@ const TransactionTemplate = ({
                       momoName={data.momoName}
                       momoNumber={data.momoNumber}
                       identifierId={data.identifierId}
+                      updatedTheme={updatedTheme}
                     />
                   ))
               ) : (
@@ -415,6 +528,7 @@ const TransactionTemplate = ({
                       momoName={filteredData.momoName}
                       momoNumber={filteredData.momoNumber}
                       identifierId={filteredData.identifierId}
+                      updatedTheme={updatedTheme}
                     />
                   ))
               ) : (
@@ -457,6 +571,7 @@ const TransactionTemplate = ({
                       momoName={filteredData.momoName}
                       momoNumber={filteredData.momoNumber}
                       identifierId={filteredData.identifierId}
+                      updatedTheme={updatedTheme}
                     />
                   ))
               ) : (
@@ -496,6 +611,7 @@ const TransactionTemplate = ({
                     momoName={data.momoName}
                     momoNumber={data.momoNumber}
                     identifierId={data.identifierId}
+                    updatedTheme={updatedTheme}
                   />
                 ))
             ) : (
@@ -518,7 +634,7 @@ const TransactionTemplate = ({
             )}
 
             {pathname.includes("/transactions") ? null : viewMore === true ? (
-              <div className='view-more'>
+              <div className='view-more' style={{background: "rgba(120, 120, 120, 0.4)"}}>
                 <Link
                   href={{
                     pathname: "/transactions",

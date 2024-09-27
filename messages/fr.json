@@ -21,7 +21,7 @@
   },
   "dashboard": {
     "welcome_title": "Bienvenue",
-    "marque_text": "UTILISEZ LE CODE PROMO 1XBET   '229LERICHE' ET OBTENEZ  200%  DE BONUS SUR VOTRE 1ER DÉPÔT",
+    "marque_text": "UTILISEZ LE CODE PROMO 1XBET '229LERICHE' ET OBTENEZ 200% DE BONUS SUR VOTRE 1ER DÉPÔT",
     "deposit_text": "DÉPÔTS",
     "withdrawal_text": "RETRAITS",
     "welcome_about": "Faites l'expérience de dépôts et de retraits rapides",
@@ -120,86 +120,79 @@
       "update_details": "Mettre à jour les détails",
       "save_bet_id": "Sauvegarder Bet ID",
       "reset_password": "Réinitialiser le mot de passe",
-      "old_password": "L'ncien mot de passe",
+      "old_password": "L'ancien mot de passe",
       "enter_old_password": "Entrez l'ancien mot de passe",
       "enter_new_password": "Entrez un nouveau mot de passe",
       "new_password": "Nouveau mot de passe",
       "confirm_password": "Confirmer le mot de passe",
       "note": "Note :",
-      "password_note": "Pour mettre à jour votre mot de passe, entrez l'ancien mot de passe et le nouveau que vous souhaitez utiliser",
-      "error_messages": {
-        "network_error": "Pas de connexion réseau. Veuillez vérifier votre connexion et réessayer.",
-        "invalid_mobile_number": "Le numéro de portable doit comporter 8 chiffres.",
-        "password_mismatch": "La confirmation du mot de passe ne correspond pas au mot de passe.",
-        "incorrect_old_password": "L'ancien mot de passe est incorrect.",
-        "account_disabled": "Votre compte a été désactivé.",
-        "something_went_wrong": "Une erreur s'est produite. Veuillez réessayer plus tard."
-      },
-      "success_messages": {
-        "profile_updated": "Profil mis à jour avec succès.",
-        "bet_id_added": "Identifiant 1XBET ajouté avec succès.",
-        "password_updated": "Votre mot de passe a été mis à jour avec succès."
-      }
-    },
-    "transaction_page": {
-      "title": "Transactions",
-      "about": "Afficher et suivre l'historique de vos transactions",
-      "transaction_history": "Historique des Transactions",
-      "view_all": "Voir tout",
-      "deposits": "Dépôts",
-      "withdrawals": "Retraits",
-      "deposit_amount": "Montant du dépôt",
-      "show_receipt": "Afficher le reçu",
-      "transaction_details": "Détails de la transaction",
-      "time": "Temps",
-      "image": "Image",
-      "identifier_id": "Identifiant",
-      "bet_id": "ID de Pari",
-      "status": "Statut",
-      "type": "Type",
-      "mobile_money_name": "Nom du Mobile Money",
-      "mobile_money_number": "Numéro du Mobile Money",
-      "withdrawal_code": "Code de Retrait",
-      "modal_title": "Montant du dépôt"
-    },
-    "navLinks": {
-      "dashboard": "Tableau de bord",
-      "deposit": "Dépôt",
-      "withdraw": "Retirer",
-      "transactions": "Transactions",
-      "profile": "Profil",
-      "referrals": "Références"
-    },
-    "adminNavLinks": {
-      "dashboard": "Tableau de bord",
-      "allHistory": "Toute l'histoire",
-      "withdrawals": "Retraits",
-      "users": "Utilisatrices"
-    },
-    "logout": "Se déconnecter",
-    "follow": "Suivez-nous",
-    "home": "Acc",
-    "aboutUs": "À propos de nous",
-    "signIn": "Se connecter",
-    "signUp": "S'inscrire",
-    "referral_page": {
-      "title": "Références",
-      "about": "Voir les parrainages gagnés ici",
-      "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions. Vous recevrez également 33 % de nos bénéfices sur vos dépôts de parrainage. Commencez à partager votre code unique maintenant !",
-      "earningsNote": "Vous ne pouvez obtenir du GRAW qu'à partir de 20 000 XOF et plus.",
-      "withdraw": "Retirer",
-      "noReferrals": "Vous n'avez pas encore de références",
-      "name": "Nom",
-      "email": "Email",
-      "amount": "Montant Gagné",
-      "how_it_works": "Comment ça fonctionne",
-      "exceed": "une fois que vos gains dépassent 20000 XOF, ils sont versés sur votre compte de pari",
-      "10_percent": "soyez payé jusqu'à 10% sur les transactions de vos filleuls à vie",
-      "error": "Une erreur s'est produite. Veuillez réessayer plus tard.",
-      "networkError": "Pas de connexion réseau. Veuillez vérifier votre connexion et réessayer.",
-      "referalLink": "Mon lien de parrainage",
-      "referalLink_copy": "Copier le lien"
+      "password_note": "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.",
+      "password_mismatch": "Les mots de passe ne correspondent pas",
+      "update_success": "Mise à jour réussie",
+      "update_failure": "Échec de la mise à jour. Veuillez réessayer.",
+      "delete_account": "Supprimer le compte",
+      "delete_account_prompt": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+      "confirm_delete": "Confirmer la suppression"
     }
+  },
+  "transaction_page": {
+    "title": "Transactions",
+    "about": "Afficher et suivre l'historique de vos transactions",
+    "transaction_history": "Historique des Transactions",
+    "view_all": "Voir tout",
+    "deposits": "Dépôts",
+    "withdrawals": "Retraits",
+    "deposit_amount": "Montant du dépôt",
+    "show_receipt": "Afficher le reçu",
+    "transaction_details": "Détails de la transaction",
+    "time": "Temps",
+    "image": "Image",
+    "identifier_id": "Identifiant",
+    "bet_id": "ID de Pari",
+    "status": "Statut",
+    "type": "Type",
+    "mobile_money_name": "Nom du Mobile Money",
+    "mobile_money_number": "Numéro du Mobile Money",
+    "withdrawal_code": "Code de Retrait",
+    "modal_title": "Montant du dépôt"
+  },
+  "navLinks": {
+    "dashboard": "Tableau de bord",
+    "deposit": "Dépôt",
+    "withdraw": "Retirer",
+    "transactions": "Transactions",
+    "profile": "Profil",
+    "referrals": "Références"
+  },
+  "adminNavLinks": {
+    "dashboard": "Tableau de bord",
+    "allHistory": "Toute l'histoire",
+    "withdrawals": "Retraits",
+    "users": "Utilisatrices"
+  },
+  "logout": "Se déconnecter",
+  "follow": "Suivez-nous",
+  "home": "Acc",
+  "aboutUs": "À propos de nous",
+  "signIn": "Se connecter",
+  "signUp": "S'inscrire",
+  "referral_page": {
+    "title": "Références",
+    "about": "Voir les parrainages gagnés ici",
+    "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions. Vous recevrez également 33 % de nos bénéfices sur vos dépôts de parrainage. Commencez à partager votre code unique maintenant !",
+    "earningsNote": "Vous ne pouvez obtenir du GRAW qu'à partir de 20 000 XOF et plus.",
+    "withdraw": "Retirer",
+    "noReferrals": "Vous n'avez pas encore de références",
+    "name": "Nom",
+    "email": "Email",
+    "amount": "Montant Gagné",
+    "how_it_works": "Comment ça fonctionne",
+    "exceed": "une fois que vos gains dépassent 20000 XOF, ils sont versés sur votre compte de pari",
+    "10_percent": "soyez payé jusqu'à 10% sur les transactions de vos filleuls à vie",
+    "error": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+    "networkError": "Pas de connexion réseau. Veuillez vérifier votre connexion et réessayer.",
+    "referalLink": "Mon lien de parrainage",
+    "referalLink_copy": "Copier le lien"
   },
   "header": {
     "Accueil": "Accueil",
@@ -261,7 +254,32 @@
   },
   "forgotpassword": {
     "forgotpassword": {
-      "send_link": "envoyer un lien"
+      "send_link": "envoyer un lien",
+      "signin": "S'inscrire",
+      "signup": "Se connecter",
+      "placeholder": "Entrez votre mot de passe pour recevoir le lien de réinitialisation",
+      "successMessage": "Le lien de réinitialisation a été envoyé avec succès à votre adresse e-mail",
+      "title": " Mot de passe oublié",
+      "question": "Vous n'avez pas de compte?",
+      "solution": "Créez un compte!",
+      "contact": "Contactez-nous",
+      "password": "Password"
+    }
+  },
+   "resetpassword": {
+    "resetpassword": {
+      "send_link": "envoyer un lien",
+      "signin": "S'inscrire",
+      "signup": "Se connecter",
+      "placeholder": "Entrez un nouveau mot de passe",
+   "placeholder2": "Entrez Confirmer le mot de passe",
+      "successMessage": "Le lien de réinitialisation a été envoyé avec succès à votre adresse e-mail",
+      "title": " Réinitialiser le mot de passe",
+      "question": "Vous n'avez pas de compte?",
+      "solution": "Créez un compte!",
+      "contact": "Contactez-nous",
+      "password": "Mot de passe",
+       "confirm": "Confirmez le mot de passe"
     }
   },
   "sign-up": {
@@ -280,7 +298,6 @@
       "continue_with": "Ou continuez avec",
       "contact_us": "Contactez-nous"
     },
-
     "errors": {
       "name_required": "Veuillez entrer votre nom",
       "bet_id_length": "Le numéro d'identification doit avoir au moins 4 caractères",
@@ -294,4 +311,11 @@
       "click_to_continue": "Cliquez pour continuer"
     }
   }
+
 }
+
+
+
+
+
+

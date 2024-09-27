@@ -7,11 +7,12 @@ const BigScreenNavModal = ({
   navLinks,
   containerStyles,
   handleClick,
-}: BigScreenNavModalProps) => {
+  updatedTheme
+}: any) => {
   const pathname = usePathname();
   return (
-    <div className={containerStyles}>
-      {navLinks?.map((link, index) => {
+    <div className={containerStyles} >
+      {navLinks?.map((link: any, index: any) => {
         return (
           <a
             key={index}
@@ -20,6 +21,9 @@ const BigScreenNavModal = ({
             }`}
             href={link.pathname}
             // onClick={handleClick}
+            style={{ color:   updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"? "black" : "transparent"}}
           >
             <div
               className={` ${

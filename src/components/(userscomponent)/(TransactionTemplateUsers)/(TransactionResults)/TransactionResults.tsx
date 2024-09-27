@@ -18,6 +18,7 @@ const TransactionResults = ({
   momoNumber,
   withdrawalCode,
   identifierId,
+  updatedTheme
 }: any) => {
   const t = useTranslations("dashboard");
   const handleClick = () => {
@@ -61,13 +62,27 @@ const TransactionResults = ({
           />
         </span>
 
-        <span>{formatDate(time)}</span>
+        <span  style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+          }}>{formatDate(time)}</span>
         <span
           className='small_device_group'
           style={{color: "rgba(256, 256, 256, 0.8"}}
         >
           {" "}
-          <span>
+          <span  style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+          }}>
             <b>
               {type === "deposits"
                 ? `${t("deposit_text")}`
@@ -80,16 +95,41 @@ const TransactionResults = ({
             <span>  {type === "deposits" ? (
             <span
               
-      style={{justifyContent: "flex-end", alignItems: "center" }}
+     
+       style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+                justifyContent: "flex-end", alignItems: "center"
+          }}
             >
               XOF {formatNumberWithCommasAndDecimal(amount)}
             </span>
           ) : (
-            <span   style={{   justifyContent: "flex-end",alignItems: "center" }} > {withdrawalCode}</span>
+            <span    style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+                justifyContent: "flex-end", alignItems: "center"
+          }} > {withdrawalCode}</span>
           )}</span>
        
         </span>
-        <span style={{overflow: "hidden"}}>
+        <span style={{overflow: "hidden"}}  style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+              
+          }}>
           <b style={{color: "rgba(256, 256, 256, 0.4"}}>REÇU: &nbsp;</b>{" "}
           {identifierId}
         </span>
@@ -104,12 +144,29 @@ const TransactionResults = ({
           {type === "deposits" ? (
             <span
               className='last-span-for-small'
-      style={{  fontWeight: "800", fontSize: "10px", justifyContent: "flex-end", alignItems: "center" }}
+  
+      style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+              fontWeight: "800", fontSize: "10px", justifyContent: "flex-end", alignItems: "center"
+          }}
             >
               XOF {formatNumberWithCommasAndDecimal(amount)}
             </span>
           ) : (
-            <span className='last-span-for-small'   style={{  fontWeight: "800", fontSize: "10px",  justifyContent: "center",alignItems: "center" }} > {withdrawalCode}</span>
+            <span className='last-span-for-small'  style={{
+            color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+              fontWeight: "800", fontSize: "10px", justifyContent: "flex-end", alignItems: "center"
+          }} >{withdrawalCode}</span>
           )}
           <span
             style={{

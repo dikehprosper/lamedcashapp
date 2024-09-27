@@ -1,6 +1,6 @@
 .user_dashboard_container {
   display: flex;
-  margin-left: 250px;
+  
   padding: 27px 35px 20px 35px;
   height: auto;
   flex-direction: column;
@@ -8,7 +8,7 @@ min-height: 100vh;
 max-height: 190vh;
   flex-direction: column;
 flex: 1;
-
+padding-left: 300px;
 }
 
 .user-dashboard-display {

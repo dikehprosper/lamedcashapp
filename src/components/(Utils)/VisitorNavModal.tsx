@@ -11,14 +11,23 @@ const Modal = ({
   containerStylesInner,
   containerStylesInnerLink,
   handleClick,
-}: SmallScreenNavModalProps) => {
+  updatedTheme
+}: any) => {
   const pathname = usePathname();
   const params = useParams();
 
   return (
-    <div className={` ${containerStyles}`} onClick={handleClick}>
-      <div className={` ${containerStylesInner}`}>
-        {navLinks?.map((link, index) => {
+    <div className={` ${containerStyles}`} onClick={handleClick} >
+      <div className={` ${containerStylesInner}`} style={{
+  background: updatedTheme === "dark" ? "black" : updatedTheme === "light" ? "white" : "transparent",
+  boxShadow: updatedTheme === "dark" 
+    ? "0 4px 10px rgba(0, 0, 0, 0.5)" 
+    : updatedTheme === "light" 
+    ? "0 4px 10px rgba(0, 0, 0, 0.2)" 
+    : "none"
+}}
+>
+        {navLinks?.map((link: any, index: any) => {
           // Check if the current link is active
           const isActive = pathname === link.pathname 
 
@@ -28,7 +37,7 @@ const Modal = ({
               className={` ${containerStylesInnerLink} ${isActive ? active : ""} `}
               href={link.pathname}
               style={{
-                color:  "white", 
+              color: updatedTheme === "dark" ? "white" : updatedTheme === "light" ? "black" : "transparent",
                width: "80%",
        textAlign: "center",
               }}

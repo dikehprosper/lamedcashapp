@@ -7,6 +7,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import Modal from "../(Utils)/SmallScreenNavModal";
 import CompanyLogo from "../../../public/Logo.webp";
+import CompanyLogo1 from "../../../public/Logo1.webp";
 import FacebookLogo from "../../../public/Facebook.svg";
 import WhatsappLogo from "../../../public/Whatsapp.svg";
 import TwitterLogo from "../../../public/twitter-logo.avif";
@@ -202,31 +203,45 @@ const UserNav = () => {
 
 
 
-  return (
+  return (updatedTheme === "dark" || updatedTheme === "light" ?
     <>
-      <div className="user-nav for-larger-devices">
+      <div className="user-nav for-larger-devices"  style={{
+          background: updatedTheme === "dark" ? "" : "white",
+           boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 1)",
+        }}>
         <div style={{ width: "100%" }}>
           <div className="user-nav-img-container">
             <div className="user-nav-img">
-              <Image
-                src={CompanyLogo}
-                loading="eager"
-                fill
-                style={{
-                  objectFit: "cover",
-                }}
-                alt="Picture of the author"
-                placeholder="blur"
-              />
+               { updatedTheme === "light" ? (
+            <Image
+              src={CompanyLogo1}
+              loading='eager'
+              fill
+              style={{objectFit: "contain"}}
+              alt='Picture of the author'
+            />
+          ) :  updatedTheme === "dark" ?
+           ( <Image
+            src={CompanyLogo}
+              loading='eager'
+              fill
+              style={{objectFit: "contain"}}
+              alt='Picture of the author'
+            />
+          ): null}
             </div>
           </div>
           <BigScreenNavModal
             containerStyles="user-nav-link"
             navLinks={findPath()}
+            updatedTheme={updatedTheme}
           />
         </div>
 
-        <div className="user-nav-link-bottom">
+        <div className="user-nav-link-bottom" style={{color:   updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"? "black" : "transparent", 
+                }}>
           <Link
             // className={` ${pathname === "/logout" ? "active" : ""}`}
             href="/"
@@ -236,7 +251,10 @@ const UserNav = () => {
             &nbsp; &nbsp; {t("logout")}
           </Link>
           <div className="user-nav-social-media">
-            <h4 ><div style={{display: 'flex', justifyContent: "space-evenly", gap: "17px",flexDirection: "row"}}>Follow      <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />         <LanguageToggle updatedTheme={updatedTheme} /></div></h4>
+            <h4 ><div style={{display: 'flex', justifyContent: "space-evenly", gap: "17px", alignItems: 'center',flexDirection: "row", color:   updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"? "black" : "transparent", 
+                }}>Follow      <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />         <LanguageToggle updatedTheme={updatedTheme} /></div></h4>
      
             <div className="user-nav-social-media-icons">
               <div className="user-nav-logo facebook">
@@ -245,7 +263,7 @@ const UserNav = () => {
                   loading="eager"
                   fill
                   style={{
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                   alt="Picture of the author"
                 />
@@ -275,7 +293,7 @@ const UserNav = () => {
                   loading="eager"
                   fill
                   style={{
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                   alt="Picture of the author"
                 />
@@ -294,7 +312,7 @@ const UserNav = () => {
           loading="eager"
           fill
           style={{
-            objectFit: "cover",
+            objectFit: "contain",
           }}
           alt="Facebook logo"
         />
@@ -312,7 +330,7 @@ const UserNav = () => {
                   loading="eager"
                   fill
                   style={{
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                   alt="Picture of the author"
                 /></a>
@@ -328,7 +346,7 @@ const UserNav = () => {
           loading="eager"
           fill
           style={{
-            objectFit: "cover",
+            objectFit: "contain",
           }}
           alt="Twitter logo"
         />
@@ -343,17 +361,29 @@ const UserNav = () => {
       </div>
 
       <>
-        <div className="nav for-smaller-devices">
+        <div className="nav for-smaller-devices" style={{
+          background: updatedTheme === "dark" ? "rgba(10, 20, 38,1)" : "white",
+           boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 0.2)",
+        }}>
           <div className="nav-img">
+          
+               { updatedTheme === "light" ? (
             <Image
-              src={CompanyLogo}
-              loading="lazy"
+              src={CompanyLogo1}
+              loading='eager'
               fill
-              style={{
-                objectFit: "cover",
-              }}
-              alt="Picture of the author"
+              style={{objectFit: "contain"}}
+              alt='Picture of the author'
             />
+          ) :  updatedTheme === "dark" ?
+           ( <Image
+            src={CompanyLogo}
+              loading='eager'
+              fill
+              style={{objectFit: "contain"}}
+              alt='Picture of the author'
+            />
+          ): null}
           </div>
 
           <div className="nav-link">
@@ -399,9 +429,17 @@ const UserNav = () => {
             </Link> */}
             <div onClick={changeState}>
               {state ? (
-                <MdMenuOpen className="MdMenuOpen" />
+                <MdMenuOpen className="MdMenuOpen"    style={{
+               color: updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"? "black" : "transparent", 
+                }}/>
               ) : (
-                <AiOutlineClose className="MdMenuOpen" />
+                <AiOutlineClose className="MdMenuOpen"    style={{
+               color: updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"? "black" : "transparent", 
+                }}/>
               )}
             </div>
           </div>
@@ -415,10 +453,11 @@ const UserNav = () => {
             containerStylesInner="users-nav-link2_inner"
             containerStylesInnerLink="nav-link2_inner_link-mobile"
             active="active-user-nav"
+              updatedTheme={updatedTheme}
           />
         )}
       </>
-    </>
+    </>: null
   );
 };
 

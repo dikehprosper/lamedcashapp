@@ -17,7 +17,8 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
   logout,
-}: SmallScreenNavModalProps) => {
+    updatedTheme
+}: any) => {
   const pathname = usePathname();
   const t = useTranslations("dashboard");
   const [state, setState] = useState<State | undefined>(undefined);
@@ -52,7 +53,7 @@ const Modal = ({
     document.addEventListener("DOMContentLoaded", navigationCompleteListener);
   };
 
-  return (
+  return (updatedTheme === "dark" || updatedTheme === "light" ?
     <div className={`${containerStyles}`}>
       <div
         onClick={handleClick}
@@ -70,8 +71,10 @@ const Modal = ({
         }}
       ></div>
 
-      <div className={` ${containerStylesInner}`} style={{ zIndex: 60 }}>
-        {navLinks?.map((link, index) => {
+      <div className={` ${containerStylesInner}`} style={{ background: updatedTheme === "dark" ? "" : "white",
+boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 1)",
+                       }} >
+        {navLinks?.map((link: any, index: any) => {
           return (
             <a
               style={{
@@ -98,7 +101,7 @@ const Modal = ({
                   borderRadius: "0px 20px 20px 0px",
                   zIndex: 2,
                   background: pathname.startsWith(link.pathname)
-                    ? "rgba(189, 255, 0, 0.8)"
+                    ? "rgba(73, 166, 106, 1)"
                     : "",
                 }}
               ></div>
@@ -118,10 +121,10 @@ const Modal = ({
                     : "-moz-initial",
                   color:
                     state?.title === link.title
-                      ? "#97CF13"
+                      ? "black"
                       : pathname.startsWith(link.pathname)
                       ? "black"
-                      : "-moz-initial",
+                      : updatedTheme === "dark" ? "white" : "black",
                 }}
               >
                 {link.title}
@@ -129,11 +132,11 @@ const Modal = ({
             </a>
           );
         })}
-        <div style={{ padding: "10px" }} onClick={logout}>
+        <div style={{ padding: "10px", color: updatedTheme === "dark" ? "white" : "black", }} onClick={logout}>
           <Link href="/">{t("logout")}</Link>
         </div>
       </div>
-    </div>
+    </div>: null
   );
 };
 

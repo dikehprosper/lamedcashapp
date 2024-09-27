@@ -197,10 +197,20 @@ if (pendingDeposits) {
   const [button, setButton] = useState(false);
 
 
+  const updatedTheme = useAppSelector((state) => state.theme.theme);
 
 
-  return (
-    <div className="user_dashboard_container">
+
+
+
+
+
+
+
+  return (updatedTheme === "dark" || updatedTheme === "light" ?
+    <div className="user_dashboard_container"  style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
       {isVisible && (
         <Modal
           containerStyles="receiptModal"
@@ -214,12 +224,15 @@ if (pendingDeposits) {
     {button && (
       <div style={{ width: "40px", height: "40px" }}>clickiiiiiii</div>
     )} */}
-      <Head title={t("welcome_title")}  data={data} />
+      <Head title={t("welcome_title")}  data={data} updatedTheme={updatedTheme} />
       
   <div className="marquee">
       
       <div className="marqueeInner">
-        <span className="marqueeText">{t("marque_text")}</span>
+        <span className="marqueeText" style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{t("marque_text")}</span>
       </div>
       <Image
           src={image2}
@@ -236,7 +249,13 @@ if (pendingDeposits) {
           height={50}
         />
     </div>
-      <div className="user-dashboard-display">
+      <div className="user-dashboard-display"  style={{boxShadow: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? " 0px 4px 10px rgba(0, 0, 0, .3)"
+              : "transparent", background: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "rgba(256, 256, 256, 1)"
+              : "transparent"}}>
         <Display
           count={pendingDeposits?.length}
           title={t("deposit")}
@@ -277,9 +296,10 @@ if (pendingDeposits) {
         data={data?.transactionHistory}
         allData={data}
         showReceipt={showReceipt}
+        updatedTheme={updatedTheme}
       />
-    </div>
-  );
+    </div> : null
+  )
 };
 
 export default Dashboard;

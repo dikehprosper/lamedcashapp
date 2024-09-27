@@ -59,17 +59,19 @@ const ForgotPassword = ({updatedTheme}: any) => {
     }
   }
 
-   useEffect(() => {
+  useEffect(() => {
   // Dynamically add a style tag to the document head for placeholder and input styling
   const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, .2)";
-  const color = updatedTheme === "dark" ? "rgba(255, 255, 255, .2)" : "rgba(0, 0, 0, .2)";
+  const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
   
   const style = document.createElement('style');
   style.innerHTML = `
     .signin-form::placeholder {
       color: ${placeholderColor};
     }
-   
+    .signin-form {
+      color: ${color};
+    }
   `;
 
   document.head.appendChild(style);
@@ -81,10 +83,19 @@ const ForgotPassword = ({updatedTheme}: any) => {
 }, [updatedTheme]);
 
 
+
   return (
-    <div className='signin-container' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)" : "white" }}>
+    <div
+      className='signin-container'
+      style={{
+        background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+      }}
+    >
       <div className='signin-header'>
-        <h2>Mot de passe oublié</h2>
+        <h2 style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{ t("forgotpassword.title")}</h2>
       </div>
       {/* first section */}
       <div className='signin-container_inner'>
@@ -101,24 +112,33 @@ const ForgotPassword = ({updatedTheme}: any) => {
           />
         </div>
         <form onSubmit={handleSubmit} className='signin-form-container'>
-          <label style={{fontWeight: 'bold',  width: "100%"}}> E-mail</label>
+          <label  style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent", fontWeight: "bold", width: "100%"}}> E-mail</label>
           <input
             type='email'
             className='signin-form'
             value={user.email}
             onChange={handleUserEmail}
-            placeholder='Entrez votre mot de passe pour recevoir le lien de réinitialisation'
-            style={{  color: updatedTheme === "dark"? "white": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+            placeholder={t("forgotpassword.placeholder")}
+            style={{
+              border:
+                updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
+            }}
           />
 
-          <div className='forgot-password1'>
-            {" "}
+          <div className='forgot-password1' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
+            
             <a href='/signin' className='forgot-password2'>
-              Allez à La Connexion
-            </a>{" "}
+              {t("forgotpassword.signin")}
+            </a>
             &nbsp; &nbsp; &nbsp;
             <a href='/signup' className='forgot-password3'>
-              Allez à L&apos;Inscription
+              {t("forgotpassword.signup")}
             </a>
           </div>
 
@@ -130,8 +150,8 @@ const ForgotPassword = ({updatedTheme}: any) => {
               fontWeight: "600 !important",
               cursor: "pointer",
               background: buttonDisabled
-                ? "rgba(73, 166, 106, 1) !important;"
-                : "rgba(73, 166, 106, .7) !important;",
+                ? "rgba(73, 166, 106, 1)"
+                : "rgba(73, 166, 106, .7) ",
               pointerEvents: buttonDisabled ? "none" : "auto",
             }}
           >
@@ -140,15 +160,40 @@ const ForgotPassword = ({updatedTheme}: any) => {
                 <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
-               t("forgotpassword.send_link")
+              t("forgotpassword.send_link")
             )}
           </button>
-              {sent &&    <div style={{background: "rgba(0, 128, 0, 0.18)", marginTop: "20px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center",  height: "60px", width: "100%", borderRadius: "4px", border: ".5px solid rgba(0, 128, 0, 0.7)"}}>Le lien de réinitialisation a été envoyé avec succès à votre adresse e-mail</div>}
+          {sent && (
+            <div
+              style={{
+                background: "rgba(0, 128, 0, 0.18)",
+                marginTop: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                height: "60px",
+                width: "100%",
+                borderRadius: "4px",
+                border: ".5px solid rgba(0, 128, 0, 0.7)",
+                 color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"
+              }}
+            >
+              
+             { t("forgotpassword.successMessage")}
+            </div>
+          )}
         </form>
 
         <div className='welcome-section'>
           <div className='welcome-section-first'>
-            <h2 className='welcome-section-first_h2'>Mot de passe oublié</h2>
+            <h2 className='welcome-section-first_h2' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{ t("forgotpassword.title")}</h2>
           </div>
           <div className='welcome-section-second'>
             {/* <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
@@ -163,10 +208,13 @@ const ForgotPassword = ({updatedTheme}: any) => {
                 loading='eager'
               />
             </div> */}
-            <p className='welcome-section-second_p'>
-              Vous n&apos;avez pas de compte?,{" "}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href='/signup'>Créez un compte !</a>
+            <p className='welcome-section-second_p' style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
+            { t("forgotpassword.question")}
+              <span style={{color: "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
+                <a href='/signup'>  { t("forgotpassword.solution")}  </a>
               </span>
             </p>
           </div>
@@ -191,9 +239,12 @@ const ForgotPassword = ({updatedTheme}: any) => {
               />
             </div> */}
             <p className='welcome-section-second_p-mobile'>
-              Vous n&apos;avez pas de compte?,{" "}
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                <a href='/signup'>Créez un compte !</a>
+               { t("forgotpassword.question")}
+              <span style={{color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent", fontWeight: "500"}}>
+                <a href='/signup'>{ t("forgotpassword.solution")}</a>
               </span>
             </p>
           </div>
@@ -207,9 +258,14 @@ const ForgotPassword = ({updatedTheme}: any) => {
             width: "100%",
             display: "flex",
             justifyContent: "center",
+            color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"
           }}
         >
-          Contactez-nous
+          { t("forgotpassword.contact")}
+        
         </div>
         <div className='signin-social-media-icons'>
           <div className='signin-img facebook'>

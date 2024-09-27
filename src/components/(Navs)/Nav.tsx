@@ -225,6 +225,7 @@ const Nav = () => {
           containerStylesInner='nav-link2_inner'
           containerStylesInnerLink='nav-link2_inner_link'
           active='active'
+          updatedTheme={updatedTheme}
         />
       )}
     </>: null
