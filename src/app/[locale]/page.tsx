@@ -14,15 +14,16 @@ export default function Home() {
  const updatedTheme = useAppSelector((state) => state.theme.theme);
 
   return (updatedTheme? 
-      <div className='main' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)" : "white"}}>
+      <div className='main' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)" : "white", marginbottom: 0}}>
+       
         <div className='home-banner'>{/* <Banner /> */}</div>
        
         <Hero updatedTheme={updatedTheme}/>
       
         <SecondSection updatedTheme={updatedTheme} />
         <ThirdSection updatedTheme={updatedTheme} />
-        <FourthSection updatedTheme={updatedTheme} />
-        <Footer updatedTheme={updatedTheme} />
+        <FourthSection updatedTheme={updatedTheme} /> 
+         <Footer updatedTheme={updatedTheme} />
         <PrivacyFooter updatedTheme={updatedTheme} />
       </div>: null
     

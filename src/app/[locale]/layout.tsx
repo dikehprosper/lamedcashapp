@@ -32,8 +32,8 @@ export default function RootLayout({
 
   return (
     <html lang={locale}>
-      <body>
-        <ToastContainer
+      <body className={inter.className} >
+        {/* <ToastContainer
           position='top-right'
           autoClose={5000}
           hideProgressBar={false}
@@ -44,15 +44,14 @@ export default function RootLayout({
           draggable
           pauseOnHover
           theme='dark'
-        />
+        /> */}
         <NextIntlClientProvider messages={messages} locale={locale}>
           <StoreProvider>
        
-              <div className={inter.className}>
+             
                 <NavState />
                 {children}
-              </div>
-       
+
           </StoreProvider>
         </NextIntlClientProvider>
       </body>

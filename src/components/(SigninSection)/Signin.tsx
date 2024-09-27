@@ -93,6 +93,26 @@ const SignIn = ({updatedTheme}: any) => {
       setButtonDisabled(true);
     }
   }, [user]);
+  useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .signin-form::placeholder {
+        color: ${placeholderColor};
+      },
+        .signin-form {
+        color: ${color};
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
 
   return (
     <div className="signin-container">
@@ -101,7 +121,7 @@ const SignIn = ({updatedTheme}: any) => {
       </div>
       {/* first section */}
       <div className="signin-container_inner">
-        <div className="signin-container_inner_background_image">
+        <div className="signin-container_inner_background_image" >
           <Image
             src={image}
             fill
@@ -120,7 +140,7 @@ const SignIn = ({updatedTheme}: any) => {
             value={user.email}
             onChange={handleUserEmail}
             placeholder={t("email_placeholder")}
-            style={{color: updatedTheme === "dark"? "white": "black"}}
+            style={{color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           <div className="signin-form-password">
             <input
@@ -129,7 +149,7 @@ const SignIn = ({updatedTheme}: any) => {
               value={user.password}
               onChange={handleUserPassword}
               placeholder={t("password_placeholder")}
-              style={{color: updatedTheme === "dark"? "white": "black", border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
+              style={{color: updatedTheme === "dark"? "black": "black", border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
             />
             <div
               onClick={toggleVisibility}
@@ -149,8 +169,8 @@ const SignIn = ({updatedTheme}: any) => {
               color: "black !important;",
               fontWeight: "600 !important",
               background: buttonDisabled
-                ? "rgba(189, 255, 5, .7) !important;"
-                : "rgba(189, 255, 5, 1) !important;",
+                ? "rgba(73, 166, 106, .7)"
+                : "rgba(73, 166, 106, 1)",
               pointerEvents: buttonDisabled ? "none" : "auto",
             }}
           >
@@ -163,9 +183,11 @@ const SignIn = ({updatedTheme}: any) => {
             )}
           </button>
         </form>
-        <div className="welcome-section">
+        <div className="welcome-section" >
           <div className="welcome-section-first">
-            <h2 className="welcome-section-first_h2">{t("welcome")}</h2>
+            <h2 className="welcome-section-first_h2" style={{color: updatedTheme === "dark" 
+                ? "white"
+                : "black"}}>{t("welcome")}</h2>
           </div>
           <div className="welcome-section-second">
             {/* <h5 className="welcome-section-second_h5">{t("continue_with")}</h5>
@@ -181,9 +203,9 @@ const SignIn = ({updatedTheme}: any) => {
               />
             </div> */}
             
-            <p className="welcome-section-second_p">
-              {t("create_account")}, &nbsp;
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+            <p className="welcome-section-second_p" style={{color: updatedTheme === "dark"? "white": "black",}}>
+              {t("create_account")} &nbsp;
+              <span style={{ color: "rgba(73, 166, 106, 1)", fontWeight: "500" }}>
                 <a href="/signup">{t("create_account_link")}</a>
               </span>
             </p>
@@ -194,7 +216,7 @@ const SignIn = ({updatedTheme}: any) => {
       <div className="signin-container_inner23">
         <div className="welcome-section-mobile">
           <div className="welcome-section-second-mobile">
-            <h5 className="welcome-section-second_h5-mobile">
+            <h5 className="welcome-section-second_h5-mobile" style={{color: updatedTheme === "dark"? "white": "black",}}>
               {t("continue_with")}
             </h5>
             {/* <div className="signin-img google">
@@ -208,9 +230,9 @@ const SignIn = ({updatedTheme}: any) => {
                 alt="Picture of the author"
               />
             </div> */}
-            <p className="welcome-section-second_p-mobile">
-              {t("create_account")},&nbsp;
-              <span style={{ color: "#FCBB45", fontWeight: "500" }}>
+            <p className="welcome-section-second_p-mobile"  style={{color: updatedTheme === "dark"? "white": "black",}}>
+              {t("create_account")}&nbsp;
+              <span style={{ color: "rgba(73, 166, 106, 1)", fontWeight: "500" }}>
                 <a href="/signup">{t("create_account_link")}</a>
               </span>
             </p>
@@ -225,7 +247,9 @@ const SignIn = ({updatedTheme}: any) => {
             width: "100%",
             display: "flex",
             justifyContent: "center",
+             color: updatedTheme === "dark"? "white": "black"
           }}
+
         >
           {t("contact_us")}
         </div>

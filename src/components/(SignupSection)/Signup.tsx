@@ -16,7 +16,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import CountryPicker from "../(CountryPicker)/CountryPicker";
-const SignUp = () => {
+const SignUp = ({updatedTheme}: any) => {
   const pathname = usePathname();
   const [user, setUser] = useState({
     fullname: "",
@@ -291,10 +291,38 @@ const SignUp = () => {
       });
   };
 
+
+ useEffect(() => {
+  // Dynamically add a style tag to the document head for placeholder and input styling
+  const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, .2)";
+  const color = updatedTheme === "dark" ? "rgba(255, 255, 255, .2)" : "rgba(0, 0, 0, .2)";
+  
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .signup-form::placeholder {
+      color: ${placeholderColor};
+    }
+    .signup-form111::placeholder {
+      color: ${placeholderColor};
+    }
+    .signup-form {
+      color: ${color};
+    }
+  `;
+
+  document.head.appendChild(style);
+
+  // Clean up the style tag on component unmount
+  return () => {
+    document.head.removeChild(style);
+  };
+}, [updatedTheme]);
+
+
   return (
-    <div className='signup-container'>
+    <div className='signup-container' style={{background: updatedTheme === "dark"? "": "white" }}>
       <div className='signup-header'>
-        <h2>{t("signup.join_us")}</h2>
+        <h2 style={{color: updatedTheme === "dark"? "white": "black"}}>{t("signup.join_us")}</h2>
       </div>
       {/* first section */}
       <div className='signup-container_inner'>
@@ -331,7 +359,7 @@ const SignUp = () => {
                 SignupReVerification();
               }}
               placeholder={t("signup.enter_fullname")}
-              style={{borderColor: fullNameError ? "red" : ""}}
+                     style={{borderColor: fullNameError ? "red" : "", color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
             />
             {fullNameError && (
               <p
@@ -368,7 +396,9 @@ const SignUp = () => {
                 style={{
                   borderColor: betIdError ? "red" : "",
                   transition: betIdError ? "1s border-color ease-in-out" : "",
+                  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
                 }}
+                
               />
               {betIdError && (
                 <p
@@ -433,6 +463,7 @@ const SignUp = () => {
                   style={{
                     borderColor: phoneNumberError ? "red" : "",
                     paddingLeft: "65px",
+                      color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
                   }}
                 />
               </div>
@@ -469,7 +500,7 @@ const SignUp = () => {
                 SignupReVerification();
               }}
               placeholder={t("signup.enter_email")}
-              style={{borderColor: emailError ? "red" : ""}}
+              style={{borderColor: emailError ? "red" : "",   color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
             />
             {emailError && (
               <p
@@ -505,7 +536,9 @@ const SignUp = () => {
                   SignupReVerification();
                 }}
                 placeholder={t("signup.enter_password")}
-                style={{borderColor: passwordError ? "red" : ""}}
+                style={{borderColor: passwordError ? "red" : "", 
+                    color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
+                  }}
               />
               {passwordError && (
                 <p
@@ -541,6 +574,7 @@ const SignUp = () => {
                 placeholder={t("signup.confirm_password")}
                 style={{
                   borderColor: confirmPasswordError ? "red" : "",
+                    color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" 
                 }}
               />
               {confirmPasswordError && (
@@ -564,15 +598,15 @@ const SignUp = () => {
               className='signup-condition-checkbox'
               onClick={toggleIsChecked}
               style={{
-                background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
-                borderColor: isCheckedError ? "red" : "",
+                background: IsChecked ? "rgba(73, 166, 106, 1)" : "transparent",
+                borderColor: isCheckedError ? "red" : "rgba(73, 166, 106, 1)",
               }}
             >
               {IsChecked ? (
                 <ImCheckmark className='BiCheck' color='black' />
               ) : null}
             </span>
-            <p className='signup-condition-checkbox-p'>
+            <p className='signup-condition-checkbox-p' style={{color: updatedTheme === "dark"? "white": "black"}}>
               {t("signup.accept_conditions")}
               {/* <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
@@ -597,7 +631,7 @@ const SignUp = () => {
             type='submit'
             className='submit-button-signup'
             style={{
-              background: "rgba(189, 255, 5, 1) !important",
+              background: "rgba(73, 166, 106, 1)",
               color: "black !important",
             }}
             onClick={handleSubmit}
@@ -625,7 +659,7 @@ const SignUp = () => {
               SignupReVerification();
             }}
             placeholder={t("signup.enter_fullname")}
-            style={{borderColor: fullNameError ? "red" : ""}}
+            style={{borderColor: fullNameError ? "red" : "",  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {fullNameError && (
             <p
@@ -649,7 +683,7 @@ const SignUp = () => {
               SignupReVerification();
             }}
             placeholder={t("signup.bet_id")}
-            style={{borderColor: betIdError ? "red" : ""}}
+            style={{borderColor: betIdError ? "red" : "", color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {betIdError && (
             <p
@@ -700,10 +734,11 @@ const SignUp = () => {
                 handleNumber(e);
                 SignupReVerification();
               }}
-              placeholder={t("signup.whatsapp_number")}
+            placeholder={t("signup.whatsapp_number")}
               style={{
                 borderColor: phoneNumberError ? "red" : "",
                 paddingLeft: "65px",
+               color: updatedTheme === "dark" ? "white": "black",  border: updatedTheme === "dark"? "" : "2px solid rgba(0, 0, 0, 0.6)" 
               }}
             />
           </div>
@@ -729,7 +764,7 @@ const SignUp = () => {
               SignupReVerification();
             }}
             placeholder={t("signup.enter_email")}
-            style={{borderColor: emailError ? "red" : ""}}
+            style={{borderColor: emailError ? "red" : "",  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {emailError && (
             <p
@@ -754,7 +789,7 @@ const SignUp = () => {
               SignupReVerification();
             }}
             placeholder={t("signup.enter_password")}
-            style={{borderColor: passwordError ? "red" : ""}}
+            style={{borderColor: passwordError ? "red" : "",   color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {passwordError && (
             <p
@@ -779,7 +814,7 @@ const SignUp = () => {
               SignupReVerification();
             }}
             placeholder={t("signup.confirm_password")}
-            style={{borderColor: confirmPasswordError ? "red" : ""}}
+            style={{borderColor: confirmPasswordError ? "red" : "",  color: updatedTheme === "dark"? "black": "black",  border: updatedTheme === "dark"? "": "2px solid rgba(0, 0, 0, 0.6)" }}
           />
           {confirmPasswordError && (
             <p
@@ -800,15 +835,15 @@ const SignUp = () => {
               className='signup-condition-checkbox'
               onClick={toggleIsChecked}
               style={{
-                background: IsChecked ? "rgba(189, 255, 5, 1)" : "transparent",
-                borderColor: isCheckedError ? "red" : "",
+                background: IsChecked ? "rgba(73, 166, 106, 1)" : "transparent",
+                borderColor: isCheckedError ? "red" : "rgba(73, 166, 106, 1)",
               }}
             >
               {IsChecked ? (
                 <ImCheckmark className='BiCheck' color='black' />
               ) : null}
             </span>
-            <p className='signup-condition-checkbox-p'>
+            <p className='signup-condition-checkbox-p' style={{color: updatedTheme === "dark" ?  "white": "rgba(0, 0, 0, 0.8)"}}>
               {t("signup.accept_conditions")}
               {/* <span style={{ color: "#FCBB45", fontWeight: "500" }}>
                 ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
@@ -822,6 +857,7 @@ const SignUp = () => {
                 alignSelf: "start",
                 fontSize: "10px",
                 paddingLeft: "14px",
+                
               }}
               className='animate-pop-in'
             >
@@ -833,8 +869,9 @@ const SignUp = () => {
             type='submit'
             className='submit-button-signup'
             style={{
-              background: "rgba(189, 255, 5, 1) !important",
+              background: "rgba(73, 166, 106, 1)",
               color: "black !important",
+               
             }}
           >
             {loading ? (
@@ -849,7 +886,7 @@ const SignUp = () => {
 
         <div className='welcome-section'>
           <div className='welcome-section-first'>
-            <h2 className='welcome-section-first_h2'>{t("signup.join_us")}</h2>
+            <h2 className='welcome-section-first_h2' style={{color: updatedTheme === "dark" ?  "white": "rgba(0, 0, 0, 0.8)"}}>{t("signup.join_us")}</h2>
           </div>
           <div className='welcome-section-second'>
             {/* <h5 className='welcome-section-second_h5'>
@@ -866,9 +903,9 @@ const SignUp = () => {
                 alt='Picture of the author'
               />
             </div> */}
-            <p className='welcome-section-second_p'>
-              {t("signup.already_have_account")}
-              <span style={{color: "#FCBB45", fontWeight: "500"}}>
+            <p className='welcome-section-second_p' style={{color: updatedTheme === "dark" ?  "white": "rgba(0, 0, 0, 0.8)"}}>
+              {t("signup.already_have_account")} &nbsp;
+              <span style={{color: updatedTheme === "dark"?  "rgba(73, 166, 106, 1)": "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
                 <a href='/signin'>{t("signup.sign_in")}</a>
               </span>
             </p>
@@ -879,7 +916,7 @@ const SignUp = () => {
       <div className='signup-container_inner23'>
         <div className='welcome-section-mobile'>
           <div className='welcome-section-second-mobile'>
-            <h5 className='welcome-section-second_h5-mobile'>
+            <h5 className='welcome-section-second_h5-mobile' style={{color: updatedTheme === "dark" ? "white": "black" }}>
               {t("signup.continue_with")}
             </h5>
             {/* <div className='signup-img google' onClick={handleSubmitForGoogle}>
@@ -893,10 +930,10 @@ const SignUp = () => {
                 alt='Picture of the author'
               />
             </div> */}
-            <p className='welcome-section-second_p-mobile'>
+            <p className='welcome-section-second_p-mobile' style={{color: updatedTheme === "dark" ? "white": "black" }}>
               {t("signup.already_have_account")} &nbsp;
-              <span style={{color: "#FCBB45", fontWeight: "500"}}>
-                <a href='/signin'>S&apos;identifier!</a>
+              <span style={{color: updatedTheme === "dark"?  "rgba(73, 166, 106, 1)": "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
+                <a href='/signin'>&nbsp; S&apos;identifier!</a>
               </span>
             </p>
           </div>
@@ -910,6 +947,7 @@ const SignUp = () => {
             width: "100%",
             display: "flex",
             justifyContent: "center",
+            color: updatedTheme === "dark"?  "white": "black"
           }}
         >
           {t("signup.contact_us")}

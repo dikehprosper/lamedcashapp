@@ -1,9 +1,10 @@
 .signup-container {
   display: flex;
-  min-height: calc(100vh - 93px);
+  min-height: calc(100vh - 70px);
   width: 100vwj;
   flex-direction: column;
-  margin-top: 93px;
+  margin-top: 70px;
+    padding-top: 30px
 }
 
 /* first section */
@@ -69,7 +70,6 @@
   border: none;
   outline: none;
   padding: 15px;
-  color: white;
   width: 100%;
   border: 2px solid rgba(256, 256, 256, 0.09);
   border-radius: 4px;
@@ -100,7 +100,6 @@
 
 .submit-button-signup {
   color: black !important;
-  background: rgba(189, 255, 5, 0.7) !important;
   font-weight: 600 !important;
   width: 50% !important;
   height: 45px !important;
@@ -212,7 +211,7 @@
 
 @media (max-width: 1028px) {
   .signup-container {
-    margin-top: 80px;
+    margin-top: 70px;
   }
 
   .welcome-section {
@@ -244,7 +243,7 @@
     color: rgba(256, 256, 256, 0.3);
     height: 100%;
     letter-spacing: 4px;
-    margin: 15px 0px;
+    margin: 5px 5px;
   }
 
   .signup-form, .signup-form111 {
