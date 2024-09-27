@@ -236,7 +236,7 @@ const UserNav = () => {
             &nbsp; &nbsp; {t("logout")}
           </Link>
           <div className="user-nav-social-media">
-            <h4 ><div style={{display: 'flex', justifyContent: "space-evenly", gap: "17px",flexDirection: "row"}}>Follow      <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />         <LanguageToggle /></div></h4>
+            <h4 ><div style={{display: 'flex', justifyContent: "space-evenly", gap: "17px",flexDirection: "row"}}>Follow      <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />         <LanguageToggle updatedTheme={updatedTheme} /></div></h4>
      
             <div className="user-nav-social-media-icons">
               <div className="user-nav-logo facebook">
@@ -381,7 +381,7 @@ const UserNav = () => {
           </div>
           <div className="nav-language"></div>
           <div className="user-profile-icon-container">
-            <LanguageToggle />
+            <LanguageToggle updatedTheme={updatedTheme} />
 
 
   <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
