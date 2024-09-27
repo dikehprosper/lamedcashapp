@@ -95,7 +95,7 @@ const Nav = () => {
 
 
 
-  return (
+  return ( updatedTheme === "dark" || updatedTheme === "light" ?
     <>
       <div
         className='nav'
@@ -104,7 +104,7 @@ const Nav = () => {
         }}
       >
         <div className='nav-img'>
-          {updatedTheme === "light" ? (
+          { updatedTheme === "light" ? (
             <Image
               src={image1}
               loading='eager'
@@ -112,15 +112,15 @@ const Nav = () => {
               style={{objectFit: "contain"}}
               alt='Picture of the author'
             />
-          ) : (
-            <Image
+          ) :  updatedTheme === "dark" ?
+           ( <Image
               src={image}
               loading='eager'
               fill
               style={{objectFit: "contain"}}
               alt='Picture of the author'
             />
-          )}
+          ): null}
         </div>
         <div
           className='nav-link'
@@ -128,8 +128,8 @@ const Nav = () => {
             background: updatedTheme === "dark" ? "" : "white",
             color: 
               updatedTheme === "dark"
-              ? "white"
-              : "black",
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",
           }}
         >
           <Link
@@ -193,19 +193,19 @@ const Nav = () => {
               <MdMenuOpen
                 className='MdMenuOpen'
                 style={{
-                  color: 
-                     updatedTheme === "dark"
+               color:   updatedTheme === "dark"
                     ? "white"
-                    : "black",
+                    : updatedTheme === "light"? "black" : null, 
                 }}
               />
             ) : (
               <AiOutlineClose
                 className='MdMenuOpen'
                 style={{
-                  color:  updatedTheme === "dark"
+                  color:   updatedTheme === "dark"
                     ? "white"
-                    : "black",
+                    : updatedTheme === "light"? "black" : null, 
+                    
                 }}
               />
             )}
@@ -222,7 +222,7 @@ const Nav = () => {
           active='active'
         />
       )}
-    </>
+    </>: null
   );
 };
 
