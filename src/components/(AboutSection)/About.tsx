@@ -42,7 +42,7 @@ const AboutSection = ({updatedTheme}: any) => {
       </div>
       <div className='AboutSection3'>
         <div className='AboutSection3-text'>
-          <h3 style={{color: updatedTheme === "dark"? "white": "black"}}style={{color: updatedTheme === "dark"? "": "black"}}>{t2("contact us description")}</h3>
+          <h3 style={{color: updatedTheme === "dark"? "white": "black"}}>{t2("contact us description")}</h3>
           <p style={{color: updatedTheme === "dark"? "white": "black"}}>
             {t2("contact us description").includes("Privacy policy")
               ? form1

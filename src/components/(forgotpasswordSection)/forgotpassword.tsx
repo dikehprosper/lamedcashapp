@@ -80,7 +80,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
 
 
   return (
-    <div className='signin-container'>
+    <div className='signin-container' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)": "white" }}>
       <div className='signin-header'>
         <h2>Mot de passe oublié</h2>
       </div>

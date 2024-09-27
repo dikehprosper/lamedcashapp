@@ -320,7 +320,7 @@ const SignUp = ({updatedTheme}: any) => {
 
 
   return (
-    <div className='signup-container' style={{background: updatedTheme === "dark"? "": "white" }}>
+    <div className='signup-container' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)": "white" }}>
       <div className='signup-header'>
         <h2 style={{color: updatedTheme === "dark"? "white": "black"}}>{t("signup.join_us")}</h2>
       </div>
