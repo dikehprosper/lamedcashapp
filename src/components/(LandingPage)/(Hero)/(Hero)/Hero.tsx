@@ -15,7 +15,13 @@ const Hero = ({updatedTheme}: any) => {
   const t = useTranslations("home");
   return (
     <>
-      <div className='hero large-device' style={{background: updatedTheme === "dark" ? "" : "rgba(250, 250, 250, 1)", color: updatedTheme === "dark"? "white" : "rgba(0, 0, 0, 1)" }}>
+      <div
+        className='hero large-device'
+        style={{
+          background: updatedTheme === "dark" ? "" : "rgba(250, 250, 250, 1)",
+          color: updatedTheme === "dark" ? "white" : "rgba(0, 0, 0, 1)",
+        }}
+      >
         <div
           style={{
             width: "70%",
@@ -24,26 +30,48 @@ const Hero = ({updatedTheme}: any) => {
             paddingLeft: "50px",
           }}
         >
-          <section className='hero-text' >
+          <section className='hero-text'>
             <h1 className='hero-title animate-pop-in'>
-              <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}>{t("hero span 1")}</span>{" "}
+              <span
+                className='hero-span'
+                style={{
+                  color:
+                    updatedTheme === "dark"
+                      ? "rgba(73, 166, 106, 1)"
+                      : "rgba(73, 166, 106, 1)",
+                }}
+              >
+                {t("hero span 1")}
+              </span>{" "}
               {t("hero span 2")}
-              <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}> {t("hero span 3")}</span>.
+              <span
+                className='hero-span'
+                style={{
+                  color:
+                    updatedTheme === "dark"
+                      ? "rgba(73, 166, 106, 1)"
+                      : "rgba(73, 166, 106, 1)",
+                }}
+              >
+                {" "}
+                {t("hero span 3")}
+              </span>
+              .
             </h1>
-            <p className='hero-subtitle animate-pop-in' >
+            <p className='hero-subtitle animate-pop-in'>
               {t("hero description")}
             </p>
             <div className='hero_button_container'>
               <Image
-            src={image2}
-            loading='eager'
-            style={{
-              objectFit: "contain",
-              height: "100%",
-              width: "100%",
-            }}
-            alt='Picture of the background'
-          />
+                src={image2}
+                loading='eager'
+                style={{
+                  objectFit: "contain",
+                  height: "100%",
+                  width: "100%",
+                }}
+                alt='Picture of the background'
+              />
             </div>
           </section>
         </div>
@@ -71,10 +99,12 @@ const Hero = ({updatedTheme}: any) => {
           />
         </div>
       </div>
-      <div className='small-device' style={{color: updatedTheme === "dark"? null : "rgba(0, 0, 0, 1)"}}>
+      <div
+        className='small-device'
+        style={{color: updatedTheme === "dark" ? "" : "rgba(0, 0, 0, 1)"}}
+      >
         <div className='small-device-hero'>
-          
-           <div
+          <div
             style={{
               position: "fixed",
               top: 30,
@@ -90,7 +120,6 @@ const Hero = ({updatedTheme}: any) => {
               zIndex: 2,
             }}
           >
-        
             <Image
               src={image}
               fill
@@ -98,13 +127,12 @@ const Hero = ({updatedTheme}: any) => {
               style={{
                 objectFit: "contain",
               }}
-          
               alt='Picture of the background'
             />
           </div>
           <div
             style={{
-             marginTop: "150px",
+              marginTop: "150px",
               height: "40%",
               alignItems: "center",
               display: "flex",
@@ -116,51 +144,56 @@ const Hero = ({updatedTheme}: any) => {
               paddingRight: "10px",
             }}
           >
-           
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: "2px",
                 alignItems: "center",
-               marginTop: "70px"
+                marginTop: "70px",
               }}
-             
             >
               <h1 className='hero-title animate-pop-in'>
-                <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}>{t("hero span 1")}</span>{" "}
+                <span
+                  className='hero-span'
+                  style={{
+                    color:
+                      updatedTheme === "dark" ? "rgba(73, 166, 106, 1)" : "rgba(73, 166, 106, 1)",
+                  }}
+                >
+                  {t("hero span 1")}
+                </span>{" "}
                 {t("hero span 2")}
-                <span className='hero-span' style={{color:updatedTheme === "dark"? null : "rgba(73, 166, 106, 1)"}}> {t("hero span 3")}</span>.
+                <span
+                  className='hero-span'
+                  style={{
+                    color:
+                      updatedTheme === "dark" ? "rgba(73, 166, 106, 1)" : "rgba(73, 166, 106, 1)",
+                  }}
+                >
+                  {" "}
+                  {t("hero span 3")}
+                </span>
+                .
               </h1>
               <p className='hero-subtitle animate-pop-in'>
                 {t("hero description")}
               </p>
-           
             </div>
 
-
-             <div className='hero_button_container'>
+            <div className='hero_button_container'>
               <Image
-            src={image2}
-            loading='eager'
-            style={{
-              objectFit: "contain",
-              height: "100%",
-              width: "100%",
-            }}
-            alt='Picture of the background'
-          />
+                src={image2}
+                loading='eager'
+                style={{
+                  objectFit: "contain",
+                  height: "100%",
+                  width: "100%",
+                }}
+                alt='Picture of the background'
+              />
             </div>
-
           </div>
-
-
-
-
-
-
-
-          
         </div>
       </div>
     </>

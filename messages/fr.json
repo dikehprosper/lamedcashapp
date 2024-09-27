@@ -15,15 +15,15 @@
       "title": "Assistance 24h/24 et 7j/7",
       "description": "Nous comprenons que des questions et des préoccupations peuvent survenir à tout moment. C'est pourquoi notre équipe d'assistance dédiée est disponible 24 heures sur 24 pour vous aider. Qu'il s'agisse d'une question concernant une transaction ou d'une demande générale, notre équipe d'assistance est là pour vous fournir une assistance rapide et fiable, garantissant une expérience fluide et sans stress."
     },
-     "account_deletion_title": "Suppression de compte",
+    "account_deletion_title": "Suppression de compte",
     "account_deletion_description": "Si vous souhaitez supprimer votre compte Betfundr, veuillez utiliser le lien ci-dessous.",
     "account_deletion_link_text": "Cliquez ici pour supprimer votre compte"
   },
   "dashboard": {
     "welcome_title": "Bienvenue",
-     "marque_text": "UTILISEZ LE CODE PROMO 1XBET   '229LERICHE' ET OBTENEZ  200%  DE BONUS SUR VOTRE 1ER DÉPÔT",
-      "deposit_text":"DÉPÔTS",
-       "withdrawal_text":"RETRAITS",
+    "marque_text": "UTILISEZ LE CODE PROMO 1XBET   '229LERICHE' ET OBTENEZ  200%  DE BONUS SUR VOTRE 1ER DÉPÔT",
+    "deposit_text": "DÉPÔTS",
+    "withdrawal_text": "RETRAITS",
     "welcome_about": "Faites l'expérience de dépôts et de retraits rapides",
     "deposit": "Dépôt",
     "withdraw": "Retirer",
@@ -85,7 +85,7 @@
     "withdraw_page": {
       "title": "Retirer",
       "about": "Effectuez vos retraits depuis votre 1XBET ici",
-       "use_address": "-- IMPORTANT --",
+      "use_address": "-- IMPORTANT --",
       "use_address_info": "La devise de votre compte doit être en XOF. Aussi assurez vous de ne pas avoir de retrait en attente",
       "use_address_street": "RUE",
       "use_address_city": "VILLE",
@@ -223,7 +223,7 @@
     "secure": "Sécurité et commodité",
     "secure description": "Vos fonds, à votre façon. Nous accordons la priorité à la sécurité et à la commodité, garantissant votre tranquillité d'esprit à chaque transaction.",
     "support description": "Nous sommes là pour vous à toute heure du jour et de la nuit. Notre équipe d'assistance dévouée est prête à vous aider à tout moment et n'importe où.",
-     "download description": "Téléchargez maintenant pour commencer votre voyage avec Betfundr",
+    "download description": "Téléchargez maintenant pour commencer votre voyage avec Betfundr",
     "how it works": "Comment ça marche",
     "recharge": "Recharger",
     "click on deposit": "Cliquez sur Dépôt",
@@ -259,6 +259,11 @@
     "create_account_link": "Créez un compte!",
     "contact_us": "Contactez-nous"
   },
+  "forgotpassword": {
+    "forgotpassword": {
+      "send_link": "envoyer un lien"
+    }
+  },
   "sign-up": {
     "signup": {
       "join_us": "Rejoignez-nous",
@@ -275,10 +280,7 @@
       "continue_with": "Ou continuez avec",
       "contact_us": "Contactez-nous"
     },
-     "forgotpassword": {
-    "forgotpassword": {
-   "send_link": "envoyer un lien"
-    }},
+
     "errors": {
       "name_required": "Veuillez entrer votre nom",
       "bet_id_length": "Le numéro d'identification doit avoir au moins 4 caractères",

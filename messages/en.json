@@ -64,7 +64,7 @@
     },
     "deposit_page": {
       "title": "Deposits",
-       "use_address": "-- IMPORTANT --",
+      "use_address": "-- IMPORTANT --",
       "use_address_info": "Your account currency must be in XOF. Make sure you don't have any pending withdrawals",
       "about": "Make your deposits to your 1XBET account here",
       "1xbet_id": "1XBET ID",
@@ -249,7 +249,6 @@
     "designate specific account answer": "Yes, you can designate a specific amount for your fund withdrawal, but it should be the same as your withdrawal request made on the 1xbet platform.",
     "contact us": "CONTACT US",
     "contact us description": "Privacy policy"
-   
   },
   "sign-in": {
     "welcome": "Welcome",
@@ -261,6 +260,11 @@
     "create_account": "Don't have an account? ",
     "create_account_link": "Create an account!",
     "contact_us": "Contact Us"
+  },
+  "forgotpassword": {
+    "forgotpassword": {
+      "send_link": " send a link"
+    }
   },
   "sign-up": {
     "signup": {
@@ -278,10 +282,7 @@
       "continue_with": "Or continue with",
       "contact_us": "Contact Us"
     },
-    "forgotpassword": {
-    "forgotpassword": {
-   "send_link": " send a link"
-    }},
+
     "errors": {
       "name_required": "Please enter your name",
       "bet_id_length": "1XBET Identification Number must be at least 4 characters",
