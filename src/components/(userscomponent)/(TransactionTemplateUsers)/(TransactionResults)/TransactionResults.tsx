@@ -121,14 +121,14 @@ const TransactionResults = ({
           )}</span>
        
         </span>
-        <span style={{overflow: "hidden"}}  style={{
+        <span   style={{
             color:
               updatedTheme === "dark"
                 ? "white"
                 : updatedTheme === "light"
                 ? "black"
                 : "transparent",
-              
+              overflow: "hidden"
           }}>
           <b style={{color: "rgba(256, 256, 256, 0.4"}}>REÇU: &nbsp;</b>{" "}
           {identifierId}

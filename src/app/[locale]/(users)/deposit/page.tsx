@@ -321,6 +321,8 @@ const [processing4, setProcessing4] = useState(false);
 
   }
 
+  const updatedTheme = useAppSelector((state) => state.theme.theme);
+  
   return (
     <div className='user_withdraw_container'>
       <Head
