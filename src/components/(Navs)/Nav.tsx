@@ -10,7 +10,7 @@ import image from "../../../public/Logo.webp";
 import image1 from "../../../public/Logo1.webp";
 import { useTranslations } from "next-intl";
 import LanguageToggle from "../(LanguageToggle)/languageToggle";
-import ThemeToggle from "@/components/ThemeToggle.tsx";
+import ThemeToggle from "@/components/ThemeToggle";
 import { setTheme } from "@/lib/features/themeSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 

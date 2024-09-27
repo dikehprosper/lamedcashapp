@@ -82,7 +82,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
 
 
   return (
-    <div className='signin-container' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)": "white" }}>
+    <div className='signin-container' style={{background: updatedTheme === "dark"? "rgb(10, 20, 38)" : "white" }}>
       <div className='signin-header'>
         <h2>Mot de passe oublié</h2>
       </div>
@@ -140,7 +140,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
                 <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
-               {t("forgotpassword.send_link")}
+               t("forgotpassword.send_link")
             )}
           </button>
               {sent &&    <div style={{background: "rgba(0, 128, 0, 0.18)", marginTop: "20px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center",  height: "60px", width: "100%", borderRadius: "4px", border: ".5px solid rgba(0, 128, 0, 0.7)"}}>Le lien de réinitialisation a été envoyé avec succès à votre adresse e-mail</div>}
