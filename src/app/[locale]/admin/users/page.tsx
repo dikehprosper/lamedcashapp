@@ -338,7 +338,7 @@ function Page() {
                    className='subadmin_dashboard_container_admin_admin_admin5-1'
                    key={index}
                    style={{
-                     height: index === index1 ? "590px" : "40px",
+                     height: index === index1 ? "auto" : "40px",
                      transition: "height .5s ease-out",
                      background: updatedTheme === "dark" ? "" : "white",
                     boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)",
