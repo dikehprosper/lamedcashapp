@@ -13,14 +13,14 @@ const chartSettings = {
   height: 350,
   sx: {
     [`.${axisClasses.left} .${axisClasses.label}`]: {
-      transform: "translate(-40px, 0)",
+      transform: "translate(-60px, 0)",
     },
   },
 };
 
 // const valueFormatter = (value) => `${value}mm`;
 
-export default function BarsDataset({data}: any) {
+export default function BarsDataset({data, updatedTheme}: any) {
   const months = [
     "Jan",
     "Feb",
@@ -87,10 +87,10 @@ export default function BarsDataset({data}: any) {
           dataKey: "successfulWithdrawalCount",
           label: "Total successful Withdrawals",
           color: "rgba(120, 120, 120, 1)",
-        },
+        
         // { dataKey: "newYork", label: "New York", valueFormatter },
         // { dataKey: "seoul", label: "Seoul", valueFormatter },
-      ]}
+     }, ]}
       {...chartSettings}
     />
   );

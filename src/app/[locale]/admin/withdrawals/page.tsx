@@ -15,7 +15,7 @@ import { CgTrashEmpty } from "react-icons/cg";
 import Modal from "@/components/(Utils)/(modals)/receiptModalWithdrawal2";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 const TransactionTemplate = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -169,11 +169,35 @@ const TransactionTemplate = () => {
     }
   }
 
-  return loading === "one" ? (
+   const updatedTheme = useAppSelector((state) => state.theme.theme);
+
+  useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .tablesearch::placeholder {
+        color: ${placeholderColor};
+      },
+       .tablesearch {
+        color: ${color} !important;
+      },
+    `;
+    document.head.appendChild(style);
+
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
+
+
+  return updatedTheme === "dark" || updatedTheme === "light" ? loading === "one" ? (
     <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2> Withdrawals</h2>
+          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}> Withdrawals</h2>
         </span>
       </div>
       <div
@@ -193,7 +217,7 @@ const TransactionTemplate = () => {
     <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2>Withdrawals</h2>
+          <h2 style={{ color: updatedTheme === "dark"? "white": "black" }}>Withdrawals</h2>
         </span>
       </div>
       <div
@@ -206,18 +230,22 @@ const TransactionTemplate = () => {
         onClick={getUserDetails}
       >
         {" "}
-        <h4 style={{ cursor: "pointer" }}>Tap here to fetch history</h4>
+        <h4 style={{cursor: "pointer", color: updatedTheme === "dark"? "white": "black" }}>Tap here to fetch history</h4>
       </div>
     </div>
   ) : (
-    <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
+    <div className='subadmin_dashboard_container_admin_admin-cashdesk' style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2> Withdrawals </h2>
+          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}> Withdrawals </h2>
         </span>
       </div>
 
-      <div className='transaction_template_container'>
+      <div className='transaction_template_container' style={{
+        background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white", boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, .3)"
+      }}>
         <div
           style={{
             width: "100%",
@@ -233,6 +261,9 @@ const TransactionTemplate = () => {
             value={currentValue}
             onChange={(e) => setCurrentValue(e.target.value)}
             placeholder='Input the ID to search for transactions'
+             style={{
+             color: updatedTheme === "dark" ? "white" : "black",
+               }}
           />
 
           <button
@@ -256,6 +287,7 @@ const TransactionTemplate = () => {
             handleClick={handleClick}
             receipt={receipt}
             title='Montant du dépôt'
+             updatedTheme={updatedTheme}
           />
         )}
 
@@ -267,6 +299,7 @@ const TransactionTemplate = () => {
             gap: "10px",
             alignItems: "flex-start",
             justifyContent: "flex-start",
+                        background: updatedTheme === "dark" ? "" : "white",
           }}
         >
           {data?.length < 1 ? (
@@ -280,7 +313,9 @@ const TransactionTemplate = () => {
               }}
             >
               {" "}
-              <h2>No data to display</h2>
+              <h2  style={{
+             color: updatedTheme === "dark" ? "white" : "black",
+               }}>No data to display</h2>
             </div>
           ) : (
             data
@@ -301,13 +336,14 @@ const TransactionTemplate = () => {
                   totalAmount={filteredData.totalAmount}
                   bonusBalance={filteredData.bonusBalance}
                   showReceipt={showReceipt}
+                  updatedTheme={updatedTheme}
                 />
               ))
           )}
         </div>
       </div>
     </div>
-  );
+  ) : null
 };
 
 export default TransactionTemplate;

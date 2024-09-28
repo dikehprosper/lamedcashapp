@@ -15,7 +15,7 @@ import {toast} from "react-toastify";
 import axios from "axios";
 import BarsDataset from "./(components)/chart";
 import {ThemeProvider, createTheme} from "@mui/material/styles";
-
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
@@ -92,32 +92,37 @@ function Page() {
     };
   }, []);
 
+  const updatedTheme = useAppSelector((state) => state.theme.theme);
 
 
-
-  return (
-    <div className='subadmin_dashboard_container_admin_admin'>
+  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+    <div className='subadmin_dashboard_container_admin_admin'  style={{
+        background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+      }}>
       <AdminHead
         title='Tableau de bord'
         about='Voir toutes les transactions ici'
         data={data3}
+        updatedTheme={updatedTheme}
       />
 
       <div className='dashboard-display_admin'>
-        <AdminDashboardDisplay3 data3={data3} />
-        <AdminDashboardDisplay1 data3={data3} />
-        <AdminDashboardDisplay2 data3={data3} />
+        <AdminDashboardDisplay3 data3={data3} updatedTheme={updatedTheme} />
+        <AdminDashboardDisplay1 data3={data3} updatedTheme={updatedTheme} />
+        <AdminDashboardDisplay2 data3={data3}  updatedTheme={updatedTheme}/>
         <AdminDashboardDisplay
           data4={data4}
           data3={data3}
+          updatedTheme={updatedTheme}
         />
-        <ThemeProvider theme={darkTheme}>
-          <div className='subadmin_dashboard_container-display_withdrawal_admin_chart'>
-            <BarsDataset data={data3} />
+  
+          <div className='subadmin_dashboard_container-display_withdrawal_admin_chart' style={{
+            justifyContent: "center", background: updatedTheme === "dark"? "rgba(128, 128, 128, 0.2" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)", color: "red"}}>
+            <BarsDataset data={data3} updatedTheme={updatedTheme}/>
           </div>
-        </ThemeProvider>
+ 
       </div>
-    </div>
+    </div>: null
   );
 }
 

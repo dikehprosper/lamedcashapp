@@ -18,6 +18,7 @@ const PendingTransactionTemplate = ({
   totalAmount,
   bonusBalance,
   showReceipt,
+  updatedTheme
 }: any) => {
   const handleClick = () => {
     showReceipt(
@@ -38,33 +39,33 @@ const PendingTransactionTemplate = ({
 
   return (
     <>
-      <div className='mobile-time-cashdesk'> {formatDate(time)}</div>
+      <div className='mobile-time-cashdesk'  style={{color:  updatedTheme === "dark" ? "white" : "black"}}> {formatDate(time)}</div>
       <div className='transaction_result-cashdesk' onClick={handleClick}>
         <span
           className='first-span-cashdesk'
-          style={{
-            background: "rgba(120, 120, 120, 1)",
+         style={{
+            background: fundingType === "deposits"? "rgba(73, 166, 106, 1)": "rgba(120, 120, 120, 1)",
           }}
         ></span>
-        <span>{formatDate(time)}</span>
-        <span className='small_device_group-cashdesk'>
-          <span> XOF {formatNumberWithCommasAndDecimal(totalAmount)}</span>
+        <span  style={{color:  updatedTheme === "dark" ? "white" : "black"}}>{formatDate(time)}</span>
+        <span className='small_device_group-cashdesk'  style={{color:  updatedTheme === "dark" ? "white" : "black"}}>
+          <span  style={{color:  updatedTheme === "dark" ? "white" : "black"}}> XOF {formatNumberWithCommasAndDecimal(totalAmount)}</span>
           <span>
-            <b style={{color: "rgba(256, 256, 256, 0.4"}}>SOURCE: &nbsp;</b>
+            <b  style={{color:  updatedTheme === "dark" ? "white" : "black"}}>SOURCE: &nbsp;</b>
             {withdrawalCode === undefined || withdrawalCode === "" || withdrawalCode === null ?  "BONUS" : "FROM BET ACCOUNT"  }
           </span>
         </span>
-        <span style={{overflow: "hidden"}}>
-          <b style={{color: "rgba(256, 256, 256, 0.4"}}>REÇU: &nbsp;</b>{" "}
+        <span style={{color:  updatedTheme === "dark" ? "white" : "black", overflow: "hidden"}} >
+          <b  style={{color:  updatedTheme === "dark" ? "white" : "black"}}>REÇU: &nbsp;</b>{" "}
           {identifierId}
         </span>
         <span
           style={{
             color:
               status === "Pending"
-                ? "rgba(256, 256, 256, 0.4)"
+                ? "rgba(120, 120, 120, .8)"
                 : status === "Successful"
-                ? "#BDFF00"
+                ? "rgba(73, 166, 106, 1)"
                 : "#FF0000",
           }}
           className='last-span-cashdesk'

@@ -194,3 +194,8 @@ flex: 1;
     padding: 84px 10px 10px 10px;
   }
 }
+
+.tablesearch:focus{
+border: 2px solid grey,
+
+}

@@ -164,7 +164,7 @@ flex: 1;
 
 .subadmin_dashboard_container_admin_admin-cashdesk {
   display: flex;
-  margin-left: 250px;
+ 
   padding: 5px 25px 20px 25px;
   height: auto;
   flex-direction: column;
@@ -172,6 +172,7 @@ height: 100vh;
 flex: 1;
   flex-direction: column;
   overflow: hidden;
+   padding-left: 300px;
 }
 
 @media (max-width: 1028px) {
@@ -193,4 +194,11 @@ flex: 1;
   .subadmin_dashboard_container_admin_admin-cashdesk  {
     padding: 84px 10px 10px 10px;
   }
+}
+
+
+
+.tablesearch:focus{
+border: 2px solid grey,
+
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./adminHead.css";
 import { toast } from "react-toastify";
 import axios from "axios";
-const SubadminHead = ({ title, about, data }: any) => {
+const SubadminHead = ({ title, about, data, updatedTheme }: any) => {
   const [isOutOfFunds, setIsOutOfFunds] = useState(data?.isOutOfFunds);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setIsLoading] = useState(false);
@@ -38,14 +38,14 @@ const SubadminHead = ({ title, about, data }: any) => {
 
   return (
     <>
-      <div className='subadmin-head-container big'>
+      <div className='subadmin-head-container big' >
         <div className='subadmin-title-container'>
-          <h2 className='subadmin-title-container-h2'>{title}</h2>
-          <p className='subadmin-title-container-p'>{about}</p>
+          <h2 className='subadmin-title-container-h2' style={{color: updatedTheme === "dark"? "white": "black"}}>{title}</h2>
+          <p className='subadmin-title-container-p' style={{color: updatedTheme === "dark"? "white": "black"}}>{about}</p>
         </div>
-        <div className='subadmin-tag'>
-          <div className='subadmin-tag-container-admin'>
-            <span className='subadmin-tag-container-name'>
+        <div className='subadmin-tag'   >
+          <div className='subadmin-tag-container-admin'  style={{background: updatedTheme === "dark"? "" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}>
+            <span className='subadmin-tag-container-name' style={{color: updatedTheme === "dark"? "white": "black"}}>
               {data?.fullname ? (
                 data.fullname
               ) : (
@@ -54,7 +54,7 @@ const SubadminHead = ({ title, about, data }: any) => {
                 </div>
               )}
             </span>
-            <span className='subadmin-tag-container-online-container-admin'>
+            <span className='subadmin-tag-container-online-container-admin' style={{color: updatedTheme === "dark"? "white": "black"}}>
               En ligne{" "}
               <span className='subadmin-tag-container-online-logo-admin'> </span>{" "}
             </span>
@@ -62,14 +62,14 @@ const SubadminHead = ({ title, about, data }: any) => {
         </div>
       </div>
 
-      <div className='subadmin-head-container small'>
-        <div className='subadmin-tag'>
-          <div className='subadmin-tag-container-admin'>
+      <div className='subadmin-head-container small' >
+        <div className='subadmin-tag' >
+          <div className='subadmin-tag-container-admin' style={{background: updatedTheme === "dark"? "" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}>
 
 
 
 
-            <span className='subadmin-tag-container-name-admin'>
+            <span className='subadmin-tag-container-name-admin' style={{color: updatedTheme === "dark"? "white": "black"}}>
               {data?.fullname ? (
                 data.fullname
               ) : (
@@ -79,15 +79,15 @@ const SubadminHead = ({ title, about, data }: any) => {
               )}
             
             </span>
-            <span className='subadmin-tag-container-online-container-admin'>
+            <span className='subadmin-tag-container-online-container-admin' style={{color: updatedTheme === "dark"? "white": "black"}}>
               En ligne{" "}
               <span className='subadmin-tag-container-online-logo-admin'> </span>{" "}
             </span>
           </div>
         </div>
         <div className='subadmin-title-container'>
-          <h2 className='subadmin-title-container-h2'>{title}</h2>
-          <p className='subadmin-title-container-p'>{about}</p>
+          <h2 className='subadmin-title-container-h2' style={{color: updatedTheme === "dark"? "white": "black"}}>{title}</h2>
+          <p className='subadmin-title-container-p' style={{color: updatedTheme === "dark"? "white": "black"}}>{about}</p>
         </div>
       </div>
     </>

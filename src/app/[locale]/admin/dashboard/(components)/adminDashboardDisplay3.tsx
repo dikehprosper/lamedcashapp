@@ -11,7 +11,7 @@ import axios from "axios";
  import {toast} from "react-toastify";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import {FaPowerOff} from "react-icons/fa";
-export default function AdminDashboardDisplay1({data3}: any) {
+export default function AdminDashboardDisplay1({data3, updatedTheme}: any) {
   const {locale} = useParams<{locale: string}>();
   const [loading, setLoading] = useState(false);
    const [loading2, setLoading2] = useState(false);
@@ -108,11 +108,8 @@ export default function AdminDashboardDisplay1({data3}: any) {
       {data3 ? (
         <div
           className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
-          style={{
-            height: "40px",
-            justifyContent: "center",
-            background: "rgba(128, 128, 128, 0.2)",
-          }}
+                     style={{ height: "40px",
+            justifyContent: "center", background: updatedTheme === "dark"? "rgba(128, 128, 128, 0.2" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}
         >
           <div
             className='card-icon-power'
@@ -135,7 +132,8 @@ export default function AdminDashboardDisplay1({data3}: any) {
           </div>
           <h3
             className='admin-card-title'
-            style={{fontSize: "18px", fontWeight: "bold"}}
+          
+            style={{color: updatedTheme === "dark"? "white": "black", fontSize: "18px", fontWeight: "bold"}}
           >
             Deposit
           </h3>
@@ -151,11 +149,9 @@ export default function AdminDashboardDisplay1({data3}: any) {
       {data3 ? (
         <div
           className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
-          style={{
-            background: "rgba(128, 128, 128, 0.2)",
-            height: "40px",
-            justifyContent: "center",
-          }}
+        
+            style={{     height: "40px",
+            justifyContent: "center", background: updatedTheme === "dark"? "rgba(128, 128, 128, 0.2" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}
         >
           <div
             className='card-icon-power'
@@ -179,7 +175,7 @@ export default function AdminDashboardDisplay1({data3}: any) {
           </div>
           <h3
             className='admin-card-title'
-            style={{fontSize: "18px", fontWeight: "bold"}}
+            style={{fontSize: "18px", fontWeight: "bold", color: updatedTheme === "dark"? "white": "black", }}
           >
             Withdrawal
           </h3>

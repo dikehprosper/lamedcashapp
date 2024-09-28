@@ -13,6 +13,7 @@ export default function AdminDashboardDisplay({
   data4,
   data3,
   type,
+  updatedTheme
 }: any) {
   const [state, setState] = useState("All Time");
   const select = ["Today", "7 days", "2 weeks", "1 month", "All Time"];
@@ -77,8 +78,8 @@ export default function AdminDashboardDisplay({
  
 
   return (
-    <div className="subadmin_dashboard_container-display_withdrawal_admin">
-      {data4 ? (
+    <div className="subadmin_dashboard_container-display_withdrawal_admin" >
+      {/* {data4 ? (
         <div
           className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
           style={{
@@ -93,7 +94,7 @@ export default function AdminDashboardDisplay({
          
           </div>
           <h3 className="admin-card-title">
-      Dispersed bonus
+          Dispersed bonus
           </h3>
 
           {loading ? (
@@ -157,14 +158,12 @@ export default function AdminDashboardDisplay({
             <div id="container_deposit_display_inner_withdrawal_admin"></div>
           </div>
         </div>
-      )}
+      )} */}
       {data4 ? (
         <div
           className="subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in"
-          style={{
-            background: "rgba(128, 128, 128, 0.2)",
-            display: "flex",
-          }}
+       
+          style={{ display: "flex",background: updatedTheme === "dark"? "rgba(128, 128, 128, 0.2" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}
         >
     
             <>
@@ -185,8 +184,8 @@ export default function AdminDashboardDisplay({
             </div>
                
               </div>
-              <h3 className="admin-card-title">
-    Total Users
+              <h3 className="admin-card-title" style={{color: updatedTheme === "dark"? "white": "black"}}>
+              Total Users
               </h3>
               {loading ? (
                 <div id="container_deposit_display_withdrawal_admin">
@@ -194,9 +193,7 @@ export default function AdminDashboardDisplay({
                 </div>
               ) : (
                 <>
-               
-                 
-                      <h1 className="animate-pop-in">{totalUsers?.length}</h1>
+                      <h1 className="animate-pop-in"  style={{color: updatedTheme === "dark"? "white": "black"}}>{totalUsers?.length}</h1>
                 </>
               )}
             </>

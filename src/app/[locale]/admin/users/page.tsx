@@ -11,6 +11,8 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import Image from "next/image";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+
 function Page() {
   const router = useRouter();
   const [data, setData] = useState<any>();
@@ -213,16 +215,43 @@ function Page() {
   // setIsVisible(false);
   // };
 
-   return (
-     <div className='subadmin_dashboard_container_admin_admin_admin'>
+  const updatedTheme = useAppSelector((state) => state.theme.theme);
+
+   useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .tablesearch::placeholder {
+        color: ${placeholderColor};
+      },
+       .tablesearch {
+        color: ${color} !important;
+      },
+    `;
+    document.head.appendChild(style);
+
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
+
+   return ( updatedTheme === "dark" || updatedTheme === "light" ?
+     <div className='subadmin_dashboard_container_admin_admin_admin'  style={{
+        background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+      }}>
        <AdminHead
          title='Tableau de bord'
          about='Voir toutes les transactions ici'
          data={data3}
+              updatedTheme={updatedTheme}
        />
 
-       <div className='subadmin_dashboard_container_admin_admin_admin1'>
-         <div className='subadmin_dashboard_container_admin_admin_admin2'>
+       <div className='subadmin_dashboard_container_admin_admin_admin1' 
+>
+         <div className='subadmin_dashboard_container_admin_admin_admin2'        style={{background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white", boxShadow: updatedTheme === "dark"? "": "0px 4px 10px rgba(0,0,0,0.3)"}}>
            <div
              style={{
                width: "100%",
@@ -232,7 +261,7 @@ function Page() {
              }}
            >
              {" "}
-             <h3>All Users</h3>
+             <h3 style={{color: updatedTheme === "dark" ? "white" : "black"}}>All Users</h3>
            </div>
            <div
              style={{
@@ -250,6 +279,9 @@ function Page() {
                value={currentValue}
                onChange={(e) => setCurrentValue(e.target.value)}
                placeholder='Input email to search for user'
+               style={{
+             color: updatedTheme === "dark" ? "white" : "black",
+               }}
              />
 
              <button
@@ -308,6 +340,9 @@ function Page() {
                    style={{
                      height: index === index1 ? "590px" : "40px",
                      transition: "height .5s ease-out",
+                     background: updatedTheme === "dark" ? "" : "white",
+                    boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)",
+
                    }} // Adjust the height as needed
                  >
                    <div className='subadmin_dashboard_container_admin_admin_admin5'>
@@ -347,6 +382,7 @@ function Page() {
   textOverflow: "ellipsis",
   maxWidth: "100px", // Set the desired maximum width
   display: "inline-block",
+  color: updatedTheme === "dark"? "white": "black"
 }}>
   {data.fullname}
 </span>
@@ -388,11 +424,12 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
+                           
                          >
                            Name:
                          </span>{" "}
-                         <span className='span2'>{data.fullname}</span>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>{data.fullname}</span>
                        </div>
 
                        <div
@@ -408,12 +445,12 @@ function Page() {
                          }}
                        >
                          <span
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                            className='span1'
                          >
                            Email:
                          </span>{" "}
-                         <span className='span2'>{data.email}</span>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>{data.email}</span>
                        </div>
 
                        <div
@@ -430,7 +467,7 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Logged in:
                          </span>{" "}
@@ -456,12 +493,12 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
-                           className='span1'
+                                                     style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
+                         
                          >
                            Successful Deposits:
                          </span>{" "}
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            XOF &nbsp;{" "}
                            {formatNumberWithCommasAndDecimal(
                              totalSuccessfulDeposits
@@ -482,11 +519,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            S.D Count:
                          </span>{" "}
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            {successfulDeposits?.length}
                          </span>
                        </div>
@@ -504,11 +541,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                                                   style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Successful Withdrawals:
                          </span>{" "}
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            XOF &nbsp;{" "}
                            {formatNumberWithCommasAndDecimal(
                              totalSuccessfulWithdrawals
@@ -530,11 +567,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                                                    style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            S.W Count:
                          </span>{" "}
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            {successfulWithdrawals?.length}
                          </span>
                        </div>
@@ -553,7 +590,7 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Transaction History:
                          </span>
@@ -591,7 +628,7 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            View Referrals:
                          </span>
@@ -629,11 +666,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                     style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Bonus Balances:
                          </span>{" "}
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            XOF &nbsp; {formatNumberWithCommasAndDecimal(data.bonusBalance)}
                          </span>
                        </div>
@@ -651,11 +688,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                          style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Disbursed Bonuses:
                          </span>{" "}
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            XOF &nbsp; {formatNumberWithCommasAndDecimal(data.disbursedBonusBalance)}
                          </span>
                        </div>
@@ -676,11 +713,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Restricted Bonuses:
                          </span>{" "}
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            XOF &nbsp; {formatNumberWithCommasAndDecimal(data.restrictedBonusBalance)}
                          </span>
                        </div>
@@ -701,11 +738,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                           style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Total Referrals:
                          </span>{" "}
-                         <span className='span2'>{data.referrals.length}</span>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>{data.referrals.length}</span>
                        </div>
 
                        <div
@@ -722,11 +759,11 @@ function Page() {
                        >
                          <span
                            className='span1'
-                           style={{fontWeight: "bold", opacity: "0.65"}}
+                          style={{fontWeight: "bold", opacity: "0.65",   color: updatedTheme === "dark"? "white": "black"}}
                          >
                            Status:
                          </span>
-                         <span className='span2'>
+                         <span className='span2' style={{ color: updatedTheme === "dark"? "white": "black"}}>
                            {data.isActivated ? "Active" : "Not Active"}
                          </span>
                        </div>
@@ -795,7 +832,7 @@ function Page() {
            )}
          </div>
        </div>
-     </div>
+     </div>: null
    );
 }
 

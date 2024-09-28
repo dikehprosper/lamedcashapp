@@ -20,6 +20,7 @@ const Modal = ({
   handleClick,
   receipt,
   title,
+  updatedTheme
 }: any) => {
  
   const pathname = usePathname();
@@ -112,13 +113,13 @@ const Modal = ({
         className={` ${containerStylesInner}`}
         id='receiptModal'
         onClick={handleChildClick}
-        style={{gap: 10}}
+        style={{gap: 10, background: updatedTheme === "dark"?"black": "white",  boxShadow: updatedTheme ==="dark"? "": "0px 4px 10px rgba(0, 0, 0, 0.3)",  }}
       >
         {receipt?.betId && (
           <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+                color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -130,7 +131,7 @@ const Modal = ({
 
             <div
               style={{
-                color: "white",
+                          color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -145,7 +146,7 @@ const Modal = ({
           <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+                              color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -157,7 +158,7 @@ const Modal = ({
 
             <div
               style={{
-                color: "white",
+                           color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -171,7 +172,7 @@ const Modal = ({
           <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -183,7 +184,7 @@ const Modal = ({
 
             <div
               style={{
-                color: "white",
+                             color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -199,7 +200,7 @@ const Modal = ({
           <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+                                        color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -211,7 +212,7 @@ const Modal = ({
 
             <div
               style={{
-                color: "white",
+                                         color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -226,7 +227,7 @@ const Modal = ({
           <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+                                          color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -238,7 +239,7 @@ const Modal = ({
 
             <div
               style={{
-                color: "white",
+                                        color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -254,7 +255,7 @@ const Modal = ({
           <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+                                          color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -266,7 +267,7 @@ const Modal = ({
 
             <div
               style={{
-                color: "white",
+                                        color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -282,7 +283,7 @@ const Modal = ({
           <div className='receiptModal_inner3' style={{height: "50px"}}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+                                         color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -294,7 +295,7 @@ const Modal = ({
 
             <div
               style={{
-                color: "white",
+                                        color: updatedTheme === "dark"?  "white": "black",
                 display: "flex",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -309,7 +310,7 @@ const Modal = ({
         <div className='receiptModal_inner4' style={{height: "50px"}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                                        color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -321,7 +322,7 @@ const Modal = ({
           <div
             ref={spanRef}
             style={{
-              color: "white",
+                                      color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -338,7 +339,7 @@ const Modal = ({
         >
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                                      color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -349,7 +350,7 @@ const Modal = ({
           </div>
           <div
             style={{
-              color: "white",
+                                      color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -364,7 +365,7 @@ const Modal = ({
         <div className='receiptModal_inner7' style={{height: "50px"}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                                        color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -375,7 +376,7 @@ const Modal = ({
           </div>
           <div
             style={{
-              color: "white",
+                                   color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -389,7 +390,7 @@ const Modal = ({
        {receipt?.userEmail && <div className='receiptModal_inner7' style={{height: "50px"}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                                       color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -400,7 +401,7 @@ const Modal = ({
           </div>
           <div
             style={{
-              color: "white",
+                                    color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -414,7 +415,7 @@ const Modal = ({
          {receipt?.email && <div className='receiptModal_inner7' style={{height: "50px"}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                                        color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",
@@ -425,7 +426,7 @@ const Modal = ({
           </div>
           <div
             style={{
-              color: "white",
+                                     color: updatedTheme === "dark"?  "white": "black",
               display: "flex",
               justifyContent: "center",
               fontWeight: "bold",

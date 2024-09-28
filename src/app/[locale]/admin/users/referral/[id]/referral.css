@@ -279,3 +279,7 @@ padding: 20px
     height: 25px;
   }
 }
+
+.tablesearch:focus {
+  border: 2px solid grey
+}

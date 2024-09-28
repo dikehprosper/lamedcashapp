@@ -9,7 +9,7 @@ import {AiOutlineCluster} from "react-icons/ai";
 import {TbPigMoney} from "react-icons/tb";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 
-export default function AdminDashboardDisplay2({data3}: any) {
+export default function AdminDashboardDisplay2({data3, updatedTheme}: any) {
       const {locale} = useParams<{locale: string}>();
        const router = useRouter();
   const [state, setState] = useState("All Time");
@@ -105,21 +105,21 @@ export default function AdminDashboardDisplay2({data3}: any) {
       {data3 ? (
         <div
           className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
-          style={{
-            background: "rgba(128, 128, 128, 0.2)",
-          }}
+          style={{ background: updatedTheme === "dark"? "rgba(128, 128, 128, 0.2" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}
         >
           <div className='display-body-300_withdrawal_admin'>
             <div className='card-icon'>
               <TbPigMoney fontSize='20px' />
             </div>
-                 <div className='dropdown-content-configure' onClick={() => router.push(`/${locale}/admin/dashboard/pendingtransaction`)}>
+                 <div className='dropdown-content-configure' onClick={() => router.push(`/${locale}/admin/dashboard/pendingtransaction`)} 
+                 style={{color: updatedTheme === "dark"? "white": "black"}}
+                 >
                   
                    See All 
             </div> 
           </div>
         
-          <h3 className='admin-card-title'>Pending Withdrawals</h3>
+          <h3 className='admin-card-title' style={{color: updatedTheme === "dark"? "white": "black"}}>Pending Withdrawals</h3>
 
           {loading ? (
             <div id='container_deposit_display_withdrawal_admin'>
@@ -127,8 +127,8 @@ export default function AdminDashboardDisplay2({data3}: any) {
             </div>
           ) : (
             <>
-              <h1 className='animate-pop-in'>{pendingWithdrawals?.length}</h1>
-              <h4 className='animate-pop-in card-price'>
+              <h1 className='animate-pop-in' style={{color: updatedTheme === "dark"? "white": "black"}}>{pendingWithdrawals?.length}</h1>
+              <h4 className='animate-pop-in card-price' style={{color: updatedTheme === "dark"? "white": "black"}}>
                 XOF &nbsp;
                 {formatNumberWithCommasAndDecimal(sum)}
               </h4>
@@ -146,9 +146,7 @@ export default function AdminDashboardDisplay2({data3}: any) {
       {data3 ? (
         <div
           className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
-          style={{
-            background: "rgba(128, 128, 128, 0.2)",
-          }}
+          style={{ background: updatedTheme === "dark"? "rgba(128, 128, 128, 0.2" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}
         >
           <div
             className='display-body-300_withdrawal_admin'
@@ -166,16 +164,16 @@ export default function AdminDashboardDisplay2({data3}: any) {
               />
             </div>
           </div>
-          <h3 className='admin-card-title'>Completed Withdrawals</h3>
+          <h3 className='admin-card-title' style={{color: updatedTheme === "dark"? "white": "black"}}>Completed Withdrawals</h3>
           {loading ? (
             <div id='container_deposit_display_withdrawal_admin'>
               <div id='container_deposit_display_inner_withdrawal_admin'></div>
             </div>
           ) : (
             <>
-              <h1 className='animate-pop-in'>{completedWithdrawals?.length}</h1>
+              <h1 className='animate-pop-in' style={{color: updatedTheme === "dark"? "white": "black"}}>{completedWithdrawals?.length}</h1>
 
-              <h4 className='animate-pop-in card-price'>
+              <h4 className='animate-pop-in card-price' style={{color: updatedTheme === "dark"? "white": "black"}}>
                 XOF &nbsp;
                 {formatNumberWithCommasAndDecimal(sum2)}
               </h4>
@@ -192,10 +190,8 @@ export default function AdminDashboardDisplay2({data3}: any) {
       {data3 ? (
         <div
           className='subadmin_dashboard_container-display-children_withdrawal_admin animate-pop-in'
-          style={{
-            background: "rgba(128, 128, 128, 0.2)",
-            display: "flex",
-          }}
+         
+           style={{    display: "flex", background: updatedTheme === "dark"? "rgba(128, 128, 128, 0.2" : "white", boxShadow: updatedTheme === "dark"? "" : "0px 4px 10px rgba(0, 0, 0, 0.3)"}}
         >
           <>
             <div
@@ -214,15 +210,15 @@ export default function AdminDashboardDisplay2({data3}: any) {
                 />
               </div>
             </div>
-            <h3 className='admin-card-title'>Failed Withdrawals</h3>
+            <h3 className='admin-card-title' style={{color: updatedTheme === "dark"? "white": "black"}} >Failed Withdrawals</h3>
             {loading ? (
               <div id='container_deposit_display_withdrawal_admin'>
                 <div id='container_deposit_display_inner_withdrawal_admin'></div>
               </div>
             ) : (
               <>
-                <h1 className='animate-pop-in'>{failedWithdrawals?.length}</h1>
-                <h4 className='animate-pop-in card-price'>
+                <h1 className='animate-pop-in' style={{color: updatedTheme === "dark"? "white": "black"}}>{failedWithdrawals?.length}</h1>
+                <h4 className='animate-pop-in card-price' style={{color: updatedTheme === "dark"? "white": "black"}}>
                   XOF &nbsp;
                   {formatNumberWithCommasAndDecimal(sum3)}
                 </h4>
