@@ -143,13 +143,14 @@ const UserNav = () => {
   ];
 
   const logout = async () => {
+ 
     try {
       await axios.get("/api/users/logout");
-      // localStorage.removeItem("activeTab");
+      localStorage.removeItem("activeTab");
       toast.success("Logout successful");
       // Only redirect if the axios request is successful
-      // localStorage.removeItem("activeTab");
-      // router.push("/signin");
+      localStorage.removeItem("activeTab");
+      router.push("/signin");
     } catch (error: any) {
       // console.log(error.message);
       // toast.error(error.message);
@@ -181,12 +182,20 @@ const UserNav = () => {
 
 
 
+
  const dispatch = useAppDispatch();
     const updatedTheme = useAppSelector((state) => state.theme.theme);
 
+   useEffect(() => {
+    if (updatedTheme === null) {
+        dispatch(setTheme("light")); // Set the theme in Redux
+    }
+       
+    }, [updatedTheme]);
+  
     useEffect(() => {
         // Get the value from local storage if it exists
-        const value = localStorage.getItem("theme") // Default to light
+        const value: any = localStorage.getItem("theme") // Default to light
         dispatch(setTheme(value)); // Set the theme in Redux
     }, [dispatch]);
 
@@ -195,14 +204,6 @@ const UserNav = () => {
         localStorage.setItem("theme", newTheme);
         dispatch(setTheme(newTheme)); // Update the Redux state
     };
-
-   useEffect(() => {
-    if (updatedTheme === null) {
-        dispatch(setTheme("light")); // Set the theme in Redux
-    }
-       
-    }, [updatedTheme]);
-
 
 
 
@@ -247,10 +248,11 @@ const UserNav = () => {
                 }}>
           <Link
             // className={` ${pathname === "/logout" ? "active" : ""}`}
-            href="/"
+            href=""
             onClick={logout}
           >
             <MdLogout />
+            
             &nbsp; &nbsp; {t("logout")}
           </Link>
           <div className="user-nav-social-media">
@@ -417,7 +419,7 @@ const UserNav = () => {
             <LanguageToggle updatedTheme={updatedTheme} />
 
 
-  <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
+        <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
 
         
 
@@ -452,10 +454,10 @@ const UserNav = () => {
             navLinks={findPath()}
             containerStyles="nav-link2"
             handleClick={handleClick}
-            logout={logout}
             containerStylesInner="users-nav-link2_inner"
             containerStylesInnerLink="nav-link2_inner_link-mobile"
             active="active-user-nav"
+              logout={logout}
               updatedTheme={updatedTheme}
           />
         )}

@@ -17,7 +17,7 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
   logout,
-    updatedTheme
+  updatedTheme
 }: any) => {
   const pathname = usePathname();
   const t = useTranslations("dashboard");
@@ -53,6 +53,10 @@ const Modal = ({
     document.addEventListener("DOMContentLoaded", navigationCompleteListener);
   };
 
+  function logout1() {
+    console.log("hdfgjdndgnd")
+  }
+
   return (updatedTheme === "dark" || updatedTheme === "light" ?
     <div className={`${containerStyles}`}>
       <div
@@ -71,7 +75,7 @@ const Modal = ({
         }}
       ></div>
 
-      <div className={` ${containerStylesInner}`} style={{ background: updatedTheme === "dark" ? "" : "white",
+      <div className={` ${containerStylesInner}`} style={{ zIndex: 4000,background: updatedTheme === "dark" ? "" : "white",
 boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 1)",
                        }} >
         {navLinks?.map((link: any, index: any) => {
@@ -133,7 +137,7 @@ boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 1)",
           );
         })}
         <div style={{ padding: "10px", color: updatedTheme === "dark" ? "white" : "black", }} onClick={logout}>
-          <Link href="/">{t("logout")}</Link>
+          <Link href="">{t("logout")}</Link>
         </div>
       </div>
     </div>: null
