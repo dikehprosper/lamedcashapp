@@ -13,6 +13,8 @@ import {FaLongArrowAltLeft} from "react-icons/fa";
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import {IoCheckmarkDoneSharp} from "react-icons/io5";
 import { ImCancelCircle } from "react-icons/im";
+import {useTranslations} from "next-intl";
+
 const Modal = ({
   active,
   receipt,
@@ -20,11 +22,15 @@ const Modal = ({
   containerStylesInner,
   containerStylesInnerLink,
   handleClick,
+  updatedTheme
 }: any) => {
   const handleChildClick = (event: React.MouseEvent) => {
     // Stop the event propagation to the parent (receiptModal)
     event.stopPropagation();
   };
+
+
+    const t = useTranslations("dashboard");
   return (
     <div
       className={` ${containerStyles}`}
@@ -35,16 +41,19 @@ const Modal = ({
         className={` ${containerStylesInner}`}
         id='receiptModal'
         onClick={handleChildClick}
+        style={{   minWidth: "160px", minHeight: "150px", }}
       >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            alignItems: "center",
             gap: "10px",
+        
           }}
         >
-          <h4>Échoué</h4>
+          <h4 style={{color: updatedTheme === "dark"? "white": "black"}}> {t("failedResponse")} </h4>
           <div style={{height: "30px", color: "rgba(120, 120, 120, 1)"}}>
             {/* <IoIosCheckmarkCircle fontSize="50px" /> */}
 

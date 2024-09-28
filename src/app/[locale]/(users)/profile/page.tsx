@@ -235,12 +235,43 @@ firstName: data.fullname.split(' ')[0],
 
 
 const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d" : data.image
+const updatedTheme = useAppSelector((state) => state.theme.theme);
+ useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .profile-form3::placeholder {
+        color: ${placeholderColor};
+      }
+    `;
+    document.head.appendChild(style);
 
-  return (
-    <div className="user_profile_container">
-      <Head title={t("profile.title")} about={t("profile.about")} data={data} />
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
 
-      <div className="user_profile_container_001">
+  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+    <div className="user_profile_container" style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
+      <Head title={t("profile.title")} about={t("profile.about")} data={data}      display={false}
+        updatedTheme={updatedTheme} />
+
+      <div className="user_profile_container_001"   style={{
+            background: updatedTheme === "dark" ? "" : "white",
+            color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",
+              boxShadow: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? " 0px 4px 10px rgba(0, 0, 0, .3)"
+              : "transparent",
+          }}>
         {data ? (
           <form className="profile-form-container">
             <div className="add-photo">
@@ -256,45 +287,84 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
               </div>
             </div>
             <div>
-              <label className="label">{t("profile.first_name")}</label>
+              <label className="label" style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}>{t("profile.first_name")}</label>
               <input
                 type="text"
                 className="profile-form input-first-child"
                 value={user.firstName}
                 onChange={handleChangeFirstName}
                 placeholder="Modifier votre prénom"
+                 style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
               />
             </div>
             <div>
-              <label className="label">{t("profile.last_name")}</label>{" "}
+              <label className="label" style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}>{t("profile.last_name")}</label>{" "}
               <input
                 type="text"
                 className="profile-form input-second-child"
                 value={user.lastName}
                 onChange={handleChangeLastName}
                 placeholder="Modifier le nom de famille"
+                 style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
               />
             </div>
             <div>
-              <label className="label">E-mail</label>
+              <label className="label" style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}>E-mail</label>
               <input
                 type="email"
                 className="profile-form"
                 value={user.email}
                 onChange={handleChangeEmail}
                 placeholder="EntModifierrez l'e-mail"
+                 style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
               />
             </div>
             <div>
-              <label className="label">{t("profile.mobile_number")}</label>
+              <label className="label" style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}>{t("profile.mobile_number")}</label>
               <div style={{ position: "relative" }} className="profile-form4">
                 <input
-                  style={{ paddingLeft: "70px" }}
                   type="number"
                   className="profile-form3"
                   value={user.mobileNumber}
                   onChange={handlechangeMobileNumber}
                   placeholder="Modifier le numéro de téléphone"
+                   style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",paddingLeft: "70px"}}
                 />
                 <div
                   style={{
@@ -325,6 +395,10 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
                 pointerEvents: buttonDisabled ? "none" : "auto",
                 marginBottom: "20px",
                 justifySelf: "flex-start",
+                 color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"
               }}
             >
               {loading3 ? (
@@ -388,10 +462,16 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
               className="password-section"
               style={{ marginTop: "60px", width: "100%" }}
             >
-              <h3>{t("profile.reset_password")}</h3>
+              <h3 style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{t("profile.reset_password")}</h3>
               <div
                 style={{
-                  color: "rgba(256, 256, 256, 0.5)",
+                 color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",
                   width: "100%",
                   display: "flex",
                   margin: "15px 0px",
@@ -410,7 +490,10 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
                 </span>
               </div>
               <div>
-                <label className="label">
+                <label className="label" style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}>
                   {t("profile.enter_old_password")}
                 </label>
                 <input
@@ -419,20 +502,40 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
                   value={user.oldPassword}
                   onChange={handleOldPassword}
                   placeholder={t("profile.enter_old_password")}
+                   style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
                 />{" "}
               </div>
               <div style={{ marginTop: "20px" }}>
-                <label className="label">{t("profile.old_password")}</label>
+                <label className="label" style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}>{t("profile.old_password")}</label>
                 <input
                   type="text"
                   className="profile-form"
                   value={user.password}
                   onChange={handlePassword}
                   placeholder={t("profile.enter_old_password")}
+                   style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
                 />
               </div>
               <div style={{ marginTop: "20px" }}>
-                <label className="label">
+                <label className="label" style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}>
                   {t("profile.enter_new_password")}
                 </label>
                 <input
@@ -441,6 +544,13 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
                   value={user.confirmPassword}
                   onChange={handleConfirmPassword}
                   placeholder={t("profile.new_password")}
+                   style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
                 />
               </div>
             </div>
@@ -457,6 +567,10 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
                 justifySelf: "flex-start",
                 padding: "0px 10px",
                 whiteSpace: "nowrap",
+               color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"
               }}
             >
               {loading2 ? (
@@ -488,7 +602,7 @@ const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/
         )}
       </div>
       <FooterMobile />
-    </div>
+    </div>: null
   );
 };
 

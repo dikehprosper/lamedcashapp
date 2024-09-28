@@ -1,13 +1,12 @@
 .user_withdraw_container {
   display: flex;
-  margin-left: 250px;
   padding: 27px 35px 20px 35px;
   height: auto;
   flex-direction: column;
 /* max-height: 190vh; */
   flex-direction: column;
-
-flex: 0 0 auto
+flex: 0 0 auto;
+ padding-left: 300px;
 }
 
 
@@ -219,8 +218,6 @@ width: 100%
     padding: 90px 35px 10px 35px;
   }
   label{
-
-  margin-top: 10px
 }
 }
 
@@ -514,7 +511,7 @@ label{
   .withdraw-form-container {
     width: 100%;
     padding: 2px 2px;
-    gap: 10px;
+
   }
 
   .withdraw-container_inner {

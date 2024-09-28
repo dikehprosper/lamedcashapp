@@ -1,13 +1,12 @@
 .transactionPage_container {
   display: flex;
-  margin-left: 250px;
   padding: 27px 35px 20px 35px;
 max-height: 100vh;
 min-height: 100vh;
   flex-direction: column;
   overflow: hidden;
   flex: 1;
-  
+   padding-left: 300px;
 }
 
 @media (max-width: 1028px) {

@@ -144,15 +144,41 @@ const Referrals = () => {
 
   const [active, setActive] = useState("user-referral-container2-inner5");
  
-  return (
-    <div className='user-referral-container'>
+   const updatedTheme = useAppSelector((state) => state.theme.theme);
+
+
+   useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .withdraw-form::placeholder {
+        color: ${placeholderColor};
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
+
+
+  return (updatedTheme === "dark" || updatedTheme === "light" ?
+    <div className='user-referral-container' style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
       <Head
         title={t("referral_page.title")}
         about={t("referral_page.about")}
         data={data}
+         updatedTheme={updatedTheme}
+         display={false}
       />
 
-      <Referral data={data} />
+      <Referral data={data}    updatedTheme={updatedTheme}/>
 
       <div className='user-referral-container2'>
         <div className='user-referral-container2-inner1'>
@@ -172,7 +198,7 @@ const Referrals = () => {
                   : active
               }
             ></div>
-            <span style={{zIndex: "10"}}>
+            <span style={{zIndex: "10"}} >
               {t("referral_page.how_it_works")}
             </span>
           </div>
@@ -202,7 +228,7 @@ const Referrals = () => {
             <p
               style={{
                 textTransform: "capitalize",
-                color: "rgba(256, 256, 256, 0.7)",
+                 color: updatedTheme === "dark" ? "white" : "black",
               }}
             >
               {t("referral_page.copyReferralLink")}
@@ -212,17 +238,17 @@ const Referrals = () => {
 
         {active === "user-referral-container2-inner4" ||
         active === "user-referral-container2-inner6" ? (
-          <div className='user-referral-container2-inner1-inner'>
-            <div className='body-referral-count'>
+          <div className='user-referral-container2-inner1-inner' >
+            <div className='body-referral-count' style={{background: updatedTheme === "dark"? "": "white", borderRadius: "3px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"}}>
               <div className='body-referral-count2'>
                 <div className='body-referral-count3'>
-                  <div className='body-referral-count4'>
+                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}>
                     {t("transaction_page.image")}
                   </div>
-                  <div className='body-referral-count4'>
+                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}>
                     {t("referral_page.name")}
                   </div>
-                  <div className='body-referral-count4'> {t("referral_page.email")}</div>
+                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}> {t("referral_page.email")}</div>
                 </div>
                 {referrals?
                 referrals.length > 0 ? (
@@ -250,10 +276,10 @@ const Referrals = () => {
                               height={30}
                             />
                           </div>
-                          <div className='body-referral-count6'>
+                          <div className='body-referral-count6' style={{color: updatedTheme === "dark"? "white": "black"}}>
                             {referral.name}
                           </div>
-                          <div className='body-referral-count6'>
+                          <div className='body-referral-count6' style={{color: updatedTheme === "dark"? "white": "black"}}>
                             {referral.email}
                           </div>
                         </div>
@@ -277,8 +303,8 @@ const Referrals = () => {
                       marginTop: "50px",
                     }}
                   >
-                    <CgTrashEmpty fontSize='60px' />
-                    <h5>{t("referral_page.noReferrals")}</h5>
+                    <CgTrashEmpty fontSize='60px' style={{color: updatedTheme === "dark"? "white": "black"}} />
+                    <h5 style={{color: updatedTheme === "dark"? "white": "black"}}>{t("referral_page.noReferrals")}</h5>
                   </div>
                 ): "loading"}
               </div>
@@ -286,7 +312,7 @@ const Referrals = () => {
           </div>
         ) : null}
       </div>
-    </div>
+    </div>: null
   );
 };
 

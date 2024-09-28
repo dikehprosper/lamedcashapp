@@ -46,6 +46,8 @@
     "transaction_pending": "Transaction en Attente",
     "transaction_failed": "Transaction Échouée",
     "view_details": "Voir les Détails",
+    "failedResponse": "Échoué",
+     "pendingResponse": "En attente",
     "modal": {
       "copy_success": "Texte copié avec succès !",
       "copy_failure": "Oops ! Impossible de copier le texte.",
@@ -64,6 +66,8 @@
     },
     "deposit_page": {
       "title": "Dépôts",
+       "use_address": "-- IMPORTANT --",
+      "use_address_info": "La devise de votre compte doit être en XOF. Assurez-vous de ne pas avoir de retraits en attente",
       "about": "Effectuez vos dépôts sur votre compte 1XBET ici",
       "1xbet_id": "Identifiant 1XBET",
       "amount": "Montant",

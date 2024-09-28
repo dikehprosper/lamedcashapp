@@ -22,6 +22,7 @@ const Modal = ({
   containerStylesInner,
   containerStylesInnerLink,
   handleClick,
+   updatedTheme
 }: any) => {
 const pathname = usePathname();
 const handleChildClick = (event: React.MouseEvent) => {
@@ -53,13 +54,14 @@ const handleCopyClick = () => {
         className={` ${containerStylesInner}`}
         id='receiptModal'
         onClick={handleChildClick}
+          style={{gap: 10,  background:  updatedTheme === "dark" ? "": "white", boxShadow:  updatedTheme === "dark" ? "": "0px 4px 10px rgba(0, 0, 0, .2)"}}
       >
         <span
           onClick={handleClick}
           style={{ position: "absolute", right: "22px", top: "15px" }}
         >
           {" "}
-          <FaLongArrowAltLeft className='FaLongArrowAltLeft' />
+          <FaLongArrowAltLeft className='FaLongArrowAltLeft' style={{color:  updatedTheme === "dark" ? "white": "black"}} />
         </span>
         <div className='receiptModal_inner1' style={{ height: "100px"}}>
           <div className='receiptModalImage'>
@@ -81,7 +83,7 @@ const handleCopyClick = () => {
                   : receipt.status === "Pending"
                   ? "rgba(128, 128, 128, 0.6)"
                   : "rgba(256, 0, 0, 0.6)",
-              color: "rgba(256, 256, 256, 0.8)",
+                           color:  updatedTheme === "dark" ? "white": "black",
               borderRadius: "3px",
             }}
           >
@@ -97,10 +99,7 @@ const handleCopyClick = () => {
           <div>
             <div
               style={{
-                color:
-                  receipt?.type === "withdrawals"
-                    ? "rgba(0, 118, 184, 0.7)"
-                    : "rgba(0, 184, 118, 0.7)",
+                               color:  updatedTheme === "dark" ? "white": "black",
                 fontWeight: "bold",
               }}
             >
@@ -110,10 +109,7 @@ const handleCopyClick = () => {
             <div
               style={{
                 fontWeight: "bold",
-                color:
-                  receipt?.type === "withdrawals"
-                    ? "rgba(0, 118, 184, 0.7)"
-                    : "rgba(0, 184, 118, 0.7)",
+             color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               {" "}
@@ -127,7 +123,7 @@ const handleCopyClick = () => {
         <div className='receiptModal_inner3' style={{ height: "30px", marginTop: "20px"}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+               color:  updatedTheme === "dark" ? "white": "black",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
@@ -136,12 +132,12 @@ const handleCopyClick = () => {
              ID:
           </div>
 
-          <div>{receipt?.betId}</div>
+          <div style={{color:  updatedTheme === "dark" ? "white": "black"}}>{receipt?.betId}</div>
         </div>
         <div className='receiptModal_inner4' style={{ height: "30px", marginTop: "20px", background: 'red !important'}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                color:  updatedTheme === "dark" ? "white": "black",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
@@ -149,7 +145,7 @@ const handleCopyClick = () => {
           >
             identifiant de transaction:
           </div>
-          <div ref={spanRef}> {receipt?.identifierId} </div>
+          <div ref={spanRef} style={{color:  updatedTheme === "dark" ? "white": "black"}}> {receipt?.identifierId} </div>
 
           <div style={{ marginRight: "10px" }} onClick={handleCopyClick}>
             {" "}
@@ -160,7 +156,7 @@ const handleCopyClick = () => {
           <div className='receiptModal_inner4' style={{ height: "30px", marginTop: "20px", background: 'red !important' }}>
             <div
               style={{
-                color: "rgba(128, 128, 128, 0.9)",
+                color:  updatedTheme === "dark" ? "white": "black",
                 display: "flex",
                 justifyContent: "flex-end",
                 fontWeight: "bold",
@@ -168,13 +164,13 @@ const handleCopyClick = () => {
             >
               withdrawalCode:
             </div>
-            <div> {receipt?.withdrawalCode} </div>
+            <div style={{color:  updatedTheme === "dark" ? "white": "black"}}> {receipt?.withdrawalCode} </div>
           </div>
         ) : null}
         <div className='receiptModal_inner5' style={{ height: "30px", marginTop: "20px",  background: 'red !important'}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                          color:  updatedTheme === "dark" ? "white": "black",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
@@ -182,12 +178,12 @@ const handleCopyClick = () => {
           >
             date et l&apos;heure:{" "}
           </div>
-          <div> {formatDate(receipt?.time)}</div>
+          <div style={{color:  updatedTheme === "dark" ? "white": "black"}}> {formatDate(receipt?.time)}</div>
         </div>
         {receipt?.momoName &&  <div className='receiptModal_inner6' style={{ height: "30px", marginTop: "20px",  background: 'red !important'}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+            color:  updatedTheme === "dark" ? "white": "black",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
@@ -195,7 +191,7 @@ const handleCopyClick = () => {
           >
             Nom:{" "}
           </div>
-          <div>
+          <div style={{color:  updatedTheme === "dark" ? "white": "black"}}>
             {" "}
             {receipt?.momoName ? receipt?.momoName : receipt?.momoName}
           </div>
@@ -204,7 +200,7 @@ const handleCopyClick = () => {
         <div className='receiptModal_inner7' style={{ height: "30px", marginTop: "20px",  background: 'red !important'}}>
           <div
             style={{
-              color: "rgba(128, 128, 128, 0.9)",
+                             color:  updatedTheme === "dark" ? "white": "black",
               display: "flex",
               justifyContent: "flex-end",
               fontWeight: "bold",
@@ -212,7 +208,7 @@ const handleCopyClick = () => {
           >
             numéro de maman:{" "}
           </div>
-          <div>
+          <div style={{color:  updatedTheme === "dark" ? "white": "black"}}>
             {" "}
             {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
           </div>

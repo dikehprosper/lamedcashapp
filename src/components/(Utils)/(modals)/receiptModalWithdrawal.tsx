@@ -20,6 +20,7 @@ const Modal = ({
   handleClick,
   receipt,
   title,
+   updatedTheme
 }: any) => {
   console.log(receipt);
   const pathname = usePathname();
@@ -100,7 +101,7 @@ const Modal = ({
         className={` ${containerStylesInner}`}
         id='receiptModal'
         onClick={handleChildClick}
-        style={{gap: 10}}
+        style={{gap: 10,  background:  updatedTheme === "dark" ? "": "white", boxShadow:  updatedTheme === "dark" ? "": "0px 4px 10px rgba(0, 0, 0, .2)"}}
       >
         {receipt?.betId && (
           <div className='receiptModal_inner3' style={{height: "50px"}}>
@@ -111,6 +112,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               ID:
@@ -123,6 +125,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               {receipt?.betId}
@@ -138,6 +141,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               SOURCE:
@@ -150,6 +154,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               BONUS
@@ -164,6 +169,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               SOURCE:
@@ -176,6 +182,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               FROM BET ACCOUNT
@@ -192,6 +199,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               WITHDRAWAL CODE:
@@ -204,6 +212,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               {receipt?.withdrawalCode}
@@ -219,6 +228,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               SERVICE:
@@ -231,6 +241,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               {receipt?.service}
@@ -247,6 +258,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               AMOUNT:
@@ -259,6 +271,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               {receipt?.totalAmount}
@@ -275,6 +288,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               TYPE:
@@ -287,6 +301,7 @@ const Modal = ({
                 justifyContent: "center",
                 fontWeight: "bold",
                 textAlign: "center",
+                       color:  updatedTheme === "dark" ? "white": "black",
               }}
             >
               {receipt?.fundingType}
@@ -302,6 +317,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             iDENTIFIANT DE TRANSACTION:
@@ -314,6 +330,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             {" "}
@@ -331,6 +348,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             DATE ET l&apos;HEURE:
@@ -342,6 +360,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             {" "}
@@ -357,6 +376,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             NUMÉRO DE MAMAN:
@@ -368,6 +388,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             {receipt?.userNumber ? receipt?.userNumber : receipt?.momoNumber}
@@ -382,6 +403,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             E-MAIL DE L'UTILISATEUR:
@@ -393,6 +415,7 @@ const Modal = ({
               justifyContent: "center",
               fontWeight: "bold",
               textAlign: "center",
+                     color:  updatedTheme === "dark" ? "white": "black",
             }}
           >
             {" "}

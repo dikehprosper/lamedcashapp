@@ -12,7 +12,6 @@
 }
 
 .signup-input-espece {
-color: white !important;
   border: none;
   padding: 11px;
   border-radius: 4.5px;
@@ -23,8 +22,8 @@ color: white !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  background: #0f172a;
+
+  background: rgba(120, 120, 120, 0.2);
   transition:
     border-color 0.3s,
     box-shadow 0.3s outline 0.9s;

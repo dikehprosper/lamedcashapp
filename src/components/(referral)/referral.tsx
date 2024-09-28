@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { CiCircleCheck } from "react-icons/ci";
 import { useTranslations } from "next-intl";
 
-const Referral = ({ data }: any) => {
+const Referral = ({ data, updatedTheme}: any) => {
   const t = useTranslations("dashboard");
   const [user, setUser] = useState("");
   const [id, setId] = useState<any>();
@@ -142,10 +142,30 @@ const Referral = ({ data }: any) => {
     console.log(data);
   }, [data]);
 
+  useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .signup-input-espece::placeholder {
+        color: ${placeholderColor};
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
+
+
+
   return (
     <>
       {data._id ? (
-        <div className="referral-body-espece">
+        <div className="referral-body-espece" style={{background: updatedTheme === "dark"? "": "white", boxShadow: updatedTheme === "dark"? "": "0px 4px 10px rgba(0, 0, 0, 0.3)" }}>
           <div
             style={{
               display: "flex",
@@ -155,6 +175,7 @@ const Referral = ({ data }: any) => {
               opacity: "0.6",
               fontWeight: "300",
               fontSize: "15px",
+              color: updatedTheme === "dark"? "white": "black"
             }}
           >
   
@@ -171,21 +192,24 @@ const Referral = ({ data }: any) => {
             }}
           >
             <input
-              style={{
-                backgroundColor: "#0B1325",
-                height: "39px",
-                borderRadius: "4.5px 0px 0px 4.5px",
-              }}
+             
               className="signup-input-espece form3-espece source"
               id="address" // Added id to identify the input element
               type="text"
               value={referralLink || ""}
               readOnly // Add this attribute to make it non-editable
               placeholder={referralLink || ""}
+               style={{
+              
+                height: "39px",
+                borderRadius: "4.5px 0px 0px 4.5px",
+                color: updatedTheme === "dark"? "white": "black"
+              }}
             />
             <div
               className="referral-link-input-espece"
-              onClick={copyContent} // Call the copyContent function on click
+              onClick={copyContent} 
+              style={{ color: updatedTheme === "dark"? "white": "black"}}// Call the copyContent function on click
             >
               {copied === "true" &&  t("referral_page.referalLink_copy")}
 

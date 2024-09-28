@@ -199,14 +199,6 @@ if (pendingDeposits) {
 
   const updatedTheme = useAppSelector((state) => state.theme.theme);
 
-
-
-
-
-
-
-
-
   return (updatedTheme === "dark" || updatedTheme === "light" ?
     <div className="user_dashboard_container"  style={{
           background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
@@ -218,13 +210,14 @@ if (pendingDeposits) {
           handleClick={handleClick}
           receipt={receipt}
           title={t("deposit_amount")}
+          updatedTheme={updatedTheme}
         />
       )}
       {/* <div onClick={sendEvent}>click</div>
     {button && (
       <div style={{ width: "40px", height: "40px" }}>clickiiiiiii</div>
     )} */}
-      <Head title={t("welcome_title")}  data={data} updatedTheme={updatedTheme} />
+      <Head title={t("welcome_title")}  data={data} display={true} updatedTheme={updatedTheme} />
       
   <div className="marquee">
       

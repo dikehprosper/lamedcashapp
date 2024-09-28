@@ -54,23 +54,23 @@ const Withdraw = () => {
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    // Check initial network status
-    setIsOnline(window.navigator.onLine);
+  // useEffect(() => {
+  //   // Check initial network status
+  //   setIsOnline(window.navigator.onLine);
 
-    // Add event listeners for online/offline changes
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
+  //   // Add event listeners for online/offline changes
+  //   const handleOnline = () => setIsOnline(true);
+  //   const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+  //   window.addEventListener("online", handleOnline);
+  //   window.addEventListener("offline", handleOffline);
 
-    // Clean up event listeners on component unmount
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  });
+  //   // Clean up event listeners on component unmount
+  //   return () => {
+  //     window.removeEventListener("online", handleOnline);
+  //     window.removeEventListener("offline", handleOffline);
+  //   };
+  // });
 
   const getUserDetails = async () => {
     try {
@@ -109,16 +109,16 @@ const Withdraw = () => {
   // Example usage:
   const newTimestamp = generateTimestamp();
 
-  useEffect(() => {
-    if (isOnline) {
-      getUserDetails();
-      // getAvailableCashdeskAddress();
-    } else {
-      toast.error(
-        "No network connection. Please check your connection and try again."
-      );
-    }
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+  // useEffect(() => {
+  //   if (isOnline) {
+  //     getUserDetails();
+  //     // getAvailableCashdeskAddress();
+  //   } else {
+  //     toast.error(
+  //       "No network connection. Please check your connection and try again."
+  //     );
+  //   }
+  // }, []); // Empty dependency array means this effect runs once when the component mounts
 
   const handleChangeId = (event: any) => {
     setActiveBetId(event.target.value);
@@ -209,7 +209,7 @@ const Withdraw = () => {
       } catch (error: any) {
          if (error.response.status === 401) {
           toast.error("Utilisateur non trouvé");
- setLoading(false);
+         setLoading(false);
 
         } else if (error.response.status === 402) {
           toast.error("L'utilisateur est désactivé");
@@ -261,8 +261,32 @@ const Withdraw = () => {
     setProcessing(false);
   }
 
-  return (
-    <div className='user_withdraw_container'>
+    const updatedTheme = useAppSelector((state) => state.theme.theme);
+
+    useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .withdraw-form::placeholder {
+        color: ${placeholderColor};
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
+
+
+
+  return (updatedTheme === "dark" || updatedTheme === "light" ?
+    <div className='user_withdraw_container' style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
       {isVisible && (
         <Modal
           containerStyles='receiptModal'
@@ -270,15 +294,28 @@ const Withdraw = () => {
           handleClick={handleClick}
           receipt={receipt}
           title='Montant du retirer'
+           updatedTheme={updatedTheme}
         />
       )}
       <Head
         title={t("withdraw_page.title")}
         about={t("withdraw_page.about")}
         data={data}
+         display={false}
+        updatedTheme={updatedTheme}
       />
 
-      <div className='user_withdraw_container_001'>
+      <div className='user_withdraw_container_001' style={{
+            background: updatedTheme === "dark" ? "" : "white",
+            color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",
+              boxShadow: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? " 0px 4px 10px rgba(0, 0, 0, .3)"
+              : "transparent",
+          }}>
          {processing && (
         <div className='receiptModal'>
           <div
@@ -317,7 +354,10 @@ const Withdraw = () => {
             >
               <h6
                 style={{
-                  color: "white",
+               color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",
                   marginBottom: "13px",
                   width: "100%",
                   alignSelf: "center",
@@ -339,9 +379,10 @@ const Withdraw = () => {
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
           title={t("amount_deposit")}
+          updatedTheme={updatedTheme}
         />
       )}
-        <form onSubmit={handleSubmit} className='withdraw-form-container'>
+        <form onSubmit={handleSubmit} className='withdraw-form-container' >
           <div
             style={{
               width: "100%",
@@ -360,8 +401,14 @@ const Withdraw = () => {
               gap: "9px",
             }}
           >
-            <div className='detail'>{t("withdraw_page.use_address")}</div>
-            <div className='detail_2'>
+            <div className='detail' style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{t("withdraw_page.use_address")}</div>
+            <div className='detail_2' style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
               {t("withdraw_page.use_address_info")}
             </div>
             <div className='user_withdraw_container_002 animate-pop-in'>
@@ -380,15 +427,24 @@ const Withdraw = () => {
             ) : (
               <div>Street: {cashdeskAddress?.street}</div>
             )} */}
-              <div>{t("withdraw_page.use_address_city")}: &nbsp; Porto-Novo</div>
-              <div>
+              <div style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>{t("withdraw_page.use_address_city")}: &nbsp; Porto-Novo</div>
+              <div style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}>
                 {t("withdraw_page.use_address_street")}: &nbsp; Betfundr
               </div>
             </div>
           </div>
 
 
-          <label> ID</label>
+          <label style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",   paddingTop: "7px", opacity: "0.7", marginBottom: "3px"}}> ID</label>
 
           <input
             type='text'
@@ -396,14 +452,31 @@ const Withdraw = () => {
             value={user.betId}
             onChange={handleChangeId}
             placeholder={t("withdraw_page.enter_bet_id")}
+              style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
           />
-          <label>{t("withdraw_page.withdrawal_code")}</label>
+          <label style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",   paddingTop: "7px", opacity: "0.7", marginBottom: "3px"}}>{t("withdraw_page.withdrawal_code")}</label>
           <input
             type='text'
             className='withdraw-form'
             value={user.withdrawalCode}
             onChange={handleWithdrawalCode}
             placeholder={t("withdraw_page.empty_withdrawal_code")}
+              style={{ border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}
           />
 
           <div
@@ -418,8 +491,11 @@ const Withdraw = () => {
             }}
           >
             <div style={{display: "flex", flexDirection: "column", width: "100%"}}>
-              {" "}
-              <label style={{marginBottom: "10px"}}>
+        
+              <label style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",   paddingTop: "7px", opacity: "0.7", marginBottom: "3px"}}>
                 {t("deposit_page.momo_number")}
               </label>
               <input
@@ -428,10 +504,20 @@ const Withdraw = () => {
                 value={user.momoNumber}
                 onChange={handleMomoNumber}
                 placeholder={t("withdraw_page.enter_momo_number")}
+                  style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}
               />
             </div>
             <div style={{display: "flex", flexDirection: "column", width: '100%'}}>
-              <label style={{marginBottom: "10px"}}>
+              <label  style={{ color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",   paddingTop: "7px", opacity: "0.7", marginBottom: "3px"}} >
                 {t("deposit_page.confirm_momo_number")}
               </label>
               <input
@@ -440,6 +526,13 @@ const Withdraw = () => {
                 value={user.confirmMomoNumber}
                 onChange={handleConfirmMomoNumber}
                 placeholder={t("withdraw_page.enter_confirm_momo_number")}
+                  style={{ border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
               />
             </div>
           </div>
@@ -454,6 +547,12 @@ const Withdraw = () => {
               pointerEvents: buttonDisabled ? "none" : "auto",
               marginTop: "35px",
               marginBottom: "30px",
+
+         color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"
+
             }}
             onClick={handleSubmit}
           >
@@ -468,7 +567,7 @@ const Withdraw = () => {
         </form>
       </div>
       <FooterMobile />
-    </div>
+    </div>: null
   );
 };
 

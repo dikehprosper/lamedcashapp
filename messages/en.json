@@ -46,6 +46,8 @@
     "transaction_pending": "Transaction Pending",
     "transaction_failed": "Transaction Failed",
     "view_details": "View Details",
+    "failedResponse": "Failed",
+     "pendingResponse": "Pending",
     "modal": {
       "copy_success": "Text successfully copied!",
       "copy_failure": "Oops! Unable to copy text.",

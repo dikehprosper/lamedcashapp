@@ -1,12 +1,13 @@
 .user-referral-container {
       display: flex;
-  margin-left: 250px;
+
   padding: 27px 35px 20px 35px;
   min-height: 100vh;
   flex-direction: column;
 /* max-height: 190vh; */
   flex-direction: column;
 flex: 0 0 auto;
+  padding-left: 300px;
 }
 .user-referral-container2 {
   display: flex;

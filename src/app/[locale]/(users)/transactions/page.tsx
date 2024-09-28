@@ -135,8 +135,12 @@ const Transactions = () => {
     });
   }
 
-  return (
-    <div className="transactionPage_container">
+  const updatedTheme = useAppSelector((state) => state.theme.theme);
+
+  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+    <div className="transactionPage_container" style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
       {isVisible && (
         <Modal
           containerStyles="receiptModal"
@@ -144,12 +148,14 @@ const Transactions = () => {
           handleClick={handleClick}
           receipt={receipt}
           title={t("transaction_page.deposit_amount")}
+                updatedTheme={updatedTheme}
         />
       )}
       <Head
         title="Transactions"
         about={t("transaction_page.about")}
         data={data}
+        display={false} updatedTheme={updatedTheme}
       />
       <TransactionTemplate
         title={{
@@ -157,7 +163,7 @@ const Transactions = () => {
           icon: <LuHistory />,
         }}
         select={{
-          firstSelect: { big: t("transaction_page.view_all"), small: "Tout" },
+          firstSelect: { big: t("see_all"), small: "Tout" },
           secondSelect: {
             big: t("transaction.deposits"),
             small: t("transaction_page.deposits"),
@@ -172,8 +178,9 @@ const Transactions = () => {
         data={data?.transactionHistory}
         allData={data}
         showReceipt={showReceipt}
+        updatedTheme={updatedTheme}
       />
-    </div>
+    </div>: null
   );
 };
 

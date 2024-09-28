@@ -9,7 +9,7 @@ import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Image from "next/image";
 import image from "../../../../public/wavingHand.png";
 
-const Head = ({title, about, data, updatedTheme}: any) => {
+const Head = ({title, about, data,display, updatedTheme}: any) => {
   const spanRef = useRef<HTMLSpanElement>(null);
   const t = useTranslations("dashboard");
 
@@ -98,14 +98,14 @@ const Head = ({title, about, data, updatedTheme}: any) => {
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
               : "transparent"}}> {data?.fullname?  <> <h3 className='title-container-h2'>{title} &nbsp;
-                  {data?.fullname} &nbsp;
-             <Image
+                  {display && data?.fullname} &nbsp;
+            {display && <Image
           src={image}
           style={{ objectFit: "contain"}}
           alt="background"
            width={20}
           height={40}
-        />
+        />} 
           </h3>
           <p className='title-container-p' style={{color: 
               updatedTheme === "dark"

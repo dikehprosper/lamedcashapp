@@ -5,10 +5,10 @@ import WhatsappLogo from "../../../public/Whatsapp.svg";
 import TiktokLogo from "../../../public/TikTok.svg";
 import { MdLogout } from "react-icons/md";
 import Link from "next/link";
-const FooterMobile = () => {
+const FooterMobile = ({updatedTheme}: any) => {
   return (
     <div className='user-nav-social-media-all'>
-      <h4>Follow</h4>
+      <h4 style={{color: updatedTheme === "dark"? "white": "black"}}>Follow</h4>
       <div className='user-nav-social-media-icons'>
         <div className='user-nav-logo-all facebook'>
           <Image

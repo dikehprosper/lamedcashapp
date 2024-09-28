@@ -19,6 +19,12 @@ import {useTranslations} from "next-intl";
 import {useParams, usePathname} from "next/navigation";
   import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
+import Image from "next/image";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+
+
 
 const DOMAIN = process.env.DOMAIN;
 
@@ -322,13 +328,34 @@ const [processing4, setProcessing4] = useState(false);
   }
 
   const updatedTheme = useAppSelector((state) => state.theme.theme);
-  
-  return (
-    <div className='user_withdraw_container'>
+ useEffect(() => {
+    // Dynamically add a style tag to the document head for placeholder styling
+    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .deposit-form::placeholder {
+        color: ${placeholderColor};
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Clean up the style tag on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [updatedTheme]);
+
+  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+    <div className='user_withdraw_container'  style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
       <Head
         title={t("deposit_page.title")}
         about={t("deposit_page.about")}
         data={data}
+        display={false}
+        updatedTheme={updatedTheme}
       />
       {processing && (
         <div className='receiptModal'>
@@ -368,7 +395,10 @@ const [processing4, setProcessing4] = useState(false);
             >
               <h6
                 style={{
-                  color: "white",
+                 color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",
                   marginBottom: "13px",
                   width: "100%",
                   alignSelf: "center",
@@ -396,6 +426,7 @@ const [processing4, setProcessing4] = useState(false);
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
           title={t("amount_deposit")}
+          updatedTheme={updatedTheme}
         />
       )}
 
@@ -404,10 +435,22 @@ const [processing4, setProcessing4] = useState(false);
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
           title={t("amount_deposit")}
+          updatedTheme={updatedTheme}
         />
       )}
     
-      <div className='user_deposit_container_001'>
+      <div className='user_deposit_container_001'  style={{
+            background: updatedTheme === "dark" ? "" : "white",
+            color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",
+              boxShadow: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? " 0px 4px 10px rgba(0, 0, 0, .3)"
+              : "transparent",
+          }}>
+            
         <form onSubmit={submitDetails} className='deposit-form-container'>
            <div
             style={{
@@ -424,16 +467,19 @@ const [processing4, setProcessing4] = useState(false);
               paddingRight: "10px",
               paddingTop: "5px",
               paddingBottom: "5px",
-              gap: "9px",
+        
             }}
           >
             <div className='detail' style={{fontWeight: "bold"}}>{t("deposit_page.use_address")}</div>
-            <div className='detail_2' style={{textAlign: "center", fontWeight: 500}}>
+            <div className='detail_2' style={{textAlign: "center", fontWeight: 600, fontSize: "13px"}}>
               {t("deposit_page.use_address_info")}
             </div>
             
           </div>
-          <label>ID</label>
+          <label style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",   paddingTop: "7px", opacity: "0.7"}}>ID</label>
 
           <input
             type='text'
@@ -441,28 +487,105 @@ const [processing4, setProcessing4] = useState(false);
             value={user.betId}
             onChange={handleChangeId}
             placeholder={t("deposit_page.placeholder_1xbet_id")}
+            style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",}}
+     
+             
+        
           />
 
-          <label>{t("deposit_page.amount")}</label>
+          <label style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent",  paddingTop: "7px", opacity: "0.7"}}>{t("deposit_page.amount")}</label>
           <input
             type='number'
             className='deposit-form'
             value={user.amount}
             onChange={handleChangeAmount}
             placeholder={t("deposit_page.placeholder_amount")}
+            style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}
           />
 
-          <label>{t("deposit_page.momo_number")}</label>
+          <label style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t("deposit_page.momo_number")}</label>
           <input
             type='number'
             className='deposit-form'
             value={user.momoNumber}
             onChange={handleChangeMomoNumber}
             placeholder='Entrez le numéro Momo'
+            style={{       border: 
+              updatedTheme === "dark"
+              ? "" : updatedTheme === "light"? "2px solid grey"
+              : "transparent", color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent"}}
           />
 
-          <label htmlFor='network'>{t("deposit_page.network")}</label>
-          <select
+          <label htmlFor='network' style={{  color: 
+              updatedTheme === "dark"
+              ? "white" : updatedTheme === "light"? "black"
+              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t("deposit_page.network")}</label>
+
+
+
+
+          <div style={{display: 'flex', marginTop: "10px", alignSelf: "flex-start", flexDirection: 'row',  minWidth: '200px',  width: "100%", maxWidth: '800px', flex: 1,  padding: "5px", alignItems: 'center', justifyContent: "space-evenly"}}>
+              <div 
+              onClick={ () => setUser({
+      ...user,
+      network: "MTN",
+    })}
+     style={{ display: "flex",  flexDirection: "row", alignItems: 'center', justifyContent: 'space-evenly', height: "40px", width: "100px", borderRadius: "3px",border: user.network === "MTN" ? "2px solid rgba(73, 166, 106, 1)": "" }}> 
+                <Image
+          src="https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/MTN-Mobile-Money-Senegal-Logo-1-550x298.webp?alt=media&token=6c70d498-35e3-4054-a2fd-e42a3138f3fb"
+          style={{ objectFit: "cover", borderRadius: 15}}
+          alt="background"
+          width={30}
+          height={30}
+        /> 
+        <h6>MTN</h6>
+        </div>
+
+         <div 
+         onClick={ () => setUser({
+      ...user,
+      network: "MOOV",
+    })} 
+    style={{ display: "flex", flexDirection: "row", alignItems: 'center', justifyContent: 'space-evenly', height: "40px", width: "100px", borderRadius: "3px", border: user.network === "MOOV" ? "2px solid rgba(73, 166, 106, 1)": "" }}> 
+          <Image
+          src="https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Moov_Africa_logo.png?alt=media&token=281df10d-fe29-4eeb-83ef-bcb1f3ee2121"
+          style={{ objectFit: "cover", borderRadius: 15, }}
+          alt="background"
+           width={30}
+          height={30}
+        />
+        <h6>MOOV</h6>
+        </div>
+        </div>
+
+
+
+
+
+
+
+          {/* <select
             id='network'
             className='deposit-form' // Apply the same class as the input for styling
             value={user.network}
@@ -474,13 +597,18 @@ const [processing4, setProcessing4] = useState(false);
             <option value='MTN'> Mtn Benin</option>
             <option value='MOOV'>Moov Benin</option>
           </select>
+ */}
+
+
+
+          
 
           <div
             className='submit-button-deposit'
             style={{
               background: buttonDisabled
-                ? "rgba(128, 128, 128, 0.5)"
-                : "rgba(128, 128, 128, 1)",
+                ? "rgba(73, 166, 106, 0.5)"
+                : "rgba(73, 166, 106, 1)",
               pointerEvents: buttonDisabled ? "none" : "auto",
               cursor: "pointer",
             }}
@@ -496,8 +624,8 @@ const [processing4, setProcessing4] = useState(false);
           </div>
         </form>
       </div>
-      <FooterMobile />
-    </div>
+      <FooterMobile updatedTheme={updatedTheme} />
+    </div>: null
   );
 };
 
