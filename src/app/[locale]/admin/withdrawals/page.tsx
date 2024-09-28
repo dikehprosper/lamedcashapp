@@ -194,7 +194,10 @@ const TransactionTemplate = () => {
 
 
   return updatedTheme === "dark" || updatedTheme === "light" ? loading === "one" ? (
-    <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
+    <div className='subadmin_dashboard_container_admin_admin-cashdesk' style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}
+        >
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
           <h2 style={{color: updatedTheme === "dark"? "white": "black" }}> Withdrawals</h2>
@@ -214,7 +217,9 @@ const TransactionTemplate = () => {
       </div>
     </div>
   ) : loading === "two" ? (
-    <div className='subadmin_dashboard_container_admin_admin-cashdesk'>
+    <div className='subadmin_dashboard_container_admin_admin-cashdesk' style={{
+          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+        }}>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
           <h2 style={{ color: updatedTheme === "dark"? "white": "black" }}>Withdrawals</h2>

@@ -54,7 +54,7 @@ const PendingTransactionTemplate = ({
           <span style={{color:  updatedTheme === "dark" ? "white" : "black"}}> XOF {formatNumberWithCommasAndDecimal(totalAmount)}</span>
           <span style={{color:  updatedTheme === "dark" ? "white" : "black"}}>
             <b style={{color:  updatedTheme === "dark" ? "white" : "black"}}>SOURCE: &nbsp;</b>
-     {bonusBalance === undefined ||
+          {bonusBalance === undefined ||
             bonusBalance === "" ||
             bonusBalance === null
               ? "FROM BET ACCOUNT"
