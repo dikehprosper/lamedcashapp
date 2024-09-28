@@ -199,12 +199,7 @@ if (pendingDeposits) {
 
   const updatedTheme = useAppSelector((state) => state.theme.theme);
 
-     useEffect(() => {
-    if (updatedTheme === null) {
-        dispatch(setTheme("light")); // Set the theme in Redux
-    }
-       
-    }, [updatedTheme]);
+  
   return (updatedTheme === "dark" || updatedTheme === "light" ?
     <div className="user_dashboard_container"  style={{
           background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",

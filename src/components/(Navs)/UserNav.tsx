@@ -196,8 +196,11 @@ const UserNav = () => {
         dispatch(setTheme(newTheme)); // Update the Redux state
     };
 
-    useEffect(() => {
-        console.log(updatedTheme, "updatedTheme"); // Log the current theme
+   useEffect(() => {
+    if (updatedTheme === null) {
+        dispatch(setTheme("light")); // Set the theme in Redux
+    }
+       
     }, [updatedTheme]);
 
 
