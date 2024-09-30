@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import { CiCircleCheck } from "react-icons/ci";
 import { useTranslations } from "next-intl";
 
-const Referral = ({ data, updatedTheme}: any) => {
-  const t = useTranslations("dashboard");
+const Referral = ({ data, updatedTheme, t}: any) => {
+  
   const [user, setUser] = useState("");
   const [id, setId] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);
@@ -179,7 +179,7 @@ const Referral = ({ data, updatedTheme}: any) => {
             }}
           >
   
-               {t("referral_page.referalLink")}
+               {t.referral_page.referalLink}
           </div>
           <div
             style={{
@@ -211,7 +211,7 @@ const Referral = ({ data, updatedTheme}: any) => {
               onClick={copyContent} 
               style={{ color: updatedTheme === "dark"? "white": "black"}}// Call the copyContent function on click
             >
-              {copied === "true" &&  t("referral_page.referalLink_copy")}
+              {copied === "true" &&  t.referral_page.referalLink_copy}
 
               {copied === "true2" && (
                 <CiCircleCheck className="CiCircleCheck" />

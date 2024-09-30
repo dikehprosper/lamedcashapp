@@ -26,7 +26,9 @@ import Cookies from "js-cookie";
 const Referrals = () => {
   const pathname = usePathname();
 
-
+ const updatedTheme = useAppSelector(
+    (state: any) => (state.theme as any)?.theme
+  );
 
   const router = useRouter();
  
@@ -49,15 +51,15 @@ const Referrals = () => {
           toast.error(
             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
           );
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.push(`${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
           toast.error(
             "Votre session a expiré. Redirection vers la connexion..."
           );
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
-          router.push("/signin");
+          router.push(`${updatedLang}/signin`);
         } else {
           // Handle other errors
           toast.error(
@@ -148,14 +150,15 @@ const Referrals = () => {
 
   const [active, setActive] = useState("user-referral-container2-inner5");
  
-   const updatedTheme = useAppSelector((state) => state.theme.theme);
-
-
-   useEffect(() => {
+  useEffect(() => {
     // Dynamically add a style tag to the document head for placeholder styling
-    const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
-    const color = updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
-    const style = document.createElement('style');
+    const placeholderColor =
+      updatedTheme === "dark"
+        ? "rgba(255, 255, 255, 0.2)"
+        : "rgba(0, 0, 0, 0.2)";
+    const color =
+      updatedTheme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+    const style = document.createElement("style");
     style.innerHTML = `
       .withdraw-form::placeholder {
         color: ${placeholderColor};
@@ -169,53 +172,53 @@ const Referrals = () => {
     };
   }, [updatedTheme]);
 
+ 
+  //Language settings
+  const getCurrentLangFromPath = () => {
+    const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+    const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+    return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+  };
 
-  const updatedTheme = useAppSelector(
-    (state: any) => (state.theme as any)?.theme
-  );
-        //Language settings
-const getCurrentLangFromPath = () => {
-  const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
-  const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
-  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
-};
+  useEffect(() => {
+    const currentLang = getCurrentLangFromPath();
 
-useEffect(() => {
-  const currentLang = getCurrentLangFromPath();
+    // Check if the cookie is already set to the current language in the path
+    const cookieLang = Cookies.get("locale");
 
-  // Check if the cookie is already set to the current language in the path
-  const cookieLang = Cookies.get("locale");
+    if (cookieLang !== currentLang) {
+      // If the cookie is not set to the current language, update the cookie
+      Cookies.set("locale", currentLang, {expires: 365}); // Set cookie to last 1 year
+    }
+  }, [window.location.pathname]); // Update dependency to window.location.pathname
 
-  if (cookieLang !== currentLang) {
-    // If the cookie is not set to the current language, update the cookie
-    Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
-  }
-}, [window.location.pathname]); // Update dependency to window.location.pathname
+  const updatedLang = getCurrentLangFromPath();
 
-const updatedLang = getCurrentLangFromPath(); 
-
-   const getLangData = () => {
+  const getLangData = () => {
     return updatedLang === "en" ? langDataEn : langDataFr;
   };
 
   const t = getLangData();
 
-
-
-
-  return (updatedTheme === "dark" || updatedTheme === "light" && updatedLang === "en" || updatedLang === "fr" ?
-    <div className='user-referral-container' style={{
-          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
-        }}>
+  return updatedTheme === "dark" ||
+    (updatedTheme === "light" && updatedLang === "en") ||
+    updatedLang === "fr" ? (
+    <div
+      className='user-referral-container'
+      style={{
+        background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+      }}
+    >
       <Head
         title={t.referral_page.title}
         about={t.referral_page.about}
         data={data}
-         updatedTheme={updatedTheme}
-         display={false}
+        updatedTheme={updatedTheme}
+        display={false}
+        t={t.dashboard.copy}
       />
 
-      {/* <Referral data={data}    updatedTheme={updatedTheme}/> */}
+      <Referral data={data}    updatedTheme={updatedTheme} t={t} />
 
       <div className='user-referral-container2'>
         <div className='user-referral-container2-inner1'>
@@ -235,8 +238,8 @@ const updatedLang = getCurrentLangFromPath();
                   : active
               }
             ></div>
-            <span style={{zIndex: "10"}} >
-              {t("referral_page.how_it_works")}
+            <span style={{zIndex: "10"}}>
+              {t.referral_page.how_it_works}
             </span>
           </div>
           <div
@@ -255,7 +258,9 @@ const updatedLang = getCurrentLangFromPath();
                   : active
               }
             ></div>
-            <span style={{zIndex: "10"}}>{t("referral_page.title")}</span>
+            <span style={{zIndex: "10"}}>
+              {t.referral_page.title}
+              </span>
           </div>
         </div>
 
@@ -265,7 +270,7 @@ const updatedLang = getCurrentLangFromPath();
             <p
               style={{
                 textTransform: "capitalize",
-                 color: updatedTheme === "dark" ? "white" : "black",
+                color: updatedTheme === "dark" ? "white" : "black",
               }}
             >
               {t.referral_page.copyReferralLink}
@@ -275,36 +280,54 @@ const updatedLang = getCurrentLangFromPath();
 
         {active === "user-referral-container2-inner4" ||
         active === "user-referral-container2-inner6" ? (
-          <div className='user-referral-container2-inner1-inner' >
-            <div className='body-referral-count' style={{background: updatedTheme === "dark"? "": "white", borderRadius: "3px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"}}>
+          <div className='user-referral-container2-inner1-inner'>
+            <div
+              className='body-referral-count'
+              style={{
+                background: updatedTheme === "dark" ? "" : "white",
+                borderRadius: "3px",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+              }}
+            >
               <div className='body-referral-count2'>
                 <div className='body-referral-count3'>
-                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}>
+                  <div
+                    className='body-referral-count4'
+                    style={{color: updatedTheme === "dark" ? "white" : "black"}}
+                  >
                     {t.transaction_page.image}
                   </div>
-                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}>
+                  <div
+                    className='body-referral-count4'
+                    style={{color: updatedTheme === "dark" ? "white" : "black"}}
+                  >
                     {t.referral_page.name}
                   </div>
-                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}> {t.referral_page.email}</div>
+                  <div
+                    className='body-referral-count4'
+                    style={{color: updatedTheme === "dark" ? "white" : "black"}}
+                  >
+                    {" "}
+                    {t.referral_page.email}
+                  </div>
                 </div>
-                {referrals?
-                referrals.length > 0 ? (
-                  referrals.map((referral): any => {
-                    const number = referral.SuccesfulDepositCountusers;
-                    const threePercent = (3 / 100) * number;
-                    const result = (5 / 100) * threePercent;
-                    const number2 = referral.SuccesfulWithdrawalCountusers;
-                    const threePercent2 = (3 / 100) * number2;
-                    const result2 = (5 / 100) * threePercent2;
-                    const total = result + result2;
-                    const imageUrl =
-                      referral.image === ""
-                        ? "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d"
-                        : referral.image;
-                    return (
-                    
+                {referrals ? (
+                  referrals.length > 0 ? (
+                    referrals.map((referral): any => {
+                      const number = referral.SuccesfulDepositCountusers;
+                      const threePercent = (3 / 100) * number;
+                      const result = (5 / 100) * threePercent;
+                      const number2 = referral.SuccesfulWithdrawalCountusers;
+                      const threePercent2 = (3 / 100) * number2;
+                      const result2 = (5 / 100) * threePercent2;
+                      const total = result + result2;
+                      const imageUrl =
+                        referral.image === ""
+                          ? "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d"
+                          : referral.image;
+                      return (
                         <div className='body-referral-count5'>
-                         <div className='body-referral-count6'>
+                          <div className='body-referral-count6'>
                             <Image
                               src={imageUrl}
                               style={{objectFit: "contain", borderRadius: 15}}
@@ -313,44 +336,69 @@ const updatedLang = getCurrentLangFromPath();
                               height={30}
                             />
                           </div>
-                          <div className='body-referral-count6' style={{color: updatedTheme === "dark"? "white": "black"}}>
+                          <div
+                            className='body-referral-count6'
+                            style={{
+                              color:
+                                updatedTheme === "dark" ? "white" : "black",
+                            }}
+                          >
                             {referral.name}
                           </div>
-                          <div className='body-referral-count6' style={{color: updatedTheme === "dark"? "white": "black"}}>
+                          <div
+                            className='body-referral-count6'
+                            style={{
+                              color:
+                                updatedTheme === "dark" ? "white" : "black",
+                            }}
+                          >
                             {referral.email}
                           </div>
                         </div>
-                      
-                    );
-                  })
+                      );
+                    })
+                  ) : (
+                    <div
+                      className='no-result animate-pop-in'
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        height: "100%",
+                        flex: "1",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "30px",
+                        flexDirection: "column",
+                        textAlign: "center",
+                        alignSelf: "center",
+                        marginTop: "50px",
+                      }}
+                    >
+                      <CgTrashEmpty
+                        fontSize='60px'
+                        style={{
+                          color: updatedTheme === "dark" ? "white" : "black",
+                        }}
+                      />
+                      <h5
+                        style={{
+                          color: updatedTheme === "dark" ? "white" : "black",
+                        }}
+                      >
+                        {t.referral_page.noReferrals}
+                      </h5>
+                    </div>
+                  )
                 ) : (
-                  <div
-                    className='no-result animate-pop-in'
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      height: "100%",
-                      flex: "1",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "30px",
-                      flexDirection: "column",
-                      textAlign: "center",
-                      alignSelf: "center",
-                      marginTop: "50px",
-                    }}
-                  >
-                    <CgTrashEmpty fontSize='60px' style={{color: updatedTheme === "dark"? "white": "black"}} />
-                    <h5 style={{color: updatedTheme === "dark"? "white": "black"}}>{t.referral_page.noReferrals}</h5>
-                  </div>
-                ): "loading"}
+                  "loading"
+                )}
               </div>
             </div>
           </div>
         ) : null}
       </div>
-    </div>: null
-  );
+    </div>
+  ) : null;
 };
 
 export default Referrals;

@@ -9,15 +9,15 @@ export async function GET(request: NextRequest) {
     // Get user ID and sessionId from the token
     const {userId, sessionId} = await getDataFromToken(request);
 
-    console.log(userId)
-     console.log(sessionId)
+    // console.log(userId)
+    //  console.log(sessionId)
     transactionInProgress = true
     
     // Uncomment below code to fetch user and perform additional checks if required
       const user = await User.findOne({ _id: userId });
     // Connect to the database
     
-      console.log(user)
+      // console.log(user)
        if (!user) {
         transactionInProgress = false;
          return NextResponse.json({error: "User not found"}, {status: 401});
@@ -99,14 +99,14 @@ export async function GET(request: NextRequest) {
     });
   } catch (error: any) {
     if (error.message === "Token has expired") {
-       console.log("6")
+      //  console.log("6")
       // Handle token expiry error
       return NextResponse.json(
         {error: "Token has expired. Please log in again."},
         {status: 402}
       );
     } else {
-       console.log("7")
+      //  console.log("7")
       // Handle other errors
       return NextResponse.json(
         {error: error.message},

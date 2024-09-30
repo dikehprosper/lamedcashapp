@@ -5,13 +5,14 @@ import Image from "next/image";
 import CustomButton from "../(components)/CustomBotton";
 import mainBackgroundMobile from "../../../../../public/mainBackgroundMobile.webp";
 import image from "../../../../../public/app-image.png";
-import image2 from "../../../../../public/Google_Play_Store_badge_EN.svg.png";
+import image2 from "../../../../../public/111111111111111.webp";
 import "./hero.css";
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Banner from "@/components/Banner/Banner";
 import langDataEn from "@/messages/en/home.json";
 import langDataFr from "@/messages/fr/home.json";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import Link from 'next/link';
 
 const Hero = ({updatedTheme, updatedLang}: any) => {
 
@@ -70,18 +71,22 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
             <p className='hero-subtitle animate-pop-in'>
               {t.hero_description}
             </p>
-            <div className='hero_button_container'>
-              <Image
-                src={image2}
-                loading='eager'
-                style={{
-                  objectFit: "contain",
-                  height: "100%",
-                  width: "100%",
-                }}
-                alt='Picture of the background'
-              />
-            </div>
+         <div className='hero_button_container'>
+  <Link href="https://expo.dev/accounts/prosper1234567890/projects/betfundr/builds/a12fce85-0262-4cf8-a0de-094d2c10d509" passHref>
+    
+      <Image
+        src={image2}
+        loading='eager'
+        style={{
+          objectFit: "contain",
+          height: "100%",
+          width: "100%",
+        }}
+        alt='Picture of the background'
+      />
+    
+  </Link>
+</div>
           </section>
         </div>
         <div className='hero-img'>

@@ -136,31 +136,6 @@
       "maintenance_error": "Nous sommes actuellement en maintenance",
       "error_occurred": "Une erreur s'est produite. Veuillez réessayer plus tard.",
       "update": "Vous êtes sur le point d'effectuer un retrait de"
-    },
-    "profile": {
-      "title": "Profil",
-      "about": "Modifiez vos informations personnelles ici",
-      "first_name": "Prénom",
-      "last_name": "Nom de famille",
-      "email": "E-mail",
-      "mobile_number": "Numéro de portable",
-      "bet_id": "Identifiant 1XBET",
-      "update_details": "Mettre à jour les détails",
-      "save_bet_id": "Sauvegarder Bet ID",
-      "reset_password": "Réinitialiser le mot de passe",
-      "old_password": "L'ancien mot de passe",
-      "enter_old_password": "Entrez l'ancien mot de passe",
-      "enter_new_password": "Entrez un nouveau mot de passe",
-      "new_password": "Nouveau mot de passe",
-      "confirm_password": "Confirmer le mot de passe",
-      "note": "Note :",
-      "password_note": "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.",
-      "password_mismatch": "Les mots de passe ne correspondent pas",
-      "update_success": "Mise à jour réussie",
-      "update_failure": "Échec de la mise à jour. Veuillez réessayer.",
-      "delete_account": "Supprimer le compte",
-      "delete_account_prompt": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
-      "confirm_delete": "Confirmer la suppression"
     }
   },
   "transaction_page": {
@@ -204,24 +179,6 @@
   "aboutUs": "À propos de nous",
   "signIn": "Se connecter",
   "signUp": "S'inscrire",
-  "referral_page": {
-    "title": "Références",
-    "about": "Voir les parrainages gagnés ici",
-    "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions. Vous recevrez également 33 % de nos bénéfices sur vos dépôts de parrainage. Commencez à partager votre code unique maintenant !",
-    "earningsNote": "Vous ne pouvez obtenir du GRAW qu'à partir de 20 000 XOF et plus.",
-    "withdraw": "Retirer",
-    "noReferrals": "Vous n'avez pas encore de références",
-    "name": "Nom",
-    "email": "Email",
-    "amount": "Montant Gagné",
-    "how_it_works": "Comment ça fonctionne",
-    "exceed": "une fois que vos gains dépassent 20000 XOF, ils sont versés sur votre compte de pari",
-    "10_percent": "soyez payé jusqu'à 10% sur les transactions de vos filleuls à vie",
-    "error": "Une erreur s'est produite. Veuillez réessayer plus tard.",
-    "networkError": "Pas de connexion réseau. Veuillez vérifier votre connexion et réessayer.",
-    "referalLink": "Mon lien de parrainage",
-    "referalLink_copy": "Copier le lien"
-  },
   "header": {
     "Home": "Accueil",
     "About": "À propos de nous",
@@ -346,6 +303,49 @@
     "tooltips": {
       "click_to_continue": "Cliquez pour continuer"
     }
-  }
+  },  
+  "referral_page": {
+    "title": "Références",
+    "about": "Voir les parrainages gagnés ici",
+    "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions. Vous recevrez également 33 % de nos bénéfices sur vos dépôts de parrainage. Commencez à partager votre code unique maintenant !",
+    "earningsNote": "Vous ne pouvez obtenir du GRAW qu'à partir de 20 000 XOF et plus.",
+    "withdraw": "Retirer",
+    "noReferrals": "Vous n'avez pas encore de références",
+    "name": "Nom",
+    "email": "Email",
+    "amount": "Montant Gagné",
+    "how_it_works": "Comment ça fonctionne",
+    "exceed": "une fois que vos gains dépassent 20000 XOF, ils sont versés sur votre compte de pari",
+    "10_percent": "soyez payé jusqu'à 10% sur les transactions de vos filleuls à vie",
+    "error": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+    "networkError": "Pas de connexion réseau. Veuillez vérifier votre connexion et réessayer.",
+    "referalLink": "Mon lien de parrainage",
+    "referalLink_copy": "Copier le lien"
+  },
+  "profile": {
+      "title": "Profil",
+      "about": "Modifiez vos informations personnelles ici",
+      "first_name": "Prénom",
+      "last_name": "Nom de famille",
+      "email": "E-mail",
+      "mobile_number": "Numéro de portable",
+      "bet_id": "Identifiant 1XBET",
+      "update_details": "Mettre à jour les détails",
+      "save_bet_id": "Sauvegarder Bet ID",
+      "reset_password": "Réinitialiser le mot de passe",
+      "old_password": "L'ancien mot de passe",
+      "enter_old_password": "Entrez l'ancien mot de passe",
+      "enter_new_password": "Entrez un nouveau mot de passe",
+      "new_password": "Nouveau mot de passe",
+      "confirm_password": "Confirmer le mot de passe",
+      "note": "Note :",
+      "password_note": "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.",
+      "password_mismatch": "Les mots de passe ne correspondent pas",
+      "update_success": "Mise à jour réussie",
+      "update_failure": "Échec de la mise à jour. Veuillez réessayer.",
+      "delete_account": "Supprimer le compte",
+      "delete_account_prompt": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+      "confirm_delete": "Confirmer la suppression"
+    }
 
 }

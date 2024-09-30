@@ -42,24 +42,24 @@ const Dashboard = () => {
       if (error.response) {
         // Handle token expiration
         if (error.response.status === 401) {
-          console.log("1")
+          // console.log("1")
           toast.error(t.dashboard.token_expired as string);
           router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
-             console.log("2")
+            //  console.log("2")
           toast.error(t.dashboard.session_expired as string);
           router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
-             console.log("3")
+            //  console.log("3")
           toast.error(t.dashboard.account_disabled as string);
           router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else {
-             console.log("4")
+            //  console.log("4")
           // Handle other errors
           toast.error(t.dashboard.unknown_error);
         }
       } else if (error.request) {
-           console.log("5")
+          //  console.log("5")
         // Handle network errors (no connection)
         setIsOnline(false);
       }
@@ -145,7 +145,7 @@ function parseAmount(amount: any): number {
 let totalPendingWithdrawalAmount = 0;
 if (pendingWithdrawals) {
   for (const transaction of pendingWithdrawals) {
-    console.log(transaction.totalAmount);
+    // console.log(transaction.totalAmount);
     totalPendingWithdrawalAmount += parseAmount(transaction.totalAmount);
   }
 }
@@ -158,7 +158,7 @@ if (pendingWithdrawals) {
  let totalPendingDepositAmount = 0;
 if (pendingDeposits) {
   for (const transaction of pendingDeposits) {
-    console.log(transaction.totalAmount);
+    // console.log(transaction.totalAmount);
     totalPendingDepositAmount += parseAmount(transaction.totalAmount);
   }
 }
@@ -202,9 +202,10 @@ if (pendingDeposits) {
   );
         //Language settings
 const getCurrentLangFromPath = () => {
+  if (typeof window !== "undefined") {
   const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
   const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
-  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; }
 };
 
 useEffect(() => {

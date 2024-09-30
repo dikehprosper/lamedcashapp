@@ -150,38 +150,6 @@
       "error_occurred": "An error occurred. Please try again later.",
         "update": "You are about to make a withdrawal of"
     },
-    "profile": {
-      "title": "Profile",
-      "about": "Edit your personal information here",
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "email": "Email",
-      "mobile_number": "Mobile Number",
-      "bet_id": "1XBET ID",
-      "update_details": "Update Details",
-      "save_bet_id": "Save Bet ID",
-      "reset_password": "Reset Password",
-      "old_password": "Old Password",
-      "new_password": "New Password",
-      "enter_old_password": "Enter old password",
-      "enter_new_password": "Enter new password",
-      "confirm_password": "Confirm Password",
-      "note": "Note:",
-      "password_note": "To update your password, enter the old password and the new one you want to use",
-      "error_messages": {
-        "network_error": "No network connection. Please check your connection and try again.",
-        "invalid_mobile_number": "The mobile number must be 8 digits long.",
-        "password_mismatch": "The password confirmation does not match the password.",
-        "incorrect_old_password": "The old password is incorrect.",
-        "account_disabled": "Your account has been disabled.",
-        "something_went_wrong": "Something went wrong. Please try again later."
-      },
-      "success_messages": {
-        "profile_updated": "Profile updated successfully.",
-        "bet_id_added": "Bet ID added successfully.",
-        "password_updated": "Your password has been updated successfully."
-      }
-    },
     "transaction_page": {
       "title": "Transactions",
       "about": "View and track your transaction history",
@@ -222,25 +190,7 @@
     "home": "Home",
     "aboutUs": "About Us",
     "signIn": "Sign In",
-    "signUp": "Sign Up",
-    "referral_page": {
-      "title": "Referrals",
-      "about": "View earned referrals here",
-      "copyReferralLink": "Refer Friends to BetFundr and Earn Rewards! Share Your Code And Get Bonuses When They Sign Up And Make Transactions. You Will Also Receive 33% of our profits On Your Referral Deposits. Start Sharing Your Unique Code Now!",
-      "earningsNote": "Note: You can only earn GRAW from 20,000 XOF and above.",
-      "withdraw": "Withdraw",
-      "noReferrals": "You don't have any referrals yet",
-      "name": "Name",
-      "email": "Email",
-      "amount": "Amount Earned",
-      "how_it_works": "How it Works",
-      "10_percent": "get paid up to 10% on your referrals' transactions for life",
-      "exceed": "once your winnings exceed 20,000 XOF, they are paid to your betting account",
-      "error": "An error occurred. Please try again later.",
-      "networkError": "No network connection. Please check your connection and try again.",
-      "referalLink": "My Referral Link",
-      "referalLink_copy": "Copy Referral Link"
-    }
+    "signUp": "Sign Up"
   },
    "transaction_page": {
       "title": "Transactions",
@@ -386,5 +336,55 @@
     "tooltips": {
       "click_to_continue": "Click to continue"
     }
-  }
+  },
+   "referral_page": {
+      "title": "Referrals",
+      "about": "View earned referrals here",
+      "copyReferralLink": "Refer Friends to BetFundr and Earn Rewards! Share Your Code And Get Bonuses When They Sign Up And Make Transactions. You Will Also Receive 33% of our profits On Your Referral Deposits. Start Sharing Your Unique Code Now!",
+      "earningsNote": "Note: You can only earn GRAW from 20,000 XOF and above.",
+      "withdraw": "Withdraw",
+      "noReferrals": "You don't have any referrals yet",
+      "name": "Name",
+      "email": "Email",
+      "amount": "Amount Earned",
+      "how_it_works": "How it Works",
+      "10_percent": "get paid up to 10% on your referrals' transactions for life",
+      "exceed": "once your winnings exceed 20,000 XOF, they are paid to your betting account",
+      "error": "An error occurred. Please try again later.",
+      "networkError": "No network connection. Please check your connection and try again.",
+      "referalLink": "My Referral Link",
+      "referalLink_copy": "Copy Referral Link"
+    },
+     "profile": {
+      "title": "Profile",
+      "about": "Edit your personal information here",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "mobile_number": "Mobile Number",
+      "bet_id": "1XBET ID",
+      "update_details": "Update Details",
+      "save_bet_id": "Save Bet ID",
+      "reset_password": "Reset Password",
+      "old_password": "Old Password",
+      "new_password": "New Password",
+      "enter_old_password": "Enter old password",
+      "enter_new_password": "Enter new password",
+      "confirm_password": "Confirm Password",
+      "note": "Note:",
+      "password_note": "To update your password, enter the old password and the new one you want to use",
+      "error_messages": {
+        "network_error": "No network connection. Please check your connection and try again.",
+        "invalid_mobile_number": "The mobile number must be 8 digits long.",
+        "password_mismatch": "The password confirmation does not match the password.",
+        "incorrect_old_password": "The old password is incorrect.",
+        "account_disabled": "Your account has been disabled.",
+        "something_went_wrong": "Something went wrong. Please try again later."
+      },
+      "success_messages": {
+        "profile_updated": "Profile updated successfully.",
+        "bet_id_added": "Bet ID added successfully.",
+        "password_updated": "Your password has been updated successfully."
+      }
+    }
 }

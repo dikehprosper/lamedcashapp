@@ -15,11 +15,48 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { updateUser } from "@/lib/features/userSlice";
 import { setUser } from "@/lib/features/userSlice";
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
+import Cookies from "js-cookie";
 interface YourComponentProps {
   savedID: number[];
 }
 const Profile = () => {
-  const t = useTranslations("dashboard");
+
+
+  const updatedTheme = useAppSelector(
+    (state: any) => (state.theme as any)?.theme
+  );
+        //Language settings
+const getCurrentLangFromPath = () => {
+  const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+  const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+};
+
+useEffect(() => {
+  const currentLang = getCurrentLangFromPath();
+
+  // Check if the cookie is already set to the current language in the path
+  const cookieLang = Cookies.get("locale");
+
+  if (cookieLang !== currentLang) {
+    // If the cookie is not set to the current language, update the cookie
+    Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
+  }
+}, [window.location.pathname]); // Update dependency to window.location.pathname
+
+const updatedLang = getCurrentLangFromPath(); 
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
+
+
+
   const [open, setOpen] = useState(false);``
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
@@ -56,13 +93,13 @@ firstName: data.fullname.split(' ')[0],
         // Handle token expiration
         if (error.response.status === 401) {
           toast.error(t("token_expired") as string);
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
           toast.error(t("session_expired") as string);
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.push(`${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
           toast.error(t("account_disabled") as string);
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else {
           // Handle other errors
           toast.error(t("unknown_error"));
@@ -223,7 +260,7 @@ firstName: data.fullname.split(' ')[0],
           toast.error("l'ancien mot de passe n'est pas correct");
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
-          router.push("/signin");
+          router.push(`/${updatedLang}/signin`);
         } else {
           setLoading2(false);
           toast.error("algo salió mal");
@@ -235,7 +272,7 @@ firstName: data.fullname.split(' ')[0],
 
 
 const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d" : data.image
-const updatedTheme = useAppSelector((state) => state.theme.theme);
+
  useEffect(() => {
     // Dynamically add a style tag to the document head for placeholder styling
     const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
@@ -254,12 +291,12 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
     };
   }, [updatedTheme]);
 
-  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+  return ( updatedTheme === "dark" || updatedTheme === "light" && updatedLang === "en" || updatedLang === "fr" ?
     <div className="user_profile_container" style={{
           background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
         }}>
-      <Head title={t("profile.title")} about={t("profile.about")} data={data}      display={false}
-        updatedTheme={updatedTheme} />
+      <Head title={t.profile.title} about={t.profile.about} data={data}      display={false}
+        updatedTheme={updatedTheme} t={t.dashboard.copy} />
 
       <div className="user_profile_container_001"   style={{
             background: updatedTheme === "dark" ? "" : "white",
@@ -290,7 +327,7 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
               <label className="label" style={{  color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent",}}>{t("profile.first_name")}</label>
+              : "transparent",}}>{t.profile.first_name}</label>
               <input
                 type="text"
                 className="profile-form input-first-child"
@@ -310,7 +347,7 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
               <label className="label" style={{  color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent",}}>{t("profile.last_name")}</label>{" "}
+              : "transparent",}}>{t.profile.last_name}</label>{" "}
               <input
                 type="text"
                 className="profile-form input-second-child"
@@ -350,7 +387,7 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
               <label className="label" style={{  color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent",}}>{t("profile.mobile_number")}</label>
+              : "transparent",}}>{t.profile.mobile_number}</label>
               <div style={{ position: "relative" }} className="profile-form4">
                 <input
                   type="number"
@@ -406,7 +443,7 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
                   <div id="container_customerid_inner"></div>
                 </div>
               ) : (
-                t("profile.update_details")
+                t.profile.update_details
               )}
             </button>
 
@@ -465,7 +502,7 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
               <h3 style={{ color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{t("profile.reset_password")}</h3>
+              : "transparent"}}>{t.profile.reset_password}</h3>
               <div
                 style={{
                  color: 
@@ -486,7 +523,7 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     Note:
                   </span>{" "}
-                  &nbsp; {t("profile.password_note")}
+                  &nbsp; {t.profile.password_note}
                 </span>
               </div>
               <div>
@@ -494,14 +531,14 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
               : "transparent",}}>
-                  {t("profile.enter_old_password")}
+                  {t.profile.enter_old_password}
                 </label>
                 <input
                   type="text"
                   className="profile-form"
                   value={user.oldPassword}
                   onChange={handleOldPassword}
-                  placeholder={t("profile.enter_old_password")}
+                  placeholder={t.profile.enter_old_password}
                    style={{       border: 
               updatedTheme === "dark"
               ? "" : updatedTheme === "light"? "2px solid grey"
@@ -515,13 +552,13 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
                 <label className="label" style={{  color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent",}}>{t("profile.old_password")}</label>
+              : "transparent",}}>{t.profile.old_password}</label>
                 <input
                   type="text"
                   className="profile-form"
                   value={user.password}
                   onChange={handlePassword}
-                  placeholder={t("profile.enter_old_password")}
+                  placeholder={t.profile.enter_old_password}
                    style={{       border: 
               updatedTheme === "dark"
               ? "" : updatedTheme === "light"? "2px solid grey"
@@ -536,14 +573,14 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
               : "transparent",}}>
-                  {t("profile.enter_new_password")}
+                  {t.profile.enter_new_password}
                 </label>
                 <input
                   type="text"
                   className="profile-form"
                   value={user.confirmPassword}
                   onChange={handleConfirmPassword}
-                  placeholder={t("profile.new_password")}
+                  placeholder={t.profile.new_password}
                    style={{       border: 
               updatedTheme === "dark"
               ? "" : updatedTheme === "light"? "2px solid grey"
@@ -578,7 +615,7 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
                   <div id="container_customerid_inner"></div>
                 </div>
               ) : (
-                t("profile.reset_password")
+                t.profile.reset_password
               )}
             </button>
           </form>
@@ -597,11 +634,11 @@ const updatedTheme = useAppSelector((state) => state.theme.theme);
               style={{ alignSelf: "center", justifySelf: "center" }}
             >
               <div id="container_customerid_inner"></div>
-            </div>{" "}
+            </div>
           </div>
         )}
       </div>
-      <FooterMobile />
+      {/* <FooterMobile /> */}
     </div>: null
   );
 };

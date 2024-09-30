@@ -94,9 +94,11 @@ const Nav = () => {
 
 
   const getCurrentLangFromPath = () => {
+    if (typeof window !== "undefined") { 
     const currentPath = window.location.pathname;
     const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
-    return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+    return currentLang === "fr" || currentLang === "en" ? currentLang : "fr";
+    } // Default to 'fr' if not 'en' or 'fr'
   };
 
   useEffect(() => {

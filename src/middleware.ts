@@ -126,8 +126,16 @@ export async function middleware(request: NextRequest) {
     }
   } else if (path === "/") {
     // Redirect to the root with the locale
-    return NextResponse.redirect(new URL(`/${locale}`, request.url));
+     if (decodedToken?.isUser) {
+      return NextResponse.redirect(
+        new URL(`/${locale}/dashboard`, request.nextUrl)
+      );
+    } else{
+   return NextResponse.redirect(new URL(`/${locale}`, request.url));
+    }
+ 
   }
+
 
   // If no route matches, allow the request to proceed
   return NextResponse.next();
