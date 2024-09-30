@@ -19,7 +19,6 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import langDataEn from "@/messages/en.json";
 import langDataFr from "@/messages/fr.json";
 const Nav = () => {
-
   const pathname = usePathname();
   const params = useParams();
   const [state, setState] = useState(true);
@@ -84,21 +83,17 @@ const Nav = () => {
     dispatch(setTheme(newTheme)); // Update theme in Redux
   };
 
-
-
-
-
-
-
-
-
-
-  const getCurrentLangFromPath = () => {
-    if (typeof window !== "undefined") { 
-    const currentPath = window.location.pathname;
-    const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
-    return currentLang === "fr" || currentLang === "en" ? currentLang : "fr";
-    } // Default to 'fr' if not 'en' or 'fr'
+  //Language settings
+  const getCurrentLangFromPath = (): string => {
+    // Check if window is defined (to handle server-side rendering)
+    if (typeof window !== "undefined") {
+      const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+      const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+      // Return the current language or default to 'fr' if not 'en' or 'fr'
+      return currentLang === "fr" || currentLang === "en" ? currentLang : "fr";
+    }
+    // Default return value for server-side rendering
+    return "fr"; // or any default language you want to use
   };
 
   useEffect(() => {
@@ -109,17 +104,12 @@ const Nav = () => {
 
     if (cookieLang !== currentLang) {
       // If the cookie is not set to the current language, update the cookie
-      Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
+      Cookies.set("locale", currentLang, {expires: 365}); // Set cookie to last 1 year
     }
   }, [window.location.pathname]); // Listen for changes to pathname
 
   // Get the updated language based on the current path
   const updatedLang = getCurrentLangFromPath();
-
-
-
-
-
 
   const getLangData = () => {
     return updatedLang === "en" ? langDataEn : langDataFr;
@@ -128,35 +118,28 @@ const Nav = () => {
   // Access `t` outside of the function
   const t = getLangData();
 
- 
-
-
-
-
   const navLinks = [
     {
-      title:  t.header.Home,
+      title: t.header.Home,
       pathname: `/${updatedLang}`,
     },
     {
-
       title: t.header.About,
       pathname: `/${updatedLang}/about`,
     },
     {
-
       title: t.header.Signin,
       pathname: `/${updatedLang}/signin`,
     },
     {
-
       title: t.header.Signup,
       pathname: `/${updatedLang}/signup`,
     },
   ];
-  
 
-  return updatedLang === "fr" || updatedLang === "en"  && updatedTheme === "dark" || updatedTheme === "light" ? (
+  return updatedLang === "fr" ||
+    (updatedLang === "en" && updatedTheme === "dark") ||
+    updatedTheme === "light" ? (
     <>
       <div
         className='nav'
@@ -197,8 +180,7 @@ const Nav = () => {
         >
           <Link
             className={` ${pathname === `/${updatedLang}` ? "active" : ""}`}
-    
-             href={`/${updatedLang}`}
+            href={`/${updatedLang}`}
           >
             {t.header.Home}
           </Link>
@@ -206,8 +188,7 @@ const Nav = () => {
             className={` ${
               pathname.includes(`/${updatedLang}/about`) ? "active" : ""
             }`}
-         
-             href={`/${updatedLang}/about`}
+            href={`/${updatedLang}/about`}
           >
             {t.header.About}
           </Link>
@@ -216,10 +197,8 @@ const Nav = () => {
               pathname.includes(`/${updatedLang}/signin`) ? "active" : ""
             }`}
             href={`/${updatedLang}/signin`}
-          
           >
             {t.header.Signin}
-         
           </Link>
           <Link
             className={` ${
@@ -227,8 +206,7 @@ const Nav = () => {
             }`}
             href={`/${updatedLang}/signup`}
           >
-    
-               {t.header.Signup}
+            {t.header.Signup}
           </Link>
           {/* <LanguageSwitcher /> */}
         </div>
@@ -236,7 +214,7 @@ const Nav = () => {
           className='nav-language'
           style={{flexDirection: "row", alignItems: "center", gap: "9px"}}
         >
-          <LanguageToggle updatedTheme={updatedTheme}  />
+          <LanguageToggle updatedTheme={updatedTheme} />
           <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
         </div>
         {/* <Link
@@ -250,7 +228,7 @@ const Nav = () => {
             className='for-smaller-devices'
             style={{flexDirection: "row", alignItems: "center", gap: "9px"}}
           >
-            <LanguageToggle updatedTheme={updatedTheme}  />
+            <LanguageToggle updatedTheme={updatedTheme} />
             <ThemeToggle
               updatedTheme={updatedTheme}
               toggleTheme={toggleTheme}
