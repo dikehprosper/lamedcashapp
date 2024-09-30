@@ -16,7 +16,7 @@ const Display = ({
   allData,
   t,
    updatedLang
-}: UserDashboardDisplayProps) => {
+}: any) => {
 
  
   return !allData ? (
