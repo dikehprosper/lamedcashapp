@@ -34,15 +34,23 @@ const Modal = ({
           return (
             <Link
               key={index}
-              className={` ${containerStylesInnerLink} ${isActive ? active : ""} `}
+              className={` ${containerStylesInnerLink} ${
+                isActive ? active : ""
+              } `}
               href={link.pathname}
               style={{
-              color: updatedTheme === "dark" ? "white" : updatedTheme === "light" ? "black" : "transparent",
-               width: "80%",
-               textAlign: "center",
+                color:
+                  updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"
+                    ? "black"
+                    : "transparent",
+                fontWeight: "600",
+                width: "80%",
+                textAlign: "center",
               }}
             >
-              {link.title} 
+              {link.title}
             </Link>
           );
         })}
