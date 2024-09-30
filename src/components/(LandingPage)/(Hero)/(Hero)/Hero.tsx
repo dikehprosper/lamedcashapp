@@ -48,7 +48,7 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
                     updatedTheme === "dark"
                       ? "rgba(73, 166, 106, 1)"
                       : "rgba(73, 166, 106, 1)",
-                        marginRight: "3px"
+                  marginRight: "3px",
                 }}
               >
                 {t.hero_span_1}
@@ -68,25 +68,24 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
               </span>
               .
             </h1>
-            <p className='hero-subtitle animate-pop-in'>
-              {t.hero_description}
-            </p>
-         <div className='hero_button_container'>
-  <Link href="https://expo.dev/accounts/prosper1234567890/projects/betfundr/builds/a12fce85-0262-4cf8-a0de-094d2c10d509" passHref>
-    
-      <Image
-        src={image2}
-        loading='eager'
-        style={{
-          objectFit: "contain",
-          height: "100%",
-          width: "100%",
-        }}
-        alt='Picture of the background'
-      />
-    
-  </Link>
-</div>
+            <p className='hero-subtitle animate-pop-in'>{t.hero_description}</p>
+            <div className='hero_button_container'>
+              <Link
+                href='https://expo.dev/accounts/prosper1234567890/projects/betfundr/builds/a12fce85-0262-4cf8-a0de-094d2c10d509'
+                passHref
+              >
+                <Image
+                  src={image2}
+                  loading='eager'
+                  style={{
+                    objectFit: "contain",
+                    height: "100%",
+                    width: "100%",
+                  }}
+                  alt='Picture of the background'
+                />
+              </Link>
+            </div>
           </section>
         </div>
         <div className='hero-img'>
@@ -172,18 +171,22 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
                   className='hero-span'
                   style={{
                     color:
-                      updatedTheme === "dark" ? "rgba(73, 166, 106, 1)" : "rgba(73, 166, 106, 1)",
-                      marginRight: "3px"
+                      updatedTheme === "dark"
+                        ? "rgba(73, 166, 106, 1)"
+                        : "rgba(73, 166, 106, 1)",
+                    marginRight: "3px",
                   }}
                 >
-                  {t.hero_span_1} 
-                </span> 
+                  {t.hero_span_1}
+                </span>
                 {t.hero_span_2}
                 <span
                   className='hero-span'
                   style={{
                     color:
-                      updatedTheme === "dark" ? "rgba(73, 166, 106, 1)" : "rgba(73, 166, 106, 1)",
+                      updatedTheme === "dark"
+                        ? "rgba(73, 166, 106, 1)"
+                        : "rgba(73, 166, 106, 1)",
                   }}
                 >
                   {" "}
@@ -197,16 +200,21 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
             </div>
 
             <div className='hero_button_container'>
-              <Image
-                src={image2}
-                loading='eager'
-                style={{
-                  objectFit: "contain",
-                  height: "100%",
-                  width: "100%",
-                }}
-                alt='Picture of the background'
-              />
+              <Link
+                href='https://expo.dev/accounts/prosper1234567890/projects/betfundr/builds/a12fce85-0262-4cf8-a0de-094d2c10d509'
+                passHref
+              >
+                <Image
+                  src={image2}
+                  loading='eager'
+                  style={{
+                    objectFit: "contain",
+                    height: "100%",
+                    width: "100%",
+                  }}
+                  alt='Picture of the background'
+                />
+              </Link>
             </div>
           </div>
         </div>
