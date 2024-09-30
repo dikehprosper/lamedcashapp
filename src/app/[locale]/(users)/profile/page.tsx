@@ -97,17 +97,17 @@ firstName: data.fullname.split(' ')[0],
       if (error.response) {
         // Handle token expiration
         if (error.response.status === 401) {
-          toast.error(t("token_expired") as string);
+          toast.error(t.profile.error_messages.token_expired as string);
           router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
-          toast.error(t("session_expired") as string);
+          toast.error(t.profile.error_messages.session_expired as string );
           router.push(`${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
-          toast.error(t("account_disabled") as string);
+          toast.error(t.profile.error_messages.account_disabled as string);
           router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else {
           // Handle other errors
-          toast.error(t("unknown_error"));
+          toast.error(t.dashboard.unknown_error);
         }
       } else if (error.request) {
         // Handle network errors (no connection)

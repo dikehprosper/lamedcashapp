@@ -379,7 +379,9 @@
         "password_mismatch": "The password confirmation does not match the password.",
         "incorrect_old_password": "The old password is incorrect.",
         "account_disabled": "Your account has been disabled.",
-        "something_went_wrong": "Something went wrong. Please try again later."
+        "something_went_wrong": "Something went wrong. Please try again later.",
+        "session_expired": "Your session has expired. Redirecting to login...",
+        "token_expired": "You have been logged in elsewhere. You need to log in here."
       },
       "success_messages": {
         "profile_updated": "Profile updated successfully.",
