@@ -67,8 +67,9 @@ export async function GET(request: NextRequest) {
     }
 
     const initialResult = await AdminUser.findOne({_id: userId});
-const result = initialResult.transactionHistory.filter((transaction: any) => transaction.fundingType === "withdrawals");
-
+    const result = initialResult.transactionHistory.filter(
+      (transaction: any) => transaction.fundingType === "withdrawals"
+    );
 
     console.log(result, "result");
 

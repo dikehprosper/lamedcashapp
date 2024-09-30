@@ -11,8 +11,11 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./forgotpassword.css";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useTranslations } from "next-intl";
-const ForgotPassword = ({updatedTheme}: any) => {
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
+
+
+const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [sent, setSent] = useState(false)
@@ -20,7 +23,11 @@ const ForgotPassword = ({updatedTheme}: any) => {
     email: "",
   });
 
-   const t = useTranslations("forgotpassword");
+  const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
 
   useEffect(() => {
     if (user.email) {
@@ -95,7 +102,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
         <h2 style={{ color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t("forgotpassword.title")}</h2>
+              : "transparent"}}>{ t.forgotpassword.forgotpassword.title}</h2>
       </div>
       {/* first section */}
       <div className='signin-container_inner'>
@@ -121,7 +128,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
             className='signin-form'
             value={user.email}
             onChange={handleUserEmail}
-            placeholder={t("forgotpassword.placeholder")}
+            placeholder={t.forgotpassword.forgotpassword.placeholder}
             style={{
               border:
                 updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
@@ -133,12 +140,12 @@ const ForgotPassword = ({updatedTheme}: any) => {
               ? "white" : updatedTheme === "light"? "black"
               : "transparent"}}>
             
-            <a href='/signin' className='forgot-password2'>
-              {t("forgotpassword.signin")}
+            <a href={`/${updatedLang}/signin`} className='forgot-password2'>
+              {t.forgotpassword.forgotpassword.signin}
             </a>
             &nbsp; &nbsp; &nbsp;
-            <a href='/signup' className='forgot-password3'>
-              {t("forgotpassword.signup")}
+            <a href={`/${updatedLang}/signup`} className='forgot-password3'>
+              {t.forgotpassword.forgotpassword.signup}
             </a>
           </div>
 
@@ -160,7 +167,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
                 <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
-              t("forgotpassword.send_link")
+              t.forgotpassword.forgotpassword.send_link
             )}
           </button>
           {sent && (
@@ -183,7 +190,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
               }}
             >
               
-             { t("forgotpassword.successMessage")}
+             { t.forgotpassword.forgotpassword.successMessage}
             </div>
           )}
         </form>
@@ -193,7 +200,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
             <h2 className='welcome-section-first_h2' style={{color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t("forgotpassword.title")}</h2>
+              : "transparent"}}>{ t.forgotpassword.forgotpassword.title}</h2>
           </div>
           <div className='welcome-section-second'>
             {/* <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
@@ -212,9 +219,9 @@ const ForgotPassword = ({updatedTheme}: any) => {
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
               : "transparent"}}>
-            { t("forgotpassword.question")}
+            { t.forgotpassword.question}
               <span style={{color: "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
-                <a href='/signup'>  { t("forgotpassword.solution")}  </a>
+                <a href='/signup'>  { t.forgotpassword.forgotpassword.solution}  </a>
               </span>
             </p>
           </div>
@@ -239,12 +246,12 @@ const ForgotPassword = ({updatedTheme}: any) => {
               />
             </div> */}
             <p className='welcome-section-second_p-mobile'>
-               { t("forgotpassword.question")}
+               { t.forgotpassword.forgotpassword.question}
               <span style={{color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
               : "transparent", fontWeight: "500"}}>
-                <a href='/signup'>{ t("forgotpassword.solution")}</a>
+                <a href='/signup'>{ t.forgotpassword.forgotpassword.solution}</a>
               </span>
             </p>
           </div>
@@ -264,7 +271,7 @@ const ForgotPassword = ({updatedTheme}: any) => {
               : "transparent"
           }}
         >
-          { t("forgotpassword.contact")}
+          { t.forgotpassword.forgotpassword.contact}
         
         </div>
         <div className='signin-social-media-icons'>

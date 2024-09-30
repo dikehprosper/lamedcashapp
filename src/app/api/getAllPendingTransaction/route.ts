@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
   try {
     const {userId, sessionId} = await getDataFromToken(request);
 
-
     // Check if userId is available
     if (!userId) {
       try {
@@ -73,6 +72,11 @@ export async function GET(request: NextRequest) {
         transaction.fundingType === "withdrawals" &&
         transaction.status === "Pending"
     );
+    const result2 = initialResult.transactionHistory.filter(
+      (transaction: any) =>
+        transaction.fundingType === "deposits" &&
+        transaction.status === "Pending"
+    );
 
     console.log(result, "result");
 
@@ -80,6 +84,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({
         message: "User found",
         data: result,
+        data2: result2,
       });
     } else {
       // Session ID mismatch

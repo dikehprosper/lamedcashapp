@@ -12,33 +12,18 @@ import { useTranslations } from "next-intl";
 import LanguageToggle from "../(LanguageToggle)/languageToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import { setTheme } from "@/lib/features/themeSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
+import Cookies from "js-cookie";
+import {setLang} from "@/lib/features/langSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
 const Nav = () => {
-  const t = useTranslations("header");
+
   const pathname = usePathname();
   const params = useParams();
-
   const [state, setState] = useState(true);
 
-  const navLinks = [
-    {
-      title: t("Accueil"),
-      pathname: `/${params.locale}`,
-    },
-    {
-      title: t("À propos de nous"),
-      pathname: `/${params.locale}/about`
-    },
-    {
-      title: t("Se connecter"),
-      pathname: `/${params.locale}/signin`
-    },
-    {
-      title: t("S'inscrire"),
-      pathname: `/${params.locale}/signup`
-    },
-  ];
   function changeState() {
     setState((prev) => !prev);
   }
@@ -47,60 +32,129 @@ const Nav = () => {
     setState(true);
   }
 
+  //  useEffect(() => {
+  //    let value;
+  //    // Get the value from local storage if it exists
+  //    value = localStorage.getItem("theme")
+  //    setUpdatedTheme(value);
+  //     dispatch(setTheme(value));
+  //   //  localStorage.setItem("theme", "light");
+  //  }, []);
 
+  //   // When user submits the form, save the favorite number to the local storage
+  //   const toggleTheme = () => {
+  //     if(updatedTheme === "light") {
+  //      localStorage.setItem("theme", "dark");
+  //      setUpdatedTheme("dark")
+  //     } else if (updatedTheme === "dark") {
+  //        localStorage.setItem("theme", "light");
+  //           setUpdatedTheme("light")
+  //     }
+  //   };
 
-//  useEffect(() => {
-//    let value;
-//    // Get the value from local storage if it exists
-//    value = localStorage.getItem("theme")
-//    setUpdatedTheme(value);
-//     dispatch(setTheme(value));
-//   //  localStorage.setItem("theme", "light");
-//  }, []);
+  //   useEffect(() => {
+  //  console.log(updatedTheme, "updatedTheme")
+  //  });
 
-//   // When user submits the form, save the favorite number to the local storage
-//   const toggleTheme = () => {
-//     if(updatedTheme === "light") {
-//      localStorage.setItem("theme", "dark");
-//      setUpdatedTheme("dark")
-//     } else if (updatedTheme === "dark") {
-//        localStorage.setItem("theme", "light");
-//           setUpdatedTheme("light")
-//     }
-//   };
+  const dispatch = useAppDispatch();
+  const updatedTheme = useAppSelector(
+    (state: any) => (state.theme as any)?.theme
+  );
 
-//   useEffect(() => {
-//  console.log(updatedTheme, "updatedTheme")
-//  });
-
-
- const dispatch = useAppDispatch();
-    const updatedTheme = useAppSelector((state) => state.theme.theme);
-
-   useEffect(() => {
-    if (updatedTheme === null) {
-        dispatch(setTheme("light")); // Set the theme in Redux
+  useEffect(() => {
+    if (updatedTheme === null || updatedTheme === undefined) {
+      dispatch(setTheme("light")); // Set a default theme if none exists
     }
-       
-    }, [updatedTheme]);
+  }, [updatedTheme, dispatch]);
+
+  useEffect(() => {
+    // Retrieve from localStorage and set the theme in Redux
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "light" || storedTheme === "dark") {
+      dispatch(setTheme(storedTheme));
+    } else {
+      localStorage.setItem("theme", "light"); // Default to light
+      dispatch(setTheme("light")); // Set light theme in Redux
+    }
+  }, [dispatch]);
+
+  const toggleTheme = () => {
+    const newTheme = updatedTheme === "light" ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
+    dispatch(setTheme(newTheme)); // Update theme in Redux
+  };
+
+
+
+
+
+
+
+
+
+
+  const getCurrentLangFromPath = () => {
+    const currentPath = window.location.pathname;
+    const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+    return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+  };
+
+  useEffect(() => {
+    const currentLang = getCurrentLangFromPath();
+
+    // Check if the cookie is already set to the current language in the path
+    const cookieLang = Cookies.get("locale");
+
+    if (cookieLang !== currentLang) {
+      // If the cookie is not set to the current language, update the cookie
+      Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
+    }
+  }, [window.location.pathname]); // Listen for changes to pathname
+
+  // Get the updated language based on the current path
+  const updatedLang = getCurrentLangFromPath();
+
+
+
+
+
+
+  const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  // Access `t` outside of the function
+  const t = getLangData();
+
+ 
+
+
+
+
+  const navLinks = [
+    {
+      title:  t.header.Home,
+      pathname: `/${updatedLang}`,
+    },
+    {
+
+      title: t.header.About,
+      pathname: `/${updatedLang}/about`,
+    },
+    {
+
+      title: t.header.Signin,
+      pathname: `/${updatedLang}/signin`,
+    },
+    {
+
+      title: t.header.Signup,
+      pathname: `/${updatedLang}/signup`,
+    },
+  ];
   
-    useEffect(() => {
-        // Get the value from local storage if it exists
-        const value: any = localStorage.getItem("theme") // Default to light
-        dispatch(setTheme(value)); // Set the theme in Redux
-    }, [dispatch]);
 
-    const toggleTheme = () => {
-        const newTheme = updatedTheme === "light" ? "dark" : "light";
-        localStorage.setItem("theme", newTheme);
-        dispatch(setTheme(newTheme)); // Update the Redux state
-    };
-
-   
-
-
-
-  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+  return updatedLang === "fr" || updatedLang === "en"  && updatedTheme === "dark" || updatedTheme === "light" ? (
     <>
       <div
         className='nav'
@@ -109,7 +163,7 @@ const Nav = () => {
         }}
       >
         <div className='nav-img'>
-          { updatedTheme === "light" ? (
+          {updatedTheme === "light" ? (
             <Image
               src={image1}
               loading='eager'
@@ -117,55 +171,62 @@ const Nav = () => {
               style={{objectFit: "contain"}}
               alt='Picture of the author'
             />
-          ) :  updatedTheme === "dark" ?
-           ( <Image
+          ) : updatedTheme === "dark" ? (
+            <Image
               src={image}
               loading='eager'
               fill
               style={{objectFit: "contain"}}
               alt='Picture of the author'
             />
-          ): null}
+          ) : null}
         </div>
         <div
           className='nav-link'
           style={{
             background: updatedTheme === "dark" ? "" : "white",
-            color: 
+            color:
               updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent",
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
           }}
         >
           <Link
-            className={` ${pathname === `/${params.locale}` ? "active" : ""}`}
-            href='/'
+            className={` ${pathname === `/${updatedLang}` ? "active" : ""}`}
+    
+             href={`/${updatedLang}`}
           >
-            {t("Accueil")}
+            {t.header.Home}
           </Link>
           <Link
             className={` ${
-              pathname.includes(`/${params.locale}/about`) ? "active" : ""
+              pathname.includes(`/${updatedLang}/about`) ? "active" : ""
             }`}
-            href='/about'
+         
+             href={`/${updatedLang}/about`}
           >
-            {t("À propos de nous")}
+            {t.header.About}
           </Link>
           <Link
             className={` ${
-              pathname.includes(`/${params.locale}/signin`) ? "active" : ""
+              pathname.includes(`/${updatedLang}/signin`) ? "active" : ""
             }`}
-            href='/signin'
+            href={`/${updatedLang}/signin`}
+          
           >
-            {t("Se connecter")}
+            {t.header.Signin}
+         
           </Link>
           <Link
             className={` ${
-              pathname.includes(`/${params.locale}/signup`) ? "active" : ""
+              pathname.includes(`/${updatedLang}/signup`) ? "active" : ""
             }`}
-            href='/signup'
+            href={`/${updatedLang}/signup`}
           >
-            {t("S'inscrire")}
+    
+               {t.header.Signup}
           </Link>
           {/* <LanguageSwitcher /> */}
         </div>
@@ -173,7 +234,7 @@ const Nav = () => {
           className='nav-language'
           style={{flexDirection: "row", alignItems: "center", gap: "9px"}}
         >
-          <LanguageToggle updatedTheme={updatedTheme} />
+          <LanguageToggle updatedTheme={updatedTheme}  />
           <ThemeToggle updatedTheme={updatedTheme} toggleTheme={toggleTheme} />
         </div>
         {/* <Link
@@ -187,7 +248,7 @@ const Nav = () => {
             className='for-smaller-devices'
             style={{flexDirection: "row", alignItems: "center", gap: "9px"}}
           >
-            <LanguageToggle updatedTheme={updatedTheme} />
+            <LanguageToggle updatedTheme={updatedTheme}  />
             <ThemeToggle
               updatedTheme={updatedTheme}
               toggleTheme={toggleTheme}
@@ -198,19 +259,24 @@ const Nav = () => {
               <MdMenuOpen
                 className='MdMenuOpen'
                 style={{
-               color:   updatedTheme === "dark"
-                    ? "white"
-                    : updatedTheme === "light"? "black" : "transparent", 
+                  color:
+                    updatedTheme === "dark"
+                      ? "white"
+                      : updatedTheme === "light"
+                      ? "black"
+                      : "transparent",
                 }}
               />
             ) : (
               <AiOutlineClose
                 className='MdMenuOpen'
                 style={{
-                  color:   updatedTheme === "dark"
-                    ? "white"
-                    : updatedTheme === "light"? "black" : "transparent", 
-                    
+                  color:
+                    updatedTheme === "dark"
+                      ? "white"
+                      : updatedTheme === "light"
+                      ? "black"
+                      : "transparent",
                 }}
               />
             )}
@@ -228,8 +294,8 @@ const Nav = () => {
           updatedTheme={updatedTheme}
         />
       )}
-    </>: null
-  );
+    </>
+  ) : null;
 };
 
 export default Nav;

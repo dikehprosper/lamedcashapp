@@ -1,6 +1,7 @@
-import {NextResponse} from "next/server";
-import type {NextRequest} from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
+import createIntlMiddleware from "next-intl/middleware";
 
 interface TokenPayload {
   isUser?: boolean;
@@ -9,41 +10,23 @@ interface TokenPayload {
   isSubAdminWithdrawals?: boolean;
 }
 
-// Extract locale from the URL or use default, set to "fr" if missing
-function getLocale(request: NextRequest): string {
-  const localeFromPath = request.nextUrl.pathname.split("/")[1];
+// function handleI18n(request: NextRequest) {
+//   const handleI18nRouting = createIntlMiddleware({
+//     locales: ["en", "fr"],
+//     defaultLocale: "en",
+//   });
+//   const response = handleI18nRouting(request);
+//   return response;
+// }
 
-  // Try to get the locale from cookies
-  const localeFromCookie = request.cookies.get("locale")?.value;
 
-  // If locale is valid in URL or cookie, return it; otherwise default to "fr"
-  if (["en", "fr"].includes(localeFromPath)) {
-    return localeFromPath;
-  }
-
-  if (localeFromCookie && ["en", "fr"].includes(localeFromCookie)) {
-    return localeFromCookie;
-  }
-
-  // If no locale is found, default to "fr"
-  return "fr";
-}
 
 export async function middleware(request: NextRequest) {
+  const [, locale, ...segments] = request.nextUrl.pathname.split("/");
+  const path = request.nextUrl.pathname;
   const token = request.cookies.get("token")?.value || "";
   const decodedToken = jwt.decode(token) as TokenPayload | null;
 
-  const path = request.nextUrl.pathname;
-  let locale = getLocale(request); // Get locale from path or cookie
-
-  // If locale is not present in cookies, set it to 'fr' and redirect to /fr
-  if (!request.cookies.get("locale")) {
-    const response = NextResponse.redirect(new URL(`/fr${path}`, request.url));
-    response.cookies.set("locale", "fr", {maxAge: 365 * 24 * 60 * 60}); // Set cookie for 1 year
-    return response;
-  }
-
-  // Admin path handling
   if (path.startsWith(`/${locale}/admin`)) {
     if (decodedToken?.isSubAdminDeposits) {
       return NextResponse.redirect(
@@ -59,11 +42,10 @@ export async function middleware(request: NextRequest) {
       );
     } else if (!decodedToken) {
       return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+    } else {
+      return handleI18n(request);
     }
-  }
-
-  // SubAdmin Deposits path handling
-  else if (path.startsWith(`/${locale}/subadmin/deposit`)) {
+  } else if (path.startsWith(`/${locale}/subadmin/deposit`)) {
     if (decodedToken?.isSubAdminWithdrawals) {
       return NextResponse.redirect(
         new URL(`/${locale}/subadmin/withdrawal/dashboard`, request.nextUrl)
@@ -78,11 +60,10 @@ export async function middleware(request: NextRequest) {
       );
     } else if (!decodedToken) {
       return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+    } else {
+      return handleI18n(request);
     }
-  }
-
-  // SubAdmin Withdrawals path handling
-  else if (path.startsWith(`/${locale}/subadmin/withdrawal`)) {
+  } else if (path.startsWith(`/${locale}/subadmin/withdrawal`)) {
     if (decodedToken?.isSubAdminDeposits) {
       return NextResponse.redirect(
         new URL(`/${locale}/subadmin/deposit/dashboard`, request.nextUrl)
@@ -97,11 +78,10 @@ export async function middleware(request: NextRequest) {
       );
     } else if (!decodedToken) {
       return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+    } else {
+      return handleI18n(request);
     }
-  }
-
-  // User paths handling
-  else if (
+  } else if (
     path.startsWith(`/${locale}/dashboard`) ||
     path.startsWith(`/${locale}/deposit`) ||
     path.startsWith(`/${locale}/withdraw`) ||
@@ -123,17 +103,19 @@ export async function middleware(request: NextRequest) {
       );
     } else if (!decodedToken) {
       return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+    } else {
+      const handleI18nRouting = createIntlMiddleware({
+        locales: ["en", "fr"],
+        defaultLocale: "fr",
+      });
+      const response = handleI18nRouting(request);
+      return response;
     }
-  } else if (path === "/") {
-    // Redirect to the root with the locale
-    return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
-
-  // If no route matches, allow the request to proceed
-  return NextResponse.next();
+  return handleI18n(request);
 }
 
 export const config = {
-  // Match all routes except API routes and static files
+  // Match only internationalized pathnames
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };

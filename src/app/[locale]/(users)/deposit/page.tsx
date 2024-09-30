@@ -18,18 +18,19 @@ import Modal4 from "@/components/(Utils)/(modals)/processingModal4";
 import {useTranslations} from "next-intl";
 import {useParams, usePathname} from "next/navigation";
   import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+ 
 import { setUser } from "@/lib/features/userSlice";
 import Image from "next/image";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
-
-
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
+import Cookies from "js-cookie";
 
 const DOMAIN = process.env.DOMAIN;
 
 const Deposit = () => {
-  const t = useTranslations("dashboard");
+
   const data = useAppSelector((state: any) => state.user.value);
   const dispatch = useAppDispatch();
   const {locale} = useParams<{locale: string}>();
@@ -69,17 +70,17 @@ const Deposit = () => {
             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
           );
           await axios.get("/api/users/logout");
-          router.replace("/signin"); // Replace '/login' with your actual login route
+          router.replace(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
           toast.error(
             "Votre session a expiré. Redirection vers la connexion..."
           );
           await axios.get("/api/users/logout");
-          router.replace("/signin"); // Replace '/login' with your actual login route
+          router.replace(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
           await axios.get("/api/users/logout");
-          router.replace("/signin");
+          router.replace(`/${updatedLang}/signin`);
         } else {
           // Handle other errors
           toast.error(
@@ -91,6 +92,12 @@ const Deposit = () => {
         setIsOnline(false);
       }
     }
+  };
+
+
+   const handleClick = () => {
+    router.push(`/${updatedLang}/dashboard`);
+    setIsVisible(false);
   };
 
   // useEffect(() => {
@@ -188,7 +195,9 @@ const [processing4, setProcessing4] = useState(false);
         setProcessing(true);
         // Make the API request
         const res = await axios.post(
-          "https://dev.api.betfundr.com/api/usersWithoutToken/deposit2",
+          
+          "https://3777-102-89-34-185.ngrok-free.app/api/usersWithoutToken/deposit2",
+          // "https://dev.api.betfundr.com/api/usersWithoutToken/deposit2",
           updatedUser
         );
         setProcessing(false);
@@ -196,7 +205,7 @@ const [processing4, setProcessing4] = useState(false);
         if (res.data.success === 211) {
           setProcessing3(true);
           setTimeout(() => {
-            router.push("/dashboard");
+            router.push(`/${updatedLang}/dashboard`);
             setProcessing3(false);
           }, 900);
         } else if (res.data.success === 209) {
@@ -206,23 +215,30 @@ const [processing4, setProcessing4] = useState(false);
           }, 1000);
         } else {
           setProcessing2(true);
-          setTimeout(() => {
-            router.push("/dashboard");
+           const result = res.data.userTransaction
+         showReceipt(result?.registrationDateTime,
+    result?.totalAmount,
+    result?.identifierId,
+    result?.betId,
+    result?.status,
+    result?.fundingType,
+    result?.momoName,
+   result?.momoNumber,
+    result?.withdrawalCode)
             setProcessing2(false);
-          }, 900);
         }
       } catch (error: any) {
         if (error.response.status === 401) {
           toast.error("Utilisateur non trouvé");
           await axios.get("/api/users/logout");
-          router.push("/signin");
+          router.push(`/${updatedLang}/signin`);
         } else if (error.response.status === 402) {
           toast.error("L'utilisateur est désactivé");
           await axios.get("/api/users/logout");
-          router.push("/signin");
+          router.push(`/${updatedLang}/signin`);
         } else if (error.response.status === 403) {
           await axios.get("/api/users/logout");
-          router.push("/signin");
+          router.push(`/${updatedLang}/signin`);
           toast.error("Votre session a expiré");
         } else if (error.response.status === 504) {
           toast.error("Actuellement en maintenance");
@@ -319,15 +335,41 @@ const [processing4, setProcessing4] = useState(false);
   //   }
   // };
 
-  useEffect(() => {
-    console.log(data, "hvbhvvds");
-  }, [data]);
+ 
 
-  function handleClick() {
+ const updatedTheme = useAppSelector(
+    (state: any) => (state.theme as any)?.theme
+  );
+        //Language settings
+const getCurrentLangFromPath = () => {
+  const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+  const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+};
 
+useEffect(() => {
+  const currentLang = getCurrentLangFromPath();
+
+  // Check if the cookie is already set to the current language in the path
+  const cookieLang = Cookies.get("locale");
+
+  if (cookieLang !== currentLang) {
+    // If the cookie is not set to the current language, update the cookie
+    Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
   }
+}, [window.location.pathname]); // Update dependency to window.location.pathname
 
-  const updatedTheme = useAppSelector((state) => state.theme.theme);
+const updatedLang = getCurrentLangFromPath(); 
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
+
+
+
  useEffect(() => {
     // Dynamically add a style tag to the document head for placeholder styling
     const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
@@ -346,17 +388,58 @@ const [processing4, setProcessing4] = useState(false);
     };
   }, [updatedTheme]);
 
-  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+
+
+  function showReceipt(
+    time: any,
+    amount: any,
+    identifierId: any,
+    betId: any,
+    status: any,
+    type: any,
+    momoName: any,
+    momoNumber: any,
+    withdrawalCode: any
+  ) {
+    setIsVisible(true);
+    setReceipt({
+      time,
+      amount,
+      identifierId,
+      betId,
+      status,
+      type,
+      momoName,
+      momoNumber,
+      withdrawalCode,
+    });
+  }
+
+
+
+  return ( updatedTheme === "dark" || updatedTheme === "light" && updatedLang === "en" || updatedLang === "fr" ?
     <div className='user_withdraw_container'  style={{
           background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
         }}>
       <Head
-        title={t("deposit_page.title")}
-        about={t("deposit_page.about")}
+        title={t.dashboard.deposit_page.title}
+        about={t.dashboard.deposit_page.about}
         data={data}
         display={false}
         updatedTheme={updatedTheme}
+        t={t.dashboard.copy}
       />
+      {isVisible && (
+        <Modal
+          containerStyles='receiptModal'
+          containerStylesInner='receiptModal_inner'
+          handleClick={handleClick}
+          receipt={receipt}
+          title='Montant du retirer'
+          updatedTheme={updatedTheme}
+          t={t.dashboard}
+        />
+      )}
       {processing && (
         <div className='receiptModal'>
           <div
@@ -405,7 +488,7 @@ const [processing4, setProcessing4] = useState(false);
                   textAlign: "center",
                 }}
               >
-                Vous êtes sur le point d'effectuer un paiement de {user.amount}
+                  {t.dashboard.deposit_page.update} {user.amount}
               </h6>
                <div id='container-deposit2'>
                 <div id='html-spinner-deposit2'></div>
@@ -418,15 +501,17 @@ const [processing4, setProcessing4] = useState(false);
         <Modal2
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
-          title={t("amount_deposit")}
+          title={t.dashboard.amount_deposit}
+          t={t}
         />
       )}
       {processing3 && (
         <Modal3
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
-          title={t("amount_deposit")}
+          title={t.dashboard.amount_deposit}
           updatedTheme={updatedTheme}
+          t={t}
         />
       )}
 
@@ -434,8 +519,9 @@ const [processing4, setProcessing4] = useState(false);
         <Modal4
           containerStyles='receiptModal'
           containerStylesInner='receiptModal_inner-processing'
-          title={t("amount_deposit")}
+          title={t.dashboard.amount_deposit}
           updatedTheme={updatedTheme}
+          t={t}
         />
       )}
     
@@ -470,9 +556,9 @@ const [processing4, setProcessing4] = useState(false);
         
             }}
           >
-            <div className='detail' style={{fontWeight: "bold"}}>{t("deposit_page.use_address")}</div>
+            <div className='detail' style={{fontWeight: "bold"}}>{t.dashboard.deposit_page.use_address}</div>
             <div className='detail_2' style={{textAlign: "center", fontWeight: 600, fontSize: "13px"}}>
-              {t("deposit_page.use_address_info")}
+              {t.dashboard.deposit_page.use_address_info}
             </div>
             
           </div>
@@ -486,7 +572,7 @@ const [processing4, setProcessing4] = useState(false);
             className='deposit-form'
             value={user.betId}
             onChange={handleChangeId}
-            placeholder={t("deposit_page.placeholder_1xbet_id")}
+            placeholder={t.dashboard.deposit_page.placeholder_1xbet_id}
             style={{       border: 
               updatedTheme === "dark"
               ? "" : updatedTheme === "light"? "2px solid grey"
@@ -502,13 +588,13 @@ const [processing4, setProcessing4] = useState(false);
           <label style={{  color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent",  paddingTop: "7px", opacity: "0.7"}}>{t("deposit_page.amount")}</label>
+              : "transparent",  paddingTop: "7px", opacity: "0.7"}}>{t.dashboard.deposit_page.amount}</label>
           <input
             type='number'
             className='deposit-form'
             value={user.amount}
             onChange={handleChangeAmount}
-            placeholder={t("deposit_page.placeholder_amount")}
+            placeholder={t.dashboard.deposit_page.placeholder_amount}
             style={{       border: 
               updatedTheme === "dark"
               ? "" : updatedTheme === "light"? "2px solid grey"
@@ -521,7 +607,7 @@ const [processing4, setProcessing4] = useState(false);
           <label style={{  color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t("deposit_page.momo_number")}</label>
+              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t.dashboard.deposit_page.momo_number}</label>
           <input
             type='number'
             className='deposit-form'
@@ -540,7 +626,7 @@ const [processing4, setProcessing4] = useState(false);
           <label htmlFor='network' style={{  color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t("deposit_page.network")}</label>
+              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t.dashboard.deposit_page.network}</label>
 
 
 
@@ -619,7 +705,7 @@ const [processing4, setProcessing4] = useState(false);
                 <div id='html-spinner-deposit'></div>
               </div>
             ) : (
-              t("deposit_page.proceed")
+              t.dashboard.deposit_page.proceed
             )}
           </div>
         </form>

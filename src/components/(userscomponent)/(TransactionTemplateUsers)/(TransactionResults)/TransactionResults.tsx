@@ -18,9 +18,10 @@ const TransactionResults = ({
   momoNumber,
   withdrawalCode,
   identifierId,
-  updatedTheme
+  updatedTheme,
+  t
 }: any) => {
-  const t = useTranslations("dashboard");
+
   const handleClick = () => {
     showReceipt(
       time,
@@ -85,8 +86,8 @@ const TransactionResults = ({
           }}>
             <b>
               {type === "deposits"
-                ? `${t("deposit_text")}`
-                : `${t("withdrawal_text")}`}{" "}
+                ? `${t.dashboard.deposit_text}`
+                : `${t.dashboard.withdrawal_text}`}{" "}
               ||
             </b>
             <b> {betId}</b>
@@ -106,7 +107,8 @@ const TransactionResults = ({
                 justifyContent: "flex-end", alignItems: "center"
           }}
             >
-              XOF {formatNumberWithCommasAndDecimal(amount)}
+             <div className="selection-type1">  XOF {formatNumberWithCommasAndDecimal(amount)} </div>
+             <div className="selection-type2"> {formatDate(time)}</div>
             </span>
           ) : (
             <span    style={{
@@ -130,7 +132,12 @@ const TransactionResults = ({
                 : "transparent",
               overflow: "hidden"
           }}>
-          <b style={{color: "rgba(256, 256, 256, 0.4"}}>REÇU: &nbsp;</b>{" "}
+          <b style={{ color:
+              updatedTheme === "dark"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent"}}>       &nbsp;</b>{" "}
           {identifierId}
         </span>
         <span
@@ -172,20 +179,20 @@ const TransactionResults = ({
             style={{
               color:
                 status === "Pending"
-                  ? "rgba(256, 256, 256, 0.4)"
+                  ? "rgba(120, 120, 120, 0.8)"
                   : status === "Successful"
-                  ? "#BDFF00"
+                  ? "rgba(73, 166, 106, 1)"
                   : "#FF0000",
-              fontWeight: "800",
+              fontWeight: "700",
               justifyContent: "center",
               marginRight: "10px",
-              fontSize: "13px",
+              fontSize: "12px",
                 borderRadius: "4px",
                border: "0.3px solid rgba(0, 255, 0, 0.2)" ,
              
             }}
           >
-            {status}
+           {status === "Successful"? t.dashboard.Successful : status === "Pending"? t.dashboard.Pending : t.dashboard.Failed}
           </span>
         </span>
       </div>

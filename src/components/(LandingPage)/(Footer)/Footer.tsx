@@ -2,14 +2,21 @@
 import "./footer.css";
 import Image from "next/image";
 import image from "../../../../public/TikTok.svg";
-import { useTranslations } from "next-intl";
+import langDataEn from "@/messages/en/home.json";
+import langDataFr from "@/messages/fr/home.json";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const Footer = ({updatedTheme}: any) => {
-  const t = useTranslations("home");
+const Footer = ({updatedTheme, updatedLang}: any) => {
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
   return (
     <div className='footer' style={{marginTop: "30px"}}>
-      <h4 style={{color: updatedTheme === "dark" ? "white": "black"}}>{t("contact us")}</h4>
-      <p>{t("contact us description")}</p>
+      <h4 style={{color: updatedTheme === "dark" ? "white": "black"}}>{t.contact_us}</h4>
+      <p>{t.contact_us_description}</p>
 
       <div className='footer-social-media-icons'>
         <div className='footer-img facebook'>

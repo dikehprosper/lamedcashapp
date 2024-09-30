@@ -12,7 +12,7 @@ import formatNumberWithCommasAndDecimal from "../formatNumber";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
-import {useTranslations} from "next-intl";
+
 const Modal = ({
   active,
   receipt,
@@ -20,9 +20,10 @@ const Modal = ({
   containerStylesInner,
   containerStylesInnerLink,
   handleClick,
-  updatedTheme
+  updatedTheme,
+  t
 }: any) => {
-    const t = useTranslations("dashboard");
+  
      const handleChildClick = (event: React.MouseEvent) => {
     // Stop the event propagation to the parent (receiptModal)
     event.stopPropagation();
@@ -39,7 +40,7 @@ const Modal = ({
             gap: "10px",
           }}
         >
-          <h4 style={{color: updatedTheme === "dark"? "white": "black"}}>   {t("pendingResponse")}</h4>
+          <h4 style={{color: updatedTheme === "dark"? "white": "black"}}>   {t.dashboard.pendingResponse}</h4>
           <div style={{ height: "30px", color: "rgba(120, 120, 120, 1)" }}>
             {/* <IoIosCheckmarkCircle fontSize="50px" /> */}
             <IoCheckmarkDoneSharp  fontSize="50px" />

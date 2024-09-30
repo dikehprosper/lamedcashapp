@@ -12,12 +12,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/(Utils)/(modals)/receiptModalForUsers";
 import io from "socket.io-client";
-import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
 import image from "../../../../../public/arrow-next-svgrepo-com.svg";
 import image2 from "../../../../../public/arrow-prev-svgrepo-com.svg";
 import Image from "next/image";
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
    const data = useAppSelector((state: any) => state.user.value);
@@ -28,7 +30,9 @@ const Dashboard = () => {
   const router = useRouter();
   // const [transactions , setTransactions] = useState<any>();
   const [isOnline, setIsOnline] = useState(true);
-  const t = useTranslations("dashboard");
+
+
+
   const getUserDetails = async () => {
     try {
       const res = await axios.get("/api/getUser");
@@ -39,20 +43,20 @@ const Dashboard = () => {
         // Handle token expiration
         if (error.response.status === 401) {
           console.log("1")
-          toast.error(t("token_expired") as string);
-          router.push("/signin"); // Replace '/login' with your actual login route
+          toast.error(t.dashboard.token_expired as string);
+          router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
              console.log("2")
-          toast.error(t("session_expired") as string);
-          router.push("/signin"); // Replace '/login' with your actual login route
+          toast.error(t.dashboard.session_expired as string);
+          router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
              console.log("3")
-          toast.error(t("account_disabled") as string);
-          router.push("/signin"); // Replace '/login' with your actual login route
+          toast.error(t.dashboard.account_disabled as string);
+          router.push(`/${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else {
              console.log("4")
           // Handle other errors
-          toast.error(t("unknown_error"));
+          toast.error(t.dashboard.unknown_error);
         }
       } else if (error.request) {
            console.log("5")
@@ -159,10 +163,6 @@ if (pendingDeposits) {
   }
 }
 
-
-
-
-
   const [receipt, setReceipt] = useState({});
   const [isVisible, setIsVisible] = useState(false);
 
@@ -197,10 +197,40 @@ if (pendingDeposits) {
   const [button, setButton] = useState(false);
 
 
-  const updatedTheme = useAppSelector((state) => state.theme.theme);
+  const updatedTheme = useAppSelector(
+    (state: any) => (state.theme as any)?.theme
+  );
+        //Language settings
+const getCurrentLangFromPath = () => {
+  const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+  const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+};
+
+useEffect(() => {
+  const currentLang = getCurrentLangFromPath();
+
+  // Check if the cookie is already set to the current language in the path
+  const cookieLang = Cookies.get("locale");
+
+  if (cookieLang !== currentLang) {
+    // If the cookie is not set to the current language, update the cookie
+    Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
+  }
+}, [window.location.pathname]); // Update dependency to window.location.pathname
+
+const updatedLang = getCurrentLangFromPath(); 
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+ 
+
 
   
-  return (updatedTheme === "dark" || updatedTheme === "light" ?
+  return (updatedTheme === "dark" || updatedTheme === "light" && updatedLang === "en" || updatedLang === "fr" ?
     <div className="user_dashboard_container"  style={{
           background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
         }}>
@@ -210,15 +240,16 @@ if (pendingDeposits) {
           containerStylesInner="receiptModal_inner"
           handleClick={handleClick}
           receipt={receipt}
-          title={t("deposit_amount")}
+          title={t.dashboard.deposit_amount}
           updatedTheme={updatedTheme}
+          t={t.dashboard}
         />
       )}
       {/* <div onClick={sendEvent}>click</div>
     {button && (
       <div style={{ width: "40px", height: "40px" }}>clickiiiiiii</div>
     )} */}
-      <Head title={t("welcome_title")}  data={data} display={true} updatedTheme={updatedTheme} />
+      <Head title={t.dashboard.welcome_title}  data={data} display={true} updatedTheme={updatedTheme} t={t.dashboard.copy} />
       
   <div className="marquee">
       
@@ -226,7 +257,7 @@ if (pendingDeposits) {
         <span className="marqueeText" style={{color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{t("marque_text")}</span>
+              : "transparent"}}>{t.dashboard.marque_text}</span>
       </div>
       <Image
           src={image2}
@@ -251,8 +282,10 @@ if (pendingDeposits) {
               ? "" : updatedTheme === "light"? "rgba(256, 256, 256, 1)"
               : "transparent"}}>
         <Display
+             t={t}
+             updatedLang={updatedLang}
           count={pendingDeposits?.length}
-          title={t("deposit")}
+          title={t.dashboard.deposit}
           term={1}
           amount={totalPendingDepositAmount}
           data={data?.transactionHistory}
@@ -265,8 +298,10 @@ if (pendingDeposits) {
         />
         <Display
           count={pendingWithdrawals?.length}
+          t={t}
+           updatedLang={updatedLang}
           term={2}
-          title={t("withdraw")}
+          title={t.dashboard.withdraw}
           amount={totalPendingWithdrawalAmount}
           data={data?.transactionHistory}
           allData={data}
@@ -277,13 +312,13 @@ if (pendingDeposits) {
           }}
         />
       </div>
-      
+  
       <TransactionTemplate
-        title={{ name: t("transaction_history"), icon: <LuHistory /> }}
+        title={{ name: t.dashboard.transaction_history, icon: <LuHistory /> }}
         select={{
-          firstSelect: { big: t("see_all"), small: "Tout" },
-          secondSelect: { big: t("see_deposits"), small: t("deposit") },
-          thirdSelect: { big: t("see_withdrawals"), small: t("withdraw") },
+          firstSelect: { big: t.dashboard.see_all, small: "Tout" },
+          secondSelect: { big: t.dashboard.see_deposits, small: t.dashboard.deposit },
+          thirdSelect: { big: t.dashboard.see_withdrawals, small: t.dashboard.withdraw },
         }}
         totalWithdrawals={totalWithdrawals}
         totalDeposits={totalDeposits}
@@ -291,6 +326,7 @@ if (pendingDeposits) {
         allData={data}
         showReceipt={showReceipt}
         updatedTheme={updatedTheme}
+        t={t}
       />
     </div> : null
   )

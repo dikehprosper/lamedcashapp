@@ -47,12 +47,34 @@
     "transaction_failed": "Transaction Échouée",
     "view_details": "Voir les Détails",
     "failedResponse": "Échoué",
-     "pendingResponse": "En attente",
+    "pendingResponse": "En attente",
+    "seemore":"Voir plus",
+    "Successful": "Réussie",
+    "Pending": "En attente",
+    "Failed": "Échoué",
+    "copy": "copier",
+    "logout": "déconnexion",
+
     "modal": {
       "copy_success": "Texte copié avec succès !",
       "copy_failure": "Oops ! Impossible de copier le texte.",
       "withdrawals": "retraits",
-      "deposit": "dépôt"
+      "deposit": "dépôt",
+       "deposit2": "Pour les dépôts",
+      "deposit_failed": "Impossible d'utiliser pour le dépôt",
+      "withdrawal_failed": "Impossible d'utiliser pour le retrait",
+      "initialize": "initialiser",
+      "Completed": "Complété",
+      "Amount": "Montant",
+      "payed": "payé",
+      "withdrawn": "retiré",
+      "Transaction": "Détails de la transaction",
+      "Payment": "Mode de paiement",
+      "Status": "Statut",
+      "Number": "Number",
+      "Withdrawal_Code": "Code de retrait",
+      "Transaction_Date": "Date de la transaction",
+      "Transaction_ID": "ID de transaction"
     },
     "transaction": {
       "copy_success": "Texte copié avec succès !",
@@ -66,7 +88,7 @@
     },
     "deposit_page": {
       "title": "Dépôts",
-       "use_address": "-- IMPORTANT --",
+      "use_address": "-- IMPORTANT --",
       "use_address_info": "La devise de votre compte doit être en XOF. Assurez-vous de ne pas avoir de retraits en attente",
       "about": "Effectuez vos dépôts sur votre compte 1XBET ici",
       "1xbet_id": "Identifiant 1XBET",
@@ -84,7 +106,8 @@
       "proceed": "Procéder",
       "processing": "Traitement",
       "submit_success": "Soumis ! Votre demande sera traitée sous peu",
-      "copy_success": "CODE USSD copié avec succès !"
+      "copy_success": "CODE USSD copié avec succès !",
+      "update": "Vous êtes sur le point d'effectuer un paiement de"
     },
     "withdraw_page": {
       "title": "Retirer",
@@ -111,7 +134,8 @@
       "empty_withdrawal_code": "Entrez votre code de retrait",
       "request_submitted": "Demande de retrait soumise",
       "maintenance_error": "Nous sommes actuellement en maintenance",
-      "error_occurred": "Une erreur s'est produite. Veuillez réessayer plus tard."
+      "error_occurred": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+      "update": "Vous êtes sur le point d'effectuer un retrait de"
     },
     "profile": {
       "title": "Profil",
@@ -199,11 +223,11 @@
     "referalLink_copy": "Copier le lien"
   },
   "header": {
-    "Accueil": "Accueil",
-    "À propos de nous": "À propos de nous",
-    "Se connecter": "Se connecter",
-    "S'inscrire": "S'inscrire",
-    "Télécharger": "Télécharger"
+    "Home": "Accueil",
+    "About": "À propos de nous",
+    "Signin": "Se connecter",
+    "Signup": "S'inscrire",
+    "Download": "Télécharger"
   },
   "home": {
     "hero span 1": "Votre Solution",
@@ -245,7 +269,7 @@
     "contact us": "PRENEZ CONTACT AVEC NOUS",
     "contact us description": "Politique de confidentialité"
   },
-  "sign-in": {
+  "sign_in": {
     "welcome": "Bienvenue",
     "email_placeholder": "Entrez votre e-mail",
     "password_placeholder": "Entrer le mot de passe",
@@ -270,23 +294,23 @@
       "password": "Password"
     }
   },
-   "resetpassword": {
+  "resetpassword": {
     "resetpassword": {
       "send_link": "envoyer un lien",
       "signin": "S'inscrire",
       "signup": "Se connecter",
       "placeholder": "Entrez un nouveau mot de passe",
-   "placeholder2": "Entrez Confirmer le mot de passe",
+      "placeholder2": "Entrez Confirmer le mot de passe",
       "successMessage": "Le lien de réinitialisation a été envoyé avec succès à votre adresse e-mail",
       "title": " Réinitialiser le mot de passe",
       "question": "Vous n'avez pas de compte?",
       "solution": "Créez un compte!",
       "contact": "Contactez-nous",
       "password": "Mot de passe",
-       "confirm": "Confirmez le mot de passe"
+      "confirm": "Confirmez le mot de passe"
     }
   },
-  "sign-up": {
+  "sign_up": {
     "signup": {
       "join_us": "Rejoignez-nous",
       "enter_fullname": "Entrez votre nom complet",
@@ -300,7 +324,15 @@
       "sign_in": "S'identifier!",
       "register": "S'inscrire",
       "continue_with": "Ou continuez avec",
-      "contact_us": "Contactez-nous"
+      "contact_us": "Contactez-nous",
+      "update": "La confirmation du champ du mot de passe ne correspond pas",
+      "update2": "Cliquez sur le bouton de vérification pour continuer",
+      "update3": " S'identifier!",
+      "update4": "Le mot de passe doit contenir plus de quatre (4) caractères  ",
+      "update5": " Veuillez saisir une adresse e-mail valide",
+      "update6": "Remplissez votre identifiant",
+      "update7": "veuillez entrer votre nom",
+      "update8": "La confirmation du champ du mot de passe ne correspond pas"
     },
     "errors": {
       "name_required": "Veuillez entrer votre nom",
@@ -317,9 +349,3 @@
   }
 
 }
-
-
-
-
-
-

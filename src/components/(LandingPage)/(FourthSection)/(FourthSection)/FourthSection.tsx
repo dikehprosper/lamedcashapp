@@ -3,12 +3,24 @@ import React, { useState } from "react";
 import "./fourthSection.css";
 import FirstQuestion from "../(components)/(FirstQuestion)/FirstQuestion";
 import SecondQuestion from "../(components)/(SecondQuestion)/SecondQuestion";
-import { useTranslations } from "next-intl";
+import langDataEn from "@/messages/en/home.json";
+import langDataFr from "@/messages/fr/home.json";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const FourthSection = ({updatedTheme}: any) => {
+const FourthSection = ({updatedTheme, updatedLang}: any) => {
   const [height, setHeight] = useState(0);
   const [height2, setHeight2] = useState(0);
-  const t = useTranslations("home");
+
+  
+
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
+
 
   function adjustHeight() {
     setHeight2(0);
@@ -32,10 +44,10 @@ const FourthSection = ({updatedTheme}: any) => {
   }
   return (
     <div className="component_400">
-      <h2 style={{color: updatedTheme === "dark" ? "white": "black"}}>{t("faq")}</h2>
+      <h2 style={{color: updatedTheme === "dark" ? "white": "black"}}>{t.faq}</h2>
       <div className="body_400" >
-        <FirstQuestion height={height} adjustHeight={adjustHeight} updatedTheme={updatedTheme} />
-        <SecondQuestion height={height2} adjustHeight={adjustHeight2} updatedTheme={updatedTheme} />
+        <FirstQuestion height={height} adjustHeight={adjustHeight} updatedTheme={updatedTheme} updatedLang={updatedLang} />
+        <SecondQuestion height={height2} adjustHeight={adjustHeight2} updatedTheme={updatedTheme} updatedLang={updatedLang}/>
       </div>
     </div>
   );

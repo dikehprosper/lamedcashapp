@@ -39,7 +39,7 @@ const Modal = ({
               style={{
               color: updatedTheme === "dark" ? "white" : updatedTheme === "light" ? "black" : "transparent",
                width: "80%",
-       textAlign: "center",
+               textAlign: "center",
               }}
             >
               {link.title} 

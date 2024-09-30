@@ -4,7 +4,7 @@ import './globals.css';
 import NavState from '@/components/(Navs)/NavState';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
+
 import StoreProvider from '../StoreProvider';
 import { store } from '@/lib/store';
 import { fetchUser } from '@/lib/features/userSlice';
@@ -22,16 +22,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params: { locale },
 }: {
   children: React.ReactNode;
-  params: { locale: string };
 }) {
-  const messages = useMessages();
+
   store.dispatch(fetchUser());
 
   return (
-    <html lang={locale}>
+    <html lang="en">
       <body className={inter.className} >
         <ToastContainer
           position='top-right'
@@ -45,7 +43,7 @@ export default function RootLayout({
           pauseOnHover
           theme='dark'
         />
-        <NextIntlClientProvider messages={messages} locale={locale}>
+
           <StoreProvider>
        
              
@@ -53,7 +51,7 @@ export default function RootLayout({
                 {children}
 
           </StoreProvider>
-        </NextIntlClientProvider>
+
       </body>
     </html>
   );

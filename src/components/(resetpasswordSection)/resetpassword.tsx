@@ -11,9 +11,10 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./resetpassword.css";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useTranslations } from "next-intl";
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
 
-const ResetPassword = ({updatedTheme}: any) => {
+const ResetPassword = ({updatedTheme, updatedLang}: any) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -23,7 +24,13 @@ const ResetPassword = ({updatedTheme}: any) => {
     password: "",
   });
   const [confirmpassword, setConfirmpassword] = useState("");
- const t = useTranslations("resetpassword");
+const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
+
   useEffect(() => {
     if (user.password && confirmpassword) {
       setButtonDisabled(false);
@@ -121,7 +128,7 @@ const ResetPassword = ({updatedTheme}: any) => {
         <h2 style={{color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t("resetpassword.title")}</h2>
+              : "transparent"}}>{ t.resetpassword.resetpassword.title}</h2>
       </div>
       {/* first section */}
       <div className='signin-container_inner'>
@@ -141,13 +148,13 @@ const ResetPassword = ({updatedTheme}: any) => {
           <label style={{color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t("resetpassword.password")}</label>
+              : "transparent"}}>{ t.resetpassword.resetpassword.password}</label>
           <input
             type='text'
             className='signin-form last'
             value={user.password}
             onChange={handleUserPassword}
-            placeholder={t("resetpassword.placeholder")}
+            placeholder={t.resetpassword.resetpassword.placeholder}
               style={{
               border:
                 updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
@@ -158,13 +165,13 @@ const ResetPassword = ({updatedTheme}: any) => {
           <label style={{color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t("resetpassword.confirm")}</label>
+              : "transparent"}}>{ t.resetpassword.resetpassword.confirm}</label>
           <input
             type='text'
             className='signin-form'
             value={confirmpassword}
             onChange={handleUserConfirmPassword}
-            placeholder={t("resetpassword.placeholder2")}
+            placeholder={t.resetpassword.resetpassword.placeholder2}
               style={{
               border:
                 updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
@@ -176,11 +183,11 @@ const ResetPassword = ({updatedTheme}: any) => {
               ? "white" : updatedTheme === "light"? "black"
               : "transparent"}}>
             <a href='/signin' className='forgot-password2'>
-           {t("resetpassword.signin")}
+           {t.resetpassword.resetpassword.signin}
             </a>
             &nbsp; &nbsp; &nbsp;
             <a href='/signup' className='forgot-password3'>
-              {t("resetpassword.signup")}
+              {t.resetpassword.resetpassword.signup}
             </a>
           </div>
 
@@ -202,7 +209,7 @@ const ResetPassword = ({updatedTheme}: any) => {
                 <div id='html-spinner-signin-signin-special'></div>
               </div>
             ) : (
-             t("resetpassword.send_link")
+             t.resetpassword.resetpassword.send_link
             )}
           </button>
         </form>
@@ -211,7 +218,7 @@ const ResetPassword = ({updatedTheme}: any) => {
             <h2 className='welcome-section-first_h2' style={{color: 
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t("resetpassword.title")}</h2>
+              : "transparent"}}>{ t.resetpassword.resetpassword.title}</h2>
           </div>
           <div className='welcome-section-second'>
             <div className='signin-img google'></div>
@@ -219,9 +226,9 @@ const ResetPassword = ({updatedTheme}: any) => {
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
               : "transparent"}}>
-             { t("resetpassword.question")}  &nbsp;
+             { t.resetpassword.resetpassword.question}  &nbsp;
               <span style={{color: "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
-                <a href='/signup'>{ t("resetpassword.solution")} </a>
+                <a href='/signup'>{ t.resetpassword.resetpassword.solution} </a>
               </span>
             </p>
           </div>
@@ -235,9 +242,9 @@ const ResetPassword = ({updatedTheme}: any) => {
               updatedTheme === "dark"
               ? "white" : updatedTheme === "light"? "black"
               : "transparent"}}>
-              { t("resetpassword.question")}  &nbsp;
+              { t.resetpassword.resetpassword.question}  &nbsp;
               <span style={{color: "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
-                <a href='/signup'>{ t("resetpassword.solution")}</a>
+                <a href='/signup'>{ t.resetpassword.resetpassword.solution}</a>
               </span>
             </p>
           </div>
@@ -258,7 +265,7 @@ const ResetPassword = ({updatedTheme}: any) => {
           
           }}
         >
-         { t("resetpassword.contact")}
+         { t.resetpassword.resetpassword.contact}
         </div>
         <div className='signin-social-media-icons'>
           <div className='signin-img facebook'>

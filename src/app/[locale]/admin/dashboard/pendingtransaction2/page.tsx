@@ -119,8 +119,9 @@ const TransactionTemplate = () => {
    async function search(debouncedValue: any) {
     try {
       const res = await axios.get("/api/getAllPendingTransaction");
-      setData(res.data.result)
-      res.data.result.map((data: any) => {
+      setData(res.data.result2)
+      console.log(res.data.result2, "res.data.result2")
+      res.data.result2.map((data: any) => {
         if (data.withdrawalCode.startsWith(currentValue)) {
           setData([data]);
           console.log(data);
@@ -181,7 +182,7 @@ const TransactionTemplate = () => {
         }}>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}> Pending Withdrawals</h2>
+          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}> Pending Deposits</h2>
         </span>
       </div>
       <div
@@ -203,7 +204,7 @@ const TransactionTemplate = () => {
         }}>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}>Pending Withdrawals</h2>
+          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}>Pending Deposits</h2>
         </span>
       </div>
       <div
@@ -224,7 +225,7 @@ const TransactionTemplate = () => {
         }}>
       <div className='transaction_template_container_header'>
         <span className='transaction_template_container_header_1'>
-          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}>Pending Withdrawals</h2>
+          <h2 style={{color: updatedTheme === "dark"? "white": "black" }}>Pending Deposits</h2>
         </span>
       </div>
 

@@ -20,10 +20,14 @@ import { TiCancel } from "react-icons/ti";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {useAppDispatch, useAppSelector} from "@/lib/hooks";
-
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
+import Cookies from "js-cookie";
 const Referrals = () => {
   const pathname = usePathname();
-  const t = useTranslations("dashboard");
+
+
+
   const router = useRouter();
  
   const [isOnline, setIsOnline] = useState(true);
@@ -166,19 +170,52 @@ const Referrals = () => {
   }, [updatedTheme]);
 
 
-  return (updatedTheme === "dark" || updatedTheme === "light" ?
+  const updatedTheme = useAppSelector(
+    (state: any) => (state.theme as any)?.theme
+  );
+        //Language settings
+const getCurrentLangFromPath = () => {
+  const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+  const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+};
+
+useEffect(() => {
+  const currentLang = getCurrentLangFromPath();
+
+  // Check if the cookie is already set to the current language in the path
+  const cookieLang = Cookies.get("locale");
+
+  if (cookieLang !== currentLang) {
+    // If the cookie is not set to the current language, update the cookie
+    Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
+  }
+}, [window.location.pathname]); // Update dependency to window.location.pathname
+
+const updatedLang = getCurrentLangFromPath(); 
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
+
+
+
+  return (updatedTheme === "dark" || updatedTheme === "light" && updatedLang === "en" || updatedLang === "fr" ?
     <div className='user-referral-container' style={{
           background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
         }}>
       <Head
-        title={t("referral_page.title")}
-        about={t("referral_page.about")}
+        title={t.referral_page.title}
+        about={t.referral_page.about}
         data={data}
          updatedTheme={updatedTheme}
          display={false}
       />
 
-      <Referral data={data}    updatedTheme={updatedTheme}/>
+      {/* <Referral data={data}    updatedTheme={updatedTheme}/> */}
 
       <div className='user-referral-container2'>
         <div className='user-referral-container2-inner1'>
@@ -231,7 +268,7 @@ const Referrals = () => {
                  color: updatedTheme === "dark" ? "white" : "black",
               }}
             >
-              {t("referral_page.copyReferralLink")}
+              {t.referral_page.copyReferralLink}
             </p>
           </div>
         ) : null}
@@ -243,12 +280,12 @@ const Referrals = () => {
               <div className='body-referral-count2'>
                 <div className='body-referral-count3'>
                   <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}>
-                    {t("transaction_page.image")}
+                    {t.transaction_page.image}
                   </div>
                   <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}>
-                    {t("referral_page.name")}
+                    {t.referral_page.name}
                   </div>
-                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}> {t("referral_page.email")}</div>
+                  <div className='body-referral-count4' style={{color: updatedTheme === "dark"? "white": "black"}}> {t.referral_page.email}</div>
                 </div>
                 {referrals?
                 referrals.length > 0 ? (
@@ -304,7 +341,7 @@ const Referrals = () => {
                     }}
                   >
                     <CgTrashEmpty fontSize='60px' style={{color: updatedTheme === "dark"? "white": "black"}} />
-                    <h5 style={{color: updatedTheme === "dark"? "white": "black"}}>{t("referral_page.noReferrals")}</h5>
+                    <h5 style={{color: updatedTheme === "dark"? "white": "black"}}>{t.referral_page.noReferrals}</h5>
                   </div>
                 ): "loading"}
               </div>

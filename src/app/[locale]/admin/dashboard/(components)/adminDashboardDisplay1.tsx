@@ -106,7 +106,7 @@ export default function AdminDashboardDisplay1({data3, updatedTheme}: any) {
 
             <div
               className='dropdown-content-configure'
-              onClick={() => router.push(`/${locale}/admin/dashboard/pendingtransaction`)}
+              onClick={() => router.push(`/${locale}/admin/dashboard/pendingtransaction2`)}
               style={{color: updatedTheme === "dark"? "white": "black"}}
             >
               See All

@@ -5,7 +5,6 @@ import { UserDashboardDisplayProps } from "@/types";
 import Link from "next/link";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import "./display.css";
-import { useTranslations } from "next-intl";
 
 const Display = ({
   count,
@@ -15,8 +14,10 @@ const Display = ({
   style,
   data,
   allData,
+  t,
+   updatedLang
 }: UserDashboardDisplayProps) => {
-  const t = useTranslations("dashboard");
+
  
   return !allData ? (
     // Render the loading spinner when loading is true
@@ -54,7 +55,7 @@ const Display = ({
               paddingTop: "20px",
             }}
           >
-            {title} {t("amount")}:
+            {title} {t.dashboard.amount}:
           </p>
           <p>
              {title === "Dépôt" ?   `XOF 
@@ -67,7 +68,7 @@ const Display = ({
           </p>
         </span>
         <Link
-          href={term === 1 ? "/deposit" : "/withdraw"}
+          href={term === 1 ? `/${updatedLang}/deposit` : `/${updatedLang}/withdraw`}
           style={{
             width: "100%",
             display: "flex",
@@ -78,7 +79,7 @@ const Display = ({
             style={{
               background: style?.color,
               color:
-                title === t("deposit") ? "rgba(73, 166, 106, 1)" : "#ffffff",
+                title === t.dashboard.deposit ? "rgba(73, 166, 106, 1)" : "#ffffff",
             }}
             className="display-recent-2-title"
           >

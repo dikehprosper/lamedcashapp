@@ -8,11 +8,18 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import { useTranslations } from "next-intl";
+import langDataEn from "@/messages/en/home.json";
+import langDataFr from "@/messages/fr/home.json";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const DropDownDepositInstructions = ({updatedTheme}: any) => {
+const DropDownDepositInstructions = ({updatedTheme, updatedLang}: any) => {
   const [height, setHeight] = useState(0);
-  const t = useTranslations("home");
+ 
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
 
   function adjustHeight() {
     setHeight((prev): any => {
@@ -35,7 +42,7 @@ const DropDownDepositInstructions = ({updatedTheme}: any) => {
              style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: updatedTheme === "dark" ? "white":  "black" }}
              
           >
-            <p>Recharger</p>{" "}
+            <p>{t.recharge}</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
@@ -68,7 +75,7 @@ const DropDownDepositInstructions = ({updatedTheme}: any) => {
       >
         <div className="body_innerbody_005" >
           <div className="body_innerbody_0017" onClick={adjustHeight} style={{background: updatedTheme === "dark" ? "rgba(73, 166, 106, 1)":  "rgba(73, 166, 106, 1)", color: updatedTheme === "dark" ? "white":  "black"}}>
-            <p>{t("recharge")}</p>{" "}
+            <p>{t.recharge}</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
@@ -92,7 +99,7 @@ const DropDownDepositInstructions = ({updatedTheme}: any) => {
                   fontSize: "16px",
                 }}
               >
-                {t("click on deposit")}
+                {t.click_on_deposit}
               </div>
             </div>
           </div>
@@ -113,7 +120,7 @@ const DropDownDepositInstructions = ({updatedTheme}: any) => {
                   fontSize: "16px",
                 }}
               >
-                {t("change ID")}
+                {t.change_ID}
               </div>
             </div>
           </div>
@@ -134,7 +141,7 @@ const DropDownDepositInstructions = ({updatedTheme}: any) => {
                   fontSize: "16px",
                 }}
               >
-                {t("enter amount")}
+                {t.enter_amount}
               </div>
             </div>
           </div>
@@ -155,7 +162,7 @@ const DropDownDepositInstructions = ({updatedTheme}: any) => {
                   fontSize: "16px",
                 }}
               >
-                {t("choose network")}
+                {t.choose_network}
               </div>
             </div>
           </div>
@@ -180,7 +187,7 @@ const DropDownDepositInstructions = ({updatedTheme}: any) => {
                   fontSize: "16px",
                 }}
               >
-                {t("change or leave")}
+                {t.change_or_leave}
               </div>
             </div>
           </div>

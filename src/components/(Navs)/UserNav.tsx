@@ -35,94 +35,113 @@ import LanguageToggle from "../(LanguageToggle)/languageToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import { setTheme } from "@/lib/features/themeSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
 
 const UserNav = () => {
-  const t = useTranslations("dashboard");
+ 
   const pathname = usePathname();
   const { locale } = useParams<{ locale: string }>();
   const router = useRouter();
   const [state, setState] = useState(true);
 
 
+
+  const getCurrentLangFromPath = () => {
+    const currentPath = window.location.pathname;
+    const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+    return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+  };
+ const updatedLang = getCurrentLangFromPath();
+  const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+  
+
+  // Access `t` outside of the function
+  const t = getLangData();
+
+
+
+
   const UsersNavLinks = [
     {
-      title: t("navLinks.dashboard"),
-      pathname: `/${locale}/dashboard`,
+      title: t.navLinks.dashboard,
+      pathname: `/${updatedLang}/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
-      title: t(`navLinks.deposit`),
-      pathname: `/${locale}/deposit`,
+      title: t.navLinks.deposit,
+      pathname: `/${updatedLang}/deposit`,
       icon: <BiLogInCircle />,
     },
     {
-      title: t(`navLinks.withdraw`),
-      pathname: `/${locale}/withdraw`,
+      title: t.navLinks.withdraw,
+      pathname: `/${updatedLang}/withdraw`,
       icon: <BiLogOutCircle />,
     },
     {
       title: `Transactions`,
-      pathname: `/${locale}/transactions`,
+      pathname: `/${updatedLang}/transactions`,
       icon: <LuHistory />,
     },
       {
       title: `Références`,
-      pathname: `/${locale}/referrals`,
+      pathname: `/${updatedLang}/referrals`,
       icon: <IoMdPeople />,
     },
     {
-      title: t(`navLinks.profile`),
-      pathname: `/${locale}/profile`,
+      title: t.navLinks.profile,
+      pathname: `/${updatedLang}/profile`,
       icon: <BsFillPersonFill />,
     },
   ];
 
   const SubAdminsNavLinksDeposits = [
     {
-      title: t(`navLinks.dashboard`),
-      pathname: `/${locale}/subadmin/deposit/dashboard`,
+      title: t.navLinks.dashboard,
+      pathname: `/${updatedLang}/subadmin/deposit/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
       title: `Transactions`,
-      pathname: `/${locale}/subadmin/deposit/transactions`,
+      pathname: `/${updatedLang}/subadmin/deposit/transactions`,
       icon: <LuHistory />,
     },
   ];
 
   const SubAdminsNavLinksWithdrawal = [
     {
-      title: t(`navLinks.dashboard`),
-      pathname: `/${locale}/subadmin/withdrawal/dashboard`,
+      title: t.navLinks.dashboard,
+      pathname: `/${updatedLang}/subadmin/withdrawal/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
       title: `Transactions`,
-      pathname: `/${locale}/subadmin/withdrawal/transactions`,
+      pathname: `/${updatedLang}/subadmin/withdrawal/transactions`,
       icon: <LuHistory />,
     },
   ];
 
   const AdminNavLinks = [
     {
-      title: t(`adminNavLinks.dashboard`),
-      pathname: `/${locale}/admin/dashboard`,
+      title: t.adminNavLinks.dashboard,
+      pathname: `/${updatedLang}/admin/dashboard`,
       icon: <BiSolidDashboard />,
     },
     {
-      title: t(`adminNavLinks.allHistory`),
-      pathname: `/${locale}/admin/allhistory`,
+      title: t.adminNavLinks.allHistory,
+      pathname: `/${updatedLang}/admin/allhistory`,
       icon: <SiSimpleanalytics />,
     },
     {
-      title: t(`adminNavLinks.withdrawals`),
-      pathname: `/${locale}/admin/withdrawals`,
+      title: t.adminNavLinks.withdrawals,
+      pathname: `/${updatedLang}/admin/withdrawals`,
       icon: <TbDeviceDesktopAnalytics />,
     },
     {
-      title: t(`adminNavLinks.users`),
-      pathname: `/${locale}/admin/users`,
+      title: t.adminNavLinks.users,
+      pathname: `/${updatedLang}/admin/users`,
       icon: <FaUsers />,
     },
     // {
@@ -150,7 +169,7 @@ const UserNav = () => {
       toast.success("Logout successful");
       // Only redirect if the axios request is successful
       localStorage.removeItem("activeTab");
-      router.push("/signin");
+      router.push(`/${updatedLang}/signin`);
     } catch (error: any) {
       // console.log(error.message);
       // toast.error(error.message);
@@ -177,8 +196,9 @@ const UserNav = () => {
     } else {
       return UsersNavLinks;
     }
+ 
   }
-
+   console.log(UsersNavLinks, "UsersNavLinks")
 
 
 
@@ -190,7 +210,6 @@ const UserNav = () => {
     if (updatedTheme === null) {
         dispatch(setTheme("light")); // Set the theme in Redux
     }
-       
     }, [updatedTheme]);
   
     useEffect(() => {
@@ -239,7 +258,10 @@ const UserNav = () => {
             containerStyles="user-nav-link"
             navLinks={findPath()}
             updatedTheme={updatedTheme}
+ 
           />
+
+        
         </div>
 
         <div className="user-nav-link-bottom" style={{color:   updatedTheme === "dark"
@@ -253,7 +275,7 @@ const UserNav = () => {
           >
             <MdLogout />
             
-            &nbsp; &nbsp; {t("logout")}
+            &nbsp; &nbsp; {t.dashboard.logout}
           </Link>
           <div className="user-nav-social-media">
             <h4 ><div style={{display: 'flex', justifyContent: "space-evenly", gap: "17px", alignItems: 'center',flexDirection: "row", color:   updatedTheme === "dark"
@@ -459,6 +481,7 @@ const UserNav = () => {
             active="active-user-nav"
               logout={logout}
               updatedTheme={updatedTheme}
+              t={t}
           />
         )}
       </>

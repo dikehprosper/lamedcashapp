@@ -7,7 +7,7 @@ import PendingTransactionTemplate from "../../[locale]/admin/dashboard/pendingtr
 export async function POST(request: NextRequest) {
   try {
     const {userId, sessionId} = await getDataFromToken(request);
- const reqBody = await request.json();
+    const reqBody = await request.json();
     // Check if userId is available
     if (!userId) {
       try {
@@ -68,18 +68,17 @@ export async function POST(request: NextRequest) {
 
     const initialResult = await AdminUser.findOne({_id: userId});
     const value = await reqBody;
-if (value === 1 ) {
-    initialResult.isDepositsOpen = !initialResult.isDepositsOpen;
-    await initialResult.save();
-} else if (value === 2) {
-   initialResult.isWithdrawalsOpen = !initialResult.isWithdrawalsOpen;
-    await initialResult.save();
-}
+    if (value === 1) {
+      initialResult.isDepositsOpen = !initialResult.isDepositsOpen;
+      await initialResult.save();
+    } else if (value === 2) {
+      initialResult.isWithdrawalsOpen = !initialResult.isWithdrawalsOpen;
+      await initialResult.save();
+    }
 
-    if ( initialResult.sessionId === sessionId) {
+    if (initialResult.sessionId === sessionId) {
       return NextResponse.json({
         message: "User found",
-
       });
     } else {
       // Session ID mismatch

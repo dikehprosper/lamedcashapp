@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
     }
 
     const initialResult = await AdminUser.findOne({_id: userId});
-    const result = initialResult.transactionHistory
+    const result = initialResult.transactionHistory;
 
     console.log(result, "result");
 

@@ -4,14 +4,14 @@ import { IoIosCopy } from "react-icons/io";
 import "./head.css";
 import GetInitials from "../../(Utils)/getInitials";
 import { toast } from "react-toastify";
-import { useTranslations } from "next-intl";
+
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Image from "next/image";
 import image from "../../../../public/wavingHand.png";
 
-const Head = ({title, about, data,display, updatedTheme}: any) => {
+const Head = ({title, about, data,display, updatedTheme, t}: any) => {
   const spanRef = useRef<HTMLSpanElement>(null);
-  const t = useTranslations("dashboard");
+
 
   const handleCopyClick = () => {
     if (spanRef.current) {
@@ -82,7 +82,7 @@ const Head = ({title, about, data,display, updatedTheme}: any) => {
                   style={{color: "rgba(73, 166, 106, 1)"}}
                 >
                   <IoIosCopy />
-                  copier
+                  {t}
                 </span>
               </>
             ) : (

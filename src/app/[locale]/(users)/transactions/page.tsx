@@ -11,8 +11,15 @@ import Modal from "@/components/(Utils)/(modals)/receiptModalForUsers";
 import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
+import langDataEn from "@/messages/en.json";
+import langDataFr from "@/messages/fr.json";
+import Cookies from "js-cookie";
 const Transactions = () => {
-  const t = useTranslations("dashboard");
+
+
+
+
+
   const router = useRouter();
   const data = useAppSelector((state: any) => state.user.value);
   const dispatch = useAppDispatch();
@@ -34,15 +41,15 @@ const Transactions = () => {
           toast.error(
             "Vous vous êtes connecté ailleurs. Vous devez vous reconnecter ici."
           );
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.push(`${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 402) {
           toast.error(
             "Votre session a expiré. Redirection vers la connexion..."
           );
-          router.push("/signin"); // Replace '/login' with your actual login route
+          router.push(`${updatedLang}/signin`); // Replace '/login' with your actual login route
         } else if (error.response.status === 404) {
           toast.error("Votre compte a été désactivé");
-          router.push("/signin");
+          router.push(`${updatedLang}/signin`);
         } else {
           // Handle other errors
           toast.error(
@@ -135,9 +142,39 @@ const Transactions = () => {
     });
   }
 
-  const updatedTheme = useAppSelector((state) => state.theme.theme);
+  const updatedTheme = useAppSelector(
+    (state: any) => (state.theme as any)?.theme
+  );
+        //Language settings
+const getCurrentLangFromPath = () => {
+  const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+  const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'
+};
 
-  return ( updatedTheme === "dark" || updatedTheme === "light" ?
+useEffect(() => {
+  const currentLang = getCurrentLangFromPath();
+
+  // Check if the cookie is already set to the current language in the path
+  const cookieLang = Cookies.get("locale");
+
+  if (cookieLang !== currentLang) {
+    // If the cookie is not set to the current language, update the cookie
+    Cookies.set("locale", currentLang, { expires: 365 }); // Set cookie to last 1 year
+  }
+}, [window.location.pathname]); // Update dependency to window.location.pathname
+
+const updatedLang = getCurrentLangFromPath(); 
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
+
+
+  return ( updatedTheme === "dark" || updatedTheme === "light" && updatedLang === "en" || updatedLang === "fr" ?
     <div className="transactionPage_container" style={{
           background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
         }}>
@@ -147,31 +184,27 @@ const Transactions = () => {
           containerStylesInner="receiptModal_inner"
           handleClick={handleClick}
           receipt={receipt}
-          title={t("transaction_page.deposit_amount")}
-                updatedTheme={updatedTheme}
+          title={t.transaction_page.deposit_amount}
+          updatedTheme={updatedTheme}
+           t={t.dashboard}
         />
       )}
       <Head
         title="Transactions"
-        about={t("transaction_page.about")}
+        about={t.transaction_page.about}
         data={data}
         display={false} updatedTheme={updatedTheme}
+        t={t.dashboard.copy} 
       />
       <TransactionTemplate
         title={{
-          name: t("transaction_page.transaction_history"),
+          name: t.transaction_page.transaction_history,
           icon: <LuHistory />,
         }}
         select={{
-          firstSelect: { big: t("see_all"), small: "Tout" },
-          secondSelect: {
-            big: t("transaction.deposits"),
-            small: t("transaction_page.deposits"),
-          },
-          thirdSelect: {
-            big: t("transaction.withdrawals"),
-            small: t("transaction_page.withdrawals"),
-          },
+        firstSelect: { big: t.dashboard.see_all, small: "Tout" },
+          secondSelect: { big: t.dashboard.see_deposits, small: t.dashboard.deposit },
+          thirdSelect: { big: t.dashboard.see_withdrawals, small: t.dashboard.withdraw },
         }}
         totalWithdrawals={totalWithdrawals}
         totalDeposits={totalDeposits}
@@ -179,6 +212,7 @@ const Transactions = () => {
         allData={data}
         showReceipt={showReceipt}
         updatedTheme={updatedTheme}
+        t={t}
       />
     </div>: null
   );

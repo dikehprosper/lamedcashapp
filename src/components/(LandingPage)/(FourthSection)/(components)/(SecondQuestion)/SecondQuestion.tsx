@@ -5,10 +5,18 @@ import {
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import AnimateHeight from "react-animate-height";
-import { useTranslations } from "next-intl";
+import langDataEn from "@/messages/en/home.json";
+import langDataFr from "@/messages/fr/home.json";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const SecondQuestion = ({ height, adjustHeight, updatedTheme }: any) => {
-  const t = useTranslations("home");
+const SecondQuestion = ({ height, adjustHeight, updatedTheme, updatedLang }: any) => {
+
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
   return (
     <div
       className="body_innerbody_601"
@@ -18,7 +26,7 @@ const SecondQuestion = ({ height, adjustHeight, updatedTheme }: any) => {
       style={{background: updatedTheme === "dark"? "rgba(120, 120, 120, 0.1)" : "rgba(120, 120, 120,0.1)" }}
     >
       <div className="body_innerbody_604">
-        <p style={{color: updatedTheme === "dark" ? "white": "black"}}>{t("designate specific account question")}</p>
+        <p style={{color: updatedTheme === "dark" ? "white": "black"}}>{t.designate_specific_account_question}</p>
         {height === 0 ? (
           <MdOutlineKeyboardArrowUp fontSize="32px" style={{color: updatedTheme === "dark" ? "white": "black"}}  />
         ) : (
@@ -32,7 +40,7 @@ const SecondQuestion = ({ height, adjustHeight, updatedTheme }: any) => {
         className="animate-height"
       >
         <div className="requirements-container">
-          <p style={{color: updatedTheme === "dark" ? "white": "black"}}>{t("designate specific account answer")}</p>
+          <p style={{color: updatedTheme === "dark" ? "white": "black"}}>{t.designate_specific_account_answer}</p>
        
         </div>
       </AnimateHeight>

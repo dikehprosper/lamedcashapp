@@ -6,13 +6,21 @@ import CustomButton from "../(components)/CustomBotton";
 import mainBackgroundMobile from "../../../../../public/mainBackgroundMobile.webp";
 import image from "../../../../../public/app-image.png";
 import image2 from "../../../../../public/Google_Play_Store_badge_EN.svg.png";
-import { useTranslations } from "next-intl";
 import "./hero.css";
 import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Banner from "@/components/Banner/Banner";
+import langDataEn from "@/messages/en/home.json";
+import langDataFr from "@/messages/fr/home.json";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const Hero = ({updatedTheme}: any) => {
-  const t = useTranslations("home");
+const Hero = ({updatedTheme, updatedLang}: any) => {
+
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
   return (
     <>
       <div
@@ -39,11 +47,12 @@ const Hero = ({updatedTheme}: any) => {
                     updatedTheme === "dark"
                       ? "rgba(73, 166, 106, 1)"
                       : "rgba(73, 166, 106, 1)",
+                        marginRight: "3px"
                 }}
               >
-                {t("hero span 1")}
-              </span>{" "}
-              {t("hero span 2")}
+                {t.hero_span_1}
+              </span>
+              {t.hero_span_2}
               <span
                 className='hero-span'
                 style={{
@@ -54,12 +63,12 @@ const Hero = ({updatedTheme}: any) => {
                 }}
               >
                 {" "}
-                {t("hero span 3")}
+                {t.hero_span_3}
               </span>
               .
             </h1>
             <p className='hero-subtitle animate-pop-in'>
-              {t("hero description")}
+              {t.hero_description}
             </p>
             <div className='hero_button_container'>
               <Image
@@ -159,11 +168,12 @@ const Hero = ({updatedTheme}: any) => {
                   style={{
                     color:
                       updatedTheme === "dark" ? "rgba(73, 166, 106, 1)" : "rgba(73, 166, 106, 1)",
+                      marginRight: "3px"
                   }}
                 >
-                  {t("hero span 1")}
-                </span>{" "}
-                {t("hero span 2")}
+                  {t.hero_span_1} 
+                </span> 
+                {t.hero_span_2}
                 <span
                   className='hero-span'
                   style={{
@@ -172,12 +182,12 @@ const Hero = ({updatedTheme}: any) => {
                   }}
                 >
                   {" "}
-                  {t("hero span 3")}
+                  {t.hero_span_3}
                 </span>
                 .
               </h1>
               <p className='hero-subtitle animate-pop-in'>
-                {t("hero description")}
+                {t.hero_description}
               </p>
             </div>
 

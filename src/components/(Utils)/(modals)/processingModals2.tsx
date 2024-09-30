@@ -20,6 +20,7 @@ const Modal = ({
   containerStylesInner,
   containerStylesInnerLink,
   handleClick,
+  t
 }: any) => {
 
      const handleChildClick = (event: React.MouseEvent) => {
@@ -37,7 +38,7 @@ const Modal = ({
             gap: "10px"
           }}
         >
-          <h4>Réussi</h4>
+          <h4>{t.dashboard.Successful}</h4>
           <div style={{ height: "30px", color: "rgba(0, 180, 0, 1)" }}>
             {/* <IoIosCheckmarkCircle fontSize="50px" /> */}
             <IoCheckmarkDoneSharp  fontSize="50px" />

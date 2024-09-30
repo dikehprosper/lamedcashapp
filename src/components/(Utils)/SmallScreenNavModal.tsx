@@ -17,10 +17,13 @@ const Modal = ({
   containerStylesInnerLink,
   handleClick,
   logout,
-  updatedTheme
+  updatedTheme,
+  t
 }: any) => {
   const pathname = usePathname();
-  const t = useTranslations("dashboard");
+
+
+
   const [state, setState] = useState<State | undefined>(undefined);
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -53,9 +56,7 @@ const Modal = ({
     document.addEventListener("DOMContentLoaded", navigationCompleteListener);
   };
 
-  function logout1() {
-    console.log("hdfgjdndgnd")
-  }
+console.log(navLinks, "navLinks")
 
   return (updatedTheme === "dark" || updatedTheme === "light" ?
     <div className={`${containerStyles}`}>
@@ -76,7 +77,7 @@ const Modal = ({
       ></div>
 
       <div className={` ${containerStylesInner}`} style={{ zIndex: 4000,background: updatedTheme === "dark" ? "" : "white",
-boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 1)",
+         boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 1)",
                        }} >
         {navLinks?.map((link: any, index: any) => {
           return (
@@ -137,7 +138,7 @@ boxShadow: updatedTheme === "dark" ? "" : "0px 4px 10px rgba(0, 0, 0, 1)",
           );
         })}
         <div style={{ padding: "10px", color: updatedTheme === "dark" ? "white" : "black", }} onClick={logout}>
-          <Link href="">{t("logout")}</Link>
+          <Link href="">{t.dashboard.logout}</Link>
         </div>
       </div>
     </div>: null

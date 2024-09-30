@@ -8,10 +8,13 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import { useTranslations } from "next-intl";
-const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
+import langDataEn from "@/messages/en/home.json";
+import langDataFr from "@/messages/fr/home.json";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+
+const DropDownWithdrawalInstructions = ({updatedTheme, updatedLang}: any) => {
   const [height, setHeight] = useState(0);
-  const t = useTranslations("home");
+ 
 
   function adjustHeight() {
     setHeight((prev): any => {
@@ -23,6 +26,13 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
     });
   }
 
+ 
+   const getLangData = () => {
+    return updatedLang === "en" ? langDataEn : langDataFr;
+  };
+
+  const t = getLangData();
+
   return (
     <div className="body_201">
       <div className="body_innerbody_201" onClick={adjustHeight} style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 0.3)":  "rgba(120, 120, 120, 0.3)"}}>
@@ -33,7 +43,7 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
             className="body_innerbody_204"
            style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: updatedTheme === "dark" ? "white":  "black"}}
           >
-            <p>Retrait</p>{" "}
+            <p>{t.withdrawal}</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown fontSize="32px" />
             ) : (
@@ -67,7 +77,7 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
       >
         <div className="body_innerbody_205">
           <div className="body_innerbody_2017" onClick={adjustHeight} style={{background: updatedTheme === "dark" ? "rgba(120, 120, 120, 1)":  "rgba(120, 120, 120, 1)", color: updatedTheme === "dark" ? "white":  "black"}} >
-            <p>Retrait</p>{" "}
+            <p>{t.withdrawal}</p>{" "}
             {height === 0 ? (
               <MdOutlineKeyboardArrowDown
                 data-aos="flip-down"
@@ -87,11 +97,12 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
               </div>
             </div>
             <div className="body_innerbody_208">
-              <div className="body_innerbody_2012"  style={{
+             
+                 <div className="body_innerbody_2012"  style={{
                   fontWeight: "bold",
                   paddingLeft: "80px",
                   fontSize: "16px",
-                }}>{t("click withdraw")}</div>
+                }}>{t.click_withdraw}</div>
             </div>
           </div>
           <div className="body_innerbody_206">
@@ -107,7 +118,7 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
                   fontWeight: "bold",
                   paddingLeft: "80px",
                   fontSize: "16px",
-                }}>{t("change ID")}</div>
+                }}>{t.change_ID}</div>
             </div>
           </div>
           <div className="body_innerbody_206">
@@ -123,7 +134,7 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
                   fontWeight: "bold",
                   paddingLeft: "80px",
                   fontSize: "16px",
-                }}>{t("enter code")}</div>
+                }}>{t.enter_code}</div>
             </div>
           </div>
           <div className="body_innerbody_206">
@@ -140,7 +151,7 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
                   paddingLeft: "80px",
                   fontSize: "16px",
                 }}>
-                {t("enter amount (withdrawal)")}
+                {t.enter_amount_withdrawal}
               </div>
             </div>
           </div>
@@ -161,7 +172,7 @@ const DropDownWithdrawalInstructions = ({updatedTheme}: any) => {
                   fontWeight: "bold",
                   paddingLeft: "80px",
                   fontSize: "16px",
-                }}>{t("change or leave")}</div>
+                }}>{t.change_or_leave}</div>
             </div>
           </div>
         </div>

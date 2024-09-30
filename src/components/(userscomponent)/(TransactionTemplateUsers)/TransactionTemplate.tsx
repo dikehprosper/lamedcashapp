@@ -24,14 +24,15 @@ const TransactionTemplate = ({
   data,
   allData,
   showReceipt,
-  updatedTheme
+  updatedTheme,
+  t
 }: any) => {
   const [state, setState] = useState(select.firstSelect.big);
   const [viewMore, setStateViewMore] = useState<boolean>();
   const pathname = usePathname();
   const [height, setHeight] = useState(0);
   const [loading, setLoading] = useState(false);
-  const t = useTranslations("dashboard");
+
 
   function adjustHeight() {
     setHeight((prev): any => {
@@ -211,7 +212,7 @@ const TransactionTemplate = ({
                 state === "All" && "active_selection_big"
               }`}
               style={{
-                borderColor: state === t("see_all") ? "#5E968B" : "",
+                borderColor: state === t.dashboard.see_all ? "#5E968B" : "",
               
               color:
                 updatedTheme === "dark"
@@ -229,7 +230,7 @@ const TransactionTemplate = ({
               onClick={() => changeState2(select.secondSelect.big)}
               className='transaction_template_container_body_1_2_1'
               style={{
-                borderColor: state === t("see_deposits") ? "#5E968B" : "",
+                borderColor: state === t.dashboard.see_deposits ? "#5E968B" : "",
                  color:
                 updatedTheme === "dark"
                   ? "white"
@@ -245,7 +246,7 @@ const TransactionTemplate = ({
               onClick={() => changeState3(select.thirdSelect.big)}
               className='transaction_template_container_body_1_2_1'
               style={{
-                borderColor: state === t("see_withdrawals") ? "#5E968B" : "",
+                borderColor: state === t.dashboard.see_withdrawals ? "#5E968B" : "",
                  color:
                 updatedTheme === "dark"
                   ? "white"
@@ -316,7 +317,7 @@ const TransactionTemplate = ({
                   className='dropdown-content_1'
                   onClick={() => changeState1(select.firstSelect.big)}
                   style={{
-                    background: state === t("transaction.all") ? "grey" : "",
+                    background: state === t.dashboard.transaction.all ? "grey" : "",
                   color:
                 updatedTheme === "dark"
                   ? "white"
@@ -335,7 +336,7 @@ const TransactionTemplate = ({
                   className='dropdown-content_2'
                   style={{
                     background:
-                      state === t("transaction.deposits") ? "grey" : "",
+                      state === t.dashboard.transaction.deposits ? "grey" : "",
                     color:
                 updatedTheme === "dark"
                   ? "white"
@@ -351,7 +352,7 @@ const TransactionTemplate = ({
                   className='dropdown-content_3'
                   style={{
                     background:
-                      state === t("transaction.withdrawals") ? "grey" : "",
+                      state === t.dashboard.transaction.withdrawals ? "grey" : "",
                      color:
                 updatedTheme === "dark"
                   ? "white"
@@ -383,7 +384,7 @@ const TransactionTemplate = ({
             }}
           >
             {pathname.includes("/transactions") ? (
-              state === t("transaction.deposits:") ? (
+              state === t.dashboard.transaction.deposits ? (
                 data?.filter((item: any) => item.fundingType === "deposits")
                   .length > 0 ? (
                   data
@@ -405,6 +406,7 @@ const TransactionTemplate = ({
                         momoNumber={filteredData.momoNumber}
                         identifierId={filteredData.identifierId}
                         updatedTheme={updatedTheme}
+                        t={t}
                       />
                     ))
                 ) : (
@@ -422,10 +424,10 @@ const TransactionTemplate = ({
                     }}
                   >
                     <CgTrashEmpty fontSize='80px' />
-                    <h2>{t("transaction.no_data")}</h2>
+                    <h2>{t.dashboard.transaction.no_data}</h2>
                   </div>
                 )
-              ) : state === t("transaction.withdrawals") ? (
+              ) : state === t.dashboard.transaction.withdrawals ? (
                 data?.filter((item: any) => item.fundingType === "withdrawals")
                   .length > 0 ? (
                   data
@@ -447,6 +449,7 @@ const TransactionTemplate = ({
                         momoNumber={filteredData.momoNumber}
                         identifierId={filteredData.identifierId}
                         updatedTheme={updatedTheme}
+                         t={t}
                       />
                     ))
                 ) : (
@@ -464,7 +467,7 @@ const TransactionTemplate = ({
                     }}
                   >
                     <CgTrashEmpty fontSize='80px' />
-                    <h2>{t("transaction.no_data")}</h2>
+                    <h2>{t.dashboard.transaction.no_data}</h2>
                   </div>
                 )
               ) : data?.length > 0 ? (
@@ -486,6 +489,7 @@ const TransactionTemplate = ({
                       momoNumber={data.momoNumber}
                       identifierId={data.identifierId}
                       updatedTheme={updatedTheme}
+                       t={t}
                     />
                   ))
               ) : (
@@ -503,10 +507,10 @@ const TransactionTemplate = ({
                   }}
                 >
                   <CgTrashEmpty fontSize='80px' />
-                  <h2>{t("transaction.no_data")}</h2>
+                  <h2>{t.dashboard.transaction.no_data}</h2>
                 </div>
               )
-            ) : state === t("transaction.deposits:") ? (
+            ) : state === t.dashboard.transaction.deposits ? (
               data?.filter((item: any) => item.fundingType === "deposits")
                 .length > 0 ? (
                 data
@@ -529,6 +533,7 @@ const TransactionTemplate = ({
                       momoNumber={filteredData.momoNumber}
                       identifierId={filteredData.identifierId}
                       updatedTheme={updatedTheme}
+                       t={t}
                     />
                   ))
               ) : (
@@ -549,7 +554,7 @@ const TransactionTemplate = ({
                   <h2>{t("transaction.no_data")}</h2>
                 </div>
               )
-            ) : state === t("transaction.withdrawals") ? (
+            ) : state === t.dashboard.transaction.withdrawals ? (
               data?.filter((item: any) => item.fundingType === "withdrawals")
                 .length > 0 ? (
                 data
@@ -572,6 +577,7 @@ const TransactionTemplate = ({
                       momoNumber={filteredData.momoNumber}
                       identifierId={filteredData.identifierId}
                       updatedTheme={updatedTheme}
+                       t={t}
                     />
                   ))
               ) : (
@@ -612,6 +618,7 @@ const TransactionTemplate = ({
                     momoNumber={data.momoNumber}
                     identifierId={data.identifierId}
                     updatedTheme={updatedTheme}
+                     t={t}
                   />
                 ))
             ) : (
@@ -629,19 +636,19 @@ const TransactionTemplate = ({
                 }}
               >
                 <CgTrashEmpty fontSize='80px' />
-                <h2>{t("transaction.no_data")}</h2>
+                <h2>{t.dashboard.transaction.no_data}</h2>
               </div>
             )}
 
             {pathname.includes("/transactions") ? null : viewMore === true ? (
-              <div className='view-more' style={{background: "rgba(120, 120, 120, 0.4)"}}>
+              <div className='view-more' style={{background: "rgba(120, 120, 120, 0.4)", display: "flex", alignItems: "center", justifyContent: "space-evenly"}}>
                 <Link
                   href={{
                     pathname: "/transactions",
                     query: {slug: state},
                   }}
                 >
-                  Voir plus &nbsp;
+                 {t.dashboard.seemore}  &nbsp;
                   <FaArrowRight />
                 </Link>
               </div>
