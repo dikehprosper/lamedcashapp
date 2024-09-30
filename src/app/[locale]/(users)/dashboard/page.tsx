@@ -202,10 +202,15 @@ if (pendingDeposits) {
   );
         //Language settings
 const getCurrentLangFromPath = (): string => {
+  // Check if window is defined (to handle server-side rendering)
   if (typeof window !== "undefined") {
-  const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
-  const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
-  return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; }
+    const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
+    const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
+    // Return the current language or default to 'fr' if not 'en' or 'fr'
+    return (currentLang === "fr" || currentLang === "en") ? currentLang : "fr"; 
+  }
+  // Default return value for server-side rendering
+  return "fr"; // or any default language you want to use
 };
 
 useEffect(() => {
