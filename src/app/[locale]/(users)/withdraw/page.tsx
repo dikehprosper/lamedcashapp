@@ -302,7 +302,7 @@ const Withdraw = () => {
     (state: any) => (state.theme as any)?.theme
   );
   //Language settings
-  const getCurrentLangFromPath = () => {
+  const getCurrentLangFromPath = (): string => {
     const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
     const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
     return currentLang === "fr" || currentLang === "en" ? currentLang : "fr"; // Default to 'fr' if not 'en' or 'fr'

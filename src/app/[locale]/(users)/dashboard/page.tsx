@@ -201,7 +201,7 @@ if (pendingDeposits) {
     (state: any) => (state.theme as any)?.theme
   );
         //Language settings
-const getCurrentLangFromPath = () => {
+const getCurrentLangFromPath = (): string => {
   if (typeof window !== "undefined") {
   const currentPath = window.location.pathname; // Use window.location.pathname instead of router.asPath
   const currentLang = currentPath.split("/")[1]; // Extract the first part of the path
@@ -209,7 +209,7 @@ const getCurrentLangFromPath = () => {
 };
 
 useEffect(() => {
-  const currentLang = getCurrentLangFromPath();
+  const currentLang = getCurrentLangFromPath() ;
 
   // Check if the cookie is already set to the current language in the path
   const cookieLang = Cookies.get("locale");
