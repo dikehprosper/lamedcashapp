@@ -99,10 +99,18 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
       }}
     >
       <div className='signin-header'>
-        <h2 style={{ color: 
+        <h2
+          style={{
+            color:
               updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t.forgotpassword.forgotpassword.title}</h2>
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
+          }}
+        >
+          {t.forgotpassword.forgotpassword.title}
+        </h2>
       </div>
       {/* first section */}
       <div className='signin-container_inner'>
@@ -119,10 +127,21 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
           />
         </div>
         <form onSubmit={handleSubmit} className='signin-form-container'>
-          <label  style={{ color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent", fontWeight: "bold", width: "100%"}}> E-mail</label>
+          <label
+            style={{
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+              fontWeight: "bold",
+              width: "100%",
+            }}
+          >
+            {" "}
+            E-mail
+          </label>
           <input
             type='email'
             className='signin-form'
@@ -135,11 +154,17 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
             }}
           />
 
-          <div className='forgot-password1' style={{color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>
-            
+          <div
+            className='forgot-password1'
+            style={{
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+            }}
+          >
             <a href={`/${updatedLang}/signin`} className='forgot-password2'>
               {t.forgotpassword.forgotpassword.signin}
             </a>
@@ -183,24 +208,34 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
                 width: "100%",
                 borderRadius: "4px",
                 border: ".5px solid rgba(0, 128, 0, 0.7)",
-                 color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"
+                color:
+                  updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"
+                    ? "black"
+                    : "transparent",
               }}
             >
-              
-             { t.forgotpassword.forgotpassword.successMessage}
+              {t.forgotpassword.forgotpassword.successMessage}
             </div>
           )}
         </form>
 
         <div className='welcome-section'>
           <div className='welcome-section-first'>
-            <h2 className='welcome-section-first_h2' style={{color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>{ t.forgotpassword.forgotpassword.title}</h2>
+            <h2
+              className='welcome-section-first_h2'
+              style={{
+                color:
+                  updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"
+                    ? "black"
+                    : "transparent",
+              }}
+            >
+              {t.forgotpassword.forgotpassword.title}
+            </h2>
           </div>
           <div className='welcome-section-second'>
             {/* <h5 className='welcome-section-second_h5'>Ou continuez avec</h5>
@@ -215,13 +250,23 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
                 loading='eager'
               />
             </div> */}
-            <p className='welcome-section-second_p' style={{color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}>
-            { t.forgotpassword.question}
+            <p
+              className='welcome-section-second_p'
+              style={{
+                color:
+                  updatedTheme === "dark"
+                    ? "white"
+                    : updatedTheme === "light"
+                    ? "black"
+                    : "transparent",
+              }}
+            >
+              {t.forgotpassword.forgotpassword.question}
               <span style={{color: "rgba(73, 166, 106, 1)", fontWeight: "500"}}>
-                <a href='/signup'>  { t.forgotpassword.forgotpassword.solution}  </a>
+                <a href='/signup'>
+                  {" "}
+                  {t.forgotpassword.forgotpassword.solution}{" "}
+                </a>
               </span>
             </p>
           </div>
@@ -246,12 +291,19 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
               />
             </div> */}
             <p className='welcome-section-second_p-mobile'>
-               { t.forgotpassword.forgotpassword.question}
-              <span style={{color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent", fontWeight: "500"}}>
-                <a href='/signup'>{ t.forgotpassword.forgotpassword.solution}</a>
+              {t.forgotpassword.forgotpassword.question}
+              <span
+                style={{
+                  color:
+                    updatedTheme === "dark"
+                      ? "white"
+                      : updatedTheme === "light"
+                      ? "black"
+                      : "transparent",
+                  fontWeight: "500",
+                }}
+              >
+                <a href='/signup'>{t.forgotpassword.forgotpassword.solution}</a>
               </span>
             </p>
           </div>
@@ -265,14 +317,15 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
             width: "100%",
             display: "flex",
             justifyContent: "center",
-            color: 
+            color:
               updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"
+                ? "white"
+                : updatedTheme === "light"
+                ? "black"
+                : "transparent",
           }}
         >
-          { t.forgotpassword.forgotpassword.contact}
-        
+          {t.forgotpassword.forgotpassword.contact}
         </div>
         <div className='signin-social-media-icons'>
           <div className='signin-img facebook'>
