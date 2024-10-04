@@ -32,13 +32,14 @@ function getLocale(request: NextRequest): string {
 export async function middleware(request: NextRequest) {
  
 
-  const path = request.nextUrl.pathname;
+
   console.log(request.nextUrl.pathname, "request.nextUrl.pathname")
 
 
 
+const path = request.nextUrl.pathname;
+let locale = getLocale(request); 
 
-  let locale = "fr"; // Get locale from path or cookie
 
   // If locale is not present in cookies, set it to 'fr' and redirect to /fr
   if (!request.cookies.get("locale")) {
