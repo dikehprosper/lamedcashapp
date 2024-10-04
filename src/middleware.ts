@@ -34,9 +34,15 @@ export async function middleware(request: NextRequest) {
   const decodedToken = jwt.decode(token) as TokenPayload | null;
 
   const path = request.nextUrl.pathname;
+  const localeFromPath = request.nextUrl.pathname.split("/")[1];
   let locale = getLocale(request); // Get locale from path or cookie
 
-  // If locale is not present in cookies, set it to 'fr' and redirect to /fr
+  // If the locale is already present in the URL, serve the page without checking the cookies or redirecting
+  if (["en", "fr"].includes(localeFromPath)) {
+    return NextResponse.next(); // Just serve the page with the correct locale
+  }
+
+  // If locale is not present in cookies or URL, set it to 'fr' and redirect to /fr
   if (!request.cookies.get("locale")) {
     const response = NextResponse.redirect(new URL(`/fr${path}`, request.url));
     response.cookies.set("locale", "fr", {maxAge: 365 * 24 * 60 * 60}); // Set cookie for 1 year
@@ -126,16 +132,14 @@ export async function middleware(request: NextRequest) {
     }
   } else if (path === "/") {
     // Redirect to the root with the locale
-     if (decodedToken?.isUser) {
+    if (decodedToken?.isUser) {
       return NextResponse.redirect(
         new URL(`/${locale}/dashboard`, request.nextUrl)
       );
-    } else{
-   return NextResponse.redirect(new URL(`/${locale}`, request.url));
+    } else {
+      return NextResponse.redirect(new URL(`/${locale}`, request.url));
     }
- 
   }
-
 
   // If no route matches, allow the request to proceed
   return NextResponse.next();
