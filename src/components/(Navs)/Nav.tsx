@@ -137,11 +137,11 @@ const Nav = () => {
     },
     {
       title: "",
-      pathname: `/${updatedLang}/privacy-policy`,
+      pathname: `/privacy-policy`,
     },
     {
       title: "",
-      pathname: `/${updatedLang}/account-deletion`,
+      pathname: `/account-deletion`,
     },
   ];
 
