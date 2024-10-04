@@ -6,6 +6,10 @@ import image1_en from "../../../public/step1-en.png";
 import image2_en from "../../../public/step2-en.png";
 import image3_en from "../../../public/step3-en.png";
 import image4_en from "../../../public/step4-en.png";
+import image1_fr from "../../../public/step1-fr.png";
+import image2_fr from "../../../public/step2-fr.png";
+import image3_fr from "../../../public/step3-fr.png";
+import image4_fr from "../../../public/step4-fr.png";
 import {useTranslations} from "next-intl";
 import langDataEn from "@/messages/en/about.json";
 import langDataFr from "@/messages/fr/about.json";
@@ -48,7 +52,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
             justifyContent: "flex-start",
           }}
         >
-          Delete Policy
+          {t.account_deletion.Delete_Policy}
         </h2>
         <p
           style={{
@@ -57,13 +61,10 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
             fontSize: "16px",
           }}
         >
-          We sincerely regret your departure from our app. Your presence has
-          been valued, and we appreciate the time you spent with us. If there’s
-          any feedback or concerns you’d like to share, we’d be grateful for the
-          opportunity to improve and potentially welcome you back in the future.
+         {t.account_deletion.delete_policy_description}
           <b style={{fontWeight: "700"}}>
             {" "}
-            Follow below steps to delete your account.
+            {t.account_deletion.delete_policy_description2}
           </b>
         </p>
       </div>
@@ -104,8 +105,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
               color: updatedTheme === "dark" ? "white" : "black",
             }}
           >
-            {" "}
-            At first you need to click on Settings option under Profile option.
+            {t.account_deletion.delete_policy_description3}
           </p>
           <div
             style={{
@@ -129,7 +129,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
                 }}
               ></div>
               <Image
-                src={image1_en}
+                src={updatedLang === "en" ? image1_en: image1_fr}
                 style={{objectFit: "contain", width: "200px", height: "330px"}}
                 loading='eager'
                 alt='background'
@@ -162,10 +162,9 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
               color: updatedTheme === "dark" ? "white" : "black",
             }}
           >
-            {" "}
-            Click on "Account Deletion" to continue
+            {t.account_deletion.delete_policy_description4}
           </p>
-           <div
+          <div
             style={{
               width: "100%",
               height: "100%",
@@ -187,7 +186,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
                 }}
               ></div>
               <Image
-                src={image2_en}
+               src={updatedLang === "en" ? image2_en: image2_fr}
                 style={{objectFit: "contain", width: "200px", height: "330px"}}
                 loading='eager'
                 alt='background'
@@ -223,14 +222,21 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
             padding: "10px",
           }}
         >
-          <h4 style={{color: updatedTheme === "dark" ? "white" : "black"}}>STEP : 3</h4>
-          <p style={{fontSize: "13px", marginTop: "5px", color: updatedTheme === "dark" ? "white" : "black",}}>
-            {" "}
-          After inputing you email and password, Click on 'Submit My request'
+          <h4 style={{color: updatedTheme === "dark" ? "white" : "black"}}>
+            STEP : 3
+          </h4>
+          <p
+            style={{
+              fontSize: "13px",
+              marginTop: "5px",
+              color: updatedTheme === "dark" ? "white" : "black",
+            }}
+          >
+
+            {t.account_deletion.delete_policy_description5}
           </p>
-       
-     
-           <div
+
+          <div
             style={{
               width: "100%",
               height: "100%",
@@ -252,7 +258,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
                 }}
               ></div>
               <Image
-              src={image3_en}
+             src={updatedLang === "en" ? image3_en: image3_fr}
                 style={{objectFit: "contain", width: "200px", height: "330px"}}
                 loading='eager'
                 alt='background'
@@ -275,12 +281,20 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
             padding: "10px",
           }}
         >
-          <h4  style={{color: updatedTheme === "dark" ? "white" : "black"}}>STEP : 4</h4>
-          <p style={{fontSize: "13px", marginTop: "5px", color: updatedTheme === "dark" ? "white" : "black",}}>
-            {" "}
-           Click on "Proceed" to finalise or Click "Cancel" to stop the process
+          <h4 style={{color: updatedTheme === "dark" ? "white" : "black"}}>
+            STEP : 4
+          </h4>
+          <p
+            style={{
+              fontSize: "13px",
+              marginTop: "5px",
+              color: updatedTheme === "dark" ? "white" : "black",
+            }}
+          >
+          
+            {t.account_deletion.delete_policy_description6}
           </p>
-        
+
           <div
             style={{
               width: "100%",
@@ -303,7 +317,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
                 }}
               ></div>
               <Image
-                src={image4_en}
+               src={updatedLang === "en" ? image4_en: image4_fr}
                 style={{objectFit: "contain", width: "200px", height: "330px"}}
                 loading='eager'
                 alt='background'
@@ -317,3 +331,27 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
 };
 
 export default AboutSection;
+
+
+
+ 
+
+  
+
+      // "delete_policy_description": " Nous regrettons sincèrement votre départ de notre application. Votre présence a été appréciée et nous apprécions le temps que vous avez passé avec nous. Si vous avez des commentaires ou des préoccupations que vous souhaitez partager, nous serions reconnaissants de nous offrir l'opportunité de nous améliorer et de vous accueillir à nouveau à l'avenir.",
+      //  "delete_policy_description2": "Suivez les étapes ci-dessous pour supprimer votre compte.",
+      //   "delete_policy_description3": "Tout d’abord, vous devez cliquer sur l’option Paramètres sous l’option Profil de l’application.",
+      //    "delete_policy_description4": "Cliquez sur 'Suppression du compte' pour continuer",
+      //    "delete_policy_description5": "Après avoir saisi votre email et votre mot de passe, cliquez sur Soumettre ma demande",
+      //      "delete_policy_description6": "Cliquez sur 'Continuer' pour finaliser ou cliquez sur 'Annuler' pour arrêter le processus"
+
+
+
+
+
+
+       //  "delete_policy_description2": "Follow below steps to delete your account.",
+        //  "delete_policy_description3": "At first you need to Click on Settings option under Profile option on the App.",
+        //  "delete_policy_description4": "Click on 'Account Deletion' to continue",
+        //  "delete_policy_description5": "After inputing you email and password, Click on Submit My request",
+        //  "delete_policy_description6": "Click on 'Proceed' to finalise or Click 'Cancel' to stop the process"

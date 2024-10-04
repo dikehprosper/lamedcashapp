@@ -13,5 +13,15 @@
   "support": {
     "title": "Assistance 24h/24 et 7j/7",
     "description": "Nous comprenons que des questions et des préoccupations peuvent survenir à tout moment. C'est pourquoi notre équipe d'assistance dédiée est disponible 24 heures sur 24 pour vous aider. Qu'il s'agisse d'une question concernant une transaction ou d'une demande générale, notre équipe d'assistance est là pour vous fournir une assistance rapide et fiable, garantissant une expérience fluide et sans stress."
-  }
+  },
+     "account_deletion" :{
+      "Delete_Policy":"Supprimer la politique",
+      "delete_policy_description" : "Nous regrettons sincèrement votre départ de notre application. Votre présence a été appréciée et nous apprécions le temps que vous avez passé avec nous. Si vous avez des commentaires ou des préoccupations que vous souhaitez partager, nous serions reconnaissants de nous offrir l'opportunité de nous améliorer et de vous accueillir à nouveau à l'avenir.",
+       "delete_policy_description2": "Suivez les étapes ci-dessous pour supprimer votre compte.",
+         "delete_policy_description3": "Tout d’abord, vous devez cliquer sur l’option Paramètres sous l’option Profil de l’application.",
+         "delete_policy_description4": "Cliquez sur 'Suppression du compte' pour continuer",
+         "delete_policy_description5": "Après avoir saisi votre email et votre mot de passe, cliquez sur Soumettre ma demande",
+          "delete_policy_description6": "Cliquez sur 'Continuer' pour finaliser ou cliquez sur 'Annuler' pour arrêter le processus"
+     
+        }
 }

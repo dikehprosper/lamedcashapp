@@ -13,7 +13,7 @@ import langDataEn3 from "@/messages/en.json";
 import langDataFr3 from "@/messages/fr.json";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const AboutSection = ({updatedTheme, updatedLang}: any) => {
+const PrivacySection = ({updatedTheme, updatedLang}: any) => {
 
 
 
@@ -41,31 +41,20 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
   return (
     <div>
       <div className='AboutSection' >
-        <h2 style={{color: updatedTheme === "dark"? "white": "black"}}>{t.about_us}</h2>
-        <p style={{color: updatedTheme === "dark"? "white": "black"}}>{t.mission}</p>
+        <h2 style={{color: updatedTheme === "dark"? "white": "black"}}>{t2.contact_us_description}</h2>
+     <p style={{color: updatedTheme === "dark"? "white": "black"}}>
+            {t2.contact_us_description.includes("Privacy policy")
+              ? form1
+              : form2}
+          </p>
       </div>
-      <div className='AboutSection2'>
-        <Image
-          fill
-          src={image}
-          style={{objectFit: "cover"}}
-          loading='eager'
-          alt='background'
-        />
-        <div className='AboutSection2-text'>
-          <h3 style={{color: updatedTheme === "dark"? "white": "black"}}>{t.our_services}</h3>
-          <p style={{color: updatedTheme === "dark"? "white": "black"}}>
-            1. <b>{t.financing.title}</b>: {t.financing.description}
-          </p>
-          <p style={{color: updatedTheme === "dark"? "white": "black"}}> 
-            2. <b>{t.withdrawal.title}</b>: {t.withdrawal.description}
-          </p>
-          <p style={{color: updatedTheme === "dark"? "white": "black"}}>
-            3. <b>{t.support.title}</b>: {t.support.description}
-          </p>
+    
+      <div className='AboutSection3'>
+        <div className='AboutSection3-text'>
+          
+         
         </div>
       </div>
-     
 
   
      
@@ -73,4 +62,4 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
   );
 };
 
-export default AboutSection;
+export default PrivacySection;

@@ -13,5 +13,16 @@
   "support": {
     "title": "24/7 Support",
     "description": "We understand that questions and concerns can arise at any time. That's why our dedicated support team is available 24/7 to assist you. Whether it's a question about a transaction or a general inquiry, our support team is here to provide you with quick and reliable assistance, ensuring a smooth and stress-free experience."
-  }
+  },
+   "account_deletion" :{
+      "Delete_Policy": "Delete Policy",
+        "delete_policy_description": "We sincerely regret your departure from our app. Your presence was appreciated and we appreciate the time you spent with us. If you have any comments or concerns you would like to share, we would appreciate the opportunity to improve and welcome you back in the future.",
+         "delete_policy_description2": "Follow below steps to delete your account.",
+         "delete_policy_description3": "At first you need to Click on Settings option under Profile option on the App.",
+         "delete_policy_description4": "Click on 'Account Deletion' to continue",
+         "delete_policy_description5": "After inputing you email and password, Click on 'Submit My request",
+         "delete_policy_description6": "Click on 'Proceed' to finalise or Click 'Cancel' to stop the process"
+
+        }
+
 }
