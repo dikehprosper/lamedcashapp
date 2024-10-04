@@ -8,15 +8,11 @@ import AnimateHeight from "react-animate-height";
 import langDataEn from "@/messages/en/home.json";
 import langDataFr from "@/messages/fr/home.json";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-
 const FirstQuestion = ({ height, adjustHeight, updatedTheme, updatedLang }: any) => {
-
    const getLangData = () => {
     return updatedLang === "en" ? langDataEn : langDataFr;
   };
-
   const t = getLangData();
-
   return (
     <div
       className="body_innerbody_501"
@@ -53,5 +49,4 @@ const FirstQuestion = ({ height, adjustHeight, updatedTheme, updatedLang }: any)
     </div>
   );
 };
-
 export default FirstQuestion;

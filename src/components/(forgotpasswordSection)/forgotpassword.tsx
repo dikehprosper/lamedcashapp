@@ -14,7 +14,6 @@ import axios from "axios";
 import langDataEn from "@/messages/en.json";
 import langDataFr from "@/messages/fr.json";
 
-
 const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -26,9 +25,7 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
   const getLangData = () => {
     return updatedLang === "en" ? langDataEn : langDataFr;
   };
-
   const t = getLangData();
-
   useEffect(() => {
     if (user.email) {
       setButtonDisabled(false);
@@ -44,7 +41,6 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
       email: event.target.value,
     });
   };
-
   async function handleSubmit(e: any) {
     e.preventDefault();
     try {
@@ -65,7 +61,6 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
       setLoading(false);
     }
   }
-
   useEffect(() => {
   // Dynamically add a style tag to the document head for placeholder and input styling
   const placeholderColor = updatedTheme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, .2)";
@@ -88,9 +83,6 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
     document.head.removeChild(style);
   };
 }, [updatedTheme]);
-
-
-
   return (
     <div
       className='signin-container'
@@ -153,7 +145,6 @@ const ForgotPassword = ({updatedTheme, updatedLang }: any) => {
                 updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
             }}
           />
-
           <div
             className='forgot-password1'
             style={{

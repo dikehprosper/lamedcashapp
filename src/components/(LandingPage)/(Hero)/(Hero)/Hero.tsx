@@ -11,13 +11,12 @@ import LanguageToggle from "@/components/(LanguageToggle)/languageToggle";
 import Banner from "@/components/Banner/Banner";
 import langDataEn from "@/messages/en/home.json";
 import langDataFr from "@/messages/fr/home.json";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import Link from 'next/link';
-import { FaCloudDownloadAlt } from "react-icons/fa";
+import {useAppDispatch, useAppSelector} from "@/lib/hooks";
+import Link from "next/link";
+import {FaCloudDownloadAlt} from "react-icons/fa";
 
 const Hero = ({updatedTheme, updatedLang}: any) => {
-
-   const getLangData = () => {
+  const getLangData = () => {
     return updatedLang === "en" ? langDataEn : langDataFr;
   };
 
@@ -75,11 +74,48 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
                 href='https://expo.dev/accounts/prosper1234567890/projects/betfundr/builds/a12fce85-0262-4cf8-a0de-094d2c10d509'
                 passHref
               >
-              
-                 <div style={{background: "rgba(73, 166, 106, 1",  display: "flex", borderRadius: "6px", alignItems: 'center'  }} className="hero_button_container2">
-                 
-                   <div style={{fontSize: "18px", color: 'white', fontWeight: "600", height: '100%', width: "70%", whiteSpace: 'wrap', alignItems: 'center', display: 'flex', justifyContent: 'center', textAlign: 'center'}}> {t.download}</div>
-                    <div style={{fontWeight: "700", height: '100%', width: "30%", background: "rgba(0, 0, 0, 0.2",  alignItems: 'center', display: 'flex', justifyContent: 'center', borderTopRightRadius: "6px", borderBottomRightRadius: "6px"}}> <FaCloudDownloadAlt color="white" fontSize="19px" /> </div>
+                <div
+                  style={{
+                    background: "rgba(73, 166, 106, 1",
+                    display: "flex",
+                    borderRadius: "6px",
+                    alignItems: "center",
+                  }}
+                  className='hero_button_container2'
+                >
+                  <div
+                    style={{
+                      fontSize: "18px",
+                      color: "white",
+                      fontWeight: "600",
+                      height: "100%",
+                      width: "70%",
+                      whiteSpace: "wrap",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    {" "}
+                    {t.download}
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: "700",
+                      height: "100%",
+                      width: "30%",
+                      background: "rgba(0, 0, 0, 0.2",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      borderTopRightRadius: "6px",
+                      borderBottomRightRadius: "6px",
+                    }}
+                  >
+                    {" "}
+                    <FaCloudDownloadAlt color='white' fontSize='19px' />{" "}
+                  </div>
                 </div>
               </Link>
             </div>
@@ -196,16 +232,57 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
               </p>
             </div>
 
-            <div className='hero_button_container' style={{justifyContent: 'center'}}>
+            <div
+              className='hero_button_container'
+              style={{justifyContent: "center"}}
+            >
               <Link
                 href='https://expo.dev/accounts/prosper1234567890/projects/betfundr/builds/a12fce85-0262-4cf8-a0de-094d2c10d509'
                 passHref
               >
-              
-                 <div style={{background: "rgba(73, 166, 106, 1",  display: "flex", borderRadius: "6px", alignItems: 'center', boxShadow: "rgba(0, 0, 0, 0.3)" }} className="hero_button_container2">
-                 
-                   <div style={{fontSize: "14px", color: 'white', fontWeight: "600", height: '100%', width: "70%", whiteSpace: 'wrap', alignItems: 'center', display: 'flex', justifyContent: 'center', textAlign: 'center'}}> {t.download}</div>
-                    <div style={{fontWeight: "700", height: '100%', width: "30%", background: "rgba(0, 0, 0, 0.2",  alignItems: 'center', display: 'flex', justifyContent: 'center', borderTopRightRadius: "6px", borderBottomRightRadius: "6px"}}> <FaCloudDownloadAlt color="white" fontSize="19px" /> </div>
+                <div
+                  style={{
+                    background: "rgba(73, 166, 106, 1",
+                    display: "flex",
+                    borderRadius: "6px",
+                    alignItems: "center",
+                    boxShadow: "rgba(0, 0, 0, 0.3)",
+                  }}
+                  className='hero_button_container2'
+                >
+                  <div
+                    style={{
+                      fontSize: "14px",
+                      color: "white",
+                      fontWeight: "600",
+                      height: "100%",
+                      width: "70%",
+                      whiteSpace: "wrap",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    {" "}
+                    {t.download}
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: "700",
+                      height: "100%",
+                      width: "30%",
+                      background: "rgba(0, 0, 0, 0.2",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      borderTopRightRadius: "6px",
+                      borderBottomRightRadius: "6px",
+                    }}
+                  >
+                    {" "}
+                    <FaCloudDownloadAlt color='white' fontSize='19px' />{" "}
+                  </div>
                 </div>
               </Link>
             </div>

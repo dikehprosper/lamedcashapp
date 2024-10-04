@@ -6,22 +6,13 @@ import SecondQuestion from "../(components)/(SecondQuestion)/SecondQuestion";
 import langDataEn from "@/messages/en/home.json";
 import langDataFr from "@/messages/fr/home.json";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-
 const FourthSection = ({updatedTheme, updatedLang}: any) => {
   const [height, setHeight] = useState(0);
   const [height2, setHeight2] = useState(0);
-
-  
-
-
    const getLangData = () => {
     return updatedLang === "en" ? langDataEn : langDataFr;
   };
-
   const t = getLangData();
-
-
-
   function adjustHeight() {
     setHeight2(0);
     setHeight((prev): any => {

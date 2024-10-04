@@ -17,8 +17,7 @@ import Modal3 from "@/components/(Utils)/(modals)/processingModals3";
 import Modal4 from "@/components/(Utils)/(modals)/processingModal4";
 import {useTranslations} from "next-intl";
 import {useParams, usePathname} from "next/navigation";
-  import { useAppDispatch, useAppSelector } from "@/lib/hooks";
- 
+import {useAppDispatch, useAppSelector} from "@/lib/hooks";
 import { setUser } from "@/lib/features/userSlice";
 import Image from "next/image";
 import Box from '@mui/material/Box';
@@ -423,10 +422,15 @@ const updatedLang = getCurrentLangFromPath();
 
 
 
-  return ( updatedTheme === "dark" || updatedTheme === "light" && updatedLang === "en" || updatedLang === "fr" ?
-    <div className='user_withdraw_container'  style={{
-          background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
-        }}>
+  return updatedTheme === "dark" ||
+    (updatedTheme === "light" && updatedLang === "en") ||
+    updatedLang === "fr" ? (
+    <div
+      className='user_withdraw_container'
+      style={{
+        background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
+      }}
+    >
       <Head
         title={t.dashboard.deposit_page.title}
         about={t.dashboard.deposit_page.about}
@@ -484,19 +488,21 @@ const updatedLang = getCurrentLangFromPath();
             >
               <h6
                 style={{
-                 color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent",
+                  color:
+                    updatedTheme === "dark"
+                      ? "white"
+                      : updatedTheme === "light"
+                      ? "black"
+                      : "transparent",
                   marginBottom: "13px",
                   width: "100%",
                   alignSelf: "center",
                   textAlign: "center",
                 }}
               >
-                  {t.dashboard.deposit_page.update} {user.amount}
+                {t.dashboard.deposit_page.update} {user.amount}
               </h6>
-               <div id='container-deposit2'>
+              <div id='container-deposit2'>
                 <div id='html-spinner-deposit2'></div>
               </div>
             </div>
@@ -530,21 +536,27 @@ const updatedLang = getCurrentLangFromPath();
           t={t}
         />
       )}
-    
-      <div className='user_deposit_container_001'  style={{
-            background: updatedTheme === "dark" ? "" : "white",
-            color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
+
+      <div
+        className='user_deposit_container_001'
+        style={{
+          background: updatedTheme === "dark" ? "" : "white",
+          color:
+            updatedTheme === "dark"
+              ? "white"
+              : updatedTheme === "light"
+              ? "black"
               : "transparent",
-              boxShadow: 
-              updatedTheme === "dark"
-              ? "" : updatedTheme === "light"? " 0px 4px 10px rgba(0, 0, 0, .3)"
+          boxShadow:
+            updatedTheme === "dark"
+              ? ""
+              : updatedTheme === "light"
+              ? " 0px 4px 10px rgba(0, 0, 0, .3)"
               : "transparent",
-          }}>
-            
+        }}
+      >
         <form onSubmit={submitDetails} className='deposit-form-container'>
-           <div
+          <div
             style={{
               width: "100%",
               borderWidth: "2px",
@@ -559,19 +571,32 @@ const updatedLang = getCurrentLangFromPath();
               paddingRight: "10px",
               paddingTop: "5px",
               paddingBottom: "5px",
-        
             }}
           >
-            <div className='detail' style={{fontWeight: "bold"}}>{t.dashboard.deposit_page.use_address}</div>
-            <div className='detail_2' style={{textAlign: "center", fontWeight: 600, fontSize: "13px"}}>
+            <div className='detail' style={{fontWeight: "bold"}}>
+              {t.dashboard.deposit_page.use_address}
+            </div>
+            <div
+              className='detail_2'
+              style={{textAlign: "center", fontWeight: 600, fontSize: "13px"}}
+            >
               {t.dashboard.deposit_page.use_address_info}
             </div>
-            
           </div>
-          <label style={{  color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent",   paddingTop: "7px", opacity: "0.7"}}>ID</label>
+          <label
+            style={{
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+              paddingTop: "7px",
+              opacity: "0.7",
+            }}
+          >
+            ID
+          </label>
 
           <input
             type='text'
@@ -579,103 +604,187 @@ const updatedLang = getCurrentLangFromPath();
             value={user.betId}
             onChange={handleChangeId}
             placeholder={t.dashboard.deposit_page.placeholder_1xbet_id}
-            style={{       border: 
-              updatedTheme === "dark"
-              ? "" : updatedTheme === "light"? "2px solid grey"
-              : "transparent", color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent",}}
-     
-             
-        
+            style={{
+              border:
+                updatedTheme === "dark"
+                  ? ""
+                  : updatedTheme === "light"
+                  ? "2px solid grey"
+                  : "transparent",
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+            }}
           />
 
-          <label style={{  color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent",  paddingTop: "7px", opacity: "0.7"}}>{t.dashboard.deposit_page.amount}</label>
+          <label
+            style={{
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+              paddingTop: "7px",
+              opacity: "0.7",
+            }}
+          >
+            {t.dashboard.deposit_page.amount}
+          </label>
           <input
             type='number'
             className='deposit-form'
             value={user.amount}
             onChange={handleChangeAmount}
             placeholder={t.dashboard.deposit_page.placeholder_amount}
-            style={{       border: 
-              updatedTheme === "dark"
-              ? "" : updatedTheme === "light"? "2px solid grey"
-              : "transparent", color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}
+            style={{
+              border:
+                updatedTheme === "dark"
+                  ? ""
+                  : updatedTheme === "light"
+                  ? "2px solid grey"
+                  : "transparent",
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+            }}
           />
 
-          <label style={{  color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t.dashboard.deposit_page.momo_number}</label>
+          <label
+            style={{
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+              paddingTop: "7px",
+              opacity: "0.7",
+            }}
+          >
+            {t.dashboard.deposit_page.momo_number}
+          </label>
           <input
             type='number'
             className='deposit-form'
             value={user.momoNumber}
             onChange={handleChangeMomoNumber}
             placeholder='Entrez le numéro Momo'
-            style={{       border: 
-              updatedTheme === "dark"
-              ? "" : updatedTheme === "light"? "2px solid grey"
-              : "transparent", color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent"}}
+            style={{
+              border:
+                updatedTheme === "dark"
+                  ? ""
+                  : updatedTheme === "light"
+                  ? "2px solid grey"
+                  : "transparent",
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+            }}
           />
 
-          <label htmlFor='network' style={{  color: 
-              updatedTheme === "dark"
-              ? "white" : updatedTheme === "light"? "black"
-              : "transparent", paddingTop: "7px", opacity: "0.7"}}>{t.dashboard.deposit_page.network}</label>
+          <label
+            htmlFor='network'
+            style={{
+              color:
+                updatedTheme === "dark"
+                  ? "white"
+                  : updatedTheme === "light"
+                  ? "black"
+                  : "transparent",
+              paddingTop: "7px",
+              opacity: "0.7",
+            }}
+          >
+            {t.dashboard.deposit_page.network}
+          </label>
 
+          <div
+            style={{
+              display: "flex",
+              marginTop: "10px",
+              alignSelf: "flex-start",
+              flexDirection: "row",
+              minWidth: "200px",
+              width: "100%",
+              maxWidth: "800px",
+              flex: 1,
+              padding: "5px",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <div
+              onClick={() =>
+                setUser({
+                  ...user,
+                  network: "MTN",
+                })
+              }
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                height: "40px",
+                width: "100px",
+                borderRadius: "3px",
+                border:
+                  user.network === "MTN"
+                    ? "2px solid rgba(73, 166, 106, 1)"
+                    : "",
+              }}
+            >
+              <Image
+                src='https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/MTN-Mobile-Money-Senegal-Logo-1-550x298.webp?alt=media&token=6c70d498-35e3-4054-a2fd-e42a3138f3fb'
+                style={{objectFit: "cover", borderRadius: 15}}
+                alt='background'
+                width={30}
+                height={30}
+              />
+              <h6>MTN</h6>
+            </div>
 
-
-
-          <div style={{display: 'flex', marginTop: "10px", alignSelf: "flex-start", flexDirection: 'row',  minWidth: '200px',  width: "100%", maxWidth: '800px', flex: 1,  padding: "5px", alignItems: 'center', justifyContent: "space-evenly"}}>
-              <div 
-              onClick={ () => setUser({
-      ...user,
-      network: "MTN",
-    })}
-     style={{ display: "flex",  flexDirection: "row", alignItems: 'center', justifyContent: 'space-evenly', height: "40px", width: "100px", borderRadius: "3px",border: user.network === "MTN" ? "2px solid rgba(73, 166, 106, 1)": "" }}> 
-                <Image
-          src="https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/MTN-Mobile-Money-Senegal-Logo-1-550x298.webp?alt=media&token=6c70d498-35e3-4054-a2fd-e42a3138f3fb"
-          style={{ objectFit: "cover", borderRadius: 15}}
-          alt="background"
-          width={30}
-          height={30}
-        /> 
-        <h6>MTN</h6>
-        </div>
-
-         <div 
-         onClick={ () => setUser({
-      ...user,
-      network: "MOOV",
-    })} 
-    style={{ display: "flex", flexDirection: "row", alignItems: 'center', justifyContent: 'space-evenly', height: "40px", width: "100px", borderRadius: "3px", border: user.network === "MOOV" ? "2px solid rgba(73, 166, 106, 1)": "" }}> 
-          <Image
-          src="https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Moov_Africa_logo.png?alt=media&token=281df10d-fe29-4eeb-83ef-bcb1f3ee2121"
-          style={{ objectFit: "cover", borderRadius: 15, }}
-          alt="background"
-           width={30}
-          height={30}
-        />
-        <h6>MOOV</h6>
-        </div>
-        </div>
-
-
-
-
-
-
+            <div
+              onClick={() =>
+                setUser({
+                  ...user,
+                  network: "MOOV",
+                })
+              }
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                height: "40px",
+                width: "100px",
+                borderRadius: "3px",
+                border:
+                  user.network === "MOOV"
+                    ? "2px solid rgba(73, 166, 106, 1)"
+                    : "",
+              }}
+            >
+              <Image
+                src='https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Moov_Africa_logo.png?alt=media&token=281df10d-fe29-4eeb-83ef-bcb1f3ee2121'
+                style={{objectFit: "cover", borderRadius: 15}}
+                alt='background'
+                width={30}
+                height={30}
+              />
+              <h6>MOOV</h6>
+            </div>
+          </div>
 
           {/* <select
             id='network'
@@ -690,10 +799,6 @@ const updatedLang = getCurrentLangFromPath();
             <option value='MOOV'>Moov Benin</option>
           </select>
  */}
-
-
-
-          
 
           <div
             className='submit-button-deposit'
@@ -717,9 +822,8 @@ const updatedLang = getCurrentLangFromPath();
         </form>
       </div>
       <FooterMobile updatedTheme={updatedTheme} />
-    </div>: null
-  );
+    </div>
+  ) : null;
 };
-
 export default Deposit;
 export const dynamic = "force-dynamic";

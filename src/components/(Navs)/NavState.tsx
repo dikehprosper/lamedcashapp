@@ -16,6 +16,8 @@ const NavState = () => {
     `/${params.locale}/signup`,
     `/${params.locale}/resetpassword`,
     `/${params.locale}/forgotpassword`,
+    `/${params.locale}/account-deletion`,
+     `/${params.locale}/privacy-policy`,
   ];
 
   const shouldShowNav = showNav.includes(pathname) || pathname.startsWith(`/${params.locale}/signup`);

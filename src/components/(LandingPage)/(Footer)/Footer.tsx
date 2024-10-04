@@ -5,13 +5,10 @@ import image from "../../../../public/TikTok.svg";
 import langDataEn from "@/messages/en/home.json";
 import langDataFr from "@/messages/fr/home.json";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-
 const Footer = ({updatedTheme, updatedLang}: any) => {
-
    const getLangData = () => {
     return updatedLang === "en" ? langDataEn : langDataFr;
   };
-
   const t = getLangData();
   return (
     <div className='footer' style={{marginTop: "30px"}}>

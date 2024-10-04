@@ -117,9 +117,7 @@ firstName: data.fullname.split(' ')[0],
   }
 
     useEffect(() => {
- 
       getUserDetails();
-
   }, []);
 
   useEffect(() => {
@@ -139,9 +137,6 @@ firstName: data.fullname.split(' ')[0],
       window.removeEventListener("offline", handleOffline);
     };
   }, []);
-
-
-
 
   const handleChangeFirstName = (event: any) => {
     setButtonDisabled(false);
@@ -176,7 +171,6 @@ firstName: data.fullname.split(' ')[0],
     });
   };
 
- 
   const handlePassword = (event: any) => {
     setButtonDisabled1(false);
     setUser1({
@@ -184,6 +178,7 @@ firstName: data.fullname.split(' ')[0],
       password: event.target.value,
     });
   };
+
   const handleOldPassword = (event: any) => {
     setButtonDisabled1(false);
     setUser1({
@@ -273,8 +268,6 @@ firstName: data.fullname.split(' ')[0],
       }
     }
   }
-
-
 
 const imageUrl = data.image === ""?  "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d" : data.image
 

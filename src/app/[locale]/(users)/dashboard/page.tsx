@@ -96,7 +96,6 @@ const Dashboard = () => {
     };
   }, []);
 
- 
 
   // Filter deposit transactions
   const allDeposits = data?.transactionHistory?.filter(
@@ -130,8 +129,6 @@ const Dashboard = () => {
    const pendingDeposits = data?.transactionHistory?.filter(
     (transaction: any) => transaction.fundingType === "deposits" && transaction.status === "Pending"
   );
-
-
 
 // Calculate total cost of pending withdrawals
 function parseAmount(amount: any): number {
@@ -195,7 +192,6 @@ if (pendingDeposits) {
     });
   }
   const [button, setButton] = useState(false);
-
 
   const updatedTheme = useAppSelector(
     (state: any) => (state.theme as any)?.theme

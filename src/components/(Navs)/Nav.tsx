@@ -135,6 +135,14 @@ const Nav = () => {
       title: t.header.Signup,
       pathname: `/${updatedLang}/signup`,
     },
+    {
+      title: "",
+      pathname: `/${updatedLang}/privacy-policy`,
+    },
+    {
+      title: "",
+      pathname: `/${updatedLang}/account-deletion`,
+    },
   ];
 
   return updatedLang === "fr" ||
