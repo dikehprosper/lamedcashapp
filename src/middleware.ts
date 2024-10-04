@@ -30,116 +30,125 @@ function getLocale(request: NextRequest): string {
 }
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value || "";
-  const decodedToken = jwt.decode(token) as TokenPayload | null;
+ 
 
   const path = request.nextUrl.pathname;
-  const localeFromPath = request.nextUrl.pathname.split("/")[1];
-  let locale = getLocale(request); // Get locale from path or cookie
+  console.log(request.nextUrl.pathname, "request.nextUrl.pathname")
 
-  // If the locale is already present in the URL, serve the page without checking the cookies or redirecting
-  if (["en", "fr"].includes(localeFromPath)) {
-    return NextResponse.next(); // Just serve the page with the correct locale
-  }
 
-  // If locale is not present in cookies or URL, set it to 'fr' and redirect to /fr
+
+
+  let locale = "fr"; // Get locale from path or cookie
+
+  // If locale is not present in cookies, set it to 'fr' and redirect to /fr
   if (!request.cookies.get("locale")) {
     const response = NextResponse.redirect(new URL(`/fr${path}`, request.url));
     response.cookies.set("locale", "fr", {maxAge: 365 * 24 * 60 * 60}); // Set cookie for 1 year
     return response;
   }
-
-  // Admin path handling
-  if (path.startsWith(`/${locale}/admin`)) {
-    if (decodedToken?.isSubAdminDeposits) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/subadmin/deposit/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isSubAdminWithdrawals) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/subadmin/withdrawal/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isUser) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/dashboard`, request.nextUrl)
-      );
-    } else if (!decodedToken) {
-      return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
-    }
-  }
-
-  // SubAdmin Deposits path handling
-  else if (path.startsWith(`/${locale}/subadmin/deposit`)) {
-    if (decodedToken?.isSubAdminWithdrawals) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/subadmin/withdrawal/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isAdmin) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/admin/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isUser) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/dashboard`, request.nextUrl)
-      );
-    } else if (!decodedToken) {
-      return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
-    }
-  }
-
-  // SubAdmin Withdrawals path handling
-  else if (path.startsWith(`/${locale}/subadmin/withdrawal`)) {
-    if (decodedToken?.isSubAdminDeposits) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/subadmin/deposit/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isAdmin) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/admin/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isUser) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/dashboard`, request.nextUrl)
-      );
-    } else if (!decodedToken) {
-      return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
-    }
-  }
-
-  // User paths handling
-  else if (
-    path.startsWith(`/${locale}/dashboard`) ||
-    path.startsWith(`/${locale}/deposit`) ||
-    path.startsWith(`/${locale}/withdraw`) ||
-    path.startsWith(`/${locale}/transactions`) ||
-    path.startsWith(`/${locale}/profile`) ||
-    path.startsWith(`/${locale}/referrals`)
-  ) {
-    if (decodedToken?.isSubAdminDeposits) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/subadmin/deposit/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isSubAdminWithdrawals) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/subadmin/withdrawal/dashboard`, request.nextUrl)
-      );
-    } else if (decodedToken?.isAdmin) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/admin/dashboard`, request.nextUrl)
-      );
-    } else if (!decodedToken) {
-      return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
-    }
-  } else if (path === "/") {
-    // Redirect to the root with the locale
-    if (decodedToken?.isUser) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/dashboard`, request.nextUrl)
-      );
-    } else {
+ const token = request.cookies.get("token")?.value || "";
+ const decodedToken = jwt.decode(token) as TokenPayload | null;
+  if (!token) {
+    if (path === "/") {
       return NextResponse.redirect(new URL(`/${locale}`, request.url));
+    } else {
+ return NextResponse.next();
     }
+    
   }
+
+    if (path.startsWith(`/${locale}/admin`)) {
+      // Admin path handling
+      if (decodedToken?.isSubAdminDeposits) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/subadmin/deposit/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isSubAdminWithdrawals) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/subadmin/withdrawal/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isUser) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/dashboard`, request.nextUrl)
+        );
+      } else if (!decodedToken) {
+        return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+      }
+    }
+
+    // SubAdmin Deposits path handling
+    else if (path.startsWith(`/${locale}/subadmin/deposit`)) {
+      if (decodedToken?.isSubAdminWithdrawals) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/subadmin/withdrawal/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isAdmin) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/admin/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isUser) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/dashboard`, request.nextUrl)
+        );
+      } else if (!decodedToken) {
+        return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+      }
+    }
+
+    // SubAdmin Withdrawals path handling
+    else if (path.startsWith(`/${locale}/subadmin/withdrawal`)) {
+      if (decodedToken?.isSubAdminDeposits) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/subadmin/deposit/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isAdmin) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/admin/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isUser) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/dashboard`, request.nextUrl)
+        );
+      } else if (!decodedToken) {
+        return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+      }
+    }
+
+    // User paths handling
+    else if (
+      path.startsWith(`/${locale}/dashboard`) ||
+      path.startsWith(`/${locale}/deposit`) ||
+      path.startsWith(`/${locale}/withdraw`) ||
+      path.startsWith(`/${locale}/transactions`) ||
+      path.startsWith(`/${locale}/profile`) ||
+      path.startsWith(`/${locale}/referrals`)
+    ) {
+      if (decodedToken?.isSubAdminDeposits) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/subadmin/deposit/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isSubAdminWithdrawals) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/subadmin/withdrawal/dashboard`, request.nextUrl)
+        );
+      } else if (decodedToken?.isAdmin) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/admin/dashboard`, request.nextUrl)
+        );
+      } else if (!decodedToken) {
+        return NextResponse.redirect(new URL(`/${locale}/`, request.nextUrl));
+      }
+    } else if (path === "/") {
+      // Redirect to the root with the locale
+      if (decodedToken?.isUser) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/dashboard`, request.nextUrl)
+        );
+      } else {
+        return NextResponse.redirect(new URL(`/${locale}`, request.url));
+      }
+    }
+
 
   // If no route matches, allow the request to proceed
   return NextResponse.next();

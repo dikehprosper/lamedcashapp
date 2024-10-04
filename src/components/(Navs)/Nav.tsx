@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -106,7 +107,7 @@ const Nav = () => {
       // If the cookie is not set to the current language, update the cookie
       Cookies.set("locale", currentLang, {expires: 365}); // Set cookie to last 1 year
     }
-  }, [window.location.pathname]); // Listen for changes to pathname
+  }, [typeof window !== 'undefined' ? window.location.pathname : null]); // Listen for changes to pathname
 
   // Get the updated language based on the current path
   const updatedLang = getCurrentLangFromPath();
