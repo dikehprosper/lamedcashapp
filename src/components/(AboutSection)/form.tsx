@@ -1,12 +1,8 @@
 const form1 = `
 
 We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about this privacy notice or our practices with regard to your personal information, please contact us at support@betfundr.com.
-
 This privacy notice describes how we might use your information if you:
-
 Download and use our mobile application — BetFundr
-
-
 The purpose of this privacy notice is to explain to you in the clearest way possible what information we collect, how we use it, and what rights you have in relation to it. If there are any terms in this privacy notice that you do not agree with, please discontinue use of our Services immediately.
 
 Please read this privacy notice carefully, as it will help you understand what we do with the information that we collect.

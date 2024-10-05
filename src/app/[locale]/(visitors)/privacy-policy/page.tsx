@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-async-client-component */
 "use client";
-import AboutSection from "@/components/(AboutSection)/About";
+import PrivacySection from "@/components/(AboutSection)/privacypolicy";
 import Footer from "@/components/(LandingPage)/(Footer)/Footer";
 import {useAppSelector} from "@/lib/hooks";
 import Cookies from "js-cookie";
@@ -47,7 +47,7 @@ const About = async () => {
         background: updatedTheme === "dark" ? "rgb(10, 20, 38)" : "white",
       }}
     >
-      <AboutSection updatedTheme={updatedTheme} updatedLang={updatedLang} />
+      <PrivacySection updatedTheme={updatedTheme} updatedLang={updatedLang} />
       <Footer updatedTheme={updatedTheme} updatedLang={updatedLang} />
     </div>
   ) : null;
