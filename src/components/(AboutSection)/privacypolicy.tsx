@@ -53,55 +53,7 @@ const PrivacySection = ({updatedTheme, updatedLang}: any) => {
             textAlign: "start",
           }}
         >
-          {t2.contact_us_description.includes("Privacy policy") ? (
-            <>
-              <p>
-                We are committed to protecting your personal information and
-                your right to privacy. If you have any questions or concerns
-                about this privacy notice or our practices with regard to your
-                personal information, please contact us at support@betfundr.com.
-                This privacy notice describes how we might use your information
-                if you Download and use our mobile application — BetFundr.
-              </p>
-              <p style={{margin-Top: "5px"}}>
-                {" "}
-                The purpose of this privacy notice is to explain to you in the
-                clearest way possible what information we collect, how we use
-                it, and what rights you have in relation to it. If there are any
-                terms in this privacy notice that you do not agree with, please
-                discontinue use of our Services immediately.
-              </p>
-              <p>
-                Please read this privacy notice carefully, as it will help you
-                understand what we do with the information that we collect
-              </p>
-              <p>TABLE OF CONTENTS </p>
-              <p> 1. WHAT INFORMATION DO WE COLLECT?</p>
-              <p> 2. HOW DO WE USE YOUR INFORMATION?</p>
-               <p>3. WILL YOUR INFORMATION BE SHARED WITH ANYONE? </p>
-                <p> 4. HOW LONG DO WE KEEP YOUR INFORMATION?</p>
-                 <p> 5. HOW DO WE KEEP YOUR INFORMATION SAFE?</p>
-                  <p> 6. DO WE COLLECT INFORMATION FROM MINORS?</p>
-                   <p>7. WHAT ARE YOUR PRIVACY RIGHTS? </p>
-              <p>8. CONTROLS FOR DO-NOT-TRACK FEATURES</p>
-<p>9. DO WE MAKE UPDATES TO THIS NOTICE?</p>
-<p>10. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</p>
-<p>11. HOW CAN YOU REVIEW, UPDATE OR DELETE THE DATA WE COLLECT FROM YOU?</p>
-<p></p>
-<p></p>
-
-
-
-
-
-
-
-
-
-            </>
-          ) : (
-            form2
-          )}
+          {t2.contact_us_description.includes("Privacy policy") ? form1 : form2}
         </p>
       </div>
 
@@ -119,7 +71,19 @@ export default PrivacySection;
 
 
 
+// TABLE OF CONTENTS
 
+// 1. WHAT INFORMATION DO WE COLLECT?
+// 2. HOW DO WE USE YOUR INFORMATION?
+// 3. WILL YOUR INFORMATION BE SHARED WITH ANYONE?
+// 4. HOW LONG DO WE KEEP YOUR INFORMATION?
+// 5. HOW DO WE KEEP YOUR INFORMATION SAFE?
+// 6. DO WE COLLECT INFORMATION FROM MINORS?
+// 7. WHAT ARE YOUR PRIVACY RIGHTS?
+// 8. CONTROLS FOR DO-NOT-TRACK FEATURES
+// 9. DO WE MAKE UPDATES TO THIS NOTICE?
+// 10. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
+// 11. HOW CAN YOU REVIEW, UPDATE OR DELETE THE DATA WE COLLECT FROM YOU?
 
 // 1. WHAT INFORMATION DO WE COLLECT?
 
@@ -252,7 +216,3 @@ export default PrivacySection;
 // 12. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?     
 
 // Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you,
-
-
-
-//  change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please submit a request to support@betfundr.com.`
