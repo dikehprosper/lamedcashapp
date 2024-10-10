@@ -98,7 +98,7 @@ const Hero = ({updatedTheme, updatedLang}: any) => {
                     }}
                   >
                     {" "}
-                    {t.download}
+                    {/* {t.download} */}
                   </div>
                   <div
                     style={{

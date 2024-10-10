@@ -67,7 +67,7 @@ const Deposit = () => {
                 Vous êtes sur le point d'effectuer un paiement de
 
               </h6> */}
-            <Feexpay
+            {/* <Feexpay
               token='fp_rbtFv0wBIzB4OzZUg1oJtFP3ITcfzaSh8wyOqetJkulyqpL0sATFu1iJMzGIyxhY'
               id='663beb50e13f3f8696c62799'
               amount={amount}
@@ -83,7 +83,7 @@ const Deposit = () => {
                 background: "rgba(128, 128, 128, 1)",
               }}
               defaultValueField={{country_iban: "BJ"}}
-            />
+            /> */}
           </div>
         </div>
       </div>
