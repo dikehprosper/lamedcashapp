@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-async-client-component */
 "use client";
 import AboutSection from "@/components/(AboutSection)/About";
 import Footer from "@/components/(LandingPage)/(Footer)/Footer";

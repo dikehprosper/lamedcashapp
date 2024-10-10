@@ -44,7 +44,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
         <h2 style={{color: updatedTheme === "dark"? "white": "black"}}>{t.about_us}</h2>
         <p style={{color: updatedTheme === "dark"? "white": "black"}}>{t.mission}</p>
       </div>
-      <div className='AboutSection2'>
+      {/* <div className='AboutSection2'>
         <Image
           fill
           src={image}
@@ -64,7 +64,7 @@ const AboutSection = ({updatedTheme, updatedLang}: any) => {
             3. <b>{t.support.title}</b>: {t.support.description}
           </p>
         </div>
-      </div>
+      </div> */}
      
 
   

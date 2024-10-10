@@ -11,12 +11,12 @@ import { fetchUser } from '@/lib/features/userSlice';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Betfundr',
-  description: 'Fund and withdraw your 1xBet account',
+  title: "LamedCash",
+  description: "Swift Deposit and withdrawal operations",
   icons: {
-    icon: ['/favicon.ico?v=4'],
-    apple: ['/apple-touch-icon.png?v=4'],
-    shortcut: ['/apple-touch-icon.png'],
+    icon: ["/favicon.ico?v=4"],
+    apple: ["/apple-touch-icon.png?v=4"],
+    shortcut: ["/apple-touch-icon.png"],
   },
 };
 

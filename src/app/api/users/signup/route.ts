@@ -379,7 +379,7 @@ export async function POST(request: NextRequest) {
     let firstName = parts[0];
     const name = firstName.replace(/\d/g, "");
 
-    const tag = `betfundr-${name}${count + 1}`;
+    const tag = `lamedcash-${name}${count + 1}`;
 
      let referrerIdMail;
      if (referrerId) {
