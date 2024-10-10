@@ -6,7 +6,7 @@ const userSchema = new Schema({
   },
   betId: {
     type: String,
-    required: [true, "Please provide your betId"],
+    required: [false, "Please provide your betId"],
   },
   number: {
     type: Number,

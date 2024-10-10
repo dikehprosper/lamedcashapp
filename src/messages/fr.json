@@ -1,27 +1,27 @@
 {
   "about": {
     "about_us": "À propos de nous",
-    "mission": "Chez Betfundr, nous nous engageons à simplifier la gestion de vos fonds 1XBET. Notre mission est de fournir une plateforme transparente et sécurisée qui permet aux utilisateurs de gérer leurs finances sans effort. Avec un engagement envers la satisfaction et la sécurité des utilisateurs, nous nous efforçons de rendre le processus de financement et de retrait de votre compte 1XBET aussi fluide que possible. Notre équipe est motivée par la vision de redéfinir la façon dont les utilisateurs interagissent avec leurs finances de jeu, en garantissant tranquillité d'esprit et commodité à chaque étape du processus.",
+    "mission": "Chez LamedCash, nous nous engageons à simplifier la gestion de vos fonds 1XBET. Notre mission est de fournir une plateforme transparente et sécurisée qui permet aux utilisateurs de gérer leurs finances sans effort. Avec un engagement envers la satisfaction et la sécurité des utilisateurs, nous nous efforçons de rendre le processus de financement et de retrait de votre compte 1XBET aussi fluide que possible. Notre équipe est motivée par la vision de redéfinir la façon dont les utilisateurs interagissent avec leurs finances de jeu, en garantissant tranquillité d'esprit et commodité à chaque étape du processus.",
     "our_services": "Nos services",
     "financing": {
       "title": "Financement",
-      "description": "Avec Betfundr, vous pouvez facilement approvisionner votre compte 1XBET sans aucun problème. Notre processus rationalisé garantit des transactions rapides et sécurisées, vous permettant de vous concentrer sur ce qui compte vraiment : le frisson du jeu."
+      "description": "Avec LamedCash, vous pouvez facilement approvisionner votre compte 1XBET sans aucun problème. Notre processus rationalisé garantit des transactions rapides et sécurisées, vous permettant de vous concentrer sur ce qui compte vraiment : le frisson du jeu."
     },
     "withdrawal": {
       "title": "Retrait",
-      "description": "Dites adieu aux processus de retrait complexes. Betfundr propose un système de retrait simple et efficace, garantissant que vos fonds sont transférés de manière transparente vers votre compte personnel ou désigné, vous donnant un contrôle total sur vos gains."
+      "description": "Dites adieu aux processus de retrait complexes. LamedCash propose un système de retrait simple et efficace, garantissant que vos fonds sont transférés de manière transparente vers votre compte personnel ou désigné, vous donnant un contrôle total sur vos gains."
     },
     "support": {
       "title": "Assistance 24h/24 et 7j/7",
       "description": "Nous comprenons que des questions et des préoccupations peuvent survenir à tout moment. C'est pourquoi notre équipe d'assistance dédiée est disponible 24 heures sur 24 pour vous aider. Qu'il s'agisse d'une question concernant une transaction ou d'une demande générale, notre équipe d'assistance est là pour vous fournir une assistance rapide et fiable, garantissant une expérience fluide et sans stress."
     },
     "account_deletion_title": "Suppression de compte",
-    "account_deletion_description": "Si vous souhaitez supprimer votre compte Betfundr, veuillez utiliser le lien ci-dessous.",
+    "account_deletion_description": "Si vous souhaitez supprimer votre compte LamedCash, veuillez utiliser le lien ci-dessous.",
     "account_deletion_link_text": "Cliquez ici pour supprimer votre compte"
   },
   "dashboard": {
     "welcome_title": "Bienvenue",
-    "marque_text": "UTILISEZ LE CODE PROMO 1XBET '229LERICHE' ET OBTENEZ 200% DE BONUS SUR VOTRE 1ER DÉPÔT",
+    "marque_text": "UTILISEZ LE CODE PROMO 1XBET '229LERICHE'",
     "deposit_text": "DÉPÔTS",
     "withdrawal_text": "RETRAITS",
     "welcome_about": "Faites l'expérience de dépôts et de retraits rapides",
@@ -111,7 +111,7 @@
     },
     "withdraw_page": {
       "title": "Retirer",
-      "about": "Effectuez vos retraits depuis votre 1XBET ici",
+      "about": "",
       "use_address": "-- IMPORTANT --",
       "use_address_info": "La devise de votre compte doit être en XOF. Aussi assurez vous de ne pas avoir de retrait en attente",
       "use_address_street": "RUE",
@@ -197,12 +197,12 @@
     "Download": "Télécharger",
     "Download-now": "Download Now",
     "quick": "Rapide et facile",
-    "quick description": "Dites adieu à la gestion compliquée de vos fonds 1XBET. Avec Betfundr, le financement et les retraits ne sont qu'à quelques clics de distance.",
+    "quick description": "Dites adieu à la gestion compliquée de vos fonds 1XBET. Avec LamedCash, le financement et les retraits ne sont qu'à quelques clics de distance.",
     "secure": "Sécurité et commodité",
     "secure description": "Vos fonds, à votre façon. Nous accordons la priorité à la sécurité et à la commodité, garantissant votre tranquillité d'esprit à chaque transaction.",
     "support description": "Nous sommes là pour vous à toute heure du jour et de la nuit. Notre équipe d'assistance dévouée est prête à vous aider à tout moment et n'importe où.",
-    "download description": "Téléchargez maintenant pour commencer votre voyage avec Betfundr",
-    "how it works": "Comment ça marche",
+    "download description": "Téléchargez maintenant pour commencer votre voyage avec LamedCash",
+    "how it works": "Details",
     "recharge": "Recharger",
     "click on deposit": "Cliquez sur Dépôt",
     "change ID": "Vous pouvez modifier l'identifiant 1xbet",
@@ -214,7 +214,7 @@
     "enter amount (withdrawal)": "Entrez un montant",
     "faq": "Questions fréquemment posées",
     "how does withdrawal work": "Comment se déroule le processus de retrait avec Espece ?",
-    "cash withdrawal conditions": "Conditions De Retrait Des Betfundr",
+    "cash withdrawal conditions": "Conditions De Retrait Des LamedCash",
     "your 1xbet ID": "Votre identifiant 1xbet",
     "1xbet withdrawal code": "Code de retrait 1Xbet obtenu depuis la plateforme 1xbet",
     "amount": "Montante",
@@ -307,7 +307,7 @@
   "referral_page": {
     "title": "Références",
     "about": "Voir les parrainages gagnés ici",
-    "copyReferralLink": "Parrainez des amis sur BetFundr et gagnez des récompenses ! Partagez votre code et obtenez des bonus lorsqu'ils s'inscrivent et effectuent des transactions. Vous recevrez également 33 % de nos bénéfices sur vos dépôts de parrainage. Commencez à partager votre code unique maintenant !",
+      "copyReferralLink": "Parrainez des amis sur LamedCash et gagnez des récompenses ! Commencez à partager votre code unique dès maintenant !",
     "earningsNote": "Vous ne pouvez obtenir du GRAW qu'à partir de 20 000 XOF et plus.",
     "withdraw": "Retirer",
     "noReferrals": "Vous n'avez pas encore de références",

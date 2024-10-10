@@ -18,7 +18,7 @@ const PrivacyFooter = ({updatedTheme, updatedLang}: any) => {
   return (
     <div className='footer2'>
       <p className='footer2-text' style={{color: updatedTheme === "dark"? "white": "black" }}>
-        © 2024 Betfundr. All rights reserved.
+        © 2024 LamedCash. All rights reserved.
         {/* {t("contact us description")} */}
       </p>
     

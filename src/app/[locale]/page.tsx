@@ -64,7 +64,7 @@ const updatedLang = getCurrentLangFromPath();
       
         <SecondSection updatedTheme={updatedTheme} updatedLang={updatedLang} />
         <ThirdSection updatedTheme={updatedTheme} updatedLang={updatedLang} />
-         <FourthSection updatedTheme={updatedTheme} updatedLang={updatedLang} /> 
+         {/* <FourthSection updatedTheme={updatedTheme} updatedLang={updatedLang} />  */}
        <Footer updatedTheme={updatedTheme} updatedLang={updatedLang} />
          <PrivacyFooter updatedTheme={updatedTheme} updatedLang={updatedLang} />
       </div>: null

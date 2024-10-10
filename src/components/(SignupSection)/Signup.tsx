@@ -64,7 +64,7 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
         localStorage.setItem("rememberedPasswordForEspece", user.password);
         const updatedUser = {
           fullname: user.fullname,
-          betId: user.betId,
+          betId: "",
           number: user.number,
           email: user.email,
           password: user.password,
@@ -76,7 +76,7 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
         toast.success(
           "vous vous êtes inscrit avec succès... vous avez été redirigé vers le tableau de bord"
         );
-        router.push(`${updatedLang}/dashboard`);
+        router.push(`/dashboard`);
         setLoading(false);
       }
     } catch (error: any) {
@@ -166,9 +166,8 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
       hasMoreThanFourLetters &&
       passwordMatch &&
       isValidFullname &&
-      isValidBetId &&
-      isValidPhoneNumber &&
-      IsChecked
+      // isValidBetId &&
+      isValidPhoneNumber 
     ) {
       return {isValid: true};
     } else {
@@ -178,11 +177,11 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
         console.error("Invalid fullname:", user.fullname);
         setLoading(false);
       }
-      if (!isValidBetId) {
-        setBetIdError(true);
-        console.error("BetId should have at least 4 characters:", user.betId);
-        setLoading(false);
-      }
+      // if (!isValidBetId) {
+      //   setBetIdError(true);
+      //   console.error("BetId should have at least 4 characters:", user.betId);
+      //   setLoading(false);
+      // }
       if (!isValidPhoneNumber) {
         setPhoneNumberError(true);
         console.error(t.sign_up.errors.invalid_phone_number, user.number);
@@ -234,13 +233,13 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
         setLoading(false);
       }
     }
-    if (betIdError) {
-      if (isValidBetId) {
-        setBetIdError(false);
-        console.error("BetId should have at least 4 characters:", user.betId);
-        setLoading(false);
-      }
-    }
+    // if (betIdError) {
+    //   if (isValidBetId) {
+    //     setBetIdError(false);
+    //     console.error("BetId should have at least 4 characters:", user.betId);
+    //     setLoading(false);
+    //   }
+    // }
 
     if (phoneNumberError) {
       if (isValidPhoneNumber) {
@@ -398,48 +397,7 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
             )}
           </div>
           <div style={{display: "flex", gap: "20px", width: "100%"}}>
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                gap: "10px",
-                flexDirection: "column",
-              }}
-            >
-              <input
-                type='text'
-                className='signup-form'
-                value={user.betId}
-                onChange={(e) => {
-                  handleBetId(e);
-                  SignupReVerification();
-                }}
-                placeholder={t.sign_up.signup.bet_id}
-                style={{
-                  borderColor: betIdError ? "red" : "",
-                  transition: betIdError ? "1s border-color ease-in-out" : "",
-                  color: updatedTheme === "dark" ? "white" : "black",
-                  border:
-                    updatedTheme === "dark"
-                      ? ""
-                      : "2px solid rgba(0, 0, 0, 0.6)",
-                }}
-              />
-              {betIdError && (
-                <p
-                  style={{
-                    color: "red",
-                    alignSelf: "start",
-                    paddingLeft: "14px",
-                    fontSize: "13px",
-                  }}
-                  className='animate-pop-in'
-                >
-            
-                {t.sign_up.signup.update6}
-                </p>
-              )}
-            </div>
+        
             <div
               style={{
                 display: "flex",
@@ -637,43 +595,7 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
               )}
             </div>
           </div>
-          <div className='signup-condition'>
-            <span
-              className='signup-condition-checkbox'
-              onClick={toggleIsChecked}
-              style={{
-                background: IsChecked ? "rgba(73, 166, 106, 1)" : "transparent",
-                borderColor: isCheckedError ? "red" : "rgba(73, 166, 106, 1)",
-              }}
-            >
-              {IsChecked ? (
-                <ImCheckmark className='BiCheck' color='black' />
-              ) : null}
-            </span>
-            <p
-              className='signup-condition-checkbox-p'
-              style={{color: updatedTheme === "dark" ? "white" : "black"}}
-            >
-              {t.sign_up.signup.accept_conditions}
-              {/* <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
-              </span> */}
-            </p>
-          </div>
-          {isCheckedError && (
-            <p
-              style={{
-                color: "red",
-                alignSelf: "start",
-                paddingLeft: "14px",
-                fontSize: "13px",
-              }}
-              className='animate-pop-in'
-            >
-              {" "}
-              {t.sign_up.errors.accept_conditions}
-            </p>
-          )}
+          
           <button
             type='submit'
             className='submit-button-signup'
@@ -727,37 +649,7 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
               {t.sign_up.signup.update7}
             </p>
           )}
-          <input
-            type='text'
-            className='signup-form'
-            value={user.betId}
-            onChange={(e) => {
-              handleBetId(e);
-              SignupReVerification();
-            }}
-            placeholder={t.sign_up.signup.bet_id}
-            style={{
-              borderColor: betIdError ? "red" : "",
-              color: updatedTheme === "dark" ? "white" : "black",
-              border:
-                updatedTheme === "dark" ? "" : "2px solid rgba(0, 0, 0, 0.6)",
-            }}
-          />
-          {betIdError && (
-            <p
-              style={{
-                color: "red",
-                alignSelf: "start",
-                fontSize: "10px",
-                paddingLeft: "14px",
-              }}
-              className='animate-pop-in'
-            >
-             
-            
-               {t.sign_up.signup.update6}
-            </p>
-          )}
+         
           <div className='signup-form1111' style={{position: "relative"}}>
             {showCountryPicker && (
               <CountryPicker
@@ -908,46 +800,7 @@ const SignUp = ({updatedTheme, updatedLang}: any) => {
               {t.sign_up.signup.update}
             </p>
           )}
-          <div className='signup-condition'>
-            <span
-              className='signup-condition-checkbox'
-              onClick={toggleIsChecked}
-              style={{
-                background: IsChecked ? "rgba(73, 166, 106, 1)" : "transparent",
-                borderColor: isCheckedError ? "red" : "rgba(73, 166, 106, 1)",
-              }}
-            >
-              {IsChecked ? (
-                <ImCheckmark className='BiCheck' color='black' />
-              ) : null}
-            </span>
-            <p
-              className='signup-condition-checkbox-p'
-              style={{
-                color: updatedTheme === "dark" ? "white" : "rgba(0, 0, 0, 0.8)",
-              }}
-            >
-              {t.sign_up.signup.accept_conditions}
-              {/* <span style={{ color: "#FCBB45", fontWeight: "500" }}>
-                ( DÉCONSEILLÉ AUX MOINS DE 18 ANS )
-              </span> */}
-            </p>
-          </div>
-          {isCheckedError && (
-            <p
-              style={{
-                color: "red",
-                alignSelf: "start",
-                fontSize: "10px",
-                paddingLeft: "14px",
-              }}
-              className='animate-pop-in'
-            >
-              {" "}
-               {t.sign_up.signup.update2}
-              
-            </p>
-          )}
+     
           <button
             type='submit'
             className='submit-button-signup'
