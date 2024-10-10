@@ -50,7 +50,7 @@ const Redirect = () => {
         <p style={{marginBottom: "15px"}}>
           You are about to make a payment of {amount}.
         </p>
-        <Feexpay
+        {/* <Feexpay
           token='fp_rbtFv0wBIzB4OzZUg1oJtFP3ITcfzaSh8wyOqetJkulyqpL0sATFu1iJMzGIyxhY'
           id='663beb50e13f3f8696c62799'
           amount={amount}
@@ -70,7 +70,7 @@ const Redirect = () => {
             network: "MOOV",
             
           }}
-        />
+        /> */}
       </div>
     </div>
   );
