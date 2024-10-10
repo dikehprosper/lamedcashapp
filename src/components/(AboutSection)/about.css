@@ -1,0 +1,177 @@
+.AboutSection {
+  display: flex;
+  justify-content: start;
+  text-align: center;
+  flex-direction: column;
+  gap: 40px;
+  padding: 50px 100px;
+  margin-bottom: 80px;
+  margin-top: 70px;
+}
+
+.AboutSection > h2 {
+  font-size: 30px;
+}
+
+.AboutSection > p {
+  font-size: 20px;
+  line-height: 50px;
+}
+
+.AboutSection2 {
+  display: flex;
+  min-height: 1000px;
+  width: 100%;
+  position: relative;
+}
+
+.AccountDeletion_2 {
+  font-size: 13px
+}
+
+.AboutSection3 {
+  display: flex;
+  width: 100%;
+    flex: 1;
+  position: relative;
+}
+
+.AboutSection2-text {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  top: 110px;
+  bottom: 100px;
+  left: 60px;
+  right: 60px;
+  padding: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.AboutSection3-text {
+
+  border-radius: 30px;
+  padding: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+  line-height: 2
+}
+
+.AboutSection2-text > p {
+  line-height: 23px;
+}
+
+@media (max-width: 800px) {
+  .AboutSection {
+    gap: 20px;
+    padding: 60px 30px;
+    margin-top: 70px;
+  }
+  .AboutSection > p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .AboutSection2-text {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    top: 40px;
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border: 0.8px solid rgba(189, 255, 0, 1);
+    font-size: 15px;
+  }
+    .AboutSection3 {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  position: relative;
+}
+}
+
+@media (max-width: 450px) {
+  .AboutSection {
+    gap: 20px;
+    padding: 50px 30px 20px 30px;
+    text-align: center;
+    justify-content: flex-start;
+  }
+  .AboutSection > p {
+    font-size: 15px;
+    line-height: 28px;
+  }
+  .AboutSection > h2 {
+    font-size: 23px;
+  }
+
+  .AboutSection2 {
+    min-height: 900px;
+  }
+  .AboutSection3 {
+  display: flex;
+  width: 100%;
+    flex: 1;
+  position: relative;
+}
+
+  .AboutSection2-text {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    top: 40px;
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border: 0.8px solid rgba(189, 255, 0, 1);
+    font-size: 15px;
+  }
+  .AboutSection3-text {
+
+  border-radius: 30px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+  line-height: 2
+}
+.AccountDeletion_2 {
+  font-size: 11px;
+  width: 85%
+}
+}
+@media (max-width: 347px) {
+  .AboutSection2-text > p {
+    font-size: 14px !important;
+    line-height: 17px;
+  }
+}
+
+@media (max-width: 295px) {
+  .AboutSection2-text > p {
+    font-size: 10px !important;
+    line-height: 14px;
+  }
+}

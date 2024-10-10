@@ -1,0 +1,172 @@
+.subadmin_transaction_container {
+  display: flex;
+  margin-left: 250px;
+  padding: 27px 35px 20px 35px;
+  height: auto;
+  flex-direction: column;
+ min-height: 100vh;
+    max-height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+flex: 1;
+}
+
+@media (max-width: 1028px) {
+  .subadmin_transaction_container {
+    margin-left: 0px;
+    padding: 90px 35px 10px 35px;
+  }
+}
+
+@media (max-width: 620px) {
+  .subadmin_transaction_container {
+    padding: 82px 20px 10px 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .subadmin_transaction_container {
+    padding: 82px 16px 10px 16px;
+  }
+}
+
+.subadmin_dashboard_container-display {
+    display: flex;
+    width: 100%;
+    height: 230px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 45px;
+    padding: 15px;
+    gap: 10px;
+    border: .5px solid rgba(0, 256, 0, 0.25)
+}
+.subadmin_dashboard_container-display-children {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+height: 100%;
+border-radius: 7px;
+padding-bottom: 20px;
+ border: .2epx solid rgba(0, 186, 0, 0.2)
+}
+
+
+.subadmin_dashboard_container-display-children:first-child {
+background: rgba(0, 0, 0, .4)
+}
+
+.subadmin_dashboard_container-display-children:nth-child(2) {
+  background: rgba(101, 137, 0, .3)
+}
+
+.subadmin_dashboard_container-display-children:nth-child(3)  {
+  background: rgba(101, 137, 0, .3)
+}
+
+.display-body-300 {
+  display: flex;
+   width: 100%;
+   align-items: center;
+   justify-content: space-between;
+   height: 60px;
+   padding: 0px 30px
+}
+
+.display-body-300 > div:first-child { 
+height: 100%;
+width: 100%;
+border-radius: 5px;
+    align-items: center;
+     display: flex;
+     padding: 0px 20px;
+   justify-content: flex-start
+}
+
+.display-body-300 > div:nth-child(2) { 
+height: 35px;
+width: 140px;
+border-radius: 5px;
+     display: flex;
+   align-items: center;
+   justify-content: center;
+   background: rgba(0, 0, 0, 0.3);
+  border: .15px solid rgba(0, 256, 0, 0.2)
+}
+
+
+/* loading styling */
+
+#container_deposit_display {
+  width: 23px;
+  position: relative;
+  height: 23px;
+  align-self: center !important;
+  justify-self: center !important
+}
+#container_deposit_display_inner {
+  width: 100%;
+  height: 100%;
+  border: 2.9px solid rgba(128, 128, 128, .7) ;
+  border-top: 2.9px solid rgba(256, 256, 256, 1);
+  border-radius: 50%;
+}
+
+#container_deposit_display_inner  {
+  transition-property: transform;
+  animation-name: rotate;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.subadmin_dashboard_container-display-children-loading {
+  display: flex;
+justify-content: center;
+align-items: center;
+width: 100%
+}
+
+@media (max-width: 635px) {
+  .subadmin_dashboard_container-display {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 470px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 45px;
+    padding: 15px;
+    gap: 10px;
+    border: .5px solid rgba(0, 256, 0, 0.25)
+}
+}

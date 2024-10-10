@@ -1,0 +1,17 @@
+.toggleBtn {
+
+ 
+  width: 30px;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  font-weight: 600;
+  /* position: fixed;
+  right: 10px;
+  top: 30dvh; */
+}

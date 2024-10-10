@@ -1,0 +1,42 @@
+.body {
+  height: auto;
+  width: 100%;
+  padding: 55px 50px 20px 50px;
+}
+
+.body h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.body_100 {
+  height: auto;
+  width: 100%;
+  display: flex;
+  gap: 40px;
+}
+
+@media (max-width: 1068px) {
+  .body_100 {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 613px) {
+  .body {
+    padding: 55px 25px 20px 25px;
+  }
+}
+
+@media (max-width: 339px) {
+  .body {
+    padding: 55px 14px 20px 14px;
+  }
+  .body h2 {
+    font-size: 22px;
+  }
+  .body_100 {
+    gap: 20px;
+  }
+}

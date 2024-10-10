@@ -1,0 +1,175 @@
+[
+ {"_id":{"$oid":"656c3fa47cd3d63c5582e69b"},"fullname":"Cashdesk 4","betId":"25262828","number":{"$numberInt":"27888999"},"email":"cashdesk4@espece.com","password":"$2a$10$n6AEGRKDkYsVKR2R65A9Q.B2Kp8Iu.sRVi0/yr5n3sMukteO1q1Vm","isAdmin":false,"isUser":false,"isSubAdminDeposits":true,"isSubAdminWithdrawals":false,"cashdeskDialcode":"200000","isLoggedIn":false,"isOutOfFunds":false,"supplementaryBetId":[],"transactionHistory":[{"status":"pending","registrationDateTime":{"$date":{"$numberLong":"1701593385156"}},"amount":{"$numberInt":"9000"},"network":"Mtn momo","betId":"15272839","transactionId":"lkjhgfdfghjk","fundingType":"deposits","_id":{"$oid":"656c41297cd3d63c5582e6f0"}},{"status":"pending","registrationDateTime":{"$date":{"$numberLong":"1701596345928"}},"amount":{"$numberInt":"5666"},"network":"Glo","betId":"15272839","transactionId":"vsdfbdb","fundingType":"deposits","identifierId":"ec61db65-c9c5-4882-90b3-76887c4ac519","_id":{"$oid":"656c4cb9f64ed96128de2c46"}}],"__v":{"$numberInt":"2"}}
+  {
+    "date": "24 - Jun - 2023",
+    "time": "11:30:25 pm",
+    "amount": 4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Failed",
+    "type": "deposits"
+  },
+{"_id":{"$oid":"656c3fa47cd3d63c5582e69b"},"fullname":"Cashdesk 4","betId":"25262828","number":{"$numberInt":"27888999"},"email":"cashdesk4@espece.com","password":"$2a$10$n6AEGRKDkYsVKR2R65A9Q.B2Kp8Iu.sRVi0/yr5n3sMukteO1q1Vm","isAdmin":false,"isUser":false,"isSubAdminDeposits":true,"isSubAdminWithdrawals":false,"cashdeskDialcode":"200000","isLoggedIn":false,"isOutOfFunds":false,"supplementaryBetId":[],"transactionHistory":[{"status":"pending","registrationDateTime":{"$date":{"$numberLong":"1701593385156"}},"amount":{"$numberInt":"9000"},"network":"Mtn momo","betId":"15272839","transactionId":"lkjhgfdfghjk","fundingType":"deposits","_id":{"$oid":"656c41297cd3d63c5582e6f0"}},{"status":"pending","registrationDateTime":{"$date":{"$numberLong":"1701596345928"}},"amount":{"$numberInt":"5666"},"network":"Glo","betId":"15272839","transactionId":"vsdfbdb","fundingType":"deposits","identifierId":"ec61db65-c9c5-4882-90b3-76887c4ac519","_id":{"$oid":"656c4cb9f64ed96128de2c46"}}],"__v":{"$numberInt":"2"}},
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount": 444843,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount": 488843,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount": 4448483,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  },
+  {
+    "date": "24 - Jun - 2023",
+    "time": "10:30:25 pm",
+    "amount":  4448488844,
+    "receipt": "235721XGFDH",
+    "betId": "874546379",
+    "status": "Successful",
+    "type": "deposits"
+  }
+]
