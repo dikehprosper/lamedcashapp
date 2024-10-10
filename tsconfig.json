@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
       "target": "es5",
@@ -26,33 +25,3 @@
   ]
 }
 
-=======
-  "compilerOptions": {
-    "jsx": "preserve", // Allow JSX syntax
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node", // Change to 'node' for better compatibility with Node.js-style module resolution
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-    "baseUrl": ".", // Ensure the base URL is set if you are using path aliases
-    "paths": {
-      "@/*": ["src/*"],
-      "@/helpers/*": ["src/helpers/*"] // Adjust this to reflect actual directory structure, assuming 'helpers' is directly under 'src'
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
->>>>>>> origin/main
