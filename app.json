@@ -12,7 +12,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lamedcash.lamedcash"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,9 +30,7 @@
         "projectId": "6687f1de-fbb8-4a35-9432-2c3c0ae8c8c0"
       }
     },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
+    "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/6687f1de-fbb8-4a35-9432-2c3c0ae8c8c0"
     }
