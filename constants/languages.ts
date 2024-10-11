@@ -106,9 +106,9 @@ const english = {
   text100: "Personal Information",
   text101: "Edit your information",
   text102: "My Referral",
-  text103: "Referrals, commission",
+  text103: "Referrals",
   text104: "Settings",
-  text105: "Account, notification, location tracking",
+  text105: "Account, notification",
   text106: "Light mode",
   text107: "Switch app display mode to your preference",
   text108: "Support",
@@ -328,8 +328,7 @@ const english = {
   text308: "You haven't invited a friend yet",
   // text309:
   //   "Share your unique LamedCash code and get a 33% of our profits on all their deposits. Let's spread the word and win together",
-  text309:
-    "",
+  text309: "",
   text310: "I accept the conditions (NOT SUITABLE FOR UNDER 18)",
   text311: "Accept the terms and conditions to proceed",
   text312: "No biometric hardware available.",
@@ -491,9 +490,9 @@ const french = {
   text100: "Informations personnelles",
   text101: "Modifiez vos informations",
   text102: "Ma Référence",
-  text103: "Références, commissions",
+  text103: "Références",
   text104: "Paramètres",
-  text105: "Compte, notification, suivi de localisation",
+  text105: "Compte, notification",
   text106: "Mode lumière",
   text107: "Changez le mode d'affichage de l'application selon vos préférences",
   text108: "Support",
@@ -717,8 +716,7 @@ const french = {
   text308: "Vous n'avez pas encore invité d'ami",
   // text309:
   //   "Partagez votre code LamedCash unique et obtenez 33% de nos bénéfices sur tous vos dépôts. Faisons passer le message et gagnons ensemble",
-  text309:
-    "",
+  text309: "",
   text310: "J'accepte les conditions (NE convient PAS AUX MOINS DE 18 ANS)",
   text311: "Acceptez les termes et conditions pour continuer",
   text312: "Aucun matériel biométrique disponible.",
