@@ -2,6 +2,7 @@
   "expo": {
     "name": "lamedCash",
     "slug": "lamedCash",
+    "scheme": "lamedcash",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,20 +12,67 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lamedcash.lamedcash"
+      "bundleIdentifier": "com.lamedcash.lamedcash",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Your app needs Face ID permission for authentication.",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": ["lamedcash"]
+          }
+        ]
+      }
     },
     "android": {
+      "versionCode": 1,
+      "package": "com.lamedcash.lamedcash",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.lamedcash.lamedcash"
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "https",
+              "host": "lamedcash.com",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      "expo-build-properties",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      "expo-secure-store",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow lamedCash to use Face ID."
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "6687f1de-fbb8-4a35-9432-2c3c0ae8c8c0"
@@ -32,7 +80,10 @@
     },
     "runtimeVersion": "1.0.0",
     "updates": {
-      "url": "https://u.expo.dev/6687f1de-fbb8-4a35-9432-2c3c0ae8c8c0"
+      "url": "https://u.expo.dev/6687f1de-fbb8-4a35-9432-2c3c0ae8c8c0",
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
     }
   }
 }
