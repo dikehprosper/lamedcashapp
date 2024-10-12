@@ -47,7 +47,7 @@ const english = {
   text44: "Hello",
   text45: "Deposit",
   text46: "Withdraw",
-  text47: "amount",
+  text47: "Amount",
   text48: "Connected successfully",
   text49: "pending",
   text50: "Recent Activities",
@@ -90,10 +90,10 @@ const english = {
   text85: "has already been made to customer",
   text86:
     "has already been made to customer #${specificData.id}. This payment can be made again in 5 minutes",
-  text87: "Wallet",
-  text88: "bonuses are added here",
-  text89: "Wallet balance",
-  text90: "Send",
+  text87: "Account",
+  text88: "We reward you for using our services",
+  text89: "",
+  text90: "Send to a friend",
   text91: "View history",
   text92: "Wallet History",
   text93: "SENT",
@@ -208,7 +208,7 @@ const english = {
   text195: "NUMBER",
   text196: "Referral",
   text197: "General Settings",
-  text198: "Ask a friend for a deposit.",
+  text198: "Request Top Up from a friend",
   text199: "Proceed",
   text200: "Currency must be in XOF.",
   text201: "Take note",
@@ -238,8 +238,7 @@ const english = {
   text225: "Please enter the PIN again.",
   text226: "Almost done",
   text227: "Set pin",
-  text228:
-    "Your account currency must be in XOF. Make sure you don't have any pending withdrawals",
+  text228: "Your account currency must be in XOF.",
   text229: 'USE THIS PROMO CODE "229LERICHE"',
   // text229:
   //   'USE THIS PROMO CODE "229LERICHE" ON 1XBET AND GET 200% BONUS ON YOUR FIRST DEPOSIT',
@@ -381,6 +380,14 @@ const english = {
   text355: "VILLE",
   text356: "STREET",
   text357: "VIEW ONLY LIVE SPORTS EVENTS!!",
+  text358:
+    "Use your rewards to top up account, make a withdrawal  or send to a friend",
+  text359: "Make a Withdrawal",
+  text360: "Top up account",
+  text361: "Pending Top Ups",
+  text362: "Pending Withdrawals",
+  text363: "No QR Code generated yet, enter details to generate",
+  text364: "Request Top Ups",
 };
 
 const french = {
@@ -432,7 +439,7 @@ const french = {
   text44: "Bonjour",
   text45: "Dépôt",
   text46: "Retirer",
-  text47: "montant dû",
+  text47: "Montant",
   text48: "Connecté avec succès",
   text49: "en attente",
   text50: "Activités récentes",
@@ -474,9 +481,9 @@ const french = {
   text84: "La transaction n'a pas été finalisée, car un paiement de",
   text85: "a déjà été effectué au client",
   text86: "Ce paiement peut être effectué à nouveau dans 5 minutes.",
-  text87: "Portefeuille",
-  text88: "les bonus sont ajoutés ici",
-  text89: " Solde du portefeuille",
+  text87: "Compte",
+  text88: "Nous vous récompensons pour l'utilisation de nos services",
+  text89: "",
   text90: "Envoyer",
   text91: "Voir l'historique",
   text92: "Historique du portefeuille",
@@ -595,7 +602,7 @@ const french = {
   text195: "NUMÉRO",
   text196: "Référence",
   text197: "Réglages généraux",
-  text198: "Demander dépôt à un ami.",
+  text198: "Demander une recharge à un ami",
   text199: "Procéder",
   text200: "La devise doit être en XOF.",
   text201: "Prendre Note",
@@ -625,8 +632,7 @@ const french = {
   text225: "Veuillez saisir à nouveau le code PIN.",
   text226: "Presque fini",
   text227: "Définir la broche",
-  text228:
-    "La devise de votre compte doit être en XOF. Aussi assurez vous de ne pas avoir de retrait en attente",
+  text228: "La devise de votre compte doit être en XOF.",
   text229: 'UTILISEZ LE CODE PROMO 1XBET "229LERICHE" ',
   // text229:
   //   'UTILISEZ LE CODE PROMO 1XBET "229LERICHE" ET OBTENEZ  200%  DE BONUS SUR VOTRE 1ER DÉPÔT',
@@ -772,6 +778,15 @@ const french = {
   text355: "CITY",
   text356: "RUE",
   text357: "VOIR UNIQUEMENT LES ÉVÉNEMENTS SPORTIFS EN DIRECT !!",
+  text358:
+    "Utilisez vos récompenses pour recharger votre compte, effectuer un retrait ou envoyer à un ami",
+  text359: "Effectuer un Retrait",
+  text360: "Recharger le compte",
+  text361: "Recharger en attente",
+  text362: "Retrait en attente",
+  text363:
+    " Aucun QR Code généré pour l'instant, entrez les détails pour générer",
+  text364: "Demande de Recharges",
 };
 
 const Languages: any = { english, french };

@@ -49,7 +49,7 @@ import SetAuthScreen1 from "@/screens/SetAuthScreen1";
 import SetTag from "@/screens/(profileSettings)/(editProfile)/setTag";
 import ShareDeposit from "@/screens/shareDeposit";
 import ResetPassword from "@/screens/resetPassword";
-import Sports from "@/screens/sports";
+// import Sports from "@/screens/sports";
 import Transactions from "@/screens/(transactions)/transactions";
 import TransactionHistorySpecific from "@/screens/(transactions)/transactionHistorySpecific";
 import DepositReceipt from "@/screens/(individualReceipt)/depositReceipt";
@@ -340,7 +340,7 @@ function MainNavigator() {
                 component={WalletNavigator}
             />
 
-            <Tabs.Screen name="Sports" component={Sports} />
+            {/* <Tabs.Screen name="Sports" component={Sports} /> */}
             <Tabs.Screen
                 name={languageText.text116}
                 component={ProfileNavigator}

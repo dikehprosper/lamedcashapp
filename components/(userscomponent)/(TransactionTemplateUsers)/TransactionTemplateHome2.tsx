@@ -152,25 +152,34 @@ const TransactionTemplate = ({
 
       const [loading, setLoading] = useState(false);
 
-      const handleScroll = ({ nativeEvent }: any) => {
-          if (
-              nativeEvent.layoutMeasurement.height +
-                  nativeEvent.contentOffset.y >=
-              nativeEvent.contentSize.height - 20
-          ) {
-              loadMoreData();
-          }
-      };
+     let previousScrollOffset = 0; // Keep track of the previous scroll position
 
-      const loadMoreData = () => {
-          if (loading) return;
-          setLoading(true);
-          setTimeout(() => {
-           props.navigation.navigate("Community");
-              setLoading(false);
-          }, 300); // simulate network request delay
-      };
+     const handleScroll = ({nativeEvent}: any) => {
+       const currentScrollOffset = nativeEvent.contentOffset.y;
 
+       // Check if the user is scrolling up
+       if (currentScrollOffset < previousScrollOffset) {
+         // The user is scrolling up
+         if (
+           nativeEvent.layoutMeasurement.height + currentScrollOffset >=
+           nativeEvent.contentSize.height - 20
+         ) {
+           loadMoreData();
+         }
+       }
+
+       // Update the previous scroll position
+       previousScrollOffset = currentScrollOffset;
+     };
+
+     const loadMoreData = () => {
+       if (loading) return;
+       setLoading(true);
+       setTimeout(() => {
+         props.navigation.navigate("Community");
+         setLoading(false);
+       }, 300); // simulate network request delay
+     };
 
 
     return (
