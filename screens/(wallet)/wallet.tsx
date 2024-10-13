@@ -135,25 +135,36 @@ const Wallet = ({ navigation }: any) => {
               >
                 <Image source={imageSource} style={styles.profileImage} />
 
-                <View style={{flex: 1, flexWrap: "wrap"}}>
-                  <Text
-                    style={{
-                      fontWeight: "700",
-                      fontSize: 18,
-                      color: Colors.welcomeText,
-                    }}
-                  >
-                    {languageText.text87}
-                  </Text>
-                  <Text
-                    style={{
-                      color: Colors.welcomeText,
-                      flexWrap: "wrap",
-                      maxWidth: "100%",
-                    }}
-                  >
-                    {languageText.text88}
-                  </Text>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <View>
+                    <Text
+                      style={{
+                        fontWeight: "700",
+                        fontSize: 18,
+                        color: Colors.welcomeText,
+                      }}
+                    >
+                      {languageText.text87}
+                    </Text>
+                  </View>
+
+                  <View style={{flex: 1, width: "100%"}}>
+                    <Text
+                      style={{
+                        color: Colors.welcomeText,
+                        flexWrap: "wrap",
+                        width: "90%",
+                        height: 40,
+                      }}
+                    >
+                      {languageText.text88}
+                    </Text>
+                  </View>
                 </View>
               </TouchableOpacity>
               <View style={styles.overallactionRow_2}>

@@ -12,7 +12,7 @@ import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import ToastNotification from "@/components/(Utils)/toastNotification";
 import * as Haptics from "expo-haptics";
 import { Color } from "@/constants/Colors";
-import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
+// import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import FormatDateAndTime from "@/components/(Utils)/formatedDateAndTime";
 import Button from "@/components/(Utils)/button";
 import { printToFile } from "@/components/(Utils)/htmlTemplate2";
