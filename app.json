@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "lamedCash",
+    "name": "LamedCash",
     "slug": "lamedCash",
     "scheme": "lamedcash",
     "version": "1.0.0",
@@ -8,7 +8,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,14 +22,15 @@
           {
             "CFBundleURLSchemes": ["lamedcash"]
           }
-        ]
+        ],
+        "CFBundleDisplayName": "LamedCash"
       }
     },
     "android": {
       "versionCode": 1,
       "package": "com.lamedcash.lamedcash",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [

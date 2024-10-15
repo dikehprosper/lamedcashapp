@@ -101,6 +101,7 @@ export default function OrderListNavigator(props: any) {
     const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
     const [activeIndex, setActiveIndex] = useState(0);
     const tabs = [{ name: "For you" }, { name: "Following" }];
+    
 
     // const selectTab = (index: number) => {
     //     setActiveIndex(index);
