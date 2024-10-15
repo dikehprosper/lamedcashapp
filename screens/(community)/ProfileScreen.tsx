@@ -266,6 +266,7 @@ export default function ProfileScreen({ navigation }: any) {
                             style={{ color: Colors.welcomeText }}
                         />
                     </TouchableOpacity> */}
+                   
             </View>
             <View
                 style={{

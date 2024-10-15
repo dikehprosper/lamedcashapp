@@ -7,7 +7,7 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import Button from "../(Utils)/button";
+// import Button from "../(Utils)/button";
 import {MaterialIcons, AntDesign} from "@expo/vector-icons";
 import ToastNotification from "@/components/(Utils)/toastNotification";
 import * as Haptics from "expo-haptics";
@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import { Language } from "@/constants/languages";
 const currency = "XOF";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SentReceipt = ({ specificData, onPress }: any) => {
     const colorScheme = useSelector(
         (state: RootState) => state.getUserData.colorScheme,
@@ -519,11 +520,11 @@ const SentReceipt = ({ specificData, onPress }: any) => {
                         </View>
                     </View>
                 </ScrollView>
-                <Button
+                {/* <Button
                     color="white"
                     text={languageText.text282}
                     onPress={() => onPress(specificData)}
-                />
+                /> */}
             </View>
         </View>
     );

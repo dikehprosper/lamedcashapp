@@ -14,8 +14,8 @@ import * as Haptics from "expo-haptics";
 import { Color } from "@/constants/Colors";
 // import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import FormatDateAndTime from "@/components/(Utils)/formatedDateAndTime";
-import Button from "@/components/(Utils)/button";
-import { printToFile } from "@/components/(Utils)/htmlTemplate2";
+// import Button from "@/components/(Utils)/button";
+// import { printToFile } from "@/components/(Utils)/htmlTemplate2";
 import ExploreHeader3 from "@/components/ExploreHeader3";
 import { RootState } from "@/state/store";
 import { useSelector } from "react-redux";
@@ -30,6 +30,7 @@ const BonusReceiveReceipt = ({ route, navigation }: any) => {
               const currentLanguage = useSelector(
                   (state: RootState) => state.getUserData.currentLanguage,
               );
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               const languageText =
                   currentLanguage === "english"
                       ? Language.english
@@ -63,9 +64,9 @@ const BonusReceiveReceipt = ({ route, navigation }: any) => {
     //     totalAmount: "9000",
     // };
 
-    function onPress(specificData: any) {
-        printToFile(specificData);
-    }
+    // function onPress(specificData: any) {
+    //     printToFile(specificData);
+    // }
 
     return (
         <View
@@ -440,11 +441,11 @@ const BonusReceiveReceipt = ({ route, navigation }: any) => {
                         </View>
                     </View>
                 </ScrollView>
-                <Button
+                {/* <Button
                     color="white"
                     text={languageText.text282}
                     onPress={() => onPress(specificData)}
-                />
+                /> */}
             </View>
         </View>
     );

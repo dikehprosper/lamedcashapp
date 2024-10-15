@@ -1514,14 +1514,14 @@ const DepositReceipt = ({ route, navigation }: any) => {
                         </View>
                     </View>
                 </ScrollView>
-                {specificData.status === "Pending" ||
+                {/* {specificData.status === "Pending" ||
                 specificData.status === "Successful" ? (
                     <Button
                         color="white"
                         text={languageText.text282}
                         onPress={() => onPress(specificData)}
                     />
-                ) : null}
+                ) : null} */}
             </View>
         </View>
     );

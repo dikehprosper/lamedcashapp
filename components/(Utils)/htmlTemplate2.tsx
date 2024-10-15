@@ -10,7 +10,7 @@ import { colorScheme } from "@/components/(userscomponent)/(TransactionTemplateU
 const color: any = colorScheme.state;
 const Colors = color === 2 ? Color.darkMode : Color.lightMode;
 const Currency = "XOF";
-const email = "customerservice@betfundr.com";
+const email = "support@lamedcash.com";
 const img =
     "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Logo.webp?alt=media&token=ad27ad8f-3d2d-4d59-8f0c-ccc3451242ec";
 

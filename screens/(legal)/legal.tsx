@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import {
@@ -24,64 +25,62 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = ({
-    index,
-    iconName,
-    text,
-    IconName,
-    navigation,
-    Colors,
+  index,
+  iconName,
+  text,
+  IconName,
+  navigation,
+  Colors,
 }) => (
-    <TouchableOpacity
-        key={index}
+  <TouchableOpacity
+    key={index}
+    style={{
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginVertical: 12,
+    }}
+    onPress={() =>
+      index === 0 ? navigation.push("privacyPolicy") : navigation.push("")
+    }
+  >
+    <View style={{flexDirection: "row", alignItems: "center", flex: 1}}>
+      <View
         style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginVertical: 12,
-        }}
-        onPress={() =>
-            index === 0
-                ? navigation.push("privacyPolicy")
-                : navigation.push("termsAndCondition")
-        }
-    >
-        <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-            <View
-                style={{
-                    backgroundColor: Colors.default3,
+          backgroundColor: Colors.default3,
 
-                    padding: 10,
-                    borderRadius: 40,
-                    marginRight: 10,
-                }}
-            >
-                {IconName}
-            </View>
-            <View style={{ flex: 1 }}>
-                <Text
-                    style={{
-                        fontWeight: "600",
-                        fontSize: 15,
-                        marginBottom: 2,
-                        color: Colors.welcomeText,
-                    }}
-                >
-                    {iconName}
-                </Text>
-                <Text
-                    style={{
-                        opacity: 0.6,
-                        color: Colors.welcomeText,
-                        width: "95%",
-                        flexWrap: "wrap",
-                    }}
-                >
-                    {text}{" "}
-                </Text>
-            </View>
-        </View>
-        <Ionicons name="chevron-forward" size={24} color={Colors.welcomeText} />
-    </TouchableOpacity>
+          padding: 10,
+          borderRadius: 40,
+          marginRight: 10,
+        }}
+      >
+        {IconName}
+      </View>
+      <View style={{flex: 1}}>
+        <Text
+          style={{
+            fontWeight: "600",
+            fontSize: 15,
+            marginBottom: 2,
+            color: Colors.welcomeText,
+          }}
+        >
+          {iconName}
+        </Text>
+        <Text
+          style={{
+            opacity: 0.6,
+            color: Colors.welcomeText,
+            width: "95%",
+            flexWrap: "wrap",
+          }}
+        >
+          {text}{" "}
+        </Text>
+      </View>
+    </View>
+    <Ionicons name='chevron-forward' size={24} color={Colors.welcomeText} />
+  </TouchableOpacity>
 );
 
 const Legal = ({ navigation }: any) => {
@@ -109,17 +108,17 @@ const Legal = ({ navigation }: any) => {
                 />
             ),
         },
-        {
-            iconName: languageText.text161,
-            text: languageText.text162,
-            IconName: (
-                <AntDesign
-                    name="notification"
-                    size={24}
-                    color={Colors.default1}
-                />
-            ),
-        },
+        // {
+        //     iconName: languageText.text161,
+        //     text: languageText.text162,
+        //     IconName: (
+        //         <AntDesign
+        //             name="notification"
+        //             size={24}
+        //             color={Colors.default1}
+        //         />
+        //     ),
+        // },
     ];
 
     return (

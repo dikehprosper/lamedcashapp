@@ -11,13 +11,13 @@ import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import ToastNotification from "@/components/(Utils)/toastNotification";
 import * as Haptics from "expo-haptics";
 import { Color } from "@/constants/Colors";
-import Button from "@/components/(Utils)/button";
+// import Button from "@/components/(Utils)/button";
 import formatNumberWithCommasAndDecimal from "@/components/(Utils)/formatNumber";
 import FormatDateAndTime from "@/components/(Utils)/formatedDateAndTime";
 import ExploreHeader3 from "@/components/ExploreHeader3";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
-import { printToFile } from "@/components/(Utils)/htmlTemplate2";
+// import { printToFile } from "@/components/(Utils)/htmlTemplate2";
 import { Language } from "@/constants/languages";
 const currency = "XOF";
 const ReceiveReceipt = ({ route, navigation }: any) => {
@@ -61,9 +61,9 @@ const ReceiveReceipt = ({ route, navigation }: any) => {
     //     recipientName: "hgfdssdfgh",
     // };
 
-    function onPress(specificData: any) {
-        printToFile(specificData);
-    }
+    // function onPress(specificData: any) {
+    //     printToFile(specificData);
+    // }
 
     return (
         <View
@@ -566,11 +566,11 @@ const ReceiveReceipt = ({ route, navigation }: any) => {
                         </View>
                     </View>
                 </ScrollView>
-                <Button
+                {/* <Button
                     color="white"
                     text={languageText.text282}
                     onPress={() => onPress(specificData)}
-                />
+                /> */}
             </View>
         </View>
     );

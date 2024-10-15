@@ -1423,14 +1423,14 @@ const WithdrawalReceipt = ({ specificData, onPress }: any) => {
                         </View>
                     </View>
                 </ScrollView>
-                {specificData.status === "Pending" ||
+                {/* {specificData.status === "Pending" ||
                 specificData.status === "Successful" ? (
                     <Button
                         color="white"
                         text={"Partager"}
                         onPress={() => onPress(specificData)}
                     />
-                ) : null}
+                ) : null} */}
             </View>
         </View>
     );
