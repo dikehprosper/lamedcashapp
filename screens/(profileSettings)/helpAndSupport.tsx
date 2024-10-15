@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from "react";
@@ -76,12 +77,12 @@ const HelpScreen = ({ navigation }: any) => {
     };
 
     // Function to handle Twitter link
-    const openTwitter = () => {
-        const twitterUrl = `https://twitter.com/${socials.twitter.replace("@", "")}`;
-        Linking.openURL(twitterUrl).catch((err) =>
-            console.error("Error opening Twitter", err),
-        );
-    };
+    // const openTwitter = () => {
+    //     const twitterUrl = `https://twitter.com/${socials.twitter.replace("@", "")}`;
+    //     Linking.openURL(twitterUrl).catch((err) =>
+    //         console.error("Error opening Twitter", err),
+    //     );
+    // };
 
     // Function to handle Phone call
     const makePhoneCall = () => {
@@ -225,7 +226,7 @@ const HelpScreen = ({ navigation }: any) => {
                             </Text>
                         )}
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={[
                             styles.card,
                             { backgroundColor: Colors.default3 },
@@ -259,7 +260,7 @@ const HelpScreen = ({ navigation }: any) => {
                                    { languageText.text341}
                             </Text>
                         )}
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity
                         style={[
                             styles.card,

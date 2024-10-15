@@ -189,7 +189,7 @@ const english = {
   text180: "Penalty Missed",
   text181: "Details",
   text182:
-    "Bonuses from your transactions and referral transations are added here and you can use them to make deposits, withdraw them or send to friends and family",
+    "Rewards from your transactions and referral transations are added here and you can use them to make top-ups, withdraw them or send to friends and family",
   text183: "Rules",
   text184: "History",
   text185: "Rewards Rules",
@@ -582,7 +582,7 @@ const french = {
   text180: "penalty manqué",
   text181: "Details",
   text182:
-    "Les bonus de vos transactions et transactions de parrainage sont ajoutés ici et vous pouvez les utiliser pour effectuer des dépôts, les retirer ou les envoyer à vos amis et à votre famille.",
+    "Les récompenses de vos transactions et transactions de parrainage sont ajoutées ici et vous pouvez les utiliser pour effectuer des recharges, les retirer ou les envoyer à vos amis et à votre famille",
   text183: "Règles",
   text184: "Histoire",
   text185: "Règles de récompenses",
