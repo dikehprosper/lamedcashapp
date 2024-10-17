@@ -267,8 +267,9 @@ const WithdrawFromWallet = (props: any, { navigation }: any) => {
     const [loading2, setLoading2] = useState(false);
 
     function handleSubmit() {
-        setLoading2(true);
-
+         if (loading2) return;
+      
+         setLoading2(true);
         if (phoneNumberLoadingSymbol !== "false") {
             triggerHapticFeedback();
             setPhoneNumberError(true);
@@ -480,324 +481,313 @@ const WithdrawFromWallet = (props: any, { navigation }: any) => {
     };
 
     return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.background,
+        }}
+      >
+        <ExploreHeader3 />
         <View
-            style={{
-                flex: 1,
-                backgroundColor: Colors.background,
-            }}
+          style={{
+            flex: 1,
+            backgroundColor: Colors.background,
+          }}
         >
-            <ExploreHeader3 />
-            <View
-                style={{
-                    flex: 1,
-                    backgroundColor: Colors.background,
-                }}
+          <View style={styles.transaction_template_container_header_1}>
+            <TouchableOpacity
+              onPressIn={() => props.navigation.goBack()}
+              style={{
+                paddingTop: 3,
+                paddingBottom: 3,
+                paddingRight: 3,
+                backgroundColor: "transparent",
+                borderColor: Colors.welcomeText,
+                opacity: 0.6,
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+              }}
             >
-                <View style={styles.transaction_template_container_header_1}>
-                    <TouchableOpacity
-                        onPressIn={() => props.navigation.goBack()}
-                        style={{
-                            paddingTop: 3,
-                            paddingBottom: 3,
-                            paddingRight: 3,
-                            backgroundColor: "transparent",
-                            borderColor: Colors.welcomeText,
-                            opacity: 0.6,
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                        }}
-                    >
-                        <MaterialIcons
-                            name="arrow-back-ios-new"
-                            size={21}
-                            color={Colors.welcomeText}
-                        />
-                    </TouchableOpacity>
+              <MaterialIcons
+                name='arrow-back-ios-new'
+                size={21}
+                color={Colors.welcomeText}
+              />
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: Colors.welcomeText,
+                fontWeight: "600",
+                opacity: 0.8,
+                fontSize: 21,
+              }}
+            >
+              {languageText.text46}
+            </Text>
+            <View></View>
+          </View>
+          <ToastNotification
+            show={show === 0 ? true : false}
+            text={
+              display === 1
+                ? text1
+                : display === 2
+                  ? text2
+                  : display === 3
+                    ? text3
+                    : display === 4
+                      ? text4
+                      : ""
+            }
+            textColor='white'
+            backgroundColor='red'
+            icon={
+              <AntDesign name='exclamationcircleo' size={40} color='white' />
+            }
+          />
+
+          <TouchableWithoutFeedback>
+            <ScrollView
+              scrollEnabled={true}
+              automaticallyAdjustKeyboardInsets={true}
+              alwaysBounceVertical={true}
+              showsVerticalScrollIndicator={false}
+              style={styles.container3}
+            >
+              <TouchableOpacity
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  backgroundColor: Colors.default3,
+                  borderColor: Colors.default1,
+                  borderWidth: 1.3,
+                  borderRadius: 8,
+                  // borderBottomColor: Colors.default1,
+                  // borderBottomWidth: 1.5,
+                  position: "relative",
+                  width: "100%",
+                  gap: 7,
+                  height: 40,
+                  paddingHorizontal: 10,
+                  marginTop: 30,
+                  alignItems: "center",
+                  marginBottom: 10,
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    width: "90%",
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 10,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Text
-                        style={{
-                            color: Colors.welcomeText,
-                            fontWeight: "600",
-                            opacity: 0.8,
-                            fontSize: 21,
-                        }}
+                      style={{
+                        fontSize: 13,
+                        fontWeight: "700",
+                        color: Colors.welcomeText,
+                        opacity: 0.5,
+                        alignSelf: "center",
+                      }}
                     >
-                        {languageText.text46}
+                      {languageText.text208}
                     </Text>
-                    <View></View>
+                  </View>
                 </View>
-                <ToastNotification
-                    show={show === 0 ? true : false}
-                    text={
-                        display === 1
-                            ? text1
-                            : display === 2
-                              ? text2
-                              : display === 3
-                                ? text3
-                                : display === 4
-                                  ? text4
-                                  : ""
-                    }
-                    textColor="white"
-                    backgroundColor="red"
-                    icon={
-                        <AntDesign
-                            name="exclamationcircleo"
-                            size={40}
-                            color="white"
-                        />
-                    }
-                />
+              </TouchableOpacity>
 
-                <TouchableWithoutFeedback>
-                    <ScrollView
-                        scrollEnabled={true}
-                        automaticallyAdjustKeyboardInsets={true}
-                        alwaysBounceVertical={true}
-                        showsVerticalScrollIndicator={false}
-                        style={styles.container3}
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+
+                  backgroundColor: Colors.depositBackground,
+                  paddingVertical: 15,
+                  paddingHorizontal: 13,
+                  borderRadius: 5,
+                  marginTop: 20,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flex: 1,
+                    justifyContent: "space-between",
+                    width: "100%",
+                    marginBottom: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      fontWeight: "700",
+                      color: Colors.welcomeText,
+                      opacity: 0.5,
+                    }}
+                  >
+                    {languageText.text207}
+                  </Text>
+                  <View
+                    style={{
+                      opacity: 0.8,
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: "300",
+                        color: Colors.welcomeText,
+                        textAlign: "center",
+                      }}
                     >
-                        <TouchableOpacity
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                backgroundColor: Colors.default3,
-                                borderColor: Colors.default1,
-                                borderWidth: 1.3,
-                                borderRadius: 8,
-                                // borderBottomColor: Colors.default1,
-                                // borderBottomWidth: 1.5,
-                                position: "relative",
-                                width: "100%",
-                                gap: 7,
-                                height: 40,
-                                paddingHorizontal: 10,
-                                marginTop: 30,
-                                alignItems: "center",
-                                marginBottom: 10,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    width: "90%",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        gap: 10,
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 13,
-                                            fontWeight: "700",
-                                            color: Colors.welcomeText,
-                                            opacity: 0.5,
-                                            alignSelf: "center",
-                                        }}
-                                    >
-                                        {languageText.text208}
-                                    </Text>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
+                      {languageText.text206}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "500",
+                        color: Colors.welcomeText,
+                        textAlign: "center",
+                      }}
+                    >
+                      {formatNumberWithCommasAndDecimal(
+                        parseFloat(data?.bonusBalance)
+                      )}
+                    </Text>
+                  </View>
+                </View>
 
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "flex-start",
+                <TextInput
+                  value={amount}
+                  onChangeText={setAmount}
+                  variant='outlined'
+                  label={languageText.text205}
+                  autoCorrect={false}
+                  placeholderTextColor={Colors.placeHolderTextColor}
+                  autoCapitalize='none'
+                  color={Colors.default1}
+                  style={[
+                    {
+                      width: "100%",
+                      height: 64,
+                    },
+                  ]}
+                  selectionColor={Colors.default1}
+                  onEndEditing={SignUpAmountVerification}
+                  keyboardType='number-pad'
+                />
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  backgroundColor: Colors.depositBackground,
+                  paddingVertical: 15,
+                  paddingHorizontal: 13,
+                  borderRadius: 5,
+                  marginTop: 20,
+                  position: "relative",
+                }}
+              >
+                <TextInput
+                  value={number}
+                  onChangeText={setNumber}
+                  variant='outlined'
+                  label={languageText.text203}
+                  autoCorrect={false}
+                  placeholderTextColor={Colors.placeHolderTextColor}
+                  autoCapitalize='none'
+                  color={Colors.default1}
+                  style={[
+                    {
+                      width: "100%",
+                      height: 64,
+                    },
+                  ]}
+                  selectionColor={Colors.default1}
+                  onEndEditing={SignUpAmountVerification}
+                  keyboardType='number-pad'
+                />
+              </View>
 
-                                backgroundColor: Colors.depositBackground,
-                                paddingVertical: 15,
-                                paddingHorizontal: 13,
-                                borderRadius: 5,
-                                marginTop: 20,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    flex: 1,
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    marginBottom: 10,
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        fontSize: 17,
-                                        fontWeight: "700",
-                                        color: Colors.welcomeText,
-                                        opacity: 0.5,
-                                    }}
-                                >
-                                    {languageText.text207}
-                                </Text>
-                                <View
-                                    style={{
-                                        opacity: 0.8,
-                                        flexDirection: "column",
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 12,
-                                            fontWeight: "300",
-                                            color: Colors.welcomeText,
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {languageText.text206}
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 16,
-                                            fontWeight: "500",
-                                            color: Colors.welcomeText,
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {formatNumberWithCommasAndDecimal(
-                                            parseFloat(data?.bonusBalance),
-                                        )}
-                                    </Text>
-                                </View>
-                            </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  backgroundColor: Colors.depositBackground,
+                  paddingVertical: 15,
+                  paddingHorizontal: 13,
+                  borderRadius: 5,
+                  marginTop: 20,
+                  position: "relative",
+                }}
+              >
+                <TextInput
+                  value={confirmNumber}
+                  onChangeText={setConfirmNumber}
+                  variant='outlined'
+                  label={languageText.text204}
+                  autoCorrect={false}
+                  placeholderTextColor={Colors.placeHolderTextColor}
+                  autoCapitalize='none'
+                  color={Colors.default1}
+                  style={[
+                    {
+                      width: "100%",
+                      height: 64,
+                    },
+                  ]}
+                  selectionColor={Colors.default1}
+                  onEndEditing={SignUpAmountVerification}
+                  keyboardType='number-pad'
+                />
+              </View>
 
-                            <TextInput
-                                value={amount}
-                                onChangeText={setAmount}
-                                variant="outlined"
-                                label={languageText.text205}
-                                autoCorrect={false}
-                                placeholderTextColor={
-                                    Colors.placeHolderTextColor
-                                }
-                                autoCapitalize="none"
-                                color={Colors.default1}
-                                style={[
-                                    {
-                                        width: "100%",
-                                        height: 64,
-                                    },
-                                ]}
-                                selectionColor={Colors.default1}
-                                onEndEditing={SignUpAmountVerification}
-                                keyboardType="number-pad"
-                            />
-                        </View>
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "flex-start",
-                                backgroundColor: Colors.depositBackground,
-                                paddingVertical: 15,
-                                paddingHorizontal: 13,
-                                borderRadius: 5,
-                                marginTop: 20,
-                                position: "relative",
-                            }}
-                        >
-                            <TextInput
-                                value={number}
-                                onChangeText={setNumber}
-                                variant="outlined"
-                                label={languageText.text203}
-                                autoCorrect={false}
-                                placeholderTextColor={
-                                    Colors.placeHolderTextColor
-                                }
-                                autoCapitalize="none"
-                                color={Colors.default1}
-                                style={[
-                                    {
-                                        width: "100%",
-                                        height: 64,
-                                    },
-                                ]}
-                                selectionColor={Colors.default1}
-                                onEndEditing={SignUpAmountVerification}
-                                keyboardType="number-pad"
-                            />
-                        </View>
-
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "flex-start",
-                                backgroundColor: Colors.depositBackground,
-                                paddingVertical: 15,
-                                paddingHorizontal: 13,
-                                borderRadius: 5,
-                                marginTop: 20,
-                                position: "relative",
-                            }}
-                        >
-                            <TextInput
-                                value={confirmNumber}
-                                onChangeText={setConfirmNumber}
-                                variant="outlined"
-                                label={languageText.text204}
-                                autoCorrect={false}
-                                placeholderTextColor={
-                                    Colors.placeHolderTextColor
-                                }
-                                autoCapitalize="none"
-                                color={Colors.default1}
-                                style={[
-                                    {
-                                        width: "100%",
-                                        height: 64,
-                                    },
-                                ]}
-                                selectionColor={Colors.default1}
-                                onEndEditing={SignUpAmountVerification}
-                                keyboardType="number-pad"
-                            />
-                        </View>
-
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: Colors.default1,
-                                height: 50,
-                                borderRadius: 8,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                display: "flex",
-                                flexDirection: "row",
-                                gap: 8,
-                                marginTop: 80,
-                                opacity: loading2 ? 0.5 : 1,
-                                width: "96%",
-                                alignSelf: "center",
-                            }}
-                            onPress={handleSubmit}
-                        >
-                            {loading2 && (
-                                <ActivityIndicator size="small" color="white" />
-                            )}
-                            <Text style={defaultStyles.btnText}>
-                                {languageText.text199}
-                            </Text>
-                        </TouchableOpacity>
-                    </ScrollView>
-                </TouchableWithoutFeedback>
-            </View>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.default1,
+                  height: 50,
+                  borderRadius: 8,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 8,
+                  marginTop: 80,
+                  opacity: loading2 ? 0.5 : 1,
+                  width: "96%",
+                  alignSelf: "center",
+                }}
+                onPress={handleSubmit}
+                disabled={loading2}
+              >
+                {loading2 && <ActivityIndicator size='small' color='white' />}
+                <Text style={defaultStyles.btnText}>
+                  {languageText.text199}
+                </Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </TouchableWithoutFeedback>
         </View>
+      </View>
     );
 };
 

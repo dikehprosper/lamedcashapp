@@ -173,6 +173,7 @@ const SendingPage = ({ navigation, route, title }: any) => {
     const [loading2, setLoading2] = useState(false);
 
     function handleSubmit() {
+        if (loading2) return;
         setLoading2(true);
 
         if (amountLoadingSymbol !== "false") {
@@ -380,399 +381,388 @@ const SendingPage = ({ navigation, route, title }: any) => {
     };
 
     return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.background,
+        }}
+      >
+        <ExploreHeader3 />
         <View
-            style={{
-                flex: 1,
-                backgroundColor: Colors.background,
-            }}
+          style={{
+            flex: 1,
+            backgroundColor: Colors.background,
+          }}
         >
-            <ExploreHeader3 />
-            <View
-                style={{
-                    flex: 1,
-                    backgroundColor: Colors.background,
-                }}
+          <View style={styles.transaction_template_container_header_1}>
+            <TouchableOpacity
+              onPressIn={() => navigation.goBack()}
+              style={{
+                paddingTop: 3,
+                paddingBottom: 3,
+                paddingRight: 3,
+                backgroundColor: "transparent",
+                borderColor: Colors.welcomeText,
+                opacity: 0.6,
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+              }}
             >
-                <View style={styles.transaction_template_container_header_1}>
-                    <TouchableOpacity
-                        onPressIn={() => navigation.goBack()}
-                        style={{
-                            paddingTop: 3,
-                            paddingBottom: 3,
-                            paddingRight: 3,
-                            backgroundColor: "transparent",
-                            borderColor: Colors.welcomeText,
-                            opacity: 0.6,
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                        }}
-                    >
-                        <MaterialIcons
-                            name="arrow-back-ios-new"
-                            size={21}
-                            color={Colors.welcomeText}
-                        />
-                    </TouchableOpacity>
-                    <Text
-                        style={{
-                            color: Colors.welcomeText,
-                            fontWeight: "600",
-                            opacity: 0.8,
-                            fontSize: 21,
-                        }}
-                    >
-                        {languageText.text268}
-                    </Text>
-                    <View></View>
-                </View>
-                <ToastNotification
-                    show={show === 0 ? true : false}
-                    text={
-                        display === 1
-                            ? text1
-                            : display === 2
-                              ? text2
-                              : display === 3
-                                ? text3
-                                : display === 4
-                                  ? text4
-                                  : text5
-                    }
-                    textColor="white"
-                    backgroundColor="red"
-                    icon={
-                        <AntDesign
-                            name="exclamationcircleo"
-                            size={40}
-                            color="white"
-                        />
-                    }
+              <MaterialIcons
+                name='arrow-back-ios-new'
+                size={21}
+                color={Colors.welcomeText}
+              />
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: Colors.welcomeText,
+                fontWeight: "600",
+                opacity: 0.8,
+                fontSize: 21,
+              }}
+            >
+              {languageText.text268}
+            </Text>
+            <View></View>
+          </View>
+          <ToastNotification
+            show={show === 0 ? true : false}
+            text={
+              display === 1
+                ? text1
+                : display === 2
+                  ? text2
+                  : display === 3
+                    ? text3
+                    : display === 4
+                      ? text4
+                      : text5
+            }
+            textColor='white'
+            backgroundColor='red'
+            icon={
+              <AntDesign name='exclamationcircleo' size={40} color='white' />
+            }
+          />
+
+          <TouchableOpacity
+            style={{
+              padding: 18,
+              gap: 8,
+              display: "flex",
+              justifyContent: "center",
+              marginHorizontal: 8,
+              marginVertical: 13,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: "700",
+                color: Colors.welcomeText,
+                opacity: 0.5,
+                marginBottom: 10,
+              }}
+            >
+              {languageText.text270}
+            </Text>
+            <View style={styles.transaction_result}>
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 10,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={{
+                    uri: specificData.image
+                      ? specificData.image
+                      : "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d",
+                  }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    resizeMode: "cover",
+                    borderRadius: 10,
+                  }}
                 />
+              </View>
 
-                <TouchableOpacity
-                    style={{
-                        padding: 18,
-                        gap: 8,
-                        display: "flex",
-                        justifyContent: "center",
-                        marginHorizontal: 8,
-                        marginVertical: 13,
-                    }}
+              <View style={styles.small_device_group}>
+                <Text
+                  style={{
+                    color: Colors.welcomeText,
+                    fontWeight: "700",
+                    fontSize: 15,
+                    opacity: 0.9,
+                  }}
                 >
-                    <Text
-                        style={{
-                            fontSize: 17,
-                            fontWeight: "700",
-                            color: Colors.welcomeText,
-                            opacity: 0.5,
-                            marginBottom: 10,
-                        }}
-                    >
-                        {languageText.text270}
-                    </Text>
-                    <View style={styles.transaction_result}>
-                        <View
-                            style={{
-                                width: 50,
-                                height: 50,
-                                borderRadius: 10,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Image
-                                source={{
-                                    uri: specificData.image
-                                        ? specificData.image
-                                        : "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d",
-                                }}
-                                style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    resizeMode: "cover",
-                                    borderRadius: 10,
-                                }}
-                            />
-                        </View>
+                  {specificData.fullname}
+                </Text>
 
-                        <View style={styles.small_device_group}>
-                            <Text
-                                style={{
-                                    color: Colors.welcomeText,
-                                    fontWeight: "700",
-                                    fontSize: 15,
-                                    opacity: 0.9,
-                                }}
-                            >
-                                {specificData.fullname}
-                            </Text>
+                <Text
+                  style={{
+                    color: Colors.welcomeText,
+                    fontSize: 11,
+                    fontWeight: "600",
+                    opacity: 0.6,
+                    padding: 2.5,
+                  }}
+                >
+                  {specificData.email}
+                </Text>
+              </View>
 
-                            <Text
-                                style={{
-                                    color: Colors.welcomeText,
-                                    fontSize: 11,
-                                    fontWeight: "600",
-                                    opacity: 0.6,
-                                    padding: 2.5,
-                                }}
-                            >
-                                {specificData.email}
-                            </Text>
-                        </View>
+              <View
+                style={{
+                  display: "flex",
+                  gap: 3,
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  // backgroundColor: "red",
+                }}
+              >
+                <View
+                  style={{
+                    padding: 2.5,
+                    borderRadius: 3,
 
-                        <View
-                            style={{
-                                display: "flex",
-                                gap: 3,
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                // backgroundColor: "red",
-                            }}
-                        >
-                            <View
-                                style={{
-                                    padding: 2.5,
-                                    borderRadius: 3,
-
-                                    display: "flex",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        fontSize: 15,
-                                        fontWeight: "900",
-                                        color: Colors.welcomeText,
-                                        opacity: 0.5,
-                                    }}
-                                >
-                                    @{specificData.tag}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
-                    <ScrollView
-                        scrollEnabled={true}
-                        automaticallyAdjustKeyboardInsets={true}
-                        alwaysBounceVertical={true}
-                        showsVerticalScrollIndicator={false}
-                        style={styles.container3}
-                    >
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "flex-start",
-                                marginTop: 18,
-                                backgroundColor: Colors.depositBackground,
-                                padding: 18,
-                                borderRadius: 5,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    flex: 1,
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        fontSize: 17,
-                                        fontWeight: "700",
-                                        color: Colors.welcomeText,
-                                        opacity: 0.5,
-                                    }}
-                                >
-                                    {languageText.text47}
-                                </Text>
-                                <View
-                                    style={{
-                                        opacity: 0.8,
-                                        flexDirection: "column",
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 12,
-                                            fontWeight: "300",
-                                            color: Colors.welcomeText,
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {languageText.text206}
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 16,
-                                            fontWeight: "500",
-                                            color: Colors.welcomeText,
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {formatNumberWithCommasAndDecimal(
-                                            parseFloat(data?.bonusBalance),
-                                        )}
-                                    </Text>
-                                </View>
-                            </View>
-
-                            <View
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginTop: 12,
-
-                                    borderRadius: 8,
-                                    paddingTop: 20,
-                                    position: "relative",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        right: 2,
-                                        width: "100%",
-                                        flexDirection: "row",
-                                        alignItems: "flex-end",
-                                        justifyContent: "flex-end",
-                                    }}
-                                >
-                                    {amountError && (
-                                        <Text
-                                            style={{
-                                                fontWeight: "600",
-                                                fontSize: 12,
-                                                color: "red",
-                                            }}
-                                        >
-                                            * {languageText.text271}
-                                        </Text>
-                                    )}
-                                </View>
-
-                                <View
-                                    style={{
-                                        top: 20,
-                                        bottom: 0,
-                                        left: 140,
-
-                                        zIndex: 15,
-                                        flexDirection: "row",
-                                        width: "100%",
-                                        display: "flex",
-                                        flex: 1,
-                                        alignItems: "center",
-                                        justifyContent: "space-around",
-                                        position: "absolute",
-                                    }}
-                                >
-                                    {slide4.map((choice, index) => {
-                                        if (choice.percentage === "100%") {
-                                            return (
-                                                <TouchableOpacity
-                                                    style={{
-                                                        width: 70,
-                                                        height: 37,
-
-                                                        borderRadius: 8,
-                                                        marginBottom: 10,
-                                                    }}
-                                                    onPress={() =>
-                                                        chooseAmount(index)
-                                                    }
-                                                >
-                                                    <View
-                                                        style={{
-                                                            display: "flex",
-                                                            flexDirection:
-                                                                "column",
-                                                            gap: 4,
-                                                            alignItems:
-                                                                "center",
-                                                            justifyContent:
-                                                                "center",
-                                                            flex: 1,
-                                                        }}
-                                                    >
-                                                        <Text
-                                                            style={{
-                                                                fontSize: 14.5,
-                                                                color: Colors.welcomeText,
-                                                                fontWeight:
-                                                                    "600",
-                                                            }}
-                                                        >
-                                                            MAX
-                                                            {/* {choice.percentage} */}
-                                                        </Text>
-                                                    </View>
-                                                </TouchableOpacity>
-                                            );
-                                        }
-                                    })}
-                                </View>
-
-                                <TextInput
-                                    value={amount}
-                                    onChangeText={setAmount}
-                                    variant="outlined"
-                                    label="Entrer le montant"
-                                    autoCorrect={false}
-                                    placeholderTextColor={
-                                        Colors.placeHolderTextColor
-                                    }
-                                    placeholder="200 et plus"
-                                    autoCapitalize="none"
-                                    color={Colors.default1}
-                                    style={[
-                                        {
-                                            width: "100%",
-                                            height: 64,
-                                        },
-                                    ]}
-                                    selectionColor={Colors.default1}
-                                    onEndEditing={SignUpAmountVerification}
-                                    keyboardType="number-pad"
-                                />
-                            </View>
-                        </View>
-                        {loading2 && <LoadingComponent />}
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: Colors.default1,
-                                height: 50,
-                                borderRadius: 8,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                display: "flex",
-                                flexDirection: "row",
-                                gap: 8,
-                                marginTop: 30,
-                                marginBottom: 27,
-                                opacity: loading2 ? 0.5 : 1,
-                            }}
-                            onPress={handleSubmit}
-                        >
-                            {loading2 && (
-                                <ActivityIndicator size="small" color="white" />
-                            )}
-                            <Text style={defaultStyles.btnText}>{languageText.text199}</Text>
-                        </TouchableOpacity>
-                    </ScrollView>
-                </TouchableWithoutFeedback>
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: "900",
+                      color: Colors.welcomeText,
+                      opacity: 0.5,
+                    }}
+                  >
+                    @{specificData.tag}
+                  </Text>
+                </View>
+              </View>
             </View>
+          </TouchableOpacity>
+
+          <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
+            <ScrollView
+              scrollEnabled={true}
+              automaticallyAdjustKeyboardInsets={true}
+              alwaysBounceVertical={true}
+              showsVerticalScrollIndicator={false}
+              style={styles.container3}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  marginTop: 18,
+                  backgroundColor: Colors.depositBackground,
+                  padding: 18,
+                  borderRadius: 5,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flex: 1,
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      fontWeight: "700",
+                      color: Colors.welcomeText,
+                      opacity: 0.5,
+                    }}
+                  >
+                    {languageText.text47}
+                  </Text>
+                  <View
+                    style={{
+                      opacity: 0.8,
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: "300",
+                        color: Colors.welcomeText,
+                        textAlign: "center",
+                      }}
+                    >
+                      {languageText.text206}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "500",
+                        color: Colors.welcomeText,
+                        textAlign: "center",
+                      }}
+                    >
+                      {formatNumberWithCommasAndDecimal(
+                        parseFloat(data?.bonusBalance)
+                      )}
+                    </Text>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 12,
+
+                    borderRadius: 8,
+                    paddingTop: 20,
+                    position: "relative",
+                  }}
+                >
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 2,
+                      width: "100%",
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    {amountError && (
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          fontSize: 12,
+                          color: "red",
+                        }}
+                      >
+                        * {languageText.text271}
+                      </Text>
+                    )}
+                  </View>
+
+                  <View
+                    style={{
+                      top: 20,
+                      bottom: 0,
+                      left: 140,
+
+                      zIndex: 15,
+                      flexDirection: "row",
+                      width: "100%",
+                      display: "flex",
+                      flex: 1,
+                      alignItems: "center",
+                      justifyContent: "space-around",
+                      position: "absolute",
+                    }}
+                  >
+                    {slide4.map((choice, index) => {
+                      if (choice.percentage === "100%") {
+                        return (
+                          <TouchableOpacity
+                            style={{
+                              width: 70,
+                              height: 37,
+
+                              borderRadius: 8,
+                              marginBottom: 10,
+                            }}
+                            onPress={() => chooseAmount(index)}
+                          >
+                            <View
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: 4,
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flex: 1,
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  fontSize: 14.5,
+                                  color: Colors.welcomeText,
+                                  fontWeight: "600",
+                                }}
+                              >
+                                MAX
+                                {/* {choice.percentage} */}
+                              </Text>
+                            </View>
+                          </TouchableOpacity>
+                        );
+                      }
+                    })}
+                  </View>
+
+                  <TextInput
+                    value={amount}
+                    onChangeText={setAmount}
+                    variant='outlined'
+                    label='Entrer le montant'
+                    autoCorrect={false}
+                    placeholderTextColor={Colors.placeHolderTextColor}
+                    placeholder='200 et plus'
+                    autoCapitalize='none'
+                    color={Colors.default1}
+                    style={[
+                      {
+                        width: "100%",
+                        height: 64,
+                      },
+                    ]}
+                    selectionColor={Colors.default1}
+                    onEndEditing={SignUpAmountVerification}
+                    keyboardType='number-pad'
+                  />
+                </View>
+              </View>
+              {loading2 && <LoadingComponent />}
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.default1,
+                  height: 50,
+                  borderRadius: 8,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 8,
+                  marginTop: 30,
+                  marginBottom: 27,
+                  opacity: loading2 ? 0.5 : 1,
+                }}
+                onPress={handleSubmit}
+                disabled={loading2}
+              >
+                {loading2 && <ActivityIndicator size='small' color='white' />}
+                <Text style={defaultStyles.btnText}>
+                  {languageText.text199}
+                </Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </TouchableWithoutFeedback>
         </View>
+      </View>
     );
 };
 

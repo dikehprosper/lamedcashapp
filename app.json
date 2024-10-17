@@ -3,7 +3,7 @@
     "name": "LamedCash",
     "slug": "lamedCash",
     "scheme": "lamedcash",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -27,7 +27,7 @@
       }
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 3,
       "package": "com.lamedcash.lamedcash",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
@@ -70,7 +70,7 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow lamedCash to use Face ID."
+          "faceIDPermission": "Allow LamedCash to use Face ID."
         }
       ]
     ],
@@ -79,7 +79,7 @@
         "projectId": "6687f1de-fbb8-4a35-9432-2c3c0ae8c8c0"
       }
     },
-    "runtimeVersion": "1.0.1",
+    "runtimeVersion": "1.0.2",
     "updates": {
       "url": "https://u.expo.dev/6687f1de-fbb8-4a35-9432-2c3c0ae8c8c0",
       "enabled": true,

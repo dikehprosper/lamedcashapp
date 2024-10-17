@@ -93,37 +93,38 @@ const ChangePin2 = ({ route, navigation }: any) => {
     }
 
     function handleSubmit() {
-        setLoading2(true);
+      if (Loading2) return;
+      setLoading2(true);
 
-        const formData: formdata8 = {
-            pin: password,
-            email: email,
-        };
-        dispatch(checkPin2(formData))
-            .then(async (result) => {
-                console.log(
-                    result.payload.success,
-                    "result.payload.successresult.payload.success",
-                );
-                if (result.payload.success === true) {
-                    try {
-                        navigation.push("changePassword2");
-                        setLoading2(false);
-                    } catch (err) {
-                        console.log(err);
-                        setLoading2(false);
-                    }
-                }
-                if (result.payload.status === 401) {
-                    displayNotification4();
-                    setLoading2(false);
-                }
-                if (result.payload.status === 402) {
-                    displayNotification5();
-                    setLoading2(false);
-                }
-            })
-            .catch((err) => console.log(err));
+      const formData: formdata8 = {
+        pin: password,
+        email: email,
+      };
+      dispatch(checkPin2(formData))
+        .then(async (result) => {
+          console.log(
+            result.payload.success,
+            "result.payload.successresult.payload.success"
+          );
+          if (result.payload.success === true) {
+            try {
+              navigation.push("changePassword2");
+              setLoading2(false);
+            } catch (err) {
+              console.log(err);
+              setLoading2(false);
+            }
+          }
+          if (result.payload.status === 401) {
+            displayNotification4();
+            setLoading2(false);
+          }
+          if (result.payload.status === 402) {
+            displayNotification5();
+            setLoading2(false);
+          }
+        })
+        .catch((err) => console.log(err));
     }
 
     const [display2, setDisplay2] = useState(languageText.text338);
@@ -137,231 +138,216 @@ const ChangePin2 = ({ route, navigation }: any) => {
     const text5 = languageText.text143;
 
     const icon1 = (
-        <AntDesign name="checkcircleo" size={40} color={Colors.welcomeText} />
+      <AntDesign name='checkcircleo' size={40} color={Colors.welcomeText} />
     );
     const icon2 = (
-        <AntDesign
-            name="exclamationcircleo"
-            size={40}
-            color={Colors.welcomeText}
-        />
+      <AntDesign
+        name='exclamationcircleo'
+        size={40}
+        color={Colors.welcomeText}
+      />
     );
 
     function displayNotification() {
-        setShow(1);
-        setDisplay(1);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 3800);
+      setShow(1);
+      setDisplay(1);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 3800);
     }
     function displayNotification2() {
-        setShow(2);
-        setDisplay(2);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 5000);
+      setShow(2);
+      setDisplay(2);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 5000);
     }
 
     function displayNotification4() {
-        setShow(4);
-        setDisplay(4);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 5000);
+      setShow(4);
+      setDisplay(4);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 5000);
     }
     function displayNotification5() {
-        setShow(5);
-        setDisplay(5);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 5000);
+      setShow(5);
+      setDisplay(5);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 5000);
     }
 
     const triggerHapticFeedback = () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     };
 
     return (
-        <Pressable style={{ flex: 1 }} onPress={handleDismissKeyboard}>
-            <ExploreHeader5 />
-            <ToastNotification
-                show={show === 0 ? true : false}
-                text={
-                    display === 1
-                        ? text1
-                        : display === 2
-                          ? text2
-                          : display === 4
-                            ? text4
-                            : text5
-                }
-                textColor={Colors.welcomeText}
-                backgroundColor={display === 7 ? "green" : "red"}
-                icon={display === 7 ? icon1 : icon2}
-            />
+      <Pressable style={{flex: 1}} onPress={handleDismissKeyboard}>
+        <ExploreHeader5 />
+        <ToastNotification
+          show={show === 0 ? true : false}
+          text={
+            display === 1
+              ? text1
+              : display === 2
+                ? text2
+                : display === 4
+                  ? text4
+                  : text5
+          }
+          textColor={Colors.welcomeText}
+          backgroundColor={display === 7 ? "green" : "red"}
+          icon={display === 7 ? icon1 : icon2}
+        />
+        <View style={[styles.container, {backgroundColor: Colors.background}]}>
+          <View>
             <View
-                style={[
-                    styles.container,
-                    { backgroundColor: Colors.background },
-                ]}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
             >
-                <View>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            marginBottom: 20,
-                        }}
-                    >
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <Ionicons
-                                name="chevron-back-outline"
-                                size={26}
-                                color={Colors.welcomeText}
-                            />
-                        </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Ionicons
+                  name='chevron-back-outline'
+                  size={26}
+                  color={Colors.welcomeText}
+                />
+              </TouchableOpacity>
 
-                        <Text
-                            style={{
-                                fontSize: 18,
-                                fontWeight: "700",
-                                color: Colors.welcomeText,
-                            }}
-                        >
-                            {languageText.text144}
-                        </Text>
-                        <Text></Text>
-                    </View>
-                    <View
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginTop: 60,
-                            marginBottom: 50,
-                            gap: 30,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                textAlign: "center",
-                                opacity: 1,
-                                color: Colors.welcomeText,
-                            }}
-                        >
-                            {display2}
-                        </Text>
-                    </View>
-
-                    <View
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginTop: 18,
-                            backgroundColor: Colors.inputBackground2,
-                            borderRadius: 8,
-                            borderColor:
-                                index === 1 ? Colors.default1 : "transparent",
-                            borderWidth: 1.5,
-                            position: "relative",
-                        }}
-                    >
-                        <Text
-                            style={{
-                                paddingLeft: 12,
-                                paddingRight: 2,
-                                opacity: 1,
-                            }}
-                        >
-                            <MaterialIcons
-                                name="password"
-                                size={18}
-                                color={
-                                    index === 1
-                                        ? Colors.default1
-                                        : "rgba(128, 128, 128, 1)"
-                                }
-                            />
-                        </Text>
-                        <TextInput
-                            ref={inputRef}
-                            value={password}
-                            onChangeText={setPassword}
-                            onFocus={() => setItemOnFocus(1)}
-                            onBlur={setItemOnBlur}
-                            secureTextEntry={iconVisibility}
-                            autoCorrect={false}
-                            placeholderTextColor={Colors.placeHolderTextColor}
-                            autoCapitalize="none"
-                            placeholder="code"
-                            style={[defaultStyles.inputField]}
-                            selectionColor={Colors.default1}
-                        ></TextInput>
-
-                        <TouchableOpacity
-                            style={{
-                                paddingRight: 15,
-                                paddingLeft: 6,
-                                opacity: 1,
-                            }}
-                            onPress={changePasswordVisibility}
-                        >
-                            {iconVisibility ? (
-                                <Ionicons
-                                    name="eye-off"
-                                    size={18}
-                                    color={
-                                        index === 1
-                                            ? Colors.default1
-                                            : "rgba(128, 128, 128, 1)"
-                                    }
-                                />
-                            ) : (
-                                <Ionicons
-                                    name="eye"
-                                    size={18}
-                                    color={
-                                        index === 1
-                                            ? Colors.default1
-                                            : "rgba(128, 128, 128, 1)"
-                                    }
-                                />
-                            )}
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: Colors.default1,
-                        height: 50,
-                        borderRadius: 8,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: 8,
-                        marginTop: 30,
-                        marginBottom: 100,
-                        opacity: Loading2 ? 0.5 : 1,
-                    }}
-                    onPress={handleSubmit}
-                >
-                    {Loading2 && (
-                        <ActivityIndicator size="small" color="white" />
-                    )}
-                    <Text style={defaultStyles.btnText}>
-                        {languageText.text16}
-                    </Text>
-                </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "700",
+                  color: Colors.welcomeText,
+                }}
+              >
+                {languageText.text144}
+              </Text>
+              <Text></Text>
             </View>
-        </Pressable>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 60,
+                marginBottom: 50,
+                gap: 30,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  opacity: 1,
+                  color: Colors.welcomeText,
+                }}
+              >
+                {display2}
+              </Text>
+            </View>
+
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 18,
+                backgroundColor: Colors.inputBackground2,
+                borderRadius: 8,
+                borderColor: index === 1 ? Colors.default1 : "transparent",
+                borderWidth: 1.5,
+                position: "relative",
+              }}
+            >
+              <Text
+                style={{
+                  paddingLeft: 12,
+                  paddingRight: 2,
+                  opacity: 1,
+                }}
+              >
+                <MaterialIcons
+                  name='password'
+                  size={18}
+                  color={
+                    index === 1 ? Colors.default1 : "rgba(128, 128, 128, 1)"
+                  }
+                />
+              </Text>
+              <TextInput
+                ref={inputRef}
+                value={password}
+                onChangeText={setPassword}
+                onFocus={() => setItemOnFocus(1)}
+                onBlur={setItemOnBlur}
+                secureTextEntry={iconVisibility}
+                autoCorrect={false}
+                placeholderTextColor={Colors.placeHolderTextColor}
+                autoCapitalize='none'
+                placeholder='code'
+                style={[defaultStyles.inputField]}
+                selectionColor={Colors.default1}
+              ></TextInput>
+
+              <TouchableOpacity
+                style={{
+                  paddingRight: 15,
+                  paddingLeft: 6,
+                  opacity: 1,
+                }}
+                onPress={changePasswordVisibility}
+              >
+                {iconVisibility ? (
+                  <Ionicons
+                    name='eye-off'
+                    size={18}
+                    color={
+                      index === 1 ? Colors.default1 : "rgba(128, 128, 128, 1)"
+                    }
+                  />
+                ) : (
+                  <Ionicons
+                    name='eye'
+                    size={18}
+                    color={
+                      index === 1 ? Colors.default1 : "rgba(128, 128, 128, 1)"
+                    }
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={{
+              backgroundColor: Colors.default1,
+              height: 50,
+              borderRadius: 8,
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "row",
+              gap: 8,
+              marginTop: 30,
+              marginBottom: 100,
+              opacity: Loading2 ? 0.5 : 1,
+            }}
+            onPress={handleSubmit}
+            disabled={Loading2}
+          >
+            {Loading2 && <ActivityIndicator size='small' color='white' />}
+            <Text style={defaultStyles.btnText}>{languageText.text16}</Text>
+          </TouchableOpacity>
+        </View>
+      </Pressable>
     );
 };
 

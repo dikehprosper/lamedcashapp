@@ -567,6 +567,7 @@ setAddress(result.payload.address);
     const [loading2, setLoading2] = useState(false);
 
     function handleSubmit() {
+           if (loading2) return;
         setLoading2(true);
 
         if (betIdLoadingSymbol !== "false") {
@@ -1103,6 +1104,7 @@ setAddress(result.payload.address);
                   alignSelf: "center",
                 }}
                 onPress={handleSubmit}
+                disabled={loading2}
               >
                 {loading2 && <ActivityIndicator size='small' color='white' />}
                 <Text style={defaultStyles.btnText}>

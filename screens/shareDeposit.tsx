@@ -300,7 +300,10 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
   const [loading2, setLoading2] = useState(false);
   const [loading3, setLoading3] = useState(false);
 
+
+
   function generateCode() {
+    if (loading3) return;
     setLoading3(true);
 
     if (betIdLoadingSymbol !== "false") {
@@ -1022,6 +1025,7 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
                 opacity: loading3 ? 0.5 : 1,
               }}
               onPress={generateCode}
+              disabled={loading3}
             >
               {loading3 && (
                 <ActivityIndicator size='small' color={Colors.welcomeText} />

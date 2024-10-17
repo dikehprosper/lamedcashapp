@@ -575,65 +575,72 @@ const UpdateProfile = ({ navigation }: any) => {
     // const scrollEnabled = screenheight.screenheight !== height;
 
     function handleSubmit() {
-        setLoading2(true);
-        if (fullnameLoadingSymbol !== "false") {
-            setFullNameError(true);
-            setTriggerFullNameRevalidation2(true);
-        }
-        if (emailLoadingSymbol !== "false") {
-            setEmailError(true);
-            setTriggerEmailRevalidation2(true);
-        }
+      if (loading2) return;
+      setLoading2(true);
+      if (fullnameLoadingSymbol !== "false") {
+        setFullNameError(true);
+        setTriggerFullNameRevalidation2(true);
+      }
+      if (emailLoadingSymbol !== "false") {
+        setEmailError(true);
+        setTriggerEmailRevalidation2(true);
+      }
 
-        if (phoneNumberLoadingSymbol !== "false") {
-            setPhoneNumberError(true);
-            setTriggerPhoneNumberRevalidation2(true);
-        }
-        if (betIdLoadingSymbol !== "false") {
-            setBetIdError(true);
-            setTriggerBetIdRevalidation2(true);
-        }
+      if (phoneNumberLoadingSymbol !== "false") {
+        setPhoneNumberError(true);
+        setTriggerPhoneNumberRevalidation2(true);
+      }
+      if (betIdLoadingSymbol !== "false") {
+        setBetIdError(true);
+        setTriggerBetIdRevalidation2(true);
+      }
 
-        if (
-            fullnameLoadingSymbol !== "false" ||
-            emailLoadingSymbol !== "false" ||
-            phoneNumberLoadingSymbol !== "false" ||
-            betIdLoadingSymbol !== "false"
-        ) {
+      if (
+        fullnameLoadingSymbol !== "false" ||
+        emailLoadingSymbol !== "false" ||
+        phoneNumberLoadingSymbol !== "false" ||
+        betIdLoadingSymbol !== "false"
+      ) {
+        setLoading2(false);
+        return;
+      }
+
+      const formData: FormData2 = {
+        fullname: fullname,
+        email: email,
+        number: number,
+        betId: betId,
+      };
+      dispatch(changeUserDetails(formData))
+        .then(async (result) => {
+          if (result.payload.success === true) {
+            displayNotification2();
+
             setLoading2(false);
-            return;
-        }
-
-        const formData: FormData2 = {
-            fullname: fullname,
-            email: email,
-            number: number,
-            betId: betId,
-        };
-        dispatch(changeUserDetails(formData))
-            .then(async (result) => {
-                if (result.payload.success === true) {
-                    displayNotification2();
-                }
-                if (result.payload.status === 402) {
-                    displayNotification3();
-                }
-                if (result.payload.status === 400) {
-                    displayNotification4();
-                }
-                if (result.payload.status === 502) {
-                    navigation.dispatch(
-                        CommonActions.reset({
-                            index: 0,
-                            routes: [{ name: "login" }],
-                        }),
-                    );
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                displayNotification3();
-            });
+          }
+          if (result.payload.status === 402) {
+            displayNotification3();
+            setLoading2(false);
+          }
+          if (result.payload.status === 400) {
+            displayNotification4();
+            setLoading2(false);
+          }
+          if (result.payload.status === 502) {
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{name: "login"}],
+              })
+            );
+            setLoading2(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          displayNotification3();
+          setLoading2(false);
+        });
     }
 
     //FOR TOAST NOTIFICATION
@@ -645,710 +652,673 @@ const UpdateProfile = ({ navigation }: any) => {
     const text4 = languageText.text127;
 
     const icon1 = (
-        <AntDesign name="checkcircleo" size={40} color={Colors.toastText} />
+      <AntDesign name='checkcircleo' size={40} color={Colors.toastText} />
     );
     const icon2 = (
-        <AntDesign
-            name="exclamationcircleo"
-            size={40}
-            color={Colors.toastText}
-        />
+      <AntDesign name='exclamationcircleo' size={40} color={Colors.toastText} />
     );
 
     function displayNotification1() {
-        setShow(1);
-        setDisplay(1);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 3800);
+      setShow(1);
+      setDisplay(1);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 3800);
     }
     function displayNotification2() {
-        setShow(2);
-        setDisplay(2);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 3800);
+      setShow(2);
+      setDisplay(2);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 3800);
     }
     function displayNotification3() {
-        setShow(3);
-        setDisplay(3);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 3800);
+      setShow(3);
+      setDisplay(3);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 3800);
     }
     function displayNotification4() {
-        setShow(4);
-        setDisplay(4);
-        triggerHapticFeedback();
-        setTimeout(() => {
-            setShow(0);
-        }, 3800);
+      setShow(4);
+      setDisplay(4);
+      triggerHapticFeedback();
+      setTimeout(() => {
+        setShow(0);
+      }, 3800);
     }
 
     const triggerHapticFeedback = () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     };
 
     return (
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        {isLoading && <LoadingComponent />}
         <View
-            style={{
-                flex: 1,
-            }}
+          style={{
+            flex: 1,
+            backgroundColor: Colors.background,
+            position: "relative",
+          }}
         >
-            {isLoading && <LoadingComponent />}
+          <ExploreHeader5 />
+          <StatusBar backgroundColor={Colors.background} />
+
+          <ToastNotification
+            show={show === 0 ? true : false}
+            text={
+              display === 1
+                ? text1
+                : show === 2
+                  ? text2
+                  : show === 3
+                    ? text3
+                    : text4
+            }
+            textColor={Colors.toastText}
+            marginTop={Platform.OS === "ios" ? 0 : 0}
+            backgroundColor={
+              display === 1
+                ? "red"
+                : display === 2
+                  ? "green"
+                  : display === 3
+                    ? "red"
+                    : "red"
+            }
+            icon={
+              display === 1
+                ? icon2
+                : display === 2
+                  ? icon1
+                  : display === 3
+                    ? icon2
+                    : icon2
+            }
+          />
+          <View style={[styles.container, {}]}>
             <View
-                style={{
-                    flex: 1,
-                    backgroundColor: Colors.background,
-                    position: "relative",
-                }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
             >
-                <ExploreHeader5 />
-                <StatusBar backgroundColor={Colors.background} />
-
-                <ToastNotification
-                    show={show === 0 ? true : false}
-                    text={
-                        display === 1
-                            ? text1
-                            : show === 2
-                              ? text2
-                              : show === 3
-                                ? text3
-                                : text4
-                    }
-                    textColor={Colors.toastText}
-                    marginTop={Platform.OS === "ios" ? 40 : 0}
-                    backgroundColor={
-                        display === 1
-                            ? "red"
-                            : display === 2
-                              ? "green"
-                              : display === 3
-                                ? "red"
-                                : "red"
-                    }
-                    icon={
-                        display === 1
-                            ? icon2
-                            : display === 2
-                              ? icon1
-                              : display === 3
-                                ? icon2
-                                : icon2
-                    }
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Ionicons
+                  name='chevron-back-outline'
+                  size={26}
+                  color={Colors.welcomeText}
                 />
-                <View style={[styles.container, {}]}>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            marginBottom: 20,
-                        }}
-                    >
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <Ionicons
-                                name="chevron-back-outline"
-                                size={26}
-                                color={Colors.welcomeText}
-                            />
-                        </TouchableOpacity>
+              </TouchableOpacity>
 
-                        <Text
-                            style={{
-                                fontSize: 18,
-                                fontWeight: "700",
-                                color: Colors.welcomeText,
-                            }}
-                        >
-                            {languageText.text118}
-                        </Text>
-                        <Text></Text>
-                    </View>
-
-                    <ScrollView
-                        style={{
-                            gap: 20,
-                            paddingVertical: 20,
-                            paddingBottom: 10,
-                            flex: 8,
-                            backgroundColor: Colors.background,
-                        }}
-                        scrollEnabled={true}
-                        automaticallyAdjustKeyboardInsets={true}
-                        alwaysBounceVertical={true}
-                        showsVerticalScrollIndicator={false}
-                    >
-                        <View>
-                            <Text
-                                style={{
-                                    fontSize: 15,
-                                    fontWeight: "700",
-                                    color: Colors.welcomeText,
-                                    opacity: 0.6,
-                                }}
-                            >
-                                {languageText.text122}
-                            </Text>
-
-                            <View
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginTop: 6,
-                                    backgroundColor: Colors.inputBackground,
-                                    borderRadius: 8,
-                                    borderColor: fullNameError
-                                        ? "red"
-                                        : index === 1
-                                          ? Colors.default1
-                                          : "transparent",
-                                    borderWidth: 1.5,
-                                    position: "relative",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        position: "absolute",
-                                        top: -19,
-                                        right: 2,
-                                    }}
-                                >
-                                    {fullNameError && (
-                                        <Text
-                                            style={{
-                                                fontWeight: "600",
-                                                fontSize: 12,
-                                                color: "red",
-                                            }}
-                                        >
-                                            * {languageText.text26}
-                                        </Text>
-                                    )}
-                                </View>
-                                <Text
-                                    style={{
-                                        paddingLeft: 12,
-                                        paddingRight: 2,
-                                        opacity: 1,
-                                    }}
-                                >
-                                    <Ionicons
-                                        name="person-outline"
-                                        size={18}
-                                        color={
-                                            fullNameError
-                                                ? "red"
-                                                : index === 1
-                                                  ? Colors.default1
-                                                  : "rgba(128, 128, 128, 0.5)"
-                                        }
-                                    />
-                                </Text>
-                                <TextInput
-                                    ref={inputRef}
-                                    value={fullname}
-                                    onChangeText={setFullname}
-                                    // onChange={SignUpFullnameReVerification}
-                                    onFocus={() => setItemOnFocus(1)}
-                                    onBlur={setItemOnBlur}
-                                    placeholderTextColor={
-                                        Colors.placeHolderTextColor
-                                    }
-                                    autoCapitalize="none"
-                                    placeholder={languageText.text27}
-                                    autoCorrect={false}
-                                    style={[
-                                        defaultStyles.inputField,
-                                        { color: Colors.welcomeText },
-                                    ]}
-                                    onEndEditing={SignUpFullnameVerification}
-                                />
-                                <View style={{ paddingRight: 10.4 }}>
-                                    {fullnameLoadingSymbol === "true" ? (
-                                        <ActivityIndicator
-                                            size="small"
-                                            color={Colors.primary3}
-                                        />
-                                    ) : fullnameLoadingSymbol === "false" ? (
-                                        <MaterialIcons
-                                            name="verified"
-                                            size={19}
-                                            color={Colors.default1}
-                                        />
-                                    ) : null}
-                                </View>
-                            </View>
-
-                            <Text
-                                style={{
-                                    fontSize: 15,
-                                    fontWeight: "700",
-                                    marginTop: 20,
-                                    color: Colors.welcomeText,
-                                    opacity: 0.6,
-                                }}
-                            >
-                                {languageText.text79}
-                            </Text>
-                            <TouchableWithoutFeedback
-                                // onPress={Keyboard.dismiss}
-                                accessible={false}
-                            >
-                                <View
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        marginTop: 6,
-                                        backgroundColor: Colors.inputBackground,
-                                        borderRadius: 8,
-                                        borderColor: phoneNumberError
-                                            ? "red"
-                                            : index === 4
-                                              ? Colors.default1
-                                              : "transparent",
-                                        borderWidth: 1.5,
-                                        position: "relative",
-                                    }}
-                                >
-                                    <View
-                                        style={{
-                                            position: "absolute",
-                                            top: -19,
-                                            right: 2,
-                                        }}
-                                    >
-                                        {phoneNumberError && (
-                                            <Text
-                                                style={{
-                                                    fontWeight: "600",
-                                                    fontSize: 12,
-                                                    color: "red",
-                                                }}
-                                            >
-                                                * {languageText.text123}
-                                            </Text>
-                                        )}
-                                    </View>
-                                    {phoneNumberLoadingSymbol === "false" && (
-                                        <PopInAnimation
-                                            scaleSpeed={0.6}
-                                            opacitySpeed={800}
-                                            style={{
-                                                position: "absolute",
-                                                top: -15,
-                                                right: 2,
-                                                borderRadius: 2,
-                                                backgroundColor:
-                                                    Colors.default1,
-                                            }}
-                                        >
-                                            {currentNetwork &&
-                                                network.length > 1 && (
-                                                    <Text
-                                                        style={{
-                                                            fontWeight: "900",
-                                                            fontSize: 8,
-                                                            color: "white",
-
-                                                            paddingLeft: 4,
-                                                            paddingRight: 4,
-                                                        }}
-                                                    >
-                                                        {currentNetwork}
-                                                    </Text>
-                                                )}
-                                            {network2 &&
-                                                network.length === 1 && (
-                                                    <Text
-                                                        style={{
-                                                            fontWeight: "900",
-                                                            fontSize: 8,
-                                                            color: "white",
-
-                                                            paddingLeft: 4,
-                                                            paddingRight: 4,
-                                                        }}
-                                                    >
-                                                        {network2}
-                                                    </Text>
-                                                )}
-                                        </PopInAnimation>
-                                    )}
-
-                                    <CountryCode
-                                        displayNotification={
-                                            displayNotification1
-                                        }
-                                        countryFlag={countryFlag}
-                                        countryCode={countryCode}
-                                        changeCountryCode={changeCountryCode}
-                                        changeCountryFlag={changeCountryFlag}
-                                    />
-                                    <View
-                                        style={{
-                                            paddingVertical: 1,
-                                            paddingHorizontal: 5,
-                                            borderRadius: 3.5,
-                                            margin: 3,
-                                            marginRight: 5,
-                                            backgroundColor: Colors.primary3,
-                                            opacity: 0.8,
-                                        }}
-                                    >
-                                        <Text
-                                            style={{
-                                                color: Colors.countrySelectionTextColor,
-                                                fontWeight: "800",
-                                                fontSize: 13,
-                                            }}
-                                        >
-                                            {countryCode}
-                                        </Text>
-                                    </View>
-                                    <TextInput
-                                        ref={inputRef4}
-                                        value={number}
-                                        onChangeText={setNumber}
-                                        onFocus={() => setItemOnFocus(4)}
-                                        onBlur={setItemOnBlur}
-                                        autoCorrect={false}
-                                        placeholderTextColor={
-                                            Colors.placeHolderTextColor
-                                        }
-                                        autoCapitalize="none"
-                                        placeholder={languageText.text35}
-                                        style={{
-                                            height: 48,
-                                            opacity: 1,
-                                            backgroundColor: "transparent",
-                                            color: Colors.welcomeText,
-                                            flex: 1,
-                                            fontWeight: "800",
-                                            fontSize: 17,
-                                        }}
-                                        selectionColor={Colors.default1}
-                                        onEndEditing={
-                                            wrapperSignUpPhoneNumberVerification
-                                        }
-                                        keyboardType="number-pad"
-                                    ></TextInput>
-                                    <View style={{ paddingRight: 10.4 }}>
-                                        {phoneNumberLoadingSymbol === "true" ? (
-                                            <ActivityIndicator
-                                                size="small"
-                                                color={Colors.primary3}
-                                            />
-                                        ) : phoneNumberLoadingSymbol ===
-                                          "false" ? (
-                                            <MaterialIcons
-                                                name="verified"
-                                                size={19}
-                                                color={Colors.default1}
-                                            />
-                                        ) : null}
-                                    </View>
-                                </View>
-                            </TouchableWithoutFeedback>
-
-                            <Text
-                                style={{
-                                    fontSize: 15,
-                                    fontWeight: "700",
-                                    marginTop: 20,
-                                    color: Colors.welcomeText,
-                                    opacity: 0.6,
-                                }}
-                            >
-                                E-mail
-                            </Text>
-                            <View
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginTop: 6,
-                                    backgroundColor: Colors.inputBackground,
-                                    borderRadius: 8,
-                                    borderColor: emailError
-                                        ? "red"
-                                        : index === 2
-                                          ? Colors.default1
-                                          : "transparent",
-                                    borderWidth: 1.5,
-                                    position: "relative",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        position: "absolute",
-                                        top: -19,
-                                        right: 2,
-                                    }}
-                                >
-                                    {emailError && (
-                                        <Text
-                                            style={{
-                                                fontWeight: "600",
-                                                fontSize: 12,
-                                                color: "red",
-                                            }}
-                                        >
-                                            {languageText.text13}
-                                        </Text>
-                                    )}
-                                </View>
-                                <Text
-                                    style={{
-                                        paddingLeft: 12,
-                                        paddingRight: 2,
-                                        opacity: 1,
-                                    }}
-                                >
-                                    <MaterialCommunityIcons
-                                        name="email-fast-outline"
-                                        size={18}
-                                        color={
-                                            emailError
-                                                ? "red"
-                                                : index === 2
-                                                  ? Colors.default1
-                                                  : "rgba(128, 128, 128, 0.5)"
-                                        }
-                                    />
-                                </Text>
-                                <TextInput
-                                    ref={inputRef2}
-                                    value={email}
-                                    onChangeText={setEmail}
-                                    onFocus={() => setItemOnFocus(2)}
-                                    onBlur={setItemOnBlur}
-                                    placeholderTextColor={
-                                        Colors.placeHolderTextColor
-                                    }
-                                    autoCapitalize="none"
-                                    placeholder="E-mail"
-                                    autoCorrect={false}
-                                    style={[
-                                        defaultStyles.inputField,
-                                        { color: Colors.welcomeText },
-                                    ]}
-                                    onEndEditing={SignUpEmailVerification}
-                                ></TextInput>
-                                <View style={{ paddingRight: 10.4 }}>
-                                    {emailLoadingSymbol === "true" ? (
-                                        <ActivityIndicator
-                                            size="small"
-                                            color={Colors.primary3}
-                                        />
-                                    ) : emailLoadingSymbol === "false" ? (
-                                        <MaterialIcons
-                                            name="verified"
-                                            size={19}
-                                            color={Colors.default1}
-                                        />
-                                    ) : null}
-                                </View>
-                            </View>
-                            <Text
-                                style={{
-                                    fontSize: 15,
-                                    fontWeight: "700",
-                                    marginTop: 20,
-                                    color: Colors.welcomeText,
-                                    opacity: 0.6,
-                                }}
-                            >
-                                ID
-                            </Text>
-
-                            <View
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginTop: 6,
-                                    backgroundColor: Colors.inputBackground,
-                                    borderRadius: 8,
-                                    borderColor:
-                                        betIdError ||
-                                        betIdError1 ||
-                                        betIdError2 ||
-                                        betIdError3
-                                            ? "red"
-                                            : index === 3
-                                              ? Colors.default1
-                                              : "transparent",
-                                    borderWidth: 1.5,
-                                    position: "relative",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        position: "absolute",
-                                        top: -19,
-                                        right: 2,
-                                    }}
-                                >
-                                    {betIdError && (
-                                        <Text
-                                            style={{
-                                                fontWeight: "600",
-                                                fontSize: 12,
-                                                color: "red",
-                                            }}
-                                        >
-                                            * {languageText.text29}
-                                        </Text>
-                                    )}
-                                    {betIdError1 && (
-                                        <Text
-                                            style={{
-                                                fontWeight: "600",
-                                                fontSize: 12,
-                                                color: "red",
-                                            }}
-                                        >
-                                            * {languageText.text30}
-                                        </Text>
-                                    )}
-                                    {betIdError2 && (
-                                        <Text
-                                            style={{
-                                                fontWeight: "600",
-                                                fontSize: 12,
-                                                color: "red",
-                                            }}
-                                        >
-                                            * {languageText.text31}
-                                        </Text>
-                                    )}
-                                    {betIdError3 && (
-                                        <Text
-                                            style={{
-                                                fontWeight: "600",
-                                                fontSize: 12,
-                                                color: "red",
-                                            }}
-                                        >
-                                            * {languageText.text32}
-                                        </Text>
-                                    )}
-                                </View>
-                                <Text
-                                    style={{
-                                        paddingLeft: 12,
-                                        paddingRight: 2,
-                                        opacity: 1,
-                                    }}
-                                >
-                                    <FontAwesome
-                                        name="id-card"
-                                        size={13}
-                                        color={
-                                            betIdError ||
-                                            betIdError1 ||
-                                            betIdError2 ||
-                                            betIdError3
-                                                ? "red"
-                                                : index === 3
-                                                  ? Colors.default1
-                                                  : "rgba(128, 128, 128, 0.5)"
-                                        }
-                                    />
-                                </Text>
-                                <TextInput
-                                    ref={
-                                        Platform.OS === "ios" ||
-                                        Platform.OS === "android"
-                                            ? inputRef3
-                                            : null
-                                    }
-                                    value={betId}
-                                    onChangeText={setBetId}
-                                    onFocus={() => setItemOnFocus(3)}
-                                    onBlur={setItemOnBlur}
-                                    autoCorrect={false}
-                                    placeholderTextColor={
-                                        Colors.placeHolderTextColor
-                                    }
-                                    autoCapitalize="none"
-                                    placeholder="identifiant"
-                                    style={[
-                                        defaultStyles.inputField,
-                                        { color: Colors.welcomeText },
-                                    ]}
-                                    selectionColor={Colors.default1}
-                                    onEndEditing={SignUpBetIdVerification}
-                                    keyboardType="number-pad"
-                                ></TextInput>
-                                <View style={{ paddingRight: 10.4 }}>
-                                    {betIdLoadingSymbol === "true" ? (
-                                        <ActivityIndicator
-                                            size="small"
-                                            color={Colors.primary3}
-                                        />
-                                    ) : betIdLoadingSymbol === "false" ? (
-                                        <MaterialIcons
-                                            name="verified"
-                                            size={19}
-                                            color={Colors.default1}
-                                        />
-                                    ) : null}
-                                </View>
-                            </View>
-                        </View>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: Colors.default1,
-                                height: 48,
-                                borderRadius: 8,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                display: "flex",
-                                flexDirection: "row",
-                                gap: 8,
-                                marginTop: 100,
-                                marginBottom: 40,
-                                opacity: isLoading ? 0.5 : 1,
-                            }}
-                            onPress={handleSubmit}
-                        >
-                            {isLoading && (
-                                <ActivityIndicator size="small" color="white" />
-                            )}
-                            <Text style={defaultStyles.btnText}>
-                                {languageText.text124}
-                            </Text>
-                        </TouchableOpacity>
-                    </ScrollView>
-
-                    <Loader visible={loading} />
-                </View>
-                {networkModal === "" ? null : (
-                    <NetworkModalPage
-                        changeNetworkModal={changeNetworkModal}
-                        networkModal={networkModal}
-                        network={network}
-                        runNetworkCheck={runNetworkCheck}
-                        currentNetwork={currentNetwork}
-                        closeNetworkModal={closeNetworkModal}
-                        closeNetworkModal2={closeNetworkModal2}
-                        proceedWithNetworkModal={proceedWithNetworkModal}
-                        proceedWithNetworkModal2={proceedWithNetworkModal2}
-                    />
-                )}
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "700",
+                  color: Colors.welcomeText,
+                }}
+              >
+                {languageText.text118}
+              </Text>
+              <Text></Text>
             </View>
+
+            <ScrollView
+              style={{
+                gap: 20,
+                paddingVertical: 20,
+                paddingBottom: 10,
+                flex: 8,
+                backgroundColor: Colors.background,
+              }}
+              scrollEnabled={true}
+              automaticallyAdjustKeyboardInsets={true}
+              alwaysBounceVertical={true}
+              showsVerticalScrollIndicator={false}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "700",
+                    color: Colors.welcomeText,
+                    opacity: 0.6,
+                  }}
+                >
+                  {languageText.text122}
+                </Text>
+
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 6,
+                    backgroundColor: Colors.inputBackground,
+                    borderRadius: 8,
+                    borderColor: fullNameError
+                      ? "red"
+                      : index === 1
+                        ? Colors.default1
+                        : "transparent",
+                    borderWidth: 1.5,
+                    position: "relative",
+                  }}
+                >
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: -19,
+                      right: 2,
+                    }}
+                  >
+                    {fullNameError && (
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          fontSize: 12,
+                          color: "red",
+                        }}
+                      >
+                        * {languageText.text26}
+                      </Text>
+                    )}
+                  </View>
+                  <Text
+                    style={{
+                      paddingLeft: 12,
+                      paddingRight: 2,
+                      opacity: 1,
+                    }}
+                  >
+                    <Ionicons
+                      name='person-outline'
+                      size={18}
+                      color={
+                        fullNameError
+                          ? "red"
+                          : index === 1
+                            ? Colors.default1
+                            : "rgba(128, 128, 128, 0.5)"
+                      }
+                    />
+                  </Text>
+                  <TextInput
+                    ref={inputRef}
+                    value={fullname}
+                    onChangeText={setFullname}
+                    // onChange={SignUpFullnameReVerification}
+                    onFocus={() => setItemOnFocus(1)}
+                    onBlur={setItemOnBlur}
+                    placeholderTextColor={Colors.placeHolderTextColor}
+                    autoCapitalize='none'
+                    placeholder={languageText.text27}
+                    autoCorrect={false}
+                    style={[
+                      defaultStyles.inputField,
+                      {color: Colors.welcomeText},
+                    ]}
+                    onEndEditing={SignUpFullnameVerification}
+                  />
+                  <View style={{paddingRight: 10.4}}>
+                    {fullnameLoadingSymbol === "true" ? (
+                      <ActivityIndicator size='small' color={Colors.primary3} />
+                    ) : fullnameLoadingSymbol === "false" ? (
+                      <MaterialIcons
+                        name='verified'
+                        size={19}
+                        color={Colors.default1}
+                      />
+                    ) : null}
+                  </View>
+                </View>
+
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "700",
+                    marginTop: 20,
+                    color: Colors.welcomeText,
+                    opacity: 0.6,
+                  }}
+                >
+                  {languageText.text79}
+                </Text>
+                <TouchableWithoutFeedback
+                  // onPress={Keyboard.dismiss}
+                  accessible={false}
+                >
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: 6,
+                      backgroundColor: Colors.inputBackground,
+                      borderRadius: 8,
+                      borderColor: phoneNumberError
+                        ? "red"
+                        : index === 4
+                          ? Colors.default1
+                          : "transparent",
+                      borderWidth: 1.5,
+                      position: "relative",
+                    }}
+                  >
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: -19,
+                        right: 2,
+                      }}
+                    >
+                      {phoneNumberError && (
+                        <Text
+                          style={{
+                            fontWeight: "600",
+                            fontSize: 12,
+                            color: "red",
+                          }}
+                        >
+                          * {languageText.text123}
+                        </Text>
+                      )}
+                    </View>
+                    {phoneNumberLoadingSymbol === "false" && (
+                      <PopInAnimation
+                        scaleSpeed={0.6}
+                        opacitySpeed={800}
+                        style={{
+                          position: "absolute",
+                          top: -15,
+                          right: 2,
+                          borderRadius: 2,
+                          backgroundColor: Colors.default1,
+                        }}
+                      >
+                        {currentNetwork && network.length > 1 && (
+                          <Text
+                            style={{
+                              fontWeight: "900",
+                              fontSize: 8,
+                              color: "white",
+
+                              paddingLeft: 4,
+                              paddingRight: 4,
+                            }}
+                          >
+                            {currentNetwork}
+                          </Text>
+                        )}
+                        {network2 && network.length === 1 && (
+                          <Text
+                            style={{
+                              fontWeight: "900",
+                              fontSize: 8,
+                              color: "white",
+
+                              paddingLeft: 4,
+                              paddingRight: 4,
+                            }}
+                          >
+                            {network2}
+                          </Text>
+                        )}
+                      </PopInAnimation>
+                    )}
+
+                    <CountryCode
+                      displayNotification={displayNotification1}
+                      countryFlag={countryFlag}
+                      countryCode={countryCode}
+                      changeCountryCode={changeCountryCode}
+                      changeCountryFlag={changeCountryFlag}
+                    />
+                    <View
+                      style={{
+                        paddingVertical: 1,
+                        paddingHorizontal: 5,
+                        borderRadius: 3.5,
+                        margin: 3,
+                        marginRight: 5,
+                        backgroundColor: Colors.primary3,
+                        opacity: 0.8,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: Colors.countrySelectionTextColor,
+                          fontWeight: "800",
+                          fontSize: 13,
+                        }}
+                      >
+                        {countryCode}
+                      </Text>
+                    </View>
+                    <TextInput
+                      ref={inputRef4}
+                      value={number}
+                      onChangeText={setNumber}
+                      onFocus={() => setItemOnFocus(4)}
+                      onBlur={setItemOnBlur}
+                      autoCorrect={false}
+                      placeholderTextColor={Colors.placeHolderTextColor}
+                      autoCapitalize='none'
+                      placeholder={languageText.text35}
+                      style={{
+                        height: 48,
+                        opacity: 1,
+                        backgroundColor: "transparent",
+                        color: Colors.welcomeText,
+                        flex: 1,
+                        fontWeight: "800",
+                        fontSize: 17,
+                      }}
+                      selectionColor={Colors.default1}
+                      onEndEditing={wrapperSignUpPhoneNumberVerification}
+                      keyboardType='number-pad'
+                    ></TextInput>
+                    <View style={{paddingRight: 10.4}}>
+                      {phoneNumberLoadingSymbol === "true" ? (
+                        <ActivityIndicator
+                          size='small'
+                          color={Colors.primary3}
+                        />
+                      ) : phoneNumberLoadingSymbol === "false" ? (
+                        <MaterialIcons
+                          name='verified'
+                          size={19}
+                          color={Colors.default1}
+                        />
+                      ) : null}
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "700",
+                    marginTop: 20,
+                    color: Colors.welcomeText,
+                    opacity: 0.6,
+                  }}
+                >
+                  E-mail
+                </Text>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 6,
+                    backgroundColor: Colors.inputBackground,
+                    borderRadius: 8,
+                    borderColor: emailError
+                      ? "red"
+                      : index === 2
+                        ? Colors.default1
+                        : "transparent",
+                    borderWidth: 1.5,
+                    position: "relative",
+                  }}
+                >
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: -19,
+                      right: 2,
+                    }}
+                  >
+                    {emailError && (
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          fontSize: 12,
+                          color: "red",
+                        }}
+                      >
+                        {languageText.text13}
+                      </Text>
+                    )}
+                  </View>
+                  <Text
+                    style={{
+                      paddingLeft: 12,
+                      paddingRight: 2,
+                      opacity: 1,
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name='email-fast-outline'
+                      size={18}
+                      color={
+                        emailError
+                          ? "red"
+                          : index === 2
+                            ? Colors.default1
+                            : "rgba(128, 128, 128, 0.5)"
+                      }
+                    />
+                  </Text>
+                  <TextInput
+                    ref={inputRef2}
+                    value={email}
+                    onChangeText={setEmail}
+                    onFocus={() => setItemOnFocus(2)}
+                    onBlur={setItemOnBlur}
+                    placeholderTextColor={Colors.placeHolderTextColor}
+                    autoCapitalize='none'
+                    placeholder='E-mail'
+                    autoCorrect={false}
+                    style={[
+                      defaultStyles.inputField,
+                      {color: Colors.welcomeText},
+                    ]}
+                    onEndEditing={SignUpEmailVerification}
+                  ></TextInput>
+                  <View style={{paddingRight: 10.4}}>
+                    {emailLoadingSymbol === "true" ? (
+                      <ActivityIndicator size='small' color={Colors.primary3} />
+                    ) : emailLoadingSymbol === "false" ? (
+                      <MaterialIcons
+                        name='verified'
+                        size={19}
+                        color={Colors.default1}
+                      />
+                    ) : null}
+                  </View>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "700",
+                    marginTop: 20,
+                    color: Colors.welcomeText,
+                    opacity: 0.6,
+                  }}
+                >
+                  ID
+                </Text>
+
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 6,
+                    backgroundColor: Colors.inputBackground,
+                    borderRadius: 8,
+                    borderColor:
+                      betIdError || betIdError1 || betIdError2 || betIdError3
+                        ? "red"
+                        : index === 3
+                          ? Colors.default1
+                          : "transparent",
+                    borderWidth: 1.5,
+                    position: "relative",
+                  }}
+                >
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: -19,
+                      right: 2,
+                    }}
+                  >
+                    {betIdError && (
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          fontSize: 12,
+                          color: "red",
+                        }}
+                      >
+                        * {languageText.text29}
+                      </Text>
+                    )}
+                    {betIdError1 && (
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          fontSize: 12,
+                          color: "red",
+                        }}
+                      >
+                        * {languageText.text30}
+                      </Text>
+                    )}
+                    {betIdError2 && (
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          fontSize: 12,
+                          color: "red",
+                        }}
+                      >
+                        * {languageText.text31}
+                      </Text>
+                    )}
+                    {betIdError3 && (
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          fontSize: 12,
+                          color: "red",
+                        }}
+                      >
+                        * {languageText.text32}
+                      </Text>
+                    )}
+                  </View>
+                  <Text
+                    style={{
+                      paddingLeft: 12,
+                      paddingRight: 2,
+                      opacity: 1,
+                    }}
+                  >
+                    <FontAwesome
+                      name='id-card'
+                      size={13}
+                      color={
+                        betIdError || betIdError1 || betIdError2 || betIdError3
+                          ? "red"
+                          : index === 3
+                            ? Colors.default1
+                            : "rgba(128, 128, 128, 0.5)"
+                      }
+                    />
+                  </Text>
+                  <TextInput
+                    ref={
+                      Platform.OS === "ios" || Platform.OS === "android"
+                        ? inputRef3
+                        : null
+                    }
+                    value={betId}
+                    onChangeText={setBetId}
+                    onFocus={() => setItemOnFocus(3)}
+                    onBlur={setItemOnBlur}
+                    autoCorrect={false}
+                    placeholderTextColor={Colors.placeHolderTextColor}
+                    autoCapitalize='none'
+                    placeholder='identifiant'
+                    style={[
+                      defaultStyles.inputField,
+                      {color: Colors.welcomeText},
+                    ]}
+                    selectionColor={Colors.default1}
+                    onEndEditing={SignUpBetIdVerification}
+                    keyboardType='number-pad'
+                  ></TextInput>
+                  <View style={{paddingRight: 10.4}}>
+                    {betIdLoadingSymbol === "true" ? (
+                      <ActivityIndicator size='small' color={Colors.primary3} />
+                    ) : betIdLoadingSymbol === "false" ? (
+                      <MaterialIcons
+                        name='verified'
+                        size={19}
+                        color={Colors.default1}
+                      />
+                    ) : null}
+                  </View>
+                </View>
+              </View>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.default1,
+                  height: 48,
+                  borderRadius: 8,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 8,
+                  marginTop: 100,
+                  marginBottom: 40,
+                  opacity: loading2 ? 0.5 : 1,
+                }}
+                onPress={handleSubmit}
+                disabled={loading2}
+              >
+                {loading2 && <ActivityIndicator size='small' color='white' />}
+                <Text style={defaultStyles.btnText}>
+                  {languageText.text124}
+                </Text>
+              </TouchableOpacity>
+            </ScrollView>
+
+            <Loader visible={loading} />
+          </View>
+          {networkModal === "" ? null : (
+            <NetworkModalPage
+              changeNetworkModal={changeNetworkModal}
+              networkModal={networkModal}
+              network={network}
+              runNetworkCheck={runNetworkCheck}
+              currentNetwork={currentNetwork}
+              closeNetworkModal={closeNetworkModal}
+              closeNetworkModal2={closeNetworkModal2}
+              proceedWithNetworkModal={proceedWithNetworkModal}
+              proceedWithNetworkModal2={proceedWithNetworkModal2}
+            />
+          )}
         </View>
+      </View>
     );
 };
 
