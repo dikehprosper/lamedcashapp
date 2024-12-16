@@ -388,6 +388,15 @@ const english = {
   text362: "Pending Withdrawals",
   text363: "No QR Code generated yet, enter details to generate",
   text364: "Request Top Ups",
+  text365: "Soccer tips",
+  text366: "TIPSTER PICKS",
+  text367: "TAP TO VIEW",
+  text368: "2 SURE ODDS",
+  text369: "HISTORY",
+  text370: "TODAY",
+  text371: "Make a deposit of any amount to access for today",
+  text372: "No Games To Display Yet",
+  text373: "Make A Deposit Today To See Games",
 };
 
 const french = {
@@ -786,6 +795,16 @@ const french = {
   text363:
     " Aucun QR Code généré pour l'instant, entrez les détails pour générer",
   text364: "Demande de Recharges",
+  text365: "Soccer tips",
+  text366: "CÔTE DE 2",
+  text367: "APPUYEZ POUR VOIR",
+  text368: "CÔTE BONUS",
+  text369: "HISTOIRE",
+  text370: "TODAY",
+  text371:
+    "Effectuez un dépôt de n'importe quel montant pour y accéder dès aujourd'hui",
+  text372: "Aucun jeu à afficher pour le moment",
+  text373: "Faites un dépôt aujourd'hui pour voir les jeux",
 };
 
 const Languages: any = { english, french };

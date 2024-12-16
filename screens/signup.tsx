@@ -791,84 +791,87 @@ const [ConditionOfRegistrationStateError, setConditionOfRegistrationStateError] 
 const [isLoading, setIsLoading] = useState(false);
 
 
+function handlesubmit() {
+  if (isLoading) {
+    setIsLoading(true);
+  }
+  if (fullNameError !== false) {
+    
+  }
+}
 
     function handleSubmit() {
+      if (isLoading) return;
+      setIsLoading(true);
 
-  
-         if (isLoading) return;
-         setIsLoading(true);
+      if (fullnameLoadingSymbol !== "false") {
+        setFullNameError(true);
+        setTriggerFullNameRevalidation2(true);
+      }
 
-        if (fullnameLoadingSymbol !== "false") {
-            setFullNameError(true);
-            setTriggerFullNameRevalidation2(true);
-        }
-      
-        if (emailLoadingSymbol !== "false") {
-            setEmailError(true);
-            setTriggerEmailRevalidation2(true);
-        }
-       
-        if (phoneNumberLoadingSymbol !== "false") {
-            setPhoneNumberError(true);
-            setTriggerPhoneNumberRevalidation2(true);
-        }
-        if (passwordLoadingSymbol !== "false") {
-            setPasswordError(true);
-            setTriggerPasswordRevalidation2(true);
-        }
-        if (confirmPasswordLoadingSymbol !== "false") {
-            setConfirmPasswordError(true);
-            setTriggerConfirmPasswordRevalidation2(true);
-        }
+      if (emailLoadingSymbol !== "false") {
+        setEmailError(true);
+        setTriggerEmailRevalidation2(true);
+      }
 
-        if (
-            fullnameLoadingSymbol !== "false" ||
-            emailLoadingSymbol !== "false" ||
-            phoneNumberLoadingSymbol !== "false" ||
-            passwordLoadingSymbol !== "false" ||
-            confirmPasswordLoadingSymbol !== "false"
-        ) {
+      if (phoneNumberLoadingSymbol !== "false") {
+        setPhoneNumberError(true);
+        setTriggerPhoneNumberRevalidation2(true);
+      }
+      if (passwordLoadingSymbol !== "false") {
+        setPasswordError(true);
+        setTriggerPasswordRevalidation2(true);
+      }
+      if (confirmPasswordLoadingSymbol !== "false") {
+        setConfirmPasswordError(true);
+        setTriggerConfirmPasswordRevalidation2(true);
+      }
+
+      if (
+        fullnameLoadingSymbol !== "false" ||
+        emailLoadingSymbol !== "false" ||
+        phoneNumberLoadingSymbol !== "false" ||
+        passwordLoadingSymbol !== "false" ||
+        confirmPasswordLoadingSymbol !== "false"
+      ) {
+        setIsLoading(false);
+        return;
+      }
+
+      const formData: FormData = {
+        fullname: fullname,
+        email: email,
+        betId: betId,
+        number: number,
+        password: password,
+        referId: referId,
+      };
+
+      dispatch(signUpUser(formData))
+        .then(async (result: any) => {
+          if (result.payload.success === true) {
+            try {
+              await AsyncStorage.setItem("token", result.payload.token);
+              navigation.replace("setAuthScreen");
+              setIsLoading(false);
+            } catch (err) {
+              console.log(err);
+            }
+          }
+          if (result.payload.status === 400) {
+            displayNotification2();
             setIsLoading(false);
-            return;
-        }
-
-        const formData: FormData = {
-            fullname: fullname,
-            email: email,
-            betId: betId,
-            number: number,
-            password: password,
-            referId: referId,
-        };
-
-        dispatch(signUpUser(formData))
-            .then(async (result: any) => {
-                if (result.payload.success === true) {
-                    try {
-                        await AsyncStorage.setItem(
-                            "token",
-                            result.payload.token,
-                        );
-                        navigation.replace("setAuthScreen");
-                        setIsLoading(false);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }
-                if (result.payload.status === 400) {
-                    displayNotification2();
-                    setIsLoading(false);
-                }
-                if (result.payload.status === 501) {
-                    displayNotification3();
-                    setIsLoading(false);
-                }
-                if (result.payload.status === 503) {
-                    displayNotification4();
-                    setIsLoading(false);
-                }
-            })
-            .catch((err: any) => console.log(err));
+          }
+          if (result.payload.status === 501) {
+            displayNotification3();
+            setIsLoading(false);
+          }
+          if (result.payload.status === 503) {
+            displayNotification4();
+            setIsLoading(false);
+          }
+        })
+        .catch((err: any) => console.log(err));
     }
 
     //   const logout = ()  => {
