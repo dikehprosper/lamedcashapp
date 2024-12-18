@@ -35,7 +35,7 @@ import CustomMiddleComponent, {
 } from "@/components/CustomMiddleComponent";
 import Drawer from "@/components/icons/Drawer";
 import NotificationIcon from "@/components/icons/NotificationIcon";
-import {Ionicons, MaterialIcons} from "@expo/vector-icons";
+import {AntDesign, Ionicons, MaterialIcons} from "@expo/vector-icons";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 import CustomTabBar from "@/components/CustomTabBar";
@@ -48,10 +48,16 @@ import socket from "@/utils/socket";
 import * as Notifications from "expo-notifications";
 import DOMAIN from "@/components/(Utils)/domain";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import chelsea from "@/assets/test/chelsea.jpeg";
+import spain from "@/assets/test/spain.png";
+import laLiga from "@/assets/test/La_Liga.png";
+import premierLeague from "@/assets/test/Premier_League.jpeg";
+import brentford from "@/assets/test/brentford.png";
+import barcelona from "@/assets/test/barcelona.png";
 // const TopTabs = withLayoutContext(createMaterialTopTabNavigator().Navigator);
 
 export default function OrderListNavigator({ navigation }: any) {
-  const data = useSelector((state: RootState) => state.getUserData.data); // Replace any with actual data type
+  // const data = useSelector((state: RootState) => state.getUserData.data); 
   const [filteredData, setFilteredData] = useState<any[]>([]); // Replace any with actual data type
   const [unreadNotifications, setUnreadNotifications] = useState<any[]>([]);
   // Example filter function (replace with your actual filter logic)
@@ -66,18 +72,6 @@ export default function OrderListNavigator({ navigation }: any) {
   //     setFilteredData(filtered);
   // };
 
-  useEffect(() => {
-    socket.emit("authenticate", data._id);
-    socket.on("notification", (data: any) => {
-      console.log("notification", data);
-    });
-
-    return () => {
-      socket.off("notification", () =>
-        console.log("out of live notifications")
-      );
-    };
-  }, []);
 
 
 
@@ -96,7 +90,7 @@ export default function OrderListNavigator({ navigation }: any) {
 
   const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const tabs = [{name: "For you"}, {name: "Following"}];
+  
 
   // const selectTab = (index: number) => {
   //     setActiveIndex(index);
@@ -111,6 +105,58 @@ export default function OrderListNavigator({ navigation }: any) {
 
   // const showActiveTab = currentTab(tabs)!;
 
+
+
+const [isAdmin, setIsAdmin] = useState(true)
+  const data = [
+    {
+      id: 1,
+      date: "2024-12-14", // Add the date here
+      country: "Spain",
+      time: "22:00",
+      championship: "La Liga",
+      championshipFlag: laLiga,
+      team1: "Barcelona",
+      team1_flag: barcelona,
+      team2: "Spain",
+      team2_flag: spain,
+      tip: "1X",
+      status: "NS",
+      statusDisplay: "Pending",
+    },
+    {
+      id: 2,
+      date: "2024-12-15", // Add the date here
+      country: "England",
+      time: "23:00",
+      championship: "Premier League",
+      championshipFlag: premierLeague,
+      team1: "Chelsea",
+      team1_flag: chelsea,
+      team2: "Brentford",
+      team2_flag: brentford,
+      tip: "1",
+      status: "NS",
+      statusDisplay: "Pending",
+    },
+    {
+      id: 3,
+      date: "2024-12-15", // Add the date here
+      country: "England",
+      time: "23:00",
+      championship: "Premier League",
+      championshipFlag: premierLeague,
+      team1: "Chelsea",
+      team1_flag: chelsea,
+      team2: "Brentford",
+      team2_flag: brentford,
+      tip: "1",
+      status: "NS",
+      statusDisplay: "Pending",
+    },
+  ];
+
+
   const layout = useWindowDimensions();
 
   const {backgroundColor, color, displayNotificationIn, notification, show2} =
@@ -121,22 +167,26 @@ export default function OrderListNavigator({ navigation }: any) {
       case "today":
         return (
           <TodayTab
-            following={true}
+            isAdmin={isAdmin}
             displayNotificationIn={displayNotificationIn}
+            data={data}
           />
         );
       case "history":
         return (
           <HistoryTab
-            following={true}
+             isAdmin={isAdmin}
             displayNotificationIn={displayNotificationIn}
+            data={data}
           />
         );
 
       default:
-        return null;
+        return null;  
     }
   };
+
+ 
 
   const [index, setIndex] = React.useState(1);
   const [routes] = React.useState([
@@ -163,7 +213,7 @@ export default function OrderListNavigator({ navigation }: any) {
         <BottomSheetModalProvider>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: "column",
               paddingHorizontal: 0,
               gap: 10,
               justifyContent: "space-between",
@@ -202,6 +252,47 @@ export default function OrderListNavigator({ navigation }: any) {
               </Text>
               <View></View>
             </View>
+            <View style={styles.transaction_template_container_header_1}>
+              <TouchableOpacity
+                onPressIn={() => navigation.push("editfirstsection")}
+                style={{
+                  paddingTop: 3,
+                  paddingBottom: 3,
+                  paddingRight: 3,
+                  paddingLeft: 10,
+                  backgroundColor: "transparent",
+                  borderColor: Colors.welcomeText,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  gap: 15,
+                  borderWidth: 2,
+                  borderRadius: 5,
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: Colors.welcomeText,
+                    fontWeight: "600",
+                    opacity: 0.95,
+                    fontSize: 21,
+                  }}
+                >
+                  {languageText.text375}
+                </Text>
+                <AntDesign
+                  name='arrowright'
+                  size={21}
+                  color={Colors.welcomeText}
+                  opacity={0.9}
+                  fontWeight={900}
+                />
+              </TouchableOpacity>
+
+              <View></View>
+            </View>
           </View>
           <TabBar
             {...props}
@@ -237,6 +328,7 @@ export default function OrderListNavigator({ navigation }: any) {
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.background}}>
+
       <TabView
         renderTabBar={renderTabBar}
         navigationState={{index, routes}}
@@ -244,10 +336,8 @@ export default function OrderListNavigator({ navigation }: any) {
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
       />
-      
-
     </View>
-  );
+);
 }
 
 const styles = StyleSheet.create({

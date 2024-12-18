@@ -630,25 +630,27 @@ const Home = (props: any, {navigation}: any) => {
                     color={Colors.welcomeText}
                   />
                 </View>
+                {address && (
+                  <MarqueeText
+                    text={
+                      currentLanguage === "english"
+                        ? address.marqueTextEng
+                        : address.marqueTextFRC
+                    }
+                    textStyle={{
+                      fontSize: 16,
+                      fontWeight: "700",
+                      color: Colors.welcomeText,
 
-                <MarqueeText
-                  text={
-                    currentLanguage === "english"
-                      ? address.marqueTextEng
-                      : address.marqueTextFRC
-                  }
-                  textStyle={{
-                    fontSize: 16,
-                    fontWeight: "700",
-                    color: Colors.welcomeText,
+                      alignSelf: "center",
+                    }}
+                    containerStyle={{
+                      width: "85%",
+                      alignItems: "center",
+                    }}
+                  />
+                )}
 
-                    alignSelf: "center",
-                  }}
-                  containerStyle={{
-                    width: "85%",
-                    alignItems: "center",
-                  }}
-                />
                 <View
                   style={{
                     width: 40,

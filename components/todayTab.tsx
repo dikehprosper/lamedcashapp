@@ -37,17 +37,12 @@ import {
 } from "./skeleton3";
 import useNotification from "./(Utils)/displayNotification";
 import ToastNotification from "./(Utils)/toastNotification";
-import chelsea from "@/assets/test/chelsea.jpeg";
-import spain from "../assets/test/spain.png";
-import laLiga from "../assets/test/La_Liga.png";
-import premierLeague from "../assets/test/Premier_League.jpeg";
-import brentford from "../assets/test/brentford.png";
-import barcelona from "../assets/test/barcelona.png";
+
 
 import DOMAIN from "./(Utils)/domain";
 import { FontAwesome6 } from "@expo/vector-icons";
 
-const Today = ({displayNotificationIn, following}: any) => {
+const Today = ({displayNotificationIn, following, data}: any) => {
   const colorScheme = useSelector(
     (state: RootState) => state.getUserData.colorScheme
   );
@@ -63,123 +58,7 @@ const Today = ({displayNotificationIn, following}: any) => {
   const [loading, setLoading] = useState(false);
 
 
-  const getForYouPosts = async () => {
-    setLoading(true);
-    setRefreshing(true);
-    const token = await AsyncStorage.getItem("token");
 
-    if (token) {
-      const request = {
-        method: "GET",
-        headers: {Authorization: `Bearer ${token}`},
-      };
-
-      const response = await fetch(
-        `${DOMAIN}/api/posts${following ? "/following" : ""}`,
-        request
-      );
-
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log(`${following ? "following" : ""}`, responseData.data.posts);
-        setFYPosts(responseData.data.posts);
-        setLoading(false);
-        setRefreshing(false);
-      }
-    } else {
-      setRefreshing(false);
-      setLoading(false);
-      console.log("No token found");
-    }
-  };
-
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    // Simulate fetching new data from an API
-    getForYouPosts().then(() => setRefreshing(false));
-  }, [fyPosts]);
-
-  useFocusEffect(
-    useCallback(() => {
-      getForYouPosts();
-    }, [])
-  );
-  const postMap = ["", "", "", ""];
-
-
-
-
-
-
-    const [fyPosts, setFYPosts] = useState<any[]>([
-      {_id: "1", title: "Post 1", content: "This is the content of Post 1"},
-      {_id: "2", title: "Post 2", content: "This is the content of Post 2"},
-      {_id: "3", title: "Post 3", content: "This is the content of Post 3"},
-    ]);
-
-    useEffect(() => {
-      // Simulating fetching data from an API
-      const fetchPosts = async () => {
-        const response = await fetch("https://api.example.com/posts");
-        const data = await response.json();
-        setFYPosts(data); // Assuming `data` is an array of posts
-      };
-
-      fetchPosts().catch(console.error);
-    }, []);
-
-
-
-
-const data = [
-  {
-    id: 1,
-    date: "2024-12-14", // Add the date here
-    country: "Spain",
-    time: "22:00",
-    championship: "La Liga",
-    championshipFlag: laLiga,
-    team1: "Barcelona",
-    team1_flag: barcelona,
-    team2: "Spain",
-    team2_flag: spain,
-    tip: "1X",
-    status: "NS",
-    statusDisplay: "Pending",
-  },
-  {
-    id: 2,
-    date: "2024-12-15", // Add the date here
-    country: "England",
-    time: "23:00",
-    championship: "Premier League",
-    championshipFlag: premierLeague,
-    team1: "Chelsea",
-    team1_flag: chelsea,
-    team2: "Brentford",
-    team2_flag: brentford,
-    tip: "1",
-    status: "NS",
-    statusDisplay: "Pending",
-  },
-  {
-    id: 3,
-    date: "2024-12-15", // Add the date here
-    country: "England",
-    time: "23:00",
-    championship: "Premier League",
-    championshipFlag: premierLeague,
-    team1: "Chelsea",
-    team1_flag: chelsea,
-    team2: "Brentford",
-    team2_flag: brentford,
-    tip: "1",
-    status: "NS",
-    statusDisplay: "Pending",
-  },
-];
 
 
 const [customerMadeDepositToday, setCustomerMadeDepositToday] = useState<any>(true)
@@ -198,7 +77,7 @@ const [customerMadeDepositToday, setCustomerMadeDepositToday] = useState<any>(tr
     >
       {customerMadeDepositToday === true ? (
         data.length > 0 ? (
-         data.map(data => {
+         data.map((data: any) => {
           return (
             <View
               style={{

@@ -397,6 +397,8 @@ const english = {
   text371: "Make a deposit of any amount to access for today",
   text372: "No Games To Display Yet",
   text373: "Make A Deposit Today To See Games",
+  text374: "Update And Delete",
+  text375: "Create",
 };
 
 const french = {
@@ -805,6 +807,8 @@ const french = {
     "Effectuez un dépôt de n'importe quel montant pour y accéder dès aujourd'hui",
   text372: "Aucun jeu à afficher pour le moment",
   text373: "Faites un dépôt aujourd'hui pour voir les jeux",
+  text374: "Update And Delete",
+  text375: "Créer",
 };
 
 const Languages: any = { english, french };

@@ -27,6 +27,8 @@ import Withdraw from "../screens/Withdraw";
 import EditProfile from "@/screens/(profileSettings)/(editProfile)/editProfile";
 import FirstSection from "@/screens/(coupon)/firstsection";
 import SecondSection from "@/screens/(coupon)/secondsection";
+import EditFirstSection from "@/screens/(coupon)/editfirstsection";
+import EditSecondSection from "@/screens/(coupon)/editsecondsection";
 import UpdateProfile from "@/screens/(profileSettings)/(editProfile)/updateProfile";
 import EditSettings from "@/screens/(profileSettings)/(settings)/editSettings";
 import Wallet from "@/screens/(wallet)/wallet";
@@ -405,7 +407,6 @@ const AppNavigator = () => {
             <Stack.Screen name='deposit' component={Deposit} />
             <Stack.Screen name='transactions' component={Transactions} />
             <Stack.Screen name='editProfile' component={EditProfile} />
-
             <Stack.Screen name='updateProfile' component={UpdateProfile} />
             <Stack.Screen name='setTag' component={SetTag} />
             <Stack.Screen name='editSettings' component={EditSettings} />
@@ -465,6 +466,14 @@ const AppNavigator = () => {
             />
             <Stack.Screen name='secondsection' component={SecondSection} />
             <Stack.Screen name='firstsection' component={FirstSection} />
+            <Stack.Screen
+              name='editfirstsection'
+              component={EditFirstSection}
+            />
+            <Stack.Screen
+              name='editsecondsection'
+              component={EditSecondSection}
+            />
 
             <Stack.Screen name='login' component={Login} />
             <Stack.Screen name='walletRules' component={WalletRules} />
