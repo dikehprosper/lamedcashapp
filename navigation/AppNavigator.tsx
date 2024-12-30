@@ -29,6 +29,7 @@ import FirstSection from "@/screens/(coupon)/firstsection";
 import SecondSection from "@/screens/(coupon)/secondsection";
 import EditFirstSection from "@/screens/(coupon)/editfirstsection";
 import EditSecondSection from "@/screens/(coupon)/editsecondsection";
+import EditSecondSectionSpecial from "@/screens/(coupon)/editSecondSectionSpecial";
 import UpdateProfile from "@/screens/(profileSettings)/(editProfile)/updateProfile";
 import EditSettings from "@/screens/(profileSettings)/(settings)/editSettings";
 import Wallet from "@/screens/(wallet)/wallet";
@@ -88,6 +89,7 @@ import AllNotification from "@/screens/Notification";
 import * as Linking from "expo-linking";
 import ChangePin2 from "@/screens/(profileSettings)/(settings)/changePin2";
 import ChangePassword2 from "@/screens/(profileSettings)/(settings)/changePassword2";
+import EditFirstSectionSpecial from "@/screens/(coupon)/editFirstSectionSpecial";
 const prefix = Linking.createURL("/");
 
 // import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -473,6 +475,14 @@ const AppNavigator = () => {
             <Stack.Screen
               name='editsecondsection'
               component={EditSecondSection}
+            />
+            <Stack.Screen
+              name='editSecondSectionSpecial'
+              component={EditSecondSectionSpecial}
+            />
+            <Stack.Screen
+              name='editFirstSectionSpecial'
+              component={EditFirstSectionSpecial}
             />
 
             <Stack.Screen name='login' component={Login} />

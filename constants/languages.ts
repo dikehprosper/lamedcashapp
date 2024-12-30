@@ -395,7 +395,7 @@ const english = {
   text369: "HISTORY",
   text370: "TODAY",
   text371: "Make a deposit of any amount to access for today",
-  text372: "No Games To Display Yet",
+  text372: "No History To Display Yet",
   text373: "Make A Deposit Today To See Games",
   text374: "Update And Delete",
   text375: "Create",
@@ -805,8 +805,8 @@ const french = {
   text370: "TODAY",
   text371:
     "Effectuez un dépôt de n'importe quel montant pour y accéder dès aujourd'hui",
-  text372: "Aucun jeu à afficher pour le moment",
-  text373: "Faites un dépôt aujourd'hui pour voir les jeux",
+  text372: "Aún no hay historial para mostrar",
+  text373: "Faites un dépôt aujourd'hui pour voir les jeux",               
   text374: "Update And Delete",
   text375: "Créer",
 };

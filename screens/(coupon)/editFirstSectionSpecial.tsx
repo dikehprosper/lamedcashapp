@@ -42,7 +42,14 @@ import ToastNotification from "@/components/(Utils)/toastNotification";
 import {Color} from "@/constants/Colors";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/state/store";
-import {changeUserDetails, createMatchPrediction} from "@/state/userData/getUserData";
+import {
+  changeUserDetails,
+  createMatchPrediction,
+  deleteMatchPrediction,
+  deleteMatchPrediction2,
+  updateMatchPrediction,
+  updateMatchPrediction2,
+} from "@/state/userData/getUserData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoadingComponent from "@/components/loadingComponent";
 import ExploreHeader5 from "@/components/ExploreHeader5";
@@ -70,11 +77,29 @@ interface MatchPredictionPayload {
   league?: string;
   league_flag?: string;
   tip?: string;
+  status?: string;
+  id?: string;
 }
 
+interface DeleteMatchPredictionPayload {
+  id?: string;
+}
+
+const EditFirstSectionSpecial = ({route, navigation}: any) => {
+  const {
+    data_league,
+    data_league_flag,
+    data_team1,
+    data_team1_flag,
+    data_team2,
+    data_team2_flag,
+    data_time,
+    data_status,
+    data_tip,
+    data_id,
+  } = route.params;
 
 
-const EditSecondSection = ({navigation}: any) => {
   const colorScheme = useSelector(
     (state: RootState) => state.getUserData.colorScheme
   );
@@ -93,24 +118,114 @@ const EditSecondSection = ({navigation}: any) => {
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(true);
+  const [loading3, setLoading3] = useState(false);
   const [iconVisibility, setIconVisibility] = useState(false);
   const [validationMessage, SetValidationMessage] = useState("");
   const [index, setIndex] = useState(0);
 
   // All inputs data initial state
-  const [team1, setTeam1] = useState<any>();
-  const [team2, setTeam2] = useState<any>();
-  const [time, setTime] = useState("");
-  const [league, setLeague] = useState<any>();
-  const [tip, setTip] = useState("");
-  const [status, setStatus] = useState("");
+  const [team1, setTeam1] = useState<any>({
+    team: data_team1,
+    image: data_team1_flag,
+  });
+  const [team2, setTeam2] = useState<any>({
+    team: data_team2,
+    image: data_team2_flag,
+  });
+  const [time, setTime] = useState(data_time);
+  const [league, setLeague] = useState<any>({
+    league: data_league,
+    image: data_league_flag,
+  });
+  const [tip, setTip] = useState(data_tip);
+  const [status, setStatus] = useState(data.status);
 
- 
+  // const [screenheight, setScreenHeight] = useState({screenheight: 0})
+  // function onContentSizeChange(contentWidth: any, contentHeight: any) {
+  // setScreenHeight({screenheight: 3000})
+  // }
+  //  const [height, setHeight] = useState(0);
+
+  //  const onLayout = (event: any) => {
+  //    const {height: newHeight} = event.nativeEvent.layout;
+  //    setHeight(newHeight);
+  //  };
+  // const scrollEnabled = screenheight.screenheight !== height;
+
+  //   function handleSubmit() {
+  //     if (loading2) return;
+  //     setLoading2(true);
+  //     if (fullnameLoadingSymbol !== "false") {
+  //       setFullNameError(true);
+  //       setTriggerFullNameRevalidation2(true);
+  //     }
+  //     if (emailLoadingSymbol !== "false") {
+  //       setEmailError(true);
+  //       setTriggerEmailRevalidation2(true);
+  //     }
+
+  //     if (phoneNumberLoadingSymbol !== "false") {
+  //       setPhoneNumberError(true);
+  //       setTriggerPhoneNumberRevalidation2(true);
+  //     }
+  //     if (betIdLoadingSymbol !== "false") {
+  //       setBetIdError(true);
+  //       setTriggerBetIdRevalidation2(true);
+  //     }
+
+  //     if (
+  //       fullnameLoadingSymbol !== "false" ||
+  //       emailLoadingSymbol !== "false" ||
+  //       phoneNumberLoadingSymbol !== "false" ||
+  //       betIdLoadingSymbol !== "false"
+  //     ) {
+  //       setLoading2(false);
+  //       return;
+  //     }
+
+  //     const formData: FormData2 = {
+  //       fullname: fullname,
+  //       email: email,
+  //       number: number,
+  //       betId: betId,
+  //     };
+  //     dispatch(changeUserDetails(formData))
+  //       .then(async (result) => {
+  //         if (result.payload.success === true) {
+  //           displayNotification2();
+
+  //           setLoading2(false);
+  //         }
+  //         if (result.payload.status === 402) {
+  //           displayNotification3();
+  //           setLoading2(false);
+  //         }
+  //         if (result.payload.status === 400) {
+  //           displayNotification4();
+  //           setLoading2(false);
+  //         }
+  //         if (result.payload.status === 502) {
+  //           navigation.dispatch(
+  //             CommonActions.reset({
+  //               index: 0,
+  //               routes: [{name: "login"}],
+  //             })
+  //           );
+  //           setLoading2(false);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         displayNotification3();
+  //         setLoading2(false);
+  //       });
+  //   }
+
   //FOR TOAST NOTIFICATION
   const [show, setShow] = useState(0);
   const [display, setDisplay] = useState(0);
   const text1 = "Successfully added";
-  const text2 = languageText.text125;
+  const text2 = "Successfully deleted";
   const text3 = languageText.text126;
   const text4 = languageText.text127;
 
@@ -208,7 +323,6 @@ const EditSecondSection = ({navigation}: any) => {
 
   function handleSubmit3(value: any) {
     hideModal();
-
     setTeam2(value);
   }
 
@@ -216,33 +330,33 @@ const EditSecondSection = ({navigation}: any) => {
     if (time && team1 && team2 && tip && league) {
       setLoading2(false);
     }
-  })
+  });
 
-  function handleSubmitAll() {
-
-
+  function handleUpdateAll() {
     setLoading2(true);
     setLoading(true);
- const payload: MatchPredictionPayload = {
-   time: time,
-   team1: team1.team,
-   team1_flag: team1.image,
-   team2: team2.team,
-   team2_flag: team2.image,
-   league: league.league,
-   league_flag: league.image,
-   tip: tip,
- };
+    const payload: MatchPredictionPayload = {
+      time: time,
+      team1: team1.team,
+      team1_flag: team1.image,
+      team2: team2.team,
+      team2_flag: team2.image,
+      league: league.league,
+      league_flag: league.image,
+      tip: tip,
+      status: status,
+      id: data_id,
+    };
 
-    dispatch(createMatchPrediction(payload))
+    dispatch(updateMatchPrediction2(payload))
       .then(async (result: any) => {
         if (result.payload.success === true) {
-             displayNotification1();
-         
+          displayNotification1();
+
           setLoading(false);
-        setTimeout(() => {
-          navigation.goBack();
-        }, 1000);
+          setTimeout(() => {
+            navigation.goBack();
+          }, 1000);
         }
       })
       .catch((err: any) => {
@@ -251,10 +365,28 @@ const EditSecondSection = ({navigation}: any) => {
       });
   }
 
+  function handleDeleteOne() {
+    setLoading3(true);
+    const payload: DeleteMatchPredictionPayload = {
+      id: data_id,
+    };
 
+    dispatch(deleteMatchPrediction2(payload))
+      .then(async (result: any) => {
+        if (result.payload.success === true) {
+          displayNotification1();
 
-
-
+          setLoading3(false);
+          setTimeout(() => {
+            navigation.goBack();
+          }, 1000);
+        }
+      })
+      .catch((err: any) => {
+        displayNotification2();
+        setLoading3(false);
+      });
+  }
 
   return (
     <View
@@ -658,6 +790,234 @@ const EditSecondSection = ({navigation}: any) => {
                 ]}
               ></TextInput>
             </View>
+            {data_status === "Pending" && (
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                  marginTop: 20,
+                  padding: 10,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => setStatus("Successful")}
+                  style={{
+                    width: 120,
+                    height: 45,
+                    borderColor: Colors.default1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 1.2,
+                    borderRadius: 4,
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: Colors.default1,
+                    }}
+                  >
+                    Won
+                  </Text>
+                  {status === "Successful" && (
+                    <AntDesign
+                      name='checkcircleo'
+                      size={22}
+                      color={Colors.default1}
+                    />
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setStatus("Failed")}
+                  style={{
+                    width: 120,
+                    height: 45,
+                    borderColor: "red",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 1.2,
+                    borderRadius: 4,
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: "red",
+                    }}
+                  >
+                    Failed
+                  </Text>
+
+                  {status === "Failed" && (
+                    <AntDesign name='checkcircleo' size={22} color='red' />
+                  )}
+                </TouchableOpacity>
+              </View>
+            )}
+            {data_status === "Successful" && (
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                  marginTop: 20,
+                  padding: 10,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => setStatus("Pending")}
+                  style={{
+                    width: 120,
+                    height: 45,
+                    borderColor: Colors.welcomeText,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 1.2,
+                    borderRadius: 4,
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: Colors.welcomeText,
+                    }}
+                  >
+                    Pend
+                  </Text>
+                  {status === "Pending" && (
+                    <AntDesign
+                      name='checkcircleo'
+                      size={22}
+                      color={Colors.welcomeText}
+                    />
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setStatus("Failed")}
+                  style={{
+                    width: 120,
+                    height: 45,
+                    borderColor: "red",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 1.2,
+                    borderRadius: 4,
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: "red",
+                    }}
+                  >
+                    Failed
+                  </Text>
+
+                  {status === "Failed" && (
+                    <AntDesign name='checkcircleo' size={22} color='red' />
+                  )}
+                </TouchableOpacity>
+              </View>
+            )}
+            {data_status === "Failed" && (
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                  marginTop: 20,
+                  padding: 10,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => setStatus("Successful")}
+                  style={{
+                    width: 120,
+                    height: 45,
+                    borderColor: Colors.default1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 1.2,
+                    borderRadius: 4,
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: Colors.default1,
+                    }}
+                  >
+                    Won
+                  </Text>
+                  {status === "Successful" && (
+                    <AntDesign
+                      name='checkcircleo'
+                      size={22}
+                      color={Colors.default1}
+                    />
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setStatus("Pending")}
+                  style={{
+                    width: 120,
+                    height: 45,
+                    borderColor: Colors.welcomeText,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 1.2,
+                    borderRadius: 4,
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: Colors.welcomeText,
+                    }}
+                  >
+                    Pend
+                  </Text>
+                  {status === "Pending" && (
+                    <AntDesign
+                      name='checkcircleo'
+                      size={22}
+                      color={Colors.welcomeText}
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
+            )}
 
             <TouchableOpacity
               style={{
@@ -669,19 +1029,36 @@ const EditSecondSection = ({navigation}: any) => {
                 display: "flex",
                 flexDirection: "row",
                 gap: 8,
-                marginTop: 100,
-                marginBottom: 40,
+                marginTop: 30,
+                marginBottom: 20,
                 opacity: loading2 ? 0.5 : 1,
               }}
-              onPress={handleSubmitAll}
+              onPress={handleUpdateAll}
               disabled={loading2}
             >
               {loading && <ActivityIndicator size='small' color='white' />}
-              <Text style={defaultStyles.btnText}>{languageText.text375}</Text>
+              <Text style={defaultStyles.btnText}>Update</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "red",
+                height: 48,
+                borderRadius: 8,
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "row",
+                gap: 8,
+                marginBottom: 40,
+                opacity: loading2 ? 0.5 : 1,
+              }}
+              onPress={handleDeleteOne}
+              disabled={loading3}
+            >
+              {loading3 && <ActivityIndicator size='small' color='white' />}
+              <Text style={defaultStyles.btnText}>Delete</Text>
             </TouchableOpacity>
           </ScrollView>
-
-      
         </View>
       </View>
     </View>
@@ -715,4 +1092,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditSecondSection;
+export default EditFirstSectionSpecial;

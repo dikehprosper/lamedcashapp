@@ -14,15 +14,16 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from "react-native";
-import {FloatingAction} from "react-native-floating-action";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState, useCallback} from "react";
 import forYouTab from "@/components/forYouTab";
 import followingTab from "@/components/followingTab";
 import {Color} from "@/constants/Colors";
-import {useSelector} from "react-redux";
-import {RootState} from "@/state/store";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/state/store";
 import TodayTab2 from "@/components/todayTab2";
 import HistoryTab2 from "@/components/historyTab2";
+import {useFocusEffect} from "@react-navigation/native";
+import Moment from "moment";
 import {
   NavigationState,
   SceneMap,
@@ -47,43 +48,18 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import socket from "@/utils/socket";
 import * as Notifications from "expo-notifications";
 import DOMAIN from "@/components/(Utils)/domain";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import chelsea from "@/assets/test/chelsea.jpeg";
-import spain from "@/assets/test/spain.png";
-import laLiga from "@/assets/test/La_Liga.png";
-import premierLeague from "@/assets/test/Premier_League.jpeg";
-import brentford from "@/assets/test/brentford.png";
-import barcelona from "@/assets/test/barcelona.png";
+
+import {getMatchPrediction} from "@/state/userData/getUserData";
 // const TopTabs = withLayoutContext(createMaterialTopTabNavigator().Navigator);
 
 export default function OrderListNavigator({navigation}: any) {
-  // const data = useSelector((state: RootState) => state.getUserData.data); 
+  const data1 = useSelector((state: RootState) => state.getUserData.data);
+  const isAdmin = data1.email === "admin2@lamedcash.com" ? true : false;
+  const dispatch = useDispatch<AppDispatch>();
   const [filteredData, setFilteredData] = useState<any[]>([]); // Replace any with actual data type
   const [unreadNotifications, setUnreadNotifications] = useState<any[]>([]);
-  // Example filter function (replace with your actual filter logic)
-  // const filterFunction = (item: any, searchText: string) => {
-  //     // Replace with your actual filter logic
-  //     return item.title.toLowerCase().includes(searchText.toLowerCase());
-  // };
-
-  // // Function to handle search from CustomMiddleComponent
-  // const handleSearch = (text: string) => {
-  //     const filtered = data.filter((item) => filterFunction(item, text));
-  //     setFilteredData(filtered);
-  // };
-
-  useEffect(() => {
-    socket.emit("authenticate", data._id);
-    socket.on("notification", (data: any) => {
-      console.log("notification", data);
-    });
-
-    return () => {
-      socket.off("notification", () =>
-        console.log("out of live notifications")
-      );
-    };
-  }, []);
 
   const colorScheme = useSelector(
     (state: RootState) => state.getUserData.colorScheme
@@ -102,72 +78,77 @@ export default function OrderListNavigator({navigation}: any) {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabs = [{name: "For you"}, {name: "Following"}];
 
-  // const selectTab = (index: number) => {
-  //     setActiveIndex(index);
-  // };
-
-  // const currentTab = (tabs: any[]) => {
-  //     if (activeIndex === 0) {
-  //         return forYouTab;
-  //     }
-  //     return followingTab;
-  // };
-
-  // const showActiveTab = currentTab(tabs)!;
-
   const layout = useWindowDimensions();
 
   const {backgroundColor, color, displayNotificationIn, notification, show2} =
     useNotification();
 
-    const [isAdmin, setIsAdmin] = useState(true)
-      const data = [
-        {
-          id: 1,
-          date: "2024-12-14", // Add the date here
-          country: "Spain",
-          time: "22:00",
-          championship: "La Liga",
-          championshipFlag: laLiga,
-          team1: "Barcelona",
-          team1_flag: barcelona,
-          team2: "Spain",
-          team2_flag: spain,
-          tip: "1X",
-          status: "NS",
-          statusDisplay: "Pending",
-        },
-        {
-          id: 2,
-          date: "2024-12-15", // Add the date here
-          country: "England",
-          time: "23:00",
-          championship: "Premier League",
-          championshipFlag: premierLeague,
-          team1: "Chelsea",
-          team1_flag: chelsea,
-          team2: "Brentford",
-          team2_flag: brentford,
-          tip: "1",
-          status: "NS",
-          statusDisplay: "Pending",
-        },
-        {
-          id: 3,
-          date: "2024-12-15", // Add the date here
-          country: "England",
-          time: "23:00",
-          championship: "Premier League",
-          championshipFlag: premierLeague,
-          team1: "Chelsea",
-          team1_flag: chelsea,
-          team2: "Brentford",
-          team2_flag: brentford,
-          tip: "1",
-          status: "NS",
-          statusDisplay: "Pending",
-        },
-      ];
+  const [data, setData] = useState([]);
+
+  const todayData = data1.transactionHistory.filter((entry: any) =>
+    Moment(entry.date).isSame(Moment(), "day")
+  );
+  const customerMadeDepositToday =
+    todayData.length > 0 || isAdmin ? true : false;
+
+  function forAllMatchPrediction() {
+    dispatch(getMatchPrediction())
+      .then((result: any) => {
+        if (result.payload.success) {
+          console.log(result.payload.allMatch, "allMatch");
+          setData(result.payload.allMatch);
+          // displayNotification1();
+        } else {
+          console.error(
+            "Failed to fetch match predictions:",
+            result.payload.message
+          );
+        }
+      })
+      .catch((error: any) => {
+        console.error("Error fetching match predictions:", error);
+        // displayNotification2();
+        // setLoading(false);
+      });
+  }
+
+  // useEffect(() => {
+  //   forAllMatchPrediction();
+  // }, []);
+
+  // useEffect(() => {
+  //   // Start interval to fetch data every 30 seconds
+  //   const intervalId = setInterval(() => {
+  //     forAllMatchPrediction();
+  //   }, 30000);
+
+  //   // Cleanup the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  useEffect(() => {
+    if (isAdmin) {
+      // Skip setting up the interval for admins
+      console.log("Admin detected, no interval fetch.");
+      return;
+    }
+
+    // Non-admin: Start interval to fetch data every 30 seconds
+    forAllMatchPrediction(); // Fetch immediately on mount
+    const intervalId = setInterval(() => {
+      forAllMatchPrediction();
+    }, 30000);
+
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [isAdmin]);
+
+  useFocusEffect(
+    useCallback(() => {
+      // Call the function when the screen comes into focus
+      forAllMatchPrediction();
+    }, []) // Empty dependency array means it runs on every focus
+  );
 
   const renderScene = ({route}: any) => {
     switch (route.key) {
@@ -177,6 +158,9 @@ export default function OrderListNavigator({navigation}: any) {
             isAdmin={isAdmin}
             displayNotificationIn={displayNotificationIn}
             data={data}
+            forAllMatchPrediction={forAllMatchPrediction}
+            navigation={navigation}
+            customerMadeDepositToday={customerMadeDepositToday}
           />
         );
       case "history":
@@ -185,6 +169,8 @@ export default function OrderListNavigator({navigation}: any) {
             isAdmin={isAdmin}
             displayNotificationIn={displayNotificationIn}
             data={data}
+            forAllMatchPrediction={forAllMatchPrediction}
+            navigation={navigation}
           />
         );
       default:
@@ -192,11 +178,11 @@ export default function OrderListNavigator({navigation}: any) {
     }
   };
 
-  const [index, setIndex] = React.useState(1);
-  const [routes] = React.useState([
-    {key: "history", title: languageText.text369},
-    {key: "today", title: languageText.text370}
-  ]);
+    const [index, setIndex] = React.useState(1);
+    const [routes] = React.useState([
+      {key: "history", title: languageText.text369},
+      {key: "today", title: languageText.text370},
+    ]);
 
   const renderTabBar = (
     props: SceneRendererProps & {
@@ -256,47 +242,49 @@ export default function OrderListNavigator({navigation}: any) {
               </Text>
               <View></View>
             </View>
-            <View style={styles.transaction_template_container_header_1}>
-              <TouchableOpacity
-                onPressIn={() => navigation.push("editsecondsection")}
-                style={{
-                  paddingTop: 3,
-                  paddingBottom: 3,
-                  paddingRight: 3,
-                  paddingLeft: 10,
-                  backgroundColor: "transparent",
-                  borderColor: Colors.welcomeText,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  gap: 15,
-                  borderWidth: 2,
-                  borderRadius: 5,
-                  width: "100%",
-                }}
-              >
-                <Text
+            {isAdmin && (
+              <View style={styles.transaction_template_container_header_1}>
+                <TouchableOpacity
+                  onPressIn={() => navigation.push("editsecondsection")}
                   style={{
-                    color: Colors.welcomeText,
-                    fontWeight: "600",
-                    opacity: 0.95,
-                    fontSize: 21,
+                    paddingTop: 3,
+                    paddingBottom: 3,
+                    paddingRight: 3,
+                    paddingLeft: 10,
+                    backgroundColor: "transparent",
+                    borderColor: Colors.welcomeText,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    gap: 15,
+                    borderWidth: 2,
+                    borderRadius: 5,
+                    width: "100%",
                   }}
                 >
-                  {languageText.text375}
-                </Text>
-                <AntDesign
-                  name='arrowright'
-                  size={21}
-                  color={Colors.welcomeText}
-                  opacity={0.9}
-                  fontWeight={900}
-                />
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: Colors.welcomeText,
+                      fontWeight: "600",
+                      opacity: 0.95,
+                      fontSize: 21,
+                    }}
+                  >
+                    {languageText.text375}
+                  </Text>
+                  <AntDesign
+                    name='arrowright'
+                    size={21}
+                    color={Colors.welcomeText}
+                    opacity={0.9}
+                    fontWeight={900}
+                  />
+                </TouchableOpacity>
 
-              <View></View>
-            </View>
+                <View></View>
+              </View>
+            )}
           </View>
           <TabBar
             {...props}

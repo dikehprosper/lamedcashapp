@@ -245,47 +245,47 @@ const Login = ({ navigation, route }: any) => {
     console.log(formData);
 
     //REMOVE LATER
-    navigation.replace("MainNavigator");
-    setIsLoading(false);
+    // navigation.replace("MainNavigator");
+    // setIsLoading(false);
 
-    // dispatch(signInUser({email, password}))
-    //   .then(async (result: any) => {
-    //     if (result.payload.success === true) {
-    //       try {
-    //         await AsyncStorage.setItem("token", result.payload.token);
-    //         triggerHapticFeedback1();
-    //         console.log("doneeeeeeeeee");
-    //         navigation.replace("MainNavigator");
-    //         setIsLoading(false);
-    //       } catch (err) {
-    //         console.log(err);
-    //         setIsLoading(false);
-    //       }
-    //     }
-    //     if (result.payload.status === 501) {
-    //       displayNotification();
+    dispatch(signInUser({email, password}))
+      .then(async (result: any) => {
+        if (result.payload.success === true) {
+          try {
+            await AsyncStorage.setItem("token", result.payload.token);
+            triggerHapticFeedback1();
+            console.log("doneeeeeeeeee");
+            navigation.replace("MainNavigator");
+            setIsLoading(false);
+          } catch (err) {
+            console.log(err);
+            setIsLoading(false);
+          }
+        }
+        if (result.payload.status === 501) {
+          displayNotification();
 
-    //       setIsLoading(false);
-    //     }
-    //     if (result.payload.status === 504) {
-    //       navigation.push("setAuthScreen");
-    //       setIsLoading(false);
-    //     }
-    //     if (result.payload.status === 502) {
-    //       displayNotification2();
-    //       setIsLoading(false);
-    //     }
-    //     if (result.payload.status === 503) {
-    //       displayNotification3();
+          setIsLoading(false);
+        }
+        if (result.payload.status === 504) {
+          navigation.push("setAuthScreen");
+          setIsLoading(false);
+        }
+        if (result.payload.status === 502) {
+          displayNotification2();
+          setIsLoading(false);
+        }
+        if (result.payload.status === 503) {
+          displayNotification3();
 
-    //       setIsLoading(false);
-    //     }
-    //   })
-    //   .catch((err: any) => {
-    //     console.log(err);
-    //     displayNotification();
-    //     setIsLoading(false);
-    //   });
+          setIsLoading(false);
+        }
+      })
+      .catch((err: any) => {
+        console.log(err);
+        displayNotification();
+        setIsLoading(false);
+      });
   }
   const triggerHapticFeedback1 = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
