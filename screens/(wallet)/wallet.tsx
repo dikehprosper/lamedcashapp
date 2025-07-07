@@ -158,8 +158,10 @@ const Wallet = ({ navigation }: any) => {
                       style={{
                         color: Colors.welcomeText,
                         flexWrap: "wrap",
-                        width: "90%",
+                        width: "100%",
                         height: 40,
+                        fontWeight: 300,
+                        fontSize: 12
                       }}
                     >
                       {languageText.text88}
@@ -242,13 +244,14 @@ const Wallet = ({ navigation }: any) => {
               gap: 4,
               justifyContent: "center",
               paddingHorizontal: 10,
-              marginTop: 19,
+              margin: 14,
+            
             }}
           >
             <Text
               style={{
                 fontWeight: "300",
-                fontSize: 15,
+                fontSize: 13,
                 marginTop: 5,
                 color: Colors.welcomeText,
                 textAlign: "center",

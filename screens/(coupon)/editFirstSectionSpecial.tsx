@@ -97,8 +97,18 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
     data_status,
     data_tip,
     data_id,
+    type,
   } = route.params;
 
+  useEffect(() => {
+    if (type === "special") {
+      // run some special logic
+      console.log("This is a special edit screen");
+    } else {
+      // maybe disable some fields or make it read-only
+      console.log("This is a regular edit screen");
+    }
+  }, []);
 
   const colorScheme = useSelector(
     (state: RootState) => state.getUserData.colorScheme
@@ -300,16 +310,16 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
     );
   }
 
-  function openTeam2Selection(email: any) {
-    showModal(
-      <EditSecondSectionModal2
-        hideModal={hideModal}
-        navigation={navigation}
-        email={email}
-        handleSubmit={handleSubmit3}
-      />
-    );
-  }
+  // function openTeam2Selection(email: any) {
+  //   showModal(
+  //     <EditSecondSectionModal2
+  //       hideModal={hideModal}
+  //       navigation={navigation}
+  //       email={email}
+  //       handleSubmit={handleSubmit3}
+  //     />
+  //   );
+  // }
 
   function handleSubmit(value: any) {
     hideModal();
@@ -411,10 +421,10 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
             display === 1
               ? text1
               : show === 2
-                ? text2
-                : show === 3
-                  ? text3
-                  : text4
+              ? text2
+              : show === 3
+              ? text3
+              : text4
           }
           textColor={Colors.toastText}
           marginTop={Platform.OS === "ios" ? 0 : 0}
@@ -422,19 +432,19 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
             display === 1
               ? "green"
               : display === 2
-                ? "green"
-                : display === 3
-                  ? "red"
-                  : "red"
+              ? "green"
+              : display === 3
+              ? "red"
+              : "red"
           }
           icon={
             display === 1
               ? icon2
               : display === 2
-                ? icon1
-                : display === 3
-                  ? icon2
-                  : icon2
+              ? icon1
+              : display === 3
+              ? icon2
+              : icon2
           }
         />
         <View style={[styles.container, {}]}>
@@ -500,7 +510,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
                 alignItems: "center",
               }}
             >
-              {league ? (
+              {league === "" ? (
                 <>
                   <Text
                     style={{
@@ -643,7 +653,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
               Team 2
             </Text>
             <TouchableOpacity
-              onPress={() => openTeam2Selection(data.email)}
+              // onPress={() => openTeam2Selection(data.email)}
               style={{
                 height: 50,
                 justifyContent: "space-between",
@@ -1018,46 +1028,71 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
                 </TouchableOpacity>
               </View>
             )}
-
-            <TouchableOpacity
-              style={{
-                backgroundColor: Colors.default1,
-                height: 48,
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                flexDirection: "row",
-                gap: 8,
-                marginTop: 30,
-                marginBottom: 20,
-                opacity: loading2 ? 0.5 : 1,
-              }}
-              onPress={handleUpdateAll}
-              disabled={loading2}
-            >
-              {loading && <ActivityIndicator size='small' color='white' />}
-              <Text style={defaultStyles.btnText}>Update</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "red",
-                height: 48,
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                flexDirection: "row",
-                gap: 8,
-                marginBottom: 40,
-                opacity: loading2 ? 0.5 : 1,
-              }}
-              onPress={handleDeleteOne}
-              disabled={loading3}
-            >
-              {loading3 && <ActivityIndicator size='small' color='white' />}
-              <Text style={defaultStyles.btnText}>Delete</Text>
-            </TouchableOpacity>
+            {type === "special" ? (
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.default1,
+                  height: 48,
+                  borderRadius: 8,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 8,
+                  marginTop: 30,
+                  marginBottom: 20,
+                  opacity: loading2 ? 0.5 : 1,
+                }}
+                onPress={handleUpdateAll}
+                disabled={loading2}
+              >
+                {loading && <ActivityIndicator size='small' color='white' />}
+                <Text style={defaultStyles.btnText}>Create</Text>
+              </TouchableOpacity>
+            ) : (
+              <>
+                {" "}
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: Colors.default1,
+                    height: 48,
+                    borderRadius: 8,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 8,
+                    marginTop: 30,
+                    marginBottom: 20,
+                    opacity: loading2 ? 0.5 : 1,
+                  }}
+                  onPress={handleUpdateAll}
+                  disabled={loading2}
+                >
+                  {loading && <ActivityIndicator size='small' color='white' />}
+                  <Text style={defaultStyles.btnText}>Update</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "red",
+                    height: 48,
+                    borderRadius: 8,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 8,
+                    marginBottom: 40,
+                    opacity: loading2 ? 0.5 : 1,
+                  }}
+                  onPress={handleDeleteOne}
+                  disabled={loading3}
+                >
+                  {loading3 && <ActivityIndicator size='small' color='white' />}
+                  <Text style={defaultStyles.btnText}>Delete</Text>
+                </TouchableOpacity>
+              </>
+            )}
           </ScrollView>
         </View>
       </View>

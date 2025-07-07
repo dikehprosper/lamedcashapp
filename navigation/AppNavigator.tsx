@@ -92,6 +92,7 @@ import ChangePassword2 from "@/screens/(profileSettings)/(settings)/changePasswo
 import EditFirstSectionSpecial from "@/screens/(coupon)/editFirstSectionSpecial";
 const prefix = Linking.createURL("/");
 
+
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import jwtDecode from "jwt-decode"
@@ -302,7 +303,7 @@ function MainNavigator() {
             return <AntDesign name='wallet' size={23} color={color} />;
           } else if (route.name === "Sports") {
             return <MaterialIcons name='scoreboard' size={24} color={color} />;
-          } else if (route.name === "Coupon") {
+          } else if (route.name === "List") {
             return <Entypo name='ticket' size={23} color={color} />;
           } else if (route.name === "Referral") {
             return (
@@ -321,7 +322,7 @@ function MainNavigator() {
       <Tabs.Screen name={languageText.text87} component={WalletNavigator} />
 
       {/* <Tabs.Screen name='Sports' component={Sports} /> */}
-      <Tabs.Screen name='Coupon' component={Coupon} />
+      <Tabs.Screen name='List' component={Coupon} />
       <Tabs.Screen name={languageText.text116} component={ProfileNavigator} />
     </Tabs.Navigator>
   );

@@ -57,7 +57,7 @@ interface FormData {
 //   Calculate the percentage value
 const percentageHeight = screenHeight * 0.375;
 const percentageHeight2 = screenHeight * 1;
-const ShareDeposit = (props: any, {navigation, title}: any) => {
+const ShareDeposit = (props: any) => {
   const data = useSelector((state: RootState) => state.getUserData.data);
   const colorScheme = useSelector(
     (state: RootState) => state.getUserData.colorScheme
@@ -299,8 +299,6 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
 
   const [loading2, setLoading2] = useState(false);
   const [loading3, setLoading3] = useState(false);
-
-
 
   function generateCode() {
     if (loading3) return;
@@ -652,10 +650,10 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
                     betIdError || betIdError1 || betIdError2 || betIdError3
                       ? "red"
                       : index === 1
-                        ? Colors.default1
-                        : betIdLoadingSymbol === "false"
-                          ? Colors.default1
-                          : "transparent",
+                      ? Colors.default1
+                      : betIdLoadingSymbol === "false"
+                      ? Colors.default1
+                      : "transparent",
                   borderWidth: 1.5,
                   position: "relative",
                 }}
@@ -774,10 +772,10 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
                       betIdError || betIdError1 || betIdError2 || betIdError3
                         ? "red"
                         : index === 1
-                          ? Colors.default1
-                          : betIdLoadingSymbol === "false"
-                            ? Colors.default1
-                            : "rgba(128, 128, 128, 0.5)"
+                        ? Colors.default1
+                        : betIdLoadingSymbol === "false"
+                        ? Colors.default1
+                        : "rgba(128, 128, 128, 0.5)"
                     }
                   />
                 </Text>
@@ -931,10 +929,10 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
                   borderColor: amountError
                     ? "red"
                     : index === 2
-                      ? Colors.default1
-                      : amountLoadingSymbol
-                        ? Colors.default1
-                        : "transparent",
+                    ? Colors.default1
+                    : amountLoadingSymbol
+                    ? Colors.default1
+                    : "transparent",
                   borderWidth: 1.5,
                   position: "relative",
                 }}
@@ -971,7 +969,7 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
                   autoCorrect={false}
                   placeholderTextColor={Colors.placeHolderTextColor}
                   autoCapitalize='none'
-                  placeholder='100 et plus'
+                  placeholder={languageText.text383}
                   style={[
                     defaultStyles.inputField,
                     {
@@ -998,10 +996,10 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
                       amountError
                         ? "red"
                         : index === 2
-                          ? Colors.default1
-                          : amountLoadingSymbol
-                            ? Colors.default1
-                            : "rgba(128, 128, 128, 0.5)"
+                        ? Colors.default1
+                        : amountLoadingSymbol
+                        ? Colors.default1
+                        : "rgba(128, 128, 128, 0.5)"
                     }
                   />
                 </Text>
@@ -1033,7 +1031,7 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
               <Text
                 style={[defaultStyles.btnText, {color: Colors.welcomeText}]}
               >
-                Générer un code QR
+                {languageText.text382}
               </Text>
             </TouchableOpacity>
 
@@ -1055,7 +1053,7 @@ const ShareDeposit = (props: any, {navigation, title}: any) => {
               onPress={shareQRCode}
             >
               {loading2 && <ActivityIndicator size='small' color='white' />}
-              <Text style={defaultStyles.btnText}>Procéder</Text>
+              <Text style={defaultStyles.btnText}>{languageText.text350}</Text>
             </TouchableOpacity>
             {/* <View
                style={{

@@ -47,8 +47,9 @@ import ToastNotification from "@/components/(Utils)/toastNotification";
 import {CommonActions} from "@react-navigation/native";
 import {Language} from "@/constants/languages";
 import {lang} from "moment";
-import image from "../assets/images/image1_1.png";
-import image2 from "../assets/images/image1_2.png";
+import image from "@/assets/images/image1_1.png";
+import image2 from "@/assets/images/image1_2.png";
+import OrderListNavigatorFirstSection from "./(coupon)/firstsection";
 // import useNotification from "@/components/(Utils)/displayNotification";
 
 interface Payload {
@@ -71,121 +72,111 @@ interface ItemProps {
   image: any
 }
 
-const Item: React.FC<ItemProps> = ({
-  index,
+// const Item: React.FC<ItemProps> = ({
+//   index,
  
-  text,
-  text2,
+//   text,
+//   text2,
 
-  navigation,
-  colorScheme,
-  email,
-  Colors,
-  languageText,
-  image,
-}) => {
-  const [isEnabled, setIsEnabled] = useState(colorScheme === 2 ? true : false);
+//   navigation,
+//   colorScheme,
+//   email,
+//   Colors,
+//   languageText,
+//   image,
+// }) => {
+//   const [isEnabled, setIsEnabled] = useState(colorScheme === 2 ? true : false);
 
-  const logout = () => {
-    AsyncStorage.removeItem("token")
-      .then(() => {
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{name: "login"}],
-          })
-        );
-      })
-      .catch((err) => console.log(err));
-  };
+//   const logout = () => {
+//     AsyncStorage.removeItem("token")
+//       .then(() => {
+//         navigation.dispatch(
+//           CommonActions.reset({
+//             index: 0,
+//             routes: [{name: "login"}],
+//           })
+//         );
+//       })
+//       .catch((err) => console.log(err));
+//   };
 
-  const dispatch = useDispatch<AppDispatch>();
+//   const dispatch = useDispatch<AppDispatch>();
 
-  const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState);
+//   const toggleSwitch = () => {
+//     setIsEnabled((previousState) => !previousState);
 
-    const payload: payload = {
-      email: email,
-    };
-    dispatch(changeColorScheme())
-      .then(async (result: any) => {})
-      .catch((err: any) => console.log(err));
-  };
-  const handlePress = () => {
-    if (index === 0) {
-      navigation.push("firstsection");
-    } else if (index === 1) {
-      navigation.push("secondsection");
-    } else if (index === 2) {
-      navigation.push("editSettings");
-    } else if (index === 4) {
-      navigation.push("changeLanguageScreen");
-    } else if (index === 5) {
-      navigation.push("helpScreen");
-    } else if (index === 6) {
-      navigation.push("legal");
-    } else if (index === 7) {
-      logout();
-    }
-    // Add additional conditions for other index values if necessary
-  };
+//     const payload: payload = {
+//       email: email,
+//     };
+//     dispatch(changeColorScheme())
+//       .then(async (result: any) => {})
+//       .catch((err: any) => console.log(err));
+//   };
+//   const handlePress = () => {
+//     if (index === 0) {
+//       navigation.push("firstsection");
+//     } else if (index === 1) {
+//       navigation.push("secondsection");
+//     }
+//     // Add additional conditions for other index values if necessary
+//   };
 
-  return (
-    <TouchableOpacity
-      key={index}
-      style={{
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginVertical: 12,
-        backgroundColor: Colors.default3,
-        borderRadius: 6,
-        width: "43%",
-      }}
-      onPress={handlePress}
-    >
-      <View
-        style={{
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: 9,
-          gap: 15,
-        }}
-      >
-        <View style={{width: "100%"}}>
-          <Image source={image} style={{width: 90, height: 90}} />
-        </View>
-        <View style={{display: "flex", flexDirection: 'column',alignItems: "center", justifyContent: "center", marginTop: 5}}>
-          <Text
-            style={{
-              fontWeight: "600",
-              fontSize: 15,
-              marginBottom: 2,
-              color: Colors.welcomeText,
-              textAlign: "center",
-            }}
-          >
-            {text}
-          </Text>
-          <Text
-            style={{
-              opacity: 0.6,
-              color: Colors.welcomeText,
-              flexWrap: "wrap",
-              width: "95%",
-              textAlign: "center",
-            }}
-          >
-            {text2}
-          </Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
+//   return (
+//     <TouchableOpacity
+//       key={index}
+//       style={{
+//         flexDirection: "column",
+//         justifyContent: "space-between",
+//         alignItems: "center",
+//         marginVertical: 12,
+//         backgroundColor: Colors.default3,
+//         borderRadius: 6,
+//         width: "43%",
+//       }}
+//       onPress={handlePress}
+//     >
+//       <View
+//         style={{
+//           flexDirection: "column",
+//           justifyContent: "space-between",
+//           alignItems: "center",
+//           padding: 9,
+//           gap: 15,
+//         }}
+//       >
+//         <View style={{width: "100%"}}>
+//           <Image source={image} style={{width: 90, height: 90}} />
+//         </View>
+//         <View style={{display: "flex", flexDirection: 'column',alignItems: "center", justifyContent: "center", marginTop: 5}}>
+//           <Text
+//             style={{
+//               fontWeight: "600",
+//               fontSize: 15,
+//               marginBottom: 2,
+//               color: Colors.welcomeText,
+//               textAlign: "center",
+//             }}
+//           >
+//             {text}
+//           </Text>
+//           <Text
+//             style={{
+//               opacity: 0.6,
+//               color: Colors.welcomeText,
+//               flexWrap: "wrap",
+//               width: "95%",
+//               textAlign: "center",
+//             }}
+//           >
+//             {text2}
+//           </Text>
+//         </View>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };
 
-const Coupon = ({navigation}: any) => {
+const Coupon = (props: any) => {
   const data = useSelector((state: RootState) => state.getUserData.data);
   const colorScheme = useSelector(
     (state: RootState) => state.getUserData.colorScheme
@@ -266,7 +257,7 @@ const Coupon = ({navigation}: any) => {
             setLoading(false);
           }
           if (result.payload.status === 502) {
-            navigation.dispatch(
+            props.navigation.dispatch(
               CommonActions.reset({
                 index: 0,
                 routes: [{name: "login"}],
@@ -440,6 +431,7 @@ const Coupon = ({navigation}: any) => {
   //     displayNotificationIn("dggdggd", icon3, 3800, "red", "blue");
   // }, []);
 
+ 
   return (
     <View style={{flex: 1}}>
       {imagePickModal && <PickImageComponent onPress={HandlePress} />}
@@ -461,10 +453,10 @@ const Coupon = ({navigation}: any) => {
           display === 1
             ? text1
             : show === 2
-              ? text2
-              : show === 3
-                ? text3
-                : text4
+            ? text2
+            : show === 3
+            ? text3
+            : text4
         }
         textColor={Colors.toastText}
         marginTop={Platform.OS === "ios" ? 0 : 0}
@@ -472,23 +464,23 @@ const Coupon = ({navigation}: any) => {
           display === 1
             ? "green"
             : display === 2
-              ? "red"
-              : display === 3
-                ? "red"
-                : "red"
+            ? "red"
+            : display === 3
+            ? "red"
+            : "red"
         }
         icon={
           display === 1
             ? icon1
             : display === 2
-              ? icon2
-              : display === 3
-                ? icon2
-                : icon2
+            ? icon2
+            : display === 3
+            ? icon2
+            : icon2
         }
       />
       <View style={[styles.container, {backgroundColor: Colors.background}]}>
-        <View>
+        {/* <View>
           <Text
             style={{
               fontWeight: "800",
@@ -497,11 +489,11 @@ const Coupon = ({navigation}: any) => {
               color: Colors.welcomeText,
             }}
           >
-         Coupon
+     List
           </Text>
-        </View>
+        </View> */}
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        {/* <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               width: "100%",
@@ -524,7 +516,8 @@ const Coupon = ({navigation}: any) => {
                 image={item.image}              />
             ))}
           </View>
-        </ScrollView>
+        </ScrollView> */}
+        <OrderListNavigatorFirstSection navigation={props.navigation} />
       </View>
     </View>
   );
@@ -532,7 +525,7 @@ const Coupon = ({navigation}: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop: 0,
     paddingLeft: 20,
     paddingRight: 20,
     flex: 1,

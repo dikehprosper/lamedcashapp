@@ -38,187 +38,191 @@ const WalletModal4 = ({
   const languageText =
     currentLanguage === "english" ? Language.english : Language.french;
 
-  return (
-    <View
-      style={{
-        display: "flex",
-        position: "absolute",
-        flex: 1,
-        zIndex: 20100000000,
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 38,
-      }}
-    >
-      <PopInAnimation
-        scaleSpeed={0.9}
-        opacitySpeed={200}
+    useEffect(() => {
+      console.log(value2);
+    }, [value2]);
+
+    return (
+      <View
         style={{
           display: "flex",
-          flexDirection: "column",
-          width: "95%",
-          backgroundColor: Colors.background,
-          alignItems: "center",
+          position: "absolute",
+          flex: 1,
+          zIndex: 20100000000,
+          backgroundColor: "red",
+          width: "100%",
+          height: "100%",
           justifyContent: "center",
-          position: "relative",
-          borderRadius: 13,
-          padding: 15,
-          minHeight: 150,
+          alignItems: "center",
+          padding: 38,
         }}
       >
-        <TouchableOpacity
-          //   onPress={
-          //     network.length === 1 ? closeNetworkModal2 : closeNetworkModal
-          //   }
+        <PopInAnimation
+          scaleSpeed={0.9}
+          opacitySpeed={200}
           style={{
-            position: "absolute",
-            top: -44,
-            right: -5,
-          }}
-          onPress={() => closeModal()}
-        >
-          <Text
-            style={{
-              fontWeight: "400",
-              color: "white",
-              fontSize: 26,
-            }}
-          >
-            X
-          </Text>
-        </TouchableOpacity>
-        <View
-          style={{
+            display: "flex",
             flexDirection: "column",
-            gap: 15,
-            width: "100%",
+            width: "95%",
+            backgroundColor: Colors.background,
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            borderRadius: 13,
+            padding: 15,
             minHeight: 150,
           }}
         >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "700",
-              textAlign: "center",
-              marginBottom: 20,
-              color: Colors.welcomeText,
-            }}
-          >
-            {text}
-          </Text>
-
-          <View
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 10,
-              flexDirection: "row",
-            }}
-          >
-            {value.image === "" ? (
-              <FontAwesome6
-                name='bolt-lightning'
-                size={19}
-                color={Colors.welcomeText}
-                style={{
-                  borderColor: "rgba(120, 120, 120, 0.5)",
-                  borderWidth: 1,
-                  padding: 6,
-                  borderRadius: 3,
-                }}
-              />
-            ) : (
-              <Image
-                source={{uri: `${DOMAIN}/${value.image}`}}
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 3,
-                  opacity: 0.8,
-                }}
-              />
-            )}
-
-            <Text
-              style={{
-                fontWeight: "500",
-                fontSize: 16,
-                color: Colors.welcomeText,
-                justifyContent: "center",
-                opacity: 0.8,
-              }}
-            >
-              {value2}
-            </Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: "flex",
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
           <TouchableOpacity
+            //   onPress={
+            //     network.length === 1 ? closeNetworkModal2 : closeNetworkModal
+            //   }
             style={{
-              height: 45,
-              width: "40%",
-              borderRadius: 5,
-              backgroundColor: "transparent",
-              alignItems: "center",
-              justifyContent: "center",
-              marginVertical: 10,
-              borderWidth: 2,
+              position: "absolute",
+              top: -44,
+              right: -5,
             }}
             onPress={() => closeModal()}
           >
             <Text
               style={{
-                fontSize: 20,
-                fontWeight: "600",
-                color: Colors.welcomeText,
+                fontWeight: "400",
+                color: "white",
+                fontSize: 26,
               }}
             >
-              {languageText.text349}
+              X
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          <View
             style={{
-              height: 45,
-              width: "40%",
-              borderRadius: 5,
-              backgroundColor: "red",
-              alignItems: "center",
-              justifyContent: "center",
-              marginVertical: 10,
+              flexDirection: "column",
+              gap: 15,
+              width: "100%",
+              minHeight: 150,
             }}
-            onPress={() => handleSubmit(value)}
           >
             <Text
               style={{
                 fontSize: 20,
-                fontWeight: "600",
-                color: "white",
+                fontWeight: "700",
                 textAlign: "center",
+                marginBottom: 20,
+                color: Colors.welcomeText,
               }}
             >
-              {loading ? (
-                <ActivityIndicator size='small' color={Colors.welcomeText} />
-              ) : (
-                languageText.text350
-              )}
+              {/* {text} */}
             </Text>
-          </TouchableOpacity>
-        </View>
-      </PopInAnimation>
-    </View>
-  );
+
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 10,
+                flexDirection: "row",
+              }}
+            >
+              {value.image === "" ? (
+                <FontAwesome6
+                  name='bolt-lightning'
+                  size={19}
+                  color={Colors.welcomeText}
+                  style={{
+                    borderColor: "rgba(120, 120, 120, 0.5)",
+                    borderWidth: 1,
+                    padding: 6,
+                    borderRadius: 3,
+                  }}
+                />
+              ) : (
+                <Image
+                  source={{uri: `${DOMAIN}/${value.image}`}}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 3,
+                    opacity: 0.8,
+                  }}
+                />
+              )}
+
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 16,
+                  color: Colors.welcomeText,
+                  justifyContent: "center",
+                  opacity: 0.8,
+                }}
+              >
+                {value2}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: 45,
+                width: "40%",
+                borderRadius: 5,
+                backgroundColor: "transparent",
+                alignItems: "center",
+                justifyContent: "center",
+                marginVertical: 10,
+                borderWidth: 2,
+              }}
+              onPress={() => closeModal()}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "600",
+                  color: Colors.welcomeText,
+                }}
+              >
+                {languageText.text349}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                height: 45,
+                width: "40%",
+                borderRadius: 5,
+                backgroundColor: "red",
+                alignItems: "center",
+                justifyContent: "center",
+                marginVertical: 10,
+              }}
+              onPress={() => handleSubmit(value)}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: "600",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                {loading ? (
+                  <ActivityIndicator size='small' color={Colors.welcomeText} />
+                ) : (
+                  languageText.text350
+                )}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </PopInAnimation>
+      </View>
+    );
 };
 
 export default WalletModal4;

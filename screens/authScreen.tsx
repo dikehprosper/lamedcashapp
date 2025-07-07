@@ -329,146 +329,135 @@ const AuthScreen = ({ navigation }: any) => {
     }, [isAuthenticated]);
 
     return (
-        <View
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.background,
+          alignItems: "center",
+          justifyContent: "space-between",
+          position: "relative",
+        }}
+      >
+        {loading && <LoadingComponent backgroundColor={Colors.background} />}
+        <StatusBar backgroundColor={Colors.background} />
+        <ExploreHeader />
+        <ToastNotification
+          show={show === 0 ? true : false}
+          text={
+            display === 1
+              ? text1
+              : display === 2
+              ? text2
+              : display === 3
+              ? text3
+              : text4
+          }
+          textColor='white'
+          marginTop={Platform.OS === "ios" ? 0 : 0}
+          backgroundColor='red'
+          icon={<AntDesign name='exclamationcircleo' size={40} color='white' />}
+        />
+        <View style={{alignItems: "center"}}>
+          <View
             style={{
-                flex: 1,
-                backgroundColor: Colors.background,
-                alignItems: "center",
-                justifyContent: "space-between",
-                position: "relative",
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              marginBottom: 17,
+              //   backgroundColor: "green",
             }}
-        >
-            {loading && (
-                <LoadingComponent backgroundColor={Colors.background} />
-            )}
-            <StatusBar backgroundColor={Colors.background} />
-            <ExploreHeader />
-            <ToastNotification
-                show={show === 0 ? true : false}
-                text={
-                    display === 1
-                        ? text1
-                        : display === 2
-                          ? text2
-                          : display === 3
-                            ? text3
-                            : text4
-                }
-                textColor="white"
-                marginTop={Platform.OS === "ios" ? 0 : 0}
-                backgroundColor="red"
-                icon={
-                    <AntDesign
-                        name="exclamationcircleo"
-                        size={40}
-                        color="white"
-                    />
-                }
-            />
-            <View style={{ alignItems: "center" }}>
-                <View
-                    style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        alignItems: "center",
-                        marginBottom: 17,
-                        //   backgroundColor: "green",
-                    }}
-                >
-                    <PopInAnimation
-                        scaleSpeed={0.4}
-                        opacitySpeed={950}
-                        style={{ position: "relative" }}
-                    >
-                        <Image
-                            source={{
-                                uri: data.image,
-                            }}
-                            style={styles.profileImage}
-                        />
-                    </PopInAnimation>
-                </View>
-                <Text
-                    style={{
-                        fontSize: 19,
-                        color: Colors.welcomeText,
-                        fontWeight: "700",
-                        marginBottom: 17,
-                    }}
-                >
-                    Bienvenue &nbsp; {data.fullname.split(" ")}
-                </Text>
-                <Text
-                    style={{
-                        fontSize: 16,
-                        color: Colors.welcomeText,
-                        fontWeight: "200",
-                    }}
-                >
-                    Entrez votre code PIN pour continuer.
-                </Text>
-            </View>
-            <View style={{ marginBottom: 90, alignItems: "center" }}>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        width: "70%",
-                        marginBottom: 20,
-                    }}
-                >
-                    {renderPins()}
-                </View>
-                <NumberPad onPress={onPress} />
-
-                {isAuthenticated ? (
-                    <></>
-                ) : (
-                    <TouchableOpacity
-                        onPress={handleBiometricAuth}
-                        style={{ position: "absolute", bottom: 87, left: 79 }}
-                    >
-                        <Entypo
-                            name="fingerprint"
-                            size={33}
-                            color={Colors.welcomeText}
-                        />
-                    </TouchableOpacity>
-                )}
-
-                <View
-                    style={{
-                        gap: 10,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginTop: 29,
-                    }}
-                >
-                    <Text
-                        style={{
-                            fontSize: 16,
-                            color: Colors.welcomeText,
-                            fontWeight: "300",
-                        }}
-                    >
-                        Pas toi?
-                    </Text>
-                    <TouchableOpacity onPress={() => navigation.push("login")}>
-                        <Text
-                            style={{
-                                fontSize: 16,
-
-                                color: Colors.default1,
-                                fontWeight: "700",
-                            }}
-                        >
-                            Changer de compte
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+          >
+            <PopInAnimation
+              scaleSpeed={0.4}
+              opacitySpeed={950}
+              style={{position: "relative"}}
+            >
+              <Image
+                source={{
+                  uri: data.image,
+                }}
+                style={styles.profileImage}
+              />
+            </PopInAnimation>
+          </View>
+          <Text
+            style={{
+              fontSize: 19,
+              color: Colors.welcomeText,
+              fontWeight: "700",
+              marginBottom: 17,
+            }}
+          >
+            {languageText.text377} &nbsp;{data.fullname.split(" ")}
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              color: Colors.welcomeText,
+              fontWeight: "200",
+            }}
+          >
+            {languageText.text376}
+          </Text>
         </View>
+        <View style={{marginBottom: 90, alignItems: "center"}}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "70%",
+              marginBottom: 20,
+            }}
+          >
+            {renderPins()}
+          </View>
+          <NumberPad onPress={onPress} />
+
+          {isAuthenticated ? (
+            <></>
+          ) : (
+            <TouchableOpacity
+              onPress={handleBiometricAuth}
+              style={{position: "absolute", bottom: 87, left: 79}}
+            >
+              <Entypo name='fingerprint' size={33} color={Colors.welcomeText} />
+            </TouchableOpacity>
+          )}
+
+          <View
+            style={{
+              gap: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 29,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                color: Colors.welcomeText,
+                fontWeight: "300",
+              }}
+            >
+            
+              {languageText.text379}
+            </Text>
+            <TouchableOpacity onPress={() => navigation.push("login")}>
+              <Text
+                style={{
+                  fontSize: 16,
+
+                  color: Colors.default1,
+                  fontWeight: "700",
+                }}
+              >
+                {languageText.text378}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     );
 };
 

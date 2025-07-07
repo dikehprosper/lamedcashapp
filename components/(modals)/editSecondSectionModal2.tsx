@@ -55,10 +55,7 @@ interface Payload11 {
   team: string;
 }
 
-const EditSecondSectionModal = (
-  props: any,
-  {details, handleSubmit, email}: any
-) => {
+const EditSecondSectionModal = (props: any) => {
   const [team, setTeam] = useState<any>([]);
   const [inputedTeam, setInputedTeam] = useState("");
 

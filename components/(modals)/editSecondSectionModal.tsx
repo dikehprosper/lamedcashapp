@@ -53,10 +53,7 @@ interface Payload11 {
   league: string;
 }
 
-const EditSecondSectionModal = (
-  props: any,
-  {details, handleSubmit, email}: any
-) => {
+const EditSecondSectionModal = (props: any) => {
   const [league, setLeague] = useState<any>([]);
   const [inputedLeague, setInputedLeague] = useState("");
 
@@ -234,8 +231,9 @@ const EditSecondSectionModal = (
   }
 
   function initiateDeleteLeague(value: any) {
-    setModalState(true);
+    console.log(value, "value");
     setValue(value);
+    setModalState(true);
   }
 
   function closeModal() {
@@ -270,6 +268,16 @@ const EditSecondSectionModal = (
           loading={loading}
         />
       )}
+
+      <WalletModal4
+        closeModal={() => closeModal()}
+        // navigation={navigation}
+        text={"Are you sure you want to delete this league"}
+        value={value}
+        value2={value.league}
+        handleSubmit={deleteLeagueGame}
+        loading={loading}
+      />
 
       <ToastNotification
         show={show === 0 ? true : false}
@@ -556,6 +564,7 @@ function Leagues({
   initiateDeleteLeague,
   handleSubmit,
 }: any) {
+  console.log(individual, "individual");
   return (
     <View>
       <TouchableOpacity

@@ -683,6 +683,7 @@ const makeAuthenticatedRequest = async (url: any, options = {}) => {
 export const signUpUser = createAsyncThunk(
   "getUserData/signUpUser",
   async (formData: FormData) => {
+    console.log(DOMAIN, formData, "DOMAIN");
     const response = await fetch(`${DOMAIN}/api/usersWithoutToken/register`, {
       method: "POST", // Specify the method
       headers: {

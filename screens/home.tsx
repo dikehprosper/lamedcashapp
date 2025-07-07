@@ -54,7 +54,7 @@ interface Token {
   token: string;
 }
 
-const Home = (props: any, {navigation}: any) => {
+const Home = (props: any) => {
   const data = useSelector((state: RootState) => state.getUserData.data);
   const colorScheme = useSelector(
     (state: RootState) => state.getUserData.colorScheme
@@ -559,7 +559,7 @@ const Home = (props: any, {navigation}: any) => {
 
       <ExploreHeader
         displayNotification={displayNotification}
-        navigation={navigation}
+        navigation={props.navigation}
         props={props}
       />
 
@@ -746,7 +746,7 @@ const Home = (props: any, {navigation}: any) => {
 
           <TransactionTemplate2
             props={props}
-            navigation={navigation}
+            navigation={props.navigation}
             title={{
               name: languageText.text50,
               // "Recent Activities"
