@@ -238,7 +238,7 @@ const english = {
   text225: "Please enter the PIN again.",
   text226: "Almost done",
   text227: "Set pin",
-  text228: "Your account currency must be in XOF.",
+  text228: "Your account currency must be in United state Dollars.",
   text229: 'USE THIS PROMO CODE "229LERICHE"',
   // text229:
   //   'USE THIS PROMO CODE "229LERICHE" ON 1XBET AND GET 200% BONUS ON YOUR FIRST DEPOSIT',
@@ -650,7 +650,7 @@ const french = {
   text225: "Veuillez saisir à nouveau le code PIN.",
   text226: "Presque fini",
   text227: "Définir la broche",
-  text228: "La devise de votre compte doit être en XOF.",
+  text228: "La devise de votre compte doit être en $.",
   text229: 'UTILISEZ LE CODE PROMO 1XBET "229LERICHE" ',
   // text229:
   //   'UTILISEZ LE CODE PROMO 1XBET "229LERICHE" ET OBTENEZ  200%  DE BONUS SUR VOTRE 1ER DÉPÔT',

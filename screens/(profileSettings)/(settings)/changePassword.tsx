@@ -226,16 +226,16 @@ const ChangePassword = ({ navigation }: any) => {
             display === 1
               ? text1
               : display === 2
-                ? text2
-                : display === 3
-                  ? text3
-                  : display === 4
-                    ? text4
-                    : text5
+              ? text2
+              : display === 3
+              ? text3
+              : display === 4
+              ? text4
+              : text5
           }
           textColor={Colors.welcomeText}
           backgroundColor={display === 5 ? "green" : "red"}
-          marginTop={40}
+          marginTop={0}
           icon={display === 5 ? icon1 : icon2}
         />
         <View style={[styles.container, {backgroundColor: Colors.background}]}>

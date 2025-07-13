@@ -29,148 +29,141 @@ import TruncatedText from "@/components/(Utils)/truncateText";
 const screenHeight = Dimensions.get("window").height;
 // Calculate the percentage value
 const percentageHeight = screenHeight * 0.075;
-const currency = "XOF";
+const currency = "$";
 import BonusListTransaction from "@/components/(receipt)/bonusListTransaction";
-import { AppDispatch, RootState } from "@/state/store";
-import { useDispatch, useSelector } from "react-redux";
-import { Language } from "@/constants/languages";
+import {AppDispatch, RootState} from "@/state/store";
+import {useDispatch, useSelector} from "react-redux";
+import {Language} from "@/constants/languages";
 import ExploreHeader3 from "@/components/ExploreHeader3";
 import ModalContext from "@/components/modalContext";
 import WalletModal1 from "@/components/(modals)/walletModal1";
 import WalletModal2 from "@/components/(modals)/walletModal2";
-import { getModalState, getUser } from "@/state/userData/getUserData";
+import {getModalState, getUser} from "@/state/userData/getUserData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DOMAIN from "@/components/(Utils)/domain";
 interface Token {
-    token: string;
+  token: string;
 }
-const Wallet = ({ navigation }: any) => {
-    const dispatch = useDispatch<AppDispatch>();
-    const [count, setCount] = useState(0);
-    const data = useSelector((state: RootState) => state.getUserData.data);
-    const colorScheme = useSelector(
-        (state: RootState) => state.getUserData.colorScheme,
-    );
-    const Colors =
-        parseFloat(colorScheme) === 2 ? Color.darkMode : Color.lightMode;
-    const currentLanguage = useSelector(
-        (state: RootState) => state.getUserData.currentLanguage,
-    );
-    const languageText =
-        currentLanguage === "english" ? Language.english : Language.french;
+const Wallet = (props: any) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [count, setCount] = useState(0);
+  const data = useSelector((state: RootState) => state.getUserData.data);
+  const colorScheme = useSelector(
+    (state: RootState) => state.getUserData.colorScheme
+  );
+  const Colors =
+    parseFloat(colorScheme) === 2 ? Color.darkMode : Color.lightMode;
+  const currentLanguage = useSelector(
+    (state: RootState) => state.getUserData.currentLanguage
+  );
+  const languageText =
+    currentLanguage === "english" ? Language.english : Language.french;
 
-    const post = data.transactionHistory?.filter(
-        (transaction: any) => "bonusBalance" in transaction,
-    );
+  const post = data.transactionHistory?.filter(
+    (transaction: any) => "bonusBalance" in transaction
+  );
 
-    const firstThreePosts = post?.reverse().slice(0, 3);
+  const firstThreePosts = post?.reverse().slice(0, 3);
 
+  useEffect(() => {
+    const target = data.bonusBalance;
+    const duration = 3000; // Duration in milliseconds
+    const increment = Math.ceil(target / (duration / 100)); // Increment every 100 milliseconds
 
-  
-     
-    useEffect(() => {
-        const target = data.bonusBalance;
-        const duration = 3000; // Duration in milliseconds
-        const increment = Math.ceil(target / (duration / 100)); // Increment every 100 milliseconds
+    const interval = setInterval(() => {
+      setCount((prevCount) => {
+        const newCount = prevCount + increment;
+        return newCount >= target ? target : newCount;
+      });
+    }, 100);
 
-        const interval = setInterval(() => {
-            setCount((prevCount) => {
-                const newCount = prevCount + increment;
-                return newCount >= target ? target : newCount;
-            });
-        }, 100);
+    return () => clearInterval(interval);
+  }, []);
 
-        return () => clearInterval(interval);
-    }, []);
+  useEffect(() => {
+    dispatch(getModalState())
+      .then(async (result: any) => {
+        if (result.payload === null) {
+          showModal(
+            <WalletModal2 hideModal={hideModal} navigation={props.navigation} />
+          );
+        }
+      })
+      .catch((err: any) => console.log(err));
+  }, []);
 
-    useEffect(() => {
-        dispatch(getModalState())
-            .then(async (result: any) => {
-                if (result.payload === null) {
-                    showModal(
-                        <WalletModal2
-                            hideModal={hideModal}
-                            navigation={navigation}
-                        />,
-                    );
-                }
-              
-            })
-            .catch((err: any) => console.log(err));
-    }, []);
+  const modalContext = useContext(ModalContext);
 
-    const modalContext = useContext(ModalContext);
+  if (!modalContext) {
+    throw new Error("HomeScreen must be used within a ModalProvider");
+  }
+  const {showModal, hideModal} = modalContext;
 
-    if (!modalContext) {
-        throw new Error("HomeScreen must be used within a ModalProvider");
-    }
-    const { showModal, hideModal } = modalContext;
+  const imageSource =
+    data.image && data.image !== ""
+      ? {uri: `${DOMAIN}${data.image.startsWith("/") ? "" : "/"}${data.image}`}
+      : {
+          uri: "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d",
+        };
 
-     const imageSource =
-         data.image !== ""
-             ? { uri: data.image }
-             : {
-                   uri: "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d",
-               };
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: Colors.background,
-          paddingTop: 10,
-        }}
-      >
-        <StatusBar backgroundColor={Colors.background} />
-        <ExploreHeader3 />
-        <View style={{flex: 1}}>
-          <View
-            style={[styles.container, {backgroundColor: Colors.background}]}
-          >
-            <View style={styles.actionRow}>
-              <TouchableOpacity
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Colors.background,
+        paddingTop: 10,
+      }}
+    >
+      <StatusBar backgroundColor={Colors.background} />
+      <ExploreHeader3 />
+      <View style={{flex: 1}}>
+        <View style={[styles.container, {backgroundColor: Colors.background}]}>
+          <View style={styles.actionRow}>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                gap: 10,
+                alignItems: "center",
+              }}
+            >
+              <Image source={imageSource} style={styles.profileImage} />
+
+              <View
                 style={{
-                  flexDirection: "row",
-                  gap: 10,
-                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <Image source={imageSource} style={styles.profileImage} />
-
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <View>
-                    <Text
-                      style={{
-                        fontWeight: "700",
-                        fontSize: 18,
-                        color: Colors.welcomeText,
-                      }}
-                    >
-                      {languageText.text87}
-                    </Text>
-                  </View>
-
-                  <View style={{flex: 1, width: "100%"}}>
-                    <Text
-                      style={{
-                        color: Colors.welcomeText,
-                        flexWrap: "wrap",
-                        width: "100%",
-                        height: 40,
-                        fontWeight: 300,
-                        fontSize: 12
-                      }}
-                    >
-                      {languageText.text88}
-                    </Text>
-                  </View>
+                <View>
+                  <Text
+                    style={{
+                      fontWeight: "700",
+                      fontSize: 18,
+                      color: Colors.welcomeText,
+                    }}
+                  >
+                    {languageText.text87}
+                  </Text>
                 </View>
-              </TouchableOpacity>
-              <View style={styles.overallactionRow_2}>
-                {/* <View
+
+                <View style={{flex: 1, width: "100%"}}>
+                  <Text
+                    style={{
+                      color: Colors.welcomeText,
+                      flexWrap: "wrap",
+                      width: "100%",
+                      height: 40,
+                      fontWeight: 300,
+                      fontSize: 12,
+                    }}
+                  >
+                    {languageText.text88}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.overallactionRow_2}>
+              {/* <View
                                 style={[
                                     styles.actionRow_2,
                                     {
@@ -207,222 +200,219 @@ const Wallet = ({ navigation }: any) => {
                                     </Text>
                                 </TouchableOpacity>
                             </View> */}
-              </View>
             </View>
           </View>
-          <View
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 5,
+            justifyContent: "center",
+            marginTop: 17,
+          }}
+        >
+          <Text
             style={{
-              flexDirection: "row",
+              fontWeight: "500",
+              fontSize: 52,
+              color: Colors.welcomeText,
+            }}
+          >
+            {currency}
+          </Text>
+          <Text
+            style={{
+              fontWeight: "600",
+              fontSize: 48,
+              color: Colors.welcomeText,
+            }}
+          >
+            {formatNumber(parseFloat(data.bonusBalance))}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 4,
+            justifyContent: "center",
+            paddingHorizontal: 10,
+            margin: 14,
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: "300",
+              fontSize: 13,
+              marginTop: 5,
+              color: Colors.welcomeText,
+              textAlign: "center",
+            }}
+          >
+            {
+              languageText.text358
+              //Wallet balance
+            }
+          </Text>
+        </View>
+
+        <View
+          style={{
+            height: 70,
+            paddingHorizontal: 10,
+            gap: 15,
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: 5,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              height: "100%",
+              backgroundColor: "rgba(120, 120, 120, .2)",
               alignItems: "center",
-              gap: 8,
               justifyContent: "center",
-              marginTop: 17,
+              borderRadius: 5,
             }}
+            onPress={() => props.navigation.push("depositFromWallet")}
           >
+            <MaterialCommunityIcons
+              name='login'
+              size={32}
+              color='rgba(40, 40, 256, 0.9)'
+            />
+
             <Text
               style={{
-                fontWeight: "200",
-                fontSize: 48,
+                fontWeight: "500",
+                fontSize: 11,
                 color: Colors.welcomeText,
-              }}
-            >
-              {currency}
-            </Text>
-            <Text
-              style={{
-                fontWeight: "600",
-                fontSize: 48,
-                color: Colors.welcomeText,
-              }}
-            >
-              {formatNumber(parseFloat(data.bonusBalance))}
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 4,
-              justifyContent: "center",
-              paddingHorizontal: 10,
-              margin: 14,
-            
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "300",
-                fontSize: 13,
-                marginTop: 5,
-                color: Colors.welcomeText,
+                marginTop: 7,
+                opacity: 0.7,
                 textAlign: "center",
               }}
             >
               {
-                languageText.text358
-                //Wallet balance
+                languageText.text360
+                //Deposit
               }
             </Text>
-          </View>
-
-          <View
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
-              height: 70,
-              paddingHorizontal: 10,
-              gap: 15,
-              flexDirection: "row",
+              width: "30%",
+              height: "100%",
+              backgroundColor: "rgba(120, 120, 120, .2)",
+              alignItems: "center",
               justifyContent: "center",
-              marginTop: 5,
+              borderRadius: 5,
             }}
+            onPress={() => props.navigation.push("withdrawFromWallet")}
           >
-            <TouchableOpacity
-              style={{
-                width: "30%",
-                height: "100%",
-                backgroundColor: "rgba(120, 120, 120, .2)",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 5,
-              }}
-              onPress={() => navigation.push("depositFromWallet")}
-            >
-              <MaterialCommunityIcons
-                name='login'
-                size={32}
-                color='rgba(40, 40, 256, 0.9)'
-              />
-
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 11,
-                  color: Colors.welcomeText,
-                  marginTop: 7,
-                  opacity: 0.7,
-                  textAlign: "center",
-                }}
-              >
-                {
-                  languageText.text360
-                  //Deposit
-                }
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: "30%",
-                height: "100%",
-                backgroundColor: "rgba(120, 120, 120, .2)",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 5,
-              }}
-              onPress={() => navigation.push("withdrawFromWallet")}
-            >
-              <MaterialCommunityIcons
-                name='logout'
-                size={32}
-                color='rgba(40, 40, 256, 0.9)'
-              />
-
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 11,
-                  color: Colors.welcomeText,
-                  marginTop: 7,
-                  opacity: 0.7,
-                }}
-              >
-                {
-                  languageText.text359
-                  //Withdraw
-                }
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: "30%",
-                height: "100%",
-                backgroundColor: "rgba(120, 120, 120, .2)",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 5,
-              }}
-              onPress={() => navigation.push("searchSendingPage")}
-            >
-              <FontAwesome
-                name='send'
-                size={27}
-                color='rgba(40, 40, 256, 0.9)'
-                style={{marginBottom: 5}}
-              />
-
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 11,
-                  color: Colors.welcomeText,
-                  marginTop: 5,
-                  opacity: 0.7,
-                }}
-              >
-                {
-                  languageText.text90
-                  //Send
-                }
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View
-            style={[styles.container3, {backgroundColor: Colors.background}]}
-          >
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              data={firstThreePosts}
-              renderItem={({item}) => (
-                <BonusListTransaction
-                  specificData={item}
-                  navigation={navigation}
-                />
-              )}
-              scrollEnabled={false}
+            <MaterialCommunityIcons
+              name='logout'
+              size={32}
+              color='rgba(40, 40, 256, 0.9)'
             />
-            <TouchableOpacity
+
+            <Text
               style={{
-                alignItems: "center",
-                marginTop: 2,
-                flexDirection: "row",
-                gap: 10,
-                justifyContent: "center",
+                fontWeight: "500",
+                fontSize: 11,
+                color: Colors.welcomeText,
+                marginTop: 7,
+                opacity: 0.7,
               }}
-              onPress={() => navigation.push("walletHistory")}
             >
-              <MaterialIcons
-                name='read-more'
-                size={24}
-                color={Colors.welcomeText}
-                opacity={0.6}
+              {
+                languageText.text359
+                //Withdraw
+              }
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              height: "100%",
+              backgroundColor: "rgba(120, 120, 120, .2)",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 5,
+            }}
+            onPress={() => props.navigation.push("searchSendingPage")}
+          >
+            <FontAwesome
+              name='send'
+              size={27}
+              color='rgba(40, 40, 256, 0.9)'
+              style={{marginBottom: 5}}
+            />
+
+            <Text
+              style={{
+                fontWeight: "500",
+                fontSize: 11,
+                color: Colors.welcomeText,
+                marginTop: 5,
+                opacity: 0.7,
+              }}
+            >
+              {
+                languageText.text90
+                //Send
+              }
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={[styles.container3, {backgroundColor: Colors.background}]}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            data={firstThreePosts}
+            renderItem={({item}) => (
+              <BonusListTransaction
+                specificData={item}
+                navigation={props.navigation}
               />
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "500",
-                  color: Colors.welcomeText,
-                  opacity: 0.6,
-                }}
-              >
-                {
-                  languageText.text91
-                  //View history
-                }
-              </Text>
-            </TouchableOpacity>
-          </View>
+            )}
+            scrollEnabled={false}
+          />
+          <TouchableOpacity
+            style={{
+              alignItems: "center",
+              marginTop: 2,
+              flexDirection: "row",
+              gap: 10,
+              justifyContent: "center",
+            }}
+            onPress={() => props.navigation.push("walletHistory")}
+          >
+            <MaterialIcons
+              name='read-more'
+              size={24}
+              color={Colors.welcomeText}
+              opacity={0.6}
+            />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "500",
+                color: Colors.welcomeText,
+                opacity: 0.6,
+              }}
+            >
+              {
+                languageText.text91
+                //View history
+              }
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-    );
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

@@ -310,16 +310,16 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
     );
   }
 
-  // function openTeam2Selection(email: any) {
-  //   showModal(
-  //     <EditSecondSectionModal2
-  //       hideModal={hideModal}
-  //       navigation={navigation}
-  //       email={email}
-  //       handleSubmit={handleSubmit3}
-  //     />
-  //   );
-  // }
+  function openTeam2Selection(email: any) {
+    showModal(
+      <EditSecondSectionModal2
+        hideModal={hideModal}
+        navigation={navigation}
+        email={email}
+        handleSubmit={handleSubmit3}
+      />
+    );
+  }
 
   function handleSubmit(value: any) {
     hideModal();
@@ -358,7 +358,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
       id: data_id,
     };
 
-    dispatch(updateMatchPrediction2(payload))
+    dispatch(updateMatchPrediction(payload))
       .then(async (result: any) => {
         if (result.payload.success === true) {
           displayNotification1();
@@ -381,7 +381,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
       id: data_id,
     };
 
-    dispatch(deleteMatchPrediction2(payload))
+    dispatch(deleteMatchPrediction(payload))
       .then(async (result: any) => {
         if (result.payload.success === true) {
           displayNotification1();
@@ -395,6 +395,38 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
       .catch((err: any) => {
         displayNotification2();
         setLoading3(false);
+      });
+  }
+
+  function handleCreate() {
+    setLoading2(true);
+    setLoading(true);
+    const payload: MatchPredictionPayload = {
+      time: time,
+      team1: team1.team,
+      team1_flag: team1.image,
+      team2: team2.team,
+      team2_flag: team2.image,
+      league: league.league,
+      league_flag: league.image,
+      tip: tip,
+      id: data_id,
+    };
+
+    dispatch(createMatchPrediction(payload))
+      .then(async (result: any) => {
+        if (result.payload.success === true) {
+          displayNotification1();
+
+          setLoading(false);
+          setTimeout(() => {
+            navigation.goBack();
+          }, 1000);
+        }
+      })
+      .catch((err: any) => {
+        displayNotification2();
+        setLoading(false);
       });
   }
 
@@ -475,6 +507,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
             <Text></Text>
           </View>
 
+
           <ScrollView
             style={{
               gap: 20,
@@ -510,7 +543,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
                 alignItems: "center",
               }}
             >
-              {league === "" ? (
+              {league.league !== "" ? (
                 <>
                   <Text
                     style={{
@@ -586,7 +619,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
                 alignItems: "center",
               }}
             >
-              {team1 ? (
+              {team1.team !== "" ? (
                 <>
                   <Text
                     style={{
@@ -653,7 +686,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
               Team 2
             </Text>
             <TouchableOpacity
-              // onPress={() => openTeam2Selection(data.email)}
+              onPress={() => openTeam2Selection(data.email)}
               style={{
                 height: 50,
                 justifyContent: "space-between",
@@ -664,7 +697,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
                 alignItems: "center",
               }}
             >
-              {team2 ? (
+              {team2.team ? (
                 <>
                   <Text
                     style={{
@@ -1043,7 +1076,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
                   marginBottom: 20,
                   opacity: loading2 ? 0.5 : 1,
                 }}
-                onPress={handleUpdateAll}
+                onPress={handleCreate}
                 disabled={loading2}
               >
                 {loading && <ActivityIndicator size='small' color='white' />}
@@ -1051,7 +1084,7 @@ const EditFirstSectionSpecial = ({route, navigation}: any) => {
               </TouchableOpacity>
             ) : (
               <>
-                {" "}
+              
                 <TouchableOpacity
                   style={{
                     backgroundColor: Colors.default1,

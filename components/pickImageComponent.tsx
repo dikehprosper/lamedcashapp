@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     modal: {
         display: "flex",
         position: "absolute",
-        zIndex: 1000000000000000000,
+        zIndex: 1000,
         left: 0,
         top: 0,
         right: 0,

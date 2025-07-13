@@ -71,7 +71,7 @@ import { CommonActions } from "@react-navigation/native";
 import modalContext from "@/components/modalContext";
 import ModalContext from "@/components/modalContext";
 import { Language } from "@/constants/languages";
-const Currency = "XOF";
+const Currency = "$";
 interface formData {
     betId: string;
     amount: number;

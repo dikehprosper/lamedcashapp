@@ -88,7 +88,7 @@ const Today = ({
       }
       contentContainerStyle={{}}
     >
-      {todayData.length === 0 ? (
+      {todayData.length > 0 ? (
         <>
           {todayData.map((data: any) => {
             return (

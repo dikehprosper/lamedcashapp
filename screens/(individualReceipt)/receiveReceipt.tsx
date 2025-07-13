@@ -77,7 +77,7 @@ const ReceiveReceipt = ({ route, navigation }: any) => {
           text={`ID de pari copié avec succès ${specificData?.identifierId}`}
           textColor={Colors.toastText}
           backgroundColor={Colors.welcomeText}
-          marginTop={40}
+          marginTop={0}
           icon={
             <AntDesign name='checkcircleo' size={40} color={Colors.default1} />
           }

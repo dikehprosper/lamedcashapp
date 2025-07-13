@@ -6,9 +6,10 @@ import DOMAIN from "@/components/(Utils)/domain";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as ImageManipulator from "expo-image-manipulator";
+import {ImagePickerAsset, ImagePickerResult} from "expo-image-picker";
 interface Payload {
-    pin: string;
-    email: string;
+  pin: string;
+  email: string;
 }
 
 interface Payload10 {
@@ -50,8 +51,17 @@ interface payload {
 }
 
 interface Payload2 {
-  choosenImage: {uri: string; fileName?: string; mimeType?: string}[];
+  choosenImage: ImagePickerAsset[];
   email: string;
+}
+
+interface Payload2222 {
+  email: string;
+  inputedImage: {
+    uri: string;
+    name: string;
+    type: string;
+  } | null;
 }
 
 interface FormData3 {
@@ -846,50 +856,70 @@ export const getUpdatedData = createAsyncThunk(
 
 export const editProfileImage = createAsyncThunk(
   "getUserData/editProfileImage",
-  async (payload: Payload2, {rejectWithValue}) => {
+  async (payload: Payload2222, {rejectWithValue}) => {
     try {
-      const manipResult = await ImageManipulator.manipulateAsync(
-        payload.choosenImage[0].uri,
-        [], // No transformations; only compress and change format
-        {compress: 0.7, format: ImageManipulator.SaveFormat.JPEG} // Change format to JPEG
-      );
+      let file = null; // Initialize file as null
 
-      const file = {
-        uri: manipResult.uri,
-        name: payload.choosenImage[0].fileName || "profile-image.jpg", // Default to JPEG extension
-        type: "image/jpeg", // MIME type for JPEG
-      };
+      // Check if an image was selected
+      if (payload.inputedImage) {
+        // Manipulate image (compress and change format to JPEG)
+        const manipResult = await ImageManipulator.manipulateAsync(
+          payload.inputedImage.uri, // Directly using the URI from payload
+          [], // No transformations; just compress
+          {compress: 0.7, format: ImageManipulator.SaveFormat.JPEG} // Compress and save as JPEG
+        );
 
+        // Prepare the file for uploading
+        file = {
+          uri: manipResult.uri, // Use the uri from the manipResult
+          name: payload.inputedImage.name || "profile-image.jpg", // Default name for the image
+          type: "image/jpeg", // MIME type for JPEG
+        };
+      }
+
+      // Prepare FormData
       const formData = new FormData();
-      formData.append("image", {
-        uri: file.uri,
-        type: file.type,
-        name: file.name,
-      });
+      if (file) {
+        formData.append("image", {
+          uri: file.uri,
+          type: file.type,
+          name: file.name,
+        });
+      } else {
+        formData.append("image", null); // Send null if no image is selected
+      }
       formData.append("email", payload.email);
 
-      console.log(formData, "formData");
+      console.log(formData, "gcggchchchchb hvhvhvhvhch");
+
       const response = await makeAuthenticatedRequest(
         `${DOMAIN}/api/users/editProfileImage`,
         {
           method: "POST",
           body: formData,
-          headers: {},
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
       if (!response.ok) {
-        throw new Error("Network response was not OK");
+        const errRes = await response.json();
+        throw new Error(errRes.message || "Failed to upload image.");
       }
-      console.log(response, "response");
+      
       const resultData = await response.json();
+
+      console.log(resultData, "dyyguducgugcjjh");
+      
       return resultData;
     } catch (error: any) {
-      // Use rejectWithValue to pass custom error messages or codes
-      return rejectWithValue(error.message);
+      console.error("editProfileImage error:", error);
+      return rejectWithValue(error.message || "Unexpected error");
     }
   }
 );
+
 export const changeUserDetails = createAsyncThunk(
   "getUserData/changeUserDetails",
   async (formData: FormData2, {rejectWithValue}) => {
@@ -911,6 +941,7 @@ export const changeUserDetails = createAsyncThunk(
       );
 
       const resultData = await response.json();
+
       return resultData;
     } catch (error: any) {
       return rejectWithValue(error.message);

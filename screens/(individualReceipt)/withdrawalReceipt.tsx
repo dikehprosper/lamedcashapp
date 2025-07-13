@@ -111,7 +111,7 @@ const DepositReceipt = ({ route, navigation }: any) => {
           show={show}
           text={`ID de pari copié avec succès ${specificData.identifierId}`}
           textColor={Colors.toastText}
-          marginTop={40}
+          marginTop={0}
           backgroundColor={Colors.background}
           icon={
             <AntDesign name='checkcircleo' size={40} color={Colors.toastText} />

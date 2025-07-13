@@ -3,8 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-no-undef */
-import LoadingCard from "./card/LoadingCard";
-import axios from "axios";
+
 import React, {useCallback, useEffect, useState} from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Moment from "moment";
@@ -64,17 +63,25 @@ const History = ({
     currentLanguage === "english" ? Language.english : Language.french;
 
   const [loading, setLoading] = useState(false);
+  
+
+
   const transactionsByDate: any = {};
 
-  // Group transactions by date
-  data.forEach((transaction: any) => {
-    // Extract the date portion (YYYY-MM-DD) from the createdAt string
-    const date = Moment(transaction.createdAt).format("YYYY-MM-DD");
-    if (!transactionsByDate[date]) {
-      transactionsByDate[date] = [];
-    }
-    transactionsByDate[date].push(transaction);
-  });
+  data
+    .filter((transaction: any) => {
+      // 🔥 Filter OUT today's data using raw createdAt
+      return !Moment(transaction.createdAt).isSame(Moment(), "day");
+    })
+    .forEach((transaction: any) => {
+      const date = Moment(transaction.createdAt).format("YYYY-MM-DD");
+      if (!transactionsByDate[date]) {
+        transactionsByDate[date] = [];
+      }
+      transactionsByDate[date].push(transaction);
+    });
+
+
 
   const restructuredData: any = [];
   const now = Moment().startOf("day"); // Current day at midnight
@@ -182,7 +189,7 @@ function HistoryTemplate({
 }: any) {
   return (
     <IOScrollView contentContainerStyle={{}}>
-      {isAdmin ? (
+      {!isAdmin ? (
         <TouchableOpacity
           onPressIn={() =>
             navigation.push("editFirstSectionSpecial", {
@@ -246,17 +253,20 @@ function HistoryTemplate({
                         source={{uri: image}}
                             style={{width: "100%", height: "100%", borderRadius: 4 }}
                       /> */}
+              {`${DOMAIN}/${data.league_flag}` === "" ? 
+              <Text>
+                <FontAwesome6
+                  name='bolt-lightning'
+                  size={15}
+                  color={Colors.welcomeText}
+                  style={{position: "absolute"}}
+                />
+              </Text>:
 
-              <FontAwesome6
-                name='bolt-lightning'
-                size={15}
-                color={Colors.welcomeText}
-                style={{position: "absolute"}}
-              />
               <Image
                 source={{uri: `${DOMAIN}/${data.league_flag}`}}
                 style={{width: "100%", height: "100%", borderRadius: 4}}
-              />
+              />}
             </View>
             <Text
               style={{

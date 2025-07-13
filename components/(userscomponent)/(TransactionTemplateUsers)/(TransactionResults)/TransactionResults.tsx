@@ -35,14 +35,14 @@ const getText = (betId: any, type: any, recipientTag: any, senderName: any) => {
 
   switch (type) {
     case "deposits":
-      actionText = betId;
+      actionText = languageText.text53;
       // DEPOSIT
-      additionalInfo = `|| ${languageText.text53}`;
+      additionalInfo = `|| ${betId}`;
       break;
     case "withdrawals":
-      actionText = betId;
+      actionText = languageText.text54;
       // WITHDRAW
-      additionalInfo = `|| ${languageText.text54}`;
+      additionalInfo = `|| ${betId}`;
       break;
     case "bonus":
       actionText = languageText.text55;
@@ -232,11 +232,11 @@ const TransactionResults = ({
               <Text
                 style={{
                   color: Colors.welcomeText,
-                  fontWeight: "500",
+                  fontWeight: "700",
                   fontSize: 15,
                 }}
               >
-                XOF {formatNumberWithCommasAndDecimal(parseFloat(totalAmount))}
+                $ {formatNumberWithCommasAndDecimal(parseFloat(totalAmount))}
               </Text>
             </View>
 
@@ -249,8 +249,8 @@ const TransactionResults = ({
                   status === "Pending"
                     ? "rgba(0, 0, 0, 1)"
                     : status === "Successful"
-                      ? "transparent"
-                      : "transparent",
+                    ? "transparent"
+                    : "transparent",
 
                 alignItems: "center",
               }}
@@ -263,15 +263,15 @@ const TransactionResults = ({
                     status === "Pending"
                       ? "rgba(256, 256, 256, 1)"
                       : status === "Successful"
-                        ? "rgba(0, 186, 0, 1)"
-                        : "#FF0000",
+                      ? "rgba(0, 186, 0, 1)"
+                      : "#FF0000",
                 }}
               >
                 {status === "Pending"
                   ? languageText.text60
                   : status === "Failed"
-                    ? languageText.text58
-                    : languageText.text59}
+                  ? languageText.text58
+                  : languageText.text59}
               </Text>
             </View>
           </View>

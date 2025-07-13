@@ -85,7 +85,7 @@ const DepositReceipt = ({ route, navigation }: any) => {
           show={show}
           text={`ID de pari copié avec succès ${specificData.identifierId}`}
           textColor={Colors.welcomeText}
-          marginTop={40}
+          marginTop={0}
           backgroundColor={Colors.background}
           icon={
             <AntDesign name='checkcircleo' size={40} color={Colors.default1} />
@@ -1223,10 +1223,10 @@ const DepositReceipt = ({ route, navigation }: any) => {
                         }}
                       >
                         {specificData.paymentConfirmation === "Pending"
-                          ? "En attente"
+                          ? "Pending"
                           : specificData.paymentConfirmation === "Failed"
-                          ? "Échoué"
-                          : "Réussi"}
+                          ? "Failed"
+                          : "Successful"}
                       </Text>
                     </View>
                   </View>

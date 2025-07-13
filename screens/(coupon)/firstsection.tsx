@@ -22,7 +22,10 @@ import {MaterialIcons, AntDesign} from "@expo/vector-icons";
 import {Language} from "@/constants/languages";
 import useNotification from "@/components/(Utils)/displayNotification";
 import ToastNotification from "@/components/(Utils)/toastNotification";
-import {getMatchPrediction2} from "@/state/userData/getUserData";
+import {
+  getMatchPrediction,
+  getMatchPrediction2,
+} from "@/state/userData/getUserData";
 
 export default function OrderListNavigatorFirstSection({navigation}: any) {
   const dispatch = useDispatch<AppDispatch>();
@@ -54,7 +57,7 @@ export default function OrderListNavigatorFirstSection({navigation}: any) {
     todayData.length > 0 || isAdmin ? true : false;
 
   function forAllMatchPrediction() {
-    dispatch(getMatchPrediction2())
+    dispatch(getMatchPrediction())
       .then((result: any) => {
         if (result.payload.success) {
           setData(result.payload.allMatch);
@@ -77,15 +80,8 @@ export default function OrderListNavigatorFirstSection({navigation}: any) {
   );
 
   useEffect(() => {
-    if (isAdmin) return;
-
-    forAllMatchPrediction();
-    const intervalId = setInterval(() => {
-      forAllMatchPrediction();
-    }, 30000);
-
-    return () => clearInterval(intervalId);
-  }, [isAdmin]);
+    console.log(data, "data");
+  }, [data]);
 
   const renderTabContent = () => {
     return index === 1 ? (

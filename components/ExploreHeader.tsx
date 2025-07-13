@@ -15,6 +15,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Color } from "@/constants/Colors";
 import { RootState } from "@/state/store";
 import { useSelector } from "react-redux";
+import DOMAIN from "./(Utils)/domain";
 
 // import { Link } from "@react-navigation/native";
 
@@ -32,11 +33,15 @@ const ExploreHeader = ({ displayNotification, props }: any) => {
         parseFloat(colorScheme) === 2 ? Color.darkMode : Color.lightMode;
 
     const imageSource =
-        data.image !== ""
-            ? { uri: data.image }
-            : {
-                  uri: "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d",
-              };
+      data.image !== ""
+        ? {
+            uri: `${DOMAIN}${data.image.startsWith("/") ? "" : "/"}${
+              data.image
+            }`
+          }
+        : {
+            uri: "https://firebasestorage.googleapis.com/v0/b/groupchat-d6de7.appspot.com/o/Untitled%20design%20(4)%20(1).png?alt=media&token=7f06a2ba-e4c5-49a2-a029-b6688c9be61d",
+          };
 
     return (
       <SafeAreaView

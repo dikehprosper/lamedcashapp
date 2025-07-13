@@ -168,7 +168,7 @@ const ChangePin = ({ navigation }: any) => {
     const icon2 = (
         <AntDesign
             name="exclamationcircleo"
-            size={40}
+            size={0}
             color={Colors.welcomeText}
         />
     );

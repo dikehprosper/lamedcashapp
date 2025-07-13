@@ -85,11 +85,15 @@ export default function OrderListNavigator(props: any) {
           <FollowingTab
             following={true}
             displayNotificationIn={displayNotificationIn}
+            isFocused={true}
+            index={index}
           />
         ) : (
           <FollowingTab
             following={false}
             displayNotificationIn={displayNotificationIn}
+            isFocused={true}
+            index={index}
           />
         )}
       </View>
@@ -265,7 +269,7 @@ const ExpandableButton = ({
         onPress={triggerAnimations}
         style={[
           styles.button,
-          {backgroundColor: !expanded ? Colors.default1 : ""},
+          {backgroundColor: !expanded ? Colors.default1 : Colors.default1},
         ]}
       >
         <Ionicons name='add' size={30} color={"#fff"} />

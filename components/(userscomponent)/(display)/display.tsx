@@ -79,15 +79,15 @@ const display = ({
               fontWeight: "800",
               marginBottom: 5,
               color: Colors.primary1,
-              fontSize: 16,
+              fontSize: 19,
               textAlign: "center",
             }}
           >
             {title === "Dépôt"
-              ? `XOF  ${formatNumberWithCommasAndDecimal(
+              ? `$ ${formatNumberWithCommasAndDecimal(
                   total === undefined ? 0 : parseFloat(total)
                 )}`
-              : `XOF  ${formatNumberWithCommasAndDecimal(
+              : `$ ${formatNumberWithCommasAndDecimal(
                   total === undefined ? 0 : parseFloat(total)
                 )}`}
           </Text>

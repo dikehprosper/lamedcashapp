@@ -48,8 +48,8 @@ const WalletModal4 = ({
           display: "flex",
           position: "absolute",
           flex: 1,
-          zIndex: 20100000000,
-          backgroundColor: "red",
+          zIndex: 1000,
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
           width: "100%",
           height: "100%",
           justifyContent: "center",
@@ -111,7 +111,7 @@ const WalletModal4 = ({
                 color: Colors.welcomeText,
               }}
             >
-              {/* {text} */}
+              {text}
             </Text>
 
             <View

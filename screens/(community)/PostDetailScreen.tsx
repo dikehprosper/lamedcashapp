@@ -431,6 +431,7 @@ const PostDetailScreen = ({ navigation, route }: any) => {
                                     ? postData?.user?.image
                                     : placeholderUrl,
                             }}
+                            
                             style={{
                                 width: 50,
                                 height: 50,

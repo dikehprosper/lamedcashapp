@@ -57,9 +57,6 @@ const EditSecondSectionModal = (props: any) => {
   const [league, setLeague] = useState<any>([]);
   const [inputedLeague, setInputedLeague] = useState("");
 
-  const [inputedImage, setInputedImage] = useState<{
-    assets: {uri: string}[];
-  } | null>(null);
 
   useEffect(() => {
     getLeagueGame();
@@ -92,6 +89,10 @@ const EditSecondSectionModal = (props: any) => {
     setEnterLeagueState((previous) => !previous);
   }
 
+  const [inputedImage, setInputedImage] = useState<{
+    assets: {uri: string}[];
+  } | null>(null);
+
   // Ask for camera and media library permissions
   const requestPermissions = async () => {
     const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -113,6 +114,11 @@ const EditSecondSectionModal = (props: any) => {
       setInputedImage({assets: result.assets}); // Set the assets array to the state
     }
   };
+
+
+
+
+
 
   function handleSubmitLeague() {
     setLoading(true);
@@ -269,15 +275,7 @@ const EditSecondSectionModal = (props: any) => {
         />
       )}
 
-      <WalletModal4
-        closeModal={() => closeModal()}
-        // navigation={navigation}
-        text={"Are you sure you want to delete this league"}
-        value={value}
-        value2={value.league}
-        handleSubmit={deleteLeagueGame}
-        loading={loading}
-      />
+     
 
       <ToastNotification
         show={show === 0 ? true : false}
